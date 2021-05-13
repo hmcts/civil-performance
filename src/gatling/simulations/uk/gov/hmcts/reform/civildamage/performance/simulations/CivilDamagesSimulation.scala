@@ -66,10 +66,12 @@ class CivilDamagesSimulation extends Simulation {
 			.exec(ClaimCreation.submitclaimevent)
 			.exec(ClaimCreation.casedetailspage)
 			.exec(ClaimCreation.getcasedetailspage)
+		  	.pause(50)
 			.exec(ClaimCreation.notifydefaboutclaim)
 		.exec(ClaimCreation.claimnotifyeventcontinue)
 		.exec(ClaimCreation.claimnotifyeventsubmit)
 		.exec(ClaimCreation.backtocasedetailsafterclaimnotify)
+		  	.pause(50)
 		.exec(ClaimCreation.notifyclaimdetailsevent)
 		.exec(ClaimCreation.notifyclaimdetailsupload)
 		.exec(ClaimCreation.notifyclaimdetailseventsubmit)
@@ -148,11 +150,11 @@ class CivilDamagesSimulation extends Simulation {
 			.exec(ClaimResponseToDefendant.claimantdefresponsesubmit)
 			.exec(ClaimResponseToDefendant. claimantafterdefresponsesearchforcompletable)
 				.exec(EXUIMCLogin.manageCase_Logout)
-		  	.pause(30)
+		  	.pause(50)
     }
 	
   setUp(
-    createClaim.inject(nothingFor(1),rampUsers(3) during (100))
+    createClaim.inject(nothingFor(1),rampUsers(100) during (1200))
   ).protocols(httpProtocol)
   
   
