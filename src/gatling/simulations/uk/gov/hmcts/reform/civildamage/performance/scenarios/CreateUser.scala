@@ -1,4 +1,4 @@
-package uk.gov.hmcts.reform.cmc.performance.scenarios
+package uk.gov.hmcts.reform.civildamage.performance.scenarios
 
 import java.io.{BufferedWriter, FileWriter}
 

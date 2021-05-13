@@ -1,4 +1,4 @@
-package uk.gov.hmcts.reform.cmc.performance.scenarios.utils
+package uk.gov.hmcts.reform.civildamage.performance.scenarios.utils
 
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
@@ -6,16 +6,19 @@ import io.gatling.http.Predef._
 object Environment {
   
   val httpConfig = scala.util.Properties.envOrElse("httpConfig", "http")
-  val baseURL = scala.util.Properties.envOrElse("baseURL", "https://moneyclaims.perftest.platform.hmcts.net")
-  val baseDomain = scala.util.Properties.envOrElse("baseDomain", "moneyclaims.perftest.platform.hmcts.net")
+  val baseURL = "https://manage-case.perftest.platform.hmcts.net"
+  val baseDomain = scala.util.Properties.envOrElse("baseDomain", "manage-case.perftest.platform.hmcts.net")
   val PaymentURL = scala.util.Properties.envOrElse("paymentURL", "https://www.payments.service.gov.uk")
   val idamURL = "https://idam-web-public.perftest.platform.hmcts.net"
   val idamAPIURL = "https://idam-api.perftest.platform.hmcts.net"
+  val exuiDomain="manage-case.perftest.platform.hmcts.net"
+  val manageOrgURL = "https://manage-org.perftest.platform.hmcts.net"
+  val manageOrgDomain = "manage-org.perftest.platform.hmcts.net"
   val idamCookieName="SESSION_ID"
   val HttpProtocol = http
   
-  val minThinkTime = 80//100//140
-  val maxThinkTime = 80//100//150
+  val minThinkTime = 20//80//100//140
+  val maxThinkTime = 20//80//100//150
   
   val linkminThinkTime = 140
   val linkmaxThinkTime = 150
