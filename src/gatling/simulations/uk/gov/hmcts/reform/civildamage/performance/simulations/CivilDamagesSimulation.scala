@@ -93,7 +93,7 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 
 
 setUp(
-	CivilDamageScenario.inject(nothingFor(1),rampUsers(3) during (100))
+	CivilDamageScenario.inject(nothingFor(1),rampUsers(100) during (1200))
 ).protocols(httpProtocol)
 
 
