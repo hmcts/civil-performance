@@ -2,7 +2,6 @@
 package uk.gov.hmcts.reform.civildamage.performance.scenarios
 
 import io.gatling.core.Predef._
-import io.gatling.core.structure.ChainBuilder
 import io.gatling.http.Predef._
 import uk.gov.hmcts.reform.civildamage.performance.scenarios.utils.{CivilDamagesHeader, Environment}
 
@@ -35,6 +34,7 @@ object DefendantResponse {
           )
       }
         .pause(MinThinkTime, MaxThinkTime)
+          .pause(50)
   
     //val claimConfirmnameandaddress =
       .group("CD_DefResponse_50_ConfirmNameAddrs") {
@@ -339,6 +339,7 @@ object DefendantResponse {
         )
       }
         .pause(MinThinkTime, MaxThinkTime)
+          .pause(50)
   
     //val afterdefresponsebacktocasedetails =
       .group("CD_DefResponse_300_BacktoCaseDetailsAfterDefResponse") {

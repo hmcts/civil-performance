@@ -2,7 +2,6 @@
 package uk.gov.hmcts.reform.civildamage.performance.scenarios
 
 import io.gatling.core.Predef._
-import io.gatling.core.structure.ChainBuilder
 import io.gatling.http.Predef._
 import uk.gov.hmcts.reform.civildamage.performance.scenarios.utils.{CivilDamagesHeader, Environment}
 
@@ -228,6 +227,7 @@ object ClaimResponseToDefendant {
         )
       }
         .pause(MinThinkTime, MaxThinkTime)
+		  	.pause(50)
     
     //val claimantafterdefresponsesearchforcompletable =
       .group("CD_ClaimantResponse_200_backtoCaseFromClaimResponse") {
