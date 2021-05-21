@@ -10,8 +10,6 @@ class CivilDamagesSimulation extends Simulation {
   
   val BaseURL = Environment.baseURL
   val loginFeeder = csv("login.csv").circular
-  val defendantloginFeeder = csv("defendantlogin.csv").circular
-  val claimcreatedefuserFeeder = csv("claimcreatedeflogin.csv").circular
 	val sharecaseusersfeed=csv("sharecaseusers.csv").random
   val httpProtocol = Environment.HttpProtocol
     .baseUrl(BaseURL)
@@ -42,8 +40,7 @@ class CivilDamagesSimulation extends Simulation {
 		.exec(ClaimDetailNotifications.run)
 	  	.pause(100)
 		.exec(EXUIMCLogin.manageCase_Logout)
-		
-		
+			
 		 /*
 			 Step 2: login to manage org as defendant solicitor to assign the case to other users from defendant solicitor firm
 			
@@ -54,7 +51,7 @@ class CivilDamagesSimulation extends Simulation {
 		.exec(EXUIMCLogin.manageOrg_Logout)
 		.pause(50)
 		
-	/*
+	/*/*
 Step 3: login as defendant user  and complete the defendant journey and logout
 
  */
@@ -72,7 +69,7 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 		.exec(EXUIMCLogin.manageCaseslogin)
 		.exec(ClaimResponseToDefendant.run)
 		.pause(50)
-		.exec(EXUIMCLogin.manageCase_Logout)
+		.exec(EXUIMCLogin.manageCase_Logout)*/
 		
 	
 	
@@ -93,7 +90,7 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 
 
 setUp(
-	CivilDamageScenario.inject(nothingFor(1),rampUsers(100) during (1500))
+	CivilDamageScenario.inject(nothingFor(1),rampUsers(10) during (1200))
 ).protocols(httpProtocol)
 
 

@@ -24,7 +24,7 @@ object EXUI_AssignCase {
 				.check(status in(200, 304))
 			)
 					
-			  	.exec(http("CD_ShareACase_030_010FRConsented")
+			  	.exec(http("CD_ShareACase_030_010Unspecified")
 					.post(manageOrgURL + "/api/unassignedcases?caseTypeId=UNSPECIFIED_CLAIMS")
 					.headers(AssignCase_Header.headers_38)
 					.check(status in(200, 304))
