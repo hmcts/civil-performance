@@ -11,7 +11,7 @@ def component = "ucmc-performance"
 
 withNightlyPipeline("java", product, component) {
 
-    enablePerformanceTest(30)
+    enablePerformanceTest(40)
 
     after('performanceTest') {
         steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
