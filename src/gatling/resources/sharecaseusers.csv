@@ -1,11 +1,3 @@
 email,firstName,idamId,lastName
-civil.damages.claims+organisation.2.solicitor.4@gmail.com,civil damages claims,26119c7b-a9cd-40d3-9ca8-e7e07fc8963e,organisation 2 solicitor 4
-civil.damages.claims+organisation.2.solicitor.8@gmail.com,civil damages claims,297ca15f-404b-4bef-8b51-98af534bec8f,organisation 2 solicitor 8
-civil.damages.claims+organisation.2.solicitor.9@gmail.com,civil damages claims,2c0e3a88-64a2-435c-b96f-63c7c4ad7897,organisation 2 solicitor 9
-civil.damages.claims+organisation.2.solicitor.1@gmail.com,civil damages claims,30bb3d3c-e17c-4bf2-9616-dac2f5f2e51c,organisation 2 solicitor 1
-civil.damages.claims+organisation.2.solicitor.7@gmail.com,civil damages claims,42042b13-0ead-4696-936c-413254da4836,organisation 2 solicitor 7
-civil.damages.claims+organisation.2.solicitor.10@gmail.com,civil damages claims,485a2070-c2cf-45d7-90ef-5a1866a0a7f3,organisation 2 solicitor 10
-civil.damages.claims+organisation.2.solicitor.6@gmail.com,civil damages claims,61a913c6-4e8a-4b70-a75c-69c89bc62333,organisation 2 solicitor 6
-civil.damages.claims+organisation.2.solicitor.3@gmail.com,civil damages claims,b4a1d822-f500-459b-aa26-7b680cb26f52,organisation 2 solicitor 3
-civil.damages.claims+organisation.2.solicitor.2@gmail.com,civil damages claims,bb8ad4c9-14a6-4359-87a2-42d4869d834f,organisation 2 solicitor 2
-civil.damages.claims+organisation.2.solicitor.5@gmail.com,civil damages claims,f8587bb4-d0b1-4d30-8538-4b309ad28597,organisation 2 solicitor 5
+hmcts.civil+organisation.2.solicitor.1@gmail.com,civil,3accac86-c4ba-4efe-acc2-990fb57226b5,organisation 2 solicitor 1
+hmcts.civil+organisation.2.solicitor.2@gmail.com,civil,90868a99-0c8e-4d7a-add1-ffe24f1e4086,organisation 2 solicitor 2

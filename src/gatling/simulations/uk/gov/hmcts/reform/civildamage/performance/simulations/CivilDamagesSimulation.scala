@@ -36,9 +36,9 @@ class CivilDamagesSimulation extends Simulation {
   	.exec(EXUIMCLogin.manageCasesHomePage)
 		.exec(EXUIMCLogin.manageCaseslogin)
 		.exec(ClaimCreation.run)
-		.pause(100)
+		.pause(50)
 		.exec(ClaimDetailNotifications.run)
-	  	.pause(100)
+	  	.pause(50)
 		.exec(EXUIMCLogin.manageCase_Logout)
 			
 		 /*
@@ -50,8 +50,7 @@ class CivilDamagesSimulation extends Simulation {
 		.exec(EXUI_AssignCase.run)
 		.exec(EXUIMCLogin.manageOrg_Logout)
 		.pause(50)
-		
-	/*/*
+	/*
 Step 3: login as defendant user  and complete the defendant journey and logout
 
  */
@@ -69,7 +68,7 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 		.exec(EXUIMCLogin.manageCaseslogin)
 		.exec(ClaimResponseToDefendant.run)
 		.pause(50)
-		.exec(EXUIMCLogin.manageCase_Logout)*/
+		.exec(EXUIMCLogin.manageCase_Logout)
 		
 	
 	
@@ -90,7 +89,7 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 
 
 setUp(
-	CivilDamageScenario.inject(nothingFor(1),rampUsers(10) during (1200))
+	CivilDamageScenario.inject(nothingFor(1),rampUsers(1) during (12))
 ).protocols(httpProtocol)
 
 

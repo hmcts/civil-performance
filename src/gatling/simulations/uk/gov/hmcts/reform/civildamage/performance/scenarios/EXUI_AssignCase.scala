@@ -25,7 +25,7 @@ object EXUI_AssignCase {
 			)
 					
 			  	.exec(http("CD_ShareACase_030_010Unspecified")
-					.post(manageOrgURL + "/api/unassignedcases?caseTypeId=UNSPECIFIED_CLAIMS")
+					.post(manageOrgURL + "/api/unassignedcases?caseTypeId=CIVIL")
 					.headers(AssignCase_Header.headers_38)
 					.check(status in(200, 304))
 				)
@@ -80,7 +80,7 @@ object EXUI_AssignCase {
 						|    [
 						|        {"caseId":"${caseId}",
 						|        "caseTitle":"${caseId}",
-						|        "caseTypeId":"UNSPECIFIED_CLAIMS",
+						|        "caseTypeId":"CiVIL",
 						|        "pendingShares":
 						|        [
 						|            {"email":"${email}",
