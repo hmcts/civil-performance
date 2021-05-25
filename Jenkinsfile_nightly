@@ -6,7 +6,7 @@ properties([
 */
 @Library("Infrastructure") _
 
-def product = "ucmc"
+def product = "civil"
 def component = "ucmc-performance"
 
 withNightlyPipeline("java", product, component) {
