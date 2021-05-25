@@ -1,10 +1,10 @@
 plugins {
-    id 'org.owasp.dependencycheck' version '5.1.0'
+    id 'org.owasp.dependencycheck' version '6.0.2'
     id 'scala'
     id 'com.github.lkishalmi.gatling' version '3.0.2'
-    id 'java-gradle-plugin'
+//    id 'java-gradle-plugin'
     id 'groovy'
-    id 'com.gradle.plugin-publish' version '0.9.8'
+    id 'com.gradle.plugin-publish' version '0.12.0'
     id 'maven-publish'
 }
 
@@ -18,12 +18,8 @@ tasks.withType(JavaExec) {
 }
 
 
-jar {
-    manifest {
-        attributes 'Implementation-Title': 'CMC Performance Tests',
-                'Implementation-Version': version
-    }
-}
+sourceCompatibility = "11"
+targetCompatibility = "11"
 
 /*dependencyCheck {
     // Specifies if the build should be failed if a CVSS score above a specified level is identified.
@@ -36,6 +32,18 @@ repositories {
     jcenter()
 }
 
+jar {
+    manifest {
+        attributes 'Main-Class': 'io.gatling.app.Gatling'
+    }
+    from {
+        configurations.testCompile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    from sourceSets.test.output
+    exclude 'META-INF/*.RSA', 'META-INF/*.SF', 'META-INF/*.DSA'
+}
+
+
 ScalaCompileOptions.metaClass.daemonServer = true
 ScalaCompileOptions.metaClass.fork = true
 ScalaCompileOptions.metaClass.useAnt = false
@@ -46,14 +54,7 @@ ext {
     scalaVersion = '2.12.12'
 }
 
-dependencies {
-    gatling "org.scala-lang:scala-library:${scalaVersion}"
-    gatling "io.gatling:gatling-app:${gatlingVersion}"
-    gatling "io.gatling.highcharts:gatling-charts-highcharts:${gatlingVersion}"
-    //gatlingImplementation "groupio.rest-assured:rest-assured:4.3.1"
-    gatling "com.warrenstrange:googleauth:1.5.0"
-    gatlingCompile group: 'uk.gov.service.notify', name: 'notifications-java-client', version: '3.14.1-RELEASE'
-}
+
 
 gatling {
     toolVersion '3.3.1'
@@ -76,8 +77,6 @@ pluginBundle {
     vcsUrl = 'https://github.com/lkishalmi/gradle-gatling-plugin'
     description = 'Gatling Simulation Execution'
     tags = ['gatling', 'load test', 'stress test', 'performance test', 'scala']
-
-
 }
 
 ext ['netty.version'] = '4.0.51.Final'
