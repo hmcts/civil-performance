@@ -40,8 +40,8 @@ class CivilDamagesSimulation extends Simulation {
 				.exec(Login.XUILogin)
 				.exec(ClaimCreation.run)
 					.pause(50)
-					.exec(ClaimDetailNotifications.run)
-					.pause(50)
+					//.exec(ClaimDetailNotifications.run)
+				//	.pause(50)
 				.exec(Logout.XUILogout)
 		
 			
