@@ -5,6 +5,8 @@ import io.gatling.core.scenario.Simulation
 import uk.gov.hmcts.reform.civildamage.performance.scenarios._
 import uk.gov.hmcts.reform.civildamage.performance.scenarios.utils.Environment
 
+import scala.swing.event.Key.Home
+
 
 class CivilDamagesSimulation extends Simulation {
   
@@ -33,19 +35,21 @@ class CivilDamagesSimulation extends Simulation {
 	
 	val CivilDamageScenario = scenario("Create Civil damage")
 		.feed(loginFeeder).feed(sharecaseusersfeed)
-  	.exec(EXUIMCLogin.manageCasesHomePage)
-		.exec(EXUIMCLogin.manageCaseslogin)
-		.exec(ClaimCreation.run)
-		.pause(50)
-		.exec(ClaimDetailNotifications.run)
-	  	.pause(50)
-		.exec(EXUIMCLogin.manageCase_Logout)
+		
+			.exec(Homepage.XUIHomePage)
+				.exec(Login.XUILogin)
+				.exec(ClaimCreation.run)
+					.pause(50)
+					.exec(ClaimDetailNotifications.run)
+					.pause(50)
+				.exec(Logout.XUILogout)
+		
 			
 		 /*
 			 Step 2: login to manage org as defendant solicitor to assign the case to other users from defendant solicitor firm
 			
 				*/
-		.exec(EXUIMCLogin.manageOrgHomePage)
+	/*	.exec(EXUIMCLogin.manageOrgHomePage)
 		.exec(EXUIMCLogin.manageOrglogin)
 		.exec(EXUI_AssignCase.run)
 		.exec(EXUIMCLogin.manageOrg_Logout)
@@ -69,7 +73,7 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 		.exec(ClaimResponseToDefendant.run)
 		.pause(50)
 		.exec(EXUIMCLogin.manageCase_Logout)
-		
+		*/
 	
 	
 	
@@ -89,7 +93,7 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 
 
 setUp(
-	CivilDamageScenario.inject(nothingFor(1),rampUsers(1) during (12))
+	CivilDamageScenario.inject(nothingFor(1),rampUsers(1) during (10))
 ).protocols(httpProtocol)
 
 

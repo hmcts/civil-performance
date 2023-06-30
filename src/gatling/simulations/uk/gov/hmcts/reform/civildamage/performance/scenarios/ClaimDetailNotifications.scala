@@ -13,14 +13,21 @@ object ClaimDetailNotifications {
   val MinThinkTime = Environment.minThinkTime
   val MaxThinkTime = Environment.maxThinkTime
   
-  def run(implicit postHeaders: Map[String, String]): ChainBuilder = {
+  val run=
     
     //Notify Details Event
     // val notifyclaimdetailsevent =
       group("CD_CreateClaim_350_NotifyDetailsEvent") {
-      exec(http("CD_CreateClaim_350_005_Detail")
+        exec(http("CD_CreateClaim_310_005_Notify")
+          .get("/workallocation/case/tasks/${caseId}/event/NOTIFY_DEFENDANT_OF_CLAIM/caseType/CIVIL/jurisdiction/CIVIL")
+          .headers(CivilDamagesHeader.headers_769)
+          .check(status.in(200,201,304))
+         
+        )
+      .exec(http("CD_CreateClaim_350_005_Detail")
         .get("/data/internal/cases/${caseId}/event-triggers/NOTIFY_DEFENDANT_OF_CLAIM_DETAILS?ignore-warning=false")
         .headers(CivilDamagesHeader.headers_769)
+        //.header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-start-event-trigger.v2+json;charset=UTF-8")
         .check(status.in(200, 304))
         .check(jsonPath("$.event_token").optional.saveAs("event_token_notifyclaimdetail"))
       )
@@ -28,6 +35,8 @@ object ClaimDetailNotifications {
         .exec(http("CD_CreateClaim_350_010_profile")
           .get("/data/internal/profile")
           .headers(CivilDamagesHeader.headers_149)
+          .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-user-profile.v2+json;charset=UTF-8")
+          
           .check(status.in(200, 304))
         )
     }
@@ -37,8 +46,10 @@ object ClaimDetailNotifications {
       exec(http("CD_CreateClaim_360_005_upload")
         .post("/data/case-types/CIVIL/validate?pageId=NOTIFY_DEFENDANT_OF_CLAIM_DETAILSUpload")
         .headers(CivilDamagesHeader.headers_868)
-        .body(StringBody("{\"data\":{\"servedDocumentFiles\":{\"particularsOfClaimText\":null,\"particularsOfClaimDocument\":[{\"id\":\"51cf303d-2fb1-4b7d-a297-08bbdbe7d0ac\",\"value\":{\"document_url\":\"http://dm-store-aat.service.core-compute-aat.internal/documents/${Document_ID}\",\"document_binary_url\":\"http://dm-store-aat.service.core-compute-aat.internal/documents/${Document_ID}/binary\",\"document_filename\":\"3MB.pdf\"}}],\"medicalReport\":[],\"scheduleOfLoss\":[],\"certificateOfSuitability\":[]}},\"event\":{\"id\":\"NOTIFY_DEFENDANT_OF_CLAIM_DETAILS\",\"summary\":\"\",\"description\":\"\"},\"event_data\":{\"servedDocumentFiles\":{\"particularsOfClaimText\":null,\"particularsOfClaimDocument\":[{\"id\":\"51cf303d-2fb1-4b7d-a297-08bbdbe7d0ac\",\"value\":{\"document_url\":\"http://dm-store-aat.service.core-compute-aat.internal/documents/${Document_ID}\",\"document_binary_url\":\"http://dm-store-aat.service.core-compute-aat.internal/documents/${Document_ID}/binary\",\"document_filename\":\"3MB.pdf\"}}],\"medicalReport\":[],\"scheduleOfLoss\":[],\"certificateOfSuitability\":[]}},\"event_token\":\"${event_token_notifyclaimdetail}\",\"ignore_warning\":false,\"case_reference\":\"${caseId}\"}"))
+       // .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.case-data-validate.v2+json;charset=UTF-8")
+        .body(ElFileBody("bodies/0210_request.json"))
         .check(status.in(200, 304))
+        
       )
         .exec(http("CD_CreateClaim_360_010_profile")
           .get("/data/internal/profile")
@@ -52,9 +63,17 @@ object ClaimDetailNotifications {
       exec(http("CD_CreateClaim_370_EventSubmit")
         .post("/data/cases/${caseId}/events")
         .headers(CivilDamagesHeader.headers_886)
-        .body(StringBody("{\"data\":{\"servedDocumentFiles\":{\"particularsOfClaimText\":null,\"particularsOfClaimDocumentNew\":[{\"id\":\"51cf303d-2fb1-4b7d-a297-08bbdbe7d0ac\",\"value\":{\"document_url\":\"http://dm-store-aat.service.core-compute-aat.internal/documents/${Document_ID}\",\"document_binary_url\":\"http://dm-store-aat.service.core-compute-aat.internal/documents/${Document_ID}/binary\",\"document_filename\":\"3MB.pdf\"}}],\"medicalReport\":[],\"scheduleOfLoss\":[],\"certificateOfSuitability\":[],\"other\":[]}},\"event\":{\"id\":\"NOTIFY_DEFENDANT_OF_CLAIM_DETAILS\",\"summary\":\"\",\"description\":\"\"},\"event_token\":\"${event_token_notifyclaimdetail}\",\"ignore_warning\":false}"))
+       // .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.create-event.v2+json;charset=UTF-8")
+        .body(ElFileBody("bodies/0214_request.json"))
         .check(status.in(200, 201))
       )
+        .exec(http("CD_CreateClaim_380_010_case")
+          .get("/data/internal/cases/${caseId}")
+          .headers(CivilDamagesHeader.headers_717)
+          .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-case-view.v2+json")
+          
+          .check(status.in(200, 304))
+        )
     }
       .pause(MinThinkTime, MaxThinkTime)
   
@@ -62,7 +81,7 @@ object ClaimDetailNotifications {
     // val returntocasedetailsafternotifydetails =
       .group("CD_CreateClaim_380_ReturnToCaseDetailsAfterNotifyDetails") {
       exec(http("CD_CreateClaim_380_005_NotifyDetails")
-        .post("/workallocation/searchForCompletable")
+        .post("/api/role-access/roles/manageLabellingRoleAssignment/${caseId}")
         .headers(CivilDamagesHeader.headers_894)
         .body(StringBody("{\"searchRequest\":{\"ccdId\":\"${caseId}\",\"eventId\":\"NOTIFY_DEFENDANT_OF_CLAIM_DETAILS\",\"jurisdiction\":\"CIVIL\",\"caseTypeId\":\"UNSPECIFIED_CLAIMS\"}}"))
         .check(status.is(401))
@@ -76,5 +95,5 @@ object ClaimDetailNotifications {
     }
       .pause(MinThinkTime, MaxThinkTime)
    
-  }
+  
 }

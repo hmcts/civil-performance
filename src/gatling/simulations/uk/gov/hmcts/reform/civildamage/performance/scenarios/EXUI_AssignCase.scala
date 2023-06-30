@@ -4,7 +4,7 @@ import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import uk.gov.hmcts.reform.civildamage.performance.scenarios.utils.{AssignCase_Header, Environment}
 
-object EXUI_AssignCase {
+object  EXUI_AssignCase {
 	
 	val minThinkTime = Environment.minThinkTime
 	val maxThinkTime = Environment.maxThinkTime
