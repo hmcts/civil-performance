@@ -585,7 +585,16 @@ object ClaimCreation {
         .body(StringBody("{\"searchRequest\":{\"ccdId\":\"${caseId}\",\"eventId\":\"NOTIFY_DEFENDANT_OF_CLAIM_DETAILS\",\"jurisdiction\":\"CIVIL\",\"caseTypeId\":\"UNSPECIFIED_CLAIMS\"}}"))
         .check(status.in(200,204,201,304))
       )
-        
+
+                    //Deepak - Cases that make the final step
+                          .exec { session =>
+                            val fw = new BufferedWriter(new FileWriter("FinalcaseIds.csv", true))
+                            try {
+                              fw.write(session("caseId").as[String] + "\r\n")
+                            } finally fw.close()
+                            session
+                            }
+
         .exec(http("CD_CreateClaim_380_010_case")
           .get("/data/internal/cases/${caseId}")
           .headers(CivilDamagesHeader.headers_717)
@@ -602,7 +611,7 @@ object ClaimCreation {
             .post("http://civil-service-perftest.service.core-compute-perftest.internal/testing-support/assign-case/${caseId}/RESPONDENTSOLICITORONE")
             //   .get( "/cases/searchCases?start_date=${randomStartDate}&end_date=${randomEndDate}")
             // .get( "/cases/searchCases?start_date=2022-01-13T00:00:00&end_date=2023-04-16T15:38:00")
-            .header("Authorization", "Bearer eyJ0eXAiOiJKV1QiLCJraWQiOiI4cDJpajg2S0pTeENKeGcveUovV2w3TjcxMXM9IiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiJobWN0cy5jaXZpbCtvcmdhbmlzYXRpb24uMi5zb2xpY2l0b3IuMTNAZ21haWwuY29tIiwiY3RzIjoiT0FVVEgyX1NUQVRFTEVTU19HUkFOVCIsImF1dGhfbGV2ZWwiOjAsImF1ZGl0VHJhY2tpbmdJZCI6IjcxOGU5MjlhLTJiNTctNGYxOC1hYWFhLWU0YmU0N2ZiMDg4Yy02NzA4ODgzOSIsInN1Ym5hbWUiOiJobWN0cy5jaXZpbCtvcmdhbmlzYXRpb24uMi5zb2xpY2l0b3IuMTNAZ21haWwuY29tIiwiaXNzIjoiaHR0cHM6Ly9mb3JnZXJvY2stYW0uc2VydmljZS5jb3JlLWNvbXB1dGUtaWRhbS1wZXJmdGVzdC5pbnRlcm5hbDo4NDQzL29wZW5hbS9vYXV0aDIvcmVhbG1zL3Jvb3QvcmVhbG1zL2htY3RzIiwidG9rZW5OYW1lIjoiYWNjZXNzX3Rva2VuIiwidG9rZW5fdHlwZSI6IkJlYXJlciIsImF1dGhHcmFudElkIjoiX2xubW10V2JLYkotblhPcWtpS3hDX2FrNzNJIiwibm9uY2UiOiItZFlRVDZ1V2plMk5ycy1BcDM3U21xWWlpaE5KaUJ5Q3FON1R6aUZnXzJnIiwiYXVkIjoieHVpd2ViYXBwIiwibmJmIjoxNjg4MTI3NzcwLCJncmFudF90eXBlIjoiYXV0aG9yaXphdGlvbl9jb2RlIiwic2NvcGUiOlsib3BlbmlkIiwicHJvZmlsZSIsInJvbGVzIiwiY3JlYXRlLXVzZXIiLCJtYW5hZ2UtdXNlciIsInNlYXJjaC11c2VyIl0sImF1dGhfdGltZSI6MTY4ODEyNzc3MCwicmVhbG0iOiIvaG1jdHMiLCJleHAiOjE2ODgxNTY1NzAsImlhdCI6MTY4ODEyNzc3MCwiZXhwaXJlc19pbiI6Mjg4MDAsImp0aSI6IjJrR3c3MFdpNk1INkZDOEtxbTdsVkFvZkJKUSJ9.hN0LDcj7gdY3R9IbafHJNbyEojytU6PtzfAXuiHbIPT-EuaK0F4N-uNSjAP6yT7Mn4yopgBzwFrD4-NSaV8qLQPvmhKA9vL6EBkyP4uOsrswDU_KehLhFCFEio9W9BJpIYbpYUmzC5ccRBgoCLnbZwE4w2rj-HwOYSOx8sc-VODyKnN2xptqAhED8cSGFGdKsPFTPEfyXN7QDie4Q-JZ-STUUhkLUvIRh4XttnRmCKBaZ_1JQBEUL05p4XXqmA__GftWRMH_CMQU6WccFNVwdr53IDMW6rMj-gGKnWM5nIJRiJEuQTGtYShpOAvottWFaUi8PFLCLNqaEZsnZo2f1Q")
+            .header("Authorization", "Bearer eyJ0eXAiOiJKV1QiLCJraWQiOiI4cDJpajg2S0pTeENKeGcveUovV2w3TjcxMXM9IiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiJobWN0cy5jaXZpbCtvcmdhbmlzYXRpb24uMS5zb2xpY2l0b3IuMUBnbWFpbC5jb20iLCJjdHMiOiJPQVVUSDJfU1RBVEVMRVNTX0dSQU5UIiwiYXV0aF9sZXZlbCI6MCwiYXVkaXRUcmFja2luZ0lkIjoiNzE4ZTkyOWEtMmI1Ny00ZjE4LWFhYWEtZTRiZTQ3ZmIwODhjLTczNDY1NzY1Iiwic3VibmFtZSI6ImhtY3RzLmNpdmlsK29yZ2FuaXNhdGlvbi4xLnNvbGljaXRvci4xQGdtYWlsLmNvbSIsImlzcyI6Imh0dHBzOi8vZm9yZ2Vyb2NrLWFtLnNlcnZpY2UuY29yZS1jb21wdXRlLWlkYW0tcGVyZnRlc3QuaW50ZXJuYWw6ODQ0My9vcGVuYW0vb2F1dGgyL3JlYWxtcy9yb290L3JlYWxtcy9obWN0cyIsInRva2VuTmFtZSI6ImFjY2Vzc190b2tlbiIsInRva2VuX3R5cGUiOiJCZWFyZXIiLCJhdXRoR3JhbnRJZCI6ImxRRFdpbEVwSjEtUEJJaVBEVDk4ZGpFbF8wYyIsIm5vbmNlIjoiOFlKd09MajhET0lNajdIVmtTQjB1UEw2cnRHdWpIN0g0azFoazlQTUpkZyIsImF1ZCI6Inh1aXdlYmFwcCIsIm5iZiI6MTY4ODU2OTEyNywiZ3JhbnRfdHlwZSI6ImF1dGhvcml6YXRpb25fY29kZSIsInNjb3BlIjpbIm9wZW5pZCIsInByb2ZpbGUiLCJyb2xlcyIsImNyZWF0ZS11c2VyIiwibWFuYWdlLXVzZXIiLCJzZWFyY2gtdXNlciJdLCJhdXRoX3RpbWUiOjE2ODg1NjkxMjYsInJlYWxtIjoiL2htY3RzIiwiZXhwIjoxNjg4NTk3OTI3LCJpYXQiOjE2ODg1NjkxMjcsImV4cGlyZXNfaW4iOjI4ODAwLCJqdGkiOiJFQ2l4Z2preEI5dE40VFN1cnJJWlkybGplQkEifQ.XZC1wFd5hSWNSHkkTLfnCUSjYyjqelWWRI_LCy2R-ibBcyweF_zf_fSHpH2ns1gtlY3xEzo0eSgSZjYZxOyP59_436SWo9kSuicfiGbcdxtRStidLgT_1mSreu0jorInTUOATqU29n50kSXOLw5p_5MtBGoV_STVpxsEtPjt8aUc8WwbLrBtVMtvlMCBrQWZg2ELZfmfZvw2lt40mecgl7O_YEm9MuVGt6E15__swTzTFJG--bkNfyD5imb6y8aTedYHykHD0FtkTm-CfiBOW6lgdBJ03CrijFjh_NVjaDv-gf39hm109MbAWXn872vXyFdYBLeWZMnDVVDbrfhsFg")
             .header("Content-Type", "application/json")
             .header("Accept", "*/*")
             .check(status.in(200, 201))

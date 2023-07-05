@@ -6,6 +6,8 @@ import io.gatling.core.structure.ChainBuilder
 import io.gatling.http.Predef._
 import uk.gov.hmcts.reform.civildamage.performance.scenarios.utils.{CivilDamagesHeader, Environment}
 
+import java.io.{BufferedWriter, FileWriter}
+
 object ClaimDetailNotifications {
   
   val BaseURL = Environment.baseURL
@@ -86,14 +88,17 @@ object ClaimDetailNotifications {
         .body(StringBody("{\"searchRequest\":{\"ccdId\":\"${caseId}\",\"eventId\":\"NOTIFY_DEFENDANT_OF_CLAIM_DETAILS\",\"jurisdiction\":\"CIVIL\",\"caseTypeId\":\"UNSPECIFIED_CLAIMS\"}}"))
         .check(status.is(401))
       )
-  
+
         .exec(http("CD_CreateClaim_380_010_case")
           .get("/data/internal/cases/${caseId}")
           .headers(CivilDamagesHeader.headers_717)
           .check(status.in(200, 304))
-        )
-    }
+
+)
       .pause(MinThinkTime, MaxThinkTime)
-   
+
+    }
+
+
   
 }
