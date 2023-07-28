@@ -172,7 +172,8 @@ object CivilDamagesHeader {
   "sec-fetch-mode" -> "cors",
   "sec-fetch-site" -> "same-origin",
   "x-dtpc" -> "1$290942374_968h42vNLRICPHQRUAGGMULUVVIPDFRFSJFRNKR-0e15",
-  "x-dtreferer" -> "https://manage-case.perftest.platform.hmcts.net/cases/case-create/CIVIL/UNSPECIFIED_CLAIMS/CREATE_CLAIM/CREATE_CLAIMNotifications")
+  "x-dtreferer" -> ({baseURL + "/cases/case-create/CIVIL/UNSPECIFIED_CLAIMS/CREATE_CLAIM/CREATE_CLAIMNotifications"})
+ )
  
  
  
@@ -217,7 +218,11 @@ object CivilDamagesHeader {
   "sec-fetch-dest" -> "empty",
   "sec-fetch-mode" -> "cors",
   "sec-fetch-site" -> "same-origin",
-  "x-dtreferer" -> "https://manage-case.perftest.platform.hmcts.net/cases/case-create/CIVIL/UNSPECIFIED_CLAIMS/CREATE_CLAIM/CREATE_CLAIMDefendant")
+  "x-dtreferer" -> ({baseURL + "/cases/case-create/CIVIL/UNSPECIFIED_CLAIMS/CREATE_CLAIM/CREATE_CLAIMDefendant"})
+ )
+ 
+ 
+ 
  
  val headers_413 = Map (
   "accept" -> "application/vnd.uk.gov.hmcts.ccd-data-store-api.case-data-validate.v2+json;charset=UTF-8",
@@ -526,6 +531,18 @@ object CivilDamagesHeader {
  
  
  val headers_769 = Map (
+  "accept" -> "application/json",
+  "accept-encoding" -> "gzip, deflate, br",
+  "accept-language" -> "en-US,en;q=0.9",
+  "content-type" -> "application/json",
+  "experimental" -> "true",
+  "sec-ch-ua" -> """Google Chrome";v="89", "Chromium";v="89", ";Not A Brand";v="99""",
+  "sec-ch-ua-mobile" -> "?0",
+  "sec-fetch-dest" -> "empty",
+  "sec-fetch-mode" -> "cors",
+  "sec-fetch-site" -> "same-origin")
+ 
+ val headers_notify = Map(
   "accept" -> "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-start-event-trigger.v2+json;charset=UTF-8",
   "accept-encoding" -> "gzip, deflate, br",
   "accept-language" -> "en-US,en;q=0.9",

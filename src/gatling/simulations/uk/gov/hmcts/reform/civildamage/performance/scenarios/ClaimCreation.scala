@@ -14,11 +14,16 @@ object ClaimCreation {
   val MinThinkTime = Environment.minThinkTime
   val MaxThinkTime = Environment.maxThinkTime
   
-  //def run(implicit postHeaders: Map[String, String]): ChainBuilder = {
+  /*======================================================================================
+             * Click On pay from Service Page
+  ==========================================================================================*/
     val run=
       exec(_.setAll("Idempotencynumber" -> (Common.getIdempotency())
        ))
     //val createclaim =
+   /*======================================================================================
+                     * Create Civil Claim - UnSpecified
+   ==========================================================================================*/
     .group("Civil_CreateClaim_030_CreateCase") {
       exec(http("Civil_CreateClaim_030_CreateCase")
         .get("/aggregated/caseworkers/:uid/jurisdictions?access=create")
@@ -28,6 +33,9 @@ object ClaimCreation {
     }
       .pause(MinThinkTime, MaxThinkTime)
       //val startCreateClaim =
+        /*======================================================================================
+                     * Create Civil Claim - Start the case
+          ==========================================================================================*/
       .group("Civil_CreateClaim_040_StartCreateCase1") {
       exec(http("Civil_CreateClaim_040_StartCreateCase1")
         .get("/data/internal/case-types/CIVIL/event-triggers/CREATE_CLAIM?ignore-warning=false")
@@ -39,6 +47,9 @@ object ClaimCreation {
     }
   
       //val claimliability =
+        /*======================================================================================
+                     * Create Civil Claim - Claim Eligibility
+          ==========================================================================================*/
       .group("Civil_CreateClaim_050_CLAIMEligibility") {
       exec(http("Civil_CreateClaim_050_Eligibility")
         .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIMEligibility")
@@ -50,6 +61,9 @@ object ClaimCreation {
       .pause(MinThinkTime, MaxThinkTime)
   
       //val claimreferences =
+        /*======================================================================================
+                     * Create Civil Claim - Claim References
+          ==========================================================================================*/
       .group("Civil_CreateClaim_060_CLAIMReferences") {
       exec(http("Civil_CreateClaim_060_Reference")
         .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIMReferences")
@@ -61,6 +75,9 @@ object ClaimCreation {
       .pause(MinThinkTime, MaxThinkTime)
   
       //val claimcourt =
+        /*======================================================================================
+                     *  Create Civil Claim - Claim Court
+          ==========================================================================================*/
       .group("Civil_CreateClaim_070_CLAIMCourt") {
       exec(http("Civil_CreateClaim_070_Court")
         .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIMCourt")
@@ -73,6 +90,9 @@ object ClaimCreation {
   
   
       //val postcode =
+        /*======================================================================================
+                     *  Create Civil Claim - Postcode
+          ==========================================================================================*/
       .group("Civil_CreateClaim_080_ClaimantPostcode") {
       exec(http("Civil_CreateClaim_080_Postcode")
         .get("/api/addresses?postcode=TW33SD")
@@ -82,6 +102,9 @@ object ClaimCreation {
     }
       .pause(MinThinkTime, MaxThinkTime)
       //val createclaimclaimant =
+        /*======================================================================================
+                     *  Create Civil Claim - Claimant Claim
+          ==========================================================================================*/
       .group("Civil_CreateClaim_090_CLAIMClaimant") {
       exec(http("Civil_CreateClaim_090_Claimant")
         .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIMClaimant")
@@ -93,6 +116,9 @@ object ClaimCreation {
       .pause(MinThinkTime, MaxThinkTime)
   
       // val createclaimlitigantfriend =
+        /*======================================================================================
+                     *  Create Civil Claim - Mitigant Friend
+          ==========================================================================================*/
       .group("Civil_CreateClaim_100_CLAIMClaimantLitigationFriend") {
       exec(http("Civil_CreateClaim_100_Litigation")
         .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIMClaimantLitigationFriend")
@@ -104,6 +130,9 @@ object ClaimCreation {
       .pause(MinThinkTime, MaxThinkTime)
   
       //val createclaimantnotifications =
+        /*======================================================================================
+                     *  Create Civil Claim - Claim Notification
+          ==========================================================================================*/
       .group("Civil_CreateClaim_110_CLAIMNotifications") {
         exec(http("Civil_CreateClaim_110_Notifications")
           .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIMNotifications")
@@ -113,6 +142,7 @@ object ClaimCreation {
         )
   
         //val caseshareorgs =
+        
   
         .exec(http("Civil_CreateClaim_120_CaseShare")
           .get("/api/caseshare/orgs")
@@ -121,9 +151,11 @@ object ClaimCreation {
         )
       }
       .pause(MinThinkTime, MaxThinkTime)
-    
   
   
+        /*======================================================================================
+                     *  Create Civil Claim - Solicitor Organization
+          ==========================================================================================*/
       //val claimantsolorganisation =
       .group("Civil_CreateClaim_130_CLAIMClaimantSolicitorOrganisation") {
       exec(http("Civil_CreateClaim_130_Org")
@@ -134,7 +166,9 @@ object ClaimCreation {
       )
     }
       .pause(MinThinkTime, MaxThinkTime)
-  
+        /*======================================================================================
+                     * Solicitor Postcode
+          ==========================================================================================*/
   
       //val postcode1 =
       .group("Civil_CreateClaim_140_SolPostcode") {
@@ -144,6 +178,10 @@ object ClaimCreation {
         .check(status.in(200, 304))
       )
     }
+  
+        /*======================================================================================
+                     * Sol Service address
+          ==========================================================================================*/
       //create solicitor service address
       .group("Civil_CreateClaim_150_CLAIMClaimantSolicitorServiceAddress") {
         exec(http("Civil_CreateClaim_150_Serviceaddress")
@@ -154,19 +192,23 @@ object ClaimCreation {
         )
       }
       .pause(MinThinkTime, MaxThinkTime)
-      
+        /*======================================================================================
+                     *  Create Civil Claim - Add another claim
+          ==========================================================================================*/
       //add another claim
       .group("Civil_CreateClaim_160_CLAIMAddAnotherClaimantn") {
         exec(http("Civil_CreateClaim_160_CLAIMAddAnotherClaimant")
           .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIMAddAnotherClaimant")
           .headers(CivilDamagesHeader.headers_347)
-          .body(ElFileBody("bodies//0050_request.json"))
+          .body(ElFileBody("bodies//CivilCreateClaim-AddAnotherClaim.json"))
           .check(status.in(200, 304))
         )
       }
       .pause(MinThinkTime, MaxThinkTime)
       //post code
-      
+        /*======================================================================================
+                     *  Create Civil Claim - Solicitor Postcode
+          ==========================================================================================*/
       .group("Civil_CreateClaim_170_SolPostcode") {
         exec(http("Civil_CreateClaim_170_Postcode")
           .get("/api/addresses?postcode=TW33SD")
@@ -176,7 +218,9 @@ object ClaimCreation {
       }
       
       //val claimdefendant =
-      
+        /*======================================================================================
+                     *  Create Civil Claim - Claim Defendant
+          ==========================================================================================*/
       .group("Civil_CreateClaim_150_CLAIMDefendant") {
       exec(http("Civil_CreateClaim_150_Def")
         .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIMDefendant")
@@ -186,7 +230,9 @@ object ClaimCreation {
       )
     }
       .pause(MinThinkTime, MaxThinkTime)
-  
+        /*======================================================================================
+                     *  Create Civil Claim - Claim Legal Representation
+          ==========================================================================================*/
       //val claimLegalRep =
       .group("Civil_CreateClaim_160_CLAIMLegalRepresentation") {
       exec(http("Civil_CreateClaim_160_Rep")
@@ -198,7 +244,9 @@ object ClaimCreation {
     }
       .pause(MinThinkTime, MaxThinkTime)
   
-  
+        /*======================================================================================
+                     *  Create Civil Claim - Defendanet Case share
+          ==========================================================================================*/
       //val caseshareorgs1 =
       .group("Civil_CreateClaim_170_DefCaseShare") {
       exec(http("Civil_CreateClaim_170_CaseShare")
@@ -209,7 +257,9 @@ object ClaimCreation {
     }
   
       //val claimdefsolicitororg =
-      
+        /*======================================================================================
+                     *  Create Civil Claim - Def Solicitor Org
+          ==========================================================================================*/
       .group("Civil_CreateClaim_180_CLAIMDefendantSolicitorOrganisation") {
       exec(http("Civil_CreateClaim_180_Org")
         .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIMDefendantSolicitorOrganisation")
@@ -221,7 +271,9 @@ object ClaimCreation {
       .pause(MinThinkTime, MaxThinkTime)
   
       //post code
-  
+        /*======================================================================================
+                     *  Create Civil Claim - Postcode
+          ==========================================================================================*/
       .group("Civil_CreateClaim_170_SolPostcode") {
         exec(http("Civil_CreateClaim_170_Postcode")
           .get("/api/addresses?postcode=TW33SD")
@@ -229,7 +281,9 @@ object ClaimCreation {
           .check(status.in(200, 304))
         )
       }
-  
+        /*======================================================================================
+                     * Create Civil Claim - Defendent Solicitor Service address
+          ==========================================================================================*/
       //create defendant solicitor service address
       .group("Civil_CreateClaim_150_CLAIMClaimantSolicitorServiceAddress") {
         exec(http("Civil_CreateClaim_150_Serviceaddress")
@@ -241,7 +295,9 @@ object ClaimCreation {
       }
       .pause(MinThinkTime, MaxThinkTime)
   
-  
+        /*======================================================================================
+                     * Create Civil Claim - Claim Of Solicitor Org
+          ==========================================================================================*/
       // val claimdefsolicitororgemail =
       .group("Civil_CreateClaim_190_CLAIMDefendantSolicitorEmail") {
       exec(http("Civil_CreateClaim_190_SolEmail")
@@ -252,7 +308,9 @@ object ClaimCreation {
       )
     }
       .pause(MinThinkTime, MaxThinkTime)
-      
+        /*======================================================================================
+                     * Create Civil Claim - Add another defendent
+          ==========================================================================================*/
       //add another defendant
       // val claimdefsolicitororgemail =
       .group("Civil_CreateClaim_190_CLAIMDefendantSolicitorEmail") {
@@ -264,7 +322,9 @@ object ClaimCreation {
         )
       }
       .pause(MinThinkTime, MaxThinkTime)
-  
+        /*======================================================================================
+                     * Create Civil Claim - claim type
+          ==========================================================================================*/
       // val claimtype =
       .group("Civil_CreateClaim_200_CLAIMClaimType") {
       exec(http("Civil_CreateClaim_200_ClaimType")
@@ -277,9 +337,11 @@ object ClaimCreation {
       .pause(MinThinkTime, MaxThinkTime)
       
       //create claim injury type
-      
-      .group("Civil_CreateClaim_200_CLAIMClaimType") {
-        exec(http("Civil_CreateClaim_200_ClaimType")
+        /*======================================================================================
+                     * Create Civil Claim - Injury Type
+          ==========================================================================================*/
+      .group("Civil_CreateClaim_200_InjuryType") {
+        exec(http("Civil_CreateClaim_200_InjuryType")
           .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIMPersonalInjuryType")
           .headers(CivilDamagesHeader.headers_514)
           .body(ElFileBody("bodies/0088_request.json"))
@@ -287,7 +349,9 @@ object ClaimCreation {
         )
       }
       .pause(MinThinkTime, MaxThinkTime)
-  
+        /*======================================================================================
+                     * Create Civil Claim - ClaimDetails
+          ==========================================================================================*/
       // val createclaimdetail =
       .group("Civil_CreateClaim_210_CLAIMDetails") {
       exec(http("Civil_CreateClaim_210_Details")
@@ -300,7 +364,9 @@ object ClaimCreation {
       .pause(MinThinkTime, MaxThinkTime)
   
       // val postclaimdocs =
-      
+        /*======================================================================================
+                     * Create Civil Claim - Documents
+          ==========================================================================================*/
       .group("Civil_CreateClaim_220_Documents") {
       exec(http("Civil_CreateClaim_220_Docs")
         .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIMuploadParticularsOfClaim")
@@ -310,7 +376,9 @@ object ClaimCreation {
     }
       .pause(MinThinkTime, MaxThinkTime)
       // val createclaimupload =
-    
+        /*======================================================================================
+                     * Create Civil Claim - Claim value
+          ==========================================================================================*/
       // val createclaimvalue =
       .group("Civil_CreateClaim_240_CLAIMClaimValue") {
       exec(http("Civil_CreateClaim_240_ClaimValue")
@@ -321,6 +389,9 @@ object ClaimCreation {
       )
     }
       .pause(MinThinkTime, MaxThinkTime)
+        /*======================================================================================
+                     * Create Civil Claim - PBA Number
+          ==========================================================================================*/
       // val createclaimpbanumber =
       .group("Civil_CreateClaim_250_CLAIMPbaNumber") {
       exec(http("Civil_CreateClaim_250_PBANumber")
@@ -331,7 +402,9 @@ object ClaimCreation {
       )
     }
       .pause(MinThinkTime, MaxThinkTime)
-     
+        /*======================================================================================
+                     * Create Civil Claim - SOT
+          ==========================================================================================*/
       //val createclaimstatementoftruth =
       .group("Civil_CreateClaim_270_CLAIMStatementOfTruth") {
       exec(http("Civil_CreateClaim_270_SOT")
@@ -342,6 +415,9 @@ object ClaimCreation {
       )
     }
       .pause(MinThinkTime, MaxThinkTime)
+        /*======================================================================================
+                     * Create Civil Claim - Submit Claim
+          ==========================================================================================*/
       // val submitclaimevent =
       .group("Civil_CreateClaim_280_SubmitClaim") {
       
@@ -362,16 +438,9 @@ object ClaimCreation {
     }
       .pause(MinThinkTime, MaxThinkTime)
         .pause(50)
-  
-      .exec { session =>
-        val fw = new BufferedWriter(new FileWriter("caseIds.csv", true))
-        try {
-          fw.write(session("caseId").as[String] + "\r\n")
-        } finally fw.close()
-        session
-      }
-      
-  
+        /*======================================================================================
+                     * Create Civil Claim - Back To Search pages
+          ==========================================================================================*/
       //  val getcasedetailspage=
       .group("Civil_CreateClaim_290_BackToCaseDetailsPage") {
       exec(http("Civil_CreateClaim_290_005_CaseDetails")
@@ -392,7 +461,9 @@ object ClaimCreation {
         
     }
       .pause(MinThinkTime, MaxThinkTime)
-      
+        /*======================================================================================
+                     * Create Civil Claim - Click pay
+          ==========================================================================================*/
       // payment fee
       .group("Civil_CreateClaim_300_ClickPay") {
         exec(http("Civil_CreateClaim_300_005_ClickPay")
@@ -403,7 +474,9 @@ object ClaimCreation {
     
       }
       .pause(MinThinkTime, MaxThinkTime)
-  
+        /*======================================================================================
+                     * Create Civil Claim - PBA Payment groups
+          ==========================================================================================*/
       // payment pba fee payment
       .group("Civil_CreateClaim_310_PaymentGroups") {
         exec(http("Civil_CreateClaim_310_005_SelectPayGroups")
@@ -420,7 +493,9 @@ object ClaimCreation {
         
       }
       .pause(MinThinkTime, MaxThinkTime)
-      
+        /*======================================================================================
+                     * Select PBA
+          ==========================================================================================*/
       //pba account selection and pay
   
       .group("Civil_CreateClaim_320_PBAAccounts") {
@@ -431,7 +506,9 @@ object ClaimCreation {
         )
       }
       .pause(MinThinkTime, MaxThinkTime)
-      
+        /*======================================================================================
+                     * Create Civil Claim - Submit Payment
+          ==========================================================================================*/
       //pba payment final
   
       .group("Civil_CreateClaim_330_SubmitPayment") {
@@ -444,20 +521,23 @@ object ClaimCreation {
       }
       .pause(MinThinkTime, MaxThinkTime)
       .pause(50)
-      
-      
+  
+        /*======================================================================================
+                     * Create Civil Claim - Notify
+          ==========================================================================================*/
       //notify claim step
       
       .group("Civil_CreateClaim_310_NotifyClaimEvent") {
-        /*exec(http("Civil_CreateClaim_310_005_Notify")
+        exec(http("Civil_CreateClaim_310_005_Notify")
           .get("/workallocation/case/tasks/${caseId}/event/NOTIFY_DEFENDANT_OF_CLAIM/caseType/CIVIL/jurisdiction/CIVIL")
           .headers(CivilDamagesHeader.headers_769)
           .check(status.in(200, 304))
           
-        )*/
+        )
+       
         exec(http("Civil_CreateClaim_310_010_Notify")
           .get("/data/internal/cases/${caseId}/event-triggers/NOTIFY_DEFENDANT_OF_CLAIM?ignore-warning=false")
-          .headers(CivilDamagesHeader.headers_769)
+          .headers(CivilDamagesHeader.headers_notify)
           //.header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-start-event-trigger.v2+json;charset=UTF-8")
           .check(status.in(200,201, 304))
           .check(jsonPath("$.event_token").optional.saveAs("event_token_notifyclaimtodef"))
@@ -470,6 +550,9 @@ object ClaimCreation {
           )
       }
       .pause(MinThinkTime, MaxThinkTime)
+        /*======================================================================================
+                     * Create Civil Claim - Back To Case after Notify
+          ==========================================================================================*/
       // val claimnotifyeventcontinue =
       .group("Civil_CreateClaim_320_CLAIMAccessGrantedWarning") {
       exec(http("Civil_CreateClaim_320_005_grant")
@@ -486,7 +569,9 @@ object ClaimCreation {
     }
       .pause(MinThinkTime, MaxThinkTime)
         .pause(50)
-    
+        /*======================================================================================
+                     * Submit Notify
+          ==========================================================================================*/
       // val claimnotifyeventsubmit =
       .group("Civil_CreateClaim_330_ClaimNotifyEventSubmit") {
       exec(http("Civil_CreateClaim_330_ClaimNotifyEventSubmit")
@@ -498,7 +583,9 @@ object ClaimCreation {
     }
       //.exec(session => session.set("caseId", "${caseId}"))
       .pause(MinThinkTime, MaxThinkTime)
-  
+        /*======================================================================================
+                     * Create Civil Claim - Case Details
+          ==========================================================================================*/
       //val backtocasedetailsafterclaimnotify =
       
       .group("Civil_CreateClaim_340_CasedetailsAfterClaimNotify") {
@@ -513,7 +600,9 @@ object ClaimCreation {
         .pause(20)
   
     //end of  claim notify
-  
+        /*======================================================================================
+                     * Create Civil Claim - Notify Details
+          ==========================================================================================*/
   //beginning of notify details
   
   .group("CD_CreateClaim_350_NotifyDetailsEvent") {
@@ -523,9 +612,9 @@ object ClaimCreation {
       .check(status.in(200, 201, 304))
     
     )
-      .exec(http("Civil_CreateClaim_350_010_DetailCreate")
+      .exec(http("Civil_CreateClaim_350_010_NotifyDetailCreate")
         .get("/data/internal/cases/${caseId}/event-triggers/NOTIFY_DEFENDANT_OF_CLAIM_DETAILS?ignore-warning=false")
-        .headers(CivilDamagesHeader.headers_769)
+        .headers(CivilDamagesHeader.headers_notify)
         //.header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-start-event-trigger.v2+json;charset=UTF-8")
         .check(status.in(200, 304))
         .check(jsonPath("$.event_token").optional.saveAs("event_token_notifyclaimdetail"))
@@ -534,12 +623,15 @@ object ClaimCreation {
       .exec(http("Civil_CreateClaim_350_010_profile")
         .get("/data/internal/profile")
         .headers(CivilDamagesHeader.headers_149)
-        .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-user-profile.v2+json;charset=UTF-8")
+        //.header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-user-profile.v2+json;charset=UTF-8")
         
         .check(status.in(200, 304))
       )
   }
     .pause(MinThinkTime, MaxThinkTime)
+        /*======================================================================================
+                     * Create Civil Claim - Detals Upload
+          ==========================================================================================*/
     // val notifyclaimdetailsupload =
     .group("Civil_CreateClaim_360_CLAIM_DETAILSUpload") {
       exec(http("CD_CreateClaim_360_005_upload")
@@ -557,6 +649,9 @@ object ClaimCreation {
         )
     }
     .pause(MinThinkTime, MaxThinkTime)
+        /*======================================================================================
+                     * Create Civil Claim - event submit
+          ==========================================================================================*/
     // val notifyclaimdetailseventsubmit=
     .group("CD_CreateClaim_370_NotifyDetailsEventSubmit") {
       exec(http("CD_CreateClaim_370_EventSubmit")
@@ -575,8 +670,10 @@ object ClaimCreation {
         )
     }
     .pause(MinThinkTime, MaxThinkTime)
-    
-    
+  
+        /*======================================================================================
+                     * Create Civil Claim - Notify Details
+          ==========================================================================================*/
     // val returntocasedetailsafternotifydetails =
     .group("CD_CreateClaim_380_ReturnToCaseDetailsAfterNotifyDetails") {
       exec(http("CD_CreateClaim_380_005_NotifyDetails")
@@ -586,14 +683,7 @@ object ClaimCreation {
         .check(status.in(200,204,201,304))
       )
 
-                    //Deepak - Cases that make the final step
-                          .exec { session =>
-                            val fw = new BufferedWriter(new FileWriter("FinalcaseIds.csv", true))
-                            try {
-                              fw.write(session("caseId").as[String] + "\r\n")
-                            } finally fw.close()
-                            session
-                            }
+        
 
         .exec(http("CD_CreateClaim_380_010_case")
           .get("/data/internal/cases/${caseId}")
@@ -603,21 +693,32 @@ object ClaimCreation {
     }
     .pause(MinThinkTime, MaxThinkTime)
         .pause(20)
-        
   
+        /*======================================================================================
+                     * Create Civil Claim - Assign case - need to change the token every time we create a case
+          ==========================================================================================*/
   // following is for assign the case to defendent
         .group("CIVIL_AssignCase_000_AssignCase") {
           exec(http("CIVIL_AssignCase_000_AssignCase")
             .post("http://civil-service-perftest.service.core-compute-perftest.internal/testing-support/assign-case/${caseId}/RESPONDENTSOLICITORONE")
             //   .get( "/cases/searchCases?start_date=${randomStartDate}&end_date=${randomEndDate}")
             // .get( "/cases/searchCases?start_date=2022-01-13T00:00:00&end_date=2023-04-16T15:38:00")
-            .header("Authorization", "Bearer eyJ0eXAiOiJKV1QiLCJraWQiOiI4cDJpajg2S0pTeENKeGcveUovV2w3TjcxMXM9IiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiJobWN0cy5jaXZpbCtvcmdhbmlzYXRpb24uMS5zb2xpY2l0b3IuMUBnbWFpbC5jb20iLCJjdHMiOiJPQVVUSDJfU1RBVEVMRVNTX0dSQU5UIiwiYXV0aF9sZXZlbCI6MCwiYXVkaXRUcmFja2luZ0lkIjoiNzE4ZTkyOWEtMmI1Ny00ZjE4LWFhYWEtZTRiZTQ3ZmIwODhjLTczNDY1NzY1Iiwic3VibmFtZSI6ImhtY3RzLmNpdmlsK29yZ2FuaXNhdGlvbi4xLnNvbGljaXRvci4xQGdtYWlsLmNvbSIsImlzcyI6Imh0dHBzOi8vZm9yZ2Vyb2NrLWFtLnNlcnZpY2UuY29yZS1jb21wdXRlLWlkYW0tcGVyZnRlc3QuaW50ZXJuYWw6ODQ0My9vcGVuYW0vb2F1dGgyL3JlYWxtcy9yb290L3JlYWxtcy9obWN0cyIsInRva2VuTmFtZSI6ImFjY2Vzc190b2tlbiIsInRva2VuX3R5cGUiOiJCZWFyZXIiLCJhdXRoR3JhbnRJZCI6ImxRRFdpbEVwSjEtUEJJaVBEVDk4ZGpFbF8wYyIsIm5vbmNlIjoiOFlKd09MajhET0lNajdIVmtTQjB1UEw2cnRHdWpIN0g0azFoazlQTUpkZyIsImF1ZCI6Inh1aXdlYmFwcCIsIm5iZiI6MTY4ODU2OTEyNywiZ3JhbnRfdHlwZSI6ImF1dGhvcml6YXRpb25fY29kZSIsInNjb3BlIjpbIm9wZW5pZCIsInByb2ZpbGUiLCJyb2xlcyIsImNyZWF0ZS11c2VyIiwibWFuYWdlLXVzZXIiLCJzZWFyY2gtdXNlciJdLCJhdXRoX3RpbWUiOjE2ODg1NjkxMjYsInJlYWxtIjoiL2htY3RzIiwiZXhwIjoxNjg4NTk3OTI3LCJpYXQiOjE2ODg1NjkxMjcsImV4cGlyZXNfaW4iOjI4ODAwLCJqdGkiOiJFQ2l4Z2preEI5dE40VFN1cnJJWlkybGplQkEifQ.XZC1wFd5hSWNSHkkTLfnCUSjYyjqelWWRI_LCy2R-ibBcyweF_zf_fSHpH2ns1gtlY3xEzo0eSgSZjYZxOyP59_436SWo9kSuicfiGbcdxtRStidLgT_1mSreu0jorInTUOATqU29n50kSXOLw5p_5MtBGoV_STVpxsEtPjt8aUc8WwbLrBtVMtvlMCBrQWZg2ELZfmfZvw2lt40mecgl7O_YEm9MuVGt6E15__swTzTFJG--bkNfyD5imb6y8aTedYHykHD0FtkTm-CfiBOW6lgdBJ03CrijFjh_NVjaDv-gf39hm109MbAWXn872vXyFdYBLeWZMnDVVDbrfhsFg")
+            .header("Authorization", "Bearer eyJ0eXAiOiJKV1QiLCJraWQiOiI4cDJpajg2S0pTeENKeGcveUovV2w3TjcxMXM9IiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiJobWN0cy5jaXZpbCtvcmdhbmlzYXRpb24uMS5zb2xpY2l0b3IuMUBnbWFpbC5jb20iLCJjdHMiOiJPQVVUSDJfU1RBVEVMRVNTX0dSQU5UIiwiYXV0aF9sZXZlbCI6MCwiYXVkaXRUcmFja2luZ0lkIjoiNGJjOWEzOTAtZTZjZi00YTQxLWI1NGYtZDA2NmZjNDc0ODY3LTgwNTYxOTk2Iiwic3VibmFtZSI6ImhtY3RzLmNpdmlsK29yZ2FuaXNhdGlvbi4xLnNvbGljaXRvci4xQGdtYWlsLmNvbSIsImlzcyI6Imh0dHBzOi8vZm9yZ2Vyb2NrLWFtLnNlcnZpY2UuY29yZS1jb21wdXRlLWlkYW0tcGVyZnRlc3QuaW50ZXJuYWw6ODQ0My9vcGVuYW0vb2F1dGgyL3JlYWxtcy9yb290L3JlYWxtcy9obWN0cyIsInRva2VuTmFtZSI6ImFjY2Vzc190b2tlbiIsInRva2VuX3R5cGUiOiJCZWFyZXIiLCJhdXRoR3JhbnRJZCI6IjVkYURnVVd6MDg1b1l2Zm5fTk96MnNkUkVOayIsIm5vbmNlIjoiSWZyYWdhaEJtZEQ1WGhxX2dwNTRaeVVmRGF2dkliT0ZhM1hZTUsxYjhHQSIsImF1ZCI6Inh1aXdlYmFwcCIsIm5iZiI6MTY4OTY5MjEyOCwiZ3JhbnRfdHlwZSI6ImF1dGhvcml6YXRpb25fY29kZSIsInNjb3BlIjpbIm9wZW5pZCIsInByb2ZpbGUiLCJyb2xlcyIsImNyZWF0ZS11c2VyIiwibWFuYWdlLXVzZXIiLCJzZWFyY2gtdXNlciJdLCJhdXRoX3RpbWUiOjE2ODk2OTIxMjYsInJlYWxtIjoiL2htY3RzIiwiZXhwIjoxNjg5NzIwOTI4LCJpYXQiOjE2ODk2OTIxMjgsImV4cGlyZXNfaW4iOjI4ODAwLCJqdGkiOiJkMTJaN0pGOW05dzBPQlB5VHZKRXFaaEFqRWcifQ.cyRqEj1A7bhor-k39UADN-fOjbOEKFhhHFcfhDafjf3wRxEH8Dt0un9JhjCNuOxzLCP1VO3aKeXlpWq1jrD8LyYWzszbxu67bfgK7uPSDIJlN1RIYNATRibWGUpMVzUmVIcvVlPnULcQgzLhebltJGmcHXUuoTS1egR5gNTwdxvLIgAlX5Q8vThQMgRZrfzJy_XJ-ajUGBU7ec1XTWdmrImbhYx99ME260ewBkUL7cd9vcuA7rPpVjxLujNbrxpftQkAS_h0ur04_aPgkVhDQ4cQPIJoJuEscgECFS_cmWmUQMpA2x7ox-5KXHRrwNjLt61jMSVKLm42xe4FcQ92Gw")
             .header("Content-Type", "application/json")
             .header("Accept", "*/*")
             .check(status.in(200, 201))
           )
         }
         .pause(MinThinkTime, MaxThinkTime)
+  
+        //Deepak - Cases that make the final step
+        .exec { session =>
+          val fw = new BufferedWriter(new FileWriter("FinalcaseIds.csv", true))
+          try {
+            fw.write(session("caseId").as[String] + "\r\n")
+          } finally fw.close()
+          session
+        }
   
   
   

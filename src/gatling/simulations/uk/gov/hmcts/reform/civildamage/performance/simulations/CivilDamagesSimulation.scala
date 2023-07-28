@@ -30,25 +30,42 @@ class CivilDamagesSimulation extends Simulation {
         .pause(20)
     )
   
-  //below scenario is to generate claims data
+  //below scenario is to generate claims data for GA process
 	
 	
-	val CivilDamageScenario = scenario("Create Civil damage")
+	val CivilClaimsScenario = scenario("Create Civil damage")
 		.feed(loginFeeder).feed(sharecaseusersfeed)
-		
-			.exec(Homepage.XUIHomePage)
+		.exitBlockOnFail {
+			exec(Homepage.XUIHomePage)
 				.exec(Login.XUILogin)
 				.exec(ClaimCreation.run)
-					.pause(50)
-					//.exec(ClaimDetailNotifications.run)
+				.pause(50)
+				//.exec(ClaimDetailNotifications.run)
 				//	.pause(50)
 				.exec(Logout.XUILogout)
-		
+		}
+	
+	
+	val CivilUIScenario = scenario("Create Civil UI Case")
+		.feed(loginFeeder).feed(sharecaseusersfeed)
+		.exitBlockOnFail {
 			
-		 /*
-			 Step 2: login to manage org as defendant solicitor to assign the case to other users from defendant solicitor firm
-			
-				*/
+			exec(Homepage.XUIHomePage)
+				.exec(Login.XUILogin)
+				.exec(CUIClaimCreation.run)
+				.exec(CUIClaimCreation.PBSPayment)
+				.pause(50)
+				//.exec(ClaimDetailNotifications.run)
+				//	.pause(50)
+				.exec(Logout.XUILogout)
+		}
+	
+	
+	
+	/*
+    Step 2: login to manage org as defendant solicitor to assign the case to other users from defendant solicitor firm
+   
+     */
 	/*	.exec(EXUIMCLogin.manageOrgHomePage)
 		.exec(EXUIMCLogin.manageOrglogin)
 		.exec(EXUI_AssignCase.run)
@@ -76,24 +93,18 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 		*/
 	
 	
+	val CivilAssignScenario = scenario("Create Civil case assign")
+		
+		.exitBlockOnFail {
+			
+			exec(CivilAssignCase.run)
+			
+		}
 	
 	
-	
-	
-	
-	
-
-
-
-
-
-
-
-
-
-
-setUp(
-	CivilDamageScenario.inject(nothingFor(1),rampUsers(20) during (600))
+	setUp(
+		//CivilClaimsScenario.inject(nothingFor(1),rampUsers(300) during (3600))
+			CivilUIScenario.inject(nothingFor(1),rampUsers(1) during (1))
 ).protocols(httpProtocol)
 
 
