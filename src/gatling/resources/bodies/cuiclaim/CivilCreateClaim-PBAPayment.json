@@ -1,0 +1,8 @@
+{
+  "account_number": "PBA0078095",
+  "amount": 115,
+  "currency": "GBP",
+  "customer_reference": "asdsdsda",
+  "organisation_name": "Civil - Organisation 1",
+  "idempotency_key": "idam-key-${Idempotencynumber}"
+}

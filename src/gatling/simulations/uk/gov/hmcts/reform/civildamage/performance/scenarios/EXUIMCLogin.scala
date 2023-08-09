@@ -104,12 +104,12 @@ object EXUIMCLogin {
     
     group("CivilDamages_020_SignIn") {
       exec(flushHttpCache).exec(http("CivilDamages_020_005_SignIn")
-                                .post(IdAMURL + "/login?response_type=code&redirect_uri=https%3A%2F%2F" + manageOrgDomain + "%2Foauth2%2Fcallback&scope=profile%20openid%20roles%20manage-user%20create-user%20manage-roles&state=${state}&client_id=xuimowebapp")
-        .formParam("username", "${manageorgsuperuser}")
+                                .post(IdAMURL + "/login?response_type=code&redirect_uri=https%3A%2F%2F" + manageOrgDomain + "%2Foauth2%2Fcallback&scope=profile%20openid%20roles%20manage-user%20create-user%20manage-roles&state=#{state}&client_id=xuimowebapp")
+        .formParam("username", "#{manageorgsuperuser}")
         .formParam("password", "Password12!")
         .formParam("save", "Sign in")
         .formParam("selfRegistrationEnabled", "false")
-        .formParam("_csrf", "${csrfToken}")
+        .formParam("_csrf", "#{csrfToken}")
         .headers(LoginHeader.headers_login_submit)
         .check(status.in(200, 304, 302)))//.exitHereIfFailed
       
@@ -157,12 +157,12 @@ object EXUIMCLogin {
     group("CivilDamages_020_005_SignIn") {
       exec(flushHttpCache).exec(http("CivilDamages_020_005_SignIn")
         /*.post(IdAMURL + "/login?response_type=code&redirect_uri=" + baseURL + "%2Foauth2%2Fcallback&scope=profile%20openid%20roles%20manage-user%20create-user&state=${state}&client_id=xuiwebapp")*/
-        .post(IdAMURL + "/login?client_id=xuiwebapp&redirect_uri=" + baseURL + "/oauth2/callback&state=${state}&nonce=${nonce}&response_type=code&scope=profile%20openid%20roles%20manage-user%20create-user&prompt=")
-                                .formParam("username", "${claimantuser}")
-                                .formParam("password", "${password}")
+        .post(IdAMURL + "/login?client_id=xuiwebapp&redirect_uri=" + baseURL + "/oauth2/callback&state=#{state}&nonce=#{nonce}&response_type=code&scope=profile%20openid%20roles%20manage-user%20create-user&prompt=")
+                                .formParam("username", "#{claimantuser}")
+                                .formParam("password", "#{password}")
                                 .formParam("save", "Sign in")
                                 .formParam("selfRegistrationEnabled", "false")
-                                .formParam("_csrf", "${csrfToken}")
+                                .formParam("_csrf", "#{csrfToken}")
                                 .headers(LoginHeader.headers_login_submit)
                                 .check(status.in(200, 304, 302))).exitHereIfFailed
                                 //.check(regex("Manage Cases"))).exitHereIfFailed
@@ -191,7 +191,7 @@ object EXUIMCLogin {
             .check(status.in(200, 304)))
       
       .repeat(1, "count") {
-        exec(http("CivilDamages_020_030_AcceptT&CAccessJurisdictions${count}")
+        exec(http("CivilDamages_020_030_AcceptT&CAccessJurisdictions#{count}")
              .get("/aggregated/caseworkers/:uid/jurisdictions?access=read")
              .headers(LoginHeader.headers_access_read)
              .check(status.in(200, 304, 302)))
@@ -214,12 +214,12 @@ object EXUIMCLogin {
     group("CivilDamages_020_005_SignIn") {
       exec(flushHttpCache).exec(http("CivilDamages_020_005_SignIn")
         /*.post(IdAMURL + "/login?response_type=code&redirect_uri=" + baseURL + "%2Foauth2%2Fcallback&scope=profile%20openid%20roles%20manage-user%20create-user&state=${state}&client_id=xuiwebapp")*/
-        .post(IdAMURL + "/login?client_id=xuiwebapp&redirect_uri=" + baseURL + "/oauth2/callback&state=${state}&nonce=${nonce}&response_type=code&scope=profile%20openid%20roles%20manage-user%20create-user&prompt=")
-        .formParam("username", "${email}")
+        .post(IdAMURL + "/login?client_id=xuiwebapp&redirect_uri=" + baseURL + "/oauth2/callback&state=#{state}&nonce=#{nonce}&response_type=code&scope=profile%20openid%20roles%20manage-user%20create-user&prompt=")
+        .formParam("username", "#{email}")
         .formParam("password", "Password12!")
         .formParam("save", "Sign in")
         .formParam("selfRegistrationEnabled", "false")
-        .formParam("_csrf", "${csrfToken}")
+        .formParam("_csrf", "#{csrfToken}")
         .headers(LoginHeader.headers_login_submit)
         .check(status.in(200, 304, 302)))//.exitHereIfFailed
         //.check(regex("Manage Cases"))).exitHereIfFailed
@@ -248,7 +248,7 @@ object EXUIMCLogin {
           .check(status.in(200, 304)))
         
         .repeat(1, "count") {
-          exec(http("CivilDamages_020_030_AcceptT&CAccessJurisdictions${count}")
+          exec(http("CivilDamages_020_030_AcceptT&CAccessJurisdictions#{count}")
             .get("/aggregated/caseworkers/:uid/jurisdictions?access=read")
             .headers(LoginHeader.headers_access_read)
             .check(status.in(200, 304, 302)))

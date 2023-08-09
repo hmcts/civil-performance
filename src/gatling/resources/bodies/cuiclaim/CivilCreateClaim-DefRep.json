@@ -1,0 +1,80 @@
+{
+  "data": {
+    "specRespondent1Represented": "No"
+  },
+  "event": {
+    "id": "CREATE_CLAIM_SPEC",
+    "summary": "",
+    "description": ""
+  },
+  "event_data": {
+    "applicant1": {
+      "type": "INDIVIDUAL",
+      "individualTitle": "mr",
+      "individualFirstName": "#{randomString}First",
+      "individualLastName": "#{randomString}Last",
+      "soleTraderTitle": null,
+      "partyEmail": "#{randomString}@gmail.com",
+      "partyPhone": "+447540612047",
+      "individualDateOfBirth": "#{birthYear}-#{birthMonth}-#{birthDay}",
+      "partyName": "mr #{randomString}First #{randomString}Last",
+      "partyTypeDisplayValue": "Individual",
+      "partyID": null,
+      "primaryAddress": {
+        "AddressLine1": "#{randomString}Address1",
+        "AddressLine2": "",
+        "AddressLine3": "",
+        "PostTown": "#{randomString}Town",
+        "County": "",
+        "Country": "United Kingdom",
+        "PostCode": "#{postcode}"
+      }
+    },
+    "addApplicant2": "No",
+    "applicantSolicitor1CheckEmail": {
+      "email": "hmcts.civil+organisation.1.solicitor.1@gmail.com",
+      "correct": "No"
+    },
+    "applicantSolicitor1UserDetails": {
+      "email": "civilmoneyclaimsdemo@gmail.com",
+      "id": null
+    },
+    "applicant1OrganisationPolicy": {
+      "OrgPolicyCaseAssignedRole": "[APPLICANTSOLICITORONE]",
+      "OrgPolicyReference": null,
+      "PrepopulateToUsersOrganisation": null,
+      "Organisation": {
+        "OrganisationID": "#{orgref}",
+        "OrganisationName": "#{orgname}"
+      }
+    },
+    "specApplicantCorrespondenceAddressRequired": "No",
+    "respondent1": {
+      "type": "INDIVIDUAL",
+      "individualTitle": "mr",
+      "individualFirstName": "#{randomString}First",
+      "individualLastName": "#{randomString}Last",
+      "soleTraderTitle": null,
+      "soleTraderTradingAs": null,
+      "partyEmail": "#{randomString}@gmail.com",
+      "partyPhone": "+447540612047",
+      "individualDateOfBirth": null,
+      "soleTraderDateOfBirth": null,
+      "partyName": null,
+      "partyTypeDisplayValue": null,
+      "partyID": null,
+      "primaryAddress": {
+        "AddressLine1": "#{randomString}Address1",
+        "AddressLine2": "",
+        "AddressLine3": "",
+        "PostTown": "#{randomString}Town",
+        "County": "",
+        "Country": "United Kingdom",
+        "PostCode": "#{postcode}"
+      }
+    },
+    "specRespondent1Represented": "No"
+  },
+  "event_token": "${event_token}",
+  "ignore_warning": false
+}
