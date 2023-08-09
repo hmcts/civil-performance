@@ -21,17 +21,17 @@ object ClaimDetailNotifications {
     // val notifyclaimdetailsevent =
       group("CD_CreateClaim_350_NotifyDetailsEvent") {
         exec(http("CD_CreateClaim_310_005_Notify")
-          .get("/workallocation/case/tasks/${caseId}/event/NOTIFY_DEFENDANT_OF_CLAIM/caseType/CIVIL/jurisdiction/CIVIL")
+          .get("/workallocation/case/tasks/#{caseId}/event/NOTIFY_DEFENDANT_OF_CLAIM/caseType/CIVIL/jurisdiction/CIVIL")
           .headers(CivilDamagesHeader.headers_769)
           .check(status.in(200,201,304))
          
         )
       .exec(http("CD_CreateClaim_350_005_Detail")
-        .get("/data/internal/cases/${caseId}/event-triggers/NOTIFY_DEFENDANT_OF_CLAIM_DETAILS?ignore-warning=false")
+        .get("/data/internal/cases/#{caseId}/event-triggers/NOTIFY_DEFENDANT_OF_CLAIM_DETAILS?ignore-warning=false")
         .headers(CivilDamagesHeader.headers_769)
         //.header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-start-event-trigger.v2+json;charset=UTF-8")
         .check(status.in(200, 304))
-        .check(jsonPath("$.event_token").optional.saveAs("event_token_notifyclaimdetail"))
+        .check(jsonPath("#.event_token").optional.saveAs("event_token_notifyclaimdetail"))
       )
   
         .exec(http("CD_CreateClaim_350_010_profile")
@@ -63,14 +63,14 @@ object ClaimDetailNotifications {
     // val notifyclaimdetailseventsubmit=
       .group("CD_CreateClaim_370_NotifyDetailsEventSubmit") {
       exec(http("CD_CreateClaim_370_EventSubmit")
-        .post("/data/cases/${caseId}/events")
+        .post("/data/cases/#{caseId}/events")
         .headers(CivilDamagesHeader.headers_886)
        // .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.create-event.v2+json;charset=UTF-8")
         .body(ElFileBody("bodies/0214_request.json"))
         .check(status.in(200, 201))
       )
         .exec(http("CD_CreateClaim_380_010_case")
-          .get("/data/internal/cases/${caseId}")
+          .get("/data/internal/cases/#{caseId}")
           .headers(CivilDamagesHeader.headers_717)
           .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-case-view.v2+json")
           
@@ -83,14 +83,14 @@ object ClaimDetailNotifications {
     // val returntocasedetailsafternotifydetails =
       .group("CD_CreateClaim_380_ReturnToCaseDetailsAfterNotifyDetails") {
       exec(http("CD_CreateClaim_380_005_NotifyDetails")
-        .post("/api/role-access/roles/manageLabellingRoleAssignment/${caseId}")
+        .post("/api/role-access/roles/manageLabellingRoleAssignment/#{caseId}")
         .headers(CivilDamagesHeader.headers_894)
-        .body(StringBody("{\"searchRequest\":{\"ccdId\":\"${caseId}\",\"eventId\":\"NOTIFY_DEFENDANT_OF_CLAIM_DETAILS\",\"jurisdiction\":\"CIVIL\",\"caseTypeId\":\"UNSPECIFIED_CLAIMS\"}}"))
+        .body(StringBody("{\"searchRequest\":{\"ccdId\":\"#{caseId}\",\"eventId\":\"NOTIFY_DEFENDANT_OF_CLAIM_DETAILS\",\"jurisdiction\":\"CIVIL\",\"caseTypeId\":\"UNSPECIFIED_CLAIMS\"}}"))
         .check(status.is(401))
       )
 
         .exec(http("CD_CreateClaim_380_010_case")
-          .get("/data/internal/cases/${caseId}")
+          .get("/data/internal/cases/#{caseId}")
           .headers(CivilDamagesHeader.headers_717)
           .check(status.in(200, 304))
 

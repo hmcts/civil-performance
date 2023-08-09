@@ -41,7 +41,7 @@ object  EXUI_AssignCase {
 			
 			.group("CD_ShareACase_040_ShareCaseByCaseId") {
 			exec(http("CD_ShareACase_040_ShareCaseByCaseId")
-				.get(manageOrgURL + "/api/caseshare/cases?case_ids=${caseId}")
+				.get(manageOrgURL + "/api/caseshare/cases?case_ids=#{caseId}")
 				.headers(AssignCase_Header.headers_9)
 				.check(status in(200, 304))
 			)
@@ -78,15 +78,15 @@ object  EXUI_AssignCase {
 					"""{
 						|    "sharedCases":
 						|    [
-						|        {"caseId":"${caseId}",
-						|        "caseTitle":"${caseId}",
+						|        {"caseId":"#{caseId}",
+						|        "caseTitle":"#{caseId}",
 						|        "caseTypeId":"CiVIL",
 						|        "pendingShares":
 						|        [
-						|            {"email":"${email}",
-						|            "firstName":"${firstName}",
-						|            "idamId":"${idamId}",
-						|            "lastName":"${lastName}"}
+						|            {"email":"#{email}",
+						|            "firstName":"#{firstName}",
+						|            "idamId":"#{idamId}",
+						|            "lastName":"#{lastName}"}
 						|        ],
 						|        "pendingUnshares":[]}
 						|    ]

@@ -7,7 +7,49 @@ object CivilDamagesHeader {
  
  //below are the headers
  
- 
+ val MoneyClaimNavHeader = Map(
+  "accept" -> "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+  "accept-encoding" -> "gzip, deflate, br",
+  "accept-language" -> "en-GB,en-US;q=0.9,en;q=0.8",
+  "content-type" -> "text/html; charset=utf-8",
+  "sec-fetch-dest" -> "document",
+  "sec-fetch-mode" -> "navigate",
+  "sec-fetch-site" -> "none"
+ )
+
+
+ val MoneyClaimPostHeader = Map(
+  "accept" -> "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+  "accept-encoding" -> "gzip, deflate, br",
+  "accept-language" -> "en-GB,en-US;q=0.9,en;q=0.8",
+  "content-type" -> "application/x-www-form-urlencoded",
+  "sec-fetch-dest" -> "document",
+  "sec-fetch-mode" -> "navigate",
+  "sec-fetch-site" -> "same-origin"
+ )
+
+
+ val MoneyClaimSubmitHeader = Map(
+  "accept" -> "application/vnd.uk.gov.hmcts.ccd-data-store-api.create-case.v2+json;charset=UTF-8",
+  "accept-encoding" -> "gzip, deflate, br",
+  "accept-language" -> "en-GB,en-US;q=0.9,en;q=0.8",
+  "content-type" -> "application/json",
+  "sec-fetch-dest" -> "empty",
+  "sec-fetch-mode" -> "cors",
+  "sec-fetch-site" -> "same-origin"
+ )
+
+ val MoneyClaimSignInHeader = Map(
+  "accept" -> "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+  "accept-encoding" -> "gzip, deflate, br",
+  "accept-language" -> "en-GB,en-US;q=0.9,en;q=0.8",
+  "content-type" -> "application/x-www-form-urlencoded",
+  "sec-fetch-dest" -> "document",
+  "sec-fetch-mode" -> "navigate",
+  "sec-fetch-site" -> "same-origin"
+ )
+
+
  val headers_149 = Map(
   "accept" -> "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-user-profile.v2+json;charset=UTF-8",
   "accept-encoding" -> "gzip, deflate, br",
@@ -435,7 +477,7 @@ object CivilDamagesHeader {
  val headers_672 = Map (
   "accept" -> "application/vnd.uk.gov.hmcts.ccd-data-store-api.create-case.v2+json;charset=UTF-8",
   "accept-encoding" -> "gzip, deflate, br",
-  "accept-language" -> "en-US,en;q=0.9",
+  "accept-language" -> "en-GB,en-US;q=0.9,en;q=0.8",
   "content-type" -> "application/json",
   "experimental" -> "true",
   "origin" -> baseURL,

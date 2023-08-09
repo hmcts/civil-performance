@@ -4,7 +4,21 @@ import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 
 object Environment {
-  
+
+  val httpConfig = scala.util.Properties.envOrElse("httpConfig", "http")
+  val baseURL = "https://manage-case.aat.platform.hmcts.net"
+  val baseDomain = scala.util.Properties.envOrElse("baseDomain", "manage-case.aat.platform.hmcts.net")
+  val PaymentURL = scala.util.Properties.envOrElse("paymentURL", "https://www.payments.service.gov.uk")
+  val idamURL = "https://idam-web-public.aat.platform.hmcts.net"
+  val idamAPIURL = "https://idam-api.aat.platform.hmcts.net"
+  val exuiDomain="manage-case.aat.platform.hmcts.net"
+  val manageOrgURL = "https://manage-org.aat.platform.hmcts.net"
+  val manageOrgDomain = "manage-org.aat.platform.hmcts.net"
+  val idamCookieName="SESSION_ID"
+  val HttpProtocol = http
+
+
+/*
   val httpConfig = scala.util.Properties.envOrElse("httpConfig", "http")
   val baseURL = "https://manage-case.demo.platform.hmcts.net"
   val baseDomain = scala.util.Properties.envOrElse("baseDomain", "manage-case.demo.platform.hmcts.net")
@@ -16,6 +30,8 @@ object Environment {
   val manageOrgDomain = "manage-org.demo.platform.hmcts.net"
   val idamCookieName="SESSION_ID"
   val HttpProtocol = http
+
+ */
   
   val minThinkTime = 10//20
   val maxThinkTime = 10//20

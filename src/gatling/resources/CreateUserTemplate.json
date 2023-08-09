@@ -1,11 +1,11 @@
 {
-  "email":"${emailAddress}",
+  "email":"#{emailAddress}",
   "forename":"SSCSPerfTest",
   "id":"SSCS SYA Citizen",
-  "password":"${password}",
+  "password":"#{password}",
   "roles":[
     {
-      "code":"${role}"
+      "code":"#{role}"
     }
   ],
   "surname":"Citizen"

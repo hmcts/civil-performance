@@ -42,12 +42,12 @@ object Common {
   }
 
 
- def getDay(): String = {
-    (1 + rnd.nextInt(28)).toString
+  def getDay(): String = {
+    (1 + rnd.nextInt(28)).toString.format(patternDay).reverse.padTo(2, '0').reverse //pads single-digit dates with a leading zero
   }
 
   def getMonth(): String = {
-    (1 + rnd.nextInt(12)).toString
+    (1 + rnd.nextInt(12)).toString.format(patternMonth).reverse.padTo(2, '0').reverse //pads single-digit dates with a leading zero
   }
   /*
   def getDay(): String = {
@@ -76,11 +76,12 @@ object Common {
   }
   
   //Reference Date = 5 years and 6 months before the current date in the format 8 May 2016
- 
+
   //Date of Birth >= 35 years
-  def getDobYear (): String = {
-    now.minusYears(35 + rnd.nextInt(70)).format(patternYear)
+  def getDobYear(): String = {
+    now.minusYears(25 + rnd.nextInt(70)).format(patternYear)
   }
+
   
   //Date of Birth <= 18 years
   def getDobYearChild (): String = {
@@ -110,7 +111,7 @@ object Common {
         .get("/api/addresses?postcode=${postcode}")
         .headers(Headers.commonHeader)
         .header("accept", "application/json")
-        .check(jsonPath("$.header.totalresults").ofType[Int].gt(0))
+        .check(jsonPath("#.header.totalresults").ofType[Int].gt(0))
         .check(regex(""""(?:BUILDING|ORGANISATION)_.+" : "(.+?)",(?s).*?"(?:DEPENDENT_LOCALITY|THOROUGHFARE_NAME)" : "(.+?)",.*?"POST_TOWN" : "(.+?)",.*?"POSTCODE" : "(.+?)"""")
           .ofType[(String, String, String, String)].findRandom.saveAs("addressLines")))
   

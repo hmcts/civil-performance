@@ -13,23 +13,40 @@ object CUIClaimCreation {
   val IdAMURL = Environment.idamURL
   val MinThinkTime = Environment.minThinkTime
   val MaxThinkTime = Environment.maxThinkTime
+  val postcodeFeeder = csv("postcodes.csv").random
   
   //def run(implicit postHeaders: Map[String, String]): ChainBuilder = {
   /*======================================================================================
                * Below run is for create Civil claim for specified category
     ==========================================================================================*/
   val run =
-    exec(_.setAll("Idempotencynumber" -> (Common.getIdempotency())
-    ))
+
       //val createclaim =
       /*======================================================================================
                    *   Civil UI Claim - Initiate Claim
         ==========================================================================================*/
-      .group("CUI_CreateClaim_030_CreateCase") {
-        exec(http("CUI_CreateClaim_030_005_CreateCase")
+      group("CUI_CreateClaim_030_CreateCase") {
+
+
+        exec(_.setAll(
+          "Idempotencynumber" -> (Common.getIdempotency()),
+            "randomString" -> (Common.randomString(7)),
+            "applicantFirstName" -> ("First" + Common.randomString(5)),
+            "applicantLastName" -> ("Last" + Common.randomString(5)),
+            "applicantFirstName" -> ("App2" + Common.randomString(5)),
+            "applicantLastName" -> ("Test" + Common.randomString(5)),
+            "birthDay" -> Common.getDay(),
+            "birthMonth" -> Common.getMonth(),
+            "birthYear" -> Common.getYear(),
+            "Idempotencynumber" -> Common.getIdempotency())
+        )
+
+
+        .exec(http("CUI_CreateClaim_030_005_CreateCase")
           .get("/aggregated/caseworkers/:uid/jurisdictions?access=create")
           .headers(CivilDamagesHeader.headers_104)
           .check(status.in(200, 304))
+          .check(substring("CREATE_CLAIM_SPEC"))
         ).exitHereIfFailed
       }
       .pause(MinThinkTime, MaxThinkTime)
@@ -42,6 +59,7 @@ object CUIClaimCreation {
           .get("/data/internal/case-types/CIVIL/event-triggers/CREATE_CLAIM_SPEC?ignore-warning=false")
           .headers(CivilDamagesHeader.headers_140)
           .check(status.is(200))
+          .check(substring("Legal representatives: specified civil money claims service"))
           .check(jsonPath("$.event_token").optional.saveAs("event_token"))
         )
           .pause(MinThinkTime, MaxThinkTime)
@@ -56,6 +74,7 @@ object CUIClaimCreation {
           .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIM_SPECCheckList")
           .headers(CivilDamagesHeader.headers_163)
           .body(ElFileBody("bodies/cuiclaim/CUICreateClaim-BeforeStart.json"))
+          .check(substring("SPECCheckList"))
           .check(status.in(200, 304))
         )
       }
@@ -69,6 +88,7 @@ object CUIClaimCreation {
           .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIM_SPECEligibility")
           .headers(CivilDamagesHeader.headers_163)
           .body(ElFileBody("bodies/cuiclaim/CivilCreateClaim-Eligibility.json"))
+          .check(substring("CREATE_CLAIM_SPECEligibility"))
           .check(status.in(200, 304))
         )
       }
@@ -82,6 +102,7 @@ object CUIClaimCreation {
           .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIM_SPECReferences")
           .headers(CivilDamagesHeader.headers_192)
           .body(ElFileBody("bodies/cuiclaim/CivilCreateClaim-References.json"))
+          .check(substring("CREATE_CLAIM_SPECReferences"))
           .check(status.in(200, 304))
         )
       }
@@ -113,10 +134,12 @@ object CUIClaimCreation {
                    * Civil UI Claim - Claim Claimant
         ==========================================================================================*/
       .group("CUI_CreateClaim_080_CLAIMClaimant") {
-        exec(http("CUI_CreateClaim_080_005_Claimant")
+        feed(postcodeFeeder)
+        .exec(http("CUI_CreateClaim_080_005_Claimant")
           .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIM_SPECClaimant")
           .headers(CivilDamagesHeader.headers_258)
           .body(ElFileBody("bodies/cuiclaim/CivilCreateClaim-Claimant.json"))
+          .check(substring("CREATE_CLAIM_SPECClaimant"))
           .check(status.in(200, 304))
         )
       }
@@ -131,6 +154,7 @@ object CUIClaimCreation {
           .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIM_SPECAddAnotherClaimant")
           .headers(CivilDamagesHeader.headers_347)
           .body(ElFileBody("bodies/cuiclaim/CivilCreateClaim-AddAnotherClaim.json"))
+          .check(substring("CREATE_CLAIM_SPECAddAnotherClaimant"))
           .check(status.in(200, 304))
         )
       }
@@ -145,6 +169,7 @@ object CUIClaimCreation {
           .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIM_SPECNotifications")
           .headers(CivilDamagesHeader.headers_295)
           .body(ElFileBody("bodies/cuiclaim/CivilCreateClaim-Notifications.json"))
+          .check(substring("CREATE_CLAIM_SPECNotifications"))
           .check(status.in(200, 304))
         )
           
@@ -203,6 +228,7 @@ object CUIClaimCreation {
           .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIM_SPECClaimantSolicitorOrganisation")
           .headers(CivilDamagesHeader.headers_347)
           .body(ElFileBody("bodies/cuiclaim/CivilCreateClaim-Organisation.json"))
+          .check(substring("CREATE_CLAIM_SPECClaimantSolicitorOrganisation"))
           .check(status.in(200, 304))
         )
       }
@@ -226,6 +252,7 @@ object CUIClaimCreation {
           .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIM_SPECspecCorrespondenceAddress")
           .headers(CivilDamagesHeader.headers_347)
           .body(ElFileBody("bodies/cuiclaim/CivilCreateClaim-Correspondance.json"))
+          .check(substring("CREATE_CLAIM_SPECspecCorrespondenceAddress"))
           .check(status.in(200, 304))
         )
       }
@@ -261,6 +288,7 @@ object CUIClaimCreation {
           .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIM_SPECDefendant")
           .headers(CivilDamagesHeader.headers_394)
           .body(ElFileBody("bodies/cuiclaim/CivilCreateClaim-DefDetails.json"))
+          .check(substring("CREATE_CLAIM_SPECDefendant"))
           .check(status.in(200, 304))
         )
       }
@@ -275,6 +303,7 @@ object CUIClaimCreation {
           .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIM_SPECLegalRepresentation")
           .headers(CivilDamagesHeader.headers_413)
           .body(ElFileBody("bodies//cuiclaim/CivilCreateClaim-DefRep.json"))
+          .check(substring("CREATE_CLAIM_SPECLegalRepresentation"))
           .check(status.in(200, 304))
         )
       }
@@ -357,6 +386,7 @@ object CUIClaimCreation {
           .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIM_SPECAddAnotherDefendant")
           .headers(CivilDamagesHeader.headers_491)
           .body(ElFileBody("bodies/cuiclaim/CivilCreateClaim-AddAnotherDef.json"))
+          .check(substring("CREATE_CLAIM_SPECAddAnotherDefendant"))
           .check(status.in(200, 304))
         )
       }
@@ -384,7 +414,33 @@ object CUIClaimCreation {
         )
       }
       .pause(MinThinkTime, MaxThinkTime)*/
-      
+
+
+      /*======================================================================================
+                   * Civil UI Claim - Upload Evidence
+        ==========================================================================================*/
+
+    /*  .group("CUI_CreateClaim_155_Upload") {
+        exec(http("CUI_CreateClaim_155_Upload")
+          .post(BaseURL + "/documents")
+          .headers(Headers.commonHeader)
+          .headers(Headers.postHeader)
+          .header("accept", "application/json")
+          .header("content-type", "multipart/form-data; boundary=----WebKitFormBoundaryGPNRb3mRRAhkFBRV")
+          .header("sec-fetch-dest", "empty")
+          .header("sec-fetch-mode", "cors")
+          .bodyPart(RawFileBodyPart("files[]", "2MB.pdf")
+            .fileName("2MB.pdf")
+            .transferEncoding("binary"))
+          .asMultipartForm
+        //  .check(jsonPath("$[0].id").saveAs("Document_ID"))
+          .check(substring("2MB.pdf")))
+      }
+      .pause(MinThinkTime, MaxThinkTime)
+
+     */
+
+
       // val createclaimdetail =
       /*======================================================================================
                    * Civil UI Claim - Claim Details
@@ -393,7 +449,8 @@ object CUIClaimCreation {
         exec(http("CUI_CreateClaim_160_005_Details")
           .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIM_SPECDetails")
           .headers(CivilDamagesHeader.headers_534)
-          .body(ElFileBody("bodies/cuiclaim/CivilCreateClaim-claimdetails.json"))
+          .body(ElFileBody("bodies/cuiclaim/CivilCreateClaim-claimdetails.json"))//skipped upload
+          .check(substring("CREATE_CLAIM_SPECDetails"))
           .check(status.in(200, 304))
         )
       }
@@ -409,6 +466,7 @@ object CUIClaimCreation {
           .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIM_SPECUploadClaimDocument")
           .headers(CivilDamagesHeader.headers_534)
           .body(ElFileBody("bodies/cuiclaim/CivilCreateClaim-ClaimDocs.json"))
+          .check(substring("CREATE_CLAIM_SPECUploadClaimDocument"))
           .check(status.in(200, 304)))
       }
       .pause(MinThinkTime, MaxThinkTime)
@@ -424,6 +482,7 @@ object CUIClaimCreation {
           .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIM_SPECClaimTimeline")
           .headers(CivilDamagesHeader.headers_534)
           .body(ElFileBody("bodies/cuiclaim/CivilCreateClaim-ClaimTimeline.json"))
+          .check(substring("CREATE_CLAIM_SPECClaimTimeline"))
           .check(status.in(200, 304)))
       }
       .pause(MinThinkTime, MaxThinkTime)
@@ -439,6 +498,7 @@ object CUIClaimCreation {
           .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIM_SPECEvidenceList")
           .headers(CivilDamagesHeader.headers_534)
           .body(ElFileBody("bodies/cuiclaim/CivilCreateClaim-EvidenceList.json"))
+          .check(substring("CREATE_CLAIM_SPECEvidenceList"))
           .check(status.in(200, 304)))
       }
       .pause(MinThinkTime, MaxThinkTime)
@@ -456,6 +516,10 @@ object CUIClaimCreation {
           .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIM_SPECClaimAmount")
           .headers(CivilDamagesHeader.headers_595)
           .body(ElFileBody("bodies/cuiclaim/CivilCreateClaim-ClaimAmount.json"))
+          .check(substring("CREATE_CLAIM_SPECClaimAmount"))
+          .check(jsonPath("$.data.claimAmountBreakup[0].id").saveAs("claimAmountBreakupId"))
+          .check(jsonPath("$.data.speclistYourEvidenceList[0].id").saveAs("speclistYourEvidenceListId"))
+          .check(jsonPath("$.data.timelineOfEvents[0].id").saveAs("timelineOfEventsId"))
           .check(status.in(200, 304))
         )
       }
@@ -470,6 +534,7 @@ object CUIClaimCreation {
           .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIM_SPECClaimAmountDetails")
           .headers(CivilDamagesHeader.headers_595)
           .body(ElFileBody("bodies/cuiclaim/CivilCreateClaim-ClaimAmountDetails.json"))
+          .check(substring("CREATE_CLAIM_SPECClaimAmountDetails"))
           .check(status.in(200, 304))
         )
       }
@@ -485,6 +550,7 @@ object CUIClaimCreation {
           .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIM_SPECClaimInterest")
           .headers(CivilDamagesHeader.headers_595)
           .body(ElFileBody("bodies/cuiclaim/CivilCreateClaim-ClaimInterest.json"))
+          .check(substring("CREATE_CLAIM_SPECClaimInterest"))
           .check(status.in(200, 304))
         )
       }
@@ -499,6 +565,10 @@ object CUIClaimCreation {
           .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIM_SPECInterestSummary")
           .headers(CivilDamagesHeader.headers_595)
           .body(ElFileBody("bodies/cuiclaim/CivilCreateClaim-ClaimInterestSummary.json"))
+          .check(jsonPath("$.data.claimFee.calculatedAmountInPence").saveAs("calculatedAmountInPence"))
+          .check(jsonPath("$.data.claimFee.code").saveAs("claimFeeCode"))
+          .check(jsonPath("$.data.claimFee.version").saveAs("version"))
+          .check(substring("CREATE_CLAIM_SPECInterestSummary"))
           .check(status.in(200, 304))
         )
       }
@@ -514,6 +584,7 @@ object CUIClaimCreation {
           .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIM_SPECPbaNumber")
           .headers(CivilDamagesHeader.headers_610)
           .body(ElFileBody("bodies/cuiclaim/CivilCreateClaim-PbaNumber.json"))
+          .check(substring("CREATE_CLAIM_SPECPbaNumber"))
           .check(status.in(200, 304))
         )
       }
@@ -528,6 +599,7 @@ object CUIClaimCreation {
           .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIM_SPECStatementOfTruth")
           .headers(CivilDamagesHeader.headers_650)
           .body(ElFileBody("bodies/cuiclaim/CivilCreateClaim-SOT.json"))
+          .check(substring("CREATE_CLAIM_SPECStatementOfTruth"))
           .check(status.in(200, 304))
         )
           .exec(http("CUI_CreateClaim_280_010_CaseShareOrgs")
@@ -544,8 +616,8 @@ object CUIClaimCreation {
       .group("CUI_CreateClaim_260_SubmitClaim") {
         
         exec(http("CUI_CreateClaim_260_005_Submit")
-          .post("/data/case-types/CIVIL/cases?ignore-warning=false")
-          .headers(CivilDamagesHeader.headers_672)
+          .post(BaseURL + "/data/case-types/CIVIL/cases?ignore-warning=false")
+          .headers(CivilDamagesHeader.MoneyClaimSubmitHeader)
           .body(ElFileBody("bodies/cuiclaim/CivilCreateClaim-Submit.json"))
           .check(jsonPath("$.event_token").optional.saveAs("event_token_claimcreate"))
           .check(jsonPath("$.id").optional.saveAs("caseId"))
@@ -594,7 +666,7 @@ object CUIClaimCreation {
       )
     }
       
-      
+      // https://manage-case.perftest.platform.hmcts.net/payments/pba-accounts?????
       /*======================================================================================
             * Click On pay from Service Page
        ==========================================================================================*/
@@ -633,6 +705,7 @@ object CUIClaimCreation {
           .post("/payments/service-request/#{serviceRef}/pba-payments")
           .headers(Headers.commonHeader)
           .body(ElFileBody("bodies/cuiclaim/CivilCreateClaim-PBAPayment.json"))
+          .check(substring("success"))
           .check(status.in(200, 201, 304))
         )
       }
