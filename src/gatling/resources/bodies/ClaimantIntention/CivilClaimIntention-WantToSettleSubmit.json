@@ -1,0 +1,97 @@
+{
+  "data": {
+    "applicant1": {
+      "partyID": "#{partyIDApp}",
+      "type": "INDIVIDUAL",
+      "individualFirstName": "#{randomString}First",
+      "individualLastName": "#{randomString}Last",
+      "individualDateOfBirth": "#{birthYear}-#{birthMonth}-#{birthDay}",
+      "primaryAddress": {
+        "AddressLine1": "#{randomString}Address1",
+        "PostTown": "#{randomString}Town",
+        "Country": "United Kingdom",
+        "PostCode": "#{postcode}"
+      },
+      "partyName": "mr #{randomString}First #{randomString}Last",
+      "partyTypeDisplayValue": "Individual",
+      "flags": {
+        "partyName": "mr #{randomString}First #{randomString}Last",
+        "roleOnCase": "Applicant 1"
+      },
+      "unavailableDates": null
+    },
+    "respondent1": {
+      "type": "INDIVIDUAL",
+      "individualFirstName": "#{randomString}Respondent",
+      "individualLastName": "#{randomString}LastRespond",
+      "individualDateOfBirth": "#{birthYear}-#{birthMonth}-#{birthDay}",
+      "primaryAddress": {
+        "AddressLine1": "#{randomString}Address1",
+        "AddressLine2": "",
+        "AddressLine3": "",
+        "PostTown": "#{randomString}Town",
+        "PostCode": "#{postcode}"
+      },
+      "partyName": "mr #{randomString}Respondent #{randomString}LastRespond",
+      "partyTypeDisplayValue": "Individual",
+      "partyEmail": "civilmoneyclaimsdemo@gmail.com",
+      "partyPhone": "01234567890",
+      "unavailableDates": null,
+      "flags": null
+    },
+    "respondent2": null,
+    "partAdmitPaidValuePounds": null,
+    "claimantResponseScenarioFlag": "ONE_V_ONE",
+    "respondToAdmittedClaimOwingAmountPounds": "10",
+    "respondent1PaymentDateToStringSpec": "14 August 2023",
+    "respondent1GeneratedResponseDocument": {
+      "documentLink": {
+        "document_url": "http://dm-store-perftest.service.core-compute-perftest.internal/documents/219192b4-fd0a-4510-9ce6-6d44d5270d4f",
+        "document_binary_url": "http://dm-store-perftest.service.core-compute-perftest.internal/documents/219192b4-fd0a-4510-9ce6-6d44d5270d4f/binary",
+        "document_filename": "defendant_directions_questionnaire_form_043MC523.pdf"
+      },
+      "documentName": null,
+      "documentType": null,
+      "documentSize": null,
+      "createdDatetime": null,
+      "createdBy": null
+    },
+    "respondent1ClaimResponseDocumentSpec": {
+      "documentLink": {
+        "document_url": "#{document_url}",
+        "document_binary_url": "#{document_url}/binary",
+        "document_filename": "#{document_filename}"
+      },
+      "documentName": "#{document_filename}",
+      "documentType": "DEFENDANT_DEFENCE",
+      "documentSize": "#{documentSize}",
+      "createdDatetime": "#{createdDatetime}",
+      "createdBy": "Civil"
+    },
+    "respondent2GeneratedResponseDocument": null,
+    "applicant1ProceedWithClaim": null,
+    "applicant1PartAdmitConfirmAmountPaidSpec": null,
+    "applicant1AcceptAdmitAmountPaidSpec": "Yes",
+    "applicant1AcceptPartAdmitPaymentPlanSpec": null,
+    "applicant1AcceptFullAdmitPaymentPlanSpec": null,
+    "applicantDefenceResponseDocumentAndDQFlag": null,
+    "showConditionFlags": null,
+    "applicant1ProceedWithClaimSpec2v1": null,
+    "responseClaimTrack": "SMALL_CLAIM",
+    "allocatedTrack": null,
+    "claimType": null,
+    "defenceRouteRequired": null,
+    "respondentResponseIsSame": null,
+    "defendantSingleResponseToBothClaimants": null,
+    "respondent1ClaimResponseTypeForSpec": "PART_ADMISSION",
+    "defenceAdmitPartPaymentTimeRouteRequired": "IMMEDIATELY",
+    "showResponseOneVOneFlag": "ONE_V_ONE_PART_ADMIT_PAY_IMMEDIATELY"
+  },
+  "event": {
+    "id": "CLAIMANT_RESPONSE_SPEC",
+    "summary": "",
+    "description": ""
+  },
+  "event_token": "#{event_token}",
+  "ignore_warning": false
+}

@@ -1,0 +1,144 @@
+{
+  "data": {
+    "applicant1": {
+      "partyID": "#{partyIDApp}",
+      "type": "INDIVIDUAL",
+      "individualFirstName": "#{randomString}First",
+      "individualLastName": "#{randomString}Last",
+      "individualDateOfBirth": "#{birthYear}-#{birthMonth}-#{birthDay}",
+      "primaryAddress": {
+        "AddressLine1": "#{randomString}Address1",
+        "PostTown": "#{randomString}Town",
+        "Country": "United Kingdom",
+        "PostCode": "#{postcode}"
+      },
+      "partyName": "mr #{randomString}First #{randomString}Last",
+      "partyTypeDisplayValue": "Individual",
+      "flags": {
+        "partyName": "mr #{randomString}First #{randomString}Last",
+        "roleOnCase": "Applicant 1"
+      }
+    },
+    "respondent1": {
+      "type": "INDIVIDUAL",
+      "individualFirstName": "#{randomString}Respondent",
+      "individualLastName": "#{randomString}LastRespond",
+      "individualDateOfBirth": "#{birthYear}-#{birthMonth}-#{birthDay}",
+      "primaryAddress": {
+        "AddressLine1": "#{randomString}Address1",
+        "AddressLine2": "",
+        "AddressLine3": "",
+        "PostTown": "#{randomString}Town",
+        "PostCode": "#{postcode}"
+      },
+      "partyName": "mr #{randomString}Respondent #{randomString}LastRespond",
+      "partyTypeDisplayValue": "Individual",
+      "partyEmail": "civilmoneyclaimsdemo@gmail.com",
+      "partyPhone": "01234567890"
+    },
+    "partAdmitPaidValuePounds": null,
+    "respondent2": null,
+    "claimantResponseScenarioFlag": "ONE_V_ONE",
+    "respondToAdmittedClaimOwingAmountPounds": "10",
+    "respondent1PaymentDateToStringSpec": "#{respondent1PaymentDate}",
+    "respondent1ClaimResponseDocumentSpec": {
+      "documentLink": {
+        "document_url": "#{document_url}",
+        "document_binary_url": "#{document_url}/binary",
+        "document_filename": "#{document_filename}"
+      },
+      "documentName": "#{document_filename}",
+      "documentType": "DEFENDANT_DEFENCE",
+      "documentSize": "#{documentSize}",
+      "createdDatetime": "#{createdDatetime}",
+      "createdBy": "Civil"
+    },
+    "applicant1AcceptAdmitAmountPaidSpec": "Yes",
+    "applicantDefenceResponseDocumentAndDQFlag": null,
+    "showConditionFlags": null,
+    "responseClaimTrack": "SMALL_CLAIM",
+    "allocatedTrack": null,
+    "claimType": null,
+    "defenceRouteRequired": null,
+    "respondentResponseIsSame": null,
+    "defendantSingleResponseToBothClaimants": null,
+    "respondent1ClaimResponseTypeForSpec": "PART_ADMISSION",
+    "defenceAdmitPartPaymentTimeRouteRequired": "IMMEDIATELY",
+    "showResponseOneVOneFlag": "ONE_V_ONE_PART_ADMIT_PAY_IMMEDIATELY"
+  },
+  "event": {
+    "id": "CLAIMANT_RESPONSE_SPEC",
+    "summary": "",
+    "description": ""
+  },
+  "event_data": {
+    "applicant1": {
+      "partyID": "#{partyIDApp}",
+      "type": "INDIVIDUAL",
+      "individualFirstName": "#{randomString}First",
+      "individualLastName": "#{randomString}Last",
+      "individualDateOfBirth": "#{birthYear}-#{birthMonth}-#{birthDay}",
+      "primaryAddress": {
+        "AddressLine1": "#{randomString}Address1",
+        "PostTown": "#{randomString}Town",
+        "Country": "United Kingdom",
+        "PostCode": "#{postcode}"
+      },
+      "partyName": "mr #{randomString}First #{randomString}Last",
+      "partyTypeDisplayValue": "Individual",
+      "flags": {
+        "partyName": "mr #{randomString}First #{randomString}Last",
+        "roleOnCase": "Applicant 1"
+      }
+    },
+    "respondent1": {
+      "type": "INDIVIDUAL",
+      "individualFirstName": "#{randomString}Respondent",
+      "individualLastName": "#{randomString}LastRespond",
+      "individualDateOfBirth": "#{birthYear}-#{birthMonth}-#{birthDay}",
+      "primaryAddress": {
+        "AddressLine1": "#{randomString}Address1",
+        "AddressLine2": "",
+        "AddressLine3": "",
+        "PostTown": "#{randomString}Town",
+        "PostCode": "#{postcode}"
+      },
+      "partyName": "mr #{randomString}Respondent #{randomString}LastRespond",
+      "partyTypeDisplayValue": "Individual",
+      "partyEmail": "civilmoneyclaimsdemo@gmail.com",
+      "partyPhone": "01234567890"
+    },
+    "partAdmitPaidValuePounds": null,
+    "respondent2": null,
+    "claimantResponseScenarioFlag": "ONE_V_ONE",
+    "respondToAdmittedClaimOwingAmountPounds": "10",
+    "respondent1PaymentDateToStringSpec": "#{respondent1PaymentDate}",
+    "respondent1ClaimResponseDocumentSpec": {
+      "documentLink": {
+        "document_url": "#{document_url}",
+        "document_binary_url": "#{document_url}/binary",
+        "document_filename": "#{document_filename}"
+      },
+      "documentName": "#{document_filename}",
+      "documentType": "DEFENDANT_DEFENCE",
+      "documentSize": "#{documentSize}",
+      "createdDatetime": "#{createdDatetime}",
+      "createdBy": "Civil"
+    },
+    "applicant1AcceptAdmitAmountPaidSpec": "Yes",
+    "applicantDefenceResponseDocumentAndDQFlag": null,
+    "showConditionFlags": null,
+    "responseClaimTrack": "SMALL_CLAIM",
+    "allocatedTrack": null,
+    "claimType": null,
+    "defenceRouteRequired": null,
+    "respondentResponseIsSame": null,
+    "defendantSingleResponseToBothClaimants": null,
+    "respondent1ClaimResponseTypeForSpec": "PART_ADMISSION",
+    "defenceAdmitPartPaymentTimeRouteRequired": "IMMEDIATELY",
+    "showResponseOneVOneFlag": "ONE_V_ONE_PART_ADMIT_PAY_IMMEDIATELY"
+  },
+  "event_token": "#{event_token}",
+  "ignore_warning": false,
+  "case_reference": "#{caseId}"
+}

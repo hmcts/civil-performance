@@ -15,7 +15,7 @@
       "soleTraderTradingAs": null,
       "partyEmail": "#{randomString}@gmail.com",
       "partyPhone": "+447540612047",
-      "individualDateOfBirth": "2000-01-01",
+      "individualDateOfBirth": "#{birthYear}-#{birthMonth}-#{birthDay}",
       "soleTraderDateOfBirth": null,
       "partyName": "mr #{randomString}First #{randomString}Last",
       "partyTypeDisplayValue": "Individual",
