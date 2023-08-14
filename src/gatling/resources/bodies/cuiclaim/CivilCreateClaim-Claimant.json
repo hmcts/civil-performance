@@ -9,7 +9,7 @@
       "partyEmail": "#{randomString}@gmail.com",
       "partyPhone": "+447540612047",
       "individualDateOfBirth": "#{birthYear}-#{birthMonth}-#{birthDay}",
-      "partyName": null,
+      "partyName": "mr #{randomString}First #{randomString}Last",
       "partyTypeDisplayValue": null,
       "partyID": null,
       "primaryAddress": {
@@ -38,7 +38,7 @@
       "partyEmail": "#{randomString}@gmail.com",
       "partyPhone": "+447540612047",
       "individualDateOfBirth": "#{birthYear}-#{birthMonth}-#{birthDay}",
-      "partyName": null,
+      "partyName": "mr #{randomString}First #{randomString}Last",
       "partyTypeDisplayValue": null,
       "partyID": null,
       "primaryAddress": {

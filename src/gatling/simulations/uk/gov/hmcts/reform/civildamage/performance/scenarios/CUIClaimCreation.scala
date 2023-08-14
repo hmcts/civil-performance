@@ -144,6 +144,8 @@ object CUIClaimCreation {
         )
       }
       .pause(MinThinkTime, MaxThinkTime)
+
+
       /*======================================================================================
                    *Civil UI Claim - Claim Claimant Add Another Claimant
         ==========================================================================================*/

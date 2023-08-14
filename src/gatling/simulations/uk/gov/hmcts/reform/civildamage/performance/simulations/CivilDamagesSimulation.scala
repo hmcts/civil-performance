@@ -66,7 +66,7 @@ class CivilDamagesSimulation extends Simulation {
 	
 	val CivilClaimsScenario = scenario("Create Civil damage")
 		.feed(loginFeeder).feed(sharecaseusersfeed)
-		.exitBlockOnFail {
+	//	.exitBlockOnFail {
 			exec(Homepage.XUIHomePage)
 				.exec(Login.XUILogin)
 				.exec(ClaimCreation.run)
@@ -74,7 +74,7 @@ class CivilDamagesSimulation extends Simulation {
 				//.exec(ClaimDetailNotifications.run)
 				//	.pause(50)
 				.exec(Logout.XUILogout)
-		}
+	//	}
 	
 	
 	val CivilUIScenario = scenario("Create Civil UI Case")
@@ -199,8 +199,8 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 	
 	setUp(
 		//CivilClaimsScenario.inject(nothingFor(1),rampUsers(300) during (3600))
-		//	CivilUIScenario.inject(nothingFor(1),rampUsers(1) during (1))
-				CivilDamageScenario.inject(nothingFor(1.minutes),rampUsers(1) during (12.minutes))
+			CivilUIScenario.inject(nothingFor(1),rampUsers(1) during (1))
+			//	CivilDamageScenario.inject(nothingFor(1.minutes),rampUsers(1) during (12.minutes))
 ).protocols(httpProtocol)
 
 
