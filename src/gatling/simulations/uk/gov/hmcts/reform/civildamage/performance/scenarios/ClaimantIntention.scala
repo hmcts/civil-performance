@@ -126,7 +126,7 @@ object ClaimantIntention {
       exec(http("CUI_ClaimIntent_050_005_WantSettleSubmit")
         .post(BaseURL + "/data/cases/#{caseId}/events")
         .headers(CivilDamagesHeader.headers_intentsubmit)
-        .body(ElFileBody("bodies/Claimantintention/CivilClaimIntention-WantToSettleSubmit.json"))
+        .body(ElFileBody("bodies/ClaimantIntention/CivilClaimIntention-WantToSettle.json"))
         .check(status.in(200,201,304))
       //  .check(substring("CLAIMANT_RESPONSE_SPECRespondentResponse"))
       )
