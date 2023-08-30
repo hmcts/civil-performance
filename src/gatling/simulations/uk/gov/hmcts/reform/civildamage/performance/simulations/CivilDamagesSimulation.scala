@@ -8,6 +8,7 @@ import io.gatling.core.controller.inject.open.OpenInjectionStep
 
 import scala.swing.event.Key.Home
 import io.gatling.core.pause.PauseType
+import io.gatling.http
 
 import scala.concurrent.duration.DurationInt
 
@@ -16,16 +17,26 @@ class CivilDamagesSimulation extends Simulation {
   
   val BaseURL = Environment.baseURL
   val loginFeeder = csv("login.csv").circular
-	val sharecaseusersfeed=csv("sharecaseusers.csv").random
+	val defresponsecasesFeeder=csv("caseIds.csv").circular
+	
   val httpProtocol = Environment.HttpProtocol
     .baseUrl(BaseURL)
-    //.doNotTrackHeader("1")
-    //.inferHtmlResources()
-    //.silentResources
+    .doNotTrackHeader("1")
+    .inferHtmlResources()
+    .silentResources
 	implicit val postHeaders: Map[String, String] = Map(
 		"Origin" -> BaseURL
 	)
-
+	
+	/*val httpProtocol = Environment.HttpProtocol
+		.baseUrl(Environment.baseURL.replace("${env}", s"${env}"))
+		.inferHtmlResources()
+		.silentResources
+		.header("experimental", "true") //used to send through client id, s2s and bearer tokens. Might be temporary*/
+	
+	/* TEST TYPE DEFINITION */
+	/* pipeline = nightly pipeline against the AAT environment (see the Jenkins_nightly file) */
+	/* perftest (default) = performance test against the perftest environment */
 	val testType = scala.util.Properties.envOrElse("TEST_TYPE", "perftest")
 
 	//set the environment based on the test type
@@ -39,18 +50,35 @@ class CivilDamagesSimulation extends Simulation {
 	val debugMode = System.getProperty("debug", "off") //runs a single user e.g. ./gradle gatlingRun -Ddebug=on (default: off)
 	val env = System.getProperty("env", environment) //manually override the environment aat|perftest e.g. ./gradle gatlingRun -Denv=aat
 	/* ******************************** */
-
+	
 	/* PERFORMANCE TEST CONFIGURATION */
-	val testDurationMins = 60
-	val numberOfPerformanceTestUsers: Double = 30
-	val numberOfPipelineUsers: Double = 10
-
+	val claimsTargetPerHour: Double = 2//90
+	val defResponseAndIntentTargetPerHour: Double = 1//20
+	
+	val rampUpDurationMins = 5
+	val rampDownDurationMins = 5
+	val  testDurationMins = 60
+	
+	val numberOfPipelineUsers = 5
 	val pipelinePausesMillis: Long = 3000 //3 seconds
 
-
+	
+	//Determine the pause pattern to use:
+	//Performance test = use the pauses defined in the scripts
+	//Pipeline = override pauses in the script with a fixed value (pipelinePauseMillis)
+	//Debug mode = disable all pauses
 	val pauseOption: PauseType = debugMode match {
-		case "off" => constantPauses
+		case "off" if testType == "perftest" => constantPauses
+		case "off" if testType == "pipeline" => customPauses(pipelinePausesMillis)
 		case _ => disabledPauses
+	}
+	
+	
+	
+	before {
+		println(s"Test Type: ${testType}")
+		println(s"Test Environment: ${env}")
+		println(s"Debug Mode: ${debugMode}")
 	}
   
   
@@ -64,37 +92,39 @@ class CivilDamagesSimulation extends Simulation {
   //below scenario is to generate claims data for GA process
 	
 	
-	val CivilClaimsScenario = scenario("Create Civil damage")
-		.feed(loginFeeder).feed(sharecaseusersfeed)
-	//	.exitBlockOnFail {
-			exec(Homepage.XUIHomePage)
-				.exec(Login.XUILogin)
-				.exec(ClaimCreation.run)
-				.pause(50)
-				//.exec(ClaimDetailNotifications.run)
-				//	.pause(50)
-				.exec(Logout.XUILogout)
-	//	}
 	
-	
-	val CivilUIScenario = scenario("Create Civil UI Case")
-		.feed(loginFeeder).feed(sharecaseusersfeed)
+	val CivilUIClaimCreationScenario = scenario("Create Civil UI Claim")
+		.feed(loginFeeder)
 		.exitBlockOnFail {
-			
+			//CUI claim creation
 			exec(Homepage.XUIHomePage)
 				.exec(Login.XUILogin)
 				.exec(CUIClaimCreation.run)
+				// PBS payment
 				.exec(CUIClaimCreation.PBSPayment)
 				.pause(50)
-				//.exec(ClaimDetailNotifications.run)
-				//	.pause(50)
+			
+				//Assign the claimant cse to defendant
+			//	.exec(CivilAssignCase.cuiassign)
+				//.pause(20)
 				.exec(Logout.XUILogout)
 		}
-		.exec {
-			session =>
-				println(session)
-				session
+	
+	val CivilUIDefAndIntentScenario = scenario(" Civil UI Case Def and Intent")
+		.feed(loginFeeder).feed(defresponsecasesFeeder)
+		.exitBlockOnFail {
+				//Defendant response
+				exec(DefendantResponse.run)
+					.pause(20)
+			//claimant intention
+				 .exec(Homepage.XUIHomePage)
+				.exec(Login.XUILogin)
+				.exec(ClaimantIntention.claimantintention)
+					.pause(20)
+				.exec(Logout.XUILogout)
 		}
+		
+		
 	
 	
 	
@@ -133,12 +163,12 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 		
 		.exitBlockOnFail {
 			
-			exec(CivilAssignCase.run)
+			exec(CivilAssignCase.cuiassign)
 			
 		}
 
 	val CivilDamageScenario = scenario("Create Civil damage")
-		.feed(loginFeeder).feed(sharecaseusersfeed)
+		.feed(loginFeeder).feed(defresponsecasesFeeder)
 		.exec(EXUIMCLogin.manageCasesHomePage)
 		.exec(EXUIMCLogin.manageCaseslogin)
 		.exec(ClaimCreation.run)
@@ -197,11 +227,19 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 	}
 	
 	
-	setUp(
+/*	setUp(
 		//CivilClaimsScenario.inject(nothingFor(1),rampUsers(300) during (3600))
-			CivilUIScenario.inject(nothingFor(1),rampUsers(1) during (1))
+		CivilUIClaimCreationScenario.inject(nothingFor(1),rampUsers(90) during (3600)),
+			CivilUIDefAndIntentScenario.inject(nothingFor(1),rampUsers(20) during (3600))
+				//CivilAssignScenario.inject(nothingFor(1),rampUsers(1) during (1))
+				
 			//	CivilDamageScenario.inject(nothingFor(1.minutes),rampUsers(1) during (12.minutes))
-).protocols(httpProtocol)
+).protocols(httpProtocol)*/
+	
+	setUp(
+		CivilUIClaimCreationScenario.inject(simulationProfile(testType, claimsTargetPerHour, numberOfPipelineUsers)).pauses(pauseOption),
+		CivilUIDefAndIntentScenario.inject(simulationProfile(testType, defResponseAndIntentTargetPerHour, numberOfPipelineUsers)).pauses(pauseOption)
+	).protocols(httpProtocol)
 
 
 }

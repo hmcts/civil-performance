@@ -1,9 +1,9 @@
 {
   "data": {
     "claimFee": {
-      "calculatedAmountInPence": "#{calculatedAmountInPence}",
-      "code": "#{claimFeeCode}",
-      "version": "#{version}"
+      "calculatedAmountInPence": "7000",
+      "code": "FEE0204",
+      "version": "6"
     },
     "caseNameHmctsInternal": null
   },
@@ -16,28 +16,29 @@
     "applicant1": {
       "type": "INDIVIDUAL",
       "individualTitle": "mr",
-      "individualFirstName": "#{randomString}First",
-      "individualLastName": "#{randomString}Last",
+      "individualFirstName": "vijay",
+      "individualLastName": "vykuntam",
       "soleTraderTitle": null,
-      "partyEmail": "#{randomString}@gmail.com",
-      "partyPhone": "+447540612047",
-      "individualDateOfBirth": "#{birthYear}-#{birthMonth}-#{birthDay}",
-      "partyName": "mr #{randomString}First #{randomString}Last",
+      "partyEmail": "civilmoneyclaimsdemo@gmail.com",
+      "partyPhone": "07540622048",
+      "individualDateOfBirth": "1983-08-01",
+      "partyName": "mr vijay vykuntam",
+      "bulkClaimPartyName": null,
       "partyTypeDisplayValue": "Individual",
       "partyID": null,
       "primaryAddress": {
-        "AddressLine1": "#{randomString}Address1",
+        "AddressLine1": "26 Hibernia Gardens",
         "AddressLine2": "",
         "AddressLine3": "",
-        "PostTown": "#{randomString}Town",
+        "PostTown": "Hounslow",
         "County": "",
         "Country": "United Kingdom",
-        "PostCode": "#{postcode}"
+        "PostCode": "TW3 3SD"
       }
     },
     "addApplicant2": "No",
     "applicantSolicitor1CheckEmail": {
-      "email": "hmcts.civil+organisation.1.solicitor.1@gmail.com",
+      "email": "civil.damages.claims+organisation.1.solicitor.1@gmail.com",
       "correct": "No"
     },
     "applicantSolicitor1UserDetails": {
@@ -46,85 +47,72 @@
     },
     "applicant1OrganisationPolicy": {
       "OrgPolicyCaseAssignedRole": "[APPLICANTSOLICITORONE]",
-      "OrgPolicyReference": null,
+      "OrgPolicyReference": "legalprepclaimant",
       "PrepopulateToUsersOrganisation": null,
       "Organisation": {
-        "OrganisationID": "#{orgref}",
-        "OrganisationName": "#{orgname}"
+        "OrganisationID": "TACAJW6",
+        "OrganisationName": "Civil Damages Claims - Organisation 1"
       }
     },
     "specApplicantCorrespondenceAddressRequired": "No",
     "respondent1": {
       "type": "INDIVIDUAL",
       "individualTitle": "mr",
-      "individualFirstName": "#{randomString}First",
-      "individualLastName": "#{randomString}Last",
+      "individualFirstName": "vijaydef",
+      "individualLastName": "vykuntamdef",
       "soleTraderTitle": null,
       "soleTraderTradingAs": null,
       "partyEmail": "civilmoneyclaimsdemo@gmail.com",
-      "partyPhone": "+447540612047",
+      "partyPhone": "07540612049",
       "individualDateOfBirth": null,
       "soleTraderDateOfBirth": null,
-      "partyName": "mr #{randomString}First #{randomString}Last",
-      "partyTypeDisplayValue": null,
+      "partyName": "mr vijaydef vykuntamdef",
+      "bulkClaimPartyName": null,
+      "partyTypeDisplayValue": "Individual",
       "partyID": null,
       "primaryAddress": {
-        "AddressLine1": "#{randomString}Address1",
+        "AddressLine1": "10 Hibernia Gardens",
         "AddressLine2": "",
         "AddressLine3": "",
-        "PostTown": "#{randomString}Town",
+        "PostTown": "Hounslow",
         "County": "",
         "Country": "United Kingdom",
-        "PostCode": "#{postcode}"
+        "PostCode": "TW3 3SD"
       }
     },
     "specRespondent1Represented": "No",
     "addRespondent2": "No",
-    "detailsOfClaim": "#{randomString}detailsOfClaim",
+    "detailsOfClaim": "dfddfdfdfdfdfdfdfdfdfdfdfdfdf",
     "specClaimTimelineList": "MANUAL",
     "timelineOfEvents": [
       {
         "value": {
-          "timelineDate": "#{birthYear}-#{birthMonth}-#{birthDay}",
-          "timelineDescription": "#{randomString}timelineDescription"
+          "timelineDate": "2023-08-01",
+          "timelineDescription": "sdsdsdsdsdsdsdsdsdsdsd"
         },
-        "id": "#{claimAmountBreakupId}"
+        "id": "fec2bf47-31e3-4262-af9d-c35c58105a6a"
       }
     ],
-    "speclistYourEvidenceList": [
-      {
-        "value": {
-          "evidenceType": "EXPERT_WITNESS",
-          "contractAndAgreementsEvidence": null,
-          "expertWitnessEvidence": "#{randomString}expertWitnessEvidence",
-          "lettersEmailsAndOtherCorrespondenceEvidence": null,
-          "photoEvidence": null,
-          "receiptsEvidence": null,
-          "statementOfTruthEvidence": null,
-          "otherEvidence": null
-        },
-        "id": "#{speclistYourEvidenceListId}"
-      }
-    ],
+    "speclistYourEvidenceList": [],
     "claimAmountBreakup": [
       {
         "value": {
-          "claimReason": "#{randomString}claimReason",
-          "claimAmount": "300000"
+          "claimReason": "aaaasddsdkkkkkkkkkk",
+          "claimAmount": "100000"
         },
-        "id": "#{claimAmountBreakupId}"
+        "id": "d0deae16-0795-4ed2-991f-1dd147c559b1"
       }
     ],
-    "claimAmountBreakupSummaryObject": "| Description | Amount | \n |---|---| \n | broken roof | £ 3000.00 |\n  | **Total** | £ 3000.00 |",
-    "totalInterest": "0",
-    "totalClaimAmount": "3000",
+    "claimAmountBreakupSummaryObject": "| Description | Amount | \n |---|---| \n | aaaasddsdkkkkkkkkkk | £ 1000.00 |\n  | **Total** | £ 1000.00 |",
     "CaseAccessCategory": null,
+    "totalClaimAmount": "1000",
+    "totalInterest": "0",
     "claimInterest": "No",
-    "calculatedInterest": "| Description | Amount | \n |---|---| \n | Claim amount | £ 3000 | \n | Interest amount | £ 0 | \n | Total amount | £ 3000 |",
+    "calculatedInterest": "| Description | Amount | \n |---|---| \n | Claim amount | £ 1000 | \n | Interest amount | £ 0 | \n | Total amount | £ 1000 |",
     "claimFee": {
-      "calculatedAmountInPence": "#{calculatedAmountInPence}",
-      "code": "#{claimFeeCode}",
-      "version": "#{version}"
+      "calculatedAmountInPence": "7000",
+      "code": "FEE0204",
+      "version": "6"
     },
     "caseNameHmctsInternal": null
   },

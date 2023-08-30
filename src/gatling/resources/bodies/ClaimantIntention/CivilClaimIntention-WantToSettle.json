@@ -1,45 +1,47 @@
 {
   "data": {
-    "applicant1": {
-      "partyID": "#{partyIDApp}",
-      "type": "INDIVIDUAL",
-      "individualFirstName": "#{randomString}First",
-      "individualLastName": "#{randomString}Last",
-      "individualDateOfBirth": "#{birthYear}-#{birthMonth}-#{birthDay}",
-      "primaryAddress": {
-        "AddressLine1": "#{randomString}Address1",
-        "PostTown": "#{randomString}Town",
-        "Country": "United Kingdom",
-        "PostCode": "#{postcode}"
-      },
-      "partyName": "mr #{randomString}First #{randomString}Last",
-      "partyTypeDisplayValue": "Individual",
-      "flags": {
-        "partyName": "mr #{randomString}First #{randomString}Last",
-        "roleOnCase": "Applicant 1"
-      }
-    },
     "respondent1": {
       "type": "INDIVIDUAL",
-      "individualFirstName": "#{randomString}Respondent",
-      "individualLastName": "#{randomString}LastRespond",
-      "individualDateOfBirth": "#{birthYear}-#{birthMonth}-#{birthDay}",
+      "individualTitle": "mr",
+      "individualFirstName": "vijaydef",
+      "individualLastName": "vykuntamdef",
+      "individualDateOfBirth": "1983-08-01",
       "primaryAddress": {
-        "AddressLine1": "#{randomString}Address1",
-        "AddressLine2": "",
-        "AddressLine3": "",
-        "PostTown": "#{randomString}Town",
-        "PostCode": "#{postcode}"
+        "AddressLine1": "10 Hibernia Gardens",
+        "PostTown": "Hounslow",
+        "PostCode": "TW3 3SD"
       },
-      "partyName": "mr #{randomString}Respondent #{randomString}LastRespond",
+      "partyName": "mr vijaydef vykuntamdef",
       "partyTypeDisplayValue": "Individual",
       "partyEmail": "civilmoneyclaimsdemo@gmail.com",
       "partyPhone": "01234567890"
     },
+    "applicant1": {
+      "partyID": "#{partyIDApp}",
+      "type": "INDIVIDUAL",
+      "individualTitle": "mr",
+      "individualFirstName": "vijay",
+      "individualLastName": "vykuntam",
+      "individualDateOfBirth": "1983-08-01",
+      "primaryAddress": {
+        "AddressLine1": "26 Hibernia Gardens",
+        "PostTown": "Hounslow",
+        "Country": "United Kingdom",
+        "PostCode": "TW3 3SD"
+      },
+      "partyName": "mr vijay vykuntam",
+      "partyTypeDisplayValue": "Individual",
+      "partyEmail": "civilmoneyclaimsdemo@gmail.com",
+      "partyPhone": "07540622048",
+      "flags": {
+        "partyName": "mr vijay vykuntam",
+        "roleOnCase": "Applicant 1"
+      }
+    },
     "partAdmitPaidValuePounds": null,
     "respondent2": null,
     "claimantResponseScenarioFlag": "ONE_V_ONE",
-    "respondToAdmittedClaimOwingAmountPounds": "10",
+    "respondToAdmittedClaimOwingAmountPounds": "500",
     "respondent1PaymentDateToStringSpec": "#{respondent1PaymentDate}",
     "respondent1ClaimResponseDocumentSpec": {
       "documentLink": {
@@ -72,46 +74,48 @@
     "description": ""
   },
   "event_data": {
-    "applicant1": {
-      "partyID": "#{partyIDApp}",
-      "type": "INDIVIDUAL",
-      "individualFirstName": "#{randomString}First",
-      "individualLastName": "#{randomString}Last",
-      "individualDateOfBirth": "#{birthYear}-#{birthMonth}-#{birthDay}",
-      "primaryAddress": {
-        "AddressLine1": "#{randomString}Address1",
-        "PostTown": "#{randomString}Town",
-        "Country": "United Kingdom",
-        "PostCode": "#{postcode}"
-      },
-      "partyName": "mr #{randomString}First #{randomString}Last",
-      "partyTypeDisplayValue": "Individual",
-      "flags": {
-        "partyName": "mr #{randomString}First #{randomString}Last",
-        "roleOnCase": "Applicant 1"
-      }
-    },
     "respondent1": {
       "type": "INDIVIDUAL",
-      "individualFirstName": "#{randomString}Respondent",
-      "individualLastName": "#{randomString}LastRespond",
-      "individualDateOfBirth": "#{birthYear}-#{birthMonth}-#{birthDay}",
+      "individualTitle": "mr",
+      "individualFirstName": "vijaydef",
+      "individualLastName": "vykuntamdef",
+      "individualDateOfBirth": "1983-08-01",
       "primaryAddress": {
-        "AddressLine1": "#{randomString}Address1",
-        "AddressLine2": "",
-        "AddressLine3": "",
-        "PostTown": "#{randomString}Town",
-        "PostCode": "#{postcode}"
+        "AddressLine1": "10 Hibernia Gardens",
+        "PostTown": "Hounslow",
+        "PostCode": "TW3 3SD"
       },
-      "partyName": "mr #{randomString}Respondent #{randomString}LastRespond",
+      "partyName": "mr vijaydef vykuntamdef",
       "partyTypeDisplayValue": "Individual",
       "partyEmail": "civilmoneyclaimsdemo@gmail.com",
       "partyPhone": "01234567890"
     },
+    "applicant1": {
+      "partyID": "d721b3d9-7468-4d",
+      "type": "INDIVIDUAL",
+      "individualTitle": "mr",
+      "individualFirstName": "vijay",
+      "individualLastName": "vykuntam",
+      "individualDateOfBirth": "1983-08-01",
+      "primaryAddress": {
+        "AddressLine1": "26 Hibernia Gardens",
+        "PostTown": "Hounslow",
+        "Country": "United Kingdom",
+        "PostCode": "TW3 3SD"
+      },
+      "partyName": "mr vijay vykuntam",
+      "partyTypeDisplayValue": "Individual",
+      "partyEmail": "civilmoneyclaimsdemo@gmail.com",
+      "partyPhone": "07540622048",
+      "flags": {
+        "partyName": "mr vijay vykuntam",
+        "roleOnCase": "Applicant 1"
+      }
+    },
     "partAdmitPaidValuePounds": null,
     "respondent2": null,
     "claimantResponseScenarioFlag": "ONE_V_ONE",
-    "respondToAdmittedClaimOwingAmountPounds": "10",
+    "respondToAdmittedClaimOwingAmountPounds": "500",
     "respondent1PaymentDateToStringSpec": "#{respondent1PaymentDate}",
     "respondent1ClaimResponseDocumentSpec": {
       "documentLink": {
@@ -138,7 +142,7 @@
     "defenceAdmitPartPaymentTimeRouteRequired": "IMMEDIATELY",
     "showResponseOneVOneFlag": "ONE_V_ONE_PART_ADMIT_PAY_IMMEDIATELY"
   },
-  "event_token": "#{event_token}",
+  "event_token": "#{event_token_intention}",
   "ignore_warning": false,
   "case_reference": "#{caseId}"
 }

@@ -1,19 +1,6 @@
 {
   "data": {
     "speclistYourEvidenceList": [
-      {
-        "value": {
-          "evidenceType": "EXPERT_WITNESS",
-          "contractAndAgreementsEvidence": null,
-          "expertWitnessEvidence": "#{randomString}expertWitnessEvidence",
-          "lettersEmailsAndOtherCorrespondenceEvidence": null,
-          "photoEvidence": null,
-          "receiptsEvidence": null,
-          "statementOfTruthEvidence": null,
-          "otherEvidence": null
-        },
-        "id": null
-      }
     ]
   },
   "event": {
@@ -25,28 +12,29 @@
     "applicant1": {
       "type": "INDIVIDUAL",
       "individualTitle": "mr",
-      "individualFirstName": "#{randomString}First",
-      "individualLastName": "#{randomString}Last",
+      "individualFirstName": "vijay",
+      "individualLastName": "vykuntam",
       "soleTraderTitle": null,
-      "partyEmail": "#{randomString}@gmail.com",
-      "partyPhone": "+447540612047",
-      "individualDateOfBirth": "#{birthYear}-#{birthMonth}-#{birthDay}",
-      "partyName": "mr #{randomString}First #{randomString}Last",
+      "partyEmail": "civilmoneyclaimsdemo@gmail.com",
+      "partyPhone": "07540622048",
+      "individualDateOfBirth": "1983-08-01",
+      "partyName": "mr vijay vykuntam",
+      "bulkClaimPartyName": null,
       "partyTypeDisplayValue": "Individual",
       "partyID": null,
       "primaryAddress": {
-        "AddressLine1": "#{randomString}Address1",
+        "AddressLine1": "26 Hibernia Gardens",
         "AddressLine2": "",
         "AddressLine3": "",
-        "PostTown": "#{randomString}Town",
+        "PostTown": "Hounslow",
         "County": "",
         "Country": "United Kingdom",
-        "PostCode": "#{postcode}"
+        "PostCode": "TW3 3SD"
       }
     },
     "addApplicant2": "No",
     "applicantSolicitor1CheckEmail": {
-      "email": "hmcts.civil+organisation.1.solicitor.1@gmail.com",
+      "email": "civil.damages.claims+organisation.1.solicitor.1@gmail.com",
       "correct": "No"
     },
     "applicantSolicitor1UserDetails": {
@@ -55,66 +43,53 @@
     },
     "applicant1OrganisationPolicy": {
       "OrgPolicyCaseAssignedRole": "[APPLICANTSOLICITORONE]",
-      "OrgPolicyReference": null,
+      "OrgPolicyReference": "legalprepclaimant",
       "PrepopulateToUsersOrganisation": null,
       "Organisation": {
-        "OrganisationID": "#{orgref}",
-        "OrganisationName": "#{orgname}"
+        "OrganisationID": "TACAJW6",
+        "OrganisationName": "Civil Damages Claims - Organisation 1"
       }
     },
     "specApplicantCorrespondenceAddressRequired": "No",
     "respondent1": {
       "type": "INDIVIDUAL",
       "individualTitle": "mr",
-      "individualFirstName": "#{randomString}First",
-      "individualLastName": "#{randomString}Last",
+      "individualFirstName": "vijaydef",
+      "individualLastName": "vykuntamdef",
       "soleTraderTitle": null,
       "soleTraderTradingAs": null,
       "partyEmail": "civilmoneyclaimsdemo@gmail.com",
-      "partyPhone": "+447540612047",
+      "partyPhone": "07540612049",
       "individualDateOfBirth": null,
       "soleTraderDateOfBirth": null,
       "partyName": null,
+      "bulkClaimPartyName": null,
       "partyTypeDisplayValue": null,
       "partyID": null,
       "primaryAddress": {
-        "AddressLine1": "#{randomString}Address1",
+        "AddressLine1": "10 Hibernia Gardens",
         "AddressLine2": "",
         "AddressLine3": "",
-        "PostTown": "#{randomString}Town",
+        "PostTown": "Hounslow",
         "County": "",
         "Country": "United Kingdom",
-        "PostCode": "#{postcode}"
+        "PostCode": "TW3 3SD"
       }
     },
     "specRespondent1Represented": "No",
     "addRespondent2": "No",
-    "detailsOfClaim": "#{randomString}DetailsOfClaim",
+    "detailsOfClaim": "dfddfdfdfdfdfdfdfdfdfdfdfdfdf",
     "specClaimTimelineList": "MANUAL",
     "timelineOfEvents": [
       {
         "value": {
-          "timelineDate": "#{birthYear}-#{birthMonth}-#{birthDay}",
-          "timelineDescription": "#{randomString}timelineDescription"
+          "timelineDate": "2023-08-01",
+          "timelineDescription": "sdsdsdsdsdsdsdsdsdsdsd"
         },
         "id": null
       }
     ],
-    "speclistYourEvidenceList": [
-      {
-        "value": {
-          "evidenceType": "EXPERT_WITNESS",
-          "contractAndAgreementsEvidence": null,
-          "expertWitnessEvidence": "#{randomString}expertWitnessEvidence",
-          "lettersEmailsAndOtherCorrespondenceEvidence": null,
-          "photoEvidence": null,
-          "receiptsEvidence": null,
-          "statementOfTruthEvidence": null,
-          "otherEvidence": null
-        },
-        "id": null
-      }
-    ]
+    "speclistYourEvidenceList": []
   },
   "event_token": "${event_token}",
   "ignore_warning": false

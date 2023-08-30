@@ -40,7 +40,11 @@ object Common {
       println("Random value of the list " + list(random.nextInt(list.length)))
     }
   }
-
+  
+  def getRequestId (): String = {
+    val chars = ('a' to 'z') ++ ('A' to 'Z') ++ ('0' to '9')
+    Random.shuffle(chars).take(5).mkString
+  }
 
   def getDay(): String = {
     (1 + rnd.nextInt(28)).toString.format(patternDay).reverse.padTo(2, '0').reverse //pads single-digit dates with a leading zero

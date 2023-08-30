@@ -6,14 +6,15 @@ import io.gatling.http.Predef._
 object Environment {
 
   val httpConfig = scala.util.Properties.envOrElse("httpConfig", "http")
-  val baseURL = "https://manage-case.aat.platform.hmcts.net"
-  val baseDomain = scala.util.Properties.envOrElse("baseDomain", "manage-case.aat.platform.hmcts.net")
+  val baseURL = "https://manage-case.perftest.platform.hmcts.net"
+  val baseDomain = scala.util.Properties.envOrElse("baseDomain", "manage-case.perftest.platform.hmcts.net")
   val PaymentURL = scala.util.Properties.envOrElse("paymentURL", "https://www.payments.service.gov.uk")
-  val idamURL = "https://idam-web-public.aat.platform.hmcts.net"
-  val idamAPIURL = "https://idam-api.aat.platform.hmcts.net"
-  val exuiDomain="manage-case.aat.platform.hmcts.net"
-  val manageOrgURL = "https://manage-org.aat.platform.hmcts.net"
-  val manageOrgDomain = "manage-org.aat.platform.hmcts.net"
+  val idamURL = "https://idam-web-public.perftest.platform.hmcts.net"
+  val idamAPIURL = "https://idam-api.perftest.platform.hmcts.net"
+  val exuiDomain="manage-case.perftest.platform.hmcts.net"
+  val manageOrgURL = "https://manage-org.perftest.platform.hmcts.net"
+  val manageOrgDomain = "manage-org.perftest.platform.hmcts.net"
+  val CivilUIURL=  "https://civil-citizen-ui.perftest.platform.hmcts.net"
   val idamCookieName="SESSION_ID"
   val HttpProtocol = http
 
@@ -107,6 +108,8 @@ object Environment {
     "sec-fetch-user" -> "?1",
     "upgrade-insecure-requests" -> "1",
     "user-agent" -> "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36")
+  
+ 
   
   
 }

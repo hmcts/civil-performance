@@ -1,54 +1,56 @@
 {
   "data": {
-    "applicant1": {
-      "partyID": "#{partyIDApp}",
-      "type": "INDIVIDUAL",
-      "individualFirstName": "#{randomString}First",
-      "individualLastName": "#{randomString}Last",
-      "individualDateOfBirth": "#{birthYear}-#{birthMonth}-#{birthDay}",
-      "primaryAddress": {
-        "AddressLine1": "#{randomString}Address1",
-        "PostTown": "#{randomString}Town",
-        "Country": "United Kingdom",
-        "PostCode": "#{postcode}"
-      },
-      "partyName": "mr #{randomString}First #{randomString}Last",
-      "partyTypeDisplayValue": "Individual",
-      "flags": {
-        "partyName": "mr #{randomString}First #{randomString}Last",
-        "roleOnCase": "Applicant 1"
-      },
-      "unavailableDates": null
-    },
     "respondent1": {
       "type": "INDIVIDUAL",
-      "individualFirstName": "#{randomString}Respondent",
-      "individualLastName": "#{randomString}LastRespond",
-      "individualDateOfBirth": "#{birthYear}-#{birthMonth}-#{birthDay}",
+      "individualTitle": "mr",
+      "individualFirstName": "vijaydef",
+      "individualLastName": "vykuntamdef",
+      "individualDateOfBirth": "1983-08-01",
       "primaryAddress": {
-        "AddressLine1": "#{randomString}Address1",
-        "AddressLine2": "",
-        "AddressLine3": "",
-        "PostTown": "#{randomString}Town",
-        "PostCode": "#{postcode}"
+        "AddressLine1": "10 Hibernia Gardens",
+        "PostTown": "Hounslow",
+        "PostCode": "TW3 3SD"
       },
-      "partyName": "mr #{randomString}Respondent #{randomString}LastRespond",
+      "partyName": "mr vijaydef vykuntamdef",
       "partyTypeDisplayValue": "Individual",
       "partyEmail": "civilmoneyclaimsdemo@gmail.com",
       "partyPhone": "01234567890",
       "unavailableDates": null,
       "flags": null
     },
-    "respondent2": null,
+    "applicant1": {
+      "partyID": "#{partyIDApp}",
+      "type": "INDIVIDUAL",
+      "individualTitle": "mr",
+      "individualFirstName": "vijay",
+      "individualLastName": "vykuntam",
+      "individualDateOfBirth": "1983-08-01",
+      "primaryAddress": {
+        "AddressLine1": "26 Hibernia Gardens",
+        "PostTown": "Hounslow",
+        "Country": "United Kingdom",
+        "PostCode": "TW3 3SD"
+      },
+      "partyName": "mr vijay vykuntam",
+      "partyTypeDisplayValue": "Individual",
+      "partyEmail": "civilmoneyclaimsdemo@gmail.com",
+      "partyPhone": "07540622048",
+      "flags": {
+        "partyName": "mr vijay vykuntam",
+        "roleOnCase": "Applicant 1"
+      },
+      "unavailableDates": null
+    },
     "partAdmitPaidValuePounds": null,
+    "respondent2": null,
     "claimantResponseScenarioFlag": "ONE_V_ONE",
-    "respondToAdmittedClaimOwingAmountPounds": "10",
-    "respondent1PaymentDateToStringSpec": "14 August 2023",
+    "respondToAdmittedClaimOwingAmountPounds": "500",
+    "respondent1PaymentDateToStringSpec": "#{respondent1PaymentDate}",
     "respondent1GeneratedResponseDocument": {
       "documentLink": {
-        "document_url": "http://dm-store-perftest.service.core-compute-perftest.internal/documents/219192b4-fd0a-4510-9ce6-6d44d5270d4f",
-        "document_binary_url": "http://dm-store-perftest.service.core-compute-perftest.internal/documents/219192b4-fd0a-4510-9ce6-6d44d5270d4f/binary",
-        "document_filename": "defendant_directions_questionnaire_form_043MC523.pdf"
+        "document_url": "#{document_url}",
+        "document_binary_url": "#{document_url}/binary",
+        "document_filename": "#{document_filename}"
       },
       "documentName": null,
       "documentType": null,
@@ -70,13 +72,13 @@
     },
     "respondent2GeneratedResponseDocument": null,
     "applicant1ProceedWithClaim": null,
-    "applicant1PartAdmitConfirmAmountPaidSpec": null,
     "applicant1AcceptAdmitAmountPaidSpec": "Yes",
+    "applicant1PartAdmitConfirmAmountPaidSpec": null,
     "applicant1AcceptPartAdmitPaymentPlanSpec": null,
     "applicant1AcceptFullAdmitPaymentPlanSpec": null,
     "applicantDefenceResponseDocumentAndDQFlag": null,
-    "showConditionFlags": null,
     "applicant1ProceedWithClaimSpec2v1": null,
+    "showConditionFlags": null,
     "responseClaimTrack": "SMALL_CLAIM",
     "allocatedTrack": null,
     "claimType": null,
@@ -92,6 +94,6 @@
     "summary": "",
     "description": ""
   },
-  "event_token": "#{event_token}",
+  "event_token": "#{event_token_intention}",
   "ignore_warning": false
 }

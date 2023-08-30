@@ -7,6 +7,27 @@ object CivilDamagesHeader {
  
  //below are the headers
  
+ val headers_viewAndRespond = Map(
+  "accept" -> "application/json",
+  "accept-encoding" -> "gzip, deflate, br",
+  "accept-language" -> "en-US,en;q=0.9",
+  "content-type" -> "application/json",
+  "sec-ch-ua" -> """Google Chrome";v="89", "Chromium";v="89", ";Not A Brand";v="99""",
+  "sec-ch-ua-mobile" -> "?0",
+  "sec-fetch-dest" -> "empty",
+  "sec-fetch-mode" -> "cors",
+  "sec-fetch-site" -> "same-origin")
+ 
+ val headers_viewAndRespondintent = Map(
+  "accept-encoding" -> "gzip, deflate, br",
+  "accept-language" -> "en-US,en;q=0.9",
+  "content-type" -> "application/json",
+  "sec-ch-ua" -> """Google Chrome";v="89", "Chromium";v="89", ";Not A Brand";v="99""",
+  "sec-ch-ua-mobile" -> "?0",
+  "sec-fetch-dest" -> "empty",
+  "sec-fetch-mode" -> "cors",
+  "sec-fetch-site" -> "same-origin")
+ 
  val MoneyClaimNavHeader = Map(
   "accept" -> "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
   "accept-encoding" -> "gzip, deflate, br",
@@ -19,6 +40,16 @@ object CivilDamagesHeader {
 
 
  val MoneyClaimPostHeader = Map(
+  "accept" -> "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+  "accept-encoding" -> "gzip, deflate, br",
+  "accept-language" -> "en-GB,en-US;q=0.9,en;q=0.8",
+  "content-type" -> "application/x-www-form-urlencoded",
+  "sec-fetch-dest" -> "document",
+  "sec-fetch-mode" -> "navigate",
+  "sec-fetch-site" -> "same-origin"
+ )
+ 
+ val DefCheckAndSendPost = Map(
   "accept" -> "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
   "accept-encoding" -> "gzip, deflate, br",
   "accept-language" -> "en-GB,en-US;q=0.9,en;q=0.8",
@@ -108,6 +139,44 @@ object CivilDamagesHeader {
   "sec-fetch-dest" -> "empty",
   "sec-fetch-mode" -> "cors",
   "sec-fetch-site" -> "same-origin")
+ 
+ val headers_ViewResponseevent = Map(
+  "accept" -> "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-start-event-trigger.v2+json;charset=UTF-8",
+  "accept-encoding" -> "gzip, deflate, br",
+  "accept-language" -> "en-US,en;q=0.9",
+  "content-type" -> "application/json",
+  "experimental" -> "true",
+  "sec-ch-ua" -> """Google Chrome";v="89", "Chromium";v="89", ";Not A Brand";v="99""",
+  "sec-ch-ua-mobile" -> "?0",
+  "sec-fetch-dest" -> "empty",
+  "sec-fetch-mode" -> "cors",
+  "sec-fetch-site" -> "same-origin")
+ 
+ val headers_ViewRespondintent = Map(
+  "accept" -> "application/vnd.uk.gov.hmcts.ccd-data-store-api.case-data-validate.v2+json;charset=UTF-8",
+  "accept-encoding" -> "gzip, deflate, br",
+  "accept-language" -> "en-US,en;q=0.9",
+  "content-type" -> "application/json",
+  "experimental" -> "true",
+  "sec-ch-ua" -> """Google Chrome";v="89", "Chromium";v="89", ";Not A Brand";v="99""",
+  "sec-ch-ua-mobile" -> "?0",
+  "sec-fetch-dest" -> "empty",
+  "sec-fetch-mode" -> "cors",
+  "sec-fetch-site" -> "same-origin")
+ 
+ val headers_intentsubmit = Map(
+  "accept" -> "application/vnd.uk.gov.hmcts.ccd-data-store-api.create-event.v2+json;charset=UTF-8",
+  "accept-encoding" -> "gzip, deflate, br",
+  "accept-language" -> "en-US,en;q=0.9",
+  "content-type" -> "application/json",
+  "experimental" -> "true",
+  "origin" -> baseURL,
+  "sec-ch-ua" -> """Google Chrome";v="89", "Chromium";v="89", ";Not A Brand";v="99""",
+  "sec-ch-ua-mobile" -> "?0",
+  "sec-fetch-dest" -> "empty",
+  "sec-fetch-mode" -> "cors",
+  "sec-fetch-site" -> "same-origin",
+ "x-xsrf-token" -> "${XSRFToken}")
  
   
  val headers_163 = Map (
@@ -487,6 +556,23 @@ object CivilDamagesHeader {
   "sec-fetch-mode" -> "cors",
   "sec-fetch-site" -> "same-origin",
   "x-xsrf-token" -> "${XSRFToken}")
+ 
+ val CUI_Submit = Map(
+  "accept" -> "application/vnd.uk.gov.hmcts.ccd-data-store-api.create-case.v2+json;charset=UTF-8",
+  "accept-encoding" -> "gzip, deflate, br",
+  "accept-language" -> "en-GB,en-US;q=0.9,en;q=0.8",
+  "content-type" -> "application/json",
+  "experimental" -> "true",
+  "origin" -> baseURL,
+  "sec-ch-ua" -> """Google Chrome";v="89", "Chromium";v="89", ";Not A Brand";v="99""",
+  "sec-ch-ua-mobile" -> "?0",
+  "sec-fetch-dest" -> "empty",
+  "sec-fetch-mode" -> "cors",
+  "sec-fetch-site" -> "same-origin",
+  "Request-Context" -> "appId=cid-v1:7922b140-fa5f-482d-89b4-e66e9e6d675a",
+  "Request-Id"   -> "|${requestId}.\"+Common.getRequestId()",
+  "X-Xsrf-Token" -> "${XSRFToken}")
+ 
  
  val headers_674 = Map (
   "accept" -> "*/*",

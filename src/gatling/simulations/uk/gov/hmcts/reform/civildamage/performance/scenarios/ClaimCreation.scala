@@ -693,32 +693,9 @@ object ClaimCreation {
     }
     .pause(MinThinkTime, MaxThinkTime)
         .pause(20)
+        
   
-        /*======================================================================================
-                     * Create Civil Claim - Assign case - need to change the token every time we create a case
-          ==========================================================================================*/
-  // following is for assign the case to defendent
-        .group("CIVIL_AssignCase_000_AssignCase") {
-          exec(http("CIVIL_AssignCase_000_AssignCase")
-            .post("http://civil-service-perftest.service.core-compute-perftest.internal/testing-support/assign-case/#{caseId}/RESPONDENTSOLICITORONE")
-            //   .get( "/cases/searchCases?start_date=#{randomStartDate}&end_date=#{randomEndDate}")
-            // .get( "/cases/searchCases?start_date=2022-01-13T00:00:00&end_date=2023-04-16T15:38:00")
-            .header("Authorization", "Bearer eyJ0eXAiOiJKV1QiLCJraWQiOiI4cDJpajg2S0pTeENKeGcveUovV2w3TjcxMXM9IiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiJobWN0cy5jaXZpbCtvcmdhbmlzYXRpb24uMS5zb2xpY2l0b3IuMUBnbWFpbC5jb20iLCJjdHMiOiJPQVVUSDJfU1RBVEVMRVNTX0dSQU5UIiwiYXV0aF9sZXZlbCI6MCwiYXVkaXRUcmFja2luZ0lkIjoiNGJjOWEzOTAtZTZjZi00YTQxLWI1NGYtZDA2NmZjNDc0ODY3LTgwNTYxOTk2Iiwic3VibmFtZSI6ImhtY3RzLmNpdmlsK29yZ2FuaXNhdGlvbi4xLnNvbGljaXRvci4xQGdtYWlsLmNvbSIsImlzcyI6Imh0dHBzOi8vZm9yZ2Vyb2NrLWFtLnNlcnZpY2UuY29yZS1jb21wdXRlLWlkYW0tcGVyZnRlc3QuaW50ZXJuYWw6ODQ0My9vcGVuYW0vb2F1dGgyL3JlYWxtcy9yb290L3JlYWxtcy9obWN0cyIsInRva2VuTmFtZSI6ImFjY2Vzc190b2tlbiIsInRva2VuX3R5cGUiOiJCZWFyZXIiLCJhdXRoR3JhbnRJZCI6IjVkYURnVVd6MDg1b1l2Zm5fTk96MnNkUkVOayIsIm5vbmNlIjoiSWZyYWdhaEJtZEQ1WGhxX2dwNTRaeVVmRGF2dkliT0ZhM1hZTUsxYjhHQSIsImF1ZCI6Inh1aXdlYmFwcCIsIm5iZiI6MTY4OTY5MjEyOCwiZ3JhbnRfdHlwZSI6ImF1dGhvcml6YXRpb25fY29kZSIsInNjb3BlIjpbIm9wZW5pZCIsInByb2ZpbGUiLCJyb2xlcyIsImNyZWF0ZS11c2VyIiwibWFuYWdlLXVzZXIiLCJzZWFyY2gtdXNlciJdLCJhdXRoX3RpbWUiOjE2ODk2OTIxMjYsInJlYWxtIjoiL2htY3RzIiwiZXhwIjoxNjg5NzIwOTI4LCJpYXQiOjE2ODk2OTIxMjgsImV4cGlyZXNfaW4iOjI4ODAwLCJqdGkiOiJkMTJaN0pGOW05dzBPQlB5VHZKRXFaaEFqRWcifQ.cyRqEj1A7bhor-k39UADN-fOjbOEKFhhHFcfhDafjf3wRxEH8Dt0un9JhjCNuOxzLCP1VO3aKeXlpWq1jrD8LyYWzszbxu67bfgK7uPSDIJlN1RIYNATRibWGUpMVzUmVIcvVlPnULcQgzLhebltJGmcHXUuoTS1egR5gNTwdxvLIgAlX5Q8vThQMgRZrfzJy_XJ-ajUGBU7ec1XTWdmrImbhYx99ME260ewBkUL7cd9vcuA7rPpVjxLujNbrxpftQkAS_h0ur04_aPgkVhDQ4cQPIJoJuEscgECFS_cmWmUQMpA2x7ox-5KXHRrwNjLt61jMSVKLm42xe4FcQ92Gw")
-            .header("Content-Type", "application/json")
-            .header("Accept", "*/*")
-            .check(status.in(200, 201))
-          )
-        }
-        .pause(MinThinkTime, MaxThinkTime)
-  
-        //Deepak - Cases that make the final step
-        .exec { session =>
-          val fw = new BufferedWriter(new FileWriter("FinalcaseIds.csv", true))
-          try {
-            fw.write(session("caseId").as[String] + "\r\n")
-          } finally fw.close()
-          session
-        }
+       
   
   
   
