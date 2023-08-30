@@ -52,7 +52,7 @@ object ClaimantIntention {
   ==========================================================================================*/
 
       group("CUI_ClaimIntent_030_ViewRespond") {
-        exec(http("CD_DefResponse_030_005_ViewRespond")
+        exec(http("CUI_ClaimIntent_030_005_ViewRespond")
           .get(BaseURL + "/workallocation/case/tasks/#{caseId}/event/CLAIMANT_RESPONSE_SPEC/caseType/CIVIL/jurisdiction/CIVIL")
           .headers(CivilDamagesHeader.headers_viewAndRespond)
           .check(status.in(200, 304))
@@ -90,7 +90,7 @@ object ClaimantIntention {
 
 
           .group("CUI_ClaimIntent_040_WantSettle") {
-            exec(http("CD_DefResponse_040_005_WantSettle")
+            exec(http("CUI_ClaimIntent_040_005_WantSettle")
               .post(BaseURL + "/data/case-types/CIVIL/validate?pageId=CLAIMANT_RESPONSE_SPECRespondentResponse")
               .headers(CivilDamagesHeader.headers_163)
               .body(ElFileBody("bodies/Claimantintention/CivilClaimIntention-WantToSettle.json"))
@@ -123,7 +123,7 @@ object ClaimantIntention {
 
 
     .group("CUI_ClaimIntent_050_WantSettleSubmit") {
-      exec(http("CD_DefResponse_050_005_WantSettleSubmit")
+      exec(http("CUI_ClaimIntent_050_005_WantSettleSubmit")
         .post(BaseURL + "/data/cases/#{caseId}/events")
         .headers(CivilDamagesHeader.headers_intentsubmit)
         .body(ElFileBody("bodies/Claimantintention/CivilClaimIntention-WantToSettleSubmit.json"))

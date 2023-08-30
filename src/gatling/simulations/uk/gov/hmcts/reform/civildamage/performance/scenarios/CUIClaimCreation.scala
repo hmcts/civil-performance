@@ -713,14 +713,14 @@ object CUIClaimCreation {
       .pause(50)
       
       
-        //Deepak - Cases that make the final step
+       /* //Deepak - Cases that make the final step
         .exec { session =>
           val fw = new BufferedWriter(new FileWriter("CUICases.csv", true))
           try {
             fw.write(session("caseId").as[String] + "\r\n")
           } finally fw.close()
           session
-        }
+        }*/
   
   
   
