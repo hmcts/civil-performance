@@ -241,7 +241,4 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 		//CivilUIDefAndIntentScenario.inject(simulationProfile(testType, defResponseAndIntentTargetPerHour, numberOfPipelineUsers)).pauses(pauseOption)
 	).protocols(httpProtocol)*/
 	
-
-
-
 }
