@@ -213,7 +213,7 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 			case "perftest" =>
 				if (debugMode == "off") {
 					Seq(
-						rampUsers(numberOfPerformanceTestUsers.toInt) during (testDurationMins)
+						rampUsers(numberOfPerformanceTestUsers.toInt) during (testDurationMins minutes)
 					)
 				}
 				else {
@@ -227,19 +227,21 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 	}
 	
 	
-/*	setUp(
+	setUp(
 		//CivilClaimsScenario.inject(nothingFor(1),rampUsers(300) during (3600))
-		CivilUIClaimCreationScenario.inject(nothingFor(1),rampUsers(90) during (3600)),
-			CivilUIDefAndIntentScenario.inject(nothingFor(1),rampUsers(20) during (3600))
+		CivilUIClaimCreationScenario.inject(nothingFor(5),rampUsers(90) during (3600)),
+			CivilUIDefAndIntentScenario.inject(nothingFor(20),rampUsers(20) during (3600))
 				//CivilAssignScenario.inject(nothingFor(1),rampUsers(1) during (1))
 				
 			//	CivilDamageScenario.inject(nothingFor(1.minutes),rampUsers(1) during (12.minutes))
-).protocols(httpProtocol)*/
+).protocols(httpProtocol)
 	
-	setUp(
-		CivilUIClaimCreationScenario.inject(simulationProfile(testType, claimsTargetPerHour, numberOfPipelineUsers)).pauses(pauseOption),
-		CivilUIDefAndIntentScenario.inject(simulationProfile(testType, defResponseAndIntentTargetPerHour, numberOfPipelineUsers)).pauses(pauseOption)
-	).protocols(httpProtocol)
+	/*setUp(
+		CivilUIClaimCreationScenario.inject(simulationProfile(testType, claimsTargetPerHour, numberOfPipelineUsers)).pauses(pauseOption)
+		//CivilUIDefAndIntentScenario.inject(simulationProfile(testType, defResponseAndIntentTargetPerHour, numberOfPipelineUsers)).pauses(pauseOption)
+	).protocols(httpProtocol)*/
+	
+
 
 
 }
