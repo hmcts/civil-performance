@@ -92,7 +92,6 @@ class CivilDamagesSimulation extends Simulation {
   //below scenario is to generate claims data for GA process
 	
 	
-	
 	val CivilUIClaimCreationScenario = scenario("Create Civil UI Claim")
 		.feed(loginFeeder)
 		.exitBlockOnFail {
