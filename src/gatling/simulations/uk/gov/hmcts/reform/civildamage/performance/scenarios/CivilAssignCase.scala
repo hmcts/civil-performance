@@ -13,7 +13,7 @@ object  CivilAssignCase {
 	
 	val manageOrgURL = Environment.manageOrgURL
 	val idamURL=Environment.idamURL
-	val caseFeeder = csv("caseIds.csv").circular
+	val caseFeeder = csv("caseIdsForAssign.csv").circular
 	
 	/*======================================================================================
 *Business process : As part of the create FR respondent application share a case
