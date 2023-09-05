@@ -168,15 +168,15 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 
 	val CivilDamageScenario = scenario("Create Civil damage")
 		.feed(loginFeeder).feed(defresponsecasesFeeder)
-		.exec(EXUIMCLogin.manageCasesHomePage)
-		.exec(EXUIMCLogin.manageCaseslogin)
-		.exec(ClaimCreation.run)
-		.pause(50)
-		.exec(ClaimDetailNotifications.run)
-		.pause(50)
-		.exec(EXUIMCLogin.manageCase_Logout)
+		.exitBlockOnFail {
+			exec(EXUIMCLogin.manageCasesHomePage)
+				.exec(EXUIMCLogin.manageCaseslogin)
+				.exec(ClaimCreation.run)
+				.pause(50)
+				.exec(EXUIMCLogin.manageCase_Logout)
+		}
 
-		/*
+		/*/*
       Step 2: login to manage org as defendant solicitor to assign the case to other users from defendant solicitor firm
 
        */
@@ -204,7 +204,7 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 		.exec(ClaimResponseToDefendant.run)
 		.pause(50)
 		.exec(EXUIMCLogin.manageCase_Logout)
-
+*/
 
 	//defines the Gatling simulation model, based on the inputs
 	def simulationProfile(simulationType: String, numberOfPerformanceTestUsers: Double, numberOfPipelineUsers: Double): Seq[OpenInjectionStep] = {
@@ -228,11 +228,11 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 	
 	setUp(
 		//CivilClaimsScenario.inject(nothingFor(1),rampUsers(300) during (3600))
-		CivilUIClaimCreationScenario.inject(nothingFor(5),rampUsers(90) during (3600)),
-			CivilUIDefAndIntentScenario.inject(nothingFor(30),rampUsers(22) during (3600))
+		/*CivilUIClaimCreationScenario.inject(nothingFor(5),rampUsers(90) during (3600)),
+			CivilUIDefAndIntentScenario.inject(nothingFor(30),rampUsers(22) during (3600))*/
 			//	CivilAssignScenario.inject(nothingFor(1),rampUsers(18) during (300))
 				
-			//	CivilDamageScenario.inject(nothingFor(1.minutes),rampUsers(1) during (12.minutes))
+		CivilDamageScenario.inject(nothingFor(5),rampUsers(130) during (1800))
 ).protocols(httpProtocol)
 	
 	/*setUp(
