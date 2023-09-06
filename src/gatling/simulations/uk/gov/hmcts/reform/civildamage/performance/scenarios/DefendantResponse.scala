@@ -36,7 +36,7 @@ object DefendantResponse {
       exec(http("CUI_DefResponse_020_005_SignIn")
         .post(IdAMURL + "/login?client_id=civil_citizen_ui&response_type=code&redirect_uri=https://civil-citizen-ui.perftest.platform.hmcts.net/oauth2/callback&scope=profile%20openid%20roles%20manage-user%20create-user%20search-user")
         .headers(CivilDamagesHeader.MoneyClaimSignInHeader)
-        .formParam("username", "perftestuser@mailinator.com")
+        .formParam("username", "perftestuser.new@mailinator.com")
         .formParam("password", "Password12!")
         .formParam("selfRegistrationEnabled", "true")
         .formParam("_csrf", "${csrf}")

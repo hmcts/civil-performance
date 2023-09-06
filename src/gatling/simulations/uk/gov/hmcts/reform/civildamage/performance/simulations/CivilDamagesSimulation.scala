@@ -104,7 +104,7 @@ class CivilDamagesSimulation extends Simulation {
 				.pause(50)
 			
 				//Assign the claimant cse to defendant
-			/*	.exec(CivilAssignCase.cuiassign)
+				/*.exec(CivilAssignCase.cuiassign)
 				.pause(20)*/
 				.exec(Logout.XUILogout)
 		}
@@ -228,11 +228,11 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 	
 	setUp(
 		//CivilClaimsScenario.inject(nothingFor(1),rampUsers(300) during (3600))
-		/*CivilUIClaimCreationScenario.inject(nothingFor(5),rampUsers(90) during (3600)),
-			CivilUIDefAndIntentScenario.inject(nothingFor(30),rampUsers(22) during (3600))*/
+		CivilUIClaimCreationScenario.inject(nothingFor(5),rampUsers(25) during (1800)),
+			//CivilUIDefAndIntentScenario.inject(nothingFor(30),rampUsers(22) during (3600))
 			//	CivilAssignScenario.inject(nothingFor(1),rampUsers(18) during (300))
 				
-		CivilDamageScenario.inject(nothingFor(5),rampUsers(130) during (1800))
+		//CivilDamageScenario.inject(nothingFor(5),rampUsers(130) during (1800))
 ).protocols(httpProtocol)
 	
 	/*setUp(

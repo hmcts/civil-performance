@@ -25,7 +25,7 @@ object  CivilAssignCase {
 			exec(http("Civil_000_GetBearerToken")
 				.post(idamURL + "/o/token") //change this to idamapiurl if this not works
 				.formParam("grant_type", "password")
-				.formParam("username", "perftestuser@mailinator.com")
+				.formParam("username", "perftestuser.new@mailinator.com")
 				.formParam("password", "Password12!")
 				.formParam("client_id", "civil_citizen_ui")
 				// .formParam("client_secret", clientSecret)
