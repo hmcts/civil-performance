@@ -56,10 +56,6 @@ object  EXUI_AssignCase {
 			exec(http("CD_ShareACase_050_ShareCaseUsers")
 				.get(manageOrgURL + "/api/caseshare/users")
 				.headers(AssignCase_Header.headers_9)
-				/*.check(jsonPath("$..email").find(1).saveAs("email"))
-				.check(jsonPath("$..firstName").find(1).saveAs("firstName"))
-				.check(jsonPath("$..idamId").find(1).saveAs("idamId"))
-				.check(jsonPath("$..lastName").find(1).saveAs("lastName"))*/
 				.check(status in(200, 304))
 			)
 		}

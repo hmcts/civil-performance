@@ -685,6 +685,6 @@
     "personalInjuryType": "ROAD_ACCIDENT",
     "detailsOfClaim": "sdsdsdsdsdsdsdsdsdsdsds"
   },
-  "event_token": "${event_token}",
+  "event_token": "#{event_token}",
   "ignore_warning": false
 }

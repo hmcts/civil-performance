@@ -683,6 +683,6 @@
     "addRespondent2": "No",
     "claimType": "PERSONAL_INJURY"
   },
-  "event_token": "${event_token}",
+  "event_token": "#{event_token}",
   "ignore_warning": false
 }

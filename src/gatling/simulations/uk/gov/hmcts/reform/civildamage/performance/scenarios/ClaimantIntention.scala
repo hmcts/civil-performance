@@ -17,36 +17,6 @@ object ClaimantIntention {
 
   val claimantintention =
 
-  /*======================================================================================
-   * Civil UI Claimant Intention - Click On Case
-==========================================================================================*/
-   /* group("CD_ClaimIntention_740_Click On Claim") {
-      exec(http("CD_ClaimIntention_740_ClickOnClaim")
-        .get(BaseURL + "/data/internal/cases/#{caseId}")
-        .headers(CivilDamagesHeader.MoneyClaimNavHeader)
-        .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-case-view.v2+json")
-        .check(status.in(200, 304))
-        //    .check(substring("Enter your claim number"))
-      )
-    }
-      .pause(MinThinkTime, MaxThinkTime)*/
-  
-  /*======================================================================================
-     * Civil UI Claim - Navigate to case
-  ==========================================================================================*/
-
- /* .group("CD_ClaimIntention_740_FindClaim") {
-    exec(http("CD_ClaimIntention_740_FindClaim")
-      .get(BaseURL + "/cases/case-details/#{caseId}")
-      .headers(CivilDamagesHeader.MoneyClaimNavHeader)
-      .check(status.in(200, 304))
-  //    .check(substring("Enter your claim number"))
-    )
-    
-  }
-      .pause(MinThinkTime, MaxThinkTime)*/
-
-
     /*======================================================================================
      * Civil UI Claim - Select 'View and Respond to Case' from WA
   ==========================================================================================*/
@@ -100,24 +70,7 @@ object ClaimantIntention {
           }
               .pause(MinThinkTime, MaxThinkTime)
         
-
-            /*  //Respond to Claim
-              .group("CD_DefResponse_350_RespondClaim") {
-                exec(http("CD_DefResponse_350_005_RespondClaim")
-                  .post(BaseURL + "/assignclaim?id=#{caseId}")
-                  .headers(CivilDamagesHeader.MoneyClaimPostHeader)
-                  .formParam("id", "#{caseId}")
-                  .check(status.in(200, 304))
-                  .check(substring("Sign in or create an account"))
-                )
-              }
-                  .pause(MinThinkTime, MaxThinkTime)*/
-
-
-
-
-
-    /*======================================================================================
+        /*======================================================================================
     * Civil UI Claim - Check answers and submit
  ==========================================================================================*/
 

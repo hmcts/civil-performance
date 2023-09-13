@@ -79,6 +79,6 @@
     "addRespondent2": "No",
     "detailsOfClaim": "dfddfdfdfdfdfdfdfdfdfdfdfdfdf"
   },
-  "event_token": "${event_token}",
+  "event_token": "#{event_token}",
   "ignore_warning": false
 }

@@ -4,5 +4,5 @@
   "currency": "GBP",
   "customer_reference": "asdsdsda",
   "organisation_name": "Civil Damages Claims - Organisation 1",
-  "idempotency_key": "idam-key-${Idempotencynumber}"
+  "idempotency_key": "idam-key-#{Idempotencynumber}"
 }

@@ -608,6 +608,6 @@
     },
     "applicant1LitigationFriendRequired": "No"
   },
-  "event_token": "${event_token}",
+  "event_token": "#{event_token}",
   "ignore_warning": false
 }

@@ -105,6 +105,6 @@
     "claimInterest": "No",
     "calculatedInterest": "| Description | Amount | \n |---|---| \n | Claim amount | £ 1000 | \n | Interest amount | £ 0 | \n | Total amount | £ 1000 |"
   },
-  "event_token": "${event_token}",
+  "event_token": "#{event_token}",
   "ignore_warning": false
 }

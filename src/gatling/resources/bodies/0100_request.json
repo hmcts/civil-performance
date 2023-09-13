@@ -691,6 +691,6 @@
       "statementOfValueInPennies": "500000"
     }
   },
-  "event_token": "${event_token}",
+  "event_token": "#{event_token}",
   "ignore_warning": false
 }

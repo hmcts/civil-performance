@@ -31,10 +31,12 @@ object DefendantResponse {
     .pause(MinThinkTime, MaxThinkTime)
   
   
-//sign in
+    /*======================================================================================
+                       * Civil UI Claim - Sign In
+    ==============================================================================================*/
     .group("CUI_DefResponse_020_SignIn ") {
       exec(http("CUI_DefResponse_020_005_SignIn")
-        .post(IdAMURL + "/login?client_id=civil_citizen_ui&response_type=code&redirect_uri=https://civil-citizen-ui.perftest.platform.hmcts.net/oauth2/callback&scope=profile%20openid%20roles%20manage-user%20create-user%20search-user")
+        .post(IdAMURL + "/login?client_id=civil_citizen_ui&response_type=code&redirect_uri=" + CivilUiURL + "/oauth2/callback&scope=profile%20openid%20roles%20manage-user%20create-user%20search-user")
         .headers(CivilDamagesHeader.MoneyClaimSignInHeader)
         .formParam("username", "perftestuser.new@mailinator.com")
         .formParam("password", "Password12!")

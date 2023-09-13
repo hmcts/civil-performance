@@ -662,6 +662,6 @@
     },
     "respondent1Represented": "Yes"
   },
-  "event_token": "${event_token}",
+  "event_token": "#{event_token}",
   "ignore_warning": false
 }

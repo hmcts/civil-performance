@@ -21,18 +21,12 @@ class CivilDamagesSimulation extends Simulation {
 	
   val httpProtocol = Environment.HttpProtocol
     .baseUrl(BaseURL)
-    .doNotTrackHeader("1")
-    .inferHtmlResources()
+   // .doNotTrackHeader("1")
+   // .inferHtmlResources()
     .silentResources
 	implicit val postHeaders: Map[String, String] = Map(
 		"Origin" -> BaseURL
 	)
-	
-	/*val httpProtocol = Environment.HttpProtocol
-		.baseUrl(Environment.baseURL.replace("${env}", s"${env}"))
-		.inferHtmlResources()
-		.silentResources
-		.header("experimental", "true") //used to send through client id, s2s and bearer tokens. Might be temporary*/
 	
 	/* TEST TYPE DEFINITION */
 	/* pipeline = nightly pipeline against the AAT environment (see the Jenkins_nightly file) */
@@ -76,12 +70,11 @@ class CivilDamagesSimulation extends Simulation {
 	
 	
 	before {
-		println(s"Test Type: ${testType}")
-		println(s"Test Environment: ${env}")
-		println(s"Debug Mode: ${debugMode}")
+		println(s"Test Type: #{testType}")
+		println(s"Test Environment: #{env}")
+		println(s"Debug Mode: #{debugMode}")
 	}
-  
-  
+	
   // below scenario is for user data creation
   val UserCreationScenario = scenario("CMC User Creation")
     .exec(
@@ -90,8 +83,7 @@ class CivilDamagesSimulation extends Simulation {
     )
   
   //below scenario is to generate claims data for GA process
-	
-	
+		
 	val CivilUIClaimCreationScenario = scenario("Create Civil UI Claim")
 		.feed(loginFeeder)
 		.exitBlockOnFail {
@@ -173,6 +165,8 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 				.exec(EXUIMCLogin.manageCaseslogin)
 				.exec(ClaimCreation.run)
 				.pause(50)
+				.exec(CivilAssignCase.run)
+				.pause(20)
 				.exec(EXUIMCLogin.manageCase_Logout)
 		}
 
@@ -228,11 +222,11 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 	
 	setUp(
 		//CivilClaimsScenario.inject(nothingFor(1),rampUsers(300) during (3600))
-		CivilUIClaimCreationScenario.inject(nothingFor(5),rampUsers(90) during (3600)),
-			CivilUIDefAndIntentScenario.inject(nothingFor(30),rampUsers(20) during (3600))
+		/*CivilUIClaimCreationScenario.inject(nothingFor(5),rampUsers(90) during (3600)),
+			CivilUIDefAndIntentScenario.inject(nothingFor(30),rampUsers(20) during (3600))*/
 			//	CivilAssignScenario.inject(nothingFor(1),rampUsers(18) during (300))
 				
-		//CivilDamageScenario.inject(nothingFor(5),rampUsers(130) during (1800))
+		CivilDamageScenario.inject(nothingFor(5),rampUsers(150) during (1800))
 ).protocols(httpProtocol)
 	
 	/*setUp(
