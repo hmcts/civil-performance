@@ -11,27 +11,28 @@
     "applicant1": {
       "type": "INDIVIDUAL",
       "individualTitle": "mr",
-      "individualFirstName": "#{randomString}First",
-      "individualLastName": "#{randomString}Last",
+      "individualFirstName": "vijay",
+      "individualLastName": "vykuntam",
       "soleTraderTitle": null,
-      "partyEmail": "#{randomString}@gmail.com",
-      "partyPhone": "+447540612047",
-      "individualDateOfBirth": "#{birthYear}-#{birthMonth}-#{birthDay}",
-      "partyName": "mr #{randomString}First #{randomString}Last",
-      "partyTypeDisplayValue": null,
+      "partyEmail": "civilmoneyclaimsdemo@gmail.com",
+      "partyPhone": "07540622048",
+      "individualDateOfBirth": "1983-08-01",
+      "partyName": "mr vijay vykuntam",
+      "bulkClaimPartyName": null,
+      "partyTypeDisplayValue": "Individual",
       "partyID": null,
       "primaryAddress": {
-        "AddressLine1": "#{randomString}Address1",
+        "AddressLine1": "26 Hibernia Gardens",
         "AddressLine2": "",
         "AddressLine3": "",
-        "PostTown": "#{randomString}Town",
+        "PostTown": "Hounslow",
         "County": "",
         "Country": "United Kingdom",
-        "PostCode": "#{postcode}"
+        "PostCode": "TW3 3SD"
       }
     },
     "addApplicant2": "No"
   },
-  "event_token": "${event_token}",
+  "event_token": "#{event_token}",
   "ignore_warning": false
 }

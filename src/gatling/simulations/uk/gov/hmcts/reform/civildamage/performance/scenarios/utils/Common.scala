@@ -40,7 +40,11 @@ object Common {
       println("Random value of the list " + list(random.nextInt(list.length)))
     }
   }
-
+  
+  def getRequestId (): String = {
+    val chars = ('a' to 'z') ++ ('A' to 'Z') ++ ('0' to '9')
+    Random.shuffle(chars).take(5).mkString
+  }
 
   def getDay(): String = {
     (1 + rnd.nextInt(28)).toString.format(patternDay).reverse.padTo(2, '0').reverse //pads single-digit dates with a leading zero
@@ -61,6 +65,108 @@ object Common {
   //Dod <= 21 years
   def getYear(): String = {
     now.minusYears(30 + rnd.nextInt(50)).format(patternYear)
+  }
+
+
+  def getYearFuture(): String = {
+    now.plusYears(1).format(patternYear)
+  }
+
+
+  def getCurrentYear(): String = {
+    now.format(patternYear)
+  }
+
+  def getCurrentMonth(): String = {
+    now.format(patternMonth)
+  }
+
+  def getCurrentDay(): String = {
+    now.format(patternDay)
+  }
+
+  def getNextMonth(): String = {
+    now.plusMonths(1).format(patternYear)
+  }
+
+
+  def getNextNextMonth(): String = {
+    now.plusMonths(2).format(patternYear)
+  }
+
+  def getPlus2WeeksDay(): String = {
+    now.plusWeeks(2).format(patternDay)
+  }
+
+  def getPlus2WeeksMonth(): String = {
+    now.plusWeeks(2).format(patternMonth)
+  }
+
+  def getPlus2WeeksYear(): String = {
+    now.plusWeeks(2).format(patternYear)
+  }
+
+  def getPlus4WeeksDay(): String = {
+    now.plusWeeks(4).format(patternDay)
+  }
+
+  def getPlus4WeeksMonth(): String = {
+    now.plusWeeks(4).format(patternMonth)
+  }
+
+  def getPlus4WeeksYear(): String = {
+    now.plusWeeks(4).format(patternYear)
+  }
+
+
+  def getPlus6WeeksDay(): String = {
+    now.plusWeeks(6).format(patternDay)
+  }
+
+  def getPlus6WeeksMonth(): String = {
+    now.plusWeeks(6).format(patternMonth)
+  }
+
+  def getPlus6WeeksYear(): String = {
+    now.plusWeeks(6).format(patternYear)
+  }
+
+
+  def getPlus8WeeksDay(): String = {
+    now.plusWeeks(8).format(patternDay)
+  }
+
+  def getPlus8WeeksMonth(): String = {
+    now.plusWeeks(8).format(patternMonth)
+  }
+
+  def getPlus8WeeksYear(): String = {
+    now.plusWeeks(8).format(patternYear)
+  }
+
+
+  def getPlus10WeeksDay(): String = {
+    now.plusWeeks(10).format(patternDay)
+  }
+
+  def getPlus10WeeksMonth(): String = {
+    now.plusWeeks(10).format(patternMonth)
+  }
+
+  def getPlus10WeeksYear(): String = {
+    now.plusWeeks(10).format(patternYear)
+  }
+
+  def getPlus12WeeksDay(): String = {
+    now.plusWeeks(12).format(patternDay)
+  }
+
+  def getPlus12WeeksMonth(): String = {
+    now.plusWeeks(12).format(patternMonth)
+  }
+
+  def getPlus12WeeksYear(): String = {
+    now.plusWeeks(12).format(patternYear)
   }
   
   def getIdempotency (): String = {

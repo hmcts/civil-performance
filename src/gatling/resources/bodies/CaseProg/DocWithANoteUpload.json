@@ -1,0 +1,45 @@
+{
+  "data": {
+    "documentAndNote": [
+      {
+        "value": {
+          "documentName": "#{CaseProgRandomString} documentName",
+          "documentNote": "#{CaseProgRandomString} documentNote",
+          "document": {
+            "document_url": "#{caseNotedefenceDocument_url}",
+            "document_binary_url": "#{caseNotedefenceDocument_url}/binary",
+            "document_filename": "casesummary.docx",
+            "document_hash": "#{caseNoteHashToken}"
+          }
+        },
+        "id": null
+      }
+    ]
+  },
+  "event": {
+    "id": "EVIDENCE_UPLOAD_JUDGE",
+    "summary": "",
+    "description": ""
+  },
+  "event_data": {
+    "caseNoteType": "DOCUMENT_AND_NOTE",
+    "documentAndNote": [
+      {
+        "value": {
+          "documentName": "#{CaseProgRandomString} documentName",
+          "documentNote": "#{CaseProgRandomString} documentNote",
+          "document": {
+            "document_url": "#{caseNotedefenceDocument_url}",
+            "document_binary_url": "#{caseNotedefenceDocument_url}/binary",
+            "document_filename": "casesummary.docx",
+            "document_hash": "#{caseNoteHashToken}"
+          }
+        },
+        "id": null
+      }
+    ]
+  },
+  "event_token": "#{event_token}",
+  "ignore_warning": false,
+  "case_reference": "#{caseId}"
+}

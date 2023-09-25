@@ -3,7 +3,7 @@ package uk.gov.hmcts.reform.civildamage.performance.scenarios
 
 import io.gatling.core.Predef._
 import io.gatling.http.Predef.{http, _}
-import uk.gov.hmcts.reform.civildamage.performance.scenarios.utils.{CivilDamagesHeader, Common, Environment, Headers}
+import utils.{CivilDamagesHeader, Common, Environment, Headers}
 
 import java.io.{BufferedWriter, FileWriter}
 
@@ -20,29 +20,26 @@ object CUIClaimCreation {
                * Below run is for create Civil claim for specified category
     ==========================================================================================*/
   val run =
+  exec(_.setAll(
+    "Idempotencynumber" -> (Common.getIdempotency()),
+    "randomString" -> (Common.randomString(7)),
+    "applicantFirstName" -> ("First" + Common.randomString(5)),
+    "applicantLastName" -> ("Last" + Common.randomString(5)),
+    "applicantFirstName" -> ("App2" + Common.randomString(5)),
+    "applicantLastName" -> ("Test" + Common.randomString(5)),
+    "birthDay" -> Common.getDay(),
+    "birthMonth" -> Common.getMonth(),
+    "birthYear" -> Common.getYear(),
+    "requestId" -> Common.getRequestId(),
+    "Idempotencynumber" -> Common.getIdempotency())
+  )
 
-      //val createclaim =
+    
       /*======================================================================================
                    *   Civil UI Claim - Initiate Claim
         ==========================================================================================*/
-      group("CUI_CreateClaim_030_CreateCase") {
-
-
-        exec(_.setAll(
-          "Idempotencynumber" -> (Common.getIdempotency()),
-            "randomString" -> (Common.randomString(7)),
-            "applicantFirstName" -> ("First" + Common.randomString(5)),
-            "applicantLastName" -> ("Last" + Common.randomString(5)),
-            "applicantFirstName" -> ("App2" + Common.randomString(5)),
-            "applicantLastName" -> ("Test" + Common.randomString(5)),
-            "birthDay" -> Common.getDay(),
-            "birthMonth" -> Common.getMonth(),
-            "birthYear" -> Common.getYear(),
-            "Idempotencynumber" -> Common.getIdempotency())
-        )
-
-
-        .exec(http("CUI_CreateClaim_030_005_CreateCase")
+      .group("CUI_CreateClaim_030_CreateCase") {
+        exec(http("CUI_CreateClaim_030_005_CreateCase")
           .get("/aggregated/caseworkers/:uid/jurisdictions?access=create")
           .headers(CivilDamagesHeader.headers_104)
           .check(status.in(200, 304))
@@ -144,6 +141,8 @@ object CUIClaimCreation {
         )
       }
       .pause(MinThinkTime, MaxThinkTime)
+
+
       /*======================================================================================
                    *Civil UI Claim - Claim Claimant Add Another Claimant
         ==========================================================================================*/
@@ -379,7 +378,7 @@ object CUIClaimCreation {
       //add another defendant
       // val claimdefsolicitororgemail =
       /*======================================================================================
-                   * Civil UI Claim - Claim - Def Sol Email
+                   * Civil UI Claim - Claim - Add another def - No
         ==========================================================================================*/
       .group("CUI_CreateClaim_150_DefendantSolicitorEmail") {
         exec(http("CUI_CreateClaim_150_005_SolEmail")
@@ -518,7 +517,7 @@ object CUIClaimCreation {
           .body(ElFileBody("bodies/cuiclaim/CivilCreateClaim-ClaimAmount.json"))
           .check(substring("CREATE_CLAIM_SPECClaimAmount"))
           .check(jsonPath("$.data.claimAmountBreakup[0].id").saveAs("claimAmountBreakupId"))
-          .check(jsonPath("$.data.speclistYourEvidenceList[0].id").saveAs("speclistYourEvidenceListId"))
+         // .check(jsonPath("$.data.speclistYourEvidenceList[0].id").saveAs("speclistYourEvidenceListId"))
           .check(jsonPath("$.data.timelineOfEvents[0].id").saveAs("timelineOfEventsId"))
           .check(status.in(200, 304))
         )
@@ -617,7 +616,8 @@ object CUIClaimCreation {
         
         exec(http("CUI_CreateClaim_260_005_Submit")
           .post(BaseURL + "/data/case-types/CIVIL/cases?ignore-warning=false")
-          .headers(CivilDamagesHeader.MoneyClaimSubmitHeader)
+        //  .headers(CivilDamagesHeader.MoneyClaimSubmitHeader)
+          .headers(CivilDamagesHeader.CUI_Submit)
           .body(ElFileBody("bodies/cuiclaim/CivilCreateClaim-Submit.json"))
           .check(jsonPath("$.event_token").optional.saveAs("event_token_claimcreate"))
           .check(jsonPath("$.id").optional.saveAs("caseId"))
@@ -713,14 +713,14 @@ object CUIClaimCreation {
       .pause(50)
       
       
-        //Deepak - Cases that make the final step
+       /* //Deepak - Cases that make the final step
         .exec { session =>
           val fw = new BufferedWriter(new FileWriter("CUICases.csv", true))
           try {
             fw.write(session("caseId").as[String] + "\r\n")
           } finally fw.close()
           session
-        }
+        }*/
   
   
   

@@ -1,0 +1,99 @@
+{
+  "data": {
+    "respondent1": {
+      "type": "INDIVIDUAL",
+      "individualTitle": "mr",
+      "individualFirstName": "vijaydef",
+      "individualLastName": "vykuntamdef",
+      "individualDateOfBirth": "1983-08-01",
+      "primaryAddress": {
+        "AddressLine1": "10 Hibernia Gardens",
+        "PostTown": "Hounslow",
+        "PostCode": "TW3 3SD"
+      },
+      "partyName": "mr vijaydef vykuntamdef",
+      "partyTypeDisplayValue": "Individual",
+      "partyEmail": "civilmoneyclaimsdemo@gmail.com",
+      "partyPhone": "01234567890",
+      "unavailableDates": null,
+      "flags": null
+    },
+    "applicant1": {
+      "partyID": "#{partyIDApp}",
+      "type": "INDIVIDUAL",
+      "individualTitle": "mr",
+      "individualFirstName": "vijay",
+      "individualLastName": "vykuntam",
+      "individualDateOfBirth": "1983-08-01",
+      "primaryAddress": {
+        "AddressLine1": "26 Hibernia Gardens",
+        "PostTown": "Hounslow",
+        "Country": "United Kingdom",
+        "PostCode": "TW3 3SD"
+      },
+      "partyName": "mr vijay vykuntam",
+      "partyTypeDisplayValue": "Individual",
+      "partyEmail": "civilmoneyclaimsdemo@gmail.com",
+      "partyPhone": "07540622048",
+      "flags": {
+        "partyName": "mr vijay vykuntam",
+        "roleOnCase": "Applicant 1"
+      },
+      "unavailableDates": null
+    },
+    "partAdmitPaidValuePounds": null,
+    "respondent2": null,
+    "claimantResponseScenarioFlag": "ONE_V_ONE",
+    "respondToAdmittedClaimOwingAmountPounds": "500",
+    "respondent1PaymentDateToStringSpec": "#{respondent1PaymentDate}",
+    "respondent1GeneratedResponseDocument": {
+      "documentLink": {
+        "document_url": "#{document_url}",
+        "document_binary_url": "#{document_url}/binary",
+        "document_filename": "#{document_filename}"
+      },
+      "documentName": null,
+      "documentType": null,
+      "documentSize": null,
+      "createdDatetime": null,
+      "createdBy": null
+    },
+    "respondent1ClaimResponseDocumentSpec": {
+      "documentLink": {
+        "document_url": "#{document_url}",
+        "document_binary_url": "#{document_url}/binary",
+        "document_filename": "#{document_filename}"
+      },
+      "documentName": "#{document_filename}",
+      "documentType": "DEFENDANT_DEFENCE",
+      "documentSize": "#{documentSize}",
+      "createdDatetime": "#{createdDatetime}",
+      "createdBy": "Civil"
+    },
+    "respondent2GeneratedResponseDocument": null,
+    "applicant1ProceedWithClaim": null,
+    "applicant1AcceptAdmitAmountPaidSpec": "Yes",
+    "applicant1PartAdmitConfirmAmountPaidSpec": null,
+    "applicant1AcceptPartAdmitPaymentPlanSpec": null,
+    "applicant1AcceptFullAdmitPaymentPlanSpec": null,
+    "applicantDefenceResponseDocumentAndDQFlag": null,
+    "applicant1ProceedWithClaimSpec2v1": null,
+    "showConditionFlags": null,
+    "responseClaimTrack": "SMALL_CLAIM",
+    "allocatedTrack": null,
+    "claimType": null,
+    "defenceRouteRequired": null,
+    "respondentResponseIsSame": null,
+    "defendantSingleResponseToBothClaimants": null,
+    "respondent1ClaimResponseTypeForSpec": "PART_ADMISSION",
+    "defenceAdmitPartPaymentTimeRouteRequired": "IMMEDIATELY",
+    "showResponseOneVOneFlag": "ONE_V_ONE_PART_ADMIT_PAY_IMMEDIATELY"
+  },
+  "event": {
+    "id": "CLAIMANT_RESPONSE_SPEC",
+    "summary": "",
+    "description": ""
+  },
+  "event_token": "#{event_token_intention}",
+  "ignore_warning": false
+}

@@ -1,0 +1,121 @@
+{
+  "data": {
+    "caseTypeFlag": null,
+    "caseProgAllocatedTrack": "FAST_CLAIM",
+    "disclosureSelectionEvidenceRes": [
+      "DISCLOSURE_LIST"
+    ],
+    "witnessSelectionEvidenceRes": [
+      "WITNESS_STATEMENT"
+    ],
+    "expertSelectionEvidenceRes": [
+      "EXPERT_REPORT"
+    ],
+    "trialSelectionEvidenceRes": [
+      "CASE_SUMMARY"
+    ],
+    "witnessStatementFlag": null,
+    "witnessSummaryFlag": null,
+    "witnessReferredStatementFlag": null,
+    "expertReportFlag": null,
+    "expertJointFlag": null,
+    "trialAuthorityFlag": null,
+    "trialCostsFlag": null,
+    "trialDocumentaryFlag": null,
+    "documentDisclosureListRes": [
+      {
+        "value": {
+          "createdDatetime": null,
+          "documentUpload": {
+            "document_url": "#{defDisclosureDocument_url}",
+            "document_binary_url": "#{defDisclosureDocument_url}/binary",
+            "document_filename": "DisclosureList.docx",
+            "document_hash": "#{defDisclosureHashToken}"
+          }
+        },
+        "id": null
+      }
+    ],
+    "documentForDisclosureRes": null,
+    "documentWitnessStatementRes": [
+      {
+        "value": {
+          "witnessOptionName": "#{CaseProgRandomString} witnessOptionName",
+          "witnessOptionUploadDate": "#{EvidenceYear}-#{EvidenceMonth}-#{EvidenceDay}",
+          "createdDatetime": null,
+          "witnessOptionDocument": {
+            "document_url": "#{witnessStatementDocument_url}",
+            "document_binary_url": "#{witnessStatementDocument_url}/binary",
+            "document_filename": "WitnessStatement.docx",
+            "document_hash": "#{witnessStatementHashToken}"
+          }
+        },
+        "id": null
+      }
+    ],
+    "documentWitnessSummaryRes": null,
+    "documentHearsayNoticeRes": null,
+    "documentReferredInStatementRes": null,
+    "documentExpertReportRes": [
+      {
+        "value": {
+          "expertOptionName": "#{CaseProgRandomString} expertOptionName",
+          "expertOptionExpertise": "#{CaseProgRandomString} expertOptionExpertise",
+          "expertOptionUploadDate": "#{EvidenceYear}-#{EvidenceMonth}-#{EvidenceDay}",
+          "createdDatetime": null,
+          "expertDocument": {
+            "document_url": "#{expertsReportDocument_url}",
+            "document_binary_url": "#{expertsReportDocument_url}/binary",
+            "document_filename": "ExpertsReport.docx",
+            "document_hash": "#{expertsReportHashToken}"
+          }
+        },
+        "id": null
+      }
+    ],
+    "documentJointStatementRes": null,
+    "documentQuestionsRes": null,
+    "documentAnswersRes": null,
+    "documentCaseSummaryRes": [
+      {
+        "value": {
+          "createdDatetime": null,
+          "documentUpload": {
+            "document_url": "#{caseSummaryDocument_url}",
+            "document_binary_url": "#{caseSummaryDocument_url}/binary",
+            "document_filename": "casesummary.docx",
+            "document_hash": "#{caseSummaryHashToken}"
+          }
+        },
+        "id": null
+      }
+    ],
+    "documentSkeletonArgumentRes": null,
+    "documentAuthoritiesRes": null,
+    "documentCostsRes": null,
+    "documentEvidenceForTrialRes": null,
+    "documentDisclosureListRes2": null,
+    "documentForDisclosureRes2": null,
+    "documentWitnessStatementRes2": null,
+    "documentWitnessSummaryRes2": null,
+    "documentHearsayNoticeRes2": null,
+    "documentReferredInStatementRes2": null,
+    "documentExpertReportRes2": null,
+    "documentJointStatementRes2": null,
+    "documentQuestionsRes2": null,
+    "documentAnswersRes2": null,
+    "documentCaseSummaryRes2": null,
+    "documentSkeletonArgumentRes2": null,
+    "documentAuthoritiesRes2": null,
+    "documentCostsRes2": null,
+    "documentEvidenceForTrialRes2": null,
+    "caseDocumentUploadDateRes": null
+  },
+  "event": {
+    "id": "EVIDENCE_UPLOAD_RESPONDENT",
+    "summary": "",
+    "description": ""
+  },
+  "event_token": "#{event_token}",
+  "ignore_warning": false
+}
