@@ -1,1 +1,30 @@
-{"data":{"servedDocumentFiles":{"particularsOfClaimText":"asasasasasas","particularsOfClaimDocument":[],"medicalReport":[],"scheduleOfLoss":[],"certificateOfSuitability":[],"timelineEventUpload":[]}},"event":{"id":"NOTIFY_DEFENDANT_OF_CLAIM_DETAILS","summary":"","description":""},"event_data":{"servedDocumentFiles":{"particularsOfClaimText":"asasasasasas","particularsOfClaimDocument":[],"medicalReport":[],"scheduleOfLoss":[],"certificateOfSuitability":[],"timelineEventUpload":[]}},"event_token":"${event_token_notifyclaimdetail}","ignore_warning":false,"case_reference":"${caseId}"}
+{
+  "data": {
+    "servedDocumentFiles": {
+      "particularsOfClaimText": "asasasasasas",
+      "particularsOfClaimDocument": [],
+      "medicalReport": [],
+      "scheduleOfLoss": [],
+      "certificateOfSuitability": [],
+      "timelineEventUpload": []
+    }
+  },
+  "event": {
+    "id": "NOTIFY_DEFENDANT_OF_CLAIM_DETAILS",
+    "summary": "",
+    "description": ""
+  },
+  "event_data": {
+    "servedDocumentFiles": {
+      "particularsOfClaimText": "asasasasasas",
+      "particularsOfClaimDocument": [],
+      "medicalReport": [],
+      "scheduleOfLoss": [],
+      "certificateOfSuitability": [],
+      "timelineEventUpload": []
+    }
+  },
+  "event_token": "#{event_token_notifyclaimdetail}",
+  "ignore_warning": false,
+  "case_reference": "${caseId}"
+}

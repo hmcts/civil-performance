@@ -1,8 +1,8 @@
 {
-  "account_number": "PBA0078095",
-  "amount": 115,
+  "account_number": "PBA0077597",
+  "amount": 70,
   "currency": "GBP",
   "customer_reference": "asdsdsda",
-  "organisation_name": "Civil - Organisation 1",
-  "idempotency_key": "idam-key-${Idempotencynumber}"
+  "organisation_name": "Civil Damages Claims - Organisation 1",
+  "idempotency_key": "idam-key-#{Idempotencynumber}"
 }

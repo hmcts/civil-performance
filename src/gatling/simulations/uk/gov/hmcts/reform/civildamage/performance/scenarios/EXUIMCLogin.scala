@@ -202,10 +202,10 @@ object EXUIMCLogin {
              .headers(LoginHeader.headers_access_read)
              .check(status.in(200, 304, 302)))
       }
-      .exec(http("CivilDamages_020_035_GetWorkBasketInputs")
+     /* .exec(http("CivilDamages_020_035_GetWorkBasketInputs")
             .get("/data/internal/case-types/FinancialRemedyMVP2/work-basket-inputs")
             .headers(LoginHeader.headers_17)
-            .check(status.in(200, 304, 302)))
+            .check(status.in(200, 304, 302)))*/
       
       .exec(http("CivilDamages_020_040_HomepageIsAuthenticated")
             .get("/auth/isAuthenticated")

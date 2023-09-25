@@ -1,0 +1,102 @@
+{
+  "data": {
+    "respondent1Copy": {
+      "partyID": "#{repPartyID}",
+      "type": "COMPANY",
+      "companyName": "partyName",
+      "primaryAddress": {
+        "AddressLine1": "T Mobile Retail",
+        "AddressLine2": "3 The Stratford Centre",
+        "AddressLine3": "The Mall",
+        "PostTown": "London",
+        "Country": "United Kingdom",
+        "PostCode": "E15 1XA"
+      },
+      "partyName": "partyName",
+      "partyTypeDisplayValue": "Company",
+      "flags": {
+        "partyName": "partyName",
+        "roleOnCase": "Respondent 1"
+      }
+    },
+    "respondent2Copy": null,
+    "allocatedTrack": "FAST_CLAIM",
+    "claimType": "PERSONAL_INJURY",
+    "addRespondent2": "No",
+    "addApplicant2": "No",
+    "respondent2SameLegalRepresentative": null,
+    "respondent1": {
+      "type": "COMPANY",
+      "individualTitle": null,
+      "individualFirstName": null,
+      "individualLastName": null,
+      "companyName": "partyName",
+      "organisationName": null,
+      "soleTraderTitle": null,
+      "soleTraderFirstName": null,
+      "soleTraderLastName": null,
+      "soleTraderTradingAs": null,
+      "partyName": "partyName",
+      "bulkClaimPartyName": null,
+      "partyTypeDisplayValue": "Company",
+      "partyEmail": null,
+      "partyPhone": null,
+      "partyID": "#{repPartyID}"
+    },
+    "multiPartyResponseTypeFlags": null
+  },
+  "event": {
+    "id": "DEFENDANT_RESPONSE",
+    "summary": "",
+    "description": ""
+  },
+  "event_data": {
+    "respondent1Copy": {
+      "partyID": "#{repPartyID}",
+      "type": "COMPANY",
+      "companyName": "partyName",
+      "primaryAddress": {
+        "AddressLine1": "T Mobile Retail",
+        "AddressLine2": "3 The Stratford Centre",
+        "AddressLine3": "The Mall",
+        "PostTown": "London",
+        "Country": "United Kingdom",
+        "PostCode": "E15 1XA"
+      },
+      "partyName": "partyName",
+      "partyTypeDisplayValue": "Company",
+      "flags": {
+        "partyName": "partyName",
+        "roleOnCase": "Respondent 1"
+      }
+    },
+    "respondent2Copy": null,
+    "allocatedTrack": "FAST_CLAIM",
+    "claimType": "PERSONAL_INJURY",
+    "addRespondent2": "No",
+    "addApplicant2": "No",
+    "respondent2SameLegalRepresentative": null,
+    "respondent1": {
+      "type": "COMPANY",
+      "individualTitle": null,
+      "individualFirstName": null,
+      "individualLastName": null,
+      "companyName": "partyName",
+      "organisationName": null,
+      "soleTraderTitle": null,
+      "soleTraderFirstName": null,
+      "soleTraderLastName": null,
+      "soleTraderTradingAs": null,
+      "partyName": "partyName",
+      "bulkClaimPartyName": null,
+      "partyTypeDisplayValue": "Company",
+      "partyEmail": null,
+      "partyPhone": null,
+      "partyID": "#{repPartyID}"
+    },
+    "multiPartyResponseTypeFlags": null
+  },
+  "event_token": "#{event_token}",
+  "ignore_warning": false,
+  "case_reference": "#{caseId}"
+}
