@@ -300,7 +300,7 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 			//	CivilAssignScenario.inject(nothingFor(1),rampUsers(18) during (300))
 
 	//	CivilCaseProg.inject(nothingFor(5),rampUsers(1) during (650))
-		CivilCaseProg.inject(nothingFor(1),rampUsers(3) during (1200))
+		CivilCaseProg.inject(nothingFor(1),rampUsers(3) during (1000))
 ).protocols(httpProtocol)
 	
 	/*setUp(
