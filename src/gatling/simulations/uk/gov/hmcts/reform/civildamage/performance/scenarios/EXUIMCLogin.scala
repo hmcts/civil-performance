@@ -211,61 +211,182 @@ object EXUIMCLogin {
     .pause(MinThinkTime, MaxThinkTime)
   
   val manageCasesloginToDefendantJourney =
-    group("CivilDamages_020_005_SignIn") {
-      exec(flushHttpCache).exec(http("CivilDamages_020_005_SignIn")
+    group("CivilDamages_020_005_SignInDef") {
+      exec(flushHttpCache).exec(http("CivilDamages_020_005_SignInDef")
         /*.post(IdAMURL + "/login?response_type=code&redirect_uri=" + baseURL + "%2Foauth2%2Fcallback&scope=profile%20openid%20roles%20manage-user%20create-user&state=${state}&client_id=xuiwebapp")*/
         .post(IdAMURL + "/login?client_id=xuiwebapp&redirect_uri=" + baseURL + "/oauth2/callback&state=#{state}&nonce=#{nonce}&response_type=code&scope=profile%20openid%20roles%20manage-user%20create-user&prompt=")
-        .formParam("username", "#{email}")
-        .formParam("password", "Password12!")
+        .formParam("username", "#{defendantuser}")
+        .formParam("password", "#{password}")
         .formParam("save", "Sign in")
         .formParam("selfRegistrationEnabled", "false")
         .formParam("_csrf", "#{csrfToken}")
         .headers(LoginHeader.headers_login_submit)
-        .check(status.in(200, 304, 302)))//.exitHereIfFailed
+        .check(status.in(200, 304, 302))).exitHereIfFailed
         //.check(regex("Manage Cases"))).exitHereIfFailed
-        
+
         //following is the other way of getting cookies
         // .check(headerRegex("Set-Cookie","__auth-token=(.*)").saveAs("authToken"))
-        
+
         .exec(http("CivilDamages_020_010_configUI")
-        .get("/external/config/ui")
-        .headers(LoginHeader.headers_0)
-        .check(status.in(200, 304)))
-        
+          .get("/external/config/ui")
+          .headers(LoginHeader.headers_0)
+          .check(status.in(200, 304)))
+
         .exec(http("CivilDamages_020_015_Config")
           .get("/assets/config/config.json")
           .headers(LoginHeader.headers_0)
           .check(status.in(200, 304)))
-        
+
         .exec(http("CivilDamages_020_020_SignInTCEnabled")
           .get("/api/configuration?configurationKey=termsAndConditionsEnabled")
           .headers(LoginHeader.headers_38)
           .check(status.in(200, 304)))
-        
+
         .exec(http("CivilDamages_020_025_SignInGetUserId")
           .get("/api/user/details")
           .headers(LoginHeader.headers_0)
           .check(status.in(200, 304)))
-        
+
         .repeat(1, "count") {
           exec(http("CivilDamages_020_030_AcceptT&CAccessJurisdictions#{count}")
             .get("/aggregated/caseworkers/:uid/jurisdictions?access=read")
             .headers(LoginHeader.headers_access_read)
             .check(status.in(200, 304, 302)))
         }
-        .exec(http("CivilDamages_020_035_GetWorkBasketInputs")
-          .get("/data/internal/case-types/FinancialRemedyMVP2/work-basket-inputs")
-          .headers(LoginHeader.headers_17)
-          .check(status.in(200, 304, 302)))
-        
+        /* .exec(http("CivilDamages_020_035_GetWorkBasketInputs")
+               .get("/data/internal/case-types/FinancialRemedyMVP2/work-basket-inputs")
+               .headers(LoginHeader.headers_17)
+               .check(status.in(200, 304, 302)))*/
+
         .exec(http("CivilDamages_020_040_HomepageIsAuthenticated")
           .get("/auth/isAuthenticated")
           .headers(LoginHeader.headers_0))
-        
+
         .exec(getCookieValue(CookieKey("XSRF-TOKEN").withDomain(baseDomain).saveAs("XSRFToken")))
       
     }
       .pause(MinThinkTime, MaxThinkTime)
+
+
+
+  val manageCasesloginToCentreAdminJourney =
+    group("CivilDamages_020_005_SignInCentreAdmin") {
+      exec(flushHttpCache).exec(http("CivilDamages_020_005_SignIn")
+        /*.post(IdAMURL + "/login?response_type=code&redirect_uri=" + baseURL + "%2Foauth2%2Fcallback&scope=profile%20openid%20roles%20manage-user%20create-user&state=${state}&client_id=xuiwebapp")*/
+        .post(IdAMURL + "/login?client_id=xuiwebapp&redirect_uri=" + baseURL + "/oauth2/callback&state=#{state}&nonce=#{nonce}&response_type=code&scope=profile%20openid%20roles%20manage-user%20create-user&prompt=")
+        .formParam("username", "#{centreadminuser}")
+        .formParam("password", "#{password}")
+        .formParam("save", "Sign in")
+        .formParam("selfRegistrationEnabled", "false")
+        .formParam("_csrf", "#{csrfToken}")
+        .headers(LoginHeader.headers_login_submit)
+        .check(status.in(200, 304, 302))).exitHereIfFailed
+        //.check(regex("Manage Cases"))).exitHereIfFailed
+
+        //following is the other way of getting cookies
+        // .check(headerRegex("Set-Cookie","__auth-token=(.*)").saveAs("authToken"))
+
+        .exec(http("CivilDamages_020_010_configUI")
+          .get("/external/config/ui")
+          .headers(LoginHeader.headers_0)
+          .check(status.in(200, 304)))
+
+        .exec(http("CivilDamages_020_015_Config")
+          .get("/assets/config/config.json")
+          .headers(LoginHeader.headers_0)
+          .check(status.in(200, 304)))
+
+        .exec(http("CivilDamages_020_020_SignInTCEnabled")
+          .get("/api/configuration?configurationKey=termsAndConditionsEnabled")
+          .headers(LoginHeader.headers_38)
+          .check(status.in(200, 304)))
+
+        .exec(http("CivilDamages_020_025_SignInGetUserId")
+          .get("/api/user/details")
+          .headers(LoginHeader.headers_0)
+          .check(status.in(200, 304)))
+
+        .repeat(1, "count") {
+          exec(http("CivilDamages_020_030_AcceptT&CAccessJurisdictions#{count}")
+            .get("/aggregated/caseworkers/:uid/jurisdictions?access=read")
+            .headers(LoginHeader.headers_access_read)
+            .check(status.in(200, 304, 302)))
+        }
+        /* .exec(http("CivilDamages_020_035_GetWorkBasketInputs")
+               .get("/data/internal/case-types/FinancialRemedyMVP2/work-basket-inputs")
+               .headers(LoginHeader.headers_17)
+               .check(status.in(200, 304, 302)))*/
+
+        .exec(http("CivilDamages_020_040_HomepageIsAuthenticated")
+          .get("/auth/isAuthenticated")
+          .headers(LoginHeader.headers_0))
+
+        .exec(getCookieValue(CookieKey("XSRF-TOKEN").withDomain(baseDomain).saveAs("XSRFToken")))
+
+    }
+      .pause(MinThinkTime, MaxThinkTime)
+
+
+
+
+
+  val manageCasesloginToJudgeJourney =
+    group("CivilDamages_020_005_SignInJudge") {
+      exec(flushHttpCache).exec(http("CivilDamages_020_005_SignIn")
+        /*.post(IdAMURL + "/login?response_type=code&redirect_uri=" + baseURL + "%2Foauth2%2Fcallback&scope=profile%20openid%20roles%20manage-user%20create-user&state=${state}&client_id=xuiwebapp")*/
+        .post(IdAMURL + "/login?client_id=xuiwebapp&redirect_uri=" + baseURL + "/oauth2/callback&state=#{state}&nonce=#{nonce}&response_type=code&scope=profile%20openid%20roles%20manage-user%20create-user&prompt=")
+        .formParam("username", "#{judgeuser}")
+        .formParam("password", "#{judgepassword}")
+        .formParam("save", "Sign in")
+        .formParam("selfRegistrationEnabled", "false")
+        .formParam("_csrf", "#{csrfToken}")
+        .headers(LoginHeader.headers_login_submit)
+        .check(status.in(200, 304, 302))).exitHereIfFailed
+        //.check(regex("Manage Cases"))).exitHereIfFailed
+
+        //following is the other way of getting cookies
+        // .check(headerRegex("Set-Cookie","__auth-token=(.*)").saveAs("authToken"))
+
+        .exec(http("CivilDamages_020_010_configUI")
+          .get("/external/config/ui")
+          .headers(LoginHeader.headers_0)
+          .check(status.in(200, 304)))
+
+        .exec(http("CivilDamages_020_015_Config")
+          .get("/assets/config/config.json")
+          .headers(LoginHeader.headers_0)
+          .check(status.in(200, 304)))
+
+        .exec(http("CivilDamages_020_020_SignInTCEnabled")
+          .get("/api/configuration?configurationKey=termsAndConditionsEnabled")
+          .headers(LoginHeader.headers_38)
+          .check(status.in(200, 304)))
+
+        .exec(http("CivilDamages_020_025_SignInGetUserId")
+          .get("/api/user/details")
+          .headers(LoginHeader.headers_0)
+          .check(status.in(200, 304)))
+
+        .repeat(1, "count") {
+          exec(http("CivilDamages_020_030_AcceptT&CAccessJurisdictions#{count}")
+            .get("/aggregated/caseworkers/:uid/jurisdictions?access=read")
+            .headers(LoginHeader.headers_access_read)
+            .check(status.in(200, 304, 302)))
+        }
+        /* .exec(http("CivilDamages_020_035_GetWorkBasketInputs")
+               .get("/data/internal/case-types/FinancialRemedyMVP2/work-basket-inputs")
+               .headers(LoginHeader.headers_17)
+               .check(status.in(200, 304, 302)))*/
+
+        .exec(http("CivilDamages_020_040_HomepageIsAuthenticated")
+          .get("/auth/isAuthenticated")
+          .headers(LoginHeader.headers_0))
+
+        .exec(getCookieValue(CookieKey("XSRF-TOKEN").withDomain(baseDomain).saveAs("XSRFToken")))
+
+    }
+      .pause(MinThinkTime, MaxThinkTime)
+
   
   val manageCase_Logout =group("ManageCase_Def_SignOut") {
     exec(http("Claimant_SignOut")

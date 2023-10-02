@@ -19,6 +19,17 @@
           }
         },
         "id": null
+      },
+      {
+        "value": {
+          "documentUpload": {
+            "document_url": "#{defDisclosure2Document_url}",
+            "document_binary_url": "#{defDisclosure2Document_url}/binary",
+            "document_filename": "DisclosureList.docx",
+            "document_hash": "#{defDisclosure2HashToken}"
+          }
+        },
+        "id": null
       }
     ],
     "documentWitnessStatementRes": [
@@ -31,6 +42,19 @@
             "document_binary_url": "#{witnessStatementDocument_url}/binary",
             "document_filename": "WitnessStatement.docx",
             "document_hash": "#{witnessStatementHashToken}"
+          }
+        },
+        "id": null
+      },
+      {
+        "value": {
+          "witnessOptionName": "#{CaseProgRandomString} witnessOptionName2",
+          "witnessOptionUploadDate": "#{EvidenceYear}-#{EvidenceMonth}-#{EvidenceDay}",
+          "witnessOptionDocument": {
+            "document_url": "#{witnessStatement2Document_url}",
+            "document_binary_url": "#{witnessStatement2Document_url}/binary",
+            "document_filename": "WitnessStatement.docx",
+            "document_hash": "#{witnessStatement2HashToken}"
           }
         },
         "id": null
@@ -50,6 +74,20 @@
           }
         },
         "id": null
+      },
+      {
+        "value": {
+          "expertOptionName": "#{CaseProgRandomString} expertOptionName2",
+          "expertOptionExpertise": "#{CaseProgRandomString} expertOptionExpertise2",
+          "expertOptionUploadDate": "#{EvidenceYear}-#{EvidenceMonth}-#{EvidenceDay}",
+          "expertDocument": {
+            "document_url": "#{expertsReport2Document_url}",
+            "document_binary_url": "#{expertsReport2Document_url}/binary",
+            "document_filename": "ExpertsReport.docx",
+            "document_hash": "#{expertsReport2HashToken}"
+          }
+        },
+        "id": null
       }
     ],
     "documentCaseSummaryRes": [
@@ -60,6 +98,17 @@
             "document_binary_url": "#{caseSummaryDocument_url}/binary",
             "document_filename": "casesummary.docx",
             "document_hash": "#{caseSummaryHashToken}"
+          }
+        },
+        "id": null
+      },
+      {
+        "value": {
+          "documentUpload": {
+            "document_url": "#{caseSummary2Document_url}",
+            "document_binary_url": "#{caseSummary2Document_url}/binary",
+            "document_filename": "casesummary.docx",
+            "document_hash": "#{caseSummary2HashToken}"
           }
         },
         "id": null
@@ -106,6 +155,17 @@
           }
         },
         "id": null
+      },
+      {
+        "value": {
+          "documentUpload": {
+            "document_url": "#{defDisclosure2Document_url}",
+            "document_binary_url": "#{defDisclosure2Document_url}/binary",
+            "document_filename": "DisclosureList.docx",
+            "document_hash": "#{defDisclosure2HashToken}"
+          }
+        },
+        "id": null
       }
     ],
     "documentWitnessStatementRes": [
@@ -118,6 +178,19 @@
             "document_binary_url": "#{witnessStatementDocument_url}/binary",
             "document_filename": "WitnessStatement.docx",
             "document_hash": "#{witnessStatementHashToken}"
+          }
+        },
+        "id": null
+      },
+      {
+        "value": {
+          "witnessOptionName": "#{CaseProgRandomString} witnessOptionName2",
+          "witnessOptionUploadDate": "#{EvidenceYear}-#{EvidenceMonth}-#{EvidenceDay}",
+          "witnessOptionDocument": {
+            "document_url": "#{witnessStatement2Document_url}",
+            "document_binary_url": "#{witnessStatement2Document_url}/binary",
+            "document_filename": "WitnessStatement.docx",
+            "document_hash": "#{witnessStatement2HashToken}"
           }
         },
         "id": null
@@ -137,6 +210,20 @@
           }
         },
         "id": null
+      },
+      {
+        "value": {
+          "expertOptionName": "#{CaseProgRandomString} expertOptionName2",
+          "expertOptionExpertise": "#{CaseProgRandomString} expertOptionExpertise2",
+          "expertOptionUploadDate": "#{EvidenceYear}-#{EvidenceMonth}-#{EvidenceDay}",
+          "expertDocument": {
+            "document_url": "#{expertsReport2Document_url}",
+            "document_binary_url": "#{expertsReport2Document_url}/binary",
+            "document_filename": "ExpertsReport.docx",
+            "document_hash": "#{expertsReport2HashToken}"
+          }
+        },
+        "id": null
       }
     ],
     "documentCaseSummaryRes": [
@@ -147,6 +234,17 @@
             "document_binary_url": "#{caseSummaryDocument_url}/binary",
             "document_filename": "casesummary.docx",
             "document_hash": "#{caseSummaryHashToken}"
+          }
+        },
+        "id": null
+      },
+      {
+        "value": {
+          "documentUpload": {
+            "document_url": "#{caseSummary2Document_url}",
+            "document_binary_url": "#{caseSummary2Document_url}/binary",
+            "document_filename": "casesummary.docx",
+            "document_hash": "#{caseSummary2HashToken}"
           }
         },
         "id": null
