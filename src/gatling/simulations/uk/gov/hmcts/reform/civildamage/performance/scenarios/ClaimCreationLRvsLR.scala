@@ -28,16 +28,7 @@ object ClaimCreationLRvsLR {
       "LRrandomString" -> Common.randomString(5))
     )
   //val createclaim =
-  /*======================================================================================
-                    * Create Civil Claim - UnSpecified
-  ==========================================================================================*/
-  .group("Civil_CreateClaim_330_BackToCaseDetailsPage") {
-    exec(http("Civil_CreateClaim_330_005_CaseDetails")
-      .get("/data/internal/cases/#{caseId}")
-      .headers(CivilDamagesHeader.headers_717)
-      .check(substring("Civil")))
-  }
-    .pause(MinThinkTime, MaxThinkTime)
+
     //val startCreateClaim =
     /*======================================================================================
                  * Create Civil Claim - Start the case
@@ -340,7 +331,7 @@ object ClaimCreationLRvsLR {
       )
 
         .exec { session =>
-          val fw = new BufferedWriter(new FileWriter("CasesNotified.csv", true))
+          val fw = new BufferedWriter(new FileWriter("solicitor9.csv", true))
           try {
             fw.write(session("caseId").as[String] + "\r\n")
           } finally fw.close()
@@ -384,7 +375,7 @@ object ClaimCreationLRvsLR {
 
     group("Civil_CreateClaim_330_BackToCaseDetailsPage") {
       exec(http("Civil_CreateClaim_330_005_CaseDetails")
-        .get("/data/internal/cases/#{caseId}")
+        .get("https://manage-case.perftest.platform.hmcts.net/data/internal/cases/1695744065196611")
         .headers(CivilDamagesHeader.headers_717)
         .check(substring("Civil"))
         .check(status.in(200,201,304)))
@@ -775,18 +766,22 @@ object ClaimCreationLRvsLR {
           .header("X-Xsrf-Token", "#{XSRFToken}")
           .body(ElFileBody("bodies/LRvsLR/RespondToClaimSubmit.json"))
           .check(substring("AWAITING_APPLICANT_INTENTION"))
+
+
         )
+
+          .exec { session =>
+            val fw = new BufferedWriter(new FileWriter("RespondedCases.csv", true))
+            try {
+              fw.write(session("caseId").as[String] + "\r\n")
+            } finally fw.close()
+            session
+          }
       }
       .pause(MinThinkTime, MaxThinkTime)
 
 
-      .exec { session =>
-        val fw = new BufferedWriter(new FileWriter("RespondedCases.csv", true))
-        try {
-          fw.write(session("caseId").as[String] + "\r\n")
-        } finally fw.close()
-        session
-      }
+
 
 
   val RespondToDefence =
@@ -1165,16 +1160,17 @@ object ClaimCreationLRvsLR {
           .body(ElFileBody("bodies/LRvsLR/ViewRespondToDefenceSubmit.json"))
           .check(substring("JUDICIAL_REFERRAL"))
         )
+
+          .exec { session =>
+            val fw = new BufferedWriter(new FileWriter("SDOReady.csv", true))
+            try {
+              fw.write(session("caseId").as[String] + "\r\n")
+            } finally fw.close()
+            session
+          }
       }
       .pause(MinThinkTime, MaxThinkTime)
 
-      .exec { session =>
-        val fw = new BufferedWriter(new FileWriter("SDOReady.csv", true))
-        try {
-          fw.write(session("caseId").as[String] + "\r\n")
-        } finally fw.close()
-        session
-      }
 
 
   val SDO =
@@ -1376,19 +1372,19 @@ object ClaimCreationLRvsLR {
           .body(ElFileBody("bodies/LRvsLR/SDOSubmit.json"))
           .check(substring("CASE_PROGRESSION"))
         )
+          .exec { session =>
+            val fw = new BufferedWriter(new FileWriter("CaseProg.csv", true))
+            try {
+              fw.write(session("caseId").as[String] + "\r\n")
+            } finally fw.close()
+            session
+          }
 
       }
       .pause(MinThinkTime, MaxThinkTime)
 
 
       //Deepak - Cases that make the final step
-      .exec { session =>
-        val fw = new BufferedWriter(new FileWriter("CaseProg.csv", true))
-        try {
-          fw.write(session("caseId").as[String] + "\r\n")
-        } finally fw.close()
-        session
-      }
 
 
 }

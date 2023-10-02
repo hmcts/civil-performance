@@ -18,6 +18,8 @@ class CivilDamagesSimulation extends Simulation {
   val BaseURL = Environment.baseURL
   val loginFeeder = csv("login.csv").circular
 	val defresponsecasesFeeder=csv("caseIds.csv").circular
+	val sol7casesFeeder=csv("caseIdsSol7.csv").circular
+	val sol8casesFeeder=csv("caseIdsSol8.csv").circular
 	
   val httpProtocol = Environment.HttpProtocol
     .baseUrl(BaseURL)
@@ -153,29 +155,29 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 
 
 	val CivilDamageScenario = scenario("Create Civil damage")
-		.feed(loginFeeder).feed(defresponsecasesFeeder)
-		.repeat(20){
-	//.exitBlockOnFail {
-		exec(EXUIMCLogin.manageCasesHomePage)
-				.exec(EXUIMCLogin.manageCaseslogin)
-				.exec(ClaimCreationLRvsLR.run)
-		//	exec(CivilAssignCase.run)
-	//		.exec(CivilAssignCase.run)
-	//		.exec(EXUIMCLogin.manageCase_Logout)
-		//		.exec(ClaimCreationLRvsLR.RespondToClaim)
-			//.exec(EXUIMCLogin.manageCase_Logout)
-		//	.exec(ClaimCreationLRvsLR.RespondToDefence)
-
-
-			//.exec(CivilAssignCase.run)
-		//	.exec(ClaimCreationLRvsLR.RespondToClaim)
-		//	.exec(ClaimCreationLRvsLR.RespondToDefence)
-			.exec(ClaimCreationLRvsLR.SDO)
-		//		.pause(1)
-		//		exec(CivilAssignCase.Auth)
-			//	exec(CivilAssignCase.run)
-		//		.pause(1)
-	//			.exec(EXUIMCLogin.manageCase_Logout)
+		.feed(loginFeeder)
+		.repeat(1) {
+			exitBlockOnFail {
+				feed(defresponsecasesFeeder)
+				.exec(EXUIMCLogin.manageCasesHomePage)
+					.exec(EXUIMCLogin.manageCaseslogin)
+				//	.exec(ClaimCreationLRvsLR.run)
+				////	exec(CivilAssignCase.run)
+				//		.exec(CivilAssignCase.run)
+				//		.exec(EXUIMCLogin.manageCase_Logout)
+			//		.exec(ClaimCreationLRvsLR.RespondToClaim)
+				//.exec(EXUIMCLogin.manageCase_Logout)
+				//		.exec(ClaimCreationLRvsLR.RespondToDefence)
+				//.exec(CivilAssignCase.run)
+				//	.exec(ClaimCreationLRvsLR.RespondToClaim)
+			//		.exec(ClaimCreationLRvsLR.RespondToDefence)
+						.exec(ClaimCreationLRvsLR.SDO)
+				//		.pause(1)
+				//		exec(CivilAssignCase.Auth)
+			//		exec(CivilAssignCase.run)
+				//		.pause(1)
+				//			.exec(EXUIMCLogin.manageCase_Logout)
+			}
 		}
 		.exec {
 			session =>
@@ -195,21 +197,45 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 
 	val CivilCaseProg = scenario("Create Civil damage")
 		.feed(loginFeeder)
-	//	.repeat(1){
+		.repeat(4){
+
+		exitBlockOnFail {
+			exec(EXUIMCLogin.manageCasesHomePage)
+				.exec(EXUIMCLogin.manageCasesloginToCentreAdminJourney)
+				.doSwitch("#{claimantuser}") (
+					"civil.damages.claims+organisation.1.solicitor.1@gmail.com" -> feed(defresponsecasesFeeder),
+					"hmcts.civil+organisation.1.solicitor.7@mailinator.com" -> feed(sol7casesFeeder),
+					"hmcts.civil+organisation.1.solicitor.8@mailinator.com" -> feed(sol8casesFeeder)
+				)
+				.exec(CaseProgression.HearingNotice)
+				.exec(EXUIMCLogin.manageCase_Logout)
+
+		}
+		.exitBlockOnFail {
+			exec(EXUIMCLogin.manageCasesHomePage)
+				.exec(EXUIMCLogin.manageCasesloginToDefendantJourney)
+				.exec(CaseProgression.EvidenceUploadDefendant)
+				.exec(EXUIMCLogin.manageCase_Logout)
+}
+
 		.exitBlockOnFail {
 			exec(EXUIMCLogin.manageCasesHomePage)
 				.exec(EXUIMCLogin.manageCaseslogin)
-		//		.exec(CaseProgression.HearingNotice)
-			//	.exec(CaseProgression.HearingFee)
 				.exec(CaseProgression.EvidenceUploadClaimant)
-			//	.exec(CaseProgression.EvidenceUploadDefendant)
-				//.exec(CaseProgression.JudgeCaseNotes)
-			//	.exec(CaseProgression.CaseFileView)
-		//		.exec(CaseProgression.TrialReadiness)
-			//		.exec(CaseProgression.BundleCreationIntegration)
-		//		.exec(CaseProgression.FinalGeneralOrders)
+				.exec(CaseProgression.CaseFileView)
+				.exec(CaseProgression.TrialReadiness)
+				.exec(CaseProgression.HearingFee)
+					.exec(CaseProgression.BundleCreationIntegration)
+				.exec(EXUIMCLogin.manageCase_Logout)
+		}
 
-			//			.exec(EXUIMCLogin.manageCase_Logout)
+		.exitBlockOnFail {
+			exec(EXUIMCLogin.manageCasesHomePage)
+				.exec(EXUIMCLogin.manageCasesloginToJudgeJourney)
+				.exec(CaseProgression.JudgeCaseNotes)
+				.exec(CaseProgression.FinalGeneralOrders)
+				.exec(EXUIMCLogin.manageCase_Logout)
+		}
 		}
 		.exec {
 			session =>
@@ -273,7 +299,8 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 			CivilUIDefAndIntentScenario.inject(nothingFor(30),rampUsers(20) during (3600))*/
 			//	CivilAssignScenario.inject(nothingFor(1),rampUsers(18) during (300))
 
-		CivilDamageScenario.inject(nothingFor(5),rampUsers(15) during (1800))
+	//	CivilCaseProg.inject(nothingFor(5),rampUsers(1) during (650))
+		CivilCaseProg.inject(nothingFor(1),rampUsers(3) during (1200))
 ).protocols(httpProtocol)
 	
 	/*setUp(

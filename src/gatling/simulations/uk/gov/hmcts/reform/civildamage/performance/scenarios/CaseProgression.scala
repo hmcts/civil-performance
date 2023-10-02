@@ -36,8 +36,7 @@ object CaseProgression {
                         * Civil Progression - Search Case
       ==========================================================================================*/
       .group("CivilCaseProg_HearingNotice_030_SearchCase") {
-        feed(caseFeeder)
-          .exec(http("CivilCaseProg_HearingNotice_030_SearchCase")
+          exec(http("CivilCaseProg_HearingNotice_030_SearchCase")
             .get(BaseURL + "/cases/case-details/#{caseId}")
             .headers(CivilDamagesHeader.MoneyClaimNav))
           //  .check(jsonPath("$[0].id").saveAs("JudgeId")))
@@ -212,8 +211,7 @@ object CaseProgression {
                         * Civil Progression - Search Case
       ==========================================================================================*/
       .group("CivilCaseProg_HearingFee_030_SearchCase") {
-        feed(caseFeeder)
-          .exec(http("CivilCaseProg_HearingFee_030_SearchCase")
+          exec(http("CivilCaseProg_HearingFee_030_SearchCase")
             .get(BaseURL + "/cases/case-details/#{caseId}")
             .headers(CivilDamagesHeader.MoneyClaimNav))
         // .check(substring("caseFile")))
@@ -223,8 +221,8 @@ object CaseProgression {
       /*======================================================================================
                  *  Civil Progression - Service Request Tab
       ==========================================================================================*/
-      .group("CivilCaseProg_HearingFee_040_ServiceRequest") {
-        exec(http("CivilCaseProg_HearingFee_040_005_ServiceRequest")
+      .group("CivilCaseProg_HearingFee_160_ServiceRequest") {
+        exec(http("CivilCaseProg_HearingFee_160_005_ServiceRequest")
           .get(BaseURL + "/payments/cases/#{caseId}/paymentgroups")
           .headers(CivilDamagesHeader.MoneyClaimNav)
           .header("accept", "application/json, text/plain, */*")
@@ -238,8 +236,8 @@ object CaseProgression {
       /*======================================================================================
                *  Civil Progression - 'Pay Now' event
     ==========================================================================================*/
-      .group("CivilCaseProg_HearingFee_050_PayNow") {
-        exec(http("CivilCaseProg_HearingFee_050_005_PayNow")
+      .group("CivilCaseProg_HearingFee_170_PayNow") {
+        exec(http("CivilCaseProg_HearingFee_170_005_PayNow")
           .get(BaseURL + "/payments/pba-accounts")
           .headers(CivilDamagesHeader.MoneyClaimNav)
           .check(substring("organisationEntityResponse"))
@@ -252,8 +250,8 @@ object CaseProgression {
       /*======================================================================================
              *  Civil Progression - Pay using PBA
   ==========================================================================================*/
-      .group("CivilCaseProg_HearingFee_060_PayUsingPBA") {
-        exec(http("CivilCaseProg_HearingFee_060_005_PayUsingPBA")
+      .group("CivilCaseProg_HearingFee_180_PayUsingPBA") {
+        exec(http("CivilCaseProg_HearingFee_180_005_PayUsingPBA")
           .post(BaseURL + "/payments/service-request/#{payment_group_reference}/pba-payments")
           .headers(CivilDamagesHeader.MoneyClaimDefPostHeader)
           .header("accept", "application/json, text/plain, */*")
@@ -268,8 +266,8 @@ object CaseProgression {
       /*======================================================================================
                *  Civil Progression - Return to Service Request Tab
     ==========================================================================================*/
-      .group("CivilCaseProg_HearingFee_070_ServiceRequestReturn") {
-        exec(http("CivilCaseProg_HearingFee_0&0_005_ServiceRequestReturn")
+      .group("CivilCaseProg_HearingFee_190_ServiceRequestReturn") {
+        exec(http("CivilCaseProg_HearingFee_190_005_ServiceRequestReturn")
           .get("/payments/cases/#{caseId}/paymentgroups")
           .headers(CivilDamagesHeader.MoneyClaimNav)
           .check(jsonPath("$.payment_groups[1].service_request_status").is("Paid"))
@@ -295,9 +293,8 @@ object CaseProgression {
       /*======================================================================================
                         * Civil Progression - Search Case
       ==========================================================================================*/
-      .group("CivilCaseProg_UploadEvidence_030_SearchCase") {
-        feed(caseFeeder)
-          .exec(http("CivilCaseProg_UploadEvidence_030_SearchCase")
+      .group("CivilCaseProg_UploadEvidence_200_SearchCase") {
+          exec(http("CivilCaseProg_UploadEvidence_200_SearchCase")
             .get(BaseURL + "/cases/case-details/#{caseId}")
             .headers(CivilDamagesHeader.MoneyClaimNav))
         // .check(substring("caseFile")))
@@ -307,16 +304,14 @@ object CaseProgression {
       /*======================================================================================
                  *  Civil Progression - 'Upload Your Documents' event
       ==========================================================================================*/
-      .group("CivilCaseProg_UploadEvidence_040_UploadYourDocs") {
-        exec(http("CivilCaseProg_UploadEvidence_040_005_UploadYourDocs")
+      .group("CivilCaseProg_UploadEvidence_210_UploadYourDocs") {
+        exec(http("CivilCaseProg_UploadEvidence_210_005_UploadYourDocs")
           .get("/workallocation/case/tasks/#{caseId}/event/EVIDENCE_UPLOAD_APPLICANT/caseType/CIVIL/jurisdiction/CIVIL")
           .headers(CivilDamagesHeader.MoneyClaimNav)
           .check(substring("task_required_for_event"))
         )
 
-          .exec(http("CivilCaseProg_UploadEvidence_040_010_UploadYourDocs")
-
-
+          .exec(http("CivilCaseProg_UploadEvidence_210_010_UploadYourDocs")
             .get(BaseURL + "/data/internal/cases/#{caseId}/event-triggers/EVIDENCE_UPLOAD_APPLICANT?ignore-warning=false")
             .headers(CivilDamagesHeader.headers_notify)
             .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-start-event-trigger.v2+json;charset=UTF-8")
@@ -335,8 +330,8 @@ object CaseProgression {
       /*======================================================================================
                *  Civil Progression - 'Upload Your Documents' Continue
     ==========================================================================================*/
-      .group("CivilCaseProg_UploadEvidence_050_UploadYourDocsContinue") {
-        exec(http("CivilCaseProg_UploadEvidence_050_005_UploadYourDocsContinue")
+      .group("CivilCaseProg_UploadEvidence_220_UploadYourDocsContinue") {
+        exec(http("CivilCaseProg_UploadEvidence_220_005_UploadYourDocsContinue")
           .post(BaseURL + "/data/case-types/CIVIL/validate?pageId=EVIDENCE_UPLOAD_APPLICANTEvidenceUpload")
           .headers(CivilDamagesHeader.MoneyClaimNav)
           .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.case-data-validate.v2+json;charset=UTF-8")
@@ -352,8 +347,8 @@ object CaseProgression {
       /*======================================================================================
              *  Civil Progression - Select the type of document
   ==========================================================================================*/
-      .group("CivilCaseProg_UploadEvidence_060_TypeOfDocument") {
-        exec(http("CivilCaseProg_UploadEvidence_060_005_TypeOfDocument")
+      .group("CivilCaseProg_UploadEvidence_230_TypeOfDocument") {
+        exec(http("CivilCaseProg_UploadEvidence_230_005_TypeOfDocument")
           .post(BaseURL + "/data/case-types/CIVIL/validate?pageId=EVIDENCE_UPLOAD_APPLICANTDocumentSelectionFastTrack")
           .headers(CivilDamagesHeader.MoneyClaimNav)
           .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.case-data-validate.v2+json;charset=UTF-8")
@@ -369,8 +364,8 @@ object CaseProgression {
       /*======================================================================================
                *  Civil Progression - Disclosure List Upload Claim 1
     ==========================================================================================*/
-      .group("CivilCaseProg_UploadEvidence_070_DisclosureListClaim1") {
-        exec(http("CivilCaseProg_UploadEvidence_070_005_DisclosureListClaim1")
+      .group("CivilCaseProg_UploadEvidence_240_DisclosureListClaim1") {
+        exec(http("CivilCaseProg_UploadEvidence_240_005_DisclosureListClaim1")
           .post(BaseURL + "/documentsv2")
           .headers(CivilDamagesHeader.MoneyClaimPostHeader)
           .header("accept", "application/json, text/plain, */*")
@@ -395,8 +390,8 @@ object CaseProgression {
       /*======================================================================================
          *  Civil Progression - Disclosure List Upload Claim 2
 ==========================================================================================*/
-      .group("CivilCaseProg_UploadEvidence_071_DisclosureListClaim2") {
-        exec(http("CivilCaseProg_UploadEvidence_071_005_DisclosureListClaim2")
+      .group("CivilCaseProg_UploadEvidence_241_DisclosureListClaim2") {
+        exec(http("CivilCaseProg_UploadEvidence_241_005_DisclosureListClaim2")
           .post(BaseURL + "/documentsv2")
           .headers(CivilDamagesHeader.MoneyClaimPostHeader)
           .header("accept", "application/json, text/plain, */*")
@@ -421,8 +416,8 @@ object CaseProgression {
       /*======================================================================================
              *  Civil Progression - Witness Statement Upload Claim 1
   ==========================================================================================*/
-      .group("CivilCaseProg_UploadEvidence_072_WitnessStatementClaim1") {
-        exec(http("CivilCaseProg_UploadEvidence_072_005_WitnessStatementClaim")
+      .group("CivilCaseProg_UploadEvidence_242_WitnessStatementClaim1") {
+        exec(http("CivilCaseProg_UploadEvidence_242_005_WitnessStatementClaim")
           .post(BaseURL + "/documentsv2")
           .headers(CivilDamagesHeader.MoneyClaimPostHeader)
           .header("accept", "application/json, text/plain, */*")
@@ -447,8 +442,8 @@ object CaseProgression {
       /*======================================================================================
        *  Civil Progression - Witness Statement Upload Claim 2
 ==========================================================================================*/
-      .group("CivilCaseProg_UploadEvidence_073_WitnessStatementClaim2") {
-        exec(http("CivilCaseProg_UploadEvidence_073_005_WitnessStatementClaim2")
+      .group("CivilCaseProg_UploadEvidence_243_WitnessStatementClaim2") {
+        exec(http("CivilCaseProg_UploadEvidence_243_005_WitnessStatementClaim2")
           .post(BaseURL + "/documentsv2")
           .headers(CivilDamagesHeader.MoneyClaimPostHeader)
           .header("accept", "application/json, text/plain, */*")
@@ -473,8 +468,8 @@ object CaseProgression {
       /*======================================================================================
            *  Civil Progression - Expert's Report Upload Claim
 ==========================================================================================*/
-      .group("CivilCaseProg_UploadEvidence_074_ExpertReportClaim1") {
-        exec(http("CivilCaseProg_UploadEvidence_074_005_ExpertReportClaim1")
+      .group("CivilCaseProg_UploadEvidence_244_ExpertReportClaim1") {
+        exec(http("CivilCaseProg_UploadEvidence_244_005_ExpertReportClaim1")
           .post(BaseURL + "/documentsv2")
           .headers(CivilDamagesHeader.MoneyClaimPostHeader)
           .header("accept", "application/json, text/plain, */*")
@@ -498,8 +493,8 @@ object CaseProgression {
       /*======================================================================================
            *  Civil Progression - Expert's Report Upload Claim 2
 ==========================================================================================*/
-      .group("CivilCaseProg_UploadEvidence_075_ExpertReportClaim2") {
-        exec(http("CivilCaseProg_UploadEvidence_075_005_ExpertReportClaim2")
+      .group("CivilCaseProg_UploadEvidence_245_ExpertReportClaim2") {
+        exec(http("CivilCaseProg_UploadEvidence_245_005_ExpertReportClaim2")
           .post(BaseURL + "/documentsv2")
           .headers(CivilDamagesHeader.MoneyClaimPostHeader)
           .header("accept", "application/json, text/plain, */*")
@@ -522,8 +517,8 @@ object CaseProgression {
       /*======================================================================================
          *  Civil Progression - Case Summary Upload Claim 1
 ==========================================================================================*/
-      .group("CivilCaseProg_UploadEvidence_076_CaseSummaryClaim1") {
-        exec(http("CivilCaseProg_UploadEvidence_076_005_CaseSummaryClaim1")
+      .group("CivilCaseProg_UploadEvidence_246_CaseSummaryClaim1") {
+        exec(http("CivilCaseProg_UploadEvidence_246_005_CaseSummaryClaim1")
           .post(BaseURL + "/documentsv2")
           .headers(CivilDamagesHeader.MoneyClaimPostHeader)
           .header("accept", "application/json, text/plain, */*")
@@ -548,8 +543,8 @@ object CaseProgression {
       /*======================================================================================
    *  Civil Progression - Case Summary Upload Claim 2
 ==========================================================================================*/
-      .group("CivilCaseProg_UploadEvidence_077_CaseSummaryClaim2") {
-        exec(http("CivilCaseProg_UploadEvidence_077_005_CaseSummaryClaim2")
+      .group("CivilCaseProg_UploadEvidence_247_CaseSummaryClaim2") {
+        exec(http("CivilCaseProg_UploadEvidence_247_005_CaseSummaryClaim2")
           .post(BaseURL + "/documentsv2")
           .headers(CivilDamagesHeader.MoneyClaimPostHeader)
           .header("accept", "application/json, text/plain, */*")
@@ -575,8 +570,8 @@ object CaseProgression {
       /*======================================================================================
            *  Civil Progression - Select the type of document
 ==========================================================================================*/
-      .group("CivilCaseProg_UploadEvidence_074_EvidenceUploadClaim") {
-        exec(http("CivilCaseProg_UploadEvidence_074_005_EvidenceUploadClaim")
+      .group("CivilCaseProg_UploadEvidence_250_EvidenceUploadClaim") {
+        exec(http("CivilCaseProg_UploadEvidence_250_005_EvidenceUploadClaim")
           .post(BaseURL + "/data/case-types/CIVIL/validate?pageId=EVIDENCE_UPLOAD_APPLICANTDocumentUpload")
           .headers(CivilDamagesHeader.MoneyClaimDefPostHeader)
           .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.case-data-validate.v2+json;charset=UTF-8")
@@ -593,7 +588,7 @@ object CaseProgression {
       /*======================================================================================
          *  Civil Progression - Upload Documents Submit Claim
 ==========================================================================================*/
-      .group("CivilCaseProg_UploadEvidence_080_UploadDocumentsSubmitClaim") {
+      .group("CivilCaseProg_UploadEvidence_260_UploadDocumentsSubmitClaim") {
         exec(http("CivilCaseProg_UploadEvidence_080_005UploadDocumentsSubmitClaim")
           .post(BaseURL + "/data/cases/#{caseId}/events")
           .headers(CivilDamagesHeader.MoneyClaimDefPostHeader)
@@ -623,8 +618,7 @@ object CaseProgression {
                         * Civil Progression - Search Case
       ==========================================================================================*/
       .group("CivilCaseProg_UploadEvidence_030_SearchCase") {
-        feed(caseFeeder)
-          .exec(http("CivilCaseProg_UploadEvidence_030_SearchCase")
+          exec(http("CivilCaseProg_UploadEvidence_030_SearchCase")
             .get(BaseURL + "/cases/case-details/#{caseId}")
             .headers(CivilDamagesHeader.MoneyClaimNav))
         // .check(substring("caseFile")))
@@ -634,14 +628,14 @@ object CaseProgression {
       /*======================================================================================
                  *  Civil Progression - 'Upload Your Documents' event
       ==========================================================================================*/
-      .group("CivilCaseProg_UploadEvidence_040_UploadYourDocsDefend") {
-        exec(http("CivilCaseProg_UploadEvidence_040_005_UploadYourDocsDefend")
+      .group("CivilCaseProg_UploadEvidence_110_UploadYourDocsDefend") {
+        exec(http("CivilCaseProg_UploadEvidence_110_005_UploadYourDocsDefend")
           .get("/workallocation/case/tasks/#{caseId}/event/EVIDENCE_UPLOAD_RESPONDENT/caseType/CIVIL/jurisdiction/CIVIL")
           .headers(CivilDamagesHeader.MoneyClaimNav)
           .check(substring("task_required_for_event"))
         )
 
-          .exec(http("CivilCaseProg_UploadEvidence_040_010_AddACaseNote")
+          .exec(http("CivilCaseProg_UploadEvidence_110_010_AddACaseNote")
             .get(BaseURL + "/data/internal/cases/#{caseId}/event-triggers/EVIDENCE_UPLOAD_RESPONDENT?ignore-warning=false")
             .headers(CivilDamagesHeader.headers_notify)
             .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-start-event-trigger.v2+json;charset=UTF-8")
@@ -660,8 +654,8 @@ object CaseProgression {
       /*======================================================================================
                *  Civil Progression - 'Upload Your Documents' Continue
     ==========================================================================================*/
-      .group("CivilCaseProg_UploadEvidence_050_UploadYourDocsContinueDef") {
-        exec(http("CivilCaseProg_UploadEvidence_050_005_UploadYourDocsContinueDef")
+      .group("CivilCaseProg_UploadEvidence_120_UploadYourDocsContinueDef") {
+        exec(http("CivilCaseProg_UploadEvidence_120_005_UploadYourDocsContinueDef")
           .post(BaseURL + "/data/case-types/CIVIL/validate?pageId=EVIDENCE_UPLOAD_RESPONDENTEvidenceUpload")
           .headers(CivilDamagesHeader.MoneyClaimNav)
           .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.case-data-validate.v2+json;charset=UTF-8")
@@ -677,8 +671,8 @@ object CaseProgression {
       /*======================================================================================
              *  Civil Progression - Select the type of document
   ==========================================================================================*/
-      .group("CivilCaseProg_UploadEvidence_060_TypeOfDocumentDef") {
-        exec(http("CivilCaseProg_UploadEvidence_060_005_TypeOfDocumentDef")
+      .group("CivilCaseProg_UploadEvidence_130_TypeOfDocumentDef") {
+        exec(http("CivilCaseProg_UploadEvidence_130_005_TypeOfDocumentDef")
           .post(BaseURL + "/data/case-types/CIVIL/validate?pageId=EVIDENCE_UPLOAD_RESPONDENTDocumentSelectionFastTrack")
           .headers(CivilDamagesHeader.MoneyClaimNav)
           .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.case-data-validate.v2+json;charset=UTF-8")
@@ -694,8 +688,8 @@ object CaseProgression {
       /*======================================================================================
                *  Civil Progression - Disclosure List Upload Def
     ==========================================================================================*/
-      .group("CivilCaseProg_UploadEvidence_070_DisclosureListClaimDef") {
-        exec(http("CivilCaseProg_UploadEvidence_070_005_DisclosureListClaimDef")
+      .group("CivilCaseProg_UploadEvidence_140_DisclosureListClaimDef") {
+        exec(http("CivilCaseProg_UploadEvidence_140_005_DisclosureListClaimDef")
           .post(BaseURL + "/documentsv2")
           .headers(CivilDamagesHeader.MoneyClaimPostHeader)
           .header("accept", "application/json, text/plain, */*")
@@ -716,12 +710,37 @@ object CaseProgression {
       .pause(MinThinkTime, MaxThinkTime)
 
 
+      /*======================================================================================
+         *  Civil Progression - Disclosure List Upload Def2
+==========================================================================================*/
+      .group("CivilCaseProg_UploadEvidence_141_DisclosureListClaimDef2") {
+        exec(http("CivilCaseProg_UploadEvidence_141_005_DisclosureListClaimDef2")
+          .post(BaseURL + "/documentsv2")
+          .headers(CivilDamagesHeader.MoneyClaimPostHeader)
+          .header("accept", "application/json, text/plain, */*")
+          .header("content-type", "multipart/form-data; boundary=----WebKitFormBoundary5IivMwQhKZGomvfQ")
+          .header("sec-fetch-dest", "empty")
+          .header("sec-fetch-mode", "cors")
+          .bodyPart(RawFileBodyPart("files", "DisclosureList.docx")
+            .fileName("DisclosureList.docx")
+            .transferEncoding("binary"))
+          .asMultipartForm
+          .formParam("classification", "PUBLIC")
+          .formParam("caseTypeId", "CIVIL")
+          .formParam("jurisdictionId", "CIVIL")
+          .check(jsonPath("$.documents[0].hashToken").saveAs("defDisclosure2HashToken"))
+          .check(jsonPath("$.documents[0]._links.self.href").saveAs("defDisclosure2Document_url"))
+          .check(substring("DisclosureList.docx")))
+      }
+      .pause(MinThinkTime, MaxThinkTime)
+
+
 
       /*======================================================================================
              *  Civil Progression - Witness Statement Upload Def
   ==========================================================================================*/
-      .group("CivilCaseProg_UploadEvidence_071_WitnessStatementDef") {
-        exec(http("CivilCaseProg_UploadEvidence_071_005_WitnessStatementDef")
+      .group("CivilCaseProg_UploadEvidence_142_WitnessStatementDef") {
+        exec(http("CivilCaseProg_UploadEvidence_142_005_WitnessStatementDef")
           .post(BaseURL + "/documentsv2")
           .headers(CivilDamagesHeader.MoneyClaimPostHeader)
           .header("accept", "application/json, text/plain, */*")
@@ -744,10 +763,36 @@ object CaseProgression {
 
 
       /*======================================================================================
+       *  Civil Progression - Witness Statement Upload Def 2
+==========================================================================================*/
+      .group("CivilCaseProg_UploadEvidence_143_WitnessStatementDef") {
+        exec(http("CivilCaseProg_UploadEvidence_143_005_WitnessStatementDef")
+          .post(BaseURL + "/documentsv2")
+          .headers(CivilDamagesHeader.MoneyClaimPostHeader)
+          .header("accept", "application/json, text/plain, */*")
+          .header("content-type", "multipart/form-data; boundary=----WebKitFormBoundary5IivMwQhKZGomvfQ")
+          .header("sec-fetch-dest", "empty")
+          .header("sec-fetch-mode", "cors")
+          .bodyPart(RawFileBodyPart("files", "WitnessStatement.docx")
+            .fileName("WitnessStatement.docx")
+            .transferEncoding("binary"))
+          .asMultipartForm
+          .formParam("classification", "PUBLIC")
+          .formParam("caseTypeId", "CIVIL")
+          .formParam("jurisdictionId", "CIVIL")
+          .check(jsonPath("$.documents[0].hashToken").saveAs("witnessStatement2HashToken"))
+          .check(jsonPath("$.documents[0]._links.self.href").saveAs("witnessStatement2Document_url"))
+          .check(substring("WitnessStatement.docx")))
+      }
+      .pause(MinThinkTime, MaxThinkTime)
+
+
+
+      /*======================================================================================
            *  Civil Progression - Expert's Report Upload Claim
 ==========================================================================================*/
-      .group("CivilCaseProg_UploadEvidence_072_ExpertReportDef") {
-        exec(http("CivilCaseProg_UploadEvidence_072_005_ExpertReportDef")
+      .group("CivilCaseProg_UploadEvidence_144_ExpertReportDef") {
+        exec(http("CivilCaseProg_UploadEvidence_144_005_ExpertReportDef")
           .post(BaseURL + "/documentsv2")
           .headers(CivilDamagesHeader.MoneyClaimPostHeader)
           .header("accept", "application/json, text/plain, */*")
@@ -769,12 +814,36 @@ object CaseProgression {
 
 
 
+      /*======================================================================================
+     *  Civil Progression - Expert's Report Upload Claim 2
+==========================================================================================*/
+      .group("CivilCaseProg_UploadEvidence_145_ExpertReportDef2") {
+        exec(http("CivilCaseProg_UploadEvidence_145_005_ExpertReportDef2")
+          .post(BaseURL + "/documentsv2")
+          .headers(CivilDamagesHeader.MoneyClaimPostHeader)
+          .header("accept", "application/json, text/plain, */*")
+          .header("content-type", "multipart/form-data; boundary=----WebKitFormBoundary5IivMwQhKZGomvfQ")
+          .header("sec-fetch-dest", "empty")
+          .header("sec-fetch-mode", "cors")
+          .bodyPart(RawFileBodyPart("files", "ExpertsReport.docx")
+            .fileName("ExpertsReport.docx")
+            .transferEncoding("binary"))
+          .asMultipartForm
+          .formParam("classification", "PUBLIC")
+          .formParam("caseTypeId", "CIVIL")
+          .formParam("jurisdictionId", "CIVIL")
+          .check(jsonPath("$.documents[0].hashToken").saveAs("expertsReport2HashToken"))
+          .check(jsonPath("$.documents[0]._links.self.href").saveAs("expertsReport2Document_url"))
+          .check(substring("ExpertsReport.docx")))
+      }
+      .pause(MinThinkTime, MaxThinkTime)
+
 
       /*======================================================================================
          *  Civil Progression - Case Summary Upload Claim
 ==========================================================================================*/
-      .group("CivilCaseProg_UploadEvidence_073_CaseSummaryDef") {
-        exec(http("CivilCaseProg_UploadEvidence_073_005_CaseSummaryDef")
+      .group("CivilCaseProg_UploadEvidence_146_CaseSummaryDef") {
+        exec(http("CivilCaseProg_UploadEvidence_146_005_CaseSummaryDef")
           .post(BaseURL + "/documentsv2")
           .headers(CivilDamagesHeader.MoneyClaimPostHeader)
           .header("accept", "application/json, text/plain, */*")
@@ -797,10 +866,36 @@ object CaseProgression {
 
 
       /*======================================================================================
-           *  Civil Progression - Select the type of document
+   *  Civil Progression - Case Summary Upload Claim 2
 ==========================================================================================*/
-      .group("CivilCaseProg_UploadEvidence_074_EvidenceUploadClaim") {
-        exec(http("CivilCaseProg_UploadEvidence_074_005_EvidenceUploadClaim")
+      .group("CivilCaseProg_UploadEvidence_147_CaseSummaryDef2") {
+        exec(http("CivilCaseProg_UploadEvidence_147_005_CaseSummaryDef2")
+          .post(BaseURL + "/documentsv2")
+          .headers(CivilDamagesHeader.MoneyClaimPostHeader)
+          .header("accept", "application/json, text/plain, */*")
+          .header("content-type", "multipart/form-data; boundary=----WebKitFormBoundary5IivMwQhKZGomvfQ")
+          .header("sec-fetch-dest", "empty")
+          .header("sec-fetch-mode", "cors")
+          .bodyPart(RawFileBodyPart("files", "casesummary.docx")
+            .fileName("casesummary.docx")
+            .transferEncoding("binary"))
+          .asMultipartForm
+          .formParam("classification", "PUBLIC")
+          .formParam("caseTypeId", "CIVIL")
+          .formParam("jurisdictionId", "CIVIL")
+          .check(jsonPath("$.documents[0].hashToken").saveAs("caseSummary2HashToken"))
+          .check(jsonPath("$.documents[0]._links.self.href").saveAs("caseSummary2Document_url"))
+          .check(substring("casesummary.docx")))
+      }
+      .pause(MinThinkTime, MaxThinkTime)
+
+
+
+      /*======================================================================================
+           *  Civil Progression - Evidence Upload Claim Def
+==========================================================================================*/
+      .group("CivilCaseProg_UploadEvidence_148_EvidenceUploadClaimDef") {
+        exec(http("CivilCaseProg_UploadEvidence_148_005_EvidenceUploadClaimDef")
           .post(BaseURL + "/data/case-types/CIVIL/validate?pageId=EVIDENCE_UPLOAD_RESPONDENTDocumentUpload")
           .headers(CivilDamagesHeader.MoneyClaimDefPostHeader)
           .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.case-data-validate.v2+json;charset=UTF-8")
@@ -815,10 +910,10 @@ object CaseProgression {
 
 
       /*======================================================================================
-         *  Civil Progression - Upload Documents Submit Claim
+         *  Civil Progression - Upload Documents Submit Def
 ==========================================================================================*/
-      .group("CivilCaseProg_UploadEvidence_080_UploadDocumentsSubmitClaim") {
-        exec(http("CivilCaseProg_UploadEvidence_080_005UploadDocumentsSubmitClaim")
+      .group("CivilCaseProg_UploadEvidence_150_UploadDocumentsSubmitDef") {
+        exec(http("CivilCaseProg_UploadEvidence_080_005UploadDocumentsSubmitDef")
           .post(BaseURL + "/data/cases/#{caseId}/events")
           .headers(CivilDamagesHeader.MoneyClaimDefPostHeader)
           .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.create-event.v2+json;charset=UTF-8")
@@ -829,6 +924,8 @@ object CaseProgression {
         )
       }
       .pause(MinThinkTime, MaxThinkTime)
+
+
 
 
 
@@ -849,8 +946,7 @@ object CaseProgression {
                         * Civil Progression - Search Case
       ==========================================================================================*/
       .group("CivilCaseProg_CaseNotes_030_SearchCase") {
-        feed(caseFeeder)
-        .exec(http("CivilCaseProg_CaseNotes_030_SearchCase")
+        exec(http("CivilCaseProg_CaseNotes_030_SearchCase")
           .get(BaseURL + "/cases/case-details/#{caseId}")
           .headers(CivilDamagesHeader.MoneyClaimNav))
          // .check(substring("caseFile")))
@@ -860,14 +956,14 @@ object CaseProgression {
       /*======================================================================================
                    *  Civil Progression - 'Add a Case Note' event
         ==========================================================================================*/
-      .group("CivilCaseProg_CaseNotes_040_AddACaseNote") {
+      .group("CivilCaseProg_CaseNotes_370_AddACaseNote") {
         exec(http("CivilCaseProg_CaseNotes_040_005_AddACaseNote")
           .get("/workallocation/case/tasks/#{caseId}/event/EVIDENCE_UPLOAD_JUDGE/caseType/CIVIL/jurisdiction/CIVIL")
           .headers(CivilDamagesHeader.MoneyClaimNav)
           .check(substring("task_required_for_event"))
         )
 
-          .exec(http("CivilCaseProg_CaseNotes_040_010_AddACaseNote")
+          .exec(http("CivilCaseProg_CaseNotes_380_010_AddACaseNote")
             .get(BaseURL + "/data/internal/cases/#{caseId}/event-triggers/EVIDENCE_UPLOAD_JUDGE?ignore-warning=false")
             .headers(CivilDamagesHeader.headers_notify)
             .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-start-event-trigger.v2+json;charset=UTF-8")
@@ -887,8 +983,8 @@ object CaseProgression {
       /*======================================================================================
                    *  Civil Progression - Document with a Note
         ==========================================================================================*/
-      .group("CivilCaseProg_CaseNotes_050_DocWithANote") {
-        exec(http("CivilCaseProg_CaseNotes_050_005_DocWithANote")
+      .group("CivilCaseProg_CaseNotes_390_DocWithANote") {
+        exec(http("CivilCaseProg_CaseNotes_390_005_DocWithANote")
           .post(BaseURL + "/data/case-types/CIVIL/validate?pageId=EVIDENCE_UPLOAD_JUDGECaseNoteSelection")
           .headers(CivilDamagesHeader.MoneyClaimPostHeader)
           .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.case-data-validate.v2+json;charset=UTF-8")
@@ -902,8 +998,8 @@ object CaseProgression {
       /*======================================================================================
                  *  Civil Progression - Upload Document
       ==========================================================================================*/
-      .group("CivilCaseProg_CaseNotes_060_UploadCaseNoteDoc") {
-        exec(http("CivilCaseProg_CaseNotes_060_005_UploadCaseNoteDoc")
+      .group("CivilCaseProg_CaseNotes_400_UploadCaseNoteDoc") {
+        exec(http("CivilCaseProg_CaseNotes_400_005_UploadCaseNoteDoc")
           .post(BaseURL + "/documentsv2")
           .headers(CivilDamagesHeader.MoneyClaimPostHeader)
           .header("accept", "application/json, text/plain, */*")
@@ -927,8 +1023,8 @@ object CaseProgression {
       /*======================================================================================
                  *  Civil Progression - Upload Case Note
       ==========================================================================================*/
-      .group("CivilCaseProg_CaseNotes_065_DocWithANoteUpload") {
-        exec(http("CivilCaseProg_CaseNotes_065_005_DocWithANoteUpload")
+      .group("CivilCaseProg_CaseNotes_415_DocWithANoteUpload") {
+        exec(http("CivilCaseProg_CaseNotes_415_005_DocWithANoteUpload")
           .post(BaseURL + "/data/case-types/CIVIL/validate?pageId=EVIDENCE_UPLOAD_JUDGEUploadDocumentAndNote")
           .headers(CivilDamagesHeader.MoneyClaimPostHeader)
           .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.case-data-validate.v2+json;charset=UTF-8")
@@ -944,8 +1040,8 @@ object CaseProgression {
       /*======================================================================================
                *  Civil Progression - Upload Case Note Submit
     ==========================================================================================*/
-      .group("CivilCaseProg_CaseNotes_070_DocWithNoteSubmit") {
-        exec(http("CivilCaseProg_CaseNotes_070_005_DocWithNoteSubmit")
+      .group("CivilCaseProg_CaseNotes_420_DocWithNoteSubmit") {
+        exec(http("CivilCaseProg_CaseNotes_420_005_DocWithNoteSubmit")
           .post(BaseURL + "/data/cases/#{caseId}/events")
           .headers(CivilDamagesHeader.MoneyClaimDefPostHeader)
           .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.create-event.v2+json;charset=UTF-8")
@@ -983,8 +1079,7 @@ object CaseProgression {
                         * Civil Progression - Search Case
       ==========================================================================================*/
       .group("CivilCaseProg_CaseFileView_030_SearchCase") {
-        feed(caseFeeder)
-          .exec(http("CivilCaseProg_CaseNotes_030_SearchCase")
+          exec(http("CivilCaseProg_CaseNotes_030_SearchCase")
             .get(BaseURL + "/cases/case-details/#{caseId}")
             .headers(CivilDamagesHeader.MoneyClaimNav))
         // .check(substring("caseFile")))
@@ -995,8 +1090,8 @@ object CaseProgression {
       /*======================================================================================
                  *  Civil Progression - 'Case File' tab
       ==========================================================================================*/
-      .group("CivilCaseProg_CaseFileView_040_CaseFileTab") {
-        exec(http("CivilCaseProg_CaseFileView_040_005_CaseFileTab")
+      .group("CivilCaseProg_CaseFileView_270_CaseFileTab") {
+        exec(http("CivilCaseProg_CaseFileView_270_005_CaseFileTab")
           .get(BaseURL + "/categoriesAndDocuments/#{caseId}")
           .headers(CivilDamagesHeader.MoneyClaimNav)
           .check(substring("applicant1DefenceResponseDocument"))
@@ -1010,6 +1105,84 @@ object CaseProgression {
       }
       .pause(MinThinkTime, MaxThinkTime)
 
+
+
+      /*======================================================================================
+               *  Civil Progression - applicant1DefenceResponseDocument File
+    ==========================================================================================*/
+      .group("CivilCaseProg_CaseFileView_280_DefResponseDocument") {
+        exec(http("CivilCaseProg_CaseFileView_280_005_DefResponseDocument")
+          .get(BaseURL + "/em-anno/annotation-sets/filter?documentId=#{applicant1DefenceResponseDocument}")
+          .headers(CivilDamagesHeader.MoneyClaimNav)
+          .header("accept", "application/json, text/plain, */*")
+          .check(status.in(204))
+        )
+
+      }
+      .pause(MinThinkTime, MaxThinkTime)
+
+
+
+      /*======================================================================================
+             *  Civil Progression - disclosureListDocument File
+  ==========================================================================================*/
+      .group("CivilCaseProg_CaseFileView_290_disclosureListDocument") {
+        exec(http("CivilCaseProg_CaseFileView_290_005_disclosureListDocument")
+          .get(BaseURL + "/em-anno/annotation-sets/filter?documentId=#{disclosureListDocument}")
+          .headers(CivilDamagesHeader.MoneyClaimNav)
+          .header("accept", "application/json, text/plain, */*")
+          .check(status.in(204))
+        )
+
+      }
+      .pause(MinThinkTime, MaxThinkTime)
+
+
+      /*======================================================================================
+           *  Civil Progression - documentExpertReport File
+==========================================================================================*/
+      .group("CivilCaseProg_CaseFileView_290_documentExpertReport") {
+        exec(http("CivilCaseProg_CaseFileView_290_005_documentExpertReport")
+          .get(BaseURL + "/em-anno/annotation-sets/filter?documentId=#{documentExpertReport}")
+          .headers(CivilDamagesHeader.MoneyClaimNav)
+          .header("accept", "application/json, text/plain, */*")
+          .check(status.in(204))
+        )
+
+      }
+      .pause(MinThinkTime, MaxThinkTime)
+
+
+
+      /*======================================================================================
+         *  Civil Progression -caseSummaryDocument File
+==========================================================================================*/
+      .group("CivilCaseProg_CaseFileView_300_caseSummaryDocument") {
+        exec(http("CivilCaseProg_CaseFileView_300_005_caseSummaryDocument")
+          .get(BaseURL + "/em-anno/annotation-sets/filter?documentId=#{caseSummaryDocument}")
+          .headers(CivilDamagesHeader.MoneyClaimNav)
+          .header("accept", "application/json, text/plain, */*")
+          .check(status.in(204))
+        )
+
+      }
+      .pause(MinThinkTime, MaxThinkTime)
+
+
+
+      /*======================================================================================
+       *  Civil Progression -witnessStatementDocument File
+==========================================================================================*/
+      .group("CivilCaseProg_CaseFileView_300_witnessStatementDocument") {
+        exec(http("CivilCaseProg_CaseFileView_300_005_witnessStatementDocument")
+          .get(BaseURL + "/em-anno/annotation-sets/filter?documentId=#{witnessStatementDocument}")
+          .headers(CivilDamagesHeader.MoneyClaimNav)
+          .header("accept", "application/json, text/plain, */*")
+          .check(status.in(204))
+        )
+
+      }
+      .pause(MinThinkTime, MaxThinkTime)
 
 
 
@@ -1029,8 +1202,7 @@ object CaseProgression {
                         * Civil Progression - Search Case
       ==========================================================================================*/
       .group("CivilCaseProg_TrialReadiness_030_SearchCase") {
-        feed(caseFeeder)
-          .exec(http("CivilCaseProg_TrialReadiness_030_005_SearchCase")
+          exec(http("CivilCaseProg_TrialReadiness_030_005_SearchCase")
             .get(BaseURL + "/cases/case-details/#{caseId}")
             .headers(CivilDamagesHeader.MoneyClaimNav))
         // .check(substring("caseFile")))
@@ -1040,14 +1212,14 @@ object CaseProgression {
       /*======================================================================================
                    *  Civil Progression - 'Confirm Trial Arrangements'
         ==========================================================================================*/
-      .group("CivilCaseProg_TrialReadiness_040_ConfirmTrialArrange") {
-        exec(http("CivilCaseProg_TrialReadiness_040_005_ConfirmTrialArrange")
+      .group("CivilCaseProg_TrialReadiness_310_ConfirmTrialArrange") {
+        exec(http("CivilCaseProg_TrialReadiness_310_005_ConfirmTrialArrange")
           .get("/workallocation/case/tasks/{caseId}/event/TRIAL_READINESS/caseType/CIVIL/jurisdiction/CIVIL")
           .headers(CivilDamagesHeader.MoneyClaimNav)
           .check(substring("task_required_for_event"))
         )
 
-          .exec(http("CivilCaseProg_TrialReadiness_040_010_ConfirmTrialArrange")
+          .exec(http("CivilCaseProg_TrialReadiness_320_010_ConfirmTrialArrange")
             .get(BaseURL + "/data/internal/cases/#{caseId}/event-triggers/TRIAL_READINESS?ignore-warning=false")
             .headers(CivilDamagesHeader.headers_notify)
             .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-start-event-trigger.v2+json;charset=UTF-8")
@@ -1065,8 +1237,8 @@ object CaseProgression {
       /*======================================================================================
              *  Civil Progression - Confirm this case is ready for trial or hearing
   ==========================================================================================*/
-      .group("CivilCaseProg_TrialReadiness_050_ConfirmTrialOrHearing") {
-        exec(http("CivilCaseProg_TrialReadiness_050_005_ConfirmTrialOrHearing")
+      .group("CivilCaseProg_TrialReadiness_330_ConfirmTrialOrHearing") {
+        exec(http("CivilCaseProg_TrialReadiness_330_005_ConfirmTrialOrHearing")
           .post(BaseURL + "/data/case-types/CIVIL/validate?pageId=TRIAL_READINESSConfirmReadyClaimant")
           .headers(CivilDamagesHeader.MoneyClaimNav)
           .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.case-data-validate.v2+json;charset=UTF-8")
@@ -1082,8 +1254,8 @@ object CaseProgression {
       /*======================================================================================
        *  Civil Progression - Trial Readiness Submit
 ==========================================================================================*/
-      .group("CivilCaseProg_TrialReadiness_060_TrialReadinessSubmit") {
-        exec(http("CivilCaseProg_TrialReadiness_060_005_TrialReadinessSubmit")
+      .group("CivilCaseProg_TrialReadiness_340_TrialReadinessSubmit") {
+        exec(http("CivilCaseProg_TrialReadiness_340_005_TrialReadinessSubmit")
           .post(BaseURL + "/data/cases/#{caseId}/events")
           .headers(CivilDamagesHeader.MoneyClaimDefPostHeader)
           .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.create-event.v2+json;charset=UTF-8")
@@ -1112,8 +1284,7 @@ object CaseProgression {
                         * Civil Progression - Search Case
       ==========================================================================================*/
       .group("CivilCaseProg_BundleCreation_030_SearchCase") {
-        feed(caseFeeder)
-          .exec(http("CivilCaseProg_BundleCreation_030_005_SearchCase")
+          exec(http("CivilCaseProg_BundleCreation_030_005_SearchCase")
             .get(BaseURL + "/cases/case-details/#{caseId}")
             .headers(CivilDamagesHeader.MoneyClaimNav))
         // .check(substring("caseFile")))
@@ -1123,10 +1294,10 @@ object CaseProgression {
       /*======================================================================================
                    *  Civil Progression - Run Bundle Creation API
         ==========================================================================================*/
-      .group("CivilCaseProg_BundleCreation_040_BundleAPI") {
+      .group("CivilCaseProg_BundleCreation_350_BundleAPI") {
         exec(http("CivilCaseProg_BundleCreation_040_005_BundleAPI")
           .get("http://civil-service-#{env}.service.core-compute-#{env}.internal/testing-support/#{caseId}/trigger-trial-bundle")
-          .header("Authorization", "Bearer eyJ0eXAiOiJKV1QiLCJraWQiOiI4cDJpajg2S0pTeENKeGcveUovV2w3TjcxMXM9IiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiJjaXZpbC5kYW1hZ2VzLmNsYWltcytvcmdhbmlzYXRpb24uMi5zb2xpY2l0b3IuMUBnbWFpbC5jb20iLCJjdHMiOiJPQVVUSDJfU1RBVEVMRVNTX0dSQU5UIiwiYXV0aF9sZXZlbCI6MCwiYXVkaXRUcmFja2luZ0lkIjoiYjBiODY4MzItOThhMi00OWUwLWJhNmQtZmZiNTFjNjhmNGY5LTEyNTYwMDk4MiIsInN1Ym5hbWUiOiJjaXZpbC5kYW1hZ2VzLmNsYWltcytvcmdhbmlzYXRpb24uMi5zb2xpY2l0b3IuMUBnbWFpbC5jb20iLCJpc3MiOiJodHRwczovL2Zvcmdlcm9jay1hbS5zZXJ2aWNlLmNvcmUtY29tcHV0ZS1pZGFtLXBlcmZ0ZXN0LmludGVybmFsOjg0NDMvb3BlbmFtL29hdXRoMi9yZWFsbXMvcm9vdC9yZWFsbXMvaG1jdHMiLCJ0b2tlbk5hbWUiOiJhY2Nlc3NfdG9rZW4iLCJ0b2tlbl90eXBlIjoiQmVhcmVyIiwiYXV0aEdyYW50SWQiOiJnakQ0NXQxZXZPZExxTXBaOWtLNTg0Q1B2SFEiLCJhdWQiOiJobWN0cyIsIm5iZiI6MTY5NTYzNzM3NywiZ3JhbnRfdHlwZSI6InBhc3N3b3JkIiwic2NvcGUiOlsib3BlbmlkIiwicHJvZmlsZSIsInJvbGVzIl0sImF1dGhfdGltZSI6MTY5NTYzNzM3NywicmVhbG0iOiIvaG1jdHMiLCJleHAiOjE2OTU2NjYxNzcsImlhdCI6MTY5NTYzNzM3NywiZXhwaXJlc19pbiI6Mjg4MDAsImp0aSI6InBlMFFOZ0VZQzlXLUNLNXFEWFl2aV9kN2UyOCJ9.J9fhy0A0p27Bb6g3Fjc4dRHW9DPhBSR2QNDGdGXePiB1NObXGUSmCox6P9-clQvhyk7SPfZk8P7Tu9RaoApF9XyxrZekkrZBM9RLDHmHmHDs2sYHOL8ei5dGlan5BXWxlYUpf8m3G8azVHIXL5nBZkLNU6N9jiBhvQe_jqrB9em0qmDZM36hla4dw4hCcCbLNS6feHCylZQ-o_JEBxG3oelmffsdVHgCqfYkcGPgIMyktDRuaJKiN1chrxEnJzf5bpXCSRm-Zz-cyqe-Vl0ufVQWFSSvPyauCfFmRIdhDpHWjfUjes_Jui5a6-1nphckvbGmBmKj7oOQ3fjuSOwqJg")
+          .header("Authorization", "Bearer eyJ0eXAiOiJKV1QiLCJraWQiOiI4cDJpajg2S0pTeENKeGcveUovV2w3TjcxMXM9IiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiJjaXZpbC5kYW1hZ2VzLmNsYWltcytvcmdhbmlzYXRpb24uMi5zb2xpY2l0b3IuMUBnbWFpbC5jb20iLCJjdHMiOiJPQVVUSDJfU1RBVEVMRVNTX0dSQU5UIiwiYXV0aF9sZXZlbCI6MCwiYXVkaXRUcmFja2luZ0lkIjoiODRkODg2YTktYTA4Ni00ZDgwLWI1YmYtNDIxMGYzZmZmZDkyLTE2NDEzNDUzIiwic3VibmFtZSI6ImNpdmlsLmRhbWFnZXMuY2xhaW1zK29yZ2FuaXNhdGlvbi4yLnNvbGljaXRvci4xQGdtYWlsLmNvbSIsImlzcyI6Imh0dHBzOi8vZm9yZ2Vyb2NrLWFtLnNlcnZpY2UuY29yZS1jb21wdXRlLWlkYW0tcGVyZnRlc3QuaW50ZXJuYWw6ODQ0My9vcGVuYW0vb2F1dGgyL3JlYWxtcy9yb290L3JlYWxtcy9obWN0cyIsInRva2VuTmFtZSI6ImFjY2Vzc190b2tlbiIsInRva2VuX3R5cGUiOiJCZWFyZXIiLCJhdXRoR3JhbnRJZCI6IktWbmFmLVdLYTQ0OE9qaXIxcG5jamR1clJjRSIsImF1ZCI6ImhtY3RzIiwibmJmIjoxNjk2MjU3MDkzLCJncmFudF90eXBlIjoicGFzc3dvcmQiLCJzY29wZSI6WyJvcGVuaWQiLCJwcm9maWxlIiwicm9sZXMiXSwiYXV0aF90aW1lIjoxNjk2MjU3MDkzLCJyZWFsbSI6Ii9obWN0cyIsImV4cCI6MTY5NjI4NTg5MywiaWF0IjoxNjk2MjU3MDkzLCJleHBpcmVzX2luIjoyODgwMCwianRpIjoiRWhkeEgzV09BTC1pRU4wNmNNVHdJLXNKakhFIn0.MNUz65zXFegseEO3IUHKxkeVd6uKe1Dgp7BLC9yPTNmU4AcLVzus3o5r5InCaZXTc2fA92iMG6AvTw_KPavaXt0kfqx32Dq4RT8co1HrJpfPgNipU4u0jJD-2H4x1JkIigqgT8nIIRY1Dv5y-iCH_aygmb9pzJrVCKozu7kgXQ6wNn09L3Vgr79T1Zv8KYJ33FI5rKOP58aYmFVT8z-g7RfH2dZboiLMMwuL0g2_jSlV_5f5jnbt5LtBy0boN9vbonvkTRSzE_n6Sswffa40RxajubOuHJQwsMsxPphUIM7CyhzAQPTjWEawxmsnAsc0w2erTRcOZ5Z0oeVX6dIKkQ")
           .header("Content-Type", "application/json")
           .header("Accept", "*/*")
           .check(status.in(200, 201))
@@ -1138,7 +1309,7 @@ object CaseProgression {
           /*======================================================================================
                  *  Civil Progression - Open Bundle
       ==========================================================================================*/
-          .group("CivilCaseProg_BundleCreation_050_OpenBundle") {
+          .group("CivilCaseProg_BundleCreation_360_OpenBundle") {
             exec(http("CivilCaseProg_BundleCreation_050_005_OpenBundle")
               .get(BaseURL + "/data/internal/cases/#{caseId}")
               .headers(CivilDamagesHeader.MoneyClaimNav)
@@ -1168,8 +1339,7 @@ object CaseProgression {
                         * Civil Progression - Search Case
       ==========================================================================================*/
       .group("CivilCaseProg_FinalOrders_030_SearchCase") {
-        feed(caseFeeder)
-          .exec(http("CivilCaseProg_FinalOrders_030_005_SearchCase")
+          exec(http("CivilCaseProg_FinalOrders_030_005_SearchCase")
             .get(BaseURL + "/cases/case-details/#{caseId}")
             .headers(CivilDamagesHeader.MoneyClaimNav))
         // .check(substring("caseFile")))
@@ -1181,14 +1351,14 @@ object CaseProgression {
       /*======================================================================================
                  *  Civil Progression - 'Make An Order' event
       ==========================================================================================*/
-      .group("CivilCaseProg_FinalOrders_040_MakeAnOrder") {
-        exec(http("CivilCaseProg_FinalOrders_040_005_MakeAnOrder")
+      .group("CivilCaseProg_FinalOrders_430_MakeAnOrder") {
+        exec(http("CivilCaseProg_FinalOrders_430_005_MakeAnOrder")
           .get("/workallocation/case/tasks/{caseId}/event/GENERATE_DIRECTIONS_ORDER/caseType/CIVIL/jurisdiction/CIVIL")
           .headers(CivilDamagesHeader.MoneyClaimNav)
           .check(substring("task_required_for_event"))
         )
 
-          .exec(http("CivilCaseProg_FinalOrders_040_010_MakeAnOrder")
+          .exec(http("CivilCaseProg_FinalOrders_440_010_MakeAnOrder")
             .get(BaseURL + "/data/internal/cases/#{caseId}/event-triggers/GENERATE_DIRECTIONS_ORDER?ignore-warning=false")
             .headers(CivilDamagesHeader.headers_notify)
             .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-start-event-trigger.v2+json;charset=UTF-8")
@@ -1207,8 +1377,8 @@ object CaseProgression {
       /*======================================================================================
            *  Civil Progression - Recitals and order
 ==========================================================================================*/
-      .group("CivilCaseProg_FinalOrders_050_RecitalsAndOrder") {
-        exec(http("CivilCaseProg_FinalOrders_050_005_RecitalsAndOrder")
+      .group("CivilCaseProg_FinalOrders_450_RecitalsAndOrder") {
+        exec(http("CivilCaseProg_FinalOrders_450_005_RecitalsAndOrder")
           .post(BaseURL + "/data/case-types/CIVIL/validate?pageId=GENERATE_DIRECTIONS_ORDERFreeFormOrder")
           .headers(CivilDamagesHeader.MoneyClaimPostHeader)
           .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.case-data-validate.v2+json;charset=UTF-8")
@@ -1227,8 +1397,8 @@ object CaseProgression {
       /*======================================================================================
          *  Civil Progression -Order PDF
 ==========================================================================================*/
-      .group("CivilCaseProg_FinalOrders_060_OrderPDF") {
-        exec(http("CivilCaseProg_FinalOrders_060_005_OrderPDF")
+      .group("CivilCaseProg_FinalOrders_460_OrderPDF") {
+        exec(http("CivilCaseProg_FinalOrders_460_005_OrderPDF")
           .post(BaseURL + "/data/case-types/CIVIL/validate?pageId=GENERATE_DIRECTIONS_ORDERFinalOrderPreview")
           .headers(CivilDamagesHeader.MoneyClaimPostHeader)
           .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.case-data-validate.v2+json;charset=UTF-8")
@@ -1244,8 +1414,8 @@ object CaseProgression {
       /*======================================================================================
      *  Civil Progression - Final Orders Submit
 ==========================================================================================*/
-      .group("CivilCaseProg_FinalOrders_070_FinalOrdersSubmit") {
-        exec(http("CivilCaseProg_FinalOrders_070_005_FinalOrdersSubmit")
+      .group("CivilCaseProg_FinalOrders_470_FinalOrdersSubmit") {
+        exec(http("CivilCaseProg_FinalOrders_470_005_FinalOrdersSubmit")
           .post(BaseURL + "/data/cases/#{caseId}/events")
           .headers(CivilDamagesHeader.MoneyClaimDefPostHeader)
           .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.create-event.v2+json;charset=UTF-8")
