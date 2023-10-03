@@ -223,6 +223,8 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 				.exec(CaseProgression.CaseFileView)
 				.exec(CaseProgression.TrialReadiness)
 				.exec(CaseProgression.HearingFee)
+
+
 				.exec(CaseProgression.BundleCreationIntegration)
 				.exec(EXUIMCLogin.manageCase_Logout)
 				//	}
