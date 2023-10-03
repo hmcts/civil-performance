@@ -161,7 +161,8 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 				feed(defresponsecasesFeeder)
 				.exec(EXUIMCLogin.manageCasesHomePage)
 					.exec(EXUIMCLogin.manageCaseslogin)
-				//	.exec(ClaimCreationLRvsLR.run)
+					.exec(ClaimCreationLRvsLR.run)
+				exec(CivilAssignCase.run)
 				////	exec(CivilAssignCase.run)
 				//		.exec(CivilAssignCase.run)
 				//		.exec(EXUIMCLogin.manageCase_Logout)
@@ -171,7 +172,7 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 				//.exec(CivilAssignCase.run)
 				//	.exec(ClaimCreationLRvsLR.RespondToClaim)
 			//		.exec(ClaimCreationLRvsLR.RespondToDefence)
-						.exec(ClaimCreationLRvsLR.SDO)
+				//		.exec(ClaimCreationLRvsLR.SDO)
 				//		.pause(1)
 				//		exec(CivilAssignCase.Auth)
 			//		exec(CivilAssignCase.run)
@@ -192,6 +193,20 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 		.exitBlockOnFail {
 
 			exec(CivilAssignCase.cuiassign)
+
+		}
+
+
+	val CivilStrikeOut = scenario("Manually trigger strike out")
+		.feed(loginFeeder)
+		.exitBlockOnFail {
+			feed(defresponsecasesFeeder)
+		//	.exec(EXUIMCLogin.manageCasesHomePage)
+		//		.exec(EXUIMCLogin.manageCasesloginToCentreAdminJourney)
+		//		.exec(CaseProgression.HearingNotice)
+		//		.exec(EXUIMCLogin.manageCase_Logout)
+
+			.exec(CaseProgression.StrikeOut)
 
 		}
 
@@ -300,7 +315,7 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 			//	CivilAssignScenario.inject(nothingFor(1),rampUsers(18) during (300))
 
 	//	CivilCaseProg.inject(nothingFor(5),rampUsers(1) during (650))
-		CivilCaseProg.inject(nothingFor(1),rampUsers(12) during (2700))
+		CivilStrikeOut.inject(nothingFor(1),rampUsers(51) during (1000))
 ).protocols(httpProtocol)
 	
 	/*setUp(
