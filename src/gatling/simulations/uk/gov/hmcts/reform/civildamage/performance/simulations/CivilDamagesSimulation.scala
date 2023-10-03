@@ -238,8 +238,6 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 				.exec(CaseProgression.CaseFileView)
 				.exec(CaseProgression.TrialReadiness)
 				.exec(CaseProgression.HearingFee)
-
-
 				.exec(CaseProgression.BundleCreationIntegration)
 				.exec(EXUIMCLogin.manageCase_Logout)
 				//	}
@@ -315,7 +313,7 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 			//	CivilAssignScenario.inject(nothingFor(1),rampUsers(18) during (300))
 
 	//	CivilCaseProg.inject(nothingFor(5),rampUsers(1) during (650))
-		CivilStrikeOut.inject(nothingFor(1),rampUsers(51) during (1000))
+		CivilCaseProg.inject(nothingFor(1),rampUsers(12) during (2700))
 ).protocols(httpProtocol)
 	
 	/*setUp(
