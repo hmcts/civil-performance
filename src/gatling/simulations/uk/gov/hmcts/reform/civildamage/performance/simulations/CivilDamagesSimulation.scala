@@ -197,12 +197,10 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 
 	val CivilCaseProg = scenario("Create Civil damage")
 		.feed(loginFeeder)
-		.repeat(4){
-
-		exitBlockOnFail {
+	.exitBlockOnFail {
 			exec(EXUIMCLogin.manageCasesHomePage)
 				.exec(EXUIMCLogin.manageCasesloginToCentreAdminJourney)
-				.doSwitch("#{claimantuser}") (
+				.doSwitch("#{claimantuser}")(
 					"civil.damages.claims+organisation.1.solicitor.1@gmail.com" -> feed(defresponsecasesFeeder),
 					"hmcts.civil+organisation.1.solicitor.7@mailinator.com" -> feed(sol7casesFeeder),
 					"hmcts.civil+organisation.1.solicitor.8@mailinator.com" -> feed(sol8casesFeeder)
@@ -210,33 +208,33 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 				.exec(CaseProgression.HearingNotice)
 				.exec(EXUIMCLogin.manageCase_Logout)
 
-		}
-		.exitBlockOnFail {
-			exec(EXUIMCLogin.manageCasesHomePage)
+				//		}
+				//	.exitBlockOnFail {
+				.exec(EXUIMCLogin.manageCasesHomePage)
 				.exec(EXUIMCLogin.manageCasesloginToDefendantJourney)
 				.exec(CaseProgression.EvidenceUploadDefendant)
 				.exec(EXUIMCLogin.manageCase_Logout)
-}
+				//}
 
-		.exitBlockOnFail {
-			exec(EXUIMCLogin.manageCasesHomePage)
+				//	.exitBlockOnFail {
+				.exec(EXUIMCLogin.manageCasesHomePage)
 				.exec(EXUIMCLogin.manageCaseslogin)
 				.exec(CaseProgression.EvidenceUploadClaimant)
 				.exec(CaseProgression.CaseFileView)
 				.exec(CaseProgression.TrialReadiness)
 				.exec(CaseProgression.HearingFee)
-					.exec(CaseProgression.BundleCreationIntegration)
+				.exec(CaseProgression.BundleCreationIntegration)
 				.exec(EXUIMCLogin.manageCase_Logout)
-		}
+				//	}
 
-		.exitBlockOnFail {
-			exec(EXUIMCLogin.manageCasesHomePage)
+				//	.exitBlockOnFail {
+				.exec(EXUIMCLogin.manageCasesHomePage)
 				.exec(EXUIMCLogin.manageCasesloginToJudgeJourney)
 				.exec(CaseProgression.JudgeCaseNotes)
 				.exec(CaseProgression.FinalGeneralOrders)
 				.exec(EXUIMCLogin.manageCase_Logout)
 		}
-		}
+
 		.exec {
 			session =>
 				println(session)
@@ -300,7 +298,7 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 			//	CivilAssignScenario.inject(nothingFor(1),rampUsers(18) during (300))
 
 	//	CivilCaseProg.inject(nothingFor(5),rampUsers(1) during (650))
-		CivilCaseProg.inject(nothingFor(1),rampUsers(3) during (1000))
+		CivilCaseProg.inject(nothingFor(1),rampUsers(12) during (2700))
 ).protocols(httpProtocol)
 	
 	/*setUp(
