@@ -193,6 +193,13 @@ object CaseProgression {
           .body(ElFileBody("bodies/CaseProg/HearingScheduleSubmit.json"))
           .check(substring("confirmation_header"))
         )
+          .exec { session =>
+            val fw = new BufferedWriter(new FileWriter("HearingScheduled.csv", true))
+            try {
+              fw.write(session("caseId").as[String] + "\r\n")
+            } finally fw.close()
+            session
+          }
       }
       .pause(MinThinkTime, MaxThinkTime)
 
@@ -1262,6 +1269,53 @@ object CaseProgression {
           .header("X-Xsrf-Token", "#{XSRFToken}")
           .body(ElFileBody("bodies/CaseProg/TrialReadinessSubmit.json"))
           .check(substring("confirmation_body"))
+        )
+      }
+      .pause(MinThinkTime, MaxThinkTime)
+
+
+
+  /*======================================================================================
+      Strike Out
+==========================================================================================*/
+
+
+  val StrikeOut =
+
+
+    exec(_.setAll(
+      "CaseProgRandomString" -> Common.randomString(5),
+      "env" -> "perftest")
+    )
+
+
+      /*======================================================================================
+                   *  Civil Progression - Run Bundle Creation API
+        ==========================================================================================*/
+      .group("CivilCaseProg_Strike_UpdateHearing") {
+        exec(http("CivilCaseProg_Strike_005_UpdateHearing")
+          .put("http://civil-service-perftest.service.core-compute-perftest.internal/testing-support/case/#{caseId}")
+          .header("Authorization", "Bearer eyJ0eXAiOiJKV1QiLCJraWQiOiI4cDJpajg2S0pTeENKeGcveUovV2w3TjcxMXM9IiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiJjaXZpbC5kYW1hZ2VzLmNsYWltcytvcmdhbmlzYXRpb24uMi5zb2xpY2l0b3IuMUBnbWFpbC5jb20iLCJjdHMiOiJPQVVUSDJfU1RBVEVMRVNTX0dSQU5UIiwiYXV0aF9sZXZlbCI6MCwiYXVkaXRUcmFja2luZ0lkIjoiODRkODg2YTktYTA4Ni00ZDgwLWI1YmYtNDIxMGYzZmZmZDkyLTE2NjYyNjAxIiwic3VibmFtZSI6ImNpdmlsLmRhbWFnZXMuY2xhaW1zK29yZ2FuaXNhdGlvbi4yLnNvbGljaXRvci4xQGdtYWlsLmNvbSIsImlzcyI6Imh0dHBzOi8vZm9yZ2Vyb2NrLWFtLnNlcnZpY2UuY29yZS1jb21wdXRlLWlkYW0tcGVyZnRlc3QuaW50ZXJuYWw6ODQ0My9vcGVuYW0vb2F1dGgyL3JlYWxtcy9yb290L3JlYWxtcy9obWN0cyIsInRva2VuTmFtZSI6ImFjY2Vzc190b2tlbiIsInRva2VuX3R5cGUiOiJCZWFyZXIiLCJhdXRoR3JhbnRJZCI6IlcweTZSQzYzazZKZndCaGhmaFpPbXh0SjRyZyIsImF1ZCI6ImhtY3RzIiwibmJmIjoxNjk2MzQxMzg3LCJncmFudF90eXBlIjoicGFzc3dvcmQiLCJzY29wZSI6WyJvcGVuaWQiLCJwcm9maWxlIiwicm9sZXMiXSwiYXV0aF90aW1lIjoxNjk2MzQxMzg3LCJyZWFsbSI6Ii9obWN0cyIsImV4cCI6MTY5NjM3MDE4NywiaWF0IjoxNjk2MzQxMzg3LCJleHBpcmVzX2luIjoyODgwMCwianRpIjoicUNiMk9FQXpwTHpQZmpXTm5idlF2Wnk2aWVvIn0.cB8gGVFp2OKPcducmotF2-PmvTEd4q7VtvIxfUVGEhpMMoyo3xkl2QTOSOBSDJKJ_OzQls_olJETGfoIqZZIls2LmTf7BsHMl5ZPkfCpWSIWzSvX0bFCa1KWLM6S36WfsR3d5XYi7y8f4cQM04EbA_LY69vY-WUpjNdgYCrZ9wbEaa-3mgZKFL7JEIh-yIou6zr7WNToUzteLoUHUD5PX6oWx_oRpB764kbyBSX5HvwyDMmPlGLympzj2J0iU5nKVun3zZc_R1oDOZb2Y3mT3hCgkUkudTlhUPJ9c4cSD6UVItb1yqAuTsxj2M8xXI6A4z9GHEkGlvkpo9LQEq6TjQ")
+          .header("Content-Type", "application/json")
+          .header("Accept", "*/*")
+          .body(ElFileBody("bodies/CaseProg/UpdateHearing.json"))
+          .check(status.in(200, 201))
+        )
+      }
+      .pause(MinThinkTime, MaxThinkTime)
+
+
+
+      /*======================================================================================
+                 *  Civil Progression - Run Bundle Creation API
+      ==========================================================================================*/
+      .group("CivilCaseProg_Strike_HearingFeeCheck") {
+        exec(http("CivilCaseProg_Strike_005_HearingFeeCheck")
+          .get("http://civil-service-perftest.service.core-compute-perftest.internal/testing-support/#{caseId}/trigger-hearing-fee-unpaid")
+          .header("Authorization", "Bearer eyJ0eXAiOiJKV1QiLCJraWQiOiI4cDJpajg2S0pTeENKeGcveUovV2w3TjcxMXM9IiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiJjaXZpbC5kYW1hZ2VzLmNsYWltcytvcmdhbmlzYXRpb24uMi5zb2xpY2l0b3IuMUBnbWFpbC5jb20iLCJjdHMiOiJPQVVUSDJfU1RBVEVMRVNTX0dSQU5UIiwiYXV0aF9sZXZlbCI6MCwiYXVkaXRUcmFja2luZ0lkIjoiODRkODg2YTktYTA4Ni00ZDgwLWI1YmYtNDIxMGYzZmZmZDkyLTE2NjYyNjAxIiwic3VibmFtZSI6ImNpdmlsLmRhbWFnZXMuY2xhaW1zK29yZ2FuaXNhdGlvbi4yLnNvbGljaXRvci4xQGdtYWlsLmNvbSIsImlzcyI6Imh0dHBzOi8vZm9yZ2Vyb2NrLWFtLnNlcnZpY2UuY29yZS1jb21wdXRlLWlkYW0tcGVyZnRlc3QuaW50ZXJuYWw6ODQ0My9vcGVuYW0vb2F1dGgyL3JlYWxtcy9yb290L3JlYWxtcy9obWN0cyIsInRva2VuTmFtZSI6ImFjY2Vzc190b2tlbiIsInRva2VuX3R5cGUiOiJCZWFyZXIiLCJhdXRoR3JhbnRJZCI6IlcweTZSQzYzazZKZndCaGhmaFpPbXh0SjRyZyIsImF1ZCI6ImhtY3RzIiwibmJmIjoxNjk2MzQxMzg3LCJncmFudF90eXBlIjoicGFzc3dvcmQiLCJzY29wZSI6WyJvcGVuaWQiLCJwcm9maWxlIiwicm9sZXMiXSwiYXV0aF90aW1lIjoxNjk2MzQxMzg3LCJyZWFsbSI6Ii9obWN0cyIsImV4cCI6MTY5NjM3MDE4NywiaWF0IjoxNjk2MzQxMzg3LCJleHBpcmVzX2luIjoyODgwMCwianRpIjoicUNiMk9FQXpwTHpQZmpXTm5idlF2Wnk2aWVvIn0.cB8gGVFp2OKPcducmotF2-PmvTEd4q7VtvIxfUVGEhpMMoyo3xkl2QTOSOBSDJKJ_OzQls_olJETGfoIqZZIls2LmTf7BsHMl5ZPkfCpWSIWzSvX0bFCa1KWLM6S36WfsR3d5XYi7y8f4cQM04EbA_LY69vY-WUpjNdgYCrZ9wbEaa-3mgZKFL7JEIh-yIou6zr7WNToUzteLoUHUD5PX6oWx_oRpB764kbyBSX5HvwyDMmPlGLympzj2J0iU5nKVun3zZc_R1oDOZb2Y3mT3hCgkUkudTlhUPJ9c4cSD6UVItb1yqAuTsxj2M8xXI6A4z9GHEkGlvkpo9LQEq6TjQ")
+          .header("Content-Type", "application/json")
+          .header("Accept", "*/*")
+          .check(status.in(200, 201))
         )
       }
       .pause(MinThinkTime, MaxThinkTime)
