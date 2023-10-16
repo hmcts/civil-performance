@@ -256,6 +256,35 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 				session
 		}
 
+
+	val CivilCaseDataPrep = scenario("Create Civil damage")
+		.feed(loginFeeder)
+		.exitBlockOnFail {
+			exec(EXUIMCLogin.manageCasesHomePage)
+				.exec(EXUIMCLogin.manageCaseslogin)
+				.exec(ClaimCreationLRvsLR.run)
+
+				.exec(CivilAssignCase.run)
+				.exec(EXUIMCLogin.manageCase_Logout)
+
+				.exec(EXUIMCLogin.manageCasesHomePage)
+				.exec(EXUIMCLogin.manageCasesloginToDefendantJourney)
+				.exec(ClaimCreationLRvsLR.RespondToClaim)
+				.exec(EXUIMCLogin.manageCase_Logout)
+
+			.exec(EXUIMCLogin.manageCasesHomePage)
+				.exec(EXUIMCLogin.manageCaseslogin)
+				.exec(ClaimCreationLRvsLR.run)
+				.exec(ClaimCreationLRvsLR.RespondToDefence)
+
+		}
+
+		.exec {
+			session =>
+				println(session)
+				session
+		}
+
 		/*/*
       Step 2: login to manage org as defendant solicitor to assign the case to other users from defendant solicitor firm
 
@@ -313,7 +342,7 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 			//	CivilAssignScenario.inject(nothingFor(1),rampUsers(18) during (300))
 
 	//	CivilCaseProg.inject(nothingFor(5),rampUsers(1) during (650))
-		CivilCaseProg.inject(nothingFor(1),rampUsers(12) during (2700))
+		CivilCaseDataPrep.inject(nothingFor(1),rampUsers(1) during (2700))
 ).protocols(httpProtocol)
 	
 	/*setUp(
