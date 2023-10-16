@@ -274,7 +274,7 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 
 			.exec(EXUIMCLogin.manageCasesHomePage)
 				.exec(EXUIMCLogin.manageCaseslogin)
-				.exec(ClaimCreationLRvsLR.run)
+			//	.exec(ClaimCreationLRvsLR.run)
 				.exec(ClaimCreationLRvsLR.RespondToDefence)
 
 		}
