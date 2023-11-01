@@ -7,6 +7,7 @@ object Environment {
 
   val httpConfig = scala.util.Properties.envOrElse("httpConfig", "http")
   val baseURL = "https://manage-case.perftest.platform.hmcts.net"
+  val citizenURL = "https://sptribs-frontend.perftest.platform.hmcts.net"
   val baseDomain = scala.util.Properties.envOrElse("baseDomain", "manage-case.perftest.platform.hmcts.net")
   val PaymentURL = scala.util.Properties.envOrElse("paymentURL", "https://www.payments.service.gov.uk")
   val idamURL = "https://idam-web-public.perftest.platform.hmcts.net"
@@ -34,8 +35,8 @@ object Environment {
 
  */
   
-  val minThinkTime = 3//20
-  val maxThinkTime = 4//20
+  val minThinkTime = 1//20
+  val maxThinkTime = 1//20
 	
   
   val commonHeader = Map(

@@ -65,15 +65,15 @@ object CaseProgression {
       /*======================================================================================
                       * Civil Progression - Assign to Centre Admin
     ==========================================================================================*/
-      .group("CivilCaseProg_HearingNotice_040_AssignCentreAdmin") {
-          exec(http("CivilCaseProg_HearingNotice_040_005_AssignCentreAdmin")
-            .get(BaseURL + "/workallocation/task/#{AdminId}/claim")
-            .headers(CivilDamagesHeader.MoneyClaimPostHeader)
-            .header("accept", "application/json, text/plain, */*")
-            .body(ElFileBody("bodies/CaseProg/AssignToMe.json")))
+ //     .group("CivilCaseProg_HearingNotice_040_AssignCentreAdmin") {
+ //         exec(http("CivilCaseProg_HearingNotice_040_005_AssignCentreAdmin")
+  //          .get(BaseURL + "/workallocation/task/#{AdminId}/claim")
+ //           .headers(CivilDamagesHeader.MoneyClaimPostHeader)
+ //           .header("accept", "application/json, text/plain, */*")
+  //          .body(ElFileBody("bodies/CaseProg/AssignToMe.json")))
         // .check(substring("caseFile")))
-      }
-      .pause(MinThinkTime, MaxThinkTime)
+  //    }
+  //    .pause(MinThinkTime, MaxThinkTime)
 
 
 
@@ -235,6 +235,40 @@ object CaseProgression {
           .header("accept", "application/json, text/plain, */*")
           .check(jsonPath("$.payment_groups[1].payment_group_reference").saveAs("payment_group_reference"))
           .check(substring("payment_groups"))
+        )
+      }
+      .pause(MinThinkTime, MaxThinkTime)
+
+
+
+      /*======================================================================================
+             *  Civil Progression - 'Pay Now' event
+  ==========================================================================================*/
+      .group("CivilCaseProg_HearingFee_170_PayNow") {
+        exec(http("CivilCaseProg_HearingFee_170_005_PayNow")
+          .post(BaseURL + "/payments/service-request/#{payment_group_reference}/card-payments")
+          .headers(CivilDamagesHeader.MoneyClaimNav)
+          .header("accept", "application/json, text/plain, */*")
+          .body(ElFileBody("bodies/CaseProg/PayNowEvent.json"))
+          .check(
+            headerRegex("location", """\/card_details\/(.{26})""")
+              .ofType[(String)]
+              .saveAs("chargeId")
+          )
+        )
+      }
+      .pause(MinThinkTime, MaxThinkTime)
+
+
+      /*======================================================================================
+       *  Civil Progression - Card Details
+==========================================================================================*/
+      .group("CivilCaseProg_HearingFee_180_CardDetails") {
+        exec(http("CivilCaseProg_HearingFee_180_005_CardDetails")
+          .post(BaseURL + "/payments/service-request/#{payment_group_reference}/card-payments")
+          .headers(CivilDamagesHeader.MoneyClaimNav)
+          .header("accept", "application/json, text/plain, */*")
+          .body(ElFileBody("bodies/CaseProg/PayNowEvent.json"))
         )
       }
       .pause(MinThinkTime, MaxThinkTime)
@@ -1101,10 +1135,10 @@ object CaseProgression {
         exec(http("CivilCaseProg_CaseFileView_270_005_CaseFileTab")
           .get(BaseURL + "/categoriesAndDocuments/#{caseId}")
           .headers(CivilDamagesHeader.MoneyClaimNav)
-          .check(substring("applicant1DefenceResponseDocument"))
-          .check(regex("""documents/(\w{8}-\w{4}-\w{4}-\w{4}-\w{12})/binary","attribute_path":"applicant1DefenceResponseDocument.file""").saveAs("applicant1DefenceResponseDocument"))
-          .check(regex("""documents/(\w{8}-\w{4}-\w{4}-\w{4}-\w{12})","document_filename":"fast_track_sdo_""").saveAs("disclosureListDocument"))
-          .check(regex("""documents/(\w{8}-\w{4}-\w{4}-\w{4}-\w{12})/binary","attribute_path":"documentExpertReport""").saveAs("documentExpertReport"))
+         // .check(substring("applicant1DefenceResponseDocument"))
+        //  .check(regex("""documents/(\w{8}-\w{4}-\w{4}-\w{4}-\w{12})/binary","attribute_path":"applicant1DefenceResponseDocument.file""").saveAs("applicant1DefenceResponseDocument"))
+        //  .check(regex("""documents/(\w{8}-\w{4}-\w{4}-\w{4}-\w{12})","document_filename":"fast_track_sdo_""").saveAs("disclosureListDocument"))
+        //  .check(regex("""documents/(\w{8}-\w{4}-\w{4}-\w{4}-\w{12})/binary","attribute_path":"documentExpertReport""").saveAs("documentExpertReport"))
           .check(regex("""documents/(\w{8}-\w{4}-\w{4}-\w{4}-\w{12})","document_filename":"casesummary.docx""").saveAs("caseSummaryDocument"))
           .check(regex("""documents/(\w{8}-\w{4}-\w{4}-\w{4}-\w{12})","document_filename":"Witness Statement of""").saveAs("witnessStatementDocument"))
         )
@@ -1117,47 +1151,51 @@ object CaseProgression {
       /*======================================================================================
                *  Civil Progression - applicant1DefenceResponseDocument File
     ==========================================================================================*/
-      .group("CivilCaseProg_CaseFileView_280_DefResponseDocument") {
+  /*    .group("CivilCaseProg_CaseFileView_280_DefResponseDocument") {
         exec(http("CivilCaseProg_CaseFileView_280_005_DefResponseDocument")
           .get(BaseURL + "/em-anno/annotation-sets/filter?documentId=#{applicant1DefenceResponseDocument}")
           .headers(CivilDamagesHeader.MoneyClaimNav)
-          .header("accept", "application/json, text/plain, */*")
-          .check(status.in(204))
+
+   */
+         // .header("accept", "application/json, text/plain, */*")
+        /*  .check(status.in(204))
         )
 
       }
       .pause(MinThinkTime, MaxThinkTime)
 
 
+
+         */
 
       /*======================================================================================
              *  Civil Progression - disclosureListDocument File
   ==========================================================================================*/
-      .group("CivilCaseProg_CaseFileView_290_disclosureListDocument") {
-        exec(http("CivilCaseProg_CaseFileView_290_005_disclosureListDocument")
-          .get(BaseURL + "/em-anno/annotation-sets/filter?documentId=#{disclosureListDocument}")
-          .headers(CivilDamagesHeader.MoneyClaimNav)
-          .header("accept", "application/json, text/plain, */*")
-          .check(status.in(204))
-        )
+  //    .group("CivilCaseProg_CaseFileView_290_disclosureListDocument") {
+  //      exec(http("CivilCaseProg_CaseFileView_290_005_disclosureListDocument")
+  //        .get(BaseURL + "/em-anno/annotation-sets/filter?documentId=#{disclosureListDocument}")
+  //        .headers(CivilDamagesHeader.MoneyClaimNav)
+  //        .header("accept", "application/json, text/plain, */*")
+  //        .check(status.in(204))
+  //      )
 
-      }
-      .pause(MinThinkTime, MaxThinkTime)
+    //  }
+   //   .pause(MinThinkTime, MaxThinkTime)
 
 
       /*======================================================================================
            *  Civil Progression - documentExpertReport File
 ==========================================================================================*/
-      .group("CivilCaseProg_CaseFileView_290_documentExpertReport") {
-        exec(http("CivilCaseProg_CaseFileView_290_005_documentExpertReport")
-          .get(BaseURL + "/em-anno/annotation-sets/filter?documentId=#{documentExpertReport}")
-          .headers(CivilDamagesHeader.MoneyClaimNav)
-          .header("accept", "application/json, text/plain, */*")
-          .check(status.in(204))
-        )
+    //  .group("CivilCaseProg_CaseFileView_290_documentExpertReport") {
+    //    exec(http("CivilCaseProg_CaseFileView_290_005_documentExpertReport")
+    //      .get(BaseURL + "/em-anno/annotation-sets/filter?documentId=#{documentExpertReport}")
+    //      .headers(CivilDamagesHeader.MoneyClaimNav)
+    //      .header("accept", "application/json, text/plain, */*")
+    //      .check(status.in(204))
+    //    )
 
-      }
-      .pause(MinThinkTime, MaxThinkTime)
+     // }
+      //.pause(MinThinkTime, MaxThinkTime)
 
 
 
@@ -1351,7 +1389,7 @@ object CaseProgression {
       .group("CivilCaseProg_BundleCreation_350_BundleAPI") {
         exec(http("CivilCaseProg_BundleCreation_040_005_BundleAPI")
           .get("http://civil-service-#{env}.service.core-compute-#{env}.internal/testing-support/#{caseId}/trigger-trial-bundle")
-          .header("Authorization", "Bearer eyJ0eXAiOiJKV1QiLCJraWQiOiI4cDJpajg2S0pTeENKeGcveUovV2w3TjcxMXM9IiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiJjaXZpbC5kYW1hZ2VzLmNsYWltcytvcmdhbmlzYXRpb24uMi5zb2xpY2l0b3IuMUBnbWFpbC5jb20iLCJjdHMiOiJPQVVUSDJfU1RBVEVMRVNTX0dSQU5UIiwiYXV0aF9sZXZlbCI6MCwiYXVkaXRUcmFja2luZ0lkIjoiNGJjOWEzOTAtZTZjZi00YTQxLWI1NGYtZDA2NmZjNDc0ODY3LTEyOTIxNDA0NiIsInN1Ym5hbWUiOiJjaXZpbC5kYW1hZ2VzLmNsYWltcytvcmdhbmlzYXRpb24uMi5zb2xpY2l0b3IuMUBnbWFpbC5jb20iLCJpc3MiOiJodHRwczovL2Zvcmdlcm9jay1hbS5zZXJ2aWNlLmNvcmUtY29tcHV0ZS1pZGFtLXBlcmZ0ZXN0LmludGVybmFsOjg0NDMvb3BlbmFtL29hdXRoMi9yZWFsbXMvcm9vdC9yZWFsbXMvaG1jdHMiLCJ0b2tlbk5hbWUiOiJhY2Nlc3NfdG9rZW4iLCJ0b2tlbl90eXBlIjoiQmVhcmVyIiwiYXV0aEdyYW50SWQiOiJxM0VNY211ZFMtV2xraGJOa2xpeGtQbVVRZ2siLCJhdWQiOiJobWN0cyIsIm5iZiI6MTY5NjM0OTkwMCwiZ3JhbnRfdHlwZSI6InBhc3N3b3JkIiwic2NvcGUiOlsib3BlbmlkIiwicHJvZmlsZSIsInJvbGVzIl0sImF1dGhfdGltZSI6MTY5NjM0OTkwMCwicmVhbG0iOiIvaG1jdHMiLCJleHAiOjE2OTYzNzg3MDAsImlhdCI6MTY5NjM0OTkwMCwiZXhwaXJlc19pbiI6Mjg4MDAsImp0aSI6IjlFMTFlTTlzVVVHbV9ybHFLRExaWWttUTRjYyJ9.cfRfk9pnMZNg4dnucpn9g18ep95efbqBG2J0urBxqDjLqxnKYRNjsfr4CtpB_-nz_gN0qbmrR2yq9suaRE3CaaBdUuAw9o8hSrbOX5u4XLD0qmUCoIQOMUjkJZY4Ekamz8xbLHYnQhmqBJqT3zjiScbk3-qSAPOc_mKniWy9tTB0OAmTybAZptZ2ccPzgCkIO07-TxFkAFxyiinUtWOIkwyatskZ6n_vNaxU0Jc6uA99g4LyTXq0cyScEpdS7a5O1lD_AjfCfsVUmDlj8uVSZs2rbDBowzuY12P7_XWOvm0LrWouhDMwmLHC2QqimXOVd-1tyqzUHrye3gmsoHquyw")
+          .header("Authorization", "Bearer eyJ0eXAiOiJKV1QiLCJraWQiOiI4cDJpajg2S0pTeENKeGcveUovV2w3TjcxMXM9IiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiJjaXZpbC5kYW1hZ2VzLmNsYWltcytvcmdhbmlzYXRpb24uMi5zb2xpY2l0b3IuMUBnbWFpbC5jb20iLCJjdHMiOiJPQVVUSDJfU1RBVEVMRVNTX0dSQU5UIiwiYXV0aF9sZXZlbCI6MCwiYXVkaXRUcmFja2luZ0lkIjoiYjBiODY4MzItOThhMi00OWUwLWJhNmQtZmZiNTFjNjhmNGY5LTE0MDkwODY0OCIsInN1Ym5hbWUiOiJjaXZpbC5kYW1hZ2VzLmNsYWltcytvcmdhbmlzYXRpb24uMi5zb2xpY2l0b3IuMUBnbWFpbC5jb20iLCJpc3MiOiJodHRwczovL2Zvcmdlcm9jay1hbS5zZXJ2aWNlLmNvcmUtY29tcHV0ZS1pZGFtLXBlcmZ0ZXN0LmludGVybmFsOjg0NDMvb3BlbmFtL29hdXRoMi9yZWFsbXMvcm9vdC9yZWFsbXMvaG1jdHMiLCJ0b2tlbk5hbWUiOiJhY2Nlc3NfdG9rZW4iLCJ0b2tlbl90eXBlIjoiQmVhcmVyIiwiYXV0aEdyYW50SWQiOiJCbU43R0pUbmZNdjB1RVY3ampqWjVtSGIyaTgiLCJhdWQiOiJobWN0cyIsIm5iZiI6MTY5ODg2MDU0MywiZ3JhbnRfdHlwZSI6InBhc3N3b3JkIiwic2NvcGUiOlsib3BlbmlkIiwicHJvZmlsZSIsInJvbGVzIl0sImF1dGhfdGltZSI6MTY5ODg2MDU0MywicmVhbG0iOiIvaG1jdHMiLCJleHAiOjE2OTg4ODkzNDMsImlhdCI6MTY5ODg2MDU0MywiZXhwaXJlc19pbiI6Mjg4MDAsImp0aSI6IkdkWmR4V1BqVzFvTENNUXRiajZnenpfdkF5TSJ9.N7Sli1s8tDauYkNZzh9tG5E3zGz6-Ei9mfoxCMJP3ZfF5hZmH5DlD8_gPdqvE45_mbC5QxY97F3e5OhSsP4-g6g_dXjOlOHcPwFhvg1oO82urfVayFLPkl6g33pbZByv-hDsatqqR4Vu7i812zGR2Hs0f2jwj1VSKfrVF8vd_Whc_oLKoHh5hXH_HqRUjmunrUREjCj_uvzK7PDFPx1yGPeYigR5LnbglPGKWv8dDeTV4YYLGmJR-vyvR4sVXRsfYw1D7wzywQVn59YRYlLHGjl5IA5UZUp7W8DPX9xd-7mXlEUweltOJAgTJV1FP4nPKd-dmIuRrZuZpLSoP-16Kw")
           .header("Content-Type", "application/json")
           .header("Accept", "*/*")
           .check(status.in(200, 201))
@@ -1412,7 +1450,7 @@ object CaseProgression {
           .check(substring("task_required_for_event"))
         )
 
-          .exec(http("CivilCaseProg_FinalOrders_440_010_MakeAnOrder")
+          .exec(http("CivilCaseProg_FinalOrders_430_010_MakeAnOrder")
             .get(BaseURL + "/data/internal/cases/#{caseId}/event-triggers/GENERATE_DIRECTIONS_ORDER?ignore-warning=false")
             .headers(CivilDamagesHeader.headers_notify)
             .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-start-event-trigger.v2+json;charset=UTF-8")
@@ -1422,6 +1460,21 @@ object CaseProgression {
             .check(jsonPath("$.event_token").saveAs("event_token"))
           )
           .exec(getCookieValue(CookieKey("XSRF-TOKEN").withDomain(BaseURL.replace("https://", "")).saveAs("XSRFToken")))
+
+      }
+      .pause(MinThinkTime, MaxThinkTime)
+
+
+      /*======================================================================================
+     *  Civil Progression - Final order selection
+==========================================================================================*/
+      .group("CivilCaseProg_FinalOrders_440_OrderSelection") {
+        exec(http("CivilCaseProg_FinalOrders_440_005_OrderSelection")
+          .post(BaseURL + "/data/case-types/CIVIL/validate?pageId=GENERATE_DIRECTIONS_ORDERFinalOrderSelect")
+          .headers(CivilDamagesHeader.MoneyClaimPostHeader)
+          .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.case-data-validate.v2+json;charset=UTF-8")
+          .body(ElFileBody("bodies/CaseProg/OrderSelection.json"))
+        )
 
       }
       .pause(MinThinkTime, MaxThinkTime)
@@ -1438,9 +1491,11 @@ object CaseProgression {
           .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.case-data-validate.v2+json;charset=UTF-8")
           .body(ElFileBody("bodies/CaseProg/RecitalsAndOrder.json"))
           .check(substring("GENERATE_DIRECTIONS_ORDERFreeFormOrder"))
-          .check(jsonPath("$.data.finalOrderDocument.document_url").saveAs("finalOrderDocument_url"))
-          .check(jsonPath("$.data.finalOrderDocument.document_hash").saveAs("finalOrderDocument_hash"))
-          .check(jsonPath("$.data.finalOrderDocument.document_filename").saveAs("finalOrderDocument_filename"))
+          .check(jsonPath("$.data.finalOrderDocument.documentLink.document_url").saveAs("finalOrderDocument_url"))
+          .check(jsonPath("$.data.finalOrderDocument.documentLink.document_hash").saveAs("finalOrderDocument_hash"))
+          .check(jsonPath("$.data.finalOrderDocument.documentLink.document_filename").saveAs("finalOrderDocument_filename"))
+          .check(jsonPath("$.data.finalOrderDocument.createdDatetime").saveAs("createdDatetime"))
+          .check(jsonPath("$.data.finalOrderDocument.documentSize").saveAs("documentSize"))
         )
 
       }

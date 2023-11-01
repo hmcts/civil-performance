@@ -20,6 +20,9 @@ class CivilDamagesSimulation extends Simulation {
 	val defresponsecasesFeeder=csv("caseIds.csv").circular
 	val sol7casesFeeder=csv("caseIdsSol7.csv").circular
 	val sol8casesFeeder=csv("caseIdsSol8.csv").circular
+	val defresponsecasesTrialFeeder=csv("caseIdsTrial.csv").circular
+	val sol7casesTrialFeeder=csv("caseIdsSol7Trial.csv").circular
+	val sol8casesTrialFeeder=csv("caseIdsSol8Trial.csv").circular
 	
   val httpProtocol = Environment.HttpProtocol
     .baseUrl(BaseURL)
@@ -213,18 +216,19 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 	val CivilCaseProg = scenario("Create Civil damage")
 		.feed(loginFeeder)
 	.exitBlockOnFail {
-			exec(EXUIMCLogin.manageCasesHomePage)
-				.exec(EXUIMCLogin.manageCasesloginToCentreAdminJourney)
-				.doSwitch("#{claimantuser}")(
-					"civil.damages.claims+organisation.1.solicitor.1@gmail.com" -> feed(defresponsecasesFeeder),
-					"hmcts.civil+organisation.1.solicitor.7@mailinator.com" -> feed(sol7casesFeeder),
-					"hmcts.civil+organisation.1.solicitor.8@mailinator.com" -> feed(sol8casesFeeder)
-				)
-				.exec(CaseProgression.HearingNotice)
-				.exec(EXUIMCLogin.manageCase_Logout)
+		exec(EXUIMCLogin.manageCasesHomePage)
+			.exec(EXUIMCLogin.manageCasesloginToCentreAdminJourney)
+			.doSwitch("#{claimantuser}")(
+				"civil.damages.claims+organisation.1.solicitor.1@gmail.com" -> feed(defresponsecasesFeeder),
+				"hmcts.civil+organisation.1.solicitor.7@mailinator.com" -> feed(sol7casesFeeder),
+				"hmcts.civil+organisation.1.solicitor.8@mailinator.com" -> feed(sol8casesFeeder)
+			)
+			.exec(CaseProgression.HearingNotice)
+			.exec(EXUIMCLogin.manageCase_Logout)
 
 				//		}
 				//	.exitBlockOnFail {
+
 				.exec(EXUIMCLogin.manageCasesHomePage)
 				.exec(EXUIMCLogin.manageCasesloginToDefendantJourney)
 				.exec(CaseProgression.EvidenceUploadDefendant)
@@ -236,9 +240,17 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 				.exec(EXUIMCLogin.manageCaseslogin)
 				.exec(CaseProgression.EvidenceUploadClaimant)
 				.exec(CaseProgression.CaseFileView)
-				.exec(CaseProgression.TrialReadiness)
-				.exec(CaseProgression.HearingFee)
+
+		//		.exec(CaseProgression.HearingFee)
+
 				.exec(CaseProgression.BundleCreationIntegration)
+							.doSwitch("#{claimantuser}")(
+				"civil.damages.claims+organisation.1.solicitor.1@gmail.com" -> feed(defresponsecasesTrialFeeder),
+				"hmcts.civil+organisation.1.solicitor.7@mailinator.com" -> feed(sol7casesTrialFeeder),
+				"hmcts.civil+organisation.1.solicitor.8@mailinator.com" -> feed(sol8casesTrialFeeder)
+							)
+				.exec(CaseProgression.TrialReadiness)
+
 				.exec(EXUIMCLogin.manageCase_Logout)
 				//	}
 
@@ -248,6 +260,9 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 				.exec(CaseProgression.JudgeCaseNotes)
 				.exec(CaseProgression.FinalGeneralOrders)
 				.exec(EXUIMCLogin.manageCase_Logout)
+
+
+
 		}
 
 		.exec {
@@ -275,7 +290,29 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 			.exec(EXUIMCLogin.manageCasesHomePage)
 				.exec(EXUIMCLogin.manageCaseslogin)
 			//	.exec(ClaimCreationLRvsLR.run)
+
+
 				.exec(ClaimCreationLRvsLR.RespondToDefence)
+			.exec(EXUIMCLogin.manageCase_Logout)
+				.exec(EXUIMCLogin.manageCasesHomePage)
+				.exec(EXUIMCLogin.manageCasesloginToJudgeJourney)
+				.exec(ClaimCreationLRvsLR.SDO)
+
+
+
+		}
+
+		.exec {
+			session =>
+				println(session)
+				session
+		}
+
+
+	val STCitizen = scenario("Civil Citizen ST")
+	//	.feed(loginFeeder)
+		.exitBlockOnFail {
+			exec(CivilCitizen.run)
 
 		}
 
@@ -342,7 +379,7 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 			//	CivilAssignScenario.inject(nothingFor(1),rampUsers(18) during (300))
 
 	//	CivilCaseProg.inject(nothingFor(5),rampUsers(1) during (650))
-		CivilCaseDataPrep.inject(nothingFor(1),rampUsers(1) during (2700))
+		CivilCaseProg.inject(nothingFor(1),rampUsers(1) during (2700))
 ).protocols(httpProtocol)
 	
 	/*setUp(

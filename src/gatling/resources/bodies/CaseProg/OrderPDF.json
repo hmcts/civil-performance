@@ -1,10 +1,18 @@
 {
   "data": {
     "finalOrderDocument": {
-      "document_url": "#{finalOrderDocument_url}",
-      "document_binary_url": "#{finalOrderDocument_url}/binary",
-      "document_filename": "{#finalOrderDocument_filename}",
-      "document_hash": "#{finalOrderDocument_hash}"
+      "documentLink": {
+        "document_url": "#{finalOrderDocument_url}",
+        "document_binary_url": "#{finalOrderDocument_url}/binary",
+        "document_filename": "#{finalOrderDocument_filename}",
+        "document_hash": "#{finalOrderDocument_hash}"
+      },
+      "documentName": "#{finalOrderDocument_filename}",
+      "documentType": "JUDGE_FINAL_ORDER",
+      "documentSize": "#{documentSize}",
+      "createdDatetime": "#{createdDatetime}",
+      "createdBy": "Civil",
+      "ownedBy": null
     }
   },
   "event": {
@@ -16,16 +24,20 @@
     "finalOrderSelection": "FREE_FORM_ORDER",
     "freeFormRecordedTextArea": "#{CaseProgRandomString} freeFormRecordedTextArea",
     "freeFormOrderedTextArea": "#{CaseProgRandomString} freeFormOrderedTextArea",
-    "orderOnCourtsList": "ORDER_ON_COURT_INITIATIVE",
+    "orderOnCourtsList": "NOT_APPLICABLE",
     "finalOrderDocument": {
-      "document_url": "#{finalOrderDocument_url}",
-      "document_binary_url": "#{finalOrderDocument_url}/binary",
-      "document_filename": "{#finalOrderDocument_filename}",
-      "document_hash": "#{finalOrderDocument_hash}"
-    },
-    "orderOnCourtInitiative": {
-      "onInitiativeSelectionTextArea": "As this order was made on the court's own initiative any party affected by the order may apply to set aside, vary or stay the order. Any such application must be made by 4pm on",
-      "onInitiativeSelectionDate": "#{EvidenceYear}-#{EvidenceMonth}-#{EvidenceDay}"
+      "documentLink": {
+        "document_url": "#{finalOrderDocument_url}",
+        "document_binary_url": "#{finalOrderDocument_url}/binary",
+        "document_filename": "#{finalOrderDocument_filename}",
+        "document_hash": "#{finalOrderDocument_hash}"
+      },
+      "documentName": "#{finalOrderDocument_filename}",
+      "documentType": "JUDGE_FINAL_ORDER",
+      "documentSize": "#[documentSize}",
+      "createdDatetime": "#{createdDatetime}",
+      "createdBy": "Civil",
+      "ownedBy": null
     }
   },
   "event_token": "#{event_token}",
