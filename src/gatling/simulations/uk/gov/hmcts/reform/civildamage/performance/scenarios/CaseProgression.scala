@@ -24,9 +24,9 @@ object CaseProgression {
 
     exec(_.setAll(
       "CaseProgRandomString" -> Common.randomString(5),
-      "Plus2WeeksDay" -> Common.getPlus6WeeksDay(),
-      "Plus2WeeksMonth" -> Common.getPlus6WeeksMonth(),
-      "Plus2WeeksYear" -> Common.getPlus6WeeksYear(),
+      "Plus2WeeksDay" -> Common.getPlus2WeeksDay(),
+      "Plus2WeeksMonth" -> Common.getPlus2WeeksMonth(),
+      "Plus2WeeksYear" -> Common.getPlus2WeeksYear(),
       "EvidenceYear" -> Common.getYear(),
       "EvidenceDay" -> Common.getDay(),
       "EvidenceMonth" -> Common.getMonth())
