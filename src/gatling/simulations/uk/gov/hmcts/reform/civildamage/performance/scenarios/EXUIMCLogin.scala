@@ -190,12 +190,14 @@ object EXUIMCLogin {
             .headers(LoginHeader.headers_0)
             .check(status.in(200, 304)))
       
-      .repeat(1, "count") {
+    /*  .repeat(1, "count") {
         exec(http("CivilDamages_020_030_AcceptT&CAccessJurisdictions#{count}")
              .get("/aggregated/caseworkers/:uid/jurisdictions?access=read")
              .headers(LoginHeader.headers_access_read)
              .check(status.in(200, 304, 302)))
+
       }
+             */
      /* .exec(http("CivilDamages_020_035_GetWorkBasketInputs")
             .get("/data/internal/case-types/FinancialRemedyMVP2/work-basket-inputs")
             .headers(LoginHeader.headers_17)

@@ -375,7 +375,7 @@ object ClaimCreationLRvsLR {
 
     group("Civil_CreateClaim_330_BackToCaseDetailsPage") {
       exec(http("Civil_CreateClaim_330_005_CaseDetails")
-        .get("https://manage-case.perftest.platform.hmcts.net/data/internal/cases/1695744065196611")
+        .get("https://manage-case.perftest.platform.hmcts.net/data/internal/cases/#{caseId}")
         .headers(CivilDamagesHeader.headers_717)
         .check(substring("Civil"))
         .check(status.in(200,201,304)))
@@ -399,13 +399,13 @@ object ClaimCreationLRvsLR {
           .check(substring("task_required_for_event"))
         )
 
-          .exec(http("XUI_CreateClaim_420_010_RespondToClaim")
+          .exec(http("XUI_CreateClaim_421_010_RespondToClaim")
             .get(BaseURL + "/data/internal/cases/#{caseId}/event-triggers/DEFENDANT_RESPONSE?ignore-warning=false")
             .headers(CivilDamagesHeader.headers_notify)
             .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-start-event-trigger.v2+json;charset=UTF-8")
             .check(substring("DEFENDANT_RESPONSE"))
-            .check(jsonPath("$.case_fields[4].formatted_value.partyID").saveAs("repPartyID"))
-            .check(jsonPath("$.case_fields[4].formatted_value.partyName").saveAs("partyName"))
+            .check(jsonPath("$.case_fields[2].formatted_value.partyID").saveAs("repPartyID"))
+            .check(jsonPath("$.case_fields[2].formatted_value.partyName").saveAs("partyName"))
             .check(jsonPath("$.event_token").saveAs("event_token"))
           )
           .exec(getCookieValue(CookieKey("XSRF-TOKEN").withDomain(BaseURL.replace("https://", "")).saveAs("XSRFToken")))
@@ -826,17 +826,19 @@ object ClaimCreationLRvsLR {
 
 
     group("Civil_CreateClaim_330_BackToCaseDetailsPage") {
-      exec(http("Civil_CreateClaim_330_005_CaseDetails")
+
+      exec(_.setAll(
+        "Idempotencynumber" -> (Common.getIdempotency()),
+        "LRrandomString" -> Common.randomString(5)
+      ))
+
+      .exec(http("Civil_CreateClaim_330_005_CaseDetails")
         .get("/data/internal/cases/#{caseId}")
         .headers(CivilDamagesHeader.headers_717)
         .check(substring("Civil"))
         .check(status.in(200, 201, 304)))
 
 
-        .exec(_.setAll(
-          "Idempotencynumber" -> (Common.getIdempotency()),
-          "LRrandomString" -> Common.randomString(5)
-        ))
     }
       /*======================================================================================
            * Create Civil Claim - Start Event 'View and Respond to Defence'
@@ -855,10 +857,10 @@ object ClaimCreationLRvsLR {
             .headers(CivilDamagesHeader.headers_notify)
             .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-start-event-trigger.v2+json;charset=UTF-8")
             .check(substring("CLAIMANT_RESPONSE"))
-            .check(jsonPath("$.case_fields[62].formatted_value.partyID").saveAs("repPartyID"))
-            .check(jsonPath("$.case_fields[62].formatted_value.partyName").saveAs("partyName"))
-            .check(jsonPath("$.case_fields[62].value.flags.partyName").saveAs("defPartyName"))
-            .check(jsonPath("$.case_fields[58].formatted_value.file.document_url").saveAs("document_url"))
+            .check(jsonPath("$.case_fields[69].formatted_value.partyID").saveAs("repPartyID"))
+            .check(jsonPath("$.case_fields[69].formatted_value.partyName").saveAs("partyName"))
+            .check(jsonPath("$.case_fields[69].value.partyName").saveAs("defPartyName"))
+            .check(jsonPath("$.case_fields[65].formatted_value.file.document_url").saveAs("document_url"))
             .check(jsonPath("$.event_token").saveAs("event_token"))
           )
           .exec(getCookieValue(CookieKey("XSRF-TOKEN").withDomain(BaseURL.replace("https://", "")).saveAs("XSRFToken")))
@@ -1218,8 +1220,9 @@ object ClaimCreationLRvsLR {
       // val returntocasedetailsafternotifydetails =
       .group("XUI_CreateClaim_790_TaskTabs") {
         exec(http("XUI_CreateClaim_790_005_AssignToMe")
-          .get("/workallocation/case/task/#{caseId}")
+          .post(BaseURL + "/workallocation/case/task/#{caseId}")
           .headers(CivilDamagesHeader.MoneyClaimNav)
+          .body(ElFileBody("bodies/LRvsLR/TaskTab.json"))
           .check(jsonPath("$[0].id").saveAs("JudgeId"))
         )
 
@@ -1372,6 +1375,7 @@ object ClaimCreationLRvsLR {
           .body(ElFileBody("bodies/LRvsLR/SDOSubmit.json"))
           .check(substring("CASE_PROGRESSION"))
         )
+
           .exec { session =>
             val fw = new BufferedWriter(new FileWriter("CaseProg.csv", true))
             try {
