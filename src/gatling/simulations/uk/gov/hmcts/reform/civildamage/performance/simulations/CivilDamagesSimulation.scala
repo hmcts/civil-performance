@@ -243,7 +243,7 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 
 		//		.exec(CaseProgression.HearingFee)
 
-				.exec(CaseProgression.BundleCreationIntegration)
+		//		.exec(CaseProgression.BundleCreationIntegration)
 							.doSwitch("#{claimantuser}")(
 				"civil.damages.claims+organisation.1.solicitor.1@gmail.com" -> feed(defresponsecasesTrialFeeder),
 				"hmcts.civil+organisation.1.solicitor.7@mailinator.com" -> feed(sol7casesTrialFeeder),
