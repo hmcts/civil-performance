@@ -1,0 +1,42 @@
+{
+  "data": {
+    "contactPartiesDocumentsDocumentList": {
+      "value": [
+        {
+          "code": "#{allCaseworkerCICDocument}",
+          "label": "[3MB.pdf A - Application Form](#{disclosureDocument_url}/binary)"
+        }
+      ],
+      "list_items": [
+        {
+          "code": "#{allCaseworkerCICDocument}",
+          "label": "[3MB.pdf A - Application Form](#{disclosureDocument_url}/binary)"
+        }
+      ]
+    }
+  },
+  "event": {
+    "id": "contact-parties",
+    "summary": "",
+    "description": ""
+  },
+  "event_data": {
+    "contactPartiesDocumentsDocumentList": {
+      "value": [
+        {
+          "code": "#{allCaseworkerCICDocument}",
+          "label": "[3MB.pdf A - Application Form](#{disclosureDocument_url}/binary)"
+        }
+      ],
+      "list_items": [
+        {
+          "code": "#{allCaseworkerCICDocument}",
+          "label": "[3MB.pdf A - Application Form](#{disclosureDocument_url}/binary)"
+        }
+      ]
+    }
+  },
+  "event_token": "#{event_token}",
+  "ignore_warning": false,
+  "case_reference": "#{caseId}"
+}

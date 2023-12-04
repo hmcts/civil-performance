@@ -1,0 +1,39 @@
+{
+  "data": {
+    "closeCloseCaseReason": "caseWithdrawn",
+    "closeAdditionalDetail": "#{StRandomString}closeAdditionalDetail",
+    "closeWithdrawalFullName": "#{StRandomString}closeWithdrawalFullName",
+    "closeWithdrawalRequestDate": "#{EvidenceYear}-#{EvidenceMonth}-#{EvidenceDay}",
+    "cicCaseFullName": "#{dssCaseDataSubjectFullName}",
+    "cicCaseRepresentativeFullName": "#{dssCaseDataRepresentativeFullName}",
+    "cicCaseRespondentName": "Appeals team",
+    "cicCaseApplicantFullName": null,
+    "closeDocuments": [
+      {
+        "value": {
+          "documentCategory": "ApplicationForm",
+          "documentEmailContent": "#{StRandomString}documentEmailContent",
+          "documentLink": {
+            "document_url": "#{closeDisclosureDocument_url}",
+            "document_binary_url": "#{closeDisclosureDocument_url}/binary",
+            "document_filename": "3MB.pdf",
+            "document_hash": "#{closeHashToken}"
+          }
+        },
+        "id": "#{closeDocumentsId}"
+      }
+    ],
+    "cicCaseNotifyPartySubject": [
+      "SubjectCIC"
+    ],
+    "cicCaseNotifyPartyRepresentative": [],
+    "cicCaseNotifyPartyRespondent": []
+  },
+  "event": {
+    "id": "caseworker-close-the-case",
+    "summary": "",
+    "description": ""
+  },
+  "event_token": "#{event_token}",
+  "ignore_warning": false
+}
