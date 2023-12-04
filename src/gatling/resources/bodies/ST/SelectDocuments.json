@@ -1,0 +1,38 @@
+{
+  "data": {
+    "cicCaseAmendDocumentList": {
+      "value": {
+        "code": "#{documentCode}",
+        "label": "#{documentLabel}"
+      },
+      "list_items": [
+        {
+          "code": "#{documentCode}",
+          "label": "#{documentLabel}"
+        }
+      ]
+    }
+  },
+  "event": {
+    "id": "caseworker-amend-document",
+    "summary": "",
+    "description": ""
+  },
+  "event_data": {
+    "cicCaseAmendDocumentList": {
+      "value": {
+        "code": "#{documentCode}",
+        "label": "#{documentLabel}"
+      },
+      "list_items": [
+        {
+          "code": "#{documentCode}",
+          "label": "#{documentLabel}"
+        }
+      ]
+    }
+  },
+  "event_token": "#{event_token}",
+  "ignore_warning": false,
+  "case_reference": "#{caseId}"
+}
