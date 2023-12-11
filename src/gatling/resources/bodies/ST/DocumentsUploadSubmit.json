@@ -18,7 +18,7 @@
     "allCaseworkerCICDocument": []
   },
   "event": {
-    "id": "caseworker-document-management",
+    "id": "respondent-document-management",
     "summary": "",
     "description": ""
   },
