@@ -52,7 +52,7 @@ object STRel3 {
 
 
         exec(http("ST_ContactParties_040_010_DocumentUploadEvent")
-          .get(BaseURL + "/data/internal/cases/#{caseId}/event-triggers/caseworker-document-management?ignore-warning=false")
+          .get(BaseURL + "/data/internal/cases/#{caseId}/event-triggers/respondent-document-management?ignore-warning=false")
           .headers(CivilDamagesHeader.MoneyClaimPostHeader)
           .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-start-event-trigger.v2+json;charset=UTF-8")
           .check(jsonPath("$.event_token").saveAs("event_token"))
@@ -93,7 +93,7 @@ object STRel3 {
 ==========================================================================================*/
       .group("ST_ContactParties_060_DocumentsUploadSubmit") {
         exec(http("ST_ContactParties_060_005_DocumentsUploadSubmit")
-          .post(BaseURL + "/data/case-types/CriminalInjuriesCompensation/validate?pageId=caseworker-document-managementuploadCaseDocuments")
+          .post(BaseURL + "/data/case-types/CriminalInjuriesCompensation/validate?pageId=respondent-document-managementuploadCaseDocuments")
           .headers(CivilDamagesHeader.MoneyClaimPostHeader)
           .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.case-data-validate.v2+json;charset=UTF-8")
           .body(ElFileBody("bodies/ST/DocumentsUploadSubmit.json"))
