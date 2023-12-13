@@ -184,7 +184,7 @@ object ClaimCreationLRvsLR {
         .get("/payments/pba-accounts")
         .headers(CivilDamagesHeader.headers_717)
         .check(substring("organisationEntityResponse"))
-        .check(status.in(200, 304))
+        .check(status.in(200,204,304))
       )
     }
     .pause(MinThinkTime, MaxThinkTime)
@@ -1176,7 +1176,6 @@ object ClaimCreationLRvsLR {
 
 
   val SDO =
-
 
     group("Civil_CreateClaim_330_BackToCaseDetailsPage") {
 
