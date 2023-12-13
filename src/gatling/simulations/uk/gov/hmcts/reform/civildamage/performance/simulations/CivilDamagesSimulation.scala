@@ -158,7 +158,7 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 		*/
 
 
-	val CivilDamageScenario = scenario("Create Civil damage")
+	val CivilDamageScenario = scenario("Create Civil Cases For GA to Test")
 		.feed(loginFeeder)
 		.repeat(1) {
 			exitBlockOnFail {
@@ -167,29 +167,10 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 					.exec(EXUIMCLogin.manageCaseslogin)
 					.exec(ClaimCreationLRvsLR.run)
 				exec(CivilAssignCase.run)
-				////	exec(CivilAssignCase.run)
-				//		.exec(CivilAssignCase.run)
-				//		.exec(EXUIMCLogin.manageCase_Logout)
-			//		.exec(ClaimCreationLRvsLR.RespondToClaim)
-				//.exec(EXUIMCLogin.manageCase_Logout)
-				//		.exec(ClaimCreationLRvsLR.RespondToDefence)
-				//.exec(CivilAssignCase.run)
-				//	.exec(ClaimCreationLRvsLR.RespondToClaim)
-			//		.exec(ClaimCreationLRvsLR.RespondToDefence)
-				//		.exec(ClaimCreationLRvsLR.SDO)
-				//		.pause(1)
-				//		exec(CivilAssignCase.Auth)
-			//		exec(CivilAssignCase.run)
-				//		.pause(1)
-				//			.exec(EXUIMCLogin.manageCase_Logout)
+			
 			}
 		}
-		.exec {
-			session =>
-				println(session)
-				session
-		}
-
+	
 
 
 	val CivilAssignScenario = scenario("Create Civil case assign")
@@ -308,11 +289,7 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 
 		}
 
-		.exec {
-			session =>
-				println(session)
-				session
-		}
+	
 
 
 	val STCitizen = scenario("Civil Citizen ST")

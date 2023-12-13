@@ -303,7 +303,7 @@ object ClaimCreationLRvsLR {
 
 
     /*======================================================================================
-                 * Create Civil Claim - event submit
+                 * Create Civil Claim - event submit for notify detail
       ==========================================================================================*/
     // val notifyclaimdetailseventsubmit=
     .group("CD_CreateClaim_400_NotifyDetailsEventSubmit") {
