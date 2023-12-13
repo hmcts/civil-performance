@@ -29,7 +29,8 @@ object CivilCitizen {
       "EvidenceYear" -> Common.getYear(),
       "EvidenceDay" -> Common.getDay(),
       "EvidenceMonth" -> Common.getMonth(),
-      "CitizenRandomString" -> Common.randomString(5))
+      "CitizenRandomString" -> Common.randomString(5),
+      "representativeFullName" -> (Common.randomString(5) + "representativeFullName"))
     )
   //val Citizen =
 
@@ -90,7 +91,7 @@ object CivilCitizen {
           .headers(CivilDamagesHeader.CivilCitizenPost)
           .header("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7")
           .formParam("_csrf", "#{csrf}")
-          .formParam("subjectFullName", "#{CitizenRandomString}subjectFullName")
+          .formParam("subjectFullName", "#{representativeFullName}")
           .formParam("subjectDateOfBirth-day", "#{EvidenceDay}")
           .formParam("subjectDateOfBirth-month", "#{EvidenceMonth}")
           .formParam("subjectDateOfBirth-year", "#{EvidenceYear}")
@@ -173,20 +174,21 @@ object CivilCitizen {
         exec(http("Civil_Citizen_090_005_UploadTribunalForm")
       .post(CitizenURL + "/upload-appeal-form?_csrf=#{csrf}")
       .headers(CivilDamagesHeader.CitizenSTUpload)
-      .header("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7")
-      .header("content-type", "multipart/form-data; boundary=----WebKitFormBoundarylzXPkPZGjjxL8byV")
+      .header("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8")
+      .header("content-type", "multipart/form-data; boundary=---------------------------22305719210353240812686128403")
       .header("sec-fetch-dest", "document")
       .header("sec-fetch-mode", "navigate")
-      .bodyPart(RawFileBodyPart("files[]", "1MB-c.pdf")
+      .bodyPart(RawFileBodyPart("documents", "1MB-c.pdf")
         .fileName("1MB-c.pdf")
         .transferEncoding("binary"))
       .asMultipartForm
-        //  .formParam("_csrf", "#{csrf}")
-  //    .check(jsonPath("$.documents[0].hashToken").saveAs("claimDisclosureHashToken"))
-  //    .check(jsonPath("$.documents[0]._links.self.href").saveAs("claimDisclosureDocument_url"))
+          .formParam("_csrf", "#{csrf}")
+    //  .check(jsonPath("$.documents[0].hashToken").saveAs("claimDisclosureHashToken"))
+    //  .check(jsonPath("$.documents[0]._links.self.href").saveAs("claimDisclosureDocument_url"))
       .check(substring("1MB-c.pdf")))
 }
 .pause(MinThinkTime, MaxThinkTime)
+
 
 
       /*======================================================================================
@@ -199,6 +201,7 @@ object CivilCitizen {
           .formParam("_csrf", "#{csrf}")
           .formParam("documentUploadProceed", "true")
           .formParam("saveAndContinue", "true")
+          .check(CsrfCheck.save)
           .check(substring("Upload supporting documents")))
       }
       .pause(MinThinkTime, MaxThinkTime)
@@ -210,13 +213,13 @@ object CivilCitizen {
 ==========================================================================================*/
       .group("Civil_Citizen_110_UploadSupportingDocuments") {
         exec(http("Civil_Citizen_110_005_UploadSupportingDocuments")
-          .post(BaseURL + "/upload-supporting-documents?_csrf=#{csrf}")
-          .headers(CivilDamagesHeader.MoneyClaimPostHeader)
-          .header("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7")
-          .header("content-type", "multipart/form-data; boundary=----WebKitFormBoundary112ZWDKSv3TEnbq3")
+          .post(CitizenURL + "/upload-supporting-documents?_csrf=#{csrf}")
+          .headers(CivilDamagesHeader.CitizenSTUpload)
+          .header("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8")
+          .header("content-type", "multipart/form-data; boundary=---------------------------30003039721544127862772160293")
           .header("sec-fetch-dest", "document")
           .header("sec-fetch-mode", "navigate")
-          .bodyPart(RawFileBodyPart("files", "1MB-c.pdf")
+          .bodyPart(RawFileBodyPart("documents", "1MB-c.pdf")
             .fileName("1MB-c.pdf")
             .transferEncoding("binary"))
           .asMultipartForm
@@ -236,6 +239,7 @@ object CivilCitizen {
           .formParam("_csrf", "#{csrf}")
           .formParam("documentUploadProceed", "true")
           .formParam("saveAndContinue", "true")
+          .check(CsrfCheck.save)
           .check(substring("Add information to a case")))
       }
       .pause(MinThinkTime, MaxThinkTime)
@@ -247,13 +251,13 @@ object CivilCitizen {
 ==========================================================================================*/
       .group("Civil_Citizen_130_AddInformationUpload") {
         exec(http("Civil_Citizen_130_005_AddInformationUpload")
-          .post(BaseURL + "/upload-other-information?_csrf=#{csrf}")
-          .headers(CivilDamagesHeader.MoneyClaimPostHeader)
-          .header("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7")
-          .header("content-type", "multipart/form-data; boundary=----WebKitFormBoundary112ZWDKSv3TEnbq3")
+          .post(CitizenURL + "/upload-other-information?_csrf=#{csrf}")
+          .headers(CivilDamagesHeader.CitizenSTUpload)
+          .header("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8")
+          .header("content-type", "multipart/form-data; boundary=---------------------------22305719210353240812686128403")
           .header("sec-fetch-dest", "document")
           .header("sec-fetch-mode", "navigate")
-          .bodyPart(RawFileBodyPart("files", "1MB-c.pdf")
+          .bodyPart(RawFileBodyPart("documents", "1MB-c.pdf")
             .fileName("1MB-c.pdf")
             .transferEncoding("binary"))
           .asMultipartForm
@@ -276,7 +280,23 @@ object CivilCitizen {
           .formParam("additionalInformation", "#{CitizenRandomString}additionalInformation")
           .formParam("documentUploadProceed", "true")
           .formParam("saveAndContinue", "true")
+          .check(CsrfCheck.save)
           .check(substring("Equality and diversity questions")))
+      }
+      .pause(MinThinkTime, MaxThinkTime)
+
+
+      /*======================================================================================
+* Civil Citizen - Check your answers before submitting your tribunal form
+==========================================================================================*/
+      .group("Civil_Citizen_145_CheckYourAnswers") {
+        exec(http("Civil_Citizen_145_005_CheckYourAnswers")
+          .get(CitizenURL + "/check-your-answers")
+          .headers(CivilDamagesHeader.CivilCitizenPost)
+          .header("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7")
+          .header("content-type", "text/html; charset=utf-8")
+          .check(CsrfCheck.save)
+          .check(substring("Check your answers before submitting your tribunal form")))
       }
       .pause(MinThinkTime, MaxThinkTime)
 
@@ -288,9 +308,14 @@ object CivilCitizen {
         exec(http("Civil_Citizen_150_005_CheckYourAnswers")
           .post(CitizenURL + "/check-your-answers")
           .headers(CivilDamagesHeader.CivilCitizenPost)
+          .header("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8")
+          .header("content-type", "application/x-www-form-urlencoded")
           .formParam("_csrf", "#{csrf}")
           .formParam("saveAndContinue", "true")
-          .check(regex("""<strong>Case Number:<\/font><br>(\d{4} - \d{4} - \d{4} - \d{4})<\/strong>""").saveAs("referenceNumber")))
+          .check(regex("""<strong>Case Number:<\/font><br>(\d{4} - \d{4} - \d{4} - \d{4})<\/strong>""").saveAs("referenceNumber"))
+          .check(regex("""rel="stylesheet">
+                         |<!-- (\d{16}) -->""".stripMargin).saveAs("caseId"))
+        )
       }
       .pause(MinThinkTime, MaxThinkTime)
 

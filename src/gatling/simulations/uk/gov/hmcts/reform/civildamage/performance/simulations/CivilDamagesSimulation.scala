@@ -17,6 +17,7 @@ class CivilDamagesSimulation extends Simulation {
   
   val BaseURL = Environment.baseURL
   val loginFeeder = csv("login.csv").circular
+	val stFeeder = csv("loginSt.csv").circular
 	val defresponsecasesFeeder=csv("caseIds.csv").circular
 	val sol7casesFeeder=csv("caseIdsSol7.csv").circular
 	val sol8casesFeeder=csv("caseIdsSol8.csv").circular
@@ -217,29 +218,30 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 		.feed(loginFeeder)
 	.exitBlockOnFail {
 		exec(EXUIMCLogin.manageCasesHomePage)
-			.exec(EXUIMCLogin.manageCasesloginToCentreAdminJourney)
-			.doSwitch("#{claimantuser}")(
-				"civil.damages.claims+organisation.1.solicitor.1@gmail.com" -> feed(defresponsecasesFeeder),
-				"hmcts.civil+organisation.1.solicitor.7@mailinator.com" -> feed(sol7casesFeeder),
-				"hmcts.civil+organisation.1.solicitor.8@mailinator.com" -> feed(sol8casesFeeder)
-			)
-			.exec(CaseProgression.HearingNotice)
-			.exec(EXUIMCLogin.manageCase_Logout)
+		//	.exec(EXUIMCLogin.manageCasesloginToCentreAdminJourney)
+	//		.doSwitch("#{claimantuser}")(
+	//			"civil.damages.claims+organisation.1.solicitor.1@gmail.com" -> feed(defresponsecasesFeeder),
+	//			"hmcts.civil+organisation.1.solicitor.7@mailinator.com" -> feed(sol7casesFeeder),
+	//			"hmcts.civil+organisation.1.solicitor.8@mailinator.com" -> feed(sol8casesFeeder)
+	//		)
+		//	.exec(CaseProgression.HearingNotice)
+		//	.exec(EXUIMCLogin.manageCase_Logout)
 
 				//		}
 				//	.exitBlockOnFail {
 
-				.exec(EXUIMCLogin.manageCasesHomePage)
-				.exec(EXUIMCLogin.manageCasesloginToDefendantJourney)
-				.exec(CaseProgression.EvidenceUploadDefendant)
-				.exec(EXUIMCLogin.manageCase_Logout)
+			//	.exec(EXUIMCLogin.manageCasesHomePage)
+			//	.exec(EXUIMCLogin.manageCasesloginToDefendantJourney)
+		//		.exec(CaseProgression.EvidenceUploadDefendant)
+		//		.exec(EXUIMCLogin.manageCase_Logout)
 				//}
 
 				//	.exitBlockOnFail {
 				.exec(EXUIMCLogin.manageCasesHomePage)
 				.exec(EXUIMCLogin.manageCaseslogin)
-				.exec(CaseProgression.EvidenceUploadClaimant)
-				.exec(CaseProgression.CaseFileView)
+		//		.exec(CaseProgression.EvidenceUploadClaimant)
+
+		//		.exec(CaseProgression.CaseFileView)
 
 		//		.exec(CaseProgression.HearingFee)
 
@@ -249,17 +251,21 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 				"hmcts.civil+organisation.1.solicitor.7@mailinator.com" -> feed(sol7casesTrialFeeder),
 				"hmcts.civil+organisation.1.solicitor.8@mailinator.com" -> feed(sol8casesTrialFeeder)
 							)
-				.exec(CaseProgression.TrialReadiness)
+		//		.exec(CaseProgression.TrialReadiness)
 
 				.exec(EXUIMCLogin.manageCase_Logout)
 				//	}
+
 
 				//	.exitBlockOnFail {
 				.exec(EXUIMCLogin.manageCasesHomePage)
 				.exec(EXUIMCLogin.manageCasesloginToJudgeJourney)
 				.exec(CaseProgression.JudgeCaseNotes)
-				.exec(CaseProgression.FinalGeneralOrders)
+		//		.exec(CaseProgression.FinalGeneralOrders)
 				.exec(EXUIMCLogin.manageCase_Logout)
+
+
+
 
 
 
@@ -312,7 +318,20 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 	val STCitizen = scenario("Civil Citizen ST")
 	//	.feed(loginFeeder)
 		.exitBlockOnFail {
-			exec(CivilCitizen.run)
+			feed(stFeeder)
+
+			.exec(CivilCitizen.run)
+
+			.exec(EXUIMCLogin.manageCasesHomePage)
+				.exec(EXUIMCLogin.manageCaseslogin)
+
+				.exec(STRel3.ChangeStateSubmitted)
+				.exec(STRel3.ContactParties)
+				.exec(STRel3.DocumentUploadAmend)
+				.exec(STRel3.ChangeStateCaseManagement)
+				.exec(STRel3.CloseCase)
+				.exec(STRel3.ChangeStateAwaiting)
+				.exec(STRel3.IssueDecision)
 
 		}
 
@@ -379,9 +398,11 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 			//	CivilAssignScenario.inject(nothingFor(1),rampUsers(18) during (300))
 
 	//	CivilCaseProg.inject(nothingFor(5),rampUsers(1) during (650))
+
 		//CivilCaseProg.inject(nothingFor(1),rampUsers(12) during (2700))
-		CivilCaseDataPrep.inject(nothingFor(1),rampUsers(1) during (2))
-		
+	//	CivilCaseDataPrep.inject(nothingFor(1),rampUsers(1) during
+		STCitizen.inject(nothingFor(1),rampUsers(1) during (2700))
+
 ).protocols(httpProtocol)
 	
 	/*setUp(
