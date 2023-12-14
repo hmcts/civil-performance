@@ -283,7 +283,7 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 			.exec(EXUIMCLogin.manageCase_Logout)
 				.exec(EXUIMCLogin.manageCasesHomePage)
 				.exec(EXUIMCLogin.manageCasesloginToJudgeJourney)
-				.exec(ClaimCreationLRvsLR.SDO)
+			//	.exec(ClaimCreationLRvsLR.SDO)
 
 
 
@@ -375,7 +375,11 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 			//	CivilAssignScenario.inject(nothingFor(1),rampUsers(18) during (300))
 
 	//	CivilCaseProg.inject(nothingFor(5),rampUsers(1) during (650))
-		STCitizen.inject(nothingFor(1),rampUsers(1) during (2700))
+
+		//CivilCaseProg.inject(nothingFor(1),rampUsers(12) during (2700))
+	CivilCaseDataPrep.inject(nothingFor(1),rampUsers(1) during (2700))
+	//	STCitizen.inject(nothingFor(1),rampUsers(1) during (2700))
+
 ).protocols(httpProtocol)
 	
 	/*setUp(
