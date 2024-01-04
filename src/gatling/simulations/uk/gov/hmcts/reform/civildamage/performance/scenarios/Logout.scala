@@ -2,7 +2,7 @@ package uk.gov.hmcts.reform.civildamage.performance.scenarios
 
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
-import uk.gov.hmcts.reform.civildamage.performance.scenarios.utils.{Environment, Headers}
+import uk.gov.hmcts.reform.civildamage.performance.utils.{Environment, Headers}
 
 object Logout {
 

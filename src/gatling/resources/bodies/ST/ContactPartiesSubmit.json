@@ -1,0 +1,34 @@
+{
+  "data": {
+    "contactPartiesDocumentsDocumentList": {
+      "value": [
+        {
+          "code": "#{allCaseworkerCICDocument}",
+          "label": "[3MB.pdf A - Application Form](#{disclosureDocument_url}/binary)"
+        }
+      ],
+      "list_items": [
+        {
+          "code": "#{allCaseworkerCICDocument}",
+          "label": "[3MB.pdf A - Application Form](#{disclosureDocument_url}/binary)"
+        }
+      ]
+    },
+    "cicCaseFullName": "#{CitizenRandomString}subjectFullName",
+    "cicCaseNotifyPartySubject": [
+      "SubjectCIC"
+    ],
+    "cicCaseApplicantFullName": null,
+    "cicCaseRepresentativeFullName": null,
+    "cicCaseRespondentName": "Appeals team",
+    "cicCaseNotifyPartyRespondent": [],
+    "cicCaseNotifyPartyMessage": "#{StRandomString}"
+  },
+  "event": {
+    "id": "contact-parties",
+    "summary": "",
+    "description": ""
+  },
+  "event_token": "#{event_token}",
+  "ignore_warning": false
+}

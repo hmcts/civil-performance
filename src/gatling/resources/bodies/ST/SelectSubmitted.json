@@ -1,0 +1,18 @@
+{
+  "data": {
+    "cicCaseTestState": "Submitted",
+    "cicCaseDays": null
+  },
+  "event": {
+    "id": "change-state",
+    "summary": "",
+    "description": ""
+  },
+  "event_data": {
+    "cicCaseTestState": "Submitted",
+    "cicCaseDays": null
+  },
+  "event_token": "#{event_token}",
+  "ignore_warning": false,
+  "case_reference": "#{caseId}"
+}
