@@ -16,6 +16,8 @@ object Environment {
   val manageOrgURL = "https://manage-org.perftest.platform.hmcts.net"
   val manageOrgDomain = "manage-org.perftest.platform.hmcts.net"
   val CivilUIURL=  "https://civil-citizen-ui.perftest.platform.hmcts.net"
+  val refDataApiURL = "https://rd-professional-api-perftest.service.core-compute-perftest.internal"
+  val s2sUrl = "http://rpe-service-auth-provider-#{env}.service.core-compute-#{env}.internal"
   val idamCookieName="SESSION_ID"
   val HttpProtocol = http
 
