@@ -3,7 +3,7 @@ package uk.gov.hmcts.reform.civildamage.performance.scenarios
 
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
-import uk.gov.hmcts.reform.civildamage.performance.scenarios.utils.{CivilDamagesHeader, Common, Environment}
+import utils.{CivilDamagesHeader, Common, Environment}
 
 import java.io.{BufferedWriter, FileWriter}
 
@@ -143,11 +143,37 @@ object ClaimCreationLRvsLR {
 
     }
     .pause(MinThinkTime, MaxThinkTime)
+  
+  val civilAddPayment =
+    
+    exec(http("PaymentAPI_GetCasePaymentOrders")
+      .get("http://payment-api-#{env}.service.core-compute-#{env}.internal/case-payment-orders?case_ids=#{caseId}")
+      //.header("Authorization", "Bearer #{access_tokenPayments}")
+      .header("Authorization", "Bearer eyJ0eXAiOiJKV1QiLCJraWQiOiI4cDJpajg2S0pTeENKeGcveUovV2w3TjcxMXM9IiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiJjaXZpbC5kYW1hZ2VzLmNsYWltcytvcmdhbmlzYXRpb24uMS5zb2xpY2l0b3IuMUBnbWFpbC5jb20iLCJjdHMiOiJPQVVUSDJfU1RBVEVMRVNTX0dSQU5UIiwiYXV0aF9sZXZlbCI6MCwiYXVkaXRUcmFja2luZ0lkIjoiODRkODg2YTktYTA4Ni00ZDgwLWI1YmYtNDIxMGYzZmZmZDkyLTExNDczODYwNyIsInN1Ym5hbWUiOiJjaXZpbC5kYW1hZ2VzLmNsYWltcytvcmdhbmlzYXRpb24uMS5zb2xpY2l0b3IuMUBnbWFpbC5jb20iLCJpc3MiOiJodHRwczovL2Zvcmdlcm9jay1hbS5zZXJ2aWNlLmNvcmUtY29tcHV0ZS1pZGFtLXBlcmZ0ZXN0LmludGVybmFsOjg0NDMvb3BlbmFtL29hdXRoMi9yZWFsbXMvcm9vdC9yZWFsbXMvaG1jdHMiLCJ0b2tlbk5hbWUiOiJhY2Nlc3NfdG9rZW4iLCJ0b2tlbl90eXBlIjoiQmVhcmVyIiwiYXV0aEdyYW50SWQiOiJaNGpwX2hvQVN2SnRzNHA0bTZDWml2TjRaSWMiLCJub25jZSI6IlJHaFVoOGx1a0dKT3h0QUdoanlraGlMU281OUVvWFZxQW5GYTdOLWp3YmMiLCJhdWQiOiJ4dWl3ZWJhcHAiLCJuYmYiOjE3MDcyMjkxMjgsImdyYW50X3R5cGUiOiJhdXRob3JpemF0aW9uX2NvZGUiLCJzY29wZSI6WyJvcGVuaWQiLCJwcm9maWxlIiwicm9sZXMiLCJjcmVhdGUtdXNlciIsIm1hbmFnZS11c2VyIiwic2VhcmNoLXVzZXIiXSwiYXV0aF90aW1lIjoxNzA3MjI5MTI3LCJyZWFsbSI6Ii9obWN0cyIsImV4cCI6MTcwNzI1NzkyOCwiaWF0IjoxNzA3MjI5MTI4LCJleHBpcmVzX2luIjoyODgwMCwianRpIjoiUVVQc1lWay1CUnU0aEo4UkVVZE1pZHVqTHU4In0.QDUy6rizNvQaVhuxBYJjmKe4NjcmGiS22MvlNruo6Q-tZQlKTYbskxgmi3uGrY3djV-kr6dy81QA5ZqVOTEuBT9nmReU2ymqbIqxqzQRb8nu-5IFZaBFsUEoY6U_wnm4zH24UfiB8chslNo1t07AhMzx_y2fkAVCpdQgQKCb1LBJ6oP4c63FhlkEsTiz2V8w7-7c3Yxy5pI8QQ98voUMwTEbBYpEq5UprOf2VS9tsbXAIm7gk2BG-Ee-OL8iWiMXaeoGbCVUj0dxeObcfDGE66-DT7SqsnXnOHHKbD6rDI5plT1TxkHoEb7EEb7mvg_Vspys__oe8T4U2WNvPFxBPw")
+      .header("ServiceAuthorization", "#{xui_webappBearerToken}")
+      .header("Content-Type", "application/json")
+      .header("accept", "*/*")
+      .check(jsonPath("$.content[0].orderReference").saveAs("caseIdPaymentRef")))
+  
+      .pause(MinThinkTime, MaxThinkTime)
+      
+      .tryMax(2) {
+        exec(http("API_Civil_AddPayment")
+          .put("http://civil-service-#{env}.service.core-compute-#{env}.internal/service-request-update-claim-issued")
+          .header("Authorization", "Bearer eyJ0eXAiOiJKV1QiLCJraWQiOiI4cDJpajg2S0pTeENKeGcveUovV2w3TjcxMXM9IiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiJjaXZpbC5kYW1hZ2VzLmNsYWltcytvcmdhbmlzYXRpb24uMS5zb2xpY2l0b3IuMUBnbWFpbC5jb20iLCJjdHMiOiJPQVVUSDJfU1RBVEVMRVNTX0dSQU5UIiwiYXV0aF9sZXZlbCI6MCwiYXVkaXRUcmFja2luZ0lkIjoiODRkODg2YTktYTA4Ni00ZDgwLWI1YmYtNDIxMGYzZmZmZDkyLTExNDczODYwNyIsInN1Ym5hbWUiOiJjaXZpbC5kYW1hZ2VzLmNsYWltcytvcmdhbmlzYXRpb24uMS5zb2xpY2l0b3IuMUBnbWFpbC5jb20iLCJpc3MiOiJodHRwczovL2Zvcmdlcm9jay1hbS5zZXJ2aWNlLmNvcmUtY29tcHV0ZS1pZGFtLXBlcmZ0ZXN0LmludGVybmFsOjg0NDMvb3BlbmFtL29hdXRoMi9yZWFsbXMvcm9vdC9yZWFsbXMvaG1jdHMiLCJ0b2tlbk5hbWUiOiJhY2Nlc3NfdG9rZW4iLCJ0b2tlbl90eXBlIjoiQmVhcmVyIiwiYXV0aEdyYW50SWQiOiJaNGpwX2hvQVN2SnRzNHA0bTZDWml2TjRaSWMiLCJub25jZSI6IlJHaFVoOGx1a0dKT3h0QUdoanlraGlMU281OUVvWFZxQW5GYTdOLWp3YmMiLCJhdWQiOiJ4dWl3ZWJhcHAiLCJuYmYiOjE3MDcyMjkxMjgsImdyYW50X3R5cGUiOiJhdXRob3JpemF0aW9uX2NvZGUiLCJzY29wZSI6WyJvcGVuaWQiLCJwcm9maWxlIiwicm9sZXMiLCJjcmVhdGUtdXNlciIsIm1hbmFnZS11c2VyIiwic2VhcmNoLXVzZXIiXSwiYXV0aF90aW1lIjoxNzA3MjI5MTI3LCJyZWFsbSI6Ii9obWN0cyIsImV4cCI6MTcwNzI1NzkyOCwiaWF0IjoxNzA3MjI5MTI4LCJleHBpcmVzX2luIjoyODgwMCwianRpIjoiUVVQc1lWay1CUnU0aEo4UkVVZE1pZHVqTHU4In0.QDUy6rizNvQaVhuxBYJjmKe4NjcmGiS22MvlNruo6Q-tZQlKTYbskxgmi3uGrY3djV-kr6dy81QA5ZqVOTEuBT9nmReU2ymqbIqxqzQRb8nu-5IFZaBFsUEoY6U_wnm4zH24UfiB8chslNo1t07AhMzx_y2fkAVCpdQgQKCb1LBJ6oP4c63FhlkEsTiz2V8w7-7c3Yxy5pI8QQ98voUMwTEbBYpEq5UprOf2VS9tsbXAIm7gk2BG-Ee-OL8iWiMXaeoGbCVUj0dxeObcfDGE66-DT7SqsnXnOHHKbD6rDI5plT1TxkHoEb7EEb7mvg_Vspys__oe8T4U2WNvPFxBPw")
+          .header("ServiceAuthorization", "#{civil_serviceBearerToken}")
+          .header("Content-type", "application/json")
+          .body(ElFileBody("bodies/AddPayment.json")))
+      }
+  
+      .pause(MinThinkTime, MaxThinkTime)
+      
+      val addPBAPayment=
     /*======================================================================================
                  * Create Civil Claim - Click pay
       ==========================================================================================*/
     // payment fee
-    .group("Civil_CreateClaim_340_ClickPay") {
+    group("Civil_CreateClaim_340_ClickPay") {
       exec(http("Civil_CreateClaim_340_005_ClickPay")
         .get( "/pay-bulkscan/cases/#{caseId}")
         .headers(CivilDamagesHeader.headers_717)
@@ -204,12 +230,14 @@ object ClaimCreationLRvsLR {
     }
     .pause(MinThinkTime, MaxThinkTime)
     .pause(80)
+      
+      val notifyClaim=
     /*======================================================================================
                  * Create Civil Claim - Notify
       ==========================================================================================*/
     //notify claim step
 
-    .group("Civil_CreateClaim_340_NotifyClaimEvent") {
+    group("Civil_CreateClaim_340_NotifyClaimEvent") {
       exec(http("Civil_CreateClaim_340_005_Notify")
         .get("/workallocation/case/tasks/#{caseId}/event/NOTIFY_DEFENDANT_OF_CLAIM/caseType/CIVIL/jurisdiction/CIVIL")
         .headers(CivilDamagesHeader.headers_769)
@@ -274,7 +302,7 @@ object ClaimCreationLRvsLR {
       )
     }
     .pause(MinThinkTime, MaxThinkTime)
-    .pause(20)
+    .pause(50)
 
     //end of  claim notify
     /*======================================================================================
@@ -330,49 +358,20 @@ object ClaimCreationLRvsLR {
         .check(status.in(200,204,201,304))
       )
 
-        .exec { session =>
+        /*.exec { session =>
           val fw = new BufferedWriter(new FileWriter("solicitor9.csv", true))
           try {
             fw.write(session("caseId").as[String] + "\r\n")
           } finally fw.close()
           session
-        }
+        }*/
 
     }
     .pause(MinThinkTime, MaxThinkTime)
 
 
   val RespondToClaim =
-
-
-  /* exec(http("XUI_010_010_AuthLogin")
-     .get("/auth/login")
-     .headers(Headers.navigationHeader)
-     .check(CsrfCheck.save)
-     .check(regex("/oauth2/callback&amp;state=(.*)&amp;nonce=").saveAs("state"))
-     .check(regex("&nonce=(.*)&response_type").saveAs("nonce")))
-
-
-
-
-
-   group("XUI_020_Login") {
-     exec(http("XUI_020_005_Login")
-       .post(IdamUrl + "/login?client_id=xuiwebapp&redirect_uri=" + BaseURL + "/oauth2/callback&state=#{state}&nonce=#{nonce}&response_type=code&scope=profile%20openid%20roles%20manage-user%20create-user%20search-user&prompt=")
-       .formParam("username", "#{defendantuser}")
-       .formParam("password", "#{password}")
-       .formParam("save", "Sign in")
-       .formParam("selfRegistrationEnabled", "false")
-       .formParam("_csrf", "#{csrf}")
-       .headers(Headers.navigationHeader)
-       .headers(Headers.postHeader)
-       .check(regex("Manage cases")))
-   }
-     .pause(MinThinkTime, MaxThinkTime)
-
-   */
-
-
+    
     group("Civil_CreateClaim_330_BackToCaseDetailsPage") {
       exec(http("Civil_CreateClaim_330_005_CaseDetails")
         .get("https://manage-case.perftest.platform.hmcts.net/data/internal/cases/#{caseId}")
@@ -399,13 +398,13 @@ object ClaimCreationLRvsLR {
           .check(substring("task_required_for_event"))
         )
 
-          .exec(http("XUI_CreateClaim_421_010_RespondToClaim")
+          .exec(http("XUI_CreateClaim_420_010_RespondToClaim")
             .get(BaseURL + "/data/internal/cases/#{caseId}/event-triggers/DEFENDANT_RESPONSE?ignore-warning=false")
             .headers(CivilDamagesHeader.headers_notify)
             .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-start-event-trigger.v2+json;charset=UTF-8")
             .check(substring("DEFENDANT_RESPONSE"))
-            .check(jsonPath("$.case_fields[2].formatted_value.partyID").saveAs("repPartyID"))
-            .check(jsonPath("$.case_fields[2].formatted_value.partyName").saveAs("partyName"))
+            .check(jsonPath("$.case_fields[75].value.partyID").saveAs("repPartyID"))
+            .check(jsonPath("$.case_fields[75].value.partyName").saveAs("partyName"))
             .check(jsonPath("$.event_token").saveAs("event_token"))
           )
           .exec(getCookieValue(CookieKey("XSRF-TOKEN").withDomain(BaseURL.replace("https://", "")).saveAs("XSRFToken")))
@@ -490,8 +489,6 @@ object ClaimCreationLRvsLR {
 
       }
       .pause(MinThinkTime, MaxThinkTime)
-
-
 
       /*======================================================================================
 * Create Civil Claim - Upload Defence Submit
@@ -683,9 +680,7 @@ object ClaimCreationLRvsLR {
         )
       }
       .pause(MinThinkTime, MaxThinkTime)
-
-
-
+      
       /*======================================================================================
 * Create Civil Claim - Support with access needs
 ==========================================================================================*/
@@ -766,63 +761,20 @@ object ClaimCreationLRvsLR {
           .header("X-Xsrf-Token", "#{XSRFToken}")
           .body(ElFileBody("bodies/LRvsLR/RespondToClaimSubmit.json"))
           .check(substring("AWAITING_APPLICANT_INTENTION"))
-
-
         )
 
-          .exec { session =>
+         /* .exec { session =>
             val fw = new BufferedWriter(new FileWriter("RespondedCases.csv", true))
             try {
               fw.write(session("caseId").as[String] + "\r\n")
             } finally fw.close()
             session
-          }
+          }*/
       }
       .pause(MinThinkTime, MaxThinkTime)
-
-
-
-
+  
 
   val RespondToDefence =
-
-
-  /*  exec(http("XUI_010_010_AuthLogin")
-      .get("/auth/login")
-      .headers(Headers.navigationHeader)
-      .check(CsrfCheck.save)
-      .check(regex("/oauth2/callback&amp;state=(.*)&amp;nonce=").saveAs("state"))
-      .check(regex("&nonce=(.*)&response_type").saveAs("nonce")))
-
-   */
-
-
-
-  /*    .group("XUI_020_Login") {
-
-    exec(http("XUI_010_010_AuthLogin")
-      .get("/auth/login")
-      .headers(Headers.navigationHeader)
-      .check(CsrfCheck.save)
-      .check(regex("/oauth2/callback&amp;state=(.*)&amp;nonce=").saveAs("state"))
-      .check(regex("&nonce=(.*)&response_type").saveAs("nonce")))
-
-
-
-        .exec(http("XUI_020_005_Login")
-          .post(IdamUrl + "/login?client_id=xuiwebapp&redirect_uri=" + BaseURL + "/oauth2/callback&state=#{state}&nonce=#{nonce}&response_type=code&scope=profile%20openid%20roles%20manage-user%20create-user%20search-user&prompt=")
-          .formParam("username", "#{claimantuser}")
-          .formParam("password", "#{password}")
-          .formParam("save", "Sign in")
-          .formParam("selfRegistrationEnabled", "false")
-          .formParam("_csrf", "#{csrf}")
-          .headers(Headers.navigationHeader)
-          .headers(Headers.postHeader)
-          .check(regex("Manage cases")))
-      }
-      .pause(MinThinkTime, MaxThinkTime)
-
-   */
 
 
     group("Civil_CreateClaim_330_BackToCaseDetailsPage") {
@@ -850,17 +802,15 @@ object ClaimCreationLRvsLR {
           .headers(CivilDamagesHeader.MoneyClaimNav)
           .check(substring("task_required_for_event"))
         )
-
-
           .exec(http("XUI_CreateClaim_620_010_RespondToDefence")
             .get(BaseURL + "/data/internal/cases/#{caseId}/event-triggers/CLAIMANT_RESPONSE?ignore-warning=false")
             .headers(CivilDamagesHeader.headers_notify)
             .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-start-event-trigger.v2+json;charset=UTF-8")
             .check(substring("CLAIMANT_RESPONSE"))
-            .check(jsonPath("$.case_fields[69].formatted_value.partyID").saveAs("repPartyID"))
-            .check(jsonPath("$.case_fields[69].formatted_value.partyName").saveAs("partyName"))
-            .check(jsonPath("$.case_fields[69].value.partyName").saveAs("defPartyName"))
-            .check(jsonPath("$.case_fields[65].formatted_value.file.document_url").saveAs("document_url"))
+            .check(jsonPath("$.case_fields[0].value.partyID").saveAs("repPartyID"))
+            .check(jsonPath("$.case_fields[0].value.partyName").saveAs("partyName"))
+            .check(jsonPath("$.case_fields[0].value.partyName").saveAs("defPartyName"))
+            .check(jsonPath("$..formatted_value.file.document_url").saveAs("document_url"))
             .check(jsonPath("$.event_token").saveAs("event_token"))
           )
           .exec(getCookieValue(CookieKey("XSRF-TOKEN").withDomain(BaseURL.replace("https://", "")).saveAs("XSRFToken")))

@@ -3,7 +3,7 @@ package uk.gov.hmcts.reform.civildamage.performance.simulations
 import io.gatling.core.Predef._
 import io.gatling.core.scenario.Simulation
 import uk.gov.hmcts.reform.civildamage.performance.scenarios._
-import uk.gov.hmcts.reform.civildamage.performance.scenarios.utils.Environment
+import utils.{Environment, IdamLogin, S2S}
 import io.gatling.core.controller.inject.open.OpenInjectionStep
 
 import scala.swing.event.Key.Home
@@ -22,6 +22,7 @@ class CivilDamagesSimulation extends Simulation {
 	val sol7casesFeeder=csv("caseIdsSol7.csv").circular
 	val sol8casesFeeder=csv("caseIdsSol8.csv").circular
 	val defresponsecasesTrialFeeder=csv("caseIdsTrial.csv").circular
+	val casesfordefresponseFeeder=csv("CivilCreatedCaseIds.csv").circular
 	val sol7casesTrialFeeder=csv("caseIdsSol7Trial.csv").circular
 	val sol8casesTrialFeeder=csv("caseIdsSol8Trial.csv").circular
 	
@@ -156,8 +157,10 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 		.pause(50)
 		.exec(EXUIMCLogin.manageCase_Logout)
 		*/
-
-
+	
+	/*======================================================================================
+  Below scenario is for creating the test data for GA Application
+  ======================================================================================*/
 	val CivilDamageScenario = scenario("Create Civil Cases For GA to Test")
 		.feed(loginFeeder)
 		.repeat(1) {
@@ -166,12 +169,14 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 				.exec(EXUIMCLogin.manageCasesHomePage)
 					.exec(EXUIMCLogin.manageCaseslogin)
 					.exec(ClaimCreationLRvsLR.run)
-				exec(CivilAssignCase.run)
+				.exec(CivilAssignCase.run)
 			
 			}
 		}
 	
-
+	/*======================================================================================
+  * Below scenario is for assign cases
+  ======================================================================================*/
 
 	val CivilAssignScenario = scenario("Create Civil case assign")
 
@@ -257,48 +262,47 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 				println(session)
 				session
 		}
-
-
+	
+	/*======================================================================================
+  * Below scenario is for cases that are data prep for hearing management.
+  ======================================================================================*/
 	val CivilCaseDataPrep = scenario("Create Civil damage")
-		.feed(loginFeeder)
+		.feed(loginFeeder)//.feed(casesfordefresponseFeeder)
 		.exitBlockOnFail {
-			exec(EXUIMCLogin.manageCasesHomePage)
+			exec(_.set("env", s"${env}"))
+			.exec(EXUIMCLogin.manageCasesHomePage)
 				.exec(EXUIMCLogin.manageCaseslogin)
 				.exec(ClaimCreationLRvsLR.run)
-
+			//	.exec(S2S.s2s("ccd_data"))
+				//.exec(IdamLogin.GetIdamToken)
+		//	.exec(S2S.s2s("xui_webapp"))
+			//	.exec(S2S.s2s("civil_service"))
+			//	.exec(IdamLogin.GetIdamTokenPayments)
+				.exec(ClaimCreationLRvsLR.addPBAPayment)
+				.pause(50)
+				.exec(ClaimCreationLRvsLR.notifyClaim)
 				.exec(CivilAssignCase.run)
 				.exec(EXUIMCLogin.manageCase_Logout)
-
 				.exec(EXUIMCLogin.manageCasesHomePage)
 				.exec(EXUIMCLogin.manageCasesloginToDefendantJourney)
 				.exec(ClaimCreationLRvsLR.RespondToClaim)
 				.exec(EXUIMCLogin.manageCase_Logout)
-
+				.pause(20)
 			.exec(EXUIMCLogin.manageCasesHomePage)
 				.exec(EXUIMCLogin.manageCaseslogin)
-			//	.exec(ClaimCreationLRvsLR.run)
-
-
 				.exec(ClaimCreationLRvsLR.RespondToDefence)
 			.exec(EXUIMCLogin.manageCase_Logout)
-				.exec(EXUIMCLogin.manageCasesHomePage)
+				/*.exec(EXUIMCLogin.manageCasesHomePage)
 				.exec(EXUIMCLogin.manageCasesloginToJudgeJourney)
-			//	.exec(ClaimCreationLRvsLR.SDO)
-
-
-
+				.exec(ClaimCreationLRvsLR.SDO)*/
+			
 		}
-
-	
-
-
 	val STCitizen = scenario("Civil Citizen ST")
 	//	.feed(loginFeeder)
 		.exitBlockOnFail {
 			feed(stFeeder)
 
 			.exec(CivilCitizen.run)
-
 			.exec(EXUIMCLogin.manageCasesHomePage)
 				.exec(EXUIMCLogin.manageCaseslogin)
 
@@ -377,8 +381,9 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 	//	CivilCaseProg.inject(nothingFor(5),rampUsers(1) during (650))
 
 		//CivilCaseProg.inject(nothingFor(1),rampUsers(12) during (2700))
-	CivilCaseDataPrep.inject(nothingFor(1),rampUsers(1) during (2700))
+	CivilCaseDataPrep.inject(nothingFor(1),rampUsers(800) during (7200))
 	//	STCitizen.inject(nothingFor(1),rampUsers(1) during (2700))
+		//CivilDamageScenario.inject(nothingFor(1),rampUsers(1) during (2))
 
 ).protocols(httpProtocol)
 	
