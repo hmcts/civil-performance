@@ -1114,7 +1114,7 @@ object ClaimCreationLRvsLR {
         )
 
           .exec { session =>
-            val fw = new BufferedWriter(new FileWriter("JudicialRef.csv", true))
+            val fw = new BufferedWriter(new FileWriter("JudicialRefVM.csv", true))
             try {
               fw.write(session("caseId").as[String] + "\r\n")
             } finally fw.close()
