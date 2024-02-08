@@ -381,7 +381,7 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 	//	CivilCaseProg.inject(nothingFor(5),rampUsers(1) during (650))
 
 		//CivilCaseProg.inject(nothingFor(1),rampUsers(12) during (2700))
-	CivilCaseDataPrep.inject(nothingFor(1),rampUsers(5000) during (43200))
+	CivilCaseDataPrep.inject(nothingFor(1),rampUsers(1500) during (10000))
 	//	STCitizen.inject(nothingFor(1),rampUsers(1) during (2700))
 		//CivilDamageScenario.inject(nothingFor(1),rampUsers(1) during (2))
 
