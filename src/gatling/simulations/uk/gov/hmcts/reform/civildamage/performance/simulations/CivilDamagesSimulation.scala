@@ -270,8 +270,8 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 		.feed(loginFeeder)//.feed(casesfordefresponseFeeder)
 		.exitBlockOnFail {
 			exec(_.set("env", s"${env}"))
-			.exec(EXUIMCLogin.manageCasesHomePage)
-				.exec(EXUIMCLogin.manageCaseslogin)
+			.exec(Homepage.XUIHomePage)
+				.exec(Login.XUILogin)
 				.exec(ClaimCreationLRvsLR.run)
 			//	.exec(S2S.s2s("ccd_data"))
 				//.exec(IdamLogin.GetIdamToken)
@@ -288,8 +288,8 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 				.exec(ClaimCreationLRvsLR.RespondToClaim)
 				.exec(EXUIMCLogin.manageCase_Logout)
 				.pause(20)
-			.exec(EXUIMCLogin.manageCasesHomePage)
-				.exec(EXUIMCLogin.manageCaseslogin)
+				.exec(Homepage.XUIHomePage)
+				.exec(Login.XUILogin)
 				.exec(ClaimCreationLRvsLR.RespondToDefence)
 			.exec(EXUIMCLogin.manageCase_Logout)
 				/*.exec(EXUIMCLogin.manageCasesHomePage)
@@ -380,7 +380,7 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 
 	//	CivilCaseProg.inject(nothingFor(5),rampUsers(1) during (650))
 		//CivilCaseProg.inject(nothingFor(1),rampUsers(12) during (2700))
-	CivilCaseDataPrep.inject(nothingFor(1),rampUsers(2000) during (20000))
+	CivilCaseDataPrep.inject(nothingFor(1),rampUsers(1) during (10))
 	//	STCitizen.inject(nothingFor(1),rampUsers(1) during (2700))
 		//CivilDamageScenario.inject(nothingFor(1),rampUsers(1) during (2))
 

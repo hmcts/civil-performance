@@ -608,7 +608,7 @@
     },
     "applicant1LitigationFriendRequired": "No",
     "applicantSolicitor1CheckEmail": {
-      "email": "${claimantuser}",
+      "email": "#{claimantuser}",
       "correct": "No"
     },
     "applicantSolicitor1UserDetails": {
