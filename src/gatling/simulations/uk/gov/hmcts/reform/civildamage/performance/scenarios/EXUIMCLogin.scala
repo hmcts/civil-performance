@@ -2,7 +2,7 @@ package uk.gov.hmcts.reform.civildamage.performance.scenarios
 
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
-import uk.gov.hmcts.reform.civildamage.performance.scenarios.utils.{Environment, LoginHeader}
+import uk.gov.hmcts.reform.civildamage.performance.scenarios.utils.{Common, Environment, Headers, LoginHeader}
 
 object EXUIMCLogin {
   
@@ -23,7 +23,8 @@ object EXUIMCLogin {
   *=====================================================================================*/
   
   val manageCasesHomePage =
-    exec(flushHttpCache).exec(flushSessionCookies).exec(flushCookieJar)
+    exec(flushHttpCache)
+      .exec(flushCookieJar)
       .group("CivilDamages_010_Homepage") {
     
     exec(http("CivilDamages_010_005_Homepage")
@@ -158,13 +159,16 @@ object EXUIMCLogin {
   //The below request may need amending depending on the authentication type set by XUI team
   //The top row is for OAUTH2 and the bottom row is for OPIDC
   
-  val manageCaseslogin =
+  val manageCasesloginold =
     group("CivilDamages_020_005_SignIn") {
       exec(flushHttpCache).exec(http("CivilDamages_020_005_SignIn")
         /*.post(IdAMURL + "/login?response_type=code&redirect_uri=" + baseURL + "%2Foauth2%2Fcallback&scope=profile%20openid%20roles%20manage-user%20create-user&state=${state}&client_id=xuiwebapp")*/
         .post(IdAMURL + "/login?client_id=xuiwebapp&redirect_uri=" + baseURL + "/oauth2/callback&state=#{state}&nonce=#{nonce}&response_type=code&scope=profile%20openid%20roles%20manage-user%20create-user&prompt=")
                                 .formParam("username", "#{claimantuser}")
                                 .formParam("password", "#{password}")
+        //below are additional values
+                               /* .formParam("azureLoginEnabled", "true")
+                                .formParam("mojLoginEnabled", "true")*/
                                 .formParam("save", "Sign in")
                                 .formParam("selfRegistrationEnabled", "false")
                                 .formParam("_csrf", "#{csrfToken}")
@@ -217,6 +221,83 @@ object EXUIMCLogin {
       
     }
     .pause(MinThinkTime, MaxThinkTime)
+  
+  /*====================================================================================
+  *Business process : Access Login Page by hitting the Manage Case Login URL and relavant
+  * sub requests ,following is for manage org login page which is used for complete the
+  * service related journeys like divorce,fpla,iac,probate etc...
+  =====================================================================================*/
+  
+  //The below request may need amending depending on the authentication type set by XUI team
+  //The top row is for OAUTH2 and the bottom row is for OPIDC
+  
+  val manageCaseslogin =
+    group("XUI_020_Login") {
+      exec(http("XUI_020_005_Login")
+        .post(IdAMURL + "/login?client_id=xuiwebapp&redirect_uri=" + baseURL + "/oauth2/callback&state=#{state}&nonce=#{nonce}&response_type=code&scope=profile%20openid%20roles%20manage-user%20create-user%20search-user&prompt=")
+        .formParam("username", "#{claimantuser}")
+        .formParam("password", "#{password}")
+        .formParam("azureLoginEnabled", "true")
+        .formParam("mojLoginEnabled", "true")
+        .formParam("selfRegistrationEnabled", "false")
+        .formParam("_csrf", "#{csrf}")
+        .headers(Headers.navigationHeader)
+        .headers(Headers.postHeader)
+        .check(regex("Manage cases")))
+      
+        //see xui-webapp cookie capture in the Homepage scenario for details of why this is being used
+        .exec(addCookie(Cookie("xui-webapp", "#{xuiWebAppCookie}")
+          .withMaxAge(28800)
+          .withSecure(true)))
+      
+        .exec(Common.configurationui)
+      
+        .exec(Common.configJson)
+      
+        .exec(Common.TsAndCs)
+      
+        .exec(Common.configUI)
+      
+        .exec(Common.userDetails)
+      
+        .exec(Common.isAuthenticated)
+      
+        .exec(Common.monitoringTools)
+      
+        //if there is no in-flight case, set the case to 0 for the activity calls
+        .doIf("#{caseId.isUndefined()}") {
+          exec(_.set("caseId", "0"))
+        }
+      
+        // .exec(Common.caseActivityGet)
+      
+        .exec(http("XUI_020_010_Jurisdictions")
+          .get("/aggregated/caseworkers/:uid/jurisdictions?access=read")
+          .headers(Headers.commonHeader)
+          .header("accept", "application/json")
+          .check(substring("id")))
+      
+        .exec(getCookieValue(CookieKey("XSRF-TOKEN").withDomain(baseURL.replace("https://", "")).saveAs("XSRFToken")))
+      
+        .exec(Common.orgDetails)
+      
+        .exec(http("XUI_020_015_WorkBasketInputs")
+          .get("/data/internal/case-types/#{caseType}/work-basket-inputs")
+          .headers(Headers.commonHeader)
+          .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-workbasket-input-details.v2+json;charset=UTF-8")
+          .check(regex("workbasketInputs|Not Found"))
+          .check(status.in(200, 404)))
+      
+        .exec(http("XUI_020_020_SearchCases")
+          .post("/data/internal/searchCases?ctid=#{caseType}&use_case=WORKBASKET&view=WORKBASKET&page=1")
+          .headers(Headers.commonHeader)
+          .header("accept", "application/json")
+          .formParam("x-xsrf-token", "#{XSRFToken}")
+          .body(StringBody("""{"size":25}"""))
+          .check(substring("columns")))
+    
+    }
+      .pause(MinThinkTime, MaxThinkTime)
   
   val manageCasesloginToDefendantJourney =
     group("CivilDamages_020_005_SignInDef") {
