@@ -403,8 +403,8 @@ object ClaimCreationLRvsLR {
             .headers(CivilDamagesHeader.headers_notify)
             .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-start-event-trigger.v2+json;charset=UTF-8")
             .check(substring("DEFENDANT_RESPONSE"))
-            .check(jsonPath("$.case_fields[76].value.partyID").saveAs("repPartyID"))
-            .check(jsonPath("$.case_fields[76].value.partyName").saveAs("partyName"))
+            .check(jsonPath("$.case_fields[75].value.partyID").saveAs("repPartyID"))
+            .check(jsonPath("$.case_fields[75].value.partyName").saveAs("partyName"))
             .check(jsonPath("$.event_token").saveAs("event_token"))
           )
           .exec(getCookieValue(CookieKey("XSRF-TOKEN").withDomain(BaseURL.replace("https://", "")).saveAs("XSRFToken")))
@@ -763,13 +763,13 @@ object ClaimCreationLRvsLR {
           .check(substring("AWAITING_APPLICANT_INTENTION"))
         )
 
-         /* .exec { session =>
-            val fw = new BufferedWriter(new FileWriter("RespondedCases.csv", true))
+          .exec { session =>
+            val fw = new BufferedWriter(new FileWriter("ResponseToClaimCompleted.csv", true))
             try {
               fw.write(session("caseId").as[String] + "\r\n")
             } finally fw.close()
             session
-          }*/
+          }
       }
       .pause(MinThinkTime, MaxThinkTime)
   
