@@ -104,29 +104,7 @@ object CUIClaimCreation {
         )
       }
       .pause(MinThinkTime, MaxThinkTime)
-      
-      /* //val claimcourt =
-      .group("CUI_CreateClaim_070_CLAIMCourt") {
-      exec(http("CUI_CreateClaim_070_Court")
-        .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIMCourt")
-        .headers(CivilDamagesHeader.headers_213)
-        .body(ElFileBody("bodies/CivilCreateClaim-ClaimTimeline.json"))
-        .check(status.in(200, 304))
-      )
-    }
-      .pause(MinThinkTime, MaxThinkTime)
-  
-  
-      //val postcode =
-      .group("CUI_CreateClaim_080_ClaimantPostcode") {
-      exec(http("CUI_CreateClaim_080_Postcode")
-        .get("/api/addresses?postcode=TW33SD")
-        .headers(CivilDamagesHeader.headers_104)
-        .check(status.in(200, 304))
-      )
-    }
-      .pause(MinThinkTime, MaxThinkTime)*/
-      //val createclaimclaimantdetails =
+    
       /*======================================================================================
                    * Civil UI Claim - Claim Claimant
         ==========================================================================================*/
@@ -184,41 +162,7 @@ object CUIClaimCreation {
           )
       }
       .pause(MinThinkTime, MaxThinkTime)
-      
-      
-      /*  // val createclaimlitigantfriend =
-      .group("CUI_CreateClaim_100_CLAIMClaimantLitigationFriend") {
-      exec(http("CUI_CreateClaim_100_Litigation")
-        .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIMClaimantLitigationFriend")
-        .headers(CivilDamagesHeader.headers_273)
-        .body(ElFileBody("bodies/CivilCreateClaim-EvidenceList.json"))
-        .check(status.in(200, 304))
-      )
-    }
-      .pause(MinThinkTime, MaxThinkTime)
-  
-      //val createclaimantnotifications =
-      .group("CUI_CreateClaim_110_CLAIMNotifications") {
-        exec(http("CUI_CreateClaim_110_Notifications")
-          .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIMNotifications")
-          .headers(CivilDamagesHeader.headers_295)
-          .body(ElFileBody("bodies/0035_request.json"))
-          .check(status.in(200, 304))
-        )
-  
-        //val caseshareorgs =
-  
-        .exec(http("CUI_CreateClaim_120_CaseShare")
-          .get("/api/caseshare/orgs")
-          .headers(CivilDamagesHeader.headers_418)
-          .check(status.in(200, 304))
-        )
-      }
-      .pause(MinThinkTime, MaxThinkTime)
-    */
-      
-      
-      //val claimantsolorganisation =
+    
       /*======================================================================================
                    * Civil UI Claim - Claim Solicitor Organization
         ==========================================================================================*/
@@ -232,16 +176,7 @@ object CUIClaimCreation {
         )
       }
       .pause(MinThinkTime, MaxThinkTime)
-      
-      
-      /*//val postcode1 =
-      .group("CUI_CreateClaim_140_SolPostcode") {
-      exec(http("CUI_CreateClaim_140_Postcode")
-        .get("/api/addresses?postcode=TW33SD")
-        .headers(CivilDamagesHeader.headers_104)
-        .check(status.in(200, 304))
-      )
-    }*/
+    
       //create solicitor service address
       /*======================================================================================
                    * Civil UI Claim - Claim- Solicitor Correspondance Address
@@ -256,27 +191,7 @@ object CUIClaimCreation {
         )
       }
       .pause(MinThinkTime, MaxThinkTime)
-      
-      /*  //add another claim
-      .group("CUI_CreateClaim_160_CLAIMAddAnotherClaimantn") {
-        exec(http("CUI_CreateClaim_160_CLAIMAddAnotherClaimant")
-          .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIMAddAnotherClaimant")
-          .headers(CivilDamagesHeader.headers_347)
-          .body(ElFileBody("bodies//CivilCreateClaim-AddAnotherClaim.json"))
-          .check(status.in(200, 304))
-        )
-      }
-      .pause(MinThinkTime, MaxThinkTime)
-      //post code
-      
-      .group("CUI_CreateClaim_170_SolPostcode") {
-        exec(http("CUI_CreateClaim_170_Postcode")
-          .get("/api/addresses?postcode=TW33SD")
-          .headers(CivilDamagesHeader.headers_104)
-          .check(status.in(200, 304))
-        )
-      }
-      */
+ 
       //val claimdefendant =
       /*======================================================================================
                    * Civil UI Claim - Claim -Defendant Details
@@ -307,76 +222,8 @@ object CUIClaimCreation {
         )
       }
       .pause(MinThinkTime, MaxThinkTime)
-      
-      /*
-      //val caseshareorgs1 =
-      .group("CUI_CreateClaim_170_DefCaseShare") {
-      exec(http("CUI_CreateClaim_170_CaseShare")
-        .get("/api/caseshare/orgs")
-        .headers(CivilDamagesHeader.headers_418)
-        .check(status.in(200, 304))
-      )
-    }*/
-      
-      /* //val claimdefsolicitororg =
-      
-      .group("CUI_CreateClaim_180_CLAIMDefendantSolicitorOrganisation") {
-      exec(http("CUI_CreateClaim_180_Org")
-        .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIMDefendantSolicitorOrganisation")
-        .headers(CivilDamagesHeader.headers_469)
-        .body(ElFileBody("bodies/CivilCreateClaim-ClaimAmount.json"))
-        .check(status.in(200, 304))
-      )
-    }
-      .pause(MinThinkTime, MaxThinkTime)
-  
-      //post code
-  
-      .group("CUI_CreateClaim_170_SolPostcode") {
-        exec(http("CUI_CreateClaim_170_Postcode")
-          .get("/api/addresses?postcode=TW33SD")
-          .headers(CivilDamagesHeader.headers_104)
-          .check(status.in(200, 304))
-        )
-      }
-  
-      //create defendant solicitor service address
-      .group("CUI_CreateClaim_150_CLAIMClaimantSolicitorServiceAddress") {
-        exec(http("CUI_CreateClaim_150_Serviceaddress")
-          .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIMDefendantSolicitorServiceAddress")
-          .headers(CivilDamagesHeader.headers_347)
-          .body(ElFileBody("bodies/CivilCreateClaim-ClaimAmountDetails.json"))
-          .check(status.in(200, 304))
-        )
-      }
-      .pause(MinThinkTime, MaxThinkTime)
-  
-  
-      // val claimdefsolicitororgemail =
-      .group("CUI_CreateClaim_190_CLAIMDefendantSolicitorEmail") {
-      exec(http("CUI_CreateClaim_190_SolEmail")
-        .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIMDefendantSolicitorEmail")
-        .headers(CivilDamagesHeader.headers_491)
-        .body(ElFileBody("bodies/CivilCreateClaim-ClaimInterest.json"))
-        .check(status.in(200, 304))
-      )
-    }
-      .pause(MinThinkTime, MaxThinkTime)
-      
-      //add another defendant
-      // val claimdefsolicitororgemail =
-      .group("CUI_CreateClaim_190_CLAIMDefendantSolicitorEmail") {
-        exec(http("CUI_CreateClaim_190_SolEmail")
-          .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIMAddAnotherDefendant")
-          .headers(CivilDamagesHeader.headers_491)
-          .body(ElFileBody("bodies/CivilCreateClaim-AddAnotherDef.json"))
-          .check(status.in(200, 304))
-        )
-      }
-      .pause(MinThinkTime, MaxThinkTime)*/
-      
-      //add another defendant
-      // val claimdefsolicitororgemail =
+    
+     
       /*======================================================================================
                    * Civil UI Claim - Claim - Add another def - No
         ==========================================================================================*/
@@ -390,56 +237,7 @@ object CUIClaimCreation {
         )
       }
       .pause(MinThinkTime, MaxThinkTime)
-      
-      /*  // val claimtype =
-      .group("CUI_CreateClaim_200_CLAIMClaimType") {
-      exec(http("CUI_CreateClaim_200_ClaimType")
-        .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIMClaimType")
-        .headers(CivilDamagesHeader.headers_514)
-        .body(ElFileBody("bodies/CivilCreateClaim-ClaimInterestSummary.json"))
-        .check(status.in(200, 304))
-      )
-    }
-      .pause(MinThinkTime, MaxThinkTime)
-      
-      //create claim injury type
-      
-      .group("CUI_CreateClaim_200_CLAIMClaimType") {
-        exec(http("CUI_CreateClaim_200_ClaimType")
-          .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIMPersonalInjuryType")
-          .headers(CivilDamagesHeader.headers_514)
-          .body(ElFileBody("bodies/CivilCreateClaim-PbaNumber.json"))
-          .check(status.in(200, 304))
-        )
-      }
-      .pause(MinThinkTime, MaxThinkTime)*/
-
-
-      /*======================================================================================
-                   * Civil UI Claim - Upload Evidence
-        ==========================================================================================*/
-
-    /*  .group("CUI_CreateClaim_155_Upload") {
-        exec(http("CUI_CreateClaim_155_Upload")
-          .post(BaseURL + "/documents")
-          .headers(Headers.commonHeader)
-          .headers(Headers.postHeader)
-          .header("accept", "application/json")
-          .header("content-type", "multipart/form-data; boundary=----WebKitFormBoundaryGPNRb3mRRAhkFBRV")
-          .header("sec-fetch-dest", "empty")
-          .header("sec-fetch-mode", "cors")
-          .bodyPart(RawFileBodyPart("files[]", "2MB.pdf")
-            .fileName("2MB.pdf")
-            .transferEncoding("binary"))
-          .asMultipartForm
-        //  .check(jsonPath("$[0].id").saveAs("Document_ID"))
-          .check(substring("2MB.pdf")))
-      }
-      .pause(MinThinkTime, MaxThinkTime)
-
-     */
-
-
+    
       // val createclaimdetail =
       /*======================================================================================
                    * Civil UI Claim - Claim Details
@@ -538,9 +336,7 @@ object CUIClaimCreation {
         )
       }
       .pause(MinThinkTime, MaxThinkTime)
-      
-      
-      // val claiminterest=
+    
       /*======================================================================================
                    * Civil UI Claim - Claim Amount Interest
         ==========================================================================================*/
@@ -554,8 +350,7 @@ object CUIClaimCreation {
         )
       }
       .pause(MinThinkTime, MaxThinkTime)
-      
-      // val claiminterestsummary=
+    
       /*======================================================================================
                    * Civil UI Claim - Claim Amount Interest Summary
         ==========================================================================================*/
@@ -572,9 +367,6 @@ object CUIClaimCreation {
         )
       }
       .pause(MinThinkTime, MaxThinkTime)
-      
-      
-      // val createclaimpbanumber =
       /*======================================================================================
                    * Civil UI Claim - Claim PBANumber
         ==========================================================================================*/
@@ -608,7 +400,6 @@ object CUIClaimCreation {
           )
       }
       .pause(MinThinkTime, MaxThinkTime)
-      // val submitclaimevent =
       /*======================================================================================
                    * Civil UI Claim - Claim Submit
         ==========================================================================================*/
@@ -657,8 +448,12 @@ object CUIClaimCreation {
     * Making a Payment using Payment Service Request - click on Service Request
     ======================================================================================*/
   val PBSPayment =
+    exec(_.setAll(
+      "Idempotencynumber" -> (Common.getIdempotency())
+     )
+    )
   // payment pba fee payment
-    group("CUI_CreateClaim_280_ServiceRequestForPay") {
+    .group("CUI_CreateClaim_280_ServiceRequestForPay") {
       exec(http("CUI_CreateClaim_280_005_ServiceRequestToPay")
         .get("/pay-bulkscan/cases/${caseId}")
         .headers(Headers.commonHeader)
@@ -675,15 +470,16 @@ object CUIClaimCreation {
         exec(http("CUI_CreateClaim_290_005_ClickOnPay")
           .get("/payments/cases/${caseId}/paymentgroups")
           .headers(Headers.commonHeader)
+          .check(jsonPath("$..payment_group_reference").optional.saveAs("serviceRef"))
           .check(status.in(200, 201, 304))
         )
           
-          .exec(http("CUI_CreateClaim_290_010_Paycases")
+        /*  .exec(http("CUI_CreateClaim_290_010_Paycases")
             .get("/payments/case-payment-orders?case_ids=${caseId}")
             .headers(Headers.commonHeader)
             .check(jsonPath("$.content[0].orderReference").optional.saveAs("serviceRef"))
             .check(status.in(200, 201, 304))
-          )
+          )*/
         
       }
       .pause(MinThinkTime, MaxThinkTime)

@@ -1,0 +1,225 @@
+{
+  "data": {
+    "hearingMethodValuesFastTrack": {
+      "value": {
+        "code": "c54b6325-9444-42d4-88e2-82f0d9d4a2ac",
+        "label": "In Person"
+      },
+      "list_items": [
+        {
+          "code": "e238efdd-2a53-4fcc-b0ae-03d11db51a01",
+          "label": "Telephone"
+        },
+        {
+          "code": "c54b6325-9444-42d4-88e2-82f0d9d4a2ac",
+          "label": "In Person"
+        },
+        {
+          "code": "e5561c30-0a9b-44ec-9d7c-064ed3d72790",
+          "label": "Video"
+        }
+      ]
+    },
+    "fastTrackOrderAndHearingDetails": {},
+    "fastTrackJudgesRecital": {
+      "input": "Upon considering the statements of case and the information provided by the parties,"
+    },
+    "fastTrackAllocation": {
+      "assignComplexityBand": "No",
+      "reasons": null
+    },
+    "fastTrackAltDisputeResolutionToggle": [
+      "SHOW"
+    ],
+    "fastTrackAltDisputeResolution": {},
+    "fastTrackVariationOfDirectionsToggle": [
+      "SHOW"
+    ],
+    "fastTrackVariationOfDirections": {},
+    "fastTrackSettlementToggle": [
+      "SHOW"
+    ],
+    "fastTrackSettlement": {},
+    "fastTrackDisclosureOfDocumentsToggle": [
+      "SHOW"
+    ],
+    "fastTrackDisclosureOfDocuments": {
+      "input1": "Standard disclosure shall be provided by the parties by uploading to the Digital Portal their list of documents by 4pm on",
+      "date1": "#{Plus4WeeksYear}-#{Plus4WeeksMonth}-#{Plus4WeeksDay}",
+      "input2": "Any request to inspect a document, or for a copy of a document, shall be made directly to the other party by 4pm on",
+      "date2": "#{Plus6WeeksYear}-#{Plus6WeeksMonth}-#{Plus6WeeksDay}",
+      "input3": "Requests will be complied with within 7 days of the receipt of the request.",
+      "input4": "Each party must upload to the Digital Portal copies of those documents on which they wish to rely at trial by 4pm on",
+      "date3": "#{Plus8WeeksYear}-#{Plus8WeeksMonth}-#{Plus8WeeksDay}"
+    },
+    "fastTrackWitnessOfFactToggle": [
+      "SHOW"
+    ],
+    "fastTrackWitnessOfFact": {
+      "input1": "Each party must upload to the Digital Portal copies of the statements of all witnesses of fact on whom they intend to rely.",
+      "input2": "3",
+      "input3": "3",
+      "input4": "For this limitation, a party is counted as a witness.",
+      "input5": "Each witness statement should be no more than",
+      "input6": "10",
+      "input7": "A4 pages. Statements should be double spaced using a font size of 12.",
+      "input8": "Witness statements shall be uploaded to the Digital Portal by 4pm on",
+      "date": "#{Plus8WeeksYear}-#{Plus8WeeksMonth}-#{Plus8WeeksDay}",
+      "input9": "Evidence will not be permitted at trial from a witness whose statement has not been uploaded in accordance with this Order. Evidence not uploaded, or uploaded late, will not be permitted except with permission from the Court."
+    },
+    "fastTrackSchedulesOfLossToggle": [
+      "SHOW"
+    ],
+    "fastTrackSchedulesOfLoss": {
+      "input1": "The claimant must upload to the Digital Portal an up-to-date schedule of loss to the defendant by 4pm on",
+      "date1": "#{Plus10WeeksYear}-#{Plus10WeeksMonth}-#{Plus10WeeksDay}",
+      "input2": "If the defendant wants to challenge this claim, upload to the Digital Portal counter-schedule of loss by 4pm on",
+      "date2": "#{Plus12WeeksYear}-#{Plus12WeeksMonth}-#{Plus12WeeksDay}",
+      "input3": "If there is a claim for future pecuniary loss and the parties have not already set out their case on periodical payments, they must do so in the respective schedule and counter-schedule."
+    },
+    "fastTrackCostsToggle": [
+      "SHOW"
+    ],
+    "fastTrackCosts": {},
+    "fastTrackTrialToggle": [
+      "SHOW"
+    ],
+    "fastTrackHearingTime": {
+      "dateFrom": "#{HearingYear}-#{HearingMonth}-#{HearingDay}",
+      "dateTo": null,
+      "hearingDuration": "ONE_HOUR",
+      "helpText1": "If either party considers that the time estimate is insufficient, they must inform the court within 7 days of the date of this order.",
+      "helpText2": "Not more than seven nor less than three clear days before the trial, the claimant must file at court and serve an indexed and paginated bundle of documents which complies with the requirements of Rule 39.5 Civil Procedure Rules and which complies with requirements of PD32. The parties must endeavour to agree the contents of the bundle before it is filed. The bundle will include a case summary and a chronology.",
+      "dateToToggle": [
+        "SHOW"
+      ]
+    },
+    "fastTrackMethodToggle": [
+      "SHOW"
+    ],
+    "fastTrackAddNewDirections": [],
+    "fastTrackHearingNotes": {
+      "input": null
+    },
+    "fastTrackOrderWithoutJudgement": {
+      "input": "This order has been made without hearing. Each party has the right to apply to have this Order set aside or varied. Any such application must be received by the Court (together with the appropriate fee) by 4pm on 27 September 2023."
+    }
+  },
+  "event": {
+    "id": "CREATE_SDO",
+    "summary": "",
+    "description": ""
+  },
+  "event_data": {
+    "drawDirectionsOrderRequired": "No",
+    "claimsTrack": "fastTrack",
+    "hearingMethodValuesFastTrack": {
+      "value": {
+        "code": "c54b6325-9444-42d4-88e2-82f0d9d4a2ac",
+        "label": "In Person"
+      },
+      "list_items": [
+        {
+          "code": "e238efdd-2a53-4fcc-b0ae-03d11db51a01",
+          "label": "Telephone"
+        },
+        {
+          "code": "c54b6325-9444-42d4-88e2-82f0d9d4a2ac",
+          "label": "In Person"
+        },
+        {
+          "code": "e5561c30-0a9b-44ec-9d7c-064ed3d72790",
+          "label": "Video"
+        }
+      ]
+    },
+    "fastClaims": [],
+    "fastTrackOrderAndHearingDetails": {},
+    "fastTrackJudgesRecital": {
+      "input": "Upon considering the statements of case and the information provided by the parties,"
+    },
+    "fastTrackAllocation": {
+      "assignComplexityBand": "No",
+      "reasons": null
+    },
+    "fastTrackAltDisputeResolutionToggle": [
+      "SHOW"
+    ],
+    "fastTrackAltDisputeResolution": {},
+    "fastTrackVariationOfDirectionsToggle": [
+      "SHOW"
+    ],
+    "fastTrackVariationOfDirections": {},
+    "fastTrackSettlementToggle": [
+      "SHOW"
+    ],
+    "fastTrackSettlement": {},
+    "fastTrackDisclosureOfDocumentsToggle": [
+      "SHOW"
+    ],
+    "fastTrackDisclosureOfDocuments": {
+      "input1": "Standard disclosure shall be provided by the parties by uploading to the Digital Portal their list of documents by 4pm on",
+      "date1": "#{Plus4WeeksYear}-#{Plus4WeeksMonth}-#{Plus4WeeksDay}",
+      "input2": "Any request to inspect a document, or for a copy of a document, shall be made directly to the other party by 4pm on",
+      "date2": "#{Plus6WeeksYear}-#{Plus6WeeksMonth}-#{Plus6WeeksDay}",
+      "input3": "Requests will be complied with within 7 days of the receipt of the request.",
+      "input4": "Each party must upload to the Digital Portal copies of those documents on which they wish to rely at trial by 4pm on",
+      "date3": "#{Plus8WeeksYear}-#{Plus8WeeksMonth}-#{Plus8WeeksDay}"
+    },
+    "fastTrackWitnessOfFactToggle": [
+      "SHOW"
+    ],
+    "fastTrackWitnessOfFact": {
+      "input1": "Each party must upload to the Digital Portal copies of the statements of all witnesses of fact on whom they intend to rely.",
+      "input2": "3",
+      "input3": "3",
+      "input4": "For this limitation, a party is counted as a witness.",
+      "input5": "Each witness statement should be no more than",
+      "input6": "10",
+      "input7": "A4 pages. Statements should be double spaced using a font size of 12.",
+      "input8": "Witness statements shall be uploaded to the Digital Portal by 4pm on",
+      "date": "#{Plus8WeeksYear}-#{Plus8WeeksMonth}-#{Plus8WeeksDay}",
+      "input9": "Evidence will not be permitted at trial from a witness whose statement has not been uploaded in accordance with this Order. Evidence not uploaded, or uploaded late, will not be permitted except with permission from the Court."
+    },
+    "fastTrackSchedulesOfLossToggle": [
+      "SHOW"
+    ],
+    "fastTrackSchedulesOfLoss": {
+      "input1": "The claimant must upload to the Digital Portal an up-to-date schedule of loss to the defendant by 4pm on",
+      "date1": "#{Plus10WeeksYear}-#{Plus10WeeksMonth}-#{Plus10WeeksDay}",
+      "input2": "If the defendant wants to challenge this claim, upload to the Digital Portal counter-schedule of loss by 4pm on",
+      "date2": "#{Plus12WeeksYear}-#{Plus12WeeksMonth}-#{Plus12WeeksDay}",
+      "input3": "If there is a claim for future pecuniary loss and the parties have not already set out their case on periodical payments, they must do so in the respective schedule and counter-schedule."
+    },
+    "fastTrackCostsToggle": [
+      "SHOW"
+    ],
+    "fastTrackCosts": {},
+    "fastTrackTrialToggle": [
+      "SHOW"
+    ],
+    "fastTrackHearingTime": {
+      "dateFrom": "#{HearingYear}-#{HearingMonth}-#{HearingDay}",
+      "dateTo": null,
+      "hearingDuration": "ONE_HOUR",
+      "helpText1": "If either party considers that the time estimate is insufficient, they must inform the court within 7 days of the date of this order.",
+      "helpText2": "Not more than seven nor less than three clear days before the trial, the claimant must file at court and serve an indexed and paginated bundle of documents which complies with the requirements of Rule 39.5 Civil Procedure Rules and which complies with requirements of PD32. The parties must endeavour to agree the contents of the bundle before it is filed. The bundle will include a case summary and a chronology.",
+      "dateToToggle": [
+        "SHOW"
+      ]
+    },
+    "fastTrackMethodToggle": [
+      "SHOW"
+    ],
+    "fastTrackAddNewDirections": [],
+    "fastTrackHearingNotes": {
+      "input": null
+    },
+    "fastTrackOrderWithoutJudgement": {
+      "input": "This order has been made without hearing. Each party has the right to apply to have this Order set aside or varied. Any such application must be received by the Court (together with the appropriate fee) by 4pm on 27 September 2023."
+    }
+  },
+  "event_token": "${event_token}",
+  "ignore_warning": false,
+  "case_reference": "#{caseId}"
+}
