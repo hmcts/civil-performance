@@ -393,6 +393,21 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 			
 		}
 	
+	/*======================================================================================
+* Below scenario is for SDO Enhancements Fast Track
+======================================================================================*/
+	val SDOEnhancementsFlightDelay = scenario("SDO Enhancements Flight Delay")
+		.feed(loginFeeder) //.feed(casesfordefresponseFeeder)
+		.exitBlockOnFail {
+			exec(_.set("env", s"${env}"))
+				.exec(Homepage.XUIHomePage)
+				.exec(Login.XUIJudgeLogin)
+				.exec(SDO.SDOFlightDelay)
+				.exec(EXUIMCLogin.manageCase_Logout)
+			
+		}
+	
+	
 	val STCitizen = scenario("Civil Citizen ST")
 	//	.feed(loginFeeder)
 		.exitBlockOnFail {
@@ -473,7 +488,7 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 	//	CivilUIClaimCreationScenario.inject(nothingFor(1),rampUsers(1) during (1))
 		//	PBAServiceScenario.inject(nothingFor(1),rampUsers(1) during (1))
 			
-		FlightDelayClaimCreationScenario.inject(nothingFor(1),rampUsers(1) during (1))
+		FlightDelayClaimCreationScenario.inject(nothingFor(1),rampUsers(10) during (200))
 		/*CivilUIClaimCreationScenario.inject(nothingFor(5),rampUsers(90) during (3600)),
 			CivilUIDefAndIntentScenario.inject(nothingFor(30),rampUsers(20) during (3600))*/
 			//	CivilAssignScenario.inject(nothingFor(1),rampUsers(18) during (300))

@@ -452,7 +452,7 @@ object SpecifiedDefAndClaimantResponse {
           .headers(CivilDamagesHeader.MoneyClaimPostHeader)
           .header("x-xsrf-token", "#{XSRFToken}")
           .body(ElFileBody("bodies/specifiedclaimresponses/ViewAndRespond.json"))
-          .check(substring("CLAIMANT_RESPONSERespondentResponse"))
+          .check(substring("CLAIMANT_RESPONSE_SPECRespondentResponse"))
         )
       }
       .pause(MinThinkTime, MaxThinkTime)
@@ -471,7 +471,7 @@ object SpecifiedDefAndClaimantResponse {
           .post("/data/case-types/CIVIL/validate?pageId=CLAIMANT_RESPONSE_SPECApplicantDefenceResponseDocument")
           .headers(CivilDamagesHeader.MoneyClaimPostHeader)
           .body(ElFileBody("bodies/specifiedclaimresponses/UploadResponseToDef.json"))
-          .check(substring("applicant1DefenceResponseDocument"))
+          .check(substring("SPECApplicantDefenceResponseDocument"))
         )
       }
       .pause(MinThinkTime, MaxThinkTime)
@@ -485,7 +485,7 @@ object SpecifiedDefAndClaimantResponse {
           .post("/data/case-types/CIVIL/validate?pageId=CLAIMANT_RESPONSE_SPECSmallClaimExperts")
           .headers(CivilDamagesHeader.MoneyClaimPostHeader)
           .body(ElFileBody("bodies/specifiedclaimresponses/ExpertQuestionaire.json"))
-          .check(substring("applicant1DQFileDirectionsQuestionnaire"))
+          .check(substring("CLAIMANT_RESPONSE_SPECSmallClaimExperts"))
         )
       }
       .pause(MinThinkTime, MaxThinkTime)
@@ -506,7 +506,7 @@ object SpecifiedDefAndClaimantResponse {
           .post("/data/case-types/CIVIL/validate?pageId=CLAIMANT_RESPONSE_SPECSmallClaimWitnesses")
           .headers(CivilDamagesHeader.MoneyClaimPostHeader)
           .body(ElFileBody("bodies/specifiedclaimresponses/AnyWitnessesClaim.json"))
-          .check(substring("CLAIMANT_RESPONSEWitnesses"))
+          .check(substring("CLAIMANT_RESPONSE_SPECSmallClaimWitnesses"))
         )
       }
       .pause(MinThinkTime, MaxThinkTime)
@@ -522,7 +522,7 @@ object SpecifiedDefAndClaimantResponse {
           .post("/data/case-types/CIVIL/validate?pageId=CLAIMANT_RESPONSE_SPECLanguage")
           .headers(CivilDamagesHeader.MoneyClaimPostHeader)
           .body(ElFileBody("bodies/specifiedclaimresponses/WelshLanguageClaim.json"))
-          .check(substring("applicant1DQLanguage"))
+          .check(substring("CLAIMANT_RESPONSE_SPECLanguage"))
         )
       }
       .pause(MinThinkTime, MaxThinkTime)
@@ -538,7 +538,7 @@ object SpecifiedDefAndClaimantResponse {
           .post("/data/case-types/CIVIL/validate?pageId=CLAIMANT_RESPONSE_SPECHearing")
           .headers(CivilDamagesHeader.MoneyClaimPostHeader)
           .body(ElFileBody("bodies/specifiedclaimresponses/HearingAvailabilityClaim.json"))
-          .check(substring("CLAIMANT_RESPONSEHearing"))
+          .check(substring("CLAIMANT_RESPONSE_SPECHearing"))
         )
       }
       .pause(MinThinkTime, MaxThinkTime)
@@ -554,7 +554,7 @@ object SpecifiedDefAndClaimantResponse {
           .post("/data/case-types/CIVIL/validate?pageId=CLAIMANT_RESPONSE_SPECApplicantCourtLocationLRspec")
           .headers(CivilDamagesHeader.MoneyClaimPostHeader)
           .body(ElFileBody("bodies/specifiedclaimresponses/CourtLocationCodeClaim.json"))
-          .check(substring("CLAIMANT_RESPONSE"))
+          .check(substring("CLAIMANT_RESPONSE_SPECApplicantCourtLocationLRspec"))
         )
       }
       .pause(MinThinkTime, MaxThinkTime)
