@@ -1,0 +1,8 @@
+{
+  "account_number": "PBA0066906",
+  "amount": 205,
+  "currency": "GBP",
+  "customer_reference": "pbaref",
+  "organisation_name": "pforgdiv-031u9",
+  "idempotency_key": "idam-key-#{Idempotencynumber}"
+}
