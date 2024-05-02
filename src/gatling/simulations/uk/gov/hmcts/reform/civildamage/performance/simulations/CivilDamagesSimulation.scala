@@ -588,8 +588,8 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 	setUp(
 		SDOEnhancementsFastTrack.inject(nothingFor(10),rampUsers(15) during (3600)),
 			SDOEnhancementsFlightDelay.inject(nothingFor(50),rampUsers(10) during (3600)),
-		SDOEnhancementsDRH.inject(nothingFor(100),rampUsers(1) during (1)),
-		SDORequestForReConsider.inject(nothingFor(150),rampUsers(1) during (1))
+		SDOEnhancementsDRH.inject(nothingFor(100),rampUsers(15) during (3600)),
+		SDORequestForReConsider.inject(nothingFor(150),rampUsers(15) during (3600))
 			
 	//	CivilUIClaimCreationScenario.inject(nothingFor(1),rampUsers(1) during (1))
 	//		PBAServiceScenario.inject(nothingFor(1),rampUsers(1) during (1))
