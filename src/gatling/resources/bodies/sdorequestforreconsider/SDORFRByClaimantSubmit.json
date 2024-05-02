@@ -1,0 +1,23 @@
+{
+  "data": {
+    "casePartyRequestForReconsideration": "Applicant",
+    "reasonForReconsiderationApplicant": {
+      "reasonForReconsiderationTxt": "asasasasas",
+      "requestor": null
+    },
+    "allocatedTrack": null,
+    "featureToggleWA": "Prod",
+    "claimValue": null,
+    "reasonForReconsiderationRespondent1": null,
+    "reasonForReconsiderationRespondent2": null,
+    "totalClaimAmount": "900",
+    "responseClaimTrack": "SMALL_CLAIM"
+  },
+  "event": {
+    "id": "REQUEST_FOR_RECONSIDERATION",
+    "summary": "",
+    "description": ""
+  },
+  "event_token": "#{event_token}",
+  "ignore_warning": false
+}

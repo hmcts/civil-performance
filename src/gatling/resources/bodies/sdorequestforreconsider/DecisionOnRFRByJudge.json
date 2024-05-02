@@ -1,0 +1,28 @@
+{
+  "data": {
+    "decisionOnRequestReconsiderationOptions": "CREATE_SDO",
+    "judgeResponseToReconsiderationDetailsNo": {
+      "reasonForReconsiderationTxtYes": null
+    },
+    "featureToggleWA": "Prod",
+    "totalClaimAmount": "900",
+    "responseClaimTrack": "SMALL_CLAIM"
+  },
+  "event": {
+    "id": "DECISION_ON_RECONSIDERATION_REQUEST",
+    "summary": "",
+    "description": ""
+  },
+  "event_data": {
+    "decisionOnRequestReconsiderationOptions": "CREATE_SDO",
+    "judgeResponseToReconsiderationDetailsNo": {
+      "reasonForReconsiderationTxtYes": null
+    },
+    "featureToggleWA": "Prod",
+    "totalClaimAmount": "900",
+    "responseClaimTrack": "SMALL_CLAIM"
+  },
+  "event_token": "#{event_token}",
+  "ignore_warning": false,
+  "case_reference": "#{caseId}"
+}

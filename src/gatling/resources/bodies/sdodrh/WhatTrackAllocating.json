@@ -1,0 +1,25 @@
+{
+  "data": {
+    "claimsTrack": "smallClaimsTrack",
+    "smallClaims": [
+      "smallClaimDisputeResolutionHearing"
+    ]
+  },
+  "event": {
+    "id": "CREATE_SDO",
+    "summary": "",
+    "description": ""
+  },
+  "event_data": {
+    "drawDirectionsOrderRequired": "No",
+    "showCarmFields": "No",
+    "featureToggleWA": "Prod",
+    "claimsTrack": "smallClaimsTrack",
+    "smallClaims": [
+      "smallClaimDisputeResolutionHearing"
+    ]
+  },
+  "event_token": "#{event_token}",
+  "ignore_warning": false,
+  "case_reference": "#{caseId}"
+}
