@@ -416,9 +416,7 @@ object EXUIMCLogin {
       .pause(MinThinkTime, MaxThinkTime)
 
 
-
-
-
+  
   val manageCasesloginToJudgeJourney =
     group("CivilDamages_020_005_SignInJudge") {
       exec(flushHttpCache).exec(http("CivilDamages_020_005_SignIn")

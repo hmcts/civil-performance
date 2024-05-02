@@ -1,0 +1,167 @@
+{
+  "data": {
+    "sdoR2SmallClaimsJudgesRecital": {
+      "input": "Upon considering the statements of case and the information provided by the parties."
+    },
+    "sdoR2SmallClaimsPPIToggle": [],
+    "sdoR2SmallClaimsWitnessStatementsToggle": [
+      "INCLUDE"
+    ],
+    "sdoR2SmallClaimsWitnessStatements": {
+      "sdoStatementOfWitness": "Each party must upload to the Digital Portal copies of all witness statements of the witnesses upon whose evidence they intend to rely at the hearing not less than 14 days before the hearing.",
+      "isRestrictWitness": "No",
+      "isRestrictPages": "No",
+      "text": "a) Start with the name of the case and the claim number;\nb) State the full name and address of the witness;\nc) Set out the witness’s evidence clearly in numbered paragraphs on numbered pages;\nd) End with this paragraph: ‘I believe that the facts stated in this witness statement are true.I understand that proceedings for contempt of court may be brought against anyone who makes, or causes to be made,a false statement in a document verified by a statement of truth without an honest belief in its truth’;\ne) Be signed by the witness and dated;\nf) If a witness is unable to read the statement there must be a certificate that it has been read or interpreted to the witness by a suitably qualified person and at the final hearing there must be an independent interpreter who will not be provided by the Court.\n\nThe Judge may refuse to allow a witness to give evidence or consider any statement of any witness whose statement has not been uploaded to the Digital Portal in accordance with the paragraphs above.\n\nA witness whose statement has been uploaded in accordance with the above must attend the hearing. If they do not attend,it will be for the Court to decide how much reliance, if any, to place on their evidence."
+    },
+    "sdoR2SmallClaimsUploadDocToggle": [
+      "INCLUDE"
+    ],
+    "sdoR2SmallClaimsUploadDoc": {
+      "sdoUploadOfDocumentsTxt": "Each party must upload to the Digital Portal copies of all documents which they wish the court to consider when reaching its decision not less than 14 days before the hearing. The Court may refuse to consider any document which has not been uploaded to the Digital Portal by the above date."
+    },
+    "sdoR2SmallClaimsAddNewDirection": [],
+    "sdoR2SmallClaimsHearingToggle": [
+      "INCLUDE"
+    ],
+    "sdoR2SmallClaimsHearing": {
+      "trialOnOptions": "OPEN_DATE",
+      "lengthList": "ONE_HOUR",
+      "hearingCourtLocationList": {
+        "value": {
+          "code": "214320",
+          "label": "Blackpool Family Court - The Law Courts, Civic Centre, Chapel Street - FY1 5RJ"
+        },
+        "list_items": [
+          {
+            "code": "214320",
+            "label": "Blackpool Family Court - The Law Courts, Civic Centre, Chapel Street - FY1 5RJ"
+          },
+          {
+            "code": "OTHER_LOCATION",
+            "label": "Other location"
+          }
+        ]
+      },
+      "methodOfHearing": {
+        "value": {
+          "code": "1b465c99-11fc-4321-824b-6dad2a3777be",
+          "label": "Telephone"
+        },
+        "list_items": [
+          {
+            "code": "f1f72221-1043-4f66-9c55-08789ee113d7",
+            "label": "In Person"
+          },
+          {
+            "code": "1b465c99-11fc-4321-824b-6dad2a3777be",
+            "label": "Telephone"
+          },
+          {
+            "code": "a5adaef9-3cc7-47dc-9dfc-1c78bf50a60f",
+            "label": "Video"
+          }
+        ]
+      },
+      "physicalBundleOptions": "NO",
+      "hearingNotesTxt": null,
+      "sdoR2SmallClaimsHearingFirstOpenDateAfter": {
+        "listFrom": "2024-06-24"
+      }
+    },
+    "sdoR2DrhUseOfWelshIncludeInOrderToggle": [],
+    "sdoR2SmallClaimsImpNotes": {
+      "text": "This order has been made without hearing. Each party has the right to apply to have this Order set aside or varied. Any such application must be received by the Court (together with the appropriate fee) by 4pm on",
+      "date": "2024-05-06"
+    }
+  },
+  "event": {
+    "id": "CREATE_SDO",
+    "summary": "",
+    "description": ""
+  },
+  "event_data": {
+    "drawDirectionsOrderRequired": "No",
+    "showCarmFields": "No",
+    "featureToggleWA": "Prod",
+    "claimsTrack": "smallClaimsTrack",
+    "smallClaims": [
+      "smallClaimDisputeResolutionHearing"
+    ],
+    "sdoR2SmallClaimsJudgesRecital": {
+      "input": "Upon considering the statements of case and the information provided by the parties."
+    },
+    "sdoR2SmallClaimsPPIToggle": [],
+    "sdoR2SmallClaimsWitnessStatementsToggle": [
+      "INCLUDE"
+    ],
+    "sdoR2SmallClaimsWitnessStatements": {
+      "sdoStatementOfWitness": "Each party must upload to the Digital Portal copies of all witness statements of the witnesses upon whose evidence they intend to rely at the hearing not less than 14 days before the hearing.",
+      "isRestrictWitness": "No",
+      "isRestrictPages": "No",
+      "text": "a) Start with the name of the case and the claim number;\nb) State the full name and address of the witness;\nc) Set out the witness’s evidence clearly in numbered paragraphs on numbered pages;\nd) End with this paragraph: ‘I believe that the facts stated in this witness statement are true.I understand that proceedings for contempt of court may be brought against anyone who makes, or causes to be made,a false statement in a document verified by a statement of truth without an honest belief in its truth’;\ne) Be signed by the witness and dated;\nf) If a witness is unable to read the statement there must be a certificate that it has been read or interpreted to the witness by a suitably qualified person and at the final hearing there must be an independent interpreter who will not be provided by the Court.\n\nThe Judge may refuse to allow a witness to give evidence or consider any statement of any witness whose statement has not been uploaded to the Digital Portal in accordance with the paragraphs above.\n\nA witness whose statement has been uploaded in accordance with the above must attend the hearing. If they do not attend,it will be for the Court to decide how much reliance, if any, to place on their evidence."
+    },
+    "sdoR2SmallClaimsUploadDocToggle": [
+      "INCLUDE"
+    ],
+    "sdoR2SmallClaimsUploadDoc": {
+      "sdoUploadOfDocumentsTxt": "Each party must upload to the Digital Portal copies of all documents which they wish the court to consider when reaching its decision not less than 14 days before the hearing. The Court may refuse to consider any document which has not been uploaded to the Digital Portal by the above date."
+    },
+    "sdoR2SmallClaimsAddNewDirection": [],
+    "sdoR2SmallClaimsHearingToggle": [
+      "INCLUDE"
+    ],
+    "sdoR2SmallClaimsHearing": {
+      "trialOnOptions": "OPEN_DATE",
+      "lengthList": "ONE_HOUR",
+      "hearingCourtLocationList": {
+        "value": {
+          "code": "214320",
+          "label": "Blackpool Family Court - The Law Courts, Civic Centre, Chapel Street - FY1 5RJ"
+        },
+        "list_items": [
+          {
+            "code": "214320",
+            "label": "Blackpool Family Court - The Law Courts, Civic Centre, Chapel Street - FY1 5RJ"
+          },
+          {
+            "code": "OTHER_LOCATION",
+            "label": "Other location"
+          }
+        ]
+      },
+      "methodOfHearing": {
+        "value": {
+          "code": "1b465c99-11fc-4321-824b-6dad2a3777be",
+          "label": "Telephone"
+        },
+        "list_items": [
+          {
+            "code": "f1f72221-1043-4f66-9c55-08789ee113d7",
+            "label": "In Person"
+          },
+          {
+            "code": "1b465c99-11fc-4321-824b-6dad2a3777be",
+            "label": "Telephone"
+          },
+          {
+            "code": "a5adaef9-3cc7-47dc-9dfc-1c78bf50a60f",
+            "label": "Video"
+          }
+        ]
+      },
+      "physicalBundleOptions": "NO",
+      "hearingNotesTxt": null,
+      "sdoR2SmallClaimsHearingFirstOpenDateAfter": {
+        "listFrom": "2024-06-24"
+      }
+    },
+    "sdoR2DrhUseOfWelshIncludeInOrderToggle": [],
+    "sdoR2SmallClaimsImpNotes": {
+      "text": "This order has been made without hearing. Each party has the right to apply to have this Order set aside or varied. Any such application must be received by the Court (together with the appropriate fee) by 4pm on",
+      "date": "2024-05-06"
+    }
+  },
+  "event_token": "#{event_token}",
+  "ignore_warning": false,
+  "case_reference": "#{caseId}"
+}

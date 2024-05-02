@@ -626,7 +626,7 @@ object SpecifiedDefAndClaimantResponse {
         )
           
           .exec { session =>
-            val fw = new BufferedWriter(new FileWriter("JudicialRefVMLatest.csv", true))
+            val fw = new BufferedWriter(new FileWriter("RequestForReconsiderCases.csv", true))
             try {
               fw.write(session("caseId").as[String] + "\r\n")
             } finally fw.close()

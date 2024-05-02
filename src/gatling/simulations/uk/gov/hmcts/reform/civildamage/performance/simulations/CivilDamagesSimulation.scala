@@ -26,12 +26,14 @@ class CivilDamagesSimulation extends Simulation {
 	val sol7casesTrialFeeder=csv("caseIdsSol7Trial.csv").circular
 	val sol8casesTrialFeeder=csv("caseIdsSol8Trial.csv").circular
 	val pbacasesfeeder=csv("pbacases.csv").circular
+	val assigncasesFeeder=csv("assigncasesfeeder.csv").circular
+	val sdoRFRFeeder=csv("sdorfrcases.csv").circular
 	
 	
   val httpProtocol = Environment.HttpProtocol
     .baseUrl(BaseURL)
    // .doNotTrackHeader("1")
-   // .inferHtmlResources()
+    .inferHtmlResources()
     .silentResources
 		.header("Experimental", "true")
 
@@ -119,6 +121,65 @@ class CivilDamagesSimulation extends Simulation {
         .exec(Login.XUILogin)
         .exec(SpecifiedDefAndClaimantResponse.RespondToDefence)
         .exec(EXUIMCLogin.manageCase_Logout)
+			
+		}
+	
+	//below scenario is to generate claims data for Request For Reconsider
+	
+	val RequestForReConsiderScenario = scenario("Create Civil UI Claim")
+		.feed(loginFeeder)
+		.exitBlockOnFail {
+			//CUI claim creation
+			exec(Homepage.XUIHomePage)
+				.exec(Login.XUILogin)
+				.exec(CUIClaimCreationForSmallClaimDRH.run)
+				// PBS payment
+				.exec(CUIClaimCreation.PBSPayment)
+				.pause(50)
+				.exec(CivilAssignCase.run)
+				.exec(Logout.XUILogout)
+				/*
+      defendant and clamant intent journey for specidied cases starts here
+         */
+				.exec(EXUIMCLogin.manageCasesHomePage)
+				.exec(EXUIMCLogin.manageCasesloginToDefendantJourney)
+				.exec(SpecifiedDefAndClaimantResponseDRH.RespondToClaim)
+				.exec(EXUIMCLogin.manageCase_Logout)
+				.pause(20)
+				.exec(Homepage.XUIHomePage)
+				.exec(Login.XUILogin)
+				.exec(SpecifiedDefAndClaimantResponseDRH.RespondToDefence)
+				.exec(EXUIMCLogin.manageCase_Logout)
+			
+		}
+	
+	
+	//below scenario is to generate claims data for Request For Reconsider
+	
+	val ClaimCreationDRHScenario = scenario("Create Civil UI Claim")
+		.feed(loginFeeder)
+		.exitBlockOnFail {
+			//CUI claim creation
+			exec(Homepage.XUIHomePage)
+				.exec(Login.XUILogin)
+				.exec(CUIClaimCreationForSmallClaimDRH.run)
+				// PBS payment
+				.exec(CUIClaimCreation.PBSPayment)
+				.pause(50)
+				.exec(CivilAssignCase.run)
+				.exec(Logout.XUILogout)
+				/*
+      defendant and clamant intent journey for specidied cases starts here
+         */
+				.exec(EXUIMCLogin.manageCasesHomePage)
+				.exec(EXUIMCLogin.manageCasesloginToDefendantJourney)
+				.exec(SpecifiedDefAndClaimantResponseDRH.RespondToClaim)
+				.exec(EXUIMCLogin.manageCase_Logout)
+				.pause(20)
+				.exec(Homepage.XUIHomePage)
+				.exec(Login.XUILogin)
+				.exec(SpecifiedDefAndClaimantResponseDRH.RespondToDefence)
+				.exec(EXUIMCLogin.manageCase_Logout)
 			
 		}
 	
@@ -255,18 +316,6 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 			}
 		}
 	
-	/*======================================================================================
-  * Below scenario is for assign cases
-  ======================================================================================*/
-
-	val CivilAssignScenario = scenario("Create Civil case assign")
-
-		.exitBlockOnFail {
-
-			exec(CivilAssignCase.cuiassign)
-
-		}
-
 
 	val CivilStrikeOut = scenario("Manually trigger strike out")
 		.feed(loginFeeder)
@@ -380,6 +429,16 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 		}
 	
 	/*======================================================================================
+* Below scenario is for cases that are data prep for hearing management.
+======================================================================================*/
+	val CivilCaseAssignScenario = scenario("Civil Case Assign")
+		.feed(assigncasesFeeder)
+		.exitBlockOnFail {
+			exec(_.set("env", s"${env}"))
+				.exec(CivilAssignCase.run)
+		}
+	
+	/*======================================================================================
 * Below scenario is for SDO Enhancements Fast Track
 ======================================================================================*/
 	val SDOEnhancementsFastTrack = scenario("SDO Enhancements Fast Track")
@@ -394,7 +453,7 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 		}
 	
 	/*======================================================================================
-* Below scenario is for SDO Enhancements Fast Track
+* Below scenario is for SDO Enhancements Fast Track  - Flight Delay
 ======================================================================================*/
 	val SDOEnhancementsFlightDelay = scenario("SDO Enhancements Flight Delay")
 		.feed(loginFeeder) //.feed(casesfordefresponseFeeder)
@@ -405,6 +464,49 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 				.exec(SDO.SDOFlightDelay)
 				.exec(EXUIMCLogin.manageCase_Logout)
 			
+		}
+	
+	
+	/*======================================================================================
+* Below scenario is for SDO Enhancements Small Claims - DRH
+======================================================================================*/
+	val SDOEnhancementsDRH = scenario("SDO Enhancements DRH")
+		.feed(loginFeeder) //.feed(casesfordefresponseFeeder)
+		.exitBlockOnFail {
+			exec(_.set("env", s"${env}"))
+				.exec(Homepage.XUIHomePage)
+				.exec(Login.XUIJudgeRegion4Login)
+				.exec(SDO.SDOSmallClaimsForDRH)
+				.exec(EXUIMCLogin.manageCase_Logout)
+			
+		}
+	
+	/*======================================================================================
+* Below scenario is for SDO Request For Re Consider -
+======================================================================================*/
+	val SDORequestForReConsider = scenario("SDO Request For Reconsider")
+		.feed(loginFeeder) .feed(sdoRFRFeeder)
+		.exitBlockOnFail {
+			exec(_.set("env", s"${env}"))
+				//below login as tribunal user for region 4
+				.exec(Homepage.XUIHomePage)
+				.exec(Login.XUITribunalLogin)//this user is for sdo region 4 tribunal user which is ia requirement for request for reconsider
+				.exec(SDO.SDORequestForReConsiderByTribunal)
+				.exec(EXUIMCLogin.manageCase_Logout)
+			//again login as claimant and request for re consider
+				.exec(Homepage.XUIHomePage)
+				.exec(Login.XUILogin)
+				.exec(SDO.SDORequestForReConsiderFromClaimant)
+				.exec(EXUIMCLogin.manageCase_Logout)
+				.pause(50)
+			// again login as judge and complete
+				.exec(Homepage.XUIHomePage)
+				.exec(Login.XUIJudgeRegion4Login)
+				.exec(SDO.SDODecisionOnRequestForReConsiderByJudge)
+				.pause(50)
+				.exec(SDO.SDORequestForReConsiderByJudge)
+				.exec(EXUIMCLogin.manageCase_Logout)
+				
 		}
 	
 	
@@ -482,13 +584,19 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 		}
 	}
 	
-	CivilUIClaimCreationScenario
+	
 	setUp(
-	//	SDOEnhancementsFastTrack.inject(nothingFor(1),rampUsers(1) during (1))
-	//	CivilUIClaimCreationScenario.inject(nothingFor(1),rampUsers(1) during (1))
-		//	PBAServiceScenario.inject(nothingFor(1),rampUsers(1) during (1))
+		SDOEnhancementsFastTrack.inject(nothingFor(10),rampUsers(15) during (3600)),
+			SDOEnhancementsFlightDelay.inject(nothingFor(50),rampUsers(10) during (3600)),
+		SDOEnhancementsDRH.inject(nothingFor(100),rampUsers(1) during (1)),
+		SDORequestForReConsider.inject(nothingFor(150),rampUsers(1) during (1))
 			
-		FlightDelayClaimCreationScenario.inject(nothingFor(1),rampUsers(10) during (200))
+	//	CivilUIClaimCreationScenario.inject(nothingFor(1),rampUsers(1) during (1))
+	//		PBAServiceScenario.inject(nothingFor(1),rampUsers(1) during (1))
+	//	CivilCaseAssignScenario.inject(nothingFor(1),rampUsers(1) during (1))
+			//RequestForReConsiderScenario.inject(nothingFor(1),rampUsers(25) during (1800))
+	//			ClaimCreationDRHScenario.inject(nothingFor(1),rampUsers(20) during (1800))
+	//	FlightDelayClaimCreationScenario.inject(nothingFor(1),rampUsers(10) during (200))
 		/*CivilUIClaimCreationScenario.inject(nothingFor(5),rampUsers(90) during (3600)),
 			CivilUIDefAndIntentScenario.inject(nothingFor(30),rampUsers(20) during (3600))*/
 			//	CivilAssignScenario.inject(nothingFor(1),rampUsers(18) during (300))

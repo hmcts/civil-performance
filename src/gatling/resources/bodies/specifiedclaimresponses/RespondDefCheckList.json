@@ -18,7 +18,7 @@
     "defenceAdmitPartPaymentTimeRouteGeneric": null,
     "respondentClaimResponseTypeForSpecGeneric": null,
     "respondToClaimAdmitPartEmploymentTypeLRspecGeneric": null,
-    "totalClaimAmount": "3000"
+    "totalClaimAmount": "900"
   },
   "event": {
     "id": "DEFENDANT_RESPONSE_SPEC",

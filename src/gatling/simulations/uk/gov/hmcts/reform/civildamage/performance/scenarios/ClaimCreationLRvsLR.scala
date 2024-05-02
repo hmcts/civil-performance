@@ -1170,7 +1170,7 @@ object ClaimCreationLRvsLR {
         exec(http("XUI_CreateClaim_790_005_AssignToMe")
           .post(BaseURL + "/workallocation/case/task/#{caseId}")
           .headers(CivilDamagesHeader.MoneyClaimNav)
-          .body(ElFileBody("bodies/LRvsLR/TaskTab.json"))
+          .body(ElFileBody("bodies/sdofasttrack/TaskTab.json"))
           .check(jsonPath("$[0].id").saveAs("JudgeId"))
         )
 
@@ -1187,7 +1187,7 @@ object ClaimCreationLRvsLR {
          .post("/workallocation/task/#{JudgeId}/claim")
           .headers(CivilDamagesHeader.MoneyClaimPostHeader)
           .header("accept", "application/json, text/plain, */*")
-         .body(ElFileBody("bodies/LRvsLR/AssignToMe.json"))
+         .body(ElFileBody("bodies/sdofasttrack/AssignToMe.json"))
          .check(substring("assignee"))
       )
 
@@ -1240,7 +1240,7 @@ object ClaimCreationLRvsLR {
           .post("/data/case-types/CIVIL/validate?pageId=CREATE_SDOSDO")
           .headers(CivilDamagesHeader.MoneyClaimPostHeader)
           .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.case-data-validate.v2+json;charset=UTF-8")
-          .body(ElFileBody("bodies/LRvsLR/EnterJudgmentDamages.json"))
+          .body(ElFileBody("bodies/sdofasttrack/EnterJudgmentDamages.json"))
           .check(substring("drawDirectionsOrderRequired"))
         )
 
@@ -1258,7 +1258,7 @@ object ClaimCreationLRvsLR {
           .post("/data/case-types/CIVIL/validate?pageId=CREATE_SDOClaimsTrack")
           .headers(CivilDamagesHeader.MoneyClaimPostHeader)
           .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.case-data-validate.v2+json;charset=UTF-8")
-          .body(ElFileBody("bodies/LRvsLR/WhatTrackAllocating.json"))
+          .body(ElFileBody("bodies/sdofasttrack/WhatTrackAllocating.json"))
           .check(substring("allocatedTrack"))
         )
       }
@@ -1380,7 +1380,7 @@ object ClaimCreationLRvsLR {
         exec(http("XUI_CreateClaim_790_005_AssignToMe")
           .post(BaseURL + "/workallocation/case/task/#{caseId}")
           .headers(CivilDamagesHeader.MoneyClaimNav)
-          .body(ElFileBody("bodies/LRvsLR/TaskTab.json"))
+          .body(ElFileBody("bodies/sdofasttrack/TaskTab.json"))
           .check(jsonPath("$[0].id").saveAs("JudgeId"))
         )
         
@@ -1397,7 +1397,7 @@ object ClaimCreationLRvsLR {
           .post("/workallocation/task/#{JudgeId}/claim")
           .headers(CivilDamagesHeader.MoneyClaimPostHeader)
           .header("accept", "application/json, text/plain, */*")
-          .body(ElFileBody("bodies/LRvsLR/AssignToMe.json"))
+          .body(ElFileBody("bodies/sdofasttrack/AssignToMe.json"))
           .check(substring("assignee"))
         )
         
@@ -1450,7 +1450,7 @@ object ClaimCreationLRvsLR {
           .post("/data/case-types/CIVIL/validate?pageId=CREATE_SDOSDO")
           .headers(CivilDamagesHeader.MoneyClaimPostHeader)
           .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.case-data-validate.v2+json;charset=UTF-8")
-          .body(ElFileBody("bodies/LRvsLR/EnterJudgmentDamages.json"))
+          .body(ElFileBody("bodies/sdofasttrack/EnterJudgmentDamages.json"))
           .check(substring("drawDirectionsOrderRequired"))
         )
         
@@ -1468,7 +1468,7 @@ object ClaimCreationLRvsLR {
           .post("/data/case-types/CIVIL/validate?pageId=CREATE_SDOClaimsTrack")
           .headers(CivilDamagesHeader.MoneyClaimPostHeader)
           .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.case-data-validate.v2+json;charset=UTF-8")
-          .body(ElFileBody("bodies/LRvsLR/WhatTrackAllocating.json"))
+          .body(ElFileBody("bodies/sdofasttrack/WhatTrackAllocating.json"))
           .check(substring("allocatedTrack"))
         )
       }
@@ -1484,7 +1484,7 @@ object ClaimCreationLRvsLR {
           .post("/data/case-types/CIVIL/validate?pageId=CREATE_SDOSdoR2FastTrack")
           .headers(CivilDamagesHeader.MoneyClaimPostHeader)
           .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.case-data-validate.v2+json;charset=UTF-8")
-          .body(ElFileBody("bodies/LRvsLR/SDOenhancementsfasttrackdetails.json"))
+          .body(ElFileBody("bodies/sdofasttrack/SDOenhancementsfasttrackdetails.json"))
           .check(jsonPath("$.data.sdoOrderDocument.createdDatetime").saveAs("createdDatetime"))
           .check(jsonPath("$.data.sdoOrderDocument.documentLink.document_url").saveAs("sdoDocument_url"))
           .check(jsonPath("$.data.sdoOrderDocument.documentLink.document_hash").saveAs("sdoDocument_hash"))
@@ -1507,7 +1507,7 @@ object ClaimCreationLRvsLR {
           .post("/data/case-types/CIVIL/validate?pageId=pageId=CREATE_SDOOrderPreview")
           .headers(CivilDamagesHeader.MoneyClaimPostHeader)
           .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.case-data-validate.v2+json;charset=UTF-8")
-          .body(ElFileBody("bodies/LRvsLR/SDOEnhancementsContinueFastTrack.json"))
+          .body(ElFileBody("bodies/sdofasttrack/SDOEnhancementsContinueFastTrack.json"))
           .check(substring("sdoOrderDocument"))
         )
         
@@ -1526,7 +1526,7 @@ object ClaimCreationLRvsLR {
           .headers(CivilDamagesHeader.MoneyClaimDefPostHeader)
           .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.create-event.v2+json;charset=UTF-8")
           .header("X-Xsrf-Token", "#{XSRFToken}")
-          .body(ElFileBody("bodies/LRvsLR/SDOEnhancementsFastTrackSubmit.json"))
+          .body(ElFileBody("bodies/sdofasttrack/SDOEnhancementsFastTrackSubmit.json"))
           .check(substring("CASE_PROGRESSION"))
         )
           
