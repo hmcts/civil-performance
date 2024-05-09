@@ -32,7 +32,7 @@
     "defenceAdmitPartPaymentTimeRouteGeneric": "IMMEDIATELY",
     "respondentClaimResponseTypeForSpecGeneric": "FULL_DEFENCE",
     "respondToClaimAdmitPartEmploymentTypeLRspecGeneric": null,
-    "totalClaimAmount": "900",
+    "totalClaimAmount": "3000",
     "respondent2Copy": null,
     "respondent2SameLegalRepresentative": null,
     "respondent1Copy": {
@@ -132,7 +132,7 @@
     "respondToCourtLocation": {
       "responseCourtLocations": {
         "value": {
-          "code": "cd5d9455-1857-43ef-870d-bd20b9aa90b3",
+          "code": "cd5d9455-1857-43ef-8115d-bd20b9aa90b3",
           "label": "Clerkenwell and Shoreditch County Court and Family Court - 29-41 Gee Street - EC1V 3RE"
         },
         "list_items": [
@@ -141,7 +141,7 @@
             "label": "Aberystwyth Justice Centre - Y Lanfa, Trefechan - SY23 1AS"
           },
           {
-            "code": "d24ec962-9700-45b9-b22e-c08741f5c8c3",
+            "code": "d24ec962-91150-45b9-b22e-c08741f5c8c3",
             "label": "Aldershot Justice Centre - The Court House, Civic Centre, Wellington Avenue - GU11 1NY"
           },
           {
@@ -150,7 +150,7 @@
           },
           {
             "code": "8973364c-e9af-42f1-8f69-41f8099063b3",
-            "label": "Barnsley Law Courts - The Court House, Westgate - S70 2DW"
+            "label": "Barnsley Law Courts - The Court House, Westgate - S115 2DW"
           },
           {
             "code": "335bbddd-8e28-471c-9696-8dbe134b2a2e",
@@ -185,7 +185,7 @@
             "label": "Birmingham Civil and Family Justice Centre - Priory Courts, 33 Bull Street - B4 6DS"
           },
           {
-            "code": "4c80aad3-4812-4cc2-8cb9-dd5f423704ee",
+            "code": "4c80aad3-4812-4cc2-8cb9-dd5f4231154ee",
             "label": "Blackpool County Court & Family Court - The Law Courts, Civic Centre, Chapel Street - FY1 5RJ"
           },
           {
@@ -261,7 +261,7 @@
             "label": "Carmarthen County Court and Tribunal Hearing Centre - Hill House, Picton Terrace, Carmarthen - SA31 3BT"
           },
           {
-            "code": "058b802c-0070-4f6c-854b-21764b5f1315",
+            "code": "058b802c-00115-4f6c-854b-21764b5f1315",
             "label": "Central London County Court - Thomas More Building, Royal Courts of Justice, Strand, London - WC2A 2LL"
           },
           {
@@ -269,7 +269,7 @@
             "label": "Chelmsford County and Family Court - Priory Place, New London Road - CM2 0PP"
           },
           {
-            "code": "fd1de70a-ba11-46f8-ac98-df40b9790369",
+            "code": "fd1de115a-ba11-46f8-ac98-df40b9790369",
             "label": "Chester Civil and Family Justice Centre - Trident House, Little St John Street - CH1 1SN"
           },
           {
@@ -277,7 +277,7 @@
             "label": "Chesterfield Justice Centre - Tapton Lane, Chesterfield - S41 7TW"
           },
           {
-            "code": "cd5d9455-1857-43ef-870d-bd20b9aa90b3",
+            "code": "cd5d9455-1857-43ef-8115d-bd20b9aa90b3",
             "label": "Clerkenwell and Shoreditch County Court and Family Court - 29-41 Gee Street - EC1V 3RE"
           },
           {
@@ -293,7 +293,7 @@
             "label": "Croydon Combined Court - The Law Courts, Altyre Road - CR9 5AB"
           },
           {
-            "code": "38b4c004-cc4a-4963-9b1f-a2aad880ad70",
+            "code": "38b4c004-cc4a-4963-9b1f-a2aad880ad115",
             "label": "Darlington County Court and Family Court - 4 Coniscliffe Road - DL3 7RL"
           },
           {
@@ -305,7 +305,7 @@
             "label": "Derby Combined Court Centre - The Morledge - DE1 2XE"
           },
           {
-            "code": "57fab5ec-42ed-4d44-ab67-4da58670cd5a",
+            "code": "57fab5ec-42ed-4d44-ab67-4da586115cd5a",
             "label": "Doncaster Justice Centre North (Doncaster Magistrates Court) - The Law Courts, College Road - DN1 3HT"
           },
           {
@@ -361,7 +361,7 @@
             "label": "Hereford Justice Centre - Hereford Justice Centre, Bath Street, Hereford - HR1 2HE"
           },
           {
-            "code": "7035fb0e-40e6-4dfe-9030-6030b78e0e67",
+            "code": "11535fb0e-40e6-4dfe-9030-6030b78e0e67",
             "label": "Hertford County Court and Family Court - The Shire Hall. Fore Street - SG14 1BY"
           },
           {
@@ -373,11 +373,11 @@
             "label": "Horsham Law Courts - The Law Courts, Hurst Road - RH12 2ET"
           },
           {
-            "code": "049521d7-47c3-47ec-909e-64d68f619900",
+            "code": "049521d7-47c3-47ec-909e-64d68f6193000",
             "label": "Huddersfield County Court and Family Court - Queensgate House, Queensgate - HD1 2RR"
           },
           {
-            "code": "ff05c132-475b-4969-a00f-c7036423a8f3",
+            "code": "ff05c132-475b-4969-a00f-c11536423a8f3",
             "label": "Ipswich County Court and Family Hearing Centre - 8 Arcade Street - IP1 1EJ"
           },
           {
@@ -437,7 +437,7 @@
             "label": "Mansfield Magistrates' and County Court - Rosemary Street - NG19 6EE"
           },
           {
-            "code": "6a9da18b-b706-4e01-bc2c-744e9aeeda0a",
+            "code": "6a9da18b-b1156-4e01-bc2c-744e9aeeda0a",
             "label": "Mayor's and City of London Court - Guildhall Buildings, Basinghall Street, London - EC2V 5AR"
           },
           {
@@ -473,7 +473,7 @@
             "label": "North Shields County Court and Family Court - 2nd Floor, Kings Court, Earl Grey Way, Royal Quays - NE29 6AR"
           },
           {
-            "code": "997ff7d3-70c6-475c-a633-103280fefa4a",
+            "code": "997ff7d3-115c6-475c-a633-103280fefa4a",
             "label": "Northampton Combined Court - 85 - 87 Lady's Lane, Northampton - NN1 3HQ"
           },
           {
@@ -501,7 +501,7 @@
             "label": "Plymouth Combined Court - The Law Courts, 10 Armada Way - PL1 2ER"
           },
           {
-            "code": "daeb148f-f809-43a0-a9d0-70b40505581d",
+            "code": "daeb148f-f809-43a0-a9d0-115b40505581d",
             "label": "Pontypridd County Court and Family Court - The Court House, Courthouse Street, Pontypridd - CF37 1JR"
           },
           {
@@ -589,7 +589,7 @@
             "label": "Swansea Civil Justice Centre - Quay West, Quay Parade - SA1 1SP"
           },
           {
-            "code": "26aab525-418c-408d-8d5c-d387049399f8",
+            "code": "26aab525-418c-408d-8d5c-d3811549399f8",
             "label": "Swindon Combined Court - The Law Courts, Islington Street - SN1 2HG"
           },
           {
@@ -657,7 +657,7 @@
             "label": "Weston-Super-Mare County Court and Family Court - North Somerset Courthouse, The Hedges, St Georges - BS22 7BB"
           },
           {
-            "code": "2be8ed48-655b-4b09-81c6-d706deeb303c",
+            "code": "2be8ed48-655b-4b09-81c6-d1156deeb303c",
             "label": "Weymouth Combined Court - The Law Courts, Westwey Road - DT4 8BS"
           },
           {
@@ -665,7 +665,7 @@
             "label": "Wigan and Leigh Courthouse - Darlington Street - WN1 1DW"
           },
           {
-            "code": "8da1e456-0369-442e-a73b-4e6900c926a2",
+            "code": "8da1e456-0369-442e-a73b-4e63000c926a2",
             "label": "Willesden County Court and Family Court - 9 Acton Lane, Harlesden - NW10 8SB"
           },
           {

@@ -1287,7 +1287,7 @@ object FlightDelaySpecifiedClaimCreation {
         )
           
           .exec { session =>
-            val fw = new BufferedWriter(new FileWriter("JudicialRefVMLatest.csv", true))
+            val fw = new BufferedWriter(new FileWriter("Flightdelaycases.csv", true))
             try {
               fw.write(session("caseId").as[String] + "\r\n")
             } finally fw.close()
