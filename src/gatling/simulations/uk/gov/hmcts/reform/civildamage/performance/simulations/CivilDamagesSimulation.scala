@@ -489,21 +489,21 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 		.exitBlockOnFail {
 			exec(_.set("env", s"${env}"))
 				//below login as tribunal user for region 4
-			/*	.exec(Homepage.XUIHomePage)
+				.exec(Homepage.XUIHomePage)
 				.exec(Login.XUITribunalLogin)//this user is for sdo region 4 tribunal user which is ia requirement for request for reconsider
 				.exec(SDO.SDORequestForReConsiderByTribunal)
-				.exec(EXUIMCLogin.manageCase_Logout)*/
+				.exec(EXUIMCLogin.manageCase_Logout)
 			//again login as claimant and request for re consider
-			/*	.exec(Homepage.XUIHomePage)
+				.exec(Homepage.XUIHomePage)
 				.exec(Login.XUILogin)
 				.exec(SDO.SDORequestForReConsiderFromClaimant)
 				.exec(EXUIMCLogin.manageCase_Logout)
-				.pause(50)*/
+				.pause(20)
 			// again login as judge and complete
 				.exec(Homepage.XUIHomePage)
 				.exec(Login.XUIJudgeRegion4Login)
 				.exec(SDO.SDODecisionOnRequestForReConsiderByJudge)
-				.pause(50)
+				.pause(20)
 				.exec(SDO.SDORequestForReConsiderByJudge)
 				.exec(EXUIMCLogin.manageCase_Logout)
 				
