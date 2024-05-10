@@ -952,7 +952,7 @@ object SDO {
       }
       .pause(MinThinkTime, MaxThinkTime)
   
-        .group("Civil_SDOE_RFRByTribunal_120_ViewCaseAfterSDOByTri") {
+        .group("Civil_SDOE_RFRByTri_120_ViewCaseAfterSDOByTri") {
             exec(http("Civil_SDOE_RFRByTri_120_005_ViewCaseByJudge")
               .post(BaseURL + "/api/role-access/roles/manageLabellingRoleAssignment/#{caseId}")
               .headers(CivilDamagesHeader.MoneyClaimNav)
@@ -1020,7 +1020,7 @@ object SDO {
           .headers(CivilDamagesHeader.MoneyClaimNav)
           .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-start-event-trigger.v2+json;charset=UTF-8")
           .check(substring("REQUEST_FOR_RECONSIDERATION"))
-          .check(jsonPath("$.event_token").saveAs("event_token"))
+          .check(jsonPath("$.event_token").saveAs("event_token_claimant"))
         )
         .exec(http("Civil_SDOE_RFRByC_050_015_RequestForReConsider")
           .get(BaseURL + "/workallocation/case/tasks/#{caseId}/event/REQUEST_FOR_RECONSIDERATION/caseType/CIVIL/jurisdiction/CIVIL")
@@ -1079,14 +1079,34 @@ object SDO {
           )
       }
       .pause(MinThinkTime, MaxThinkTime)
-      .pause(20)
+  
+  
+      /*============================================================================
+      
+      ============================================================================== */
+      
+      .group("Civil_SDOE_RFRByC_080_ViewCaseAfterSDOByC") {
+        exec(http("Civil_SDOE_RFRByC_080_005_ViewCaseByC")
+          .post(BaseURL + "/api/role-access/roles/manageLabellingRoleAssignment/#{caseId}")
+          .headers(CivilDamagesHeader.MoneyClaimNav)
+          .body(ElFileBody("bodies/sdorequestforreconsider/viewcasebyjudge.json"))
+          .header("accept", "application/json, text/plain, */*")
+          .check(status.in(200, 201, 204, 304)))
+      
+          .exec(http("Civil_SDOE_RFRByC_080_010_CaseDetails")
+            .get(BaseURL + "/api/wa-supported-jurisdiction/get")
+            .headers(Headers.commonHeader)
+            .header("accept", "application/json, text/plain, */*")
+            .check(status.in(200, 201, 204, 304)))
+    
+      }
+      .pause(MinThinkTime, MaxThinkTime)
   
     
   
   /* ==========================================================================================
    Following is for decision on request for reconsider - Judge
    =========================================================================================== */
-  
   val SDODecisionOnRequestForReConsiderByJudge =
    
       group("Civil_SDOE_RFRDecisionByJudge_30_CaseDetails") {
@@ -1100,9 +1120,6 @@ object SDO {
         
       }
         .pause(MinThinkTime, MaxThinkTime)
-        
-  
-  
       /*======================================================================================
            * Create Civil Claim - Click on Tasks Tab
     ==========================================================================================*/
@@ -1113,20 +1130,18 @@ object SDO {
           .headers(CivilDamagesHeader.MoneyClaimNav)
           .header("accept", "application/json, text/plain, */*")
           .body(ElFileBody("bodies/sdorequestforreconsider/TaskTab.json"))
-          .check(jsonPath("$[0].id").saveAs("JudgeId"))
+          .check(jsonPath("$[0].id").saveAs("JudgeIdregion4"))
         )
         
       }
       .pause(MinThinkTime, MaxThinkTime)
-      
-      
       /*======================================================================================
            * Create Civil Claim - Start Event 'Assign To Me'
     ==========================================================================================*/
       //  val returntocasedetailsafternotifydetails =
       .group("Civil_SDOE_RFRDecisionByJudge_60_AssignToMe") {
         exec(http("Civil_SDOE_RFRDecisionByJudge_60_005_AssignToMe")
-          .post("/workallocation/task/#{JudgeId}/claim")
+          .post("/workallocation/task/#{JudgeIdregion4}/claim")
           .headers(CivilDamagesHeader.MoneyClaimPostHeader)
           .header("accept", "application/json, text/plain, */*")
           .body(ElFileBody("bodies/sdoflightdelay/AssignToMe.json"))
@@ -1145,7 +1160,7 @@ object SDO {
       // val returntocasedetailsafternotifydetails =
       .group("Civil_SDOE_RFRDecisionByJudge_70_DecisionOnRFRC") {
         exec(http("Civil_SDOE_RFRDecisionByJudge_70_005_DecisionOnRFRC")
-          .get("/cases/case-details/#{caseId}/trigger/DECISION_ON_RECONSIDERATION_REQUEST/DECISION_ON_RECONSIDERATION_REQUEST?tid=#{JudgeId}")
+          .get("/cases/case-details/#{caseId}/trigger/DECISION_ON_RECONSIDERATION_REQUEST/DECISION_ON_RECONSIDERATION_REQUEST?tid=#{JudgeIdregion4}")
           .headers(CivilDamagesHeader.headers_notify)
           .header("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7")
           .check(status.in(200, 201, 204, 304))
@@ -1167,7 +1182,7 @@ object SDO {
             .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-start-event-trigger.v2+json;charset=UTF-8")
             .check(substring("DECISION_ON_RECONSIDERATION_REQUEST"))
             
-            .check(jsonPath("$.event_token").saveAs("event_token"))
+            .check(jsonPath("$.event_token").saveAs("event_token_decisiononrfr"))
           )
   
         .exec(http("Civil_SDOE_RFRDecisionByJudge_070_015_DirectionsFastTrack")
@@ -1212,7 +1227,7 @@ object SDO {
         )
   
         .exec(http("Civil_SDOE_RFRDecisionByJudge_90_010_DecisionOnRFRSubmit")
-          .post("/workallocation/task/#{JudgeId}/complete")
+          .post("/workallocation/task/#{JudgeIdregion4}/complete")
           .headers(CivilDamagesHeader.MoneyClaimDefPostHeader)
           .header("accept", "application/json")
           .header("X-Xsrf-Token", "#{XSRFToken}")
@@ -1229,23 +1244,22 @@ object SDO {
         
       }
       .pause(MinThinkTime, MaxThinkTime)
+  
+  .group("Civil_SDOE_RFRDecisionByJudge_100_CaseDetails") {
+    exec(http("Civil_SDOE_RFRDecisionByJudge_100_005_CaseDetails")
+      .get(BaseURL + "/data/internal/cases/#{caseId}")
+      .headers(Headers.commonHeader)
+      .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-case-view.v2+json")
+      .check(substring("Civil"))
+      .check(status.in(200, 201, 304)))
+  }
+    .pause(MinThinkTime, MaxThinkTime)
         .pause(20)
   
-      
   
   val SDORequestForReConsiderByJudge =
-   
-      group("Civil_SDOE_RFRByJudge_30_CaseDetails") {
-          exec(http("Civil_SDOE_RFRByJudge_30_005_CaseDetails")
-            .get(BaseURL + "/data/internal/cases/#{caseId}")
-            .headers(Headers.commonHeader)
-            .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-case-view.v2+json")
-            .check(substring("Civil"))
-            .check(status.in(200, 201, 304)))
-      }
-        .pause(MinThinkTime, MaxThinkTime)
-       
-        .group("Civil_SDOE_RFRByJudge_40_ViewCaseByJudge") {
+    
+        group("Civil_SDOE_RFRByJudge_40_ViewCaseByJudge") {
             exec(http("Civil_SDOE_RFRByJudge_40_005_ViewCaseByJudge")
               .post(BaseURL + "/api/role-access/roles/manageLabellingRoleAssignment/#{caseId}")
               .headers(CivilDamagesHeader.MoneyClaimNav)
@@ -1260,31 +1274,31 @@ object SDO {
               .check(status.in(200, 201, 204, 304)))
     
         }
-      
-      
-      /*======================================================================================
-           * Create Civil Claim - Click on Tasks Tab
-    ==========================================================================================*/
-      // val returntocasedetailsafternotifydetails =
-      .group("Civil_SDOE_RFRByJudge_50_TaskTab") {
-        exec(http("Civil_SDOE_RFRByJudge_50_005_TaskTab")
-          .post(BaseURL + "/workallocation/case/task/#{caseId}")
-          .headers(CivilDamagesHeader.MoneyClaimNav)
-          .body(ElFileBody("bodies/sdorequestforreconsider/TaskTab.json"))
-          .check(jsonPath("$[0].id").saveAs("JudgeId"))
-        )
+          .pause(MinThinkTime, MaxThinkTime)
+          .pause(50)
+  
+        /*======================================================================================
+                  * Create Civil Claim - Click on Tasks Tab
+           ==========================================================================================*/
+        // val returntocasedetailsafternotifydetails =
+        .group("Civil_SDOE_RFRByJudge_50_TaskTab") {
+          exec(http("Civil_SDOE_RFRByJudge_50_005_TaskTab")
+            .post(BaseURL + "/workallocation/case/task/#{caseId}")
+            .headers(CivilDamagesHeader.MoneyClaimNav)
+            .body(ElFileBody("bodies/sdorequestforreconsider/TaskTab.json"))
+            .check(jsonPath("$[0].id").saveAs("JudgeId"))
+          )
+    
+        }
+        .pause(MinThinkTime, MaxThinkTime)
         
-      }
-      .pause(MinThinkTime, MaxThinkTime)
-      
-      
       /*======================================================================================
            * Create Civil Claim - Start Event 'Assign To Me'
     ==========================================================================================*/
       //  val returntocasedetailsafternotifydetails =
       .group("Civil_SDOE_RFRByJudge_60_AssignToMe") {
         exec(http("Civil_SDOE_RFRByJudge_60_005_AssignToMe")
-          .post("/workallocation/task/#{JudgeId}/claim")
+          .post("/workallocation/task/#{JudgeIdregion4}/claim")
           .headers(CivilDamagesHeader.MoneyClaimPostHeader)
           .header("accept", "application/json, text/plain, */*")
           .body(ElFileBody("bodies/sdorequestforreconsider/AssignToMe.json"))
@@ -1313,7 +1327,7 @@ object SDO {
       // val returntocasedetailsafternotifydetails =
       .group("Civil_SDOE_RFRByJudge_70_DirectionsRFR") {
         exec(http("Civil_SDOE_RFRByJudge_70_005_DirectionsRFR")
-          .get("/cases/case-details/#{caseId}/trigger/CREATE_SDO/CREATE_SDOSmallClaims?tid=#{JudgeId}")
+          .get("/cases/case-details/#{caseId}/trigger/CREATE_SDO/CREATE_SDOSmallClaims?tid=#{JudgeIdregion4}")
           .headers(CivilDamagesHeader.headers_notify)
           .header("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7")
           //  .check(substring("assignee"))
@@ -1334,7 +1348,7 @@ object SDO {
             .headers(CivilDamagesHeader.headers_notify)
             .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-start-event-trigger.v2+json;charset=UTF-8")
             .check(substring("CREATE_SDO"))
-            .check(jsonPath("$.event_token").saveAs("event_token"))
+            .check(jsonPath("$.event_token").saveAs("event_token_finalsdobyjudge"))
           )
           .exec(getCookieValue(CookieKey("XSRF-TOKEN").withDomain(BaseURL.replace("https://", "")).saveAs("XSRFToken")))
         
@@ -1377,8 +1391,6 @@ object SDO {
           .body(ElFileBody("bodies/sdorequestforreconsider/SDOEnhancementsContinueSmallClaimsByJudgeFinal.json"))
           .check(substring("sdoOrderDocument"))
         )
-        
-        
       }
       .pause(MinThinkTime, MaxThinkTime)
       
