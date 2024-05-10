@@ -11,6 +11,6 @@
     "summary": "",
     "description": ""
   },
-  "event_token": "#{event_token}",
+  "event_token": "#{event_token_decisiononrfr}",
   "ignore_warning": false
 }

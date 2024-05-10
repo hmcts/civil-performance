@@ -33,7 +33,7 @@ class CivilDamagesSimulation extends Simulation {
   val httpProtocol = Environment.HttpProtocol
     .baseUrl(BaseURL)
    // .doNotTrackHeader("1")
-   // .inferHtmlResources()
+    .inferHtmlResources()
     .silentResources
 		.header("Experimental", "true")
 
@@ -493,12 +493,14 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 				.exec(Login.XUITribunalLogin)//this user is for sdo region 4 tribunal user which is ia requirement for request for reconsider
 				.exec(SDO.SDORequestForReConsiderByTribunal)
 				.exec(EXUIMCLogin.manageCase_Logout)
-			//again login as claimant and request for re consider
+			
+				//again login as claimant and request for re consider
 				.exec(Homepage.XUIHomePage)
 				.exec(Login.XUILogin)
 				.exec(SDO.SDORequestForReConsiderFromClaimant)
 				.exec(EXUIMCLogin.manageCase_Logout)
 				.pause(20)
+				
 			// again login as judge and complete
 				.exec(Homepage.XUIHomePage)
 				.exec(Login.XUIJudgeRegion4Login)
@@ -506,10 +508,7 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 				.pause(20)
 				.exec(SDO.SDORequestForReConsiderByJudge)
 				.exec(EXUIMCLogin.manageCase_Logout)
-				
 		}
-	
-	
 	val STCitizen = scenario("Civil Citizen ST")
 	//	.feed(loginFeeder)
 		.exitBlockOnFail {
@@ -528,11 +527,7 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 
 		}
 
-		.exec {
-			session =>
-				println(session)
-				session
-		}
+	
 
 		/*/*
       Step 2: login to manage org as defendant solicitor to assign the case to other users from defendant solicitor firm
@@ -585,15 +580,15 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 	
 	
 	setUp(
-		SDOEnhancementsFastTrack.inject(nothingFor(10),rampUsers(16) during (3600)),
-			SDOEnhancementsFlightDelay.inject(nothingFor(50),rampUsers(12) during (3600)),
-		SDOEnhancementsDRH.inject(nothingFor(100),rampUsers(13) during (3600)),
-		SDORequestForReConsider.inject(nothingFor(150),rampUsers(14) during (3600))
+		SDOEnhancementsFastTrack.inject(nothingFor(10),rampUsers(20) during (3600)),
+		SDOEnhancementsFlightDelay.inject(nothingFor(50),rampUsers(6) during (3600)),
+		SDOEnhancementsDRH.inject(nothingFor(100),rampUsers(12) during (3600)),
+		SDORequestForReConsider.inject(nothingFor(150),rampUsers(16) during (3600))
 		
 	//	CivilUIClaimCreationScenario.inject(nothingFor(1),rampUsers(1) during (1))
 	//		PBAServiceScenario.inject(nothingFor(1),rampUsers(1) during (1))
 	//	CivilCaseAssignScenario.inject(nothingFor(1),rampUsers(1) during (1))
-	//		RequestForReConsiderScenario.inject(nothingFor(1),rampUsers(25) during (1800))
+		//	RequestForReConsiderScenario.inject(nothingFor(1),rampUsers(15) during (1200))
 		//		ClaimCreationDRHScenario.inject(nothingFor(1),rampUsers(20) during (1800))
 		//FlightDelayClaimCreationScenario.inject(nothingFor(1),rampUsers(30) during (1200))
 		/*CivilUIClaimCreationScenario.inject(nothingFor(5),rampUsers(90) during (3600)),

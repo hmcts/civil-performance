@@ -688,6 +688,6 @@
     "summary": "",
     "description": ""
   },
-  "event_token": "#{event_token}",
+  "event_token": "#{event_token_finalsdobyjudge}",
   "ignore_warning": false
 }

@@ -32,7 +32,7 @@
     "totalClaimAmount": "900",
     "responseClaimTrack": "SMALL_CLAIM"
   },
-  "event_token": "#{event_token}",
+  "event_token": "#{event_token_claimant}",
   "ignore_warning": false,
   "case_reference": "#{caseId}"
 }
