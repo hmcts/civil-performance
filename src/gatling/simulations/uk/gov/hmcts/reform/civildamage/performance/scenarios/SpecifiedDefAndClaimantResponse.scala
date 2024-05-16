@@ -14,6 +14,7 @@ object SpecifiedDefAndClaimantResponse {
   val MinThinkTime = Environment.minThinkTime
   val MaxThinkTime = Environment.maxThinkTime
   val postcodeFeeder = csv("postcodes.csv").random
+ 
   
   //def run(implicit postHeaders: Map[String, String]): ChainBuilder = {
   /*======================================================================================
@@ -395,7 +396,6 @@ object SpecifiedDefAndClaimantResponse {
   
   val RespondToDefence =
     
-    
     group("Civil_CreateClaim_330_BackToCaseDetailsPage") {
       
       exec(_.setAll(
@@ -426,8 +426,8 @@ object SpecifiedDefAndClaimantResponse {
             .headers(CivilDamagesHeader.headers_notify)
             .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-start-event-trigger.v2+json;charset=UTF-8")
             .check(substring("CLAIMANT_RESPONSE_SPEC"))
-            .check(jsonPath("$.case_fields[0].value.partyID").saveAs("repPartyID"))
-            .check(jsonPath("$.case_fields[0].value.partyName").saveAs("partyName"))
+            .check(jsonPath("$.case_fields[3].value.partyID").saveAs("repPartyID"))
+            .check(jsonPath("$.case_fields[3].value.partyName").saveAs("partyName"))
             .check(jsonPath("$..formatted_value.documentLink.document_url").saveAs("document_url"))
             .check(jsonPath("$..formatted_value.documentLink.document_filename").saveAs("document_filename"))
             .check(jsonPath("$..formatted_value.documentSize").saveAs("document_size"))
@@ -626,7 +626,7 @@ object SpecifiedDefAndClaimantResponse {
         )
           
           .exec { session =>
-            val fw = new BufferedWriter(new FileWriter("RequestForReconsiderCases.csv", true))
+            val fw = new BufferedWriter(new FileWriter("Flightdelay.csv", true))
             try {
               fw.write(session("caseId").as[String] + "\r\n")
             } finally fw.close()
