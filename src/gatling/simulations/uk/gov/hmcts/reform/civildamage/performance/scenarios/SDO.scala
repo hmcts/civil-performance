@@ -423,7 +423,6 @@ object SDO {
             .check(status.in(200, 201, 304)))
       }
       
-      
       /*======================================================================================
            * Create Civil Claim - Click on Tasks Tab
     ==========================================================================================*/
@@ -1286,7 +1285,7 @@ object SDO {
             .post(BaseURL + "/workallocation/case/task/#{caseId}")
             .headers(CivilDamagesHeader.MoneyClaimNav)
             .body(ElFileBody("bodies/sdorequestforreconsider/TaskTab.json"))
-            .check(jsonPath("$[0].id").saveAs("JudgeId"))
+            .check(jsonPath("$[0].id").saveAs("JudgeIdregion4"))
           )
     
         }

@@ -1,6 +1,6 @@
 {
   "data": {
-    "calculatedInterest": "| Description | Amount | \n |---|---| \n | Claim amount | £ 900 | \n | Interest amount | £ 0 | \n | Total amount | £ 900 |"
+    "calculatedInterest": "| Description | Amount | \n |---|---| \n | Claim amount | £ 3000 | \n | Interest amount | £ 0 | \n | Total amount | £ 3000 |"
   },
   "event": {
     "id": "CREATE_CLAIM_SPEC",
@@ -132,17 +132,17 @@
       {
         "value": {
           "claimReason": "asasasa",
-          "claimAmount": "90000"
+          "claimAmount": "300000"
         },
         "id": "ebc2b919-1464-4917-9d00-8f65f8918b29"
       }
     ],
-    "claimAmountBreakupSummaryObject": "| Description | Amount | \n |---|---| \n | asasasa | £ 900.00 |\n  | **Total** | £ 900.00 |",
-    "totalClaimAmount": "900",
+    "claimAmountBreakupSummaryObject": "| Description | Amount | \n |---|---| \n | asasasa | £ 3000.00 |\n  | **Total** | £ 3000.00 |",
+    "totalClaimAmount": "3000",
     "totalInterest": null,
     "CaseAccessCategory": null,
     "claimInterest": "No",
-    "calculatedInterest": "| Description | Amount | \n |---|---| \n | Claim amount | £ 900 | \n | Interest amount | £ 0 | \n | Total amount | £ 900 |"
+    "calculatedInterest": "| Description | Amount | \n |---|---| \n | Claim amount | £ 3000 | \n | Interest amount | £ 0 | \n | Total amount | £ 3000 |"
   },
   "event_token": "#{event_token}",
   "ignore_warning": false
