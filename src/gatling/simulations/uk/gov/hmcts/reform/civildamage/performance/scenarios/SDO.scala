@@ -1027,13 +1027,6 @@ object SDO {
           .header("accept", "application/json")
           .check(substring("task_required_for_event"))
         )
-  
-          .exec(http("Civil_SDOE_RFRByC_050_020_RequestForReConsider")
-            .get(BaseURL + "/data/internal/profile")
-            .headers(CivilDamagesHeader.MoneyClaimNav)
-            .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-user-profile.v2+json;charset=UTF-8")
-            .check(substring("Civil"))
-          )
         
       }
       .pause(MinThinkTime, MaxThinkTime)
@@ -1070,7 +1063,7 @@ object SDO {
           .body(ElFileBody("bodies/sdorequestforreconsider/SDORFRByClaimantSubmit.json"))
           .check(substring("CASE_PROGRESSION"))
         )
-          .exec(http("Civil_SDOE_RRByC_070_010_RFRSubmit")
+          .exec(http("Civil_SDOE_RFRByC_070_010_RFRSubmit")
             .get("/ data/internal/cases/#{caseId}")
             .headers(CivilDamagesHeader.MoneyClaimPostHeader)
             .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-case-view.v2+json")
@@ -1119,6 +1112,7 @@ object SDO {
         
       }
         .pause(MinThinkTime, MaxThinkTime)
+        .pause(20)
       /*======================================================================================
            * Create Civil Claim - Click on Tasks Tab
     ==========================================================================================*/
@@ -1129,7 +1123,7 @@ object SDO {
           .headers(CivilDamagesHeader.MoneyClaimNav)
           .header("accept", "application/json, text/plain, */*")
           .body(ElFileBody("bodies/sdorequestforreconsider/TaskTab.json"))
-          .check(jsonPath("$[0].id").saveAs("JudgeIdregion4"))
+          .check(jsonPath("$[0].id").saveAs("JudgeIdregion4Decision"))
         )
         
       }
@@ -1140,7 +1134,7 @@ object SDO {
       //  val returntocasedetailsafternotifydetails =
       .group("Civil_SDOE_RFRDecisionByJudge_60_AssignToMe") {
         exec(http("Civil_SDOE_RFRDecisionByJudge_60_005_AssignToMe")
-          .post("/workallocation/task/#{JudgeIdregion4}/claim")
+          .post("/workallocation/task/#{JudgeIdregion4Decision}/claim")
           .headers(CivilDamagesHeader.MoneyClaimPostHeader)
           .header("accept", "application/json, text/plain, */*")
           .body(ElFileBody("bodies/sdoflightdelay/AssignToMe.json"))
@@ -1159,7 +1153,7 @@ object SDO {
       // val returntocasedetailsafternotifydetails =
       .group("Civil_SDOE_RFRDecisionByJudge_70_DecisionOnRFRC") {
         exec(http("Civil_SDOE_RFRDecisionByJudge_70_005_DecisionOnRFRC")
-          .get("/cases/case-details/#{caseId}/trigger/DECISION_ON_RECONSIDERATION_REQUEST/DECISION_ON_RECONSIDERATION_REQUEST?tid=#{JudgeIdregion4}")
+          .get("/cases/case-details/#{caseId}/trigger/DECISION_ON_RECONSIDERATION_REQUEST/DECISION_ON_RECONSIDERATION_REQUEST?tid=#{JudgeIdregion4Decision}")
           .headers(CivilDamagesHeader.headers_notify)
           .header("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7")
           .check(status.in(200, 201, 204, 304))
@@ -1226,7 +1220,7 @@ object SDO {
         )
   
         .exec(http("Civil_SDOE_RFRDecisionByJudge_90_010_DecisionOnRFRSubmit")
-          .post("/workallocation/task/#{JudgeIdregion4}/complete")
+          .post("/workallocation/task/#{JudgeIdregion4Decision}/complete")
           .headers(CivilDamagesHeader.MoneyClaimDefPostHeader)
           .header("accept", "application/json")
           .header("X-Xsrf-Token", "#{XSRFToken}")

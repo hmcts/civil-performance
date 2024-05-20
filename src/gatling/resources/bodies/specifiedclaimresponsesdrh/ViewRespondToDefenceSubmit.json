@@ -83,7 +83,7 @@
     "applicant1DQRequestedCourt": {
       "responseCourtLocations": {
         "value": {
-          "code": "4c80aad3-4812-4cc2-8cb9-dd5f4231154ee",
+          "code": "4c80aad3-4812-4cc2-8cb9-dd5f423704ee",
           "label": "Blackpool County Court & Family Court - The Law Courts, Civic Centre, Chapel Street - FY1 5RJ"
         },
         "list_items": [
@@ -96,12 +96,12 @@
             "label": "Aldershot Justice Centre - The Court House, Civic Centre, Wellington Avenue - GU11 1NY"
           },
           {
-            "code": "592614cb-eea5-40f1-abbf-7300073e96874",
+            "code": "592614cb-eea5-40f1-abbf-790073e96874",
             "label": "Barnet Civil and Family Centre - St Mary's Court, Regents Park Road - N3 1BQ"
           },
           {
             "code": "a4bc198d-fc0d-44d8-8a25-698981a98c9e",
-            "label": "Barnsley Law Courts - The Court House, Westgate - S115 2DW"
+            "label": "Barnsley Law Courts - The Court House, Westgate - S70 2DW"
           },
           {
             "code": "56c9b440-a76c-4e6f-9abd-feca2138c7a0",
@@ -124,7 +124,7 @@
             "label": "Bath Law Courts - The Law Courts, North Parade Road - BA1 5AF"
           },
           {
-            "code": "90599e38-b3b5-4763-a107-e4a115ccf1000",
+            "code": "90599e38-b3b5-4763-a107-e4a70ccf1000",
             "label": "Bedford County Court and Family Court - Shire Hall, St. Paul's Square, Bedford - MK40 1SQ"
           },
           {
@@ -152,7 +152,7 @@
             "label": "Bodmin Law Courts - Launceston Road - PL31 2AL"
           },
           {
-            "code": "493911555-88fd-4091-823c-4871cfceae3a",
+            "code": "49397055-88fd-4091-823c-4871cfceae3a",
             "label": "Boston Courthouse - Norfolk Street - PE21 6PE"
           },
           {
@@ -164,7 +164,7 @@
             "label": "Bradford Combined Court Centre - The Law Courts, Exchange Square, Drake Street - BD1 1JA"
           },
           {
-            "code": "7cf4a966-c2fd-4d54-a743-e08fa64431154",
+            "code": "7cf4a966-c2fd-4d54-a743-e08fa6443704",
             "label": "Brentford County and Family Court - Alexandra Road, High Street - TW8 0JJ"
           },
           {
@@ -220,7 +220,7 @@
             "label": "Chelmsford County and Family Court - Priory Place, New London Road - CM2 0PP"
           },
           {
-            "code": "eb3d4089-a1154-41bb-ac46-463b5aa0fb89",
+            "code": "eb3d4089-a704-41bb-ac46-463b5aa0fb89",
             "label": "Chester Civil and Family Justice Centre - Trident House, Little St John Street - CH1 1SN"
           },
           {
@@ -264,7 +264,7 @@
             "label": "Dudley County (and Magistrates) Court - The Court House, The Inhedge - DY1 1RY"
           },
           {
-            "code": "6e50d4115-fd99-4080-8897-576897e7b34a",
+            "code": "6e50d470-fd99-4080-8897-576897e7b34a",
             "label": "Durham County and Tribunal Centre - Green Lane, Old Elvet - DH1 3RG"
           },
           {
@@ -276,7 +276,7 @@
             "label": "Exeter Combined Court Centre - Southernhay Gardens, Exeter - EX1 1UH"
           },
           {
-            "code": "12b1115d8-b5eb-4d16-b844-e67e1d05f848",
+            "code": "12b170d8-b5eb-4d16-b844-e67e1d05f848",
             "label": "Gateshead Law Courts (Gateshead Magistrates and County) - Warwick Street - NE8 1DT"
           },
           {
@@ -352,7 +352,7 @@
             "label": "Leeds Combined Court Centre - The Court House, 1 Oxford Row - LS1 3BG"
           },
           {
-            "code": "115905e18-331e-4a32-9c98-f48bfcec39a3",
+            "code": "70905e18-331e-4a32-9c98-f48bfcec39a3",
             "label": "Leicester County Court - 90 Wellington Street, Leicester - LE1 6HG"
           },
           {
@@ -388,7 +388,7 @@
             "label": "Mansfield Magistrates' and County Court - Rosemary Street - NG19 6EE"
           },
           {
-            "code": "7a4a71bd-3c09-4115b-b0fc-38638057c6ec",
+            "code": "7a4a71bd-3c09-470b-b0fc-38638057c6ec",
             "label": "Mayor's and City of London Court - Guildhall Buildings, Basinghall Street, London - EC2V 5AR"
           },
           {
@@ -416,7 +416,7 @@
             "label": "Newcastle Civil & Family Courts and Tribunals Centre - Barras Bridge, Newcastle-Upon-Tyne - NE1 8QF"
           },
           {
-            "code": "4cc71928-68115-47d4-8960-cadf125fea8a",
+            "code": "4cc71928-6870-47d4-8960-cadf125fea8a",
             "label": "Newport (South Wales) County Court and Family Court - The Concourse, Clarence House, Clarence Place, Newport, Gwent - NP19 7AA"
           },
           {
@@ -424,7 +424,7 @@
             "label": "North Shields County Court and Family Court - 2nd Floor, Kings Court, Earl Grey Way, Royal Quays - NE29 6AR"
           },
           {
-            "code": "05ea0968-4341-46c9-bc115-80160bd3fdd5",
+            "code": "05ea0968-4341-46c9-bc70-80160bd3fdd5",
             "label": "Northampton Combined Court - 85 - 87 Lady's Lane, Northampton - NN1 3HQ"
           },
           {
@@ -516,7 +516,7 @@
             "label": "St Helens County Court and Family Court - Corporation Street - WA10 1SZ"
           },
           {
-            "code": "acf7f37b-54b5-446f-b115c-2d8c8feeee27",
+            "code": "acf7f37b-54b5-446f-b70c-2d8c8feeee27",
             "label": "Stafford Combined Court Centre - Victoria Square - ST16 2QQ"
           },
           {
@@ -528,7 +528,7 @@
             "label": "Stockport County Court, Family Court and Magistrates Court - The Court House, Edward Street - SK1 3NF"
           },
           {
-            "code": "111575ac0-c5ab-457c-96db-579eede69cfb",
+            "code": "17075ac0-c5ab-457c-96db-579eede69cfb",
             "label": "Stoke-on-Trent Combined Court - Bethesda Street, Hanley - ST1 3BP"
           },
           {
@@ -592,7 +592,7 @@
             "label": "Warwick Combined Court - Warwickshire Justice Centre, Newbold Terrace, Leamington Spa - CV32 4EL"
           },
           {
-            "code": "5115fc532-4850-432c-b7c7-2c485bea2305",
+            "code": "570fc532-4850-432c-b7c7-2c485bea2305",
             "label": "Watford County Court and Family Court - Royalty House, 10 King Street, Watford - WD18 0BW"
           },
           {
@@ -632,7 +632,7 @@
             "label": "Worcester Combined Court - Shire Hall, Foregate Street - WR1 1EQ"
           },
           {
-            "code": "2f9d8e22-ca60-4cdd-8fd3-1511588ee1d50",
+            "code": "2f9d8e22-ca60-4cdd-8fd3-157088ee1d50",
             "label": "Worthing Law Courts - The Law Courts, Christchurch Road - BN11 1JD"
           },
           {

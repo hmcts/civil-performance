@@ -626,7 +626,7 @@ object SpecifiedDefAndClaimantResponseDRH {
         )
           
           .exec { session =>
-            val fw = new BufferedWriter(new FileWriter("RRCCases.csv", true))
+            val fw = new BufferedWriter(new FileWriter("RFRCases.csv", true))
             try {
               fw.write(session("caseId").as[String] + "\r\n")
             } finally fw.close()

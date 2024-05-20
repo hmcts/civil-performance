@@ -219,34 +219,34 @@ class CivilDamagesSimulation extends Simulation {
 		.feed(loginFeeder)
 		.exitBlockOnFail {
 			//CUI claim creation
-		//	exec(Homepage.XUIHomePage)
-			//	.exec(Login.XUILogin)
-			//	.exec(FlightDelaySpecifiedClaimCreation.run)
-			//	.pause(50)
+			exec(Homepage.XUIHomePage)
+				.exec(Login.XUILogin)
+				.exec(FlightDelaySpecifiedClaimCreation.run)
+				.pause(50)
 				/*
 				below are the alternative payment
 				 */
-				//	.exec(S2S.s2s("ccd_data"))
-			//	.exec(IdamLogin.GetIdamToken)
-				//	.exec(S2S.s2s("xui_webapp"))
-				//	.exec(S2S.s2s("civil_service"))
-				//	.exec(IdamLogin.GetIdamTokenPayments)
-			//	.exec(ClaimCreationLRvsLR.civilAddPayment)
+				/*	.exec(S2S.s2s("ccd_data"))
+				.exec(IdamLogin.GetIdamToken)
+					.exec(S2S.s2s("xui_webapp"))
+					.exec(S2S.s2s("civil_service"))
+					.exec(IdamLogin.GetIdamTokenPayments)
+				.exec(ClaimCreationLRvsLR.civilAddPayment)*/
 				
 				
 				// PBS payment
-		//		.exec(FlightDelaySpecifiedClaimCreation.PBSPayment)
-			//	.pause(50)
-			//	.exec(CivilAssignCase.run)
-			//	.exec(Logout.XUILogout)
+				.exec(FlightDelaySpecifiedClaimCreation.PBSPayment)
+				.pause(50)
+				.exec(CivilAssignCase.run)
+				.exec(Logout.XUILogout)
 				/*
 				following are for defendant response
 				 */
-				//.exec(EXUIMCLogin.manageCasesHomePage)
-			//	.exec(EXUIMCLogin.manageCasesloginToDefendantJourney)
-			//	.exec(SpecifiedDefAndClaimantResponse.RespondToClaim)
-			//	.exec(EXUIMCLogin.manageCase_Logout)
-			//	.pause(20)*/
+				.exec(EXUIMCLogin.manageCasesHomePage)
+				.exec(EXUIMCLogin.manageCasesloginToDefendantJourney)
+				.exec(SpecifiedDefAndClaimantResponse.RespondToClaim)
+				.exec(EXUIMCLogin.manageCase_Logout)
+			//	.pause(20)
 			feed(viewandresponsefeeder)
 				.exec(Homepage.XUIHomePage)
 				.exec(Login.XUILogin)
@@ -401,32 +401,33 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 	val CivilCaseDataPrep = scenario("Create Civil damage")
 		.feed(loginFeeder)//.feed(casesfordefresponseFeeder)
 		.exitBlockOnFail {
-			exec(_.set("env", s"${env}"))
+		/*	exec(_.set("env", s"${env}"))
 			.exec(Homepage.XUIHomePage)
 				.exec(Login.XUILogin)
-				.exec(ClaimCreationLRvsLR.run)
+				.exec(ClaimCreationLRvsLR.run)*/
 			//	.exec(S2S.s2s("ccd_data"))
 				//.exec(IdamLogin.GetIdamToken)
 		//	.exec(S2S.s2s("xui_webapp"))
 			//	.exec(S2S.s2s("civil_service"))
 			//	.exec(IdamLogin.GetIdamTokenPayments)
-				.exec(ClaimCreationLRvsLR.addPBAPayment)
+				/*.exec(ClaimCreationLRvsLR.addPBAPayment)
 				.pause(50)
 				.exec(ClaimCreationLRvsLR.notifyClaim)
 				.exec(CivilAssignCase.run)
-				.exec(EXUIMCLogin.manageCase_Logout)
-				.exec(EXUIMCLogin.manageCasesHomePage)
+				.exec(EXUIMCLogin.manageCase_Logout)*/
+				feed(assigncasesFeeder)
+			/*	.exec(EXUIMCLogin.manageCasesHomePage)
 				.exec(EXUIMCLogin.manageCasesloginToDefendantJourney)
 				.exec(ClaimCreationLRvsLR.RespondToClaim)
 				.exec(EXUIMCLogin.manageCase_Logout)
-				.pause(20)
+				.pause(20)*/
 				.exec(Homepage.XUIHomePage)
 				.exec(Login.XUILogin)
 				.exec(ClaimCreationLRvsLR.RespondToDefence)
 			.exec(EXUIMCLogin.manageCase_Logout)
-				.exec(EXUIMCLogin.manageCasesHomePage)
+			/*	.exec(EXUIMCLogin.manageCasesHomePage)
 				.exec(EXUIMCLogin.manageCasesloginToJudgeJourney)
-				.exec(ClaimCreationLRvsLR.SDO)
+				.exec(ClaimCreationLRvsLR.SDO)*/
 			
 		}
 	
@@ -585,21 +586,20 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 		SDOEnhancementsFastTrack.inject(nothingFor(10),rampUsers(15) during (3600)),
 		SDOEnhancementsFlightDelay.inject(nothingFor(50),rampUsers(15) during (3600)),
 		SDOEnhancementsDRH.inject(nothingFor(100),rampUsers(15) during (3600)),
-		SDORequestForReConsider.inject(nothingFor(150),rampUsers(11) during (3600))
+		SDORequestForReConsider.inject(nothingFor(150),rampUsers(12) during (3600))
 		
 	//	CivilUIClaimCreationScenario.inject(nothingFor(1),rampUsers(1) during (1))
 	//		PBAServiceScenario.inject(nothingFor(1),rampUsers(1) during (1))
-	//	CivilCaseAssignScenario.inject(nothingFor(1),rampUsers(1) during (1))
+	//	CivilCaseAssignScenario.inject(nothingFor(1),rampUsers(18) during (300))
 	//		RequestForReConsiderScenario.inject(nothingFor(1),rampUsers(25) during (1800))
-		//		ClaimCreationDRHScenario.inject(nothingFor(1),rampUsers(25) during (1800))
+		//		ClaimCreationDRHScenario.inject(nothingFor(1),rampUsers(20) during (1200))
 	//	FlightDelayClaimCreationScenario.inject(nothingFor(1),rampUsers(25) during (1800))
 		/*CivilUIClaimCreationScenario.inject(nothingFor(5),rampUsers(90) during (3600)),
 			CivilUIDefAndIntentScenario.inject(nothingFor(30),rampUsers(20) during (3600))*/
-			//	CivilAssignScenario.inject(nothingFor(1),rampUsers(18) during (300))
 
 	//	CivilCaseProg.inject(nothingFor(5),rampUsers(1) during (650))
 		//CivilCaseProg.inject(nothingFor(1),rampUsers(12) during (2700))
-	//CivilCaseDataPrep.inject(nothingFor(1),rampUsers(4000) during (10000))
+	//CivilCaseDataPrep.inject(nothingFor(1),rampUsers(18) during (600))
 	//	STCitizen.inject(nothingFor(1),rampUsers(1) during (2700))
 		//CivilDamageScenario.inject(nothingFor(1),rampUsers(1) during (2))
 ).protocols(httpProtocol)
