@@ -7,9 +7,9 @@ object Environment {
 
   val httpConfig = scala.util.Properties.envOrElse("httpConfig", "http")
   val baseURL = "https://manage-case.perftest.platform.hmcts.net"
-  val citizenURL = "https://sptribs-frontend.perftest.platform.hmcts.net"
+  val citizenURL = "https://civil-citizen-ui.perftest.platform.hmcts.net"
   val baseDomain = scala.util.Properties.envOrElse("baseDomain", "manage-case.perftest.platform.hmcts.net")
-  val PaymentURL = scala.util.Properties.envOrElse("paymentURL", "https://www.payments.service.gov.uk")
+  val PaymentURL = scala.util.Properties.envOrElse("paymentURL", "https://card.payments.service.gov.uk")
   val idamURL = "https://idam-web-public.perftest.platform.hmcts.net"
   val idamAPIURL = "https://idam-api.perftest.platform.hmcts.net"
   val exuiDomain="manage-case.perftest.platform.hmcts.net"
