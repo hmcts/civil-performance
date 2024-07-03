@@ -29,8 +29,7 @@ object DefendantResponse {
     )
   }
     .pause(MinThinkTime, MaxThinkTime)
-  
-  
+    
     /*======================================================================================
                        * Civil UI Claim - Sign In
     ==============================================================================================*/
@@ -47,8 +46,6 @@ object DefendantResponse {
       )
     }
     .pause(MinThinkTime, MaxThinkTime)
-
-    
     /*======================================================================================
                    * Civil UI Claim - Respond to Claim- Click On Claim
         ==========================================================================================*/
@@ -65,7 +62,6 @@ object DefendantResponse {
     /*======================================================================================
                * Civil UI Claim - Respond to Claim
     ==========================================================================================*/
-
     .group("CUI_DefResponse_040_LanguagePreference") {
       exec(http("CUI_DefResponse_040_005_LanguagePreference")
         .get(CivilUiURL + "/case/#{caseId}/response/bilingual-language-preference")

@@ -19,7 +19,7 @@ object CivilCitizen {
   val caseFeeder=csv("caseIds.csv").circular
 
   /*======================================================================================
-             * Click On pay from Service Page
+             * Civil Citizen R2 Claim creation
   ==========================================================================================*/
   val run=
 
@@ -36,7 +36,7 @@ object CivilCitizen {
 
     //val startCitizen =
     /*======================================================================================
-                 * Civil Citizen - Home Page
+                 * Civil Citizen UI R2 - Home Page
       ==========================================================================================*/
     .group("Civil_Citizen_010_HomePage") {
       exec(http("Civil_Citizen_010_005_HomePage")
