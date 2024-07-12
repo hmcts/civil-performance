@@ -9,34 +9,29 @@ import io.gatling.core.controller.inject.open.OpenInjectionStep
 import scala.swing.event.Key.Home
 import io.gatling.core.pause.PauseType
 import io.gatling.http
+import io.gatling.http.Predef.flushHttpCache
 
 import scala.concurrent.duration.DurationInt
 
 
 class CivilDamagesSimulation extends Simulation {
   
-  val BaseURL = Environment.baseURL
+  val BaseURL = Environment.citizenURL
   val loginFeeder = csv("login.csv").circular
 	val stFeeder = csv("loginSt.csv").circular
-	val defresponsecasesFeeder=csv("caseIds.csv").circular
-	val sol7casesFeeder=csv("caseIdsSol7.csv").circular
-	val sol8casesFeeder=csv("caseIdsSol8.csv").circular
-	val defresponsecasesTrialFeeder=csv("caseIdsTrial.csv").circular
-	val casesfordefresponseFeeder=csv("CivilCreatedCaseIds.csv").circular
-	val sol7casesTrialFeeder=csv("caseIdsSol7Trial.csv").circular
-	val sol8casesTrialFeeder=csv("caseIdsSol8Trial.csv").circular
-	val pbacasesfeeder=csv("pbacases.csv").circular
-	val assigncasesFeeder=csv("assigncasesfeeder.csv").circular
-	val sdoRFRFeeder=csv("sdorfrcases.csv").circular
-	val viewandresponsefeeder = csv("viewandresponsecases.csv").circular
+	val defresponsecasesFeeder=csv("defResponseDetails.csv").circular
+	val claimantIntentioncasesFeeder=csv("claimantIntentionDetails.csv").circular
+	val assigncasesFeeder=csv("caseIds.csv").circular
+	//val viewAndResponseFeeder=csv("claimantcaseIds.csv").circular
+	
+	
 	
 	
   val httpProtocol = Environment.HttpProtocol
-    .baseUrl(BaseURL)
-   // .doNotTrackHeader("1")
-   // .inferHtmlResources()
-    .silentResources
-		.header("Experimental", "true")
+		.baseUrl(BaseURL)
+		.doNotTrackHeader("1")
+		.inferHtmlResources(DenyList("https://card.payments.service.gov.uk/.*"))
+		.silentResources
 
 	implicit val postHeaders: Map[String, String] = Map(
 		"Origin" -> BaseURL
@@ -92,181 +87,18 @@ class CivilDamagesSimulation extends Simulation {
   // below scenario is for user data creation
   val UserCreationScenario = scenario("CMC User Creation")
     .exec(
-      CreateUser.CreateCitizen("citizen")
+      CreateUser.CreateClaimantCitizen
         .pause(20)
     )
   
   //below scenario is to generate claims data for GA process
 		
-	val CivilUIClaimCreationScenario = scenario("Create Civil UI Claim")
-		.feed(loginFeeder)
-		.exitBlockOnFail {
-			//CUI claim creation
-			exec(Homepage.XUIHomePage)
-				.exec(Login.XUILogin)
-				.exec(CUIClaimCreation.run)
-				// PBS payment
-				.exec(CUIClaimCreation.PBSPayment)
-				.pause(50)
-				.exec(CivilAssignCase.run)
-				.exec(Logout.XUILogout)
-				/*
-			defendant and clamant intent journey for specidied cases starts here
-				 */
-				.exec(EXUIMCLogin.manageCasesHomePage)
-        .exec(EXUIMCLogin.manageCasesloginToDefendantJourney)
-        .exec(SpecifiedDefAndClaimantResponse.RespondToClaim)
-        .exec(EXUIMCLogin.manageCase_Logout)
-        .pause(20)
-        .exec(Homepage.XUIHomePage)
-        .exec(Login.XUILogin)
-        .exec(SpecifiedDefAndClaimantResponse.RespondToDefence)
-        .exec(EXUIMCLogin.manageCase_Logout)
-			
-		}
-	
-	//below scenario is to generate claims data for Request For Reconsider
-	
-	val RequestForReConsiderScenario = scenario("Create Civil UI Claim")
-		.feed(loginFeeder)
-		.exitBlockOnFail {
-			//CUI claim creation
-			exec(Homepage.XUIHomePage)
-				.exec(Login.XUILogin)
-				.exec(CUIClaimCreationForSmallClaimDRH.run)
-				// PBS payment
-				.exec(CUIClaimCreation.PBSPayment)
-				.pause(50)
-				.exec(CivilAssignCase.run)
-				.exec(Logout.XUILogout)
-				/*
-      defendant and clamant intent journey for specidied cases starts here
-         */
-				.exec(EXUIMCLogin.manageCasesHomePage)
-				.exec(EXUIMCLogin.manageCasesloginToDefendantJourney)
-				.exec(SpecifiedDefAndClaimantResponseDRH.RespondToClaim)
-				.exec(EXUIMCLogin.manageCase_Logout)
-				.pause(20)
-				.exec(Homepage.XUIHomePage)
-				.exec(Login.XUILogin)
-				.exec(SpecifiedDefAndClaimantResponseDRH.RespondToDefence)
-				.exec(EXUIMCLogin.manageCase_Logout)
-			
-		}
 	
 	
-	//below scenario is to generate claims data for Request For Reconsider
 	
-	val ClaimCreationDRHScenario = scenario("Create Civil UI Claim")
-		.feed(loginFeeder)
-		.exitBlockOnFail {
-			//CUI claim creation
-			exec(Homepage.XUIHomePage)
-				.exec(Login.XUILogin)
-				.exec(CUIClaimCreationForSmallClaimDRH.run)
-				// PBS payment
-				.exec(CUIClaimCreation.PBSPayment)
-				.pause(50)
-				.exec(CivilAssignCase.run)
-				.exec(Logout.XUILogout)
-				/*
-      defendant and clamant intent journey for specidied cases starts here
-         */
-				.exec(EXUIMCLogin.manageCasesHomePage)
-				.exec(EXUIMCLogin.manageCasesloginToDefendantJourney)
-				.exec(SpecifiedDefAndClaimantResponseDRH.RespondToClaim)
-				.exec(EXUIMCLogin.manageCase_Logout)
-				.pause(20)
-				.exec(Homepage.XUIHomePage)
-				.exec(Login.XUILogin)
-				.exec(SpecifiedDefAndClaimantResponseDRH.RespondToDefence)
-				.exec(EXUIMCLogin.manageCase_Logout)
-			
-		}
 	
-	//just to test pba payment
+
 	
-	val PBAServiceScenario = scenario("PBA Service")
-		.feed(loginFeeder).feed(pbacasesfeeder)
-		.exitBlockOnFail {
-			//CUI claim creation
-			exec(Homepage.XUIHomePage)
-				.exec(Login.XUILogin)
-			
-				// PBS payment
-				.exec(CUIClaimCreation.PBSPayment)
-				.pause(50)
-			/*	.exec(CivilAssignCase.run)
-				.exec(Logout.XUILogout)
-				/*
-      defendant and clamant intent journey for specidied cases starts here
-         */
-				.exec(EXUIMCLogin.manageCasesHomePage)
-				.exec(EXUIMCLogin.manageCasesloginToDefendantJourney)
-				.exec(SpecifiedDefAndClaimantResponse.RespondToClaim)
-				.exec(EXUIMCLogin.manageCase_Logout)
-				.pause(20)
-				.exec(Homepage.XUIHomePage)
-				.exec(Login.XUILogin)
-				.exec(SpecifiedDefAndClaimantResponse.RespondToDefence)
-				.exec(EXUIMCLogin.manageCase_Logout)*/
-			
-		}
-	
-	//below scenario is to generate claims data for GA process
-	
-	val FlightDelayClaimCreationScenario = scenario("Create Flight Delay Claim")
-		.feed(loginFeeder)
-		.exitBlockOnFail {
-			//CUI claim creation
-			exec(Homepage.XUIHomePage)
-				.exec(Login.XUILogin)
-				.exec(FlightDelaySpecifiedClaimCreation.run)
-				.pause(50)
-				/*
-				below are the alternative payment
-				 */
-				/*	.exec(S2S.s2s("ccd_data"))
-				.exec(IdamLogin.GetIdamToken)
-					.exec(S2S.s2s("xui_webapp"))
-					.exec(S2S.s2s("civil_service"))
-					.exec(IdamLogin.GetIdamTokenPayments)
-				.exec(ClaimCreationLRvsLR.civilAddPayment)*/
-				
-				
-				// PBS payment
-				.exec(FlightDelaySpecifiedClaimCreation.PBSPayment)
-				.pause(50)
-				.exec(CivilAssignCase.run)
-				.exec(Logout.XUILogout)
-				/*
-				following are for defendant response
-				 */
-				.exec(EXUIMCLogin.manageCasesHomePage)
-				.exec(EXUIMCLogin.manageCasesloginToDefendantJourney)
-				.exec(SpecifiedDefAndClaimantResponse.RespondToClaim)
-				.exec(EXUIMCLogin.manageCase_Logout)
-			//	.pause(20)
-			feed(viewandresponsefeeder)
-				.exec(Homepage.XUIHomePage)
-				.exec(Login.XUILogin)
-				.exec(SpecifiedDefAndClaimantResponse.RespondToDefence)
-				.exec(EXUIMCLogin.manageCase_Logout)
-		}
-	
-	val CivilUIDefAndIntentScenario = scenario(" Civil UI Case Def and Intent")
-		.feed(loginFeeder).feed(defresponsecasesFeeder)
-		.exitBlockOnFail {
-				//Defendant response
-				exec(DefendantResponse.run)
-					.pause(20)
-			//claimant intention
-				 .exec(Homepage.XUIHomePage)
-				.exec(Login.XUILogin)
-				.exec(ClaimantIntention.claimantintention)
-					.pause(20)
-				.exec(Logout.XUILogout)
-		}
 	
 	
 	/*
@@ -274,314 +106,56 @@ class CivilDamagesSimulation extends Simulation {
 	 */
 	
 	val CivilUIR2ClaimCreationScenario = scenario(" Civil UI R2 Claim Creation")
-		
+	
 		.exitBlockOnFail {
+			
 			//Claim Creation
-			
-			exec(CUIR2HomePage.CUIR2HomePage)
+			exec(CreateUser.CreateClaimantCitizen)
+			.exec(CreateUser.CreateDefCitizen)
+			.exec(CUIR2HomePage.CUIR2HomePage)
 			.exec(CUIR2Login.CUIR2Login)
-			
-				//claimant intention
-			/*	.exec(Homepage.XUIHomePage)
-				.exec(Login.XUILogin)
-				.exec(ClaimantIntention.claimantintention)
-				.pause(20)
-				.exec(Logout.XUILogout)*/
+				.exec(CUIR2ClaimCreation.run)
+				.exec(CUIR2Logout.CUILogout)
 		}
-		
-		
-	
-	
 	
 	/*
-    Step 2: login to manage org as defendant solicitor to assign the case to other users from defendant solicitor firm
-   
-     */
-	/*	.exec(EXUIMCLogin.manageOrgHomePage)
-		.exec(EXUIMCLogin.manageOrglogin)
-		.exec(EXUI_AssignCase.run)
-		.exec(EXUIMCLogin.manageOrg_Logout)
-		.pause(50)
+#######################  CUI R2 Defendant Response ############################################
+*/
+	
+	val CivilUIR2DefResponseScenario = scenario(" Civil UI R2 Defendant Response")
+		.feed(defresponsecasesFeeder)
+		.exitBlockOnFail {
+			exec(CUIR2HomePage.CUIR2HomePage)
+				.exec(CUIR2Login.CUIR2DefLogin)
+			.exec(CUIR2DefendantResponse.run)
+				.exec(CUIR2Logout.CUILogout)
+					}
+	
 	/*
-Step 3: login as defendant user  and complete the defendant journey and logout
-
+#######################  CUI R2 Claimant Intention ############################################
  */
-		
-		.exec(EXUIMCLogin.manageCasesHomePage)
-		.exec(EXUIMCLogin.manageCasesloginToDefendantJourney)
-		.exec(DefendantResponse.run)
-		.pause(50)
-		.exec(EXUIMCLogin.manageCase_Logout)
-		
-		/*
-	 Step 4: below is the journey for response to defendant by claimant
-		*/
-		.exec(EXUIMCLogin.manageCasesHomePage)
-		.exec(EXUIMCLogin.manageCaseslogin)
-		.exec(ClaimResponseToDefendant.run)
-		.pause(50)
-		.exec(EXUIMCLogin.manageCase_Logout)
-		*/
 	
-	/*======================================================================================
-  Below scenario is for creating the test data for GA Application
-  ======================================================================================*/
-	val CivilDamageScenario = scenario("Create Civil Cases For GA to Test")
-		.feed(loginFeeder)
-		.repeat(1) {
-			exitBlockOnFail {
-				feed(defresponsecasesFeeder)
-				.exec(EXUIMCLogin.manageCasesHomePage)
-					.exec(EXUIMCLogin.manageCaseslogin)
-					.exec(ClaimCreationLRvsLR.run)
-				.exec(CivilAssignCase.run)
-			
-			}
-		}
-	
-
-	val CivilStrikeOut = scenario("Manually trigger strike out")
-		.feed(loginFeeder)
+	val CivilUIR2ClaimantIntentionScenario = scenario(" Civil UI R2 Claimant Intention")
+		.feed(claimantIntentioncasesFeeder)
 		.exitBlockOnFail {
-			feed(defresponsecasesFeeder)
-		//	.exec(EXUIMCLogin.manageCasesHomePage)
-		//		.exec(EXUIMCLogin.manageCasesloginToCentreAdminJourney)
-		//		.exec(CaseProgression.HearingNotice)
-		//		.exec(EXUIMCLogin.manageCase_Logout)
-
-			.exec(CaseProgression.StrikeOut)
-
-		}
-
-	val CivilCaseProg = scenario("Create Civil damage")
-		.feed(loginFeeder)
-	.exitBlockOnFail {
-		exec(EXUIMCLogin.manageCasesHomePage)
-		//	.exec(EXUIMCLogin.manageCasesloginToCentreAdminJourney)
-	//		.doSwitch("#{claimantuser}")(
-	//			"civil.damages.claims+organisation.1.solicitor.1@gmail.com" -> feed(defresponsecasesFeeder),
-	//			"hmcts.civil+organisation.1.solicitor.7@mailinator.com" -> feed(sol7casesFeeder),
-	//			"hmcts.civil+organisation.1.solicitor.8@mailinator.com" -> feed(sol8casesFeeder)
-	//		)
-		//	.exec(CaseProgression.HearingNotice)
-		//	.exec(EXUIMCLogin.manageCase_Logout)
-
-				//		}
-				//	.exitBlockOnFail {
-
-			//	.exec(EXUIMCLogin.manageCasesHomePage)
-			//	.exec(EXUIMCLogin.manageCasesloginToDefendantJourney)
-		//		.exec(CaseProgression.EvidenceUploadDefendant)
-		//		.exec(EXUIMCLogin.manageCase_Logout)
-				//}
-
-				//	.exitBlockOnFail {
-				.exec(EXUIMCLogin.manageCasesHomePage)
-				.exec(EXUIMCLogin.manageCaseslogin)
-		//		.exec(CaseProgression.EvidenceUploadClaimant)
-
-		//		.exec(CaseProgression.CaseFileView)
-
-		//		.exec(CaseProgression.HearingFee)
-
-		//		.exec(CaseProgression.BundleCreationIntegration)
-							.doSwitch("#{claimantuser}")(
-				"civil.damages.claims+organisation.1.solicitor.1@gmail.com" -> feed(defresponsecasesTrialFeeder),
-				"hmcts.civil+organisation.1.solicitor.7@mailinator.com" -> feed(sol7casesTrialFeeder),
-				"hmcts.civil+organisation.1.solicitor.8@mailinator.com" -> feed(sol8casesTrialFeeder)
-							)
-		//		.exec(CaseProgression.TrialReadiness)
-
-				.exec(EXUIMCLogin.manageCase_Logout)
-				//	}
-
-
-				//	.exitBlockOnFail {
-				.exec(EXUIMCLogin.manageCasesHomePage)
-				.exec(EXUIMCLogin.manageCasesloginToJudgeJourney)
-				.exec(CaseProgression.JudgeCaseNotes)
-		//		.exec(CaseProgression.FinalGeneralOrders)
-				.exec(EXUIMCLogin.manageCase_Logout)
-
-
-
-
-
-
-		}
-
-		.exec {
-			session =>
-				println(session)
-				session
+			//view and response to defendant
+				exec(CUIR2HomePage.CUIR2HomePage)
+          .exec(CUIR2Login.CUIR2ClaimantIntentionLogin)
+        .exec(CUIR2ClaimantIntention.run)
+					.exec(CUIR2Logout.CUILogout)
 		}
 	
 	/*======================================================================================
-  * Below scenario is for cases that are data prep for hearing management.
-  ======================================================================================*/
-	val CivilCaseDataPrep = scenario("Create Civil damage")
-		.feed(loginFeeder)//.feed(casesfordefresponseFeeder)
-		.exitBlockOnFail {
-		/*	exec(_.set("env", s"${env}"))
-			.exec(Homepage.XUIHomePage)
-				.exec(Login.XUILogin)
-				.exec(ClaimCreationLRvsLR.run)*/
-			//	.exec(S2S.s2s("ccd_data"))
-				//.exec(IdamLogin.GetIdamToken)
-		//	.exec(S2S.s2s("xui_webapp"))
-			//	.exec(S2S.s2s("civil_service"))
-			//	.exec(IdamLogin.GetIdamTokenPayments)
-				/*.exec(ClaimCreationLRvsLR.addPBAPayment)
-				.pause(50)
-				.exec(ClaimCreationLRvsLR.notifyClaim)
-				.exec(CivilAssignCase.run)
-				.exec(EXUIMCLogin.manageCase_Logout)*/
-				feed(assigncasesFeeder)
-			/*	.exec(EXUIMCLogin.manageCasesHomePage)
-				.exec(EXUIMCLogin.manageCasesloginToDefendantJourney)
-				.exec(ClaimCreationLRvsLR.RespondToClaim)
-				.exec(EXUIMCLogin.manageCase_Logout)
-				.pause(20)*/
-				.exec(Homepage.XUIHomePage)
-				.exec(Login.XUILogin)
-				.exec(ClaimCreationLRvsLR.RespondToDefence)
-			.exec(EXUIMCLogin.manageCase_Logout)
-			/*	.exec(EXUIMCLogin.manageCasesHomePage)
-				.exec(EXUIMCLogin.manageCasesloginToJudgeJourney)
-				.exec(ClaimCreationLRvsLR.SDO)*/
-			
-		}
-	
-	/*======================================================================================
-* Below scenario is for cases that are data prep for hearing management.
+* Below scenario is for Assign cases to defendant user for CUI R2
 ======================================================================================*/
 	val CivilCaseAssignScenario = scenario("Civil Case Assign")
 		.feed(assigncasesFeeder)
 		.exitBlockOnFail {
 			exec(_.set("env", s"${env}"))
-				.exec(CivilAssignCase.run)
-		}
-	
-	/*======================================================================================
-* Below scenario is for SDO Enhancements Fast Track
-======================================================================================*/
-	val SDOEnhancementsFastTrack = scenario("SDO Enhancements Fast Track")
-		.feed(loginFeeder) //.feed(casesfordefresponseFeeder)
-		.exitBlockOnFail {
-			exec(_.set("env", s"${env}"))
-				.exec(Homepage.XUIHomePage)
-				.exec(Login.XUIJudgeLogin)
-				.exec(SDO.SDOEnhancementFastTrack)
-				.exec(EXUIMCLogin.manageCase_Logout)
-			
-		}
-	
-	/*======================================================================================
-* Below scenario is for SDO Enhancements Fast Track  - Flight Delay
-======================================================================================*/
-	val SDOEnhancementsFlightDelay = scenario("SDO Enhancements Flight Delay")
-		.feed(loginFeeder) //.feed(casesfordefresponseFeeder)
-		.exitBlockOnFail {
-			exec(_.set("env", s"${env}"))
-				.exec(Homepage.XUIHomePage)
-				.exec(Login.XUIJudgeLogin)
-				.exec(SDO.SDOFlightDelay)
-				.exec(EXUIMCLogin.manageCase_Logout)
-			
+				.exec(CivilAssignCase.cuiassign)
 		}
 	
 	
-	/*======================================================================================
-* Below scenario is for SDO Enhancements Small Claims - DRH
-======================================================================================*/
-	val SDOEnhancementsDRH = scenario("SDO Enhancements DRH")
-		.feed(loginFeeder) //.feed(casesfordefresponseFeeder)
-		.exitBlockOnFail {
-			exec(_.set("env", s"${env}"))
-				.exec(Homepage.XUIHomePage)
-				.exec(Login.XUIJudgeRegion4Login)
-				.exec(SDO.SDOSmallClaimsForDRH)
-				.exec(EXUIMCLogin.manageCase_Logout)
-			
-		}
-	
-	/*======================================================================================
-* Below scenario is for SDO Request For Re Consider -
-======================================================================================*/
-	val SDORequestForReConsider = scenario("SDO Request For Reconsider")
-		.feed(loginFeeder) .feed(sdoRFRFeeder)
-		.exitBlockOnFail {
-			exec(_.set("env", s"${env}"))
-				//below login as tribunal user for region 4
-				.exec(Homepage.XUIHomePage)
-				.exec(Login.XUITribunalLogin)//this user is for sdo region 4 tribunal user which is ia requirement for request for reconsider
-				.exec(SDO.SDORequestForReConsiderByTribunal)
-				.exec(EXUIMCLogin.manageCase_Logout)
-			
-				//again login as claimant and request for re consider
-				.exec(Homepage.XUIHomePage)
-				.exec(Login.XUILogin)
-				.exec(SDO.SDORequestForReConsiderFromClaimant)
-				.exec(EXUIMCLogin.manageCase_Logout)
-				.pause(20)
-				
-			// again login as judge and complete
-				.exec(Homepage.XUIHomePage)
-				.exec(Login.XUIJudgeRegion4Login)
-				.exec(SDO.SDODecisionOnRequestForReConsiderByJudge)
-				.pause(20)
-				.exec(SDO.SDORequestForReConsiderByJudge)
-				.exec(EXUIMCLogin.manageCase_Logout)
-		}
-	val STCitizen = scenario("Civil Citizen ST")
-	//	.feed(loginFeeder)
-		.exitBlockOnFail {
-			feed(stFeeder)
-
-			.exec(CivilCitizen.run)
-			.exec(EXUIMCLogin.manageCasesHomePage)
-				.exec(EXUIMCLogin.manageCaseslogin)
-				.exec(STRel3.ChangeStateSubmitted)
-				.exec(STRel3.ContactParties)
-				.exec(STRel3.DocumentUploadAmend)
-				.exec(STRel3.ChangeStateCaseManagement)
-				.exec(STRel3.CloseCase)
-				.exec(STRel3.ChangeStateAwaiting)
-				.exec(STRel3.IssueDecision)
-
-		}
-
-	
-
-		/*/*
-      Step 2: login to manage org as defendant solicitor to assign the case to other users from defendant solicitor firm
-
-       */
-		.exec(EXUIMCLogin.manageOrgHomePage)
-		.exec(EXUIMCLogin.manageOrglogin)
-		.exec(EXUI_AssignCase.run)
-		.exec(EXUIMCLogin.manageOrg_Logout)
-		.pause(50)
-		/*
-  Step 3: login as defendant user  and complete the defendant journey and logout
-
-   */
-
-		.exec(EXUIMCLogin.manageCasesHomePage)
-		.exec(EXUIMCLogin.manageCasesloginToDefendantJourney)
-		.exec(DefendantResponse.run)
-		.pause(50)
-		.exec(EXUIMCLogin.manageCase_Logout)
-
-		/*
-	 Step 4: below is the journey for response to defendant by claimant
-		*/
-		.exec(EXUIMCLogin.manageCasesHomePage)
-		.exec(EXUIMCLogin.manageCaseslogin)
-		.exec(ClaimResponseToDefendant.run)
-		.pause(50)
-		.exec(EXUIMCLogin.manageCase_Logout)
-*/
 
 	//defines the Gatling simulation model, based on the inputs
 	def simulationProfile(simulationType: String, numberOfPerformanceTestUsers: Double, numberOfPipelineUsers: Double): Seq[OpenInjectionStep] = {
@@ -589,7 +163,7 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 			case "perftest" =>
 				if (debugMode == "off") {
 					Seq(
-						rampUsers(numberOfPerformanceTestUsers.toInt) during (testDurationMins minutes)
+						rampUsers(numberOfPerformanceTestUsers.toInt) during (testDurationMins)
 					)
 				}
 				else {
@@ -602,33 +176,13 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 		}
 	}
 	
-	
 	setUp(
-		/*SDOEnhancementsFastTrack.inject(nothingFor(10),rampUsers(15) during (3600)),
-		SDOEnhancementsFlightDelay.inject(nothingFor(50),rampUsers(15) during (3600)),
-		SDOEnhancementsDRH.inject(nothingFor(100),rampUsers(15) during (3600)),
-		SDORequestForReConsider.inject(nothingFor(150),rampUsers(12) during (3600))*/
-			CivilUIR2ClaimCreationScenario.inject(nothingFor(1),rampUsers(1) during (1))
-		
-	//	CivilUIClaimCreationScenario.inject(nothingFor(1),rampUsers(1) during (1))
-	//		PBAServiceScenario.inject(nothingFor(1),rampUsers(1) during (1))
-	//	CivilCaseAssignScenario.inject(nothingFor(1),rampUsers(18) during (300))
-	//		RequestForReConsiderScenario.inject(nothingFor(1),rampUsers(25) during (1800))
-		//		ClaimCreationDRHScenario.inject(nothingFor(1),rampUsers(20) during (1200))
-	//	FlightDelayClaimCreationScenario.inject(nothingFor(1),rampUsers(25) during (1800))
-		/*CivilUIClaimCreationScenario.inject(nothingFor(5),rampUsers(90) during (3600)),
-			CivilUIDefAndIntentScenario.inject(nothingFor(30),rampUsers(20) during (3600))*/
-
-	//	CivilCaseProg.inject(nothingFor(5),rampUsers(1) during (650))
-		//CivilCaseProg.inject(nothingFor(1),rampUsers(12) during (2700))
-	//CivilCaseDataPrep.inject(nothingFor(1),rampUsers(18) during (600))
-	//	STCitizen.inject(nothingFor(1),rampUsers(1) during (2700))
-		//CivilDamageScenario.inject(nothingFor(1),rampUsers(1) during (2))
+		CivilUIR2ClaimCreationScenario.inject(nothingFor(1),rampUsers(1) during (1)),
+		CivilUIR2DefResponseScenario.inject(nothingFor(30),rampUsers(1) during (10)),
+		CivilUIR2ClaimantIntentionScenario.inject(nothingFor(50),rampUsers(1) during (100))
+	//	CivilCaseAssignScenario.inject(nothingFor(1),rampUsers(125) during (600))
 ).protocols(httpProtocol)
 	
-	/*setUp(
-		CivilUIClaimCreationScenario.inject(simulationProfile(testType, claimsTargetPerHour, numberOfPipelineUsers)).pauses(pauseOption)
-		//CivilUIDefAndIntentScenario.inject(simulationProfile(testType, defResponseAndIntentTargetPerHour, numberOfPipelineUsers)).pauses(pauseOption)
-	).protocols(httpProtocol)*/
+
 	
 }
