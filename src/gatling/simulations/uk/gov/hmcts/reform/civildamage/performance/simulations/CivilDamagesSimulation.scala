@@ -177,9 +177,9 @@ class CivilDamagesSimulation extends Simulation {
 	}
 	
 	setUp(
-		CivilUIR2ClaimCreationScenario.inject(nothingFor(1),rampUsers(1) during (1)),
-		CivilUIR2DefResponseScenario.inject(nothingFor(30),rampUsers(1) during (10)),
-		CivilUIR2ClaimantIntentionScenario.inject(nothingFor(50),rampUsers(1) during (100))
+		CivilUIR2ClaimCreationScenario.inject(nothingFor(1),rampUsers(115) during (3600)),
+		CivilUIR2DefResponseScenario.inject(nothingFor(30),rampUsers(100) during (3600)),
+		CivilUIR2ClaimantIntentionScenario.inject(nothingFor(50),rampUsers(25) during (3600))
 	//	CivilCaseAssignScenario.inject(nothingFor(1),rampUsers(125) during (600))
 ).protocols(httpProtocol)
 	
