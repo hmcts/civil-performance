@@ -102,7 +102,7 @@ class CivilDamagesSimulation extends Simulation {
 	
 	
 	/*
-	#######################  CUI R2 Claim Creation ############################################
+	#######################  CUI R2 Claim Creation Scenario ############################################
 	 */
 	
 	val CivilUIR2ClaimCreationScenario = scenario(" Civil UI R2 Claim Creation")
@@ -177,10 +177,10 @@ class CivilDamagesSimulation extends Simulation {
 	}
 	
 	setUp(
-		CivilUIR2ClaimCreationScenario.inject(nothingFor(1),rampUsers(115) during (3600)),
-		CivilUIR2DefResponseScenario.inject(nothingFor(30),rampUsers(100) during (3600)),
-		CivilUIR2ClaimantIntentionScenario.inject(nothingFor(50),rampUsers(25) during (3600))
-	//	CivilCaseAssignScenario.inject(nothingFor(1),rampUsers(125) during (600))
+		CivilUIR2ClaimCreationScenario.inject(nothingFor(1),rampUsers(120) during (3600)),
+		CivilUIR2DefResponseScenario.inject(nothingFor(3),rampUsers(105) during (3600)),
+	CivilUIR2ClaimantIntentionScenario.inject(nothingFor(50),rampUsers(25) during (3600))
+		//CivilCaseAssignScenario.inject(nothingFor(1),rampUsers(1) during (1))
 ).protocols(httpProtocol)
 	
 

@@ -657,7 +657,7 @@ object CUIR2DefendantResponse {
    * Civil UI Claim - Check and submit your response Redirect
 ==========================================================================================*/
 
-    .group("CUIR2_DefResponse_380_CheckYourAnswers") {
+   .group("CUIR2_DefResponse_380_CheckYourAnswers") {
       exec(http("CUIR2_DefResponse_380_005_CheckYourAnswers")
         .get(CivilUiURL + "/case/#{caseId}/response/check-and-send")
         .headers(CivilDamagesHeader.CUIR2Get)

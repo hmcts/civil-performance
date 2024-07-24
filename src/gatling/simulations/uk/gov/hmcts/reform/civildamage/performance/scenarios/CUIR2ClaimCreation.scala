@@ -616,6 +616,14 @@ object CUIR2ClaimCreation {
           .check(substring("You have completed 6 of 7 sections")))
       }
       .pause(MinThinkTime, MaxThinkTime)
+  
+      .exec { session =>
+        val fw = new BufferedWriter(new FileWriter("CUIDefUserDetails.csv", true))
+        try {
+          fw.write(session("claimantEmailAddress").as[String] + "," + session("defEmailAddress").as[String] + "," + session("password").as[String]  + "\r\n")
+        } finally fw.close()
+        session
+      }
      
   
       /*======================================================================================
@@ -745,6 +753,5 @@ object CUIR2ClaimCreation {
          session
        }
   
-     
   
 }
