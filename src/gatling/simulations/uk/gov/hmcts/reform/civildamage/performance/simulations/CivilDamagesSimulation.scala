@@ -114,7 +114,9 @@ class CivilDamagesSimulation extends Simulation {
 			.exec(CreateUser.CreateDefCitizen)
 			.exec(CUIR2HomePage.CUIR2HomePage)
 			.exec(CUIR2Login.CUIR2Login)
+				//.repeat (3){
 				.exec(CUIR2ClaimCreation.run)
+				//} To create 3 claims per defendant
 				.exec(CUIR2Logout.CUILogout)
 		}
 	
