@@ -617,19 +617,13 @@ object CUIR2ClaimCreation {
       }
       .pause(MinThinkTime, MaxThinkTime)
   
-      /*.exec { session =>
-        val fw = new BufferedWriter(new FileWriter("CUIDefUserDetails.csv", true))
-        try {
-          fw.write(session("claimantEmailAddress").as[String] + "," + session("defEmailAddress").as[String] + "," + session("password").as[String]  + "\r\n")
-        } finally fw.close()
-        session
-      }*/
+     
      
   
       /*======================================================================================
                * Civil Citizen -  2.Prepare your claim - CheckAndSendGet
     ==========================================================================================*/
-      .group("CUIR2_Claimant_410_CheckAndSendGet") {
+     .group("CUIR2_Claimant_410_CheckAndSendGet") {
         exec(http("CUIR2_Claimant_410_005_CheckAndSendGet")
           .get("/claim/check-and-send")
           .headers(CivilDamagesHeader.CUIR2Get)
@@ -752,6 +746,5 @@ object CUIR2ClaimCreation {
          } finally fw.close()
          session
        }
-  
   
 }

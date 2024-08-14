@@ -110,12 +110,14 @@ class CivilDamagesSimulation extends Simulation {
 		.exitBlockOnFail {
 			
 			//Claim Creation
-			exec(CreateUser.CreateClaimantCitizen)
-			.exec(CreateUser.CreateDefCitizen)
-			.exec(CUIR2HomePage.CUIR2HomePage)
-			.exec(CUIR2Login.CUIR2Login)
-				.exec(CUIR2ClaimCreation.run)
-				.exec(CUIR2Logout.CUILogout)
+			exec(CreateUser.CreateDefCitizen)
+				.repeat(3) {
+					exec(CreateUser.CreateClaimantCitizen)
+						.exec(CUIR2HomePage.CUIR2HomePage)
+						.exec(CUIR2Login.CUIR2Login)
+						.exec(CUIR2ClaimCreation.run)
+						.exec(CUIR2Logout.CUILogout)
+				}
 		}
 	
 	/*
@@ -177,12 +179,9 @@ class CivilDamagesSimulation extends Simulation {
 	}
 	
 	setUp(
-		CivilUIR2ClaimCreationScenario.inject(nothingFor(1),rampUsers(120) during (3600)),
-		CivilUIR2DefResponseScenario.inject(nothingFor(3),rampUsers(105) during (3600)),
+		CivilUIR2ClaimCreationScenario.inject(nothingFor(1),rampUsers(115) during (3600)),
+		CivilUIR2DefResponseScenario.inject(nothingFor(3),rampUsers(100) during (3600)),
 	CivilUIR2ClaimantIntentionScenario.inject(nothingFor(50),rampUsers(25) during (3600))
-		//CivilCaseAssignScenario.inject(nothingFor(1),rampUsers(1) during (1))
+	//	CivilCaseAssignScenario.inject(nothingFor(1),rampUsers(1) during (1))
 ).protocols(httpProtocol)
-	
-
-	
 }
