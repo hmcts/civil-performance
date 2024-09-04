@@ -17,6 +17,7 @@ class CivilDamagesSimulation extends Simulation {
   
   val BaseURL = Environment.baseURL
   val loginFeeder = csv("login.csv").circular
+	val cpLoginFeeder = csv("cplogin.csv").circular
 	val stFeeder = csv("loginSt.csv").circular
 	val defresponsecasesFeeder=csv("caseIds.csv").circular
 	val sol7casesFeeder=csv("caseIdsSol7.csv").circular
@@ -505,6 +506,42 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 			
 		}
 	
+	
+	/*======================================================================================
+* Below scenario is for SDO  Small Claims - CUI R2 Civil
+======================================================================================*/
+	val SDOSmallClaimsCUIR2= scenario("SDO For CUIR2 Claims")
+		.feed(loginFeeder) //.feed(casesfordefresponseFeeder)
+		.exitBlockOnFail {
+			exec(_.set("env", s"${env}"))
+				.exec(Homepage.XUIHomePage)
+				.exec(Login.XUIJudgeLogin)
+				.exec(SDOCivilProg.SDOSmallClaimsForCUIR2)
+				.exec(EXUIMCLogin.manageCase_Logout)
+			
+		}
+	
+	
+	/*======================================================================================
+* Below scenario is for   Small Claims - CUI R2 Civil Case progression -Full Scenario
+======================================================================================*/
+	val CUIR2SmallClaimsCaseProgression = scenario("SDO For CUIR2 CaseProgression Small Claims")
+		.feed(cpLoginFeeder) //.feed(casesfordefresponseFeeder)
+		.exitBlockOnFail {
+			exec(_.set("env", s"${env}"))
+				//Following is for creating the hearing notice for small claims
+				/*.exec(Homepage.XUIHomePage)
+				.exec(Login.XUICenterAdminLogin)
+				.exec(CUIR2CaseProgression.HearingNotice)
+				.exec(EXUIMCLogin.manageCase_Logout)*/
+			//Following is For creating the Final Order For Smaill Claims
+				.exec(Homepage.XUIHomePage)
+				.exec(Login.XUIJudgeLogin)
+				.exec(CUIR2CaseProgression.FinalGeneralOrders)
+				.exec(EXUIMCLogin.manageCase_Logout)
+			
+		}
+	
 	/*======================================================================================
 * Below scenario is for SDO Request For Re Consider -
 ======================================================================================*/
@@ -608,7 +645,9 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 		SDOEnhancementsFlightDelay.inject(nothingFor(50),rampUsers(15) during (3600)),
 		SDOEnhancementsDRH.inject(nothingFor(100),rampUsers(15) during (3600)),
 		SDORequestForReConsider.inject(nothingFor(150),rampUsers(12) during (3600))*/
-			CivilUIR2ClaimCreationScenario.inject(nothingFor(1),rampUsers(1) during (1))
+	//	SDOSmallClaimsCUIR2.inject(nothingFor(1),rampUsers(1) during (10)),
+		CUIR2SmallClaimsCaseProgression.inject(nothingFor(1),rampUsers(1) during (1)),
+		//	CivilUIR2ClaimCreationScenario.inject(nothingFor(1),rampUsers(1) during (1))
 		
 	//	CivilUIClaimCreationScenario.inject(nothingFor(1),rampUsers(1) during (1))
 	//		PBAServiceScenario.inject(nothingFor(1),rampUsers(1) during (1))
