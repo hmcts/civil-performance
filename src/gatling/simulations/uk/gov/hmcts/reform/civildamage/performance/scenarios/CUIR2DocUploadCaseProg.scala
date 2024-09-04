@@ -3,10 +3,7 @@ package uk.gov.hmcts.reform.civildamage.performance.scenarios
 
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
-import uk.gov.hmcts.reform.civildamage.performance.scenarios.CivilCitizen.MaxThinkTime
 import uk.gov.hmcts.reform.civildamage.performance.scenarios.utils.{CivilDamagesHeader, Common, CsrfCheck, Environment}
-
-import java.io.{BufferedWriter, FileWriter}
 
 object CUIR2DocUploadCaseProg {
 
@@ -109,8 +106,8 @@ object CUIR2DocUploadCaseProg {
           .header("sec-fetch-dest", "")
           .header("sec-fetch-mode", "cors")
           .header("csrf-token", "#{csrf}")
-          .bodyPart(RawFileBodyPart("file", "1MB-c.pdf")
-            .fileName("1MB-c.pdf")
+          .bodyPart(RawFileBodyPart("file", "3MB.pdf")
+            .fileName("3MB.pdf")
             .transferEncoding("binary"))
           .asMultipartForm
           .check(
@@ -136,7 +133,7 @@ object CUIR2DocUploadCaseProg {
     ==========================================================================================*/
     .group("CUICP_Claimant_UploadDocs_080_UploadDocsContinue") {
       exec(http("CUICP_Claimant_UploadDocs_080_005_UploadDocsContinue")
-        .post("/case/#{caseId}/case-progression/upload-documents")
+        .post(CitizenURL+"/case/#{caseId}/case-progression/upload-documents")
         .headers(CivilDamagesHeader.CivilCitizenPost)
         .header("Content-Type", "application/x-www-form-urlencoded") // Ensure form-encoded data
   
@@ -312,7 +309,7 @@ object CUIR2DocUploadCaseProg {
   ==========================================================================================*/
     .group("CUICP_Def_UploadDocs_080_UploadDocsContinue") {
       exec(http("CUICP_Def_UploadDocs_080_005_UploadDocsContinue")
-        .post("/case/#{caseId}/case-progression/upload-documents")
+        .post(CitizenURL+"/case/#{caseId}/case-progression/upload-documents")
         .headers(CivilDamagesHeader.CivilCitizenPost)
         .header("Content-Type", "application/x-www-form-urlencoded") // Ensure form-encoded data
       
@@ -371,7 +368,7 @@ object CUIR2DocUploadCaseProg {
     group("CUICP_Claimant_HearingPay_100_ClickOnHearingPay") {
       exec(http("CUICP_Claimant_HearingPay_100_005_ClickOnHearingPay")
         .get(CitizenURL + "/case/#{caseId}/case-progression/pay-hearing-fee")
-        .headers(CivilDamagesHeader.CUIR2Get)
+        .headers(CivilDamagesHeader.MoneyClaimNavHeader)
         .check(CsrfCheck.save)
         .check(substring("Pay hearing fee")))
     }
@@ -384,7 +381,7 @@ object CUIR2DocUploadCaseProg {
   .group("CUICP_Claimant_HearingPay_110_StartHearingPayment") {
     exec(http("CUICP_Claimant_110_005_StartHearingPayment")
       .get(CitizenURL + "/case/#{caseId}/case-progression/pay-hearing-fee/apply-help-fee-selection")
-      .headers(CivilDamagesHeader.CUIR2Get)
+      .headers(CivilDamagesHeader.MoneyClaimNavHeader)
       .check(CsrfCheck.save)
       .check(substring("Pay hearing fee")))
   }
@@ -397,7 +394,7 @@ object CUIR2DocUploadCaseProg {
     .group("CUICP_Claimant_HearingPay_120_ContinueToPayPost") {
       exec(http("CUICP_Claimant_HearingPay_120_005_ContinueToPay")
         .post(CitizenURL + "/case/#{caseId}/case-progression/pay-hearing-fee/apply-help-fee-selection")
-        .headers(CivilDamagesHeader.CUIR2Post)
+        .headers(CivilDamagesHeader.CivilCitizenPost)
         .formParam("_csrf", "#{csrf}")
         .formParam("option", "no")
         //.check(CsrfCheck.save)
@@ -457,7 +454,7 @@ object CUIR2DocUploadCaseProg {
     group("CUICP_Claimant_ViewHearings_150_ViewOrdersAndNotices") {
       exec(http("CUICP_Claimant_ViewHearings_150_005_ViewOrderNotices")
         .get(CitizenURL + "/case/#{caseId}/view-orders-and-notices")
-        .headers(CivilDamagesHeader.CUIR2Get)
+        .headers(CivilDamagesHeader.MoneyClaimNavHeader)
         .check(substring("View orders and notices")))
     }
       .pause(MinThinkTime, MaxThinkTime)
@@ -472,7 +469,7 @@ object CUIR2DocUploadCaseProg {
     group("CUICP_Claimant_ViewDocs_160_ViewUploadedDocuments") {
       exec(http("CUICP_Claimant_ViewHearings_160_005_ViewUploadedDocuments")
         .get(CitizenURL + "/case/#{caseId}/evidence-upload-documents")
-        .headers(CivilDamagesHeader.CUIR2Get)
+        .headers(CivilDamagesHeader.MoneyClaimNavHeader)
         .check(substring("View documents")))
     }
       .pause(MinThinkTime, MaxThinkTime)
