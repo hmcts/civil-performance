@@ -14,6 +14,7 @@ object SDOCivilProg {
   val MaxThinkTime = Environment.maxThinkTime
 
   val sdoenhancementsfasttrackfeeder=csv("sdoftcaseIds.csv").circular
+  val sdofasttrackcuir2=csv("sdofasttrackcuir2Ids.csv").circular
   val sdoflightdelayfeeder=csv("sdoflightdelaycaseIds.csv").circular
   val sdodrhfeeder=csv("sdodrhcaseIds.csv").circular
   

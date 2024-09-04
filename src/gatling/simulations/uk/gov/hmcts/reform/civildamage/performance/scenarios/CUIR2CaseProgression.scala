@@ -17,15 +17,15 @@ object CUIR2CaseProgression {
   val MaxThinkTime = Environment.maxThinkTime
 
   val caseFeeder=csv("caseIds.csv").circular
-  val cpfulltestFeeder=csv("cpcaseIds.csv").circular
+  val cpfulltestFeeder=csv("cuir2cpsmallclaims.csv").circular
   
 
   /*======================================================================================
          HearingNotice - Centre Admin
 ==========================================================================================*/
   val HearingNotice =
-    feed(cpfulltestFeeder)
-    .exec(_.setAll(
+   // feed(cpfulltestFeeder)
+    exec(_.setAll(
       "CaseProgRandomString" -> Common.randomString(5),
       "Plus2WeeksDay" -> Common.getPlus2WeeksDay(),
       "Plus2WeeksMonth" -> Common.getPlus2WeeksMonth(),
@@ -174,8 +174,8 @@ object CUIR2CaseProgression {
   
   
   val FinalGeneralOrders =
-    feed(cpfulltestFeeder)
-    .exec(_.setAll(
+    //feed(cpfulltestFeeder)
+    exec(_.setAll(
       "CaseProgRandomString" -> Common.randomString(5),
       "EvidenceYear" -> Common.getCurrentYear(),
       "EvidenceMonth" -> Common.getCurrentMonth(),
