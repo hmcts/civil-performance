@@ -30,7 +30,7 @@ class CivilDamagesSimulation extends Simulation {
   val httpProtocol = Environment.HttpProtocol
 		.baseUrl(BaseURL)
 		.doNotTrackHeader("1")
-		.inferHtmlResources(DenyList("https://card.payments.service.gov.uk/.*"))
+		//.inferHtmlResources(DenyList("https://card.payments.service.gov.uk/.*"))
 		.silentResources
 
 	implicit val postHeaders: Map[String, String] = Map(
@@ -102,7 +102,7 @@ class CivilDamagesSimulation extends Simulation {
 	
 	
 	/*
-	#######################  CUI R2 Claim Creation Scenario ############################################
+	#######################  CUI R2 Claim Creation Scenario Small Claim ############################################
 	 */
 	
 	val CivilUIR2ClaimCreationScenario = scenario(" Civil UI R2 Claim Creation")
@@ -117,9 +117,32 @@ class CivilDamagesSimulation extends Simulation {
 						.exec(CUIR2Login.CUIR2Login)
 						.exec(CUIR2ClaimCreation.run)
 						.exec(CUIR2Logout.CUILogout)
+						//.exec(CivilAssignCase.cuiassign)
 				}
 
 		}
+	
+	/*
+#######################  CUI R2 Claim Creation Scenario Large Claim ############################################
+ */
+	
+	val CivilUIR2ClaimCreationFTScenario = scenario(" Civil UI R2 Claim Creation Fast Track")
+		
+		.exitBlockOnFail {
+			
+			//Claim Creation
+			exec(CreateUser.CreateDefCitizen)
+				.repeat(1) {
+					exec(CreateUser.CreateClaimantCitizen)
+						.exec(CUIR2HomePage.CUIR2HomePage)
+						.exec(CUIR2Login.CUIR2Login)
+						.exec(CUIR2ClaimCreationCaseProgFastTrack.run)
+						.exec(CUIR2Logout.CUILogout)
+					//.exec(CivilAssignCase.cuiassign)
+				}
+			
+		}
+	
 	
 	/*
 #######################  CUI R2 Defendant Response ############################################
@@ -134,6 +157,33 @@ class CivilDamagesSimulation extends Simulation {
 				.exec(CUIR2Logout.CUILogout)
 					}
 	
+	
+	/*
+#######################  CUI R2 Defendant Response ############################################
+*/
+	
+	val CivilUIR2DefResponseCaseProgScenario = scenario(" Civil UI R2 Defendant Response")
+		.feed(defresponsecasesFeeder)
+		.exitBlockOnFail {
+			exec(CUIR2HomePage.CUIR2HomePage)
+				.exec(CUIR2Login.CUIR2DefLogin)
+				.exec(CUIR2DefendantResponseCaseProg.run)
+				.exec(CUIR2Logout.CUILogout)
+		}
+	
+	/*
+#######################  CUI R2 Defendant Response ############################################
+*/
+	
+	val CivilUIR2DefResponseCaseProgFastTrackScenario = scenario(" Civil UI R2 Defendant Response Case prog Fast Track")
+		.feed(defresponsecasesFeeder)
+		.exitBlockOnFail {
+			exec(CUIR2HomePage.CUIR2HomePage)
+				.exec(CUIR2Login.CUIR2DefLogin)
+				.exec(CUIR2DefendantResponseCaseProgFastTrack.run)
+				.exec(CUIR2Logout.CUILogout)
+		}
+	
 	/*
 #######################  CUI R2 Claimant Intention ############################################
  */
@@ -147,6 +197,60 @@ class CivilDamagesSimulation extends Simulation {
         .exec(CUIR2ClaimantIntention.run)
 					.exec(CUIR2Logout.CUILogout)
 		}
+	
+	/*
+#######################  CUI R2 Claimant Intention For Case Prog ############################################
+*/
+	
+	val CivilUIR2ClaimantIntentionCaseProgScenario = scenario(" Civil UI R2 Claimant Intention for CaseProg")
+		.feed(claimantIntentioncasesFeeder)
+		.exitBlockOnFail {
+			//view and response to defendant
+			exec(CUIR2HomePage.CUIR2HomePage)
+				.exec(CUIR2Login.CUIR2ClaimantIntentionLogin)
+				.exec(CUIR2ClaimantIntentionCaseProg.run)
+				.exec(CUIR2Logout.CUILogout)
+		}
+	
+	
+	
+	
+	/*
+#######################  CUI R2 Case Prog File Upload ############################################
+*/
+	
+	val CivilUIR2CaseProgScenario = scenario(" Civil UI R2 Case Prog Scenario")
+		.feed(claimantIntentioncasesFeeder)
+		.exitBlockOnFail {
+			//Below is for upload claimant evidence
+		/*	exec(CUIR2HomePage.CUIR2HomePage)
+				.exec(CUIR2Login.CUIR2ClaimantIntentionLogin)
+				.exec(CUIR2DocUploadCaseProg.CaseProgUploadDocsByClaimant)
+				.pause(10)
+				.exec(CUIR2DocUploadCaseProg.viewUploadedDocuments)
+				.exec(CUIR2Logout.CUILogout)
+				.pause(10)
+				
+				//below is the defendant upload documents
+			.exec(CUIR2HomePage.CUIR2HomePage)
+				.exec(CUIR2Login.CUIR2DefLogin)
+				.exec(CUIR2DocUploadCaseProg.CaseProgUploadDocsByDefendant)
+				.pause(10)
+				.exec(CUIR2DocUploadCaseProg.viewUploadedDocuments)
+				.exec(CUIR2Logout.CUILogout)
+				.pause(10)*/
+			
+			  exec(CUIR2HomePage.CUIR2HomePage)
+				.exec(CUIR2Login.CUIR2ClaimantIntentionLogin)
+				.exec(CUIR2DocUploadCaseProg.viewOrderandNotices)
+				.pause(10)
+				.exec(CUIR2DocUploadCaseProg.viewUploadedDocuments)
+				.pause(10)
+				.exec(CUIR2DocUploadCaseProg.payHearingFee)
+				.exec(CUIR2Logout.CUILogout)
+			
+		}
+	
 	
 	/*======================================================================================
 * Below scenario is for Assign cases to defendant user for CUI R2
@@ -180,9 +284,14 @@ class CivilDamagesSimulation extends Simulation {
 	}
 	
 	setUp(
-		CivilUIR2ClaimCreationScenario.inject(nothingFor(1),rampUsers(115) during (3600)),
-		CivilUIR2DefResponseScenario.inject(nothingFor(3),rampUsers(100) during (3600)),
-	CivilUIR2ClaimantIntentionScenario.inject(nothingFor(50),rampUsers(25) during (3600))
-	//	CivilCaseAssignScenario.inject(nothingFor(1),rampUsers(1) during (1))
+	//	CivilUIR2ClaimCreationScenario.inject(nothingFor(1),rampUsers(30) during (300)),
+	//	CivilUIR2ClaimCreationFTScenario.inject(nothingFor(1),rampUsers(5) during (30)),
+		//CivilUIR2DefResponseScenario.inject(nothingFor(3),rampUsers(1) during (1)),
+	//	CivilUIR2DefResponseCaseProgScenario.inject(nothingFor(3),rampUsers(3) during (50)),
+		CivilUIR2DefResponseCaseProgFastTrackScenario.inject(nothingFor(3),rampUsers(1) during (1)),
+//	CivilUIR2ClaimantIntentionScenario.inject(nothingFor(50),rampUsers(25) during (3600))
+	//	CivilUIR2ClaimantIntentionCaseProgScenario.inject(nothingFor(5),rampUsers(28) during (300))
+		//	CivilUIR2CaseProgScenario.inject(nothingFor(5),rampUsers(1) during (1))
+		CivilCaseAssignScenario.inject(nothingFor(1),rampUsers(5) during (20))
 ).protocols(httpProtocol)
 }

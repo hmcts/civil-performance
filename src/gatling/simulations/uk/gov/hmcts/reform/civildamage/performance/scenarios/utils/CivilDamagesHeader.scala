@@ -314,9 +314,6 @@ object CivilDamagesHeader {
   "Request-Id"   -> "|${requestId}.\"+Common.getRequestId()",
   "X-Xsrf-Token" -> "${XSRFToken}")
  
- 
- 
- 
 
  
  
