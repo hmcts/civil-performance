@@ -2,7 +2,7 @@
   "data": {
     "claimsTrack": "smallClaimsTrack",
     "smallClaims": [
-      "smallClaimDisputeResolutionHearing"
+      "smallClaimRoadTrafficAccident"
     ]
   },
   "event": {
@@ -16,10 +16,11 @@
     "featureToggleWA": "Prod",
     "claimsTrack": "smallClaimsTrack",
     "smallClaims": [
-      "smallClaimDisputeResolutionHearing"
+      "smallClaimRoadTrafficAccident"
     ]
   },
   "event_token": "#{event_token}",
   "ignore_warning": false,
   "case_reference": "#{caseId}"
 }
+
