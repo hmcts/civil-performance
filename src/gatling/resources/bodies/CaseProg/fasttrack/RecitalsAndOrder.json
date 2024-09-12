@@ -1,0 +1,32 @@
+
+{
+  "data": {
+    "freeFormRecordedTextArea": "sdsdsdsd",
+    "freeFormOrderedTextArea": "sdsdsds",
+    "orderOnCourtsList": "ORDER_ON_COURT_INITIATIVE",
+    "freeFormHearingNotes": "asasasa",
+    "orderOnCourtInitiative": {
+      "onInitiativeSelectionTextArea": "As this order was made on the court's own initiative any party affected by the order may apply to set aside, vary or stay the order. Any such application must be made by 4pm on",
+      "onInitiativeSelectionDate": "2024-09-17"
+    }
+  },
+  "event": {
+    "id": "GENERATE_DIRECTIONS_ORDER",
+    "summary": "",
+    "description": ""
+  },
+  "event_data": {
+    "finalOrderSelection": "FREE_FORM_ORDER",
+    "freeFormRecordedTextArea": "sdsdsdsd",
+    "freeFormOrderedTextArea": "sdsdsds",
+    "orderOnCourtsList": "ORDER_ON_COURT_INITIATIVE",
+    "freeFormHearingNotes": "asasasa",
+    "orderOnCourtInitiative": {
+      "onInitiativeSelectionTextArea": "As this order was made on the court's own initiative any party affected by the order may apply to set aside, vary or stay the order. Any such application must be made by 4pm on",
+      "onInitiativeSelectionDate": "2024-09-17"
+    }
+  },
+  "event_token": "#{event_token}",
+  "ignore_warning": false,
+  "case_reference": "#{caseId}"
+}

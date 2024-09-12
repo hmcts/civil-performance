@@ -87,7 +87,7 @@ object CUIR2CaseProgression {
           .post(BaseURL + "/data/case-types/CIVIL/validate?pageId=HEARING_SCHEDULEDHearingNoticeSelect")
           .headers(CivilDamagesHeader.MoneyClaimPostHeader)
           .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.case-data-validate.v2+json;charset=UTF-8")
-          .body(ElFileBody("bodies/CaseProg/WhatHearingNotice.json"))
+          .body(ElFileBody("bodies/CaseProg/smallclaims/WhatHearingNotice.json"))
           .check(substring("HEARING_SCHEDULEDHearingNoticeSelect"))
         )
 
@@ -104,7 +104,7 @@ object CUIR2CaseProgression {
           .post(BaseURL + "/data/case-types/CIVIL/validate?pageId=HEARING_SCHEDULEDListingOrRelisting")
           .headers(CivilDamagesHeader.MoneyClaimPostHeader)
           .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.case-data-validate.v2+json;charset=UTF-8")
-          .body(ElFileBody("bodies/CaseProg/ListOrRelisting.json"))
+          .body(ElFileBody("bodies/CaseProg/smallclaims/ListOrRelisting.json"))
           .check(substring("listingOrRelisting"))
         )
 
@@ -121,7 +121,7 @@ object CUIR2CaseProgression {
           .post(BaseURL + "/data/case-types/CIVIL/validate?pageId=HEARING_SCHEDULEDHearingDetails")
           .headers(CivilDamagesHeader.MoneyClaimPostHeader)
           .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.case-data-validate.v2+json;charset=UTF-8")
-          .body(ElFileBody("bodies/CaseProg/HearingDetails.json"))
+          .body(ElFileBody("bodies/CaseProg/smallclaims/HearingDetails.json"))
           .check(substring("validate?pageId=HEARING_SCHEDULEDHearingDetails"))
         )
 
@@ -137,7 +137,7 @@ object CUIR2CaseProgression {
           .post(BaseURL + "/data/case-types/CIVIL/validate?pageId=HEARING_SCHEDULEDHearingInformation")
           .headers(CivilDamagesHeader.MoneyClaimPostHeader)
           .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.case-data-validate.v2+json;charset=UTF-8")
-          .body(ElFileBody("bodies/CaseProg/HearingExtraDetails.json"))
+          .body(ElFileBody("bodies/CaseProg/smallclaims/HearingExtraDetails.json"))
           .check(substring("information"))
         )
 
@@ -155,7 +155,155 @@ object CUIR2CaseProgression {
           .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.create-event.v2+json;charset=UTF-8")
           .header("X-Xsrf-Token", "#{XSRFToken}")
           .header("Experimental", "true")
-          .body(ElFileBody("bodies/CaseProg/HearingScheduleSubmit.json"))
+          .body(ElFileBody("bodies/CaseProg/smallclaims/HearingScheduleSubmit.json"))
+          .check(substring("confirmation_header"))
+        )
+          .exec { session =>
+            val fw = new BufferedWriter(new FileWriter("HearingScheduled.csv", true))
+            try {
+              fw.write(session("caseId").as[String] + "\r\n")
+            } finally fw.close()
+            session
+          }
+      }
+      .pause(MinThinkTime, MaxThinkTime)
+  
+  /*======================================================================================
+         HearingNotice - Centre Admin
+==========================================================================================*/
+  val HearingNoticeFastTrack =
+  // feed(cpfulltestFeeder)
+    exec(_.setAll(
+      "CaseProgRandomString" -> Common.randomString(5),
+      "Plus2WeeksDay" -> Common.getPlus2WeeksDay(),
+      "Plus2WeeksMonth" -> Common.getPlus2WeeksMonth(),
+      "Plus2WeeksYear" -> Common.getPlus2WeeksYear(),
+      "EvidenceYear" -> Common.getYear(),
+      "EvidenceDay" -> Common.getDay(),
+      "EvidenceMonth" -> Common.getMonth())
+    )
+      
+      /*======================================================================================
+                        * Civil Progression - Search Case
+      ==========================================================================================*/
+      .group("CivilCPFT_HearingNotice_030_SearchCase") {
+        exec(http("CivilCPFT_HearingNotice_030_SearchCase")
+          .get(BaseURL + "/data/internal/cases/#{caseId}")
+          .headers(CivilDamagesHeader.MoneyClaimNav)
+          .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-case-view.v2+json")
+          .check(substring("Summary")))
+      }
+      .pause(MinThinkTime, MaxThinkTime)
+      
+      /*======================================================================================
+               *  Civil Progression - '	Directions - Hearing Notice
+    ==========================================================================================*/
+      .group("CivilCPFT_HearingNotice_040_ScheduleHearing") {
+        exec(http("CivilCPFT_HearingNotice_040_005_ScheduleHearing")
+          .get("/workallocation/case/tasks/#{caseId}/event/HEARING_SCHEDULED/caseType/CIVIL/jurisdiction/CIVIL")
+          .headers(CivilDamagesHeader.MoneyClaimNav)
+          .header("accept", "application/json")
+          .check(substring("task_required_for_event"))
+        )
+          
+          .exec(http("CivilCPFT_HearingNotice_040_010_ScheduleHearing")
+            .get("/data/internal/cases/#{caseId}/event-triggers/HEARING_SCHEDULED?ignore-warning=false")
+            .headers(CivilDamagesHeader.MoneyClaimNav)
+            .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-start-event-trigger.v2+json;charset=UTF-8")
+            .check(substring("HEARING_SCHEDULED"))
+            .check(jsonPath("$.event_token").saveAs("event_token"))
+          )
+          .exec(getCookieValue(CookieKey("XSRF-TOKEN").withDomain(BaseURL.replace("https://", "")).saveAs("XSRFToken")))
+          
+          .exec(http("CivilCPFT_HearingNotice_040_015_ScheduleHearing")
+            .get("/workallocation/case/tasks/#{caseId}/event/HEARING_SCHEDULED/caseType/CIVIL/jurisdiction/CIVIL")
+            .headers(CivilDamagesHeader.MoneyClaimNav)
+            .header("accept", "application/json")
+            .check(substring("task_required_for_event"))
+          )
+        
+      }
+      .pause(MinThinkTime, MaxThinkTime)
+      
+      
+      
+      /*======================================================================================
+             *  *  Civil Progression - '	What hearing notice do you want to create?
+  ==========================================================================================*/
+      .group("CivilCPFT_HearingNotice_060_WhatHearingNotice") {
+        exec(http("CivilCPFT_HearingNotice_060_005_WhatHearingNotice")
+          .post(BaseURL + "/data/case-types/CIVIL/validate?pageId=HEARING_SCHEDULEDHearingNoticeSelect")
+          .headers(CivilDamagesHeader.MoneyClaimPostHeader)
+          .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.case-data-validate.v2+json;charset=UTF-8")
+          .body(ElFileBody("bodies/CaseProg/fasttrack/WhatHearingNotice.json"))
+          .check(substring("HEARING_SCHEDULEDHearingNoticeSelect"))
+        )
+        
+      }
+      .pause(MinThinkTime, MaxThinkTime)
+      
+      
+      
+      /*======================================================================================
+           *  *  Civil Progression - '	Is this a listing or a relisting?
+==========================================================================================*/
+      .group("CivilCPFT_HearingNotice_070_ListOrRelisting") {
+        exec(http("CivilCP_HearingNotice_070_005_ListOrRelisting")
+          .post(BaseURL + "/data/case-types/CIVIL/validate?pageId=HEARING_SCHEDULEDListingOrRelisting")
+          .headers(CivilDamagesHeader.MoneyClaimPostHeader)
+          .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.case-data-validate.v2+json;charset=UTF-8")
+          .body(ElFileBody("bodies/CaseProg/fasttrack/ListOrRelisting.json"))
+          .check(substring("listingOrRelisting"))
+        )
+        
+      }
+      .pause(MinThinkTime, MaxThinkTime)
+      
+      
+      
+      /*======================================================================================
+         *  *  Civil Progression - '	Hearing Scheduled Details
+==========================================================================================*/
+      .group("CivilCPFT_HearingNotice_080_HearingDetails") {
+        exec(http("CivilCP_HearingNotice_080_005_HearingDetails")
+          .post(BaseURL + "/data/case-types/CIVIL/validate?pageId=HEARING_SCHEDULEDHearingDetails")
+          .headers(CivilDamagesHeader.MoneyClaimPostHeader)
+          .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.case-data-validate.v2+json;charset=UTF-8")
+          .body(ElFileBody("bodies/CaseProg/fasttrack/HearingDetails.json"))
+          .check(substring("validate?pageId=HEARING_SCHEDULEDHearingDetails"))
+        )
+        
+      }
+      .pause(MinThinkTime, MaxThinkTime)
+      
+      
+      /*======================================================================================
+       *  *  Civil Progression - '	Hearing Schedule Extra Details
+==========================================================================================*/
+      .group("CivilCPFT_HearingNotice_090_HearingExtraDetails") {
+        exec(http("CivilCPFT_HearingNotice_090_005_HearingExtraDetails")
+          .post(BaseURL + "/data/case-types/CIVIL/validate?pageId=HEARING_SCHEDULEDHearingInformation")
+          .headers(CivilDamagesHeader.MoneyClaimPostHeader)
+          .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.case-data-validate.v2+json;charset=UTF-8")
+          .body(ElFileBody("bodies/CaseProg/fasttrack/HearingExtraDetails.json"))
+          .check(substring("information"))
+        )
+        
+      }
+      .pause(MinThinkTime, MaxThinkTime)
+      
+      
+      /*======================================================================================
+         *  Civil Progression - '	Hearing Schedule Submit
+==========================================================================================*/
+      .group("CivilCPFT_HearingNotice_100_HearingScheduleSubmit") {
+        exec(http("CivilCPFT_HearingNotice_100_005_HearingScheduleSubmit")
+          .post(BaseURL + "/data/cases/#{caseId}/events")
+          .headers(CivilDamagesHeader.MoneyClaimDefPostHeader)
+          .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.create-event.v2+json;charset=UTF-8")
+          .header("X-Xsrf-Token", "#{XSRFToken}")
+          .header("Experimental", "true")
+          .body(ElFileBody("bodies/CaseProg/fasttrack/HearingScheduleSubmit.json"))
           .check(substring("confirmation_header"))
         )
           .exec { session =>

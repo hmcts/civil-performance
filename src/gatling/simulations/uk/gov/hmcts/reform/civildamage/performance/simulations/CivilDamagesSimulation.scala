@@ -9,6 +9,7 @@ import io.gatling.core.controller.inject.open.OpenInjectionStep
 import scala.swing.event.Key.Home
 import io.gatling.core.pause.PauseType
 import io.gatling.http
+import io.gatling.http.Predef.flushHttpCache
 
 import scala.concurrent.duration.DurationInt
 
@@ -31,12 +32,13 @@ class CivilDamagesSimulation extends Simulation {
 	val sdoRFRFeeder=csv("sdorfrcases.csv").circular
 	val viewandresponsefeeder = csv("viewandresponsecases.csv").circular
 	val cpfulltestsmallclaimsFeeder=csv("cuir2cpsmallclaims.csv").circular
+	val cpfulltestfasttrackFeeder=csv("cuir2cpfasttrack.csv").circular
 	
 	
   val httpProtocol = Environment.HttpProtocol
     .baseUrl(BaseURL)
    // .doNotTrackHeader("1")
-   // .inferHtmlResources()
+    .inferHtmlResources()
     .silentResources
 		.header("Experimental", "true")
 
@@ -511,8 +513,8 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 	/*======================================================================================
 * Below scenario is for SDO  Small Claims - CUI R2 Civil
 ======================================================================================*/
-	val SDOSmallClaimsCUIR2= scenario("SDO For CUIR2 Claims")
-		.feed(loginFeeder) //.feed(casesfordefresponseFeeder)
+	val SDOSmallClaimsCUIR2= scenario("SDO For CUIR2 Claims Small Track")
+	.exec(flushHttpCache).feed(loginFeeder) //.feed(casesfordefresponseFeeder)
 		.exitBlockOnFail {
 			exec(_.set("env", s"${env}"))
 				.exec(Homepage.XUIHomePage)
@@ -532,7 +534,7 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 			exec(_.set("env", s"${env}"))
 				.exec(Homepage.XUIHomePage)
 				.exec(Login.XUIJudgeLogin)
-				.exec(SDOCivilProg.SDOFastTrackCUIR2)
+				.exec(SDOCivilProg.SDOFastTrackForCUIR2)
 				.exec(EXUIMCLogin.manageCase_Logout)
 			
 		}
@@ -577,6 +579,11 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 				.exec(CUIR2DocUploadCaseProg.viewUploadedDocuments)
 				.pause(10)
 				.exec(CUIR2DocUploadCaseProg.payHearingFee)
+						.pause(20)
+						.exec(CivilAssignCase.cuibundle)
+						.pause(30)
+						// view the bundle
+					//	.exec(CUIR2DocUploadCaseProg.viewBundleForSmallClaims)
 				.exec(CUIR2Logout.CUILogout)
 				.pause(20)
 				
@@ -586,51 +593,59 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 				.exec(CUIR2CaseProgression.FinalGeneralOrders)
 				.exec(EXUIMCLogin.manageCase_Logout)
 		}
-	
-	
+		
 	/*======================================================================================
 * Below scenario is for   Fast Track - CUI R2 Civil Case progression -Full Scenario
 ======================================================================================*/
 	val CUIR2FastTrackCaseProgression = scenario("SDO For CUIR2 CaseProgression Fast Track")
-		.feed(cpLoginFeeder).feed(cpfulltestsmallclaimsFeeder)
+		.feed(cpLoginFeeder).feed(cpfulltestfasttrackFeeder)
 		.exitBlockOnFail {
 			exec(_.set("env", s"${env}"))
 			//Below is for upload claimant evidence
-			exec(CUIR2HomePage.CUIR2HomePage)
+			.exec(CUIR2HomePage.CUIR2HomePage)
 				.exec(CUIR2Login.CUIR2ClaimantIntentionLogin)
-				.exec(CUIR2DocUploadCaseProg.CaseProgUploadDocsByClaimant)
+				.exec(CUIR2DocUploadCaseProg.CaseProgUploadDocsByClaimantForFastTrack)
 				.pause(10)
-				.exec(CUIR2DocUploadCaseProg.viewUploadedDocuments)
+				.exec(CUIR2DocUploadCaseProg.viewUploadedDocumentsForFastTrack)
 				.exec(CUIR2Logout.CUILogout)
 				.pause(10)
 				
 				//below is the defendant upload documents
 				.exec(CUIR2HomePage.CUIR2HomePage)
 				.exec(CUIR2Login.CUIR2DefLogin)
-				.exec(CUIR2DocUploadCaseProg.CaseProgUploadDocsByDefendant)
+				.exec(CUIR2DocUploadCaseProg.CaseProgUploadDocsByDefendantForFastTrack)
 				.pause(10)
-				.exec(CUIR2DocUploadCaseProg.viewUploadedDocuments)
+				.exec(CUIR2DocUploadCaseProg.viewUploadedDocumentsForFastTrack)
 				.exec(CUIR2Logout.CUILogout)
 				.pause(10)
 				
 				//Following is for creating the hearing notice for small claims
 				.exec(Homepage.XUIHomePage)
 				.exec(Login.XUICenterAdminLogin)
-				.exec(CUIR2CaseProgression.HearingNotice)
+				.exec(CUIR2CaseProgression.HearingNoticeFastTrack)
 				.exec(EXUIMCLogin.manageCase_Logout)
 				.pause(10)
 				//Following is for paying Hearing Fee
 				.exec(CUIR2HomePage.CUIR2HomePage)
 				.exec(CUIR2Login.CUIR2ClaimantIntentionLogin)
-				.exec(CUIR2DocUploadCaseProg.viewOrderandNotices)
+				.exec(CUIR2DocUploadCaseProg.viewOrderandNoticesForFastTrack)
 				.pause(10)
-				.exec(CUIR2DocUploadCaseProg.viewUploadedDocuments)
+				.exec(CUIR2DocUploadCaseProg.viewUploadedDocumentsForFastTrack)
 				.pause(10)
 				.exec(CUIR2DocUploadCaseProg.payHearingFee)
-				.exec(CUIR2Logout.CUILogout)
 				.pause(20)
+				//Trial Complete
+				.exec(CUIR2DocUploadCaseProg.TrialArrangements)
+				.pause(30)
+				//Following is for creating the bundle
+				.exec(CivilAssignCase.cuibundle)
+				.pause(20)
+			//	.exec(CUIR2DocUploadCaseProg.viewBundle)
 				
-				//Following is For creating the Final Order For Smaill Claims
+				.exec(CUIR2Logout.CUILogout)
+				.pause(10)
+				
+				//Following is For creating the Final Order For fast claims
 				.exec(Homepage.XUIHomePage)
 				.exec(Login.XUIJudgeLogin)
 				.exec(CUIR2CaseProgression.FinalGeneralOrders)
@@ -740,10 +755,10 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 		SDOEnhancementsFlightDelay.inject(nothingFor(50),rampUsers(15) during (3600)),
 		SDOEnhancementsDRH.inject(nothingFor(100),rampUsers(15) during (3600)),
 		SDORequestForReConsider.inject(nothingFor(150),rampUsers(12) during (3600))*/
-	//	SDOSmallClaimsCUIR2.inject(nothingFor(1),rampUsers(1) during (10)),
-	//	SDOFastTrackCUIR2.inject(nothingFor(1),rampUsers(1) during (10)),
-		CUIR2SmallClaimsCaseProgression.inject(nothingFor(1),rampUsers(25) during (3600)),
-	//	CUIR2FastTrackCaseProgression.inject(nothingFor(1),rampUsers(1) during (1)),
+	//	SDOSmallClaimsCUIR2.inject(nothingFor(1),rampUsers(1) during (1)),
+		//SDOFastTrackCUIR2.inject(nothingFor(1),rampUsers(3) during (50)),
+		CUIR2SmallClaimsCaseProgression.inject(nothingFor(1),rampUsers(14) during (3600)),
+		CUIR2FastTrackCaseProgression.inject(nothingFor(50),rampUsers(14) during (3600)),
 		//	CivilUIR2ClaimCreationScenario.inject(nothingFor(1),rampUsers(1) during (1))
 		
 	//	CivilUIClaimCreationScenario.inject(nothingFor(1),rampUsers(1) during (1))

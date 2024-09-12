@@ -15,6 +15,33 @@ object  CivilAssignCase {
 	val idamURL=Environment.idamURL
 	val caseFeeder = csv("caseIdsForAssign.csv").circular
 	
+	
+	/*======================================================================================
+*Business process : As part of the creating bundle we need to create bundle on the fly which is a workaround
+* http://civil-service-perftest.service.core-compute-perftest.internal/testing-support/1725556015019824/trigger-trial-bundle
+
+* we should use hearing admin and password as username and password
+ ======================================================================================*/
+	
+	
+
+	//userType must be "Caseworker", "Legal" or "Citizen"
+	val BearerTokenForBundle =
+	
+	exec(http("Civil_000_GetBearerToken")
+		.post(idamURL + "/o/token") //change this to idamapiurl if this not works
+		.formParam("grant_type", "password")
+		.formParam("username", "#{centreadminuser}")
+		.formParam("password", "Password12!")
+		.formParam("client_id", "civil_citizen_ui")
+		// .formParam("client_secret", clientSecret)
+		.formParam("client_secret", "47js6e86Wv5718D2O77OL466020731ii")
+		.formParam("scope", "profile roles openid")
+		.header("Content-Type", "application/x-www-form-urlencoded")
+		.check(jsonPath("$.access_token").saveAs("bearerToken")))
+		
+		.pause(minThinkTime, maxThinkTime)
+	
 	/*======================================================================================
 *Business process : As part of the create FR respondent application share a case
 * Below group contains all the share the unassigned case
@@ -76,14 +103,28 @@ object  CivilAssignCase {
 			.pause(minThinkTime, maxThinkTime)
 			
 			//Deepak - Cases that make the final step
-			.exec { session =>
+			/*.exec { session =>
 				val fw = new BufferedWriter(new FileWriter("FinalcaseIds.csv", true))
 				try {
 					fw.write(session("caseId").as[String] + "\r\n")
 				} finally fw.close()
 				session
-			}
-		
+			}*/
+	
+	
+	val cuibundle =
+		group("CIVIL_AssignCase_000_CreateBundle") {
+			//	feed(caseFeeder)
+			exec(BearerTokenForBundle)
+				.exec(http("CIVIL_AssignCase_000_CreateBundle")
+					.get("http://civil-service-perftest.service.core-compute-perftest.internal/testing-support/#{caseId}/trigger-trial-bundle")
+					.header("Authorization", "Bearer ${bearerToken}")
+					.header("Content-Type", "application/json")
+					.header("Accept", "*/*")
+					.check(status.in(200, 201))
+				)
+		}
+			.pause(minThinkTime, maxThinkTime)
 	
 	
 }
