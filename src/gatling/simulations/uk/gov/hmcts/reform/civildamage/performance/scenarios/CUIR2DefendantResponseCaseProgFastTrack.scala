@@ -357,11 +357,11 @@ object CUIR2DefendantResponseCaseProgFastTrack {
 
    
     /*======================================================================================
- * Civil UI Claim - Confirm your telephone number - yes
+ * Civil UI Claim - Tried to settle
 ==========================================================================================*/
 
-    .group("CUIR2_DefResponse_260_ConfirmNumber") {
-      exec(http("CUIR2_DefResponse_260_005_ConfirmNumber")
+    .group("CUIR2_DefResponse_260_TriedSettle") {
+      exec(http("CUIR2_DefResponse_260_005_ConfirmNumberTriedSettle")
         .post(CivilUiURL + "/case/#{caseId}/directions-questionnaire/tried-to-settle")
         .headers(CivilDamagesHeader.CUIR2Post)
         .formParam("_csrf", "#{csrf}")
@@ -373,7 +373,7 @@ object CUIR2DefendantResponseCaseProgFastTrack {
   
   
       /*======================================================================================
-      * Civil UI Claim - Confirm your telephone number - yes
+      * Civil UI Claim - Request extra Time
       ==========================================================================================*/
   
       .group("CUIR2_DefResponse_260_RequestExtraTime") {
@@ -388,7 +388,7 @@ object CUIR2DefendantResponseCaseProgFastTrack {
       .pause(MinThinkTime, MaxThinkTime)
   
       /*======================================================================================
-      * Civil UI Claim - Confirm your telephone number - yes
+      * Civil UI Claim - Claim Documents
       ==========================================================================================*/
   
       .group("CUIR2_DefResponse_260_ClaimantDocuments") {
@@ -404,7 +404,7 @@ object CUIR2DefendantResponseCaseProgFastTrack {
       .pause(MinThinkTime, MaxThinkTime)
       
     /*======================================================================================
-     * Civil UI Claim - Give us details in case there's a hearing Redirect
+     * Civil UI Claim - Give us details in case expert evidence
 ==========================================================================================*/
 
     .group("CUIR2_DefResponse_270_GiveDetails") {

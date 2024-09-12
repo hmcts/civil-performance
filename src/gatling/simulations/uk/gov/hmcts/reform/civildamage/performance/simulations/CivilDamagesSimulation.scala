@@ -30,7 +30,7 @@ class CivilDamagesSimulation extends Simulation {
   val httpProtocol = Environment.HttpProtocol
 		.baseUrl(BaseURL)
 		.doNotTrackHeader("1")
-		//.inferHtmlResources(DenyList("https://card.payments.service.gov.uk/.*"))
+		.inferHtmlResources(DenyList("https://card.payments.service.gov.uk/.*"))
 		.silentResources
 
 	implicit val postHeaders: Map[String, String] = Map(
@@ -188,7 +188,7 @@ class CivilDamagesSimulation extends Simulation {
 #######################  CUI R2 Claimant Intention ############################################
  */
 	
-	val CivilUIR2ClaimantIntentionScenario = scenario(" Civil UI R2 Claimant Intention")
+	val CivilUIR2ClaimantIntentionScenario = scenario(" Civil UI R2 Claimant Intention For Small Claims")
 		.feed(claimantIntentioncasesFeeder)
 		.exitBlockOnFail {
 			//view and response to defendant
@@ -197,6 +197,21 @@ class CivilDamagesSimulation extends Simulation {
         .exec(CUIR2ClaimantIntention.run)
 					.exec(CUIR2Logout.CUILogout)
 		}
+	
+	/*
+#######################  CUI R2 Claimant Intention For Case Prog ############################################
+*/
+	
+	val CivilUIR2ClaimantIntentionFastTrackCaseProgScenario = scenario(" Civil UI R2 Claimant Intention for CaseProg Fast Track")
+		.feed(claimantIntentioncasesFeeder)
+		.exitBlockOnFail {
+			//view and response to defendant
+			exec(CUIR2HomePage.CUIR2HomePage)
+				.exec(CUIR2Login.CUIR2ClaimantIntentionLogin)
+				.exec(CUIR2ClaimantIntentionCaseProgFastTrack.run)
+				.exec(CUIR2Logout.CUILogout)
+		}
+	
 	
 	/*
 #######################  CUI R2 Claimant Intention For Case Prog ############################################
@@ -213,8 +228,6 @@ class CivilDamagesSimulation extends Simulation {
 		}
 	
 	
-	
-	
 	/*
 #######################  CUI R2 Case Prog File Upload ############################################
 */
@@ -223,7 +236,7 @@ class CivilDamagesSimulation extends Simulation {
 		.feed(claimantIntentioncasesFeeder)
 		.exitBlockOnFail {
 			//Below is for upload claimant evidence
-		/*	exec(CUIR2HomePage.CUIR2HomePage)
+			exec(CUIR2HomePage.CUIR2HomePage)
 				.exec(CUIR2Login.CUIR2ClaimantIntentionLogin)
 				.exec(CUIR2DocUploadCaseProg.CaseProgUploadDocsByClaimant)
 				.pause(10)
@@ -232,7 +245,7 @@ class CivilDamagesSimulation extends Simulation {
 				.pause(10)
 				
 				//below is the defendant upload documents
-			.exec(CUIR2HomePage.CUIR2HomePage)
+		/*	.exec(CUIR2HomePage.CUIR2HomePage)
 				.exec(CUIR2Login.CUIR2DefLogin)
 				.exec(CUIR2DocUploadCaseProg.CaseProgUploadDocsByDefendant)
 				.pause(10)
@@ -240,14 +253,14 @@ class CivilDamagesSimulation extends Simulation {
 				.exec(CUIR2Logout.CUILogout)
 				.pause(10)*/
 			
-			  exec(CUIR2HomePage.CUIR2HomePage)
+			 /* exec(CUIR2HomePage.CUIR2HomePage)
 				.exec(CUIR2Login.CUIR2ClaimantIntentionLogin)
 				.exec(CUIR2DocUploadCaseProg.viewOrderandNotices)
 				.pause(10)
 				.exec(CUIR2DocUploadCaseProg.viewUploadedDocuments)
 				.pause(10)
 				.exec(CUIR2DocUploadCaseProg.payHearingFee)
-				.exec(CUIR2Logout.CUILogout)
+				.exec(CUIR2Logout.CUILogout)*/
 			
 		}
 	
@@ -261,9 +274,6 @@ class CivilDamagesSimulation extends Simulation {
 			exec(_.set("env", s"${env}"))
 				.exec(CivilAssignCase.cuiassign)
 		}
-	
-	
-
 	//defines the Gatling simulation model, based on the inputs
 	def simulationProfile(simulationType: String, numberOfPerformanceTestUsers: Double, numberOfPipelineUsers: Double): Seq[OpenInjectionStep] = {
 		simulationType match {
@@ -284,14 +294,15 @@ class CivilDamagesSimulation extends Simulation {
 	}
 	
 	setUp(
-	//	CivilUIR2ClaimCreationScenario.inject(nothingFor(1),rampUsers(30) during (300)),
-	//	CivilUIR2ClaimCreationFTScenario.inject(nothingFor(1),rampUsers(5) during (30)),
-		//CivilUIR2DefResponseScenario.inject(nothingFor(3),rampUsers(1) during (1)),
-	//	CivilUIR2DefResponseCaseProgScenario.inject(nothingFor(3),rampUsers(3) during (50)),
-		CivilUIR2DefResponseCaseProgFastTrackScenario.inject(nothingFor(3),rampUsers(1) during (1)),
-//	CivilUIR2ClaimantIntentionScenario.inject(nothingFor(50),rampUsers(25) during (3600))
-	//	CivilUIR2ClaimantIntentionCaseProgScenario.inject(nothingFor(5),rampUsers(28) during (300))
+		CivilUIR2ClaimCreationScenario.inject(nothingFor(1),rampUsers(115) during (3600)),
+	//	CivilUIR2ClaimCreationFTScenario.inject(nothingFor(1),rampUsers(15) during (300)),
+		CivilUIR2DefResponseScenario.inject(nothingFor(30),rampUsers(100) during (3600)),
+	//	CivilUIR2DefResponseCaseProgScenario.inject(nothingFor(3),rampUsers(15) during (200)),
+	//	CivilUIR2DefResponseCaseProgFastTrackScenario.inject(nothingFor(4),rampUsers(15) during (300)),
+	CivilUIR2ClaimantIntentionScenario.inject(nothingFor(50),rampUsers(25) during (3600))
+	//	CivilUIR2ClaimantIntentionCaseProgScenario.inject(nothingFor(5),rampUsers(15) during (200))
+	//	CivilUIR2ClaimantIntentionFastTrackCaseProgScenario.inject(nothingFor(5),rampUsers(15) during (300))
 		//	CivilUIR2CaseProgScenario.inject(nothingFor(5),rampUsers(1) during (1))
-		CivilCaseAssignScenario.inject(nothingFor(1),rampUsers(5) during (20))
+	//	CivilCaseAssignScenario.inject(nothingFor(1),rampUsers(196) during (600))
 ).protocols(httpProtocol)
 }
