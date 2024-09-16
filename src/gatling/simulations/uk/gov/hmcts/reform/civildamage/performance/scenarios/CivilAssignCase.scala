@@ -63,7 +63,7 @@ object  CivilAssignCase {
 			
 			.pause(minThinkTime,maxThinkTime)
 	
-	//def run(implicit postHeaders: Map[String, String]): ChainBuilder = {
+	//Below is the code for assign the case to defendant,
 		val run =
 	group("CIVIL_AssignCase_000_AssignCase") {
 	//	feed(caseFeeder)
