@@ -1,0 +1,21 @@
+{
+  "data": {
+    "claimsTrack": "fastTrack",
+    "fastClaims": []
+  },
+  "event": {
+    "id": "CREATE_SDO",
+    "summary": "",
+    "description": ""
+  },
+  "event_data": {
+    "showCarmFields": "No",
+    "drawDirectionsOrderRequired": "No",
+    "featureToggleWA": "Prod",
+    "claimsTrack": "fastTrack",
+    "fastClaims": []
+  },
+  "event_token": "#{event_token}",
+  "ignore_warning": false,
+  "case_reference": "#{caseId}"
+}

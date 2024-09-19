@@ -2,9 +2,7 @@ package uk.gov.hmcts.reform.civildamage.performance.scenarios
 
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
-import uk.gov.hmcts.reform.civildamage.performance.scenarios.CUIR2ClaimCreation.IdamUrl
-import uk.gov.hmcts.reform.civildamage.performance.scenarios.CUIR2HomePage.{MaxThinkTime, MinThinkTime}
-import uk.gov.hmcts.reform.civildamage.performance.scenarios.utils.{CivilDamagesHeader, Common, Environment, Headers}
+import uk.gov.hmcts.reform.civildamage.performance.scenarios.utils.{CivilDamagesHeader, Environment}
 
 object CUIR2Login {
   
