@@ -1,0 +1,20 @@
+{
+  "data": {
+    "closeWithdrawalFullName": "#{StRandomString}closeWithdrawalFullName",
+    "closeWithdrawalRequestDate": "#{EvidenceYear}-#{EvidenceMonth}-#{EvidenceDay}"
+  },
+  "event": {
+    "id": "caseworker-close-the-case",
+    "summary": "",
+    "description": ""
+  },
+  "event_data": {
+    "closeCloseCaseReason": "caseWithdrawn",
+    "closeAdditionalDetail": "#{StRandomString}closeAdditionalDetail",
+    "closeWithdrawalFullName": "#{StRandomString}closeWithdrawalFullName",
+    "closeWithdrawalRequestDate": "#{EvidenceYear}-#{EvidenceMonth}-#{EvidenceDay}"
+  },
+  "event_token": "#{event_token}",
+  "ignore_warning": false,
+  "case_reference": "#{caseId}"
+}

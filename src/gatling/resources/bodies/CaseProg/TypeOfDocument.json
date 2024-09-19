@@ -1,0 +1,40 @@
+{
+  "data": {
+    "disclosureSelectionEvidence": [
+      "DISCLOSURE_LIST"
+    ],
+    "witnessSelectionEvidence": [
+      "WITNESS_STATEMENT"
+    ],
+    "expertSelectionEvidence": [
+      "EXPERT_REPORT"
+    ],
+    "trialSelectionEvidence": [
+      "CASE_SUMMARY"
+    ]
+  },
+  "event": {
+    "id": "EVIDENCE_UPLOAD_APPLICANT",
+    "summary": "",
+    "description": ""
+  },
+  "event_data": {
+    "caseProgAllocatedTrack": "FAST_CLAIM",
+    "caseTypeFlag": null,
+    "disclosureSelectionEvidence": [
+      "DISCLOSURE_LIST"
+    ],
+    "witnessSelectionEvidence": [
+      "WITNESS_STATEMENT"
+    ],
+    "expertSelectionEvidence": [
+      "EXPERT_REPORT"
+    ],
+    "trialSelectionEvidence": [
+      "CASE_SUMMARY"
+    ]
+  },
+  "event_token": "#{event_token}",
+  "ignore_warning": false,
+  "case_reference": "#{caseId}"
+}

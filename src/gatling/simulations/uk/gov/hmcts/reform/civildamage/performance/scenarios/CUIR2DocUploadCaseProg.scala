@@ -5,7 +5,6 @@ import io.gatling.core.Predef.{exec, _}
 import io.gatling.http.Predef._
 import uk.gov.hmcts.reform.civildamage.performance.scenarios.utils.{CivilDamagesHeader, Common, CsrfCheck, Environment}
 
-
 object CUIR2DocUploadCaseProg {
 
   val BaseURL = Environment.baseURL
@@ -19,9 +18,7 @@ object CUIR2DocUploadCaseProg {
   val caseFeeder=csv("caseIds.csv").circular
   
   /*======================================================================================
-
              * Civil Citizen R2 CP Docs Upload For Small claims
-
   ==========================================================================================*/
   val CaseProgUploadDocsByClaimant =
   
@@ -38,7 +35,6 @@ object CUIR2DocUploadCaseProg {
   /*======================================================================================
                  * Civil UI Claim - Respond to Claim- Click On Claim
       ==========================================================================================*/
-
   .group("CUICPSC_Claimant_UploadDocs_030_ClickOnClaim") {
     exec(http("CUICPSC_Claimant_UploadDocs_030_005_ClickOnClaim")
       .get(CitizenURL + "/dashboard/#{caseId}/claimant")
@@ -54,7 +50,6 @@ object CUIR2DocUploadCaseProg {
     /*======================================================================================
                    * Civil UI Claim - View And Respond to Claim- Click On Claim
         ==========================================================================================*/
-
     .group("CUICPSC_Claimant_UploadDocs_040_ClickOnUploadDocLink") {
       exec(http("CUICPSC_Claimant_UploadDocs_040_005_ClickOnUploadDocLink")
         .get(CitizenURL + "/case/#{caseId}/case-progression/upload-your-documents")
@@ -69,7 +64,6 @@ object CUIR2DocUploadCaseProg {
     /*======================================================================================
                    * Civil UI Claim - Click On Start to display documents types
         ==========================================================================================*/
-
     .group("CUICPSC_Claimant_UploadDocs_050_ClickOnStartForDocTypes") {
       exec(http("CUICPSC_Claimant_UploadDocs_050_005_ClickOnStartForDocTypes")
         .get(CitizenURL + "/case/#{caseId}/case-progression/type-of-documents")
@@ -87,10 +81,8 @@ object CUIR2DocUploadCaseProg {
       /*======================================================================================
                * Civil Citizen - upload file
     ==========================================================================================*/
-
       .group("CUICPSC_Claimant_UploadDocs_060_TypeOfDocs") {
         exec(http("CUICPSC_Claimant_UploadDocs_060_005_TypeOfDocs")
-
           .post(CitizenURL + "/case/#{caseId}/case-progression/type-of-documents")
           .headers(CivilDamagesHeader.CivilCitizenPost)
           .formParam("_csrf", "#{csrf}")
@@ -105,10 +97,8 @@ object CUIR2DocUploadCaseProg {
       /*======================================================================================
                * Civil Citizen - select doc types -upload witness statement file
     ==========================================================================================*/
-
       .group("CUICPSC_Claimant_UploadDocs_070_UploadFile") {
         exec(http("CUICPFT_Claimant_UploadDocs_070_005_UploadFile")
-
           .post(CitizenURL + "/upload-file")
           .headers(CivilDamagesHeader.CitizenSTUpload)
           .header("accept", "*/*")
@@ -116,10 +106,8 @@ object CUIR2DocUploadCaseProg {
           .header("sec-fetch-dest", "")
           .header("sec-fetch-mode", "cors")
           .header("csrf-token", "#{csrf}")
-
           .bodyPart(RawFileBodyPart("file", "3MB.pdf")
             .fileName("3MB.pdf")
-
             .transferEncoding("binary"))
           .asMultipartForm
           .check(
@@ -137,11 +125,7 @@ object CUIR2DocUploadCaseProg {
       }
       .pause(MinThinkTime, MaxThinkTime)
   
-
-
-  
-  
-     
+      
       /*======================================================================================
                * Civil Citizen - do you want to proceed with the claim post
     ==========================================================================================*/
@@ -182,15 +166,13 @@ object CUIR2DocUploadCaseProg {
     
     
     
-
+    
     /*======================================================================================
   * Civil UI Claim - Check your answers
   ==========================================================================================*/
     
-
     .group("CUICPSC_Claimant_UploadDocs_090_SubmitDocs") {
       exec(http("CUICPSC_Claimant_UploadDocs_090_005_SubmitDocs")
-
         .post(CitizenURL + "/case/#{caseId}/case-progression/check-and-send")
         .headers(CivilDamagesHeader.DefCheckAndSendPost)
         .formParam("_csrf", "#{csrf}")
@@ -201,7 +183,6 @@ object CUIR2DocUploadCaseProg {
     }
     .pause(MinThinkTime, MaxThinkTime)
   
-
   
   /*======================================================================================
              * Civil Citizen R2 CP Docs Upload For Fast Track
@@ -372,7 +353,6 @@ object CUIR2DocUploadCaseProg {
       .pause(MinThinkTime, MaxThinkTime)
   
   
->>>>>>> civilProg
   /*======================================================================================
              * Documents uploaded by Defendant
   ==========================================================================================*/
@@ -390,7 +370,6 @@ object CUIR2DocUploadCaseProg {
   /*======================================================================================
                  * Civil UI Claim - Respond to Claim- Click On Claim
       ==========================================================================================*/
-
   .group("CUICPSC_Def_UploadDocs_030_ClickOnClaimToRespond") {
     exec(http("CUICPSC_Def_UploadDocs_030_005_ClickOnClaimToRespond")
       .get(CitizenURL + "/dashboard/#{caseId}/defendant")
@@ -406,10 +385,8 @@ object CUIR2DocUploadCaseProg {
     /*======================================================================================
                    * Civil UI Claim - View And Respond to Claim- Click On Claim
         ==========================================================================================*/
-
     .group("CUICPSC_Def_UploadDocs_040_ClickOnUploadDoc") {
       exec(http("CUICPSC_Def_UploadDocs_040_005_ClickOnUploadDoc")
-
         .get(CitizenURL + "/case/#{caseId}/case-progression/upload-your-documents")
         .headers(CivilDamagesHeader.MoneyClaimNavHeader)
         .check(CsrfCheck.save)
@@ -422,7 +399,6 @@ object CUIR2DocUploadCaseProg {
     /*======================================================================================
                    * Civil UI Claim - Click On Start to display documents types
         ==========================================================================================*/
-
     .group("CUICPSC_Def_UploadDocs_050_ClickOnStartForDocTypes") {
       exec(http("CUICPSC_Def_UploadDocs_050_005_ClickOnStartForDocTypes")
         .get(CitizenURL + "/case/#{caseId}/case-progression/type-of-documents")
@@ -436,23 +412,19 @@ object CUIR2DocUploadCaseProg {
     .pause(MinThinkTime, MaxThinkTime)
     
     
-
     /*======================================================================================
              * Civil Citizen - select doc types -upload witness statement
   ==========================================================================================*/
     .group("CUICPSC_Def_UploadDocs_060_TypeOfDocs") {
       exec(http("CUICPSC_Def_UploadDocs_060_005_TypeOfDocs")
-
         .post(CitizenURL + "/case/#{caseId}/case-progression/type-of-documents")
         .headers(CivilDamagesHeader.CivilCitizenPost)
         .formParam("_csrf", "#{csrf}")
         .formParam("witnessStatement", "witnessStatement")
         // .check(CsrfCheck.save)
         .check(substring("Witness evidence")))
-
         
      . exec(http("CUICPSC_Def_UploadDocs_040_005_ClickOnStartForDocTypes")
-
         .get(CitizenURL + "/case/#{caseId}/case-progression/upload-documents")
         .headers(CivilDamagesHeader.MoneyClaimNavHeader)
         .check(status.in(200, 304))
@@ -467,7 +439,6 @@ object CUIR2DocUploadCaseProg {
     /*======================================================================================
              * Civil Citizen - select doc types -upload witness statement file
   ==========================================================================================*/
-
     .group("CUICPSC_Def_UploadDocs_070_UploadFile") {
       exec(http("CUICPSC_Def_UploadDocs_070_005_UploadFile")
         .post(CitizenURL + "/upload-file")
@@ -502,7 +473,6 @@ object CUIR2DocUploadCaseProg {
     /*======================================================================================
              * Civil Citizen - do you want to proceed with the claim post
   ==========================================================================================*/
-
     .group("CUICPSC_Def_UploadDocs_080_UploadDocsContinue") {
       exec(http("CUICPSC_Def_UploadDocs_080_005_UploadDocsContinue")
         .post(CitizenURL+"/case/#{caseId}/case-progression/upload-documents")
@@ -544,7 +514,6 @@ object CUIR2DocUploadCaseProg {
    * Civil UI Claim - Check your answers
    ==========================================================================================*/
   
-
     .group("CUICPSC_Def_UploadDocs_090_SubmitDocs") {
       exec(http("CUICPSC_Def_UploadDocs_090_005_SubmitDocs")
         .post(CitizenURL + "/case/#{caseId}/case-progression/check-and-send")
@@ -557,7 +526,6 @@ object CUIR2DocUploadCaseProg {
     }
     .pause(MinThinkTime, MaxThinkTime)
   
-
   
   /*======================================================================================
              * Documents uploaded by Defendant For Fast Track Claims
@@ -735,7 +703,6 @@ object CUIR2DocUploadCaseProg {
       }
       .pause(MinThinkTime, MaxThinkTime)
   
-
   val payHearingFee =
 
   /*======================================================================================
@@ -745,7 +712,6 @@ object CUIR2DocUploadCaseProg {
       exec(http("CUICPFT_Claimant_HearingPay_100_005_ClickOnHearingPay")
         .get(CitizenURL + "/case/#{caseId}/case-progression/pay-hearing-fee")
         .headers(CivilDamagesHeader.MoneyClaimNavHeader)
-
         .check(CsrfCheck.save)
         .check(substring("Pay hearing fee")))
     }
@@ -755,12 +721,10 @@ object CUIR2DocUploadCaseProg {
   /*======================================================================================
            * Civil Citizen -  2.Start Paying Hearing Fee
 ==========================================================================================*/
-
   .group("CUICPFT_Claimant_HearingPay_110_StartHearingPayment") {
     exec(http("CUICPFT_Claimant_110_005_StartHearingPayment")
       .get(CitizenURL + "/case/#{caseId}/case-progression/pay-hearing-fee/apply-help-fee-selection")
       .headers(CivilDamagesHeader.MoneyClaimNavHeader)
-
       .check(CsrfCheck.save)
       .check(substring("Pay hearing fee")))
   }
@@ -770,12 +734,10 @@ object CUIR2DocUploadCaseProg {
     /*======================================================================================
              * Civil Citizen -  2.Prepare your claim - Continue to pay
   ==========================================================================================*/
-
     .group("CUICPFT_Claimant_HearingPay_120_ContinueToPayPost") {
       exec(http("CUICPFT_Claimant_HearingPay_120_005_ContinueToPay")
         .post(CitizenURL + "/case/#{caseId}/case-progression/pay-hearing-fee/apply-help-fee-selection")
         .headers(CivilDamagesHeader.CivilCitizenPost)
-
         .formParam("_csrf", "#{csrf}")
         .formParam("option", "no")
         //.check(CsrfCheck.save)
@@ -789,10 +751,8 @@ object CUIR2DocUploadCaseProg {
     /*======================================================================================
                   * Civil Citizen -  2.Prepare your claim - Enter Card Details
        ==========================================================================================*/
-
     .group("CUICPFT_Claimant_HearingPay_130_CardDetail_SubmitCardDetail") {
       exec(http("CUICPFT_Claimant_HearingPay_130_005_CardDetail_SubmitCardDetail")
-
         .post(paymentURL + "/card_details/#{CardDetailPageChargeId}")
         .formParam("chargeId", "#{CardDetailPageChargeId}")
         .formParam("csrfToken", "#{_csrfTokenCardDetailPage}")
@@ -817,10 +777,8 @@ object CUIR2DocUploadCaseProg {
      ==========================================================================================*/
   
     // confirm the card details and submit
-
     .group("CUICPFT_Claimant_HearingPay_140_CardDetail_ConfirmCardDetail") {
       exec(http("CUICPFT_Claimant_HearingPay_140_005_CardDetail_ConfirmCardDetail")
-
         .post(paymentURL + "/card_details/${CardDetailPageChargeId}/confirm")
         .formParam("csrfToken", "#{_csrfTokenCardDetailConfirm}")
         .formParam("chargeId", "#{CardDetailPageChargeId}")
@@ -831,14 +789,11 @@ object CUIR2DocUploadCaseProg {
   
   
   /*======================================================================================
-
           * Civil Citizen -  2.Prepare your claim - ViewOrdersAndNotices For Small Claims
-
  ==========================================================================================*/
   
   val viewOrderandNotices=
  
-
     group("CUICPSC_Claimant_ViewHearings_150_ViewOrdersAndNotices") {
       exec(http("CUICPSC_Claimant_ViewHearings_150_005_ViewOrderNotices")
         .get(CitizenURL + "/case/#{caseId}/view-orders-and-notices")
@@ -848,9 +803,6 @@ object CUIR2DocUploadCaseProg {
       .pause(MinThinkTime, MaxThinkTime)
       .pause(10)
   
-
-  /*======================================================================================
-          * Civil Citizen -  2.Prepare your claim - ViewUploaded Document
   
   
   /*======================================================================================
@@ -871,12 +823,10 @@ object CUIR2DocUploadCaseProg {
   
   /*======================================================================================
           * Civil Citizen -  2.Prepare your claim - ViewUploaded Documents - Small Claims
-
  ==========================================================================================*/
   
   val viewUploadedDocuments =
     
-
     group("CUICPSC_Claimant_ViewDocs_160_ViewUploadedDocuments") {
       exec(http("CUICPSC_Claimant_ViewHearings_160_005_ViewUploadedDocuments")
         .get(CitizenURL + "/case/#{caseId}/evidence-upload-documents")
@@ -896,15 +846,12 @@ object CUIR2DocUploadCaseProg {
       exec(http("CUICPFT_Claimant_ViewHearings_160_005_ViewUploadedDocuments")
         .get(CitizenURL + "/case/#{caseId}/evidence-upload-documents")
         .headers(CivilDamagesHeader.MoneyClaimNavHeader)
-
         .check(substring("View documents")))
     }
       .pause(MinThinkTime, MaxThinkTime)
       .pause(10)
   
   
-
-
   
   /*======================================================================================
           * Civil Citizen -  View Bundles
@@ -1032,5 +979,4 @@ object CUIR2DocUploadCaseProg {
  
   
   
-
 }

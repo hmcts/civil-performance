@@ -1,10 +1,8 @@
 package uk.gov.hmcts.reform.civildamage.performance.scenarios
 
-
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import uk.gov.hmcts.reform.civildamage.performance.scenarios.utils.{CivilDamagesHeader, Environment}
-
 
 object CUIR2Logout {
   val CitizenURL = Environment.citizenURL

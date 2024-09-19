@@ -12,9 +12,10 @@ object Environment {
   val PaymentURL = scala.util.Properties.envOrElse("paymentURL", "https://card.payments.service.gov.uk")
   val idamURL = "https://idam-web-public.perftest.platform.hmcts.net"
   val idamAPIURL = "https://idam-api.perftest.platform.hmcts.net"
-
+  val exuiDomain="manage-case.perftest.platform.hmcts.net"
   val manageOrgURL = "https://manage-org.perftest.platform.hmcts.net"
- 
+  val manageOrgDomain = "manage-org.perftest.platform.hmcts.net"
+  val CivilUIURL=  "https://civil-citizen-ui.perftest.platform.hmcts.net"
   val refDataApiURL = "https://rd-professional-api-perftest.service.core-compute-perftest.internal"
   val s2sUrl = "http://rpe-service-auth-provider-perftest.service.core-compute-perftest.internal"
   val idamCookieName="SESSION_ID"

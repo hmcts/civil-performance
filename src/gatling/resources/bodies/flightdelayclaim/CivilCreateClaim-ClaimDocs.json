@@ -1,0 +1,526 @@
+{
+  "data": {
+    "specClaimTimelineList": "MANUAL"
+  },
+  "event": {
+    "id": "CREATE_CLAIM_SPEC",
+    "summary": "",
+    "description": ""
+  },
+  "event_data": {
+    "applicant1": {
+      "type": "COMPANY",
+      "individualTitle": null,
+      "companyName": "cla Ltd",
+      "soleTraderTitle": null,
+      "partyEmail": "",
+      "partyPhone": null,
+      "partyName": "cla Ltd",
+      "partyTypeDisplayValue": "Company",
+      "partyID": null,
+      "primaryAddress": {
+        "AddressLine1": "30 Hibernia Gardens",
+        "AddressLine2": null,
+        "AddressLine3": null,
+        "PostTown": "Hounslow",
+        "County": null,
+        "Country": "United Kingdom",
+        "PostCode": "TW3 3SD"
+      },
+      "unavailableDates": [],
+      "flags": {
+        "roleOnCase": null,
+        "partyName": null,
+        "groupId": null,
+        "visibility": null,
+        "details": []
+      }
+    },
+    "addApplicant2": "No",
+    "applicantSolicitor1CheckEmail": {
+      "email": "civil.damages.claims+organisation.1.solicitor.1@gmail.com",
+      "correct": "No"
+    },
+    "applicantSolicitor1UserDetails": {
+      "email": "civilmoneyclaimsdemo@gmail.com",
+      "id": null
+    },
+    "applicant1OrganisationPolicy": {
+      "OrgPolicyCaseAssignedRole": "[APPLICANTSOLICITORONE]",
+      "OrgPolicyReference": "testing",
+      "PrepopulateToUsersOrganisation": null,
+      "Organisation": {
+        "OrganisationID": "7H4MGE5",
+        "OrganisationName": "Civil Damages Claims - Organisation 1"
+      },
+      "PreviousOrganisations": []
+    },
+    "specApplicantCorrespondenceAddressRequired": "No",
+    "respondent1": {
+      "type": "COMPANY",
+      "individualTitle": null,
+      "companyName": "def ltd",
+      "soleTraderTitle": null,
+      "soleTraderTradingAs": null,
+      "partyEmail": null,
+      "partyPhone": null,
+      "individualDateOfBirth": null,
+      "soleTraderDateOfBirth": null,
+      "partyName": "def ltd",
+      "partyTypeDisplayValue": "Company",
+      "partyID": null,
+      "primaryAddress": {
+        "AddressLine1": "22 Hibernia Gardens",
+        "AddressLine2": "",
+        "AddressLine3": "",
+        "PostTown": "Hounslow",
+        "County": "",
+        "Country": "United Kingdom",
+        "PostCode": "TW3 3SD"
+      },
+      "unavailableDates": [],
+      "flags": {
+        "roleOnCase": null,
+        "partyName": null,
+        "groupId": null,
+        "visibility": null,
+        "details": []
+      }
+    },
+    "specRespondent1Represented": "Yes",
+    "respondent1OrgRegistered": "Yes",
+    "respondentSolicitor1EmailAddress": "civilmoneyclaimsdemo@gmail.com",
+    "specRespondentCorrespondenceAddressRequired": "No",
+    "respondent1OrganisationPolicy": {
+      "OrgPolicyCaseAssignedRole": "[RESPONDENTSOLICITORONE]",
+      "OrgPolicyReference": "testing",
+      "Organisation": {
+        "OrganisationID": "MEVCCQF",
+        "OrganisationName": "Civil Damages Claims - Organisation 2"
+      },
+      "PreviousOrganisations": []
+    },
+    "addRespondent2": "No",
+    "isFlightDelayClaim": "Yes",
+    "flightDelayDetails": {
+      "airlineList": {
+        "value": {
+          "code": "Air India",
+          "label": "Air India"
+        },
+        "list_items": [
+          {
+            "code": "Aegean",
+            "label": "Aegean"
+          },
+          {
+            "code": "Aer Lingus",
+            "label": "Aer Lingus"
+          },
+          {
+            "code": "Aeroflot",
+            "label": "Aeroflot"
+          },
+          {
+            "code": "Aeromexico",
+            "label": "Aeromexico"
+          },
+          {
+            "code": "Air Algerie",
+            "label": "Air Algerie"
+          },
+          {
+            "code": "Air Baltic",
+            "label": "Air Baltic"
+          },
+          {
+            "code": "Air Canada",
+            "label": "Air Canada"
+          },
+          {
+            "code": "Air China",
+            "label": "Air China"
+          },
+          {
+            "code": "Air Europa",
+            "label": "Air Europa"
+          },
+          {
+            "code": "Air France",
+            "label": "Air France"
+          },
+          {
+            "code": "Air India",
+            "label": "Air India"
+          },
+          {
+            "code": "Air Malta",
+            "label": "Air Malta"
+          },
+          {
+            "code": "Air Moldova",
+            "label": "Air Moldova"
+          },
+          {
+            "code": "Air New Zealand",
+            "label": "Air New Zealand"
+          },
+          {
+            "code": "Air Portugal",
+            "label": "Air Portugal"
+          },
+          {
+            "code": "Air Transat",
+            "label": "Air Transat"
+          },
+          {
+            "code": "All Nippon Airways",
+            "label": "All Nippon Airways"
+          },
+          {
+            "code": "American Airlines",
+            "label": "American Airlines"
+          },
+          {
+            "code": "Aurigny",
+            "label": "Aurigny"
+          },
+          {
+            "code": "Austrian Airways",
+            "label": "Austrian Airways"
+          },
+          {
+            "code": "Avianca",
+            "label": "Avianca"
+          },
+          {
+            "code": "Azerbaijan Airlines",
+            "label": "Azerbaijan Airlines"
+          },
+          {
+            "code": "BA/Cityflyer",
+            "label": "BA/Cityflyer"
+          },
+          {
+            "code": "Biman Bangladesh",
+            "label": "Biman Bangladesh"
+          },
+          {
+            "code": "Blue Air",
+            "label": "Blue Air"
+          },
+          {
+            "code": "Brussels",
+            "label": "Brussels"
+          },
+          {
+            "code": "Bulgaria Air",
+            "label": "Bulgaria Air"
+          },
+          {
+            "code": "Cathay Pacific",
+            "label": "Cathay Pacific"
+          },
+          {
+            "code": "China Airlines",
+            "label": "China Airlines"
+          },
+          {
+            "code": "China Eastern",
+            "label": "China Eastern"
+          },
+          {
+            "code": "China Southern",
+            "label": "China Southern"
+          },
+          {
+            "code": "Condor",
+            "label": "Condor"
+          },
+          {
+            "code": "Croatia Airlines",
+            "label": "Croatia Airlines"
+          },
+          {
+            "code": "Delta",
+            "label": "Delta"
+          },
+          {
+            "code": "Eastern",
+            "label": "Eastern"
+          },
+          {
+            "code": "Easyjet",
+            "label": "Easyjet"
+          },
+          {
+            "code": "Egyptair",
+            "label": "Egyptair"
+          },
+          {
+            "code": "El Al",
+            "label": "El Al"
+          },
+          {
+            "code": "Emirates",
+            "label": "Emirates"
+          },
+          {
+            "code": "Etihad",
+            "label": "Etihad"
+          },
+          {
+            "code": "Eurowings",
+            "label": "Eurowings"
+          },
+          {
+            "code": "Eva Air",
+            "label": "Eva Air"
+          },
+          {
+            "code": "Finnair",
+            "label": "Finnair"
+          },
+          {
+            "code": "Garuda",
+            "label": "Garuda"
+          },
+          {
+            "code": "Gulf Air",
+            "label": "Gulf Air"
+          },
+          {
+            "code": "Iberia/Express",
+            "label": "Iberia/Express"
+          },
+          {
+            "code": "Icelandair",
+            "label": "Icelandair"
+          },
+          {
+            "code": "Iran Air",
+            "label": "Iran Air"
+          },
+          {
+            "code": "ITA",
+            "label": "ITA"
+          },
+          {
+            "code": "Japan Airlines",
+            "label": "Japan Airlines"
+          },
+          {
+            "code": "Jet2.com",
+            "label": "Jet2.com"
+          },
+          {
+            "code": "JetBlue",
+            "label": "JetBlue"
+          },
+          {
+            "code": "Kenya Airways",
+            "label": "Kenya Airways"
+          },
+          {
+            "code": "KLM",
+            "label": "KLM"
+          },
+          {
+            "code": "Korean",
+            "label": "Korean"
+          },
+          {
+            "code": "Kuwait Airways",
+            "label": "Kuwait Airways"
+          },
+          {
+            "code": "LATAM/JJ",
+            "label": "LATAM/JJ"
+          },
+          {
+            "code": "Loganair",
+            "label": "Loganair"
+          },
+          {
+            "code": "LOT",
+            "label": "LOT"
+          },
+          {
+            "code": "Lufthansa",
+            "label": "Lufthansa"
+          },
+          {
+            "code": "Luxair",
+            "label": "Luxair"
+          },
+          {
+            "code": "Malaysian",
+            "label": "Malaysian"
+          },
+          {
+            "code": "Middle East",
+            "label": "Middle East"
+          },
+          {
+            "code": "Norse",
+            "label": "Norse"
+          },
+          {
+            "code": "Norweigan",
+            "label": "Norweigan"
+          },
+          {
+            "code": "Oman",
+            "label": "Oman"
+          },
+          {
+            "code": "Pakistan",
+            "label": "Pakistan"
+          },
+          {
+            "code": "Pegasus",
+            "label": "Pegasus"
+          },
+          {
+            "code": "Phillipine Airlines",
+            "label": "Phillipine Airlines"
+          },
+          {
+            "code": "Play",
+            "label": "Play"
+          },
+          {
+            "code": "Qatar",
+            "label": "Qatar"
+          },
+          {
+            "code": "Quantas",
+            "label": "Quantas"
+          },
+          {
+            "code": "Royal Air Maroc",
+            "label": "Royal Air Maroc"
+          },
+          {
+            "code": "Royal Brunei",
+            "label": "Royal Brunei"
+          },
+          {
+            "code": "Royal Jordanian",
+            "label": "Royal Jordanian"
+          },
+          {
+            "code": "Ryanair",
+            "label": "Ryanair"
+          },
+          {
+            "code": "SAS",
+            "label": "SAS"
+          },
+          {
+            "code": "SAS",
+            "label": "SAS"
+          },
+          {
+            "code": "Saudi Arabian Airlines",
+            "label": "Saudi Arabian Airlines"
+          },
+          {
+            "code": "Saudia",
+            "label": "Saudia"
+          },
+          {
+            "code": "Singapore Airlines",
+            "label": "Singapore Airlines"
+          },
+          {
+            "code": "Sky Express",
+            "label": "Sky Express"
+          },
+          {
+            "code": "Smartwings",
+            "label": "Smartwings"
+          },
+          {
+            "code": "South African Airways",
+            "label": "South African Airways"
+          },
+          {
+            "code": "Sri Lankan",
+            "label": "Sri Lankan"
+          },
+          {
+            "code": "Swiss International",
+            "label": "Swiss International"
+          },
+          {
+            "code": "Thai Airways",
+            "label": "Thai Airways"
+          },
+          {
+            "code": "TUI / Thomson ",
+            "label": "TUI / Thomson "
+          },
+          {
+            "code": "Tunisair",
+            "label": "Tunisair"
+          },
+          {
+            "code": "Turkish",
+            "label": "Turkish"
+          },
+          {
+            "code": "Ukraine International",
+            "label": "Ukraine International"
+          },
+          {
+            "code": "United",
+            "label": "United"
+          },
+          {
+            "code": "Vietnam Airlines",
+            "label": "Vietnam Airlines"
+          },
+          {
+            "code": "Virgin",
+            "label": "Virgin"
+          },
+          {
+            "code": "Vistara",
+            "label": "Vistara"
+          },
+          {
+            "code": "Vueling",
+            "label": "Vueling"
+          },
+          {
+            "code": "WestJet",
+            "label": "WestJet"
+          },
+          {
+            "code": "Wideroe",
+            "label": "Wideroe"
+          },
+          {
+            "code": "WizzAir",
+            "label": "WizzAir"
+          },
+          {
+            "code": "OTHER",
+            "label": "OTHER"
+          }
+        ]
+      },
+      "flightNumber": "AI506",
+      "scheduledDate": "2024-01-01",
+      "flightCourtLocation": {
+        "region": null,
+        "baseLocation": null
+      }
+    },
+    "detailsOfClaim": "Testing",
+    "specClaimTimelineList": "MANUAL"
+  },
+"event_token": "#{event_token}",
+"ignore_warning": false
+}

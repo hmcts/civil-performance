@@ -1,0 +1,1361 @@
+{
+  "data": {
+    "smallClaimsOrderAndHearingDetails": {},
+    "showCarmFields": "No",
+    "setSmallClaimsFlag": "Yes",
+    "smallClaimsJudgesRecital": {
+      "input": "Upon considering the statements of case and the information provided by the parties,"
+    },
+    "smallClaimsAllocation": {},
+    "smallClaimsJudgementDeductionStatement": {},
+    "smallClaimsFlightDelayToggle": [
+      "SHOW"
+    ],
+    "smallClaimsFlightDelay": {
+      "relatedClaimsInput": "In the event that the Claimant(s) or Defendant(s) are aware if other \nclaims relating to the same flight they must notify the court \nwhere the claim is being managed within 14 days of receipt of \nthis Order providing all relevant details of those claims including \ncase number(s), hearing date(s) and copy final substantive order(s) \nif any, to assist the Court with ongoing case management which may \ninclude the cases being heard together.",
+      "legalDocumentsInput": "Any arguments as to the law to be applied to this claim, together with \ncopies of legal authorities or precedents relied on, shall be uploaded \nto the Digital Portal not later than 3 full working days before the \nfinal hearing date.",
+      "smallClaimsFlightDelayToggle": [
+        "SHOW"
+      ]
+    },
+    "smallClaimsHearingToggle": [
+      "SHOW"
+    ],
+    "hearingMethodValuesSmallClaims": {
+      "value": {
+        "code": "8b875c2d-82ff-4a1f-94a3-f397ebfde530",
+        "label": "In Person"
+      },
+      "list_items": [
+        {
+          "code": "8b875c2d-82ff-4a1f-94a3-f397ebfde530",
+          "label": "In Person"
+        },
+        {
+          "code": "1aa81a3a-c6ea-4bb0-ba92-0858078378b5",
+          "label": "Telephone"
+        },
+        {
+          "code": "62ef3d4f-7b1e-42fa-9757-f246186b5880",
+          "label": "Video"
+        }
+      ]
+    },
+    "smallClaimsHearing": {
+      "dateFrom": null,
+      "dateTo": null,
+      "time": "ONE_HOUR",
+      "input2": "The claimant must by no later than 4 weeks before the hearing date, pay the court the required hearing fee or submit a fully completed application for Help with Fees. \nIf the claimant fails to pay the fee or obtain a fee exemption by that time the claim will be struck without further order.",
+      "input1": "The hearing of the claim will be on a date to be notified to you by a separate notification. The hearing will have a time estimate of"
+    },
+    "smallClaimsMethodInPerson": {
+      "value": {
+        "code": "739514",
+        "label": "Clerkenwell and Shoreditch County Court and Family Court - 29-41 Gee Street - EC1V 3RE"
+      },
+      "list_items": [
+        {
+          "code": "827534",
+          "label": "Aberystwyth Justice Centre - Y Lanfa, Trefechan - SY23 1AS"
+        },
+        {
+          "code": "450049",
+          "label": "Aldershot Justice Centre - The Court House, Civic Centre, Wellington Avenue - GU11 1NY"
+        },
+        {
+          "code": "229786",
+          "label": "Barnet Civil and Family Centre - St Mary's Court, Regents Park Road - N3 1BQ"
+        },
+        {
+          "code": "574546",
+          "label": "Barnsley Law Courts - The Court House, Westgate - S70 2DW"
+        },
+        {
+          "code": "774335",
+          "label": "Barnstaple Magistrates, County and Family Court - The law Courts, North Walk, Barnstaple - EX31 1DX"
+        },
+        {
+          "code": "761518",
+          "label": "Barrow-in-Furness Magistrates and County Court - Abbey Road - LA14 5QX"
+        },
+        {
+          "code": "694840",
+          "label": "Basildon Combined Court - Regent House, The Gore - SS14 2EW"
+        },
+        {
+          "code": "457273",
+          "label": "Basingstoke Law Courts - The Court House, London Road - RG21 4AB"
+        },
+        {
+          "code": "411234",
+          "label": "Bath Law Courts - The Law Courts, North Parade Road - BA1 5AF"
+        },
+        {
+          "code": "446255",
+          "label": "Bedford County Court and Family Court - Shire Hall, St. Paul's Square, Bedford - MK40 1SQ"
+        },
+        {
+          "code": "500233",
+          "label": "Berwick upon Tweed Magistrates' Court - Church Street - TD15 1DX"
+        },
+        {
+          "code": "444097",
+          "label": "Birkenhead County Court - 76 Hamilton Street - CH415 EN"
+        },
+        {
+          "code": "231596",
+          "label": "Birmingham Civil and Family Justice Centre - Priory Courts, 33 Bull Street - B4 6DS"
+        },
+        {
+          "code": "214320",
+          "label": "Blackpool County Court & Family Court - The Law Courts, Civic Centre, Chapel Street - FY1 5RJ"
+        },
+        {
+          "code": "214320",
+          "label": "Blackpool Family Court - The Law Courts, Civic Centre, Chapel Street - FY1 5RJ"
+        },
+        {
+          "code": "304576",
+          "label": "Blackwood Civil and Family Court - Hall Street, Gwent - NP12 1NY"
+        },
+        {
+          "code": "271813",
+          "label": "Bodmin Law Courts - Launceston Road - PL31 2AL"
+        },
+        {
+          "code": "117667",
+          "label": "Boston Courthouse - Norfolk Street - PE21 6PE"
+        },
+        {
+          "code": "101633",
+          "label": "Bournemouth Combined Court - Courts of Justice, Deansleigh Road - BH7 7DS"
+        },
+        {
+          "code": "88516",
+          "label": "Bradford Combined Court Centre - The Law Courts, Exchange Square, Drake Street - BD1 1JA"
+        },
+        {
+          "code": "36791",
+          "label": "Brentford County and Family Court - Alexandra Road, High Street - TW8 0JJ"
+        },
+        {
+          "code": "478896",
+          "label": "Brighton County - William Street - BN2 0RF"
+        },
+        {
+          "code": "819890",
+          "label": "Bristol Civil and Family Justice Centre - 2 Redcliff Street - BS1 6GR"
+        },
+        {
+          "code": "29656",
+          "label": "Bromley County Court and Family Court - Court House, College Road - BR1 3PX"
+        },
+        {
+          "code": "448747",
+          "label": "Burnley Combined Court Centre - The Law Courts, Hammerton Street - BB11 1XD"
+        },
+        {
+          "code": "257431",
+          "label": "Bury St Edmunds County Court and Family Court - Triton House, St Andrews Street North - IP33 1TR"
+        },
+        {
+          "code": "366572",
+          "label": "Caernarfon Justice Centre - Llanberis Road - LL55 2DF"
+        },
+        {
+          "code": "650344",
+          "label": "Cambridge County Court and Family Court - 197 East Road - CB1 1BA"
+        },
+        {
+          "code": "259679",
+          "label": "Canterbury Combined Court Centre - The Law Courts, Chaucer Road, Canterbury, Kent - CT1 1ZA"
+        },
+        {
+          "code": "234850",
+          "label": "Cardiff Civil and Family Justice Centre - 2 Park Street, Cardiff - CF10 1ET"
+        },
+        {
+          "code": "45106",
+          "label": "Carlisle Combined Court - Courts of Justice, Earl Street - CA1 1DJ"
+        },
+        {
+          "code": "101959",
+          "label": "Carmarthen County Court and Tribunal Hearing Centre - Hill House, Picton Terrace, Carmarthen - SA31 3BT"
+        },
+        {
+          "code": "20262",
+          "label": "Central London County Court - Thomas More Building, Royal Courts of Justice, Strand, London - WC2A 2LL"
+        },
+        {
+          "code": "816875",
+          "label": "Chelmsford County and Family Court - Priory Place, New London Road - CM2 0PP"
+        },
+        {
+          "code": "226511",
+          "label": "Chester Civil and Family Justice Centre - Trident House, Little St John Street - CH1 1SN"
+        },
+        {
+          "code": "652852",
+          "label": "Chesterfield Justice Centre - Tapton Lane, Chesterfield - S41 7TW"
+        },
+        {
+          "code": "739514",
+          "label": "Clerkenwell and Shoreditch County Court and Family Court - 29-41 Gee Street - EC1V 3RE"
+        },
+        {
+          "code": "497679",
+          "label": "Coventry Combined Centre - Much Park Street - CV1 2SN"
+        },
+        {
+          "code": "566296",
+          "label": "Crewe Magistrates and County Court - The Law Courts, Civic Centre - CW1 2DT"
+        },
+        {
+          "code": "407494",
+          "label": "Croydon Combined Court - The Law Courts, Altyre Road - CR9 5AB"
+        },
+        {
+          "code": "288691",
+          "label": "Darlington County Court and Family Court - 4 Coniscliffe Road - DL3 7RL"
+        },
+        {
+          "code": "194172",
+          "label": "Dartford County Court and Family Court - Home Gardens - DA1 1DX"
+        },
+        {
+          "code": "201339",
+          "label": "Derby Combined Court Centre - The Morledge - DE1 2XE"
+        },
+        {
+          "code": "484482",
+          "label": "Derby Justice Centre - 27 St Mary's Gate, Derby - DE1 3JR"
+        },
+        {
+          "code": "640119",
+          "label": "Doncaster Justice Centre North (Doncaster Magistrates Court) - The Law Courts, College Road - DN1 3HT"
+        },
+        {
+          "code": "758998",
+          "label": "Dudley County (and Magistrates) Court - The Court House, The Inhedge - DY1 1RY"
+        },
+        {
+          "code": "491107",
+          "label": "Durham County and Tribunal Centre - Green Lane, Old Elvet - DH1 3RG"
+        },
+        {
+          "code": "25463",
+          "label": "Edmonton County Court and Family Court - Court House, 59 Fore Street - N18 2TN"
+        },
+        {
+          "code": "735217",
+          "label": "Exeter Combined Court Centre - Southernhay Gardens, Exeter - EX1 1UH"
+        },
+        {
+          "code": "427519",
+          "label": "Gateshead Law Courts (Gateshead Magistrates and County) - Warwick Street - NE8 1DT"
+        },
+        {
+          "code": "198592",
+          "label": "Gloucester and Cheltenham County and Family Court - Kimbrose Way, Gloucester Docks - GL1 2DE"
+        },
+        {
+          "code": "198592",
+          "label": "Gloucestershire Family and Civil Court - Kimbrose Way, Gloucester Docks - GL1 2DE"
+        },
+        {
+          "code": "478126",
+          "label": "Grimsby Combined Court Centre - Town Hall Square - DN31 1HX"
+        },
+        {
+          "code": "568484",
+          "label": "Guildford Law Courts - The Law Courts, Mary Road - GU1 4PS"
+        },
+        {
+          "code": "505683",
+          "label": "Harrogate Justice Centre - The Court House, Victoria Avenue - HG1 1EL"
+        },
+        {
+          "code": "784691",
+          "label": "Hastings Law Courts - The Law Courts, Bohemia Road - TN34 1QX"
+        },
+        {
+          "code": "700596",
+          "label": "Haverfordwest County and Family - Penffynnon, Hawthorn Rise, Haverfordwest - SA61 2AX"
+        },
+        {
+          "code": "228883",
+          "label": "Hereford Justice Centre - Hereford Justice Centre, Bath Street, Hereford - HR1 2HE"
+        },
+        {
+          "code": "256913",
+          "label": "Hertford County Court and Family Court - The Shire Hall. Fore Street - SG14 1BY"
+        },
+        {
+          "code": "437303",
+          "label": "High Wycombe Law Courts - The Law Courts, Easton Street - HP11 1LR"
+        },
+        {
+          "code": "317442",
+          "label": "Horsham Law Courts - The Law Courts, Hurst Road - RH12 2ET"
+        },
+        {
+          "code": "197852",
+          "label": "Huddersfield County Court and Family Court - Queensgate House, Queensgate - HD1 2RR"
+        },
+        {
+          "code": "471349",
+          "label": "Ipswich County Court and Family Hearing Centre - 8 Arcade Street - IP1 1EJ"
+        },
+        {
+          "code": "416742",
+          "label": "Isle of Wight Combined (and Magistrates) Court - Quay Street, Newport - PO30 5YT"
+        },
+        {
+          "code": "767032",
+          "label": "Kidderminster Magistrates Court - Comberton Place, Kidderminster - DY10 1QQ"
+        },
+        {
+          "code": "13660",
+          "label": "Kingston upon Thames County Court - St James Road - KT1 2AD"
+        },
+        {
+          "code": "195520",
+          "label": "Kingston-upon-Hull Combined Court Centre - The Combined Court Centre, Lowgate - HU1 2EZ"
+        },
+        {
+          "code": "353615",
+          "label": "Lancaster Courthouse (Magistrates and County Court) - George Street - LA1 1XZ"
+        },
+        {
+          "code": "455174",
+          "label": "Leeds Combined Court Centre - The Court House, 1 Oxford Row - LS1 3BG"
+        },
+        {
+          "code": "223503",
+          "label": "Leicester County Court - 90 Wellington Street, Leicester - LE1 6HG"
+        },
+        {
+          "code": "101183",
+          "label": "Lewes Combined Court Centre - The Law Courts, High Street - BN7 1YB"
+        },
+        {
+          "code": "195465",
+          "label": "Lincoln County Court and Family Court - 360 High Street - LN5 7PS"
+        },
+        {
+          "code": "345663",
+          "label": "Liverpool Civil and Family Court - 35, Vernon Street, City Square - L2 2BX"
+        },
+        {
+          "code": "390932",
+          "label": "Llanelli Law Courts - Court Buildings, Town Hall Square - SA15 3AW"
+        },
+        {
+          "code": "365554",
+          "label": "Luton Justice Centre - Floors 4 & 5, Arndale House, The Mall, Luton - LU1 2TH"
+        },
+        {
+          "code": "465872",
+          "label": "Maidstone Combined Court Centre - The Law Courts, Barker Road - ME16 8EQ"
+        },
+        {
+          "code": "701411",
+          "label": "Manchester Civil Justice Centre (Civil and Family Courts) - 1 Bridge Street West - M60 9DJ"
+        },
+        {
+          "code": "455368",
+          "label": "Mansfield Magistrates' and County Court - Rosemary Street - NG19 6EE"
+        },
+        {
+          "code": "674229",
+          "label": "Mayor's and City of London Court - Guildhall Buildings, Basinghall Street, London - EC2V 5AR"
+        },
+        {
+          "code": "369145",
+          "label": "Medway County Court and Family Court - Gun Wharf, Dock Road, Chatham, Kent - ME4 4AR"
+        },
+        {
+          "code": "448345",
+          "label": "Merthyr Tydfil Combined Court Centre - Glebeland Place, Castle Street - CF47 8BH"
+        },
+        {
+          "code": "572158",
+          "label": "Mid and South East Northumberland Law Courts (Bedlington) - Schalkesmuhle Road - NE22 7LX"
+        },
+        {
+          "code": "815997",
+          "label": "Milton Keynes County Court and Family Court - 351 Silbury Boulevard, Witan Gate East - MK9 2DT"
+        },
+        {
+          "code": "211138",
+          "label": "Mold Justice Centre (Mold Law Courts) - The Law Courts, Shirehall, Civic Centre - CH7 1AE"
+        },
+        {
+          "code": "211138",
+          "label": "Mold Justice Centre - The Law Courts, Mold - CH7 1AE"
+        },
+        {
+          "code": "366796",
+          "label": "Newcastle Civil & Family Courts and Tribunals Centre - Barras Bridge, Newcastle-Upon-Tyne - NE1 8QF"
+        },
+        {
+          "code": "373939",
+          "label": "Newcastle Moot Hall - The Moothall, Castlegarth - NE1 1RQ"
+        },
+        {
+          "code": "217250",
+          "label": "Newport (South Wales) County Court and Family Court - The Concourse, Clarence House, Clarence Place, Newport, Gwent - NP19 7AA"
+        },
+        {
+          "code": "562808",
+          "label": "North Shields County Court and Family Court - 2nd Floor, Kings Court, Earl Grey Way, Royal Quays - NE29 6AR"
+        },
+        {
+          "code": "195489",
+          "label": "Northampton Combined Court - 85 - 87 Lady's Lane, Northampton - NN1 3HQ"
+        },
+        {
+          "code": "471332",
+          "label": "Norwich Combined Court Centre - The Law Courts, Bishopgate - NR3 1UR"
+        },
+        {
+          "code": "424213",
+          "label": "Nottingham County Court and Family Court (and Crown) - Canal Street - NG1 7EJ"
+        },
+        {
+          "code": "618632",
+          "label": "Nottingham Magistrates' Court /Nottingham Justice Centre - Carrington Street - NG2 1EE"
+        },
+        {
+          "code": "228231",
+          "label": "Nuneaton County Court - Warwickshire Justice Centre, Vicarage Street, Nuneaton - CV11 4JU"
+        },
+        {
+          "code": "371016",
+          "label": "Oxford Combined Court Centre - St Aldates - OX1 1TL"
+        },
+        {
+          "code": "471569",
+          "label": "Peterborough Combined Court Centre - Crown Buildings, Rivergate - PE1 1EJ"
+        },
+        {
+          "code": "339463",
+          "label": "Plymouth Combined Court - The Law Courts, 10 Armada Way - PL1 2ER"
+        },
+        {
+          "code": "232298",
+          "label": "Pontypridd County Court and Family Court - The Court House, Courthouse Street, Pontypridd - CF37 1JR"
+        },
+        {
+          "code": "846055",
+          "label": "Port Talbot Justice Centre - Harbourside Road, Port Talbot - SA13 1SB"
+        },
+        {
+          "code": "460592",
+          "label": "Portsmouth Combined Court Centre - Courts of Justice, Winston Churchill Avenue - PO1 2EB"
+        },
+        {
+          "code": "379656",
+          "label": "Prestatyn Justice Centre - The Court House, Victoria Road, Prestatyn, Denbigshire - LL19 7TE"
+        },
+        {
+          "code": "232580",
+          "label": "Preston Combined Court Centre - The Law Courts, Openshaw Place, Ringway - PR1 2LL"
+        },
+        {
+          "code": "185657",
+          "label": "Reading County Court and Family Court - 160-163 Friar Street - RG1 1HE"
+        },
+        {
+          "code": "400947",
+          "label": "Romford County Court and Family Court - Oaklands Avenue - RM1 4DP"
+        },
+        {
+          "code": "817113",
+          "label": "Salisbury Law Courts - Wilton Road - SP2 7EP"
+        },
+        {
+          "code": "744412",
+          "label": "Scarborough Justice Centre - The Law Courts, Northway - YO12 7AE"
+        },
+        {
+          "code": "232607",
+          "label": "Sheffield Combined Court Centre - 50 West Bar, The Law Courts - S3 8PH"
+        },
+        {
+          "code": "318324",
+          "label": "Skipton County Court and Family Court / Skipton Magistrates Court - Otley Street, Court House - BD23 1RH"
+        },
+        {
+          "code": "224403",
+          "label": "Slough County Court and Family Court - The Law Courts, Windsor Road, Slough - SL1 2HE"
+        },
+        {
+          "code": "563156",
+          "label": "South Tyneside Magistrates (and County) Court - Millbank, Secretan Way, Tyne & Wear - NE33 1RG"
+        },
+        {
+          "code": "43104",
+          "label": "Southampton Combined Court Centre - The Courts of Justice, London Road - SO15 2XQ"
+        },
+        {
+          "code": "781139",
+          "label": "Southend Court House: County Court and Family Court and Magistrates Court - The Court House, 80 Victoria Avenue - SS2 6EU"
+        },
+        {
+          "code": "563906",
+          "label": "St Helens County Court and Family Court - Corporation Street - WA10 1SZ"
+        },
+        {
+          "code": "195472",
+          "label": "Stafford Combined Court Centre - Victoria Square - ST16 2QQ"
+        },
+        {
+          "code": "298828",
+          "label": "Staines Law Courts - The Law Courts, Knowle Green - TW18 1XH"
+        },
+        {
+          "code": "560788",
+          "label": "Stockport County Court, Family Court and Magistrates Court - The Court House, Edward Street - SK1 3NF"
+        },
+        {
+          "code": "195496",
+          "label": "Stoke-on-Trent Combined Court - Bethesda Street, Hanley - ST1 3BP"
+        },
+        {
+          "code": "517400",
+          "label": "Sunderland County, Family, Magistrates and Tribunal Hearings - Gillbridge Avenue - SR1 3AP"
+        },
+        {
+          "code": "234946",
+          "label": "Swansea Civil Justice Centre - Quay West, Quay Parade - SA1 1SP"
+        },
+        {
+          "code": "438850",
+          "label": "Swindon Combined Court - The Law Courts, Islington Street - SN1 2HG"
+        },
+        {
+          "code": "382409",
+          "label": "Taunton Combined Court - Shire Hall - TA1 4EU"
+        },
+        {
+          "code": "195537",
+          "label": "Teesside Combined Court Centre - The Law Courts, Centre Square, Middlesborough - TS1 2AE"
+        },
+        {
+          "code": "497583",
+          "label": "Telford County Court And Family Court - Telford Square, Town Centre, Telford, Shropshire - TF34JP"
+        },
+        {
+          "code": "292771",
+          "label": "Telford Justice Centre - Telford Square, Malinsgate, Telford - TF3 4HX"
+        },
+        {
+          "code": "659591",
+          "label": "Thanet County Court and Family Court - The Court House, 2nd Floor, Cecil Square, Margate - CT9 1RL"
+        },
+        {
+          "code": "235617",
+          "label": "Torquay and Newton Abbot County Court and Family Court - Court House, The Willows, Nicholson Road - TQ2 7AZ"
+        },
+        {
+          "code": "475776",
+          "label": "Truro Combined Court - Courts of Justice, Edward Street - TR1 2PB"
+        },
+        {
+          "code": "621184",
+          "label": "Uxbridge County Court and Family Court - 501 Uxbridge Road, Hayes - UB4 8HL"
+        },
+        {
+          "code": "852649",
+          "label": "Wakefield Civil Justice Centre - 1 Mulberry Way - WF1 2QN"
+        },
+        {
+          "code": "177463",
+          "label": "Walsall County and Family Court - Bridge House, Bridge Street - WS1 1JQ"
+        },
+        {
+          "code": "268374",
+          "label": "Wandsworth County Court and Family Court - 76-78 Upper Richmond Road, Putney - SW15 2SU"
+        },
+        {
+          "code": "736719",
+          "label": "Warwick Combined Court - Warwickshire Justice Centre, Newbold Terrace, Leamington Spa - CV32 4EL"
+        },
+        {
+          "code": "227860",
+          "label": "Watford County Court and Family Court - Royalty House, 10 King Street, Watford - WD18 0BW"
+        },
+        {
+          "code": "103147",
+          "label": "Welshpool Magistrates' and County Court - Mansion House, 24 Severn Street, Welshpool - SY21 7UX"
+        },
+        {
+          "code": "209396",
+          "label": "West Cumbria Courthouse - Hall Park, Ramsey Brow, Workington - CA14 4AS"
+        },
+        {
+          "code": "545334",
+          "label": "Weston-Super-Mare County Court and Family Court - North Somerset Courthouse, The Hedges, St Georges - BS22 7BB"
+        },
+        {
+          "code": "624161",
+          "label": "Weymouth Combined Court - The Law Courts, Westwey Road - DT4 8BS"
+        },
+        {
+          "code": "245068",
+          "label": "Wigan and Leigh Courthouse - Darlington Street - WN1 1DW"
+        },
+        {
+          "code": "228015",
+          "label": "Willesden County Court and Family Court - 9 Acton Lane, Harlesden - NW10 8SB"
+        },
+        {
+          "code": "886493",
+          "label": "Winchester Combined Court Centre - The Law Courts, High Street - SO23 9EL"
+        },
+        {
+          "code": "41047",
+          "label": "Wolverhampton Combined Court Centre - Pipers Row, Wolverhampton - WV1 3LQ"
+        },
+        {
+          "code": "102050",
+          "label": "Worcester Combined Court - Shire Hall, Foregate Street - WR1 1EQ"
+        },
+        {
+          "code": "493880",
+          "label": "Worthing Law Courts - The Law Courts, Christchurch Road - BN11 1JD"
+        },
+        {
+          "code": "637145",
+          "label": "Wrexham County & Family Court - The Law Courts, Bodhyfryd, Wrexham - LL12 7BP"
+        },
+        {
+          "code": "637145",
+          "label": "Wrexham Law Courts - The Law Courts, Bodhyfryd - LL12 7BP"
+        },
+        {
+          "code": "315404",
+          "label": "Yeovil Law Courts - Law Courts, Petters Way, Yeovil - BA20 1SW"
+        },
+        {
+          "code": "107581",
+          "label": "York County Court and Family Court - Piccadilly House, 55 Piccadilly - YO1 9WL"
+        }
+      ]
+    },
+    "smallClaimsNotes": {
+      "input": "This order has been made without hearing. Each party has the right to apply to have this Order set aside or varied. Any such application must be received by the Court (together with the appropriate fee) by 4pm on 19 April 2024",
+      "date": null
+    },
+    "smallClaimsDocumentsToggle": [
+      "SHOW"
+    ],
+    "smallClaimsDocuments": {
+      "input1": "Each party must upload to the Digital Portal copies of all documents which they wish the court to consider when reaching its decision not less than 21 days before the hearing.",
+      "input2": "The court may refuse to consider any document which has not been uploaded to the Digital Portal by the above date."
+    },
+    "smallClaimsWitnessStatementToggle": [
+      "SHOW"
+    ],
+    "smallClaimsWitnessStatement": {
+      "input1": "Each party must upload to the Digital Portal copies of all witness statements of the witnesses upon whose evidence they intend to rely at the hearing not less than 21 days before the hearing.",
+      "input2": "2",
+      "input3": "2",
+      "input4": "For this limitation, a party is counted as a witness.",
+      "text": "A witness statement must: \na) Start with the name of the case and the claim number;\nb) State the full name and address of the witness; \nc) Set out the witness's evidence clearly in numbered paragraphs on numbered pages;\nd) End with this paragraph: 'I believe that the facts stated in this witness statement are true. I understand that proceedings for contempt of court may be brought against anyone who makes, or causes to be made, a false statement in a document verified by a statement of truth without an honest belief in its truth'.\ne) be signed by the witness and dated.\nf) If a witness is unable to read the statement there must be a certificate that it has been read or interpreted to the witness by a suitably qualified person and at the final hearing there must be an independent interpreter who will not be provided by the Court.\n\nThe judge may refuse to allow a witness to give evidence or consider any statement of any witness whose statement has not been uploaded to the Digital Portal in accordance with the paragraphs above.\n\nA witness whose statement has been uploaded in accordance with the above must attend the hearing. If they do not attend, it will be for the court to decide how much reliance, if any, to place on their evidence.",
+      "smallClaimsNumberOfWitnessesToggle": [
+        "SHOW"
+      ]
+    },
+    "smallClaimsAddNewDirections": []
+  },
+  "event": {
+    "id": "CREATE_SDO",
+    "summary": "",
+    "description": ""
+  },
+  "event_data": {
+    "drawDirectionsOrderRequired": "Yes",
+    "drawDirectionsOrder": {
+      "judgementSum": null
+    },
+    "featureToggleWA": "Prod",
+    "drawDirectionsOrderSmallClaims": "Yes",
+    "drawDirectionsOrderSmallClaimsAdditionalDirections": [
+      "smallClaimFlightDelay"
+    ],
+    "smallClaimsOrderAndHearingDetails": {},
+    "showCarmFields": "No",
+    "setSmallClaimsFlag": "Yes",
+    "smallClaimsJudgesRecital": {
+      "input": "Upon considering the statements of case and the information provided by the parties,"
+    },
+    "smallClaimsAllocation": {},
+    "smallClaimsJudgementDeductionStatement": {},
+    "smallClaimsFlightDelayToggle": [
+      "SHOW"
+    ],
+    "smallClaimsFlightDelay": {
+      "relatedClaimsInput": "In the event that the Claimant(s) or Defendant(s) are aware if other \nclaims relating to the same flight they must notify the court \nwhere the claim is being managed within 14 days of receipt of \nthis Order providing all relevant details of those claims including \ncase number(s), hearing date(s) and copy final substantive order(s) \nif any, to assist the Court with ongoing case management which may \ninclude the cases being heard together.",
+      "legalDocumentsInput": "Any arguments as to the law to be applied to this claim, together with \ncopies of legal authorities or precedents relied on, shall be uploaded \nto the Digital Portal not later than 3 full working days before the \nfinal hearing date.",
+      "smallClaimsFlightDelayToggle": [
+        "SHOW"
+      ]
+    },
+    "smallClaimsHearingToggle": [
+      "SHOW"
+    ],
+    "hearingMethodValuesSmallClaims": {
+      "value": {
+        "code": "8b875c2d-82ff-4a1f-94a3-f397ebfde530",
+        "label": "In Person"
+      },
+      "list_items": [
+        {
+          "code": "8b875c2d-82ff-4a1f-94a3-f397ebfde530",
+          "label": "In Person"
+        },
+        {
+          "code": "1aa81a3a-c6ea-4bb0-ba92-0858078378b5",
+          "label": "Telephone"
+        },
+        {
+          "code": "62ef3d4f-7b1e-42fa-9757-f246186b5880",
+          "label": "Video"
+        }
+      ]
+    },
+    "smallClaimsHearing": {
+      "dateFrom": null,
+      "dateTo": null,
+      "time": "ONE_HOUR",
+      "input2": "The claimant must by no later than 4 weeks before the hearing date, pay the court the required hearing fee or submit a fully completed application for Help with Fees. \nIf the claimant fails to pay the fee or obtain a fee exemption by that time the claim will be struck without further order.",
+      "input1": "The hearing of the claim will be on a date to be notified to you by a separate notification. The hearing will have a time estimate of"
+    },
+    "smallClaimsMethodInPerson": {
+      "value": {
+        "code": "739514",
+        "label": "Clerkenwell and Shoreditch County Court and Family Court - 29-41 Gee Street - EC1V 3RE"
+      },
+      "list_items": [
+        {
+          "code": "827534",
+          "label": "Aberystwyth Justice Centre - Y Lanfa, Trefechan - SY23 1AS"
+        },
+        {
+          "code": "450049",
+          "label": "Aldershot Justice Centre - The Court House, Civic Centre, Wellington Avenue - GU11 1NY"
+        },
+        {
+          "code": "229786",
+          "label": "Barnet Civil and Family Centre - St Mary's Court, Regents Park Road - N3 1BQ"
+        },
+        {
+          "code": "574546",
+          "label": "Barnsley Law Courts - The Court House, Westgate - S70 2DW"
+        },
+        {
+          "code": "774335",
+          "label": "Barnstaple Magistrates, County and Family Court - The law Courts, North Walk, Barnstaple - EX31 1DX"
+        },
+        {
+          "code": "761518",
+          "label": "Barrow-in-Furness Magistrates and County Court - Abbey Road - LA14 5QX"
+        },
+        {
+          "code": "694840",
+          "label": "Basildon Combined Court - Regent House, The Gore - SS14 2EW"
+        },
+        {
+          "code": "457273",
+          "label": "Basingstoke Law Courts - The Court House, London Road - RG21 4AB"
+        },
+        {
+          "code": "411234",
+          "label": "Bath Law Courts - The Law Courts, North Parade Road - BA1 5AF"
+        },
+        {
+          "code": "446255",
+          "label": "Bedford County Court and Family Court - Shire Hall, St. Paul's Square, Bedford - MK40 1SQ"
+        },
+        {
+          "code": "500233",
+          "label": "Berwick upon Tweed Magistrates' Court - Church Street - TD15 1DX"
+        },
+        {
+          "code": "444097",
+          "label": "Birkenhead County Court - 76 Hamilton Street - CH415 EN"
+        },
+        {
+          "code": "231596",
+          "label": "Birmingham Civil and Family Justice Centre - Priory Courts, 33 Bull Street - B4 6DS"
+        },
+        {
+          "code": "214320",
+          "label": "Blackpool County Court & Family Court - The Law Courts, Civic Centre, Chapel Street - FY1 5RJ"
+        },
+        {
+          "code": "214320",
+          "label": "Blackpool Family Court - The Law Courts, Civic Centre, Chapel Street - FY1 5RJ"
+        },
+        {
+          "code": "304576",
+          "label": "Blackwood Civil and Family Court - Hall Street, Gwent - NP12 1NY"
+        },
+        {
+          "code": "271813",
+          "label": "Bodmin Law Courts - Launceston Road - PL31 2AL"
+        },
+        {
+          "code": "117667",
+          "label": "Boston Courthouse - Norfolk Street - PE21 6PE"
+        },
+        {
+          "code": "101633",
+          "label": "Bournemouth Combined Court - Courts of Justice, Deansleigh Road - BH7 7DS"
+        },
+        {
+          "code": "88516",
+          "label": "Bradford Combined Court Centre - The Law Courts, Exchange Square, Drake Street - BD1 1JA"
+        },
+        {
+          "code": "36791",
+          "label": "Brentford County and Family Court - Alexandra Road, High Street - TW8 0JJ"
+        },
+        {
+          "code": "478896",
+          "label": "Brighton County - William Street - BN2 0RF"
+        },
+        {
+          "code": "819890",
+          "label": "Bristol Civil and Family Justice Centre - 2 Redcliff Street - BS1 6GR"
+        },
+        {
+          "code": "29656",
+          "label": "Bromley County Court and Family Court - Court House, College Road - BR1 3PX"
+        },
+        {
+          "code": "448747",
+          "label": "Burnley Combined Court Centre - The Law Courts, Hammerton Street - BB11 1XD"
+        },
+        {
+          "code": "257431",
+          "label": "Bury St Edmunds County Court and Family Court - Triton House, St Andrews Street North - IP33 1TR"
+        },
+        {
+          "code": "366572",
+          "label": "Caernarfon Justice Centre - Llanberis Road - LL55 2DF"
+        },
+        {
+          "code": "650344",
+          "label": "Cambridge County Court and Family Court - 197 East Road - CB1 1BA"
+        },
+        {
+          "code": "259679",
+          "label": "Canterbury Combined Court Centre - The Law Courts, Chaucer Road, Canterbury, Kent - CT1 1ZA"
+        },
+        {
+          "code": "234850",
+          "label": "Cardiff Civil and Family Justice Centre - 2 Park Street, Cardiff - CF10 1ET"
+        },
+        {
+          "code": "45106",
+          "label": "Carlisle Combined Court - Courts of Justice, Earl Street - CA1 1DJ"
+        },
+        {
+          "code": "101959",
+          "label": "Carmarthen County Court and Tribunal Hearing Centre - Hill House, Picton Terrace, Carmarthen - SA31 3BT"
+        },
+        {
+          "code": "20262",
+          "label": "Central London County Court - Thomas More Building, Royal Courts of Justice, Strand, London - WC2A 2LL"
+        },
+        {
+          "code": "816875",
+          "label": "Chelmsford County and Family Court - Priory Place, New London Road - CM2 0PP"
+        },
+        {
+          "code": "226511",
+          "label": "Chester Civil and Family Justice Centre - Trident House, Little St John Street - CH1 1SN"
+        },
+        {
+          "code": "652852",
+          "label": "Chesterfield Justice Centre - Tapton Lane, Chesterfield - S41 7TW"
+        },
+        {
+          "code": "739514",
+          "label": "Clerkenwell and Shoreditch County Court and Family Court - 29-41 Gee Street - EC1V 3RE"
+        },
+        {
+          "code": "497679",
+          "label": "Coventry Combined Centre - Much Park Street - CV1 2SN"
+        },
+        {
+          "code": "566296",
+          "label": "Crewe Magistrates and County Court - The Law Courts, Civic Centre - CW1 2DT"
+        },
+        {
+          "code": "407494",
+          "label": "Croydon Combined Court - The Law Courts, Altyre Road - CR9 5AB"
+        },
+        {
+          "code": "288691",
+          "label": "Darlington County Court and Family Court - 4 Coniscliffe Road - DL3 7RL"
+        },
+        {
+          "code": "194172",
+          "label": "Dartford County Court and Family Court - Home Gardens - DA1 1DX"
+        },
+        {
+          "code": "201339",
+          "label": "Derby Combined Court Centre - The Morledge - DE1 2XE"
+        },
+        {
+          "code": "484482",
+          "label": "Derby Justice Centre - 27 St Mary's Gate, Derby - DE1 3JR"
+        },
+        {
+          "code": "640119",
+          "label": "Doncaster Justice Centre North (Doncaster Magistrates Court) - The Law Courts, College Road - DN1 3HT"
+        },
+        {
+          "code": "758998",
+          "label": "Dudley County (and Magistrates) Court - The Court House, The Inhedge - DY1 1RY"
+        },
+        {
+          "code": "491107",
+          "label": "Durham County and Tribunal Centre - Green Lane, Old Elvet - DH1 3RG"
+        },
+        {
+          "code": "25463",
+          "label": "Edmonton County Court and Family Court - Court House, 59 Fore Street - N18 2TN"
+        },
+        {
+          "code": "735217",
+          "label": "Exeter Combined Court Centre - Southernhay Gardens, Exeter - EX1 1UH"
+        },
+        {
+          "code": "427519",
+          "label": "Gateshead Law Courts (Gateshead Magistrates and County) - Warwick Street - NE8 1DT"
+        },
+        {
+          "code": "198592",
+          "label": "Gloucester and Cheltenham County and Family Court - Kimbrose Way, Gloucester Docks - GL1 2DE"
+        },
+        {
+          "code": "198592",
+          "label": "Gloucestershire Family and Civil Court - Kimbrose Way, Gloucester Docks - GL1 2DE"
+        },
+        {
+          "code": "478126",
+          "label": "Grimsby Combined Court Centre - Town Hall Square - DN31 1HX"
+        },
+        {
+          "code": "568484",
+          "label": "Guildford Law Courts - The Law Courts, Mary Road - GU1 4PS"
+        },
+        {
+          "code": "505683",
+          "label": "Harrogate Justice Centre - The Court House, Victoria Avenue - HG1 1EL"
+        },
+        {
+          "code": "784691",
+          "label": "Hastings Law Courts - The Law Courts, Bohemia Road - TN34 1QX"
+        },
+        {
+          "code": "700596",
+          "label": "Haverfordwest County and Family - Penffynnon, Hawthorn Rise, Haverfordwest - SA61 2AX"
+        },
+        {
+          "code": "228883",
+          "label": "Hereford Justice Centre - Hereford Justice Centre, Bath Street, Hereford - HR1 2HE"
+        },
+        {
+          "code": "256913",
+          "label": "Hertford County Court and Family Court - The Shire Hall. Fore Street - SG14 1BY"
+        },
+        {
+          "code": "437303",
+          "label": "High Wycombe Law Courts - The Law Courts, Easton Street - HP11 1LR"
+        },
+        {
+          "code": "317442",
+          "label": "Horsham Law Courts - The Law Courts, Hurst Road - RH12 2ET"
+        },
+        {
+          "code": "197852",
+          "label": "Huddersfield County Court and Family Court - Queensgate House, Queensgate - HD1 2RR"
+        },
+        {
+          "code": "471349",
+          "label": "Ipswich County Court and Family Hearing Centre - 8 Arcade Street - IP1 1EJ"
+        },
+        {
+          "code": "416742",
+          "label": "Isle of Wight Combined (and Magistrates) Court - Quay Street, Newport - PO30 5YT"
+        },
+        {
+          "code": "767032",
+          "label": "Kidderminster Magistrates Court - Comberton Place, Kidderminster - DY10 1QQ"
+        },
+        {
+          "code": "13660",
+          "label": "Kingston upon Thames County Court - St James Road - KT1 2AD"
+        },
+        {
+          "code": "195520",
+          "label": "Kingston-upon-Hull Combined Court Centre - The Combined Court Centre, Lowgate - HU1 2EZ"
+        },
+        {
+          "code": "353615",
+          "label": "Lancaster Courthouse (Magistrates and County Court) - George Street - LA1 1XZ"
+        },
+        {
+          "code": "455174",
+          "label": "Leeds Combined Court Centre - The Court House, 1 Oxford Row - LS1 3BG"
+        },
+        {
+          "code": "223503",
+          "label": "Leicester County Court - 90 Wellington Street, Leicester - LE1 6HG"
+        },
+        {
+          "code": "101183",
+          "label": "Lewes Combined Court Centre - The Law Courts, High Street - BN7 1YB"
+        },
+        {
+          "code": "195465",
+          "label": "Lincoln County Court and Family Court - 360 High Street - LN5 7PS"
+        },
+        {
+          "code": "345663",
+          "label": "Liverpool Civil and Family Court - 35, Vernon Street, City Square - L2 2BX"
+        },
+        {
+          "code": "390932",
+          "label": "Llanelli Law Courts - Court Buildings, Town Hall Square - SA15 3AW"
+        },
+        {
+          "code": "365554",
+          "label": "Luton Justice Centre - Floors 4 & 5, Arndale House, The Mall, Luton - LU1 2TH"
+        },
+        {
+          "code": "465872",
+          "label": "Maidstone Combined Court Centre - The Law Courts, Barker Road - ME16 8EQ"
+        },
+        {
+          "code": "701411",
+          "label": "Manchester Civil Justice Centre (Civil and Family Courts) - 1 Bridge Street West - M60 9DJ"
+        },
+        {
+          "code": "455368",
+          "label": "Mansfield Magistrates' and County Court - Rosemary Street - NG19 6EE"
+        },
+        {
+          "code": "674229",
+          "label": "Mayor's and City of London Court - Guildhall Buildings, Basinghall Street, London - EC2V 5AR"
+        },
+        {
+          "code": "369145",
+          "label": "Medway County Court and Family Court - Gun Wharf, Dock Road, Chatham, Kent - ME4 4AR"
+        },
+        {
+          "code": "448345",
+          "label": "Merthyr Tydfil Combined Court Centre - Glebeland Place, Castle Street - CF47 8BH"
+        },
+        {
+          "code": "572158",
+          "label": "Mid and South East Northumberland Law Courts (Bedlington) - Schalkesmuhle Road - NE22 7LX"
+        },
+        {
+          "code": "815997",
+          "label": "Milton Keynes County Court and Family Court - 351 Silbury Boulevard, Witan Gate East - MK9 2DT"
+        },
+        {
+          "code": "211138",
+          "label": "Mold Justice Centre (Mold Law Courts) - The Law Courts, Shirehall, Civic Centre - CH7 1AE"
+        },
+        {
+          "code": "211138",
+          "label": "Mold Justice Centre - The Law Courts, Mold - CH7 1AE"
+        },
+        {
+          "code": "366796",
+          "label": "Newcastle Civil & Family Courts and Tribunals Centre - Barras Bridge, Newcastle-Upon-Tyne - NE1 8QF"
+        },
+        {
+          "code": "373939",
+          "label": "Newcastle Moot Hall - The Moothall, Castlegarth - NE1 1RQ"
+        },
+        {
+          "code": "217250",
+          "label": "Newport (South Wales) County Court and Family Court - The Concourse, Clarence House, Clarence Place, Newport, Gwent - NP19 7AA"
+        },
+        {
+          "code": "562808",
+          "label": "North Shields County Court and Family Court - 2nd Floor, Kings Court, Earl Grey Way, Royal Quays - NE29 6AR"
+        },
+        {
+          "code": "195489",
+          "label": "Northampton Combined Court - 85 - 87 Lady's Lane, Northampton - NN1 3HQ"
+        },
+        {
+          "code": "471332",
+          "label": "Norwich Combined Court Centre - The Law Courts, Bishopgate - NR3 1UR"
+        },
+        {
+          "code": "424213",
+          "label": "Nottingham County Court and Family Court (and Crown) - Canal Street - NG1 7EJ"
+        },
+        {
+          "code": "618632",
+          "label": "Nottingham Magistrates' Court /Nottingham Justice Centre - Carrington Street - NG2 1EE"
+        },
+        {
+          "code": "228231",
+          "label": "Nuneaton County Court - Warwickshire Justice Centre, Vicarage Street, Nuneaton - CV11 4JU"
+        },
+        {
+          "code": "371016",
+          "label": "Oxford Combined Court Centre - St Aldates - OX1 1TL"
+        },
+        {
+          "code": "471569",
+          "label": "Peterborough Combined Court Centre - Crown Buildings, Rivergate - PE1 1EJ"
+        },
+        {
+          "code": "339463",
+          "label": "Plymouth Combined Court - The Law Courts, 10 Armada Way - PL1 2ER"
+        },
+        {
+          "code": "232298",
+          "label": "Pontypridd County Court and Family Court - The Court House, Courthouse Street, Pontypridd - CF37 1JR"
+        },
+        {
+          "code": "846055",
+          "label": "Port Talbot Justice Centre - Harbourside Road, Port Talbot - SA13 1SB"
+        },
+        {
+          "code": "460592",
+          "label": "Portsmouth Combined Court Centre - Courts of Justice, Winston Churchill Avenue - PO1 2EB"
+        },
+        {
+          "code": "379656",
+          "label": "Prestatyn Justice Centre - The Court House, Victoria Road, Prestatyn, Denbigshire - LL19 7TE"
+        },
+        {
+          "code": "232580",
+          "label": "Preston Combined Court Centre - The Law Courts, Openshaw Place, Ringway - PR1 2LL"
+        },
+        {
+          "code": "185657",
+          "label": "Reading County Court and Family Court - 160-163 Friar Street - RG1 1HE"
+        },
+        {
+          "code": "400947",
+          "label": "Romford County Court and Family Court - Oaklands Avenue - RM1 4DP"
+        },
+        {
+          "code": "817113",
+          "label": "Salisbury Law Courts - Wilton Road - SP2 7EP"
+        },
+        {
+          "code": "744412",
+          "label": "Scarborough Justice Centre - The Law Courts, Northway - YO12 7AE"
+        },
+        {
+          "code": "232607",
+          "label": "Sheffield Combined Court Centre - 50 West Bar, The Law Courts - S3 8PH"
+        },
+        {
+          "code": "318324",
+          "label": "Skipton County Court and Family Court / Skipton Magistrates Court - Otley Street, Court House - BD23 1RH"
+        },
+        {
+          "code": "224403",
+          "label": "Slough County Court and Family Court - The Law Courts, Windsor Road, Slough - SL1 2HE"
+        },
+        {
+          "code": "563156",
+          "label": "South Tyneside Magistrates (and County) Court - Millbank, Secretan Way, Tyne & Wear - NE33 1RG"
+        },
+        {
+          "code": "43104",
+          "label": "Southampton Combined Court Centre - The Courts of Justice, London Road - SO15 2XQ"
+        },
+        {
+          "code": "781139",
+          "label": "Southend Court House: County Court and Family Court and Magistrates Court - The Court House, 80 Victoria Avenue - SS2 6EU"
+        },
+        {
+          "code": "563906",
+          "label": "St Helens County Court and Family Court - Corporation Street - WA10 1SZ"
+        },
+        {
+          "code": "195472",
+          "label": "Stafford Combined Court Centre - Victoria Square - ST16 2QQ"
+        },
+        {
+          "code": "298828",
+          "label": "Staines Law Courts - The Law Courts, Knowle Green - TW18 1XH"
+        },
+        {
+          "code": "560788",
+          "label": "Stockport County Court, Family Court and Magistrates Court - The Court House, Edward Street - SK1 3NF"
+        },
+        {
+          "code": "195496",
+          "label": "Stoke-on-Trent Combined Court - Bethesda Street, Hanley - ST1 3BP"
+        },
+        {
+          "code": "517400",
+          "label": "Sunderland County, Family, Magistrates and Tribunal Hearings - Gillbridge Avenue - SR1 3AP"
+        },
+        {
+          "code": "234946",
+          "label": "Swansea Civil Justice Centre - Quay West, Quay Parade - SA1 1SP"
+        },
+        {
+          "code": "438850",
+          "label": "Swindon Combined Court - The Law Courts, Islington Street - SN1 2HG"
+        },
+        {
+          "code": "382409",
+          "label": "Taunton Combined Court - Shire Hall - TA1 4EU"
+        },
+        {
+          "code": "195537",
+          "label": "Teesside Combined Court Centre - The Law Courts, Centre Square, Middlesborough - TS1 2AE"
+        },
+        {
+          "code": "497583",
+          "label": "Telford County Court And Family Court - Telford Square, Town Centre, Telford, Shropshire - TF34JP"
+        },
+        {
+          "code": "292771",
+          "label": "Telford Justice Centre - Telford Square, Malinsgate, Telford - TF3 4HX"
+        },
+        {
+          "code": "659591",
+          "label": "Thanet County Court and Family Court - The Court House, 2nd Floor, Cecil Square, Margate - CT9 1RL"
+        },
+        {
+          "code": "235617",
+          "label": "Torquay and Newton Abbot County Court and Family Court - Court House, The Willows, Nicholson Road - TQ2 7AZ"
+        },
+        {
+          "code": "475776",
+          "label": "Truro Combined Court - Courts of Justice, Edward Street - TR1 2PB"
+        },
+        {
+          "code": "621184",
+          "label": "Uxbridge County Court and Family Court - 501 Uxbridge Road, Hayes - UB4 8HL"
+        },
+        {
+          "code": "852649",
+          "label": "Wakefield Civil Justice Centre - 1 Mulberry Way - WF1 2QN"
+        },
+        {
+          "code": "177463",
+          "label": "Walsall County and Family Court - Bridge House, Bridge Street - WS1 1JQ"
+        },
+        {
+          "code": "268374",
+          "label": "Wandsworth County Court and Family Court - 76-78 Upper Richmond Road, Putney - SW15 2SU"
+        },
+        {
+          "code": "736719",
+          "label": "Warwick Combined Court - Warwickshire Justice Centre, Newbold Terrace, Leamington Spa - CV32 4EL"
+        },
+        {
+          "code": "227860",
+          "label": "Watford County Court and Family Court - Royalty House, 10 King Street, Watford - WD18 0BW"
+        },
+        {
+          "code": "103147",
+          "label": "Welshpool Magistrates' and County Court - Mansion House, 24 Severn Street, Welshpool - SY21 7UX"
+        },
+        {
+          "code": "209396",
+          "label": "West Cumbria Courthouse - Hall Park, Ramsey Brow, Workington - CA14 4AS"
+        },
+        {
+          "code": "545334",
+          "label": "Weston-Super-Mare County Court and Family Court - North Somerset Courthouse, The Hedges, St Georges - BS22 7BB"
+        },
+        {
+          "code": "624161",
+          "label": "Weymouth Combined Court - The Law Courts, Westwey Road - DT4 8BS"
+        },
+        {
+          "code": "245068",
+          "label": "Wigan and Leigh Courthouse - Darlington Street - WN1 1DW"
+        },
+        {
+          "code": "228015",
+          "label": "Willesden County Court and Family Court - 9 Acton Lane, Harlesden - NW10 8SB"
+        },
+        {
+          "code": "886493",
+          "label": "Winchester Combined Court Centre - The Law Courts, High Street - SO23 9EL"
+        },
+        {
+          "code": "41047",
+          "label": "Wolverhampton Combined Court Centre - Pipers Row, Wolverhampton - WV1 3LQ"
+        },
+        {
+          "code": "102050",
+          "label": "Worcester Combined Court - Shire Hall, Foregate Street - WR1 1EQ"
+        },
+        {
+          "code": "493880",
+          "label": "Worthing Law Courts - The Law Courts, Christchurch Road - BN11 1JD"
+        },
+        {
+          "code": "637145",
+          "label": "Wrexham County & Family Court - The Law Courts, Bodhyfryd, Wrexham - LL12 7BP"
+        },
+        {
+          "code": "637145",
+          "label": "Wrexham Law Courts - The Law Courts, Bodhyfryd - LL12 7BP"
+        },
+        {
+          "code": "315404",
+          "label": "Yeovil Law Courts - Law Courts, Petters Way, Yeovil - BA20 1SW"
+        },
+        {
+          "code": "107581",
+          "label": "York County Court and Family Court - Piccadilly House, 55 Piccadilly - YO1 9WL"
+        }
+      ]
+    },
+    "smallClaimsNotes": {
+      "input": "This order has been made without hearing. Each party has the right to apply to have this Order set aside or varied. Any such application must be received by the Court (together with the appropriate fee) by 4pm on 19 April 2024",
+      "date": null
+    },
+    "smallClaimsDocumentsToggle": [
+      "SHOW"
+    ],
+    "smallClaimsDocuments": {
+      "input1": "Each party must upload to the Digital Portal copies of all documents which they wish the court to consider when reaching its decision not less than 21 days before the hearing.",
+      "input2": "The court may refuse to consider any document which has not been uploaded to the Digital Portal by the above date."
+    },
+    "smallClaimsWitnessStatementToggle": [
+      "SHOW"
+    ],
+    "smallClaimsWitnessStatement": {
+      "input1": "Each party must upload to the Digital Portal copies of all witness statements of the witnesses upon whose evidence they intend to rely at the hearing not less than 21 days before the hearing.",
+      "input2": "2",
+      "input3": "2",
+      "input4": "For this limitation, a party is counted as a witness.",
+      "text": "A witness statement must: \na) Start with the name of the case and the claim number;\nb) State the full name and address of the witness; \nc) Set out the witness's evidence clearly in numbered paragraphs on numbered pages;\nd) End with this paragraph: 'I believe that the facts stated in this witness statement are true. I understand that proceedings for contempt of court may be brought against anyone who makes, or causes to be made, a false statement in a document verified by a statement of truth without an honest belief in its truth'.\ne) be signed by the witness and dated.\nf) If a witness is unable to read the statement there must be a certificate that it has been read or interpreted to the witness by a suitably qualified person and at the final hearing there must be an independent interpreter who will not be provided by the Court.\n\nThe judge may refuse to allow a witness to give evidence or consider any statement of any witness whose statement has not been uploaded to the Digital Portal in accordance with the paragraphs above.\n\nA witness whose statement has been uploaded in accordance with the above must attend the hearing. If they do not attend, it will be for the court to decide how much reliance, if any, to place on their evidence.",
+      "smallClaimsNumberOfWitnessesToggle": [
+        "SHOW"
+      ]
+    },
+    "smallClaimsAddNewDirections": []
+  },
+"event_token": "#{event_token}}",
+"ignore_warning": false,
+"case_reference": "#{caseId}"
+}
