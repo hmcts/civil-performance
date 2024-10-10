@@ -1,0 +1,19 @@
+{
+  "data": {
+    "permissionGrantedJudgeCopy": "asasasasas",
+    "permissionGrantedDateCopy": "2024-09-01",
+    "confirmOrderGivesPermission": "NO",
+    "selectedClaimantForDiscontinuance": null,
+    "courtPermissionNeeded": "YES",
+    "typeOfDiscontinuance": "FULL_DISCONTINUANCE",
+    "isDiscontinuingAgainstBothDefendants": null,
+    "hearingDate": null
+  },
+  "event": {
+    "id": "VALIDATE_DISCONTINUE_CLAIM_CLAIMANT",
+    "summary": "",
+    "description": ""
+  },
+  "event_token": "#{event_token}",
+  "ignore_warning": false
+}

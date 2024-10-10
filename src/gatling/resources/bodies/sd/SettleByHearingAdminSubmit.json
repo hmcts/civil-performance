@@ -1,0 +1,13 @@
+{
+  "data": {
+    "settleReason": "JUDGE_ORDER",
+    "hearingDate": null
+  },
+  "event": {
+    "id": "SETTLE_CLAIM",
+    "summary": "",
+    "description": ""
+  },
+  "event_token": "#{event_token}",
+  "ignore_warning": false
+}

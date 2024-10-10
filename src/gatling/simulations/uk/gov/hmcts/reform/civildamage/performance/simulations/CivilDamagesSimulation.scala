@@ -33,6 +33,15 @@ class CivilDamagesSimulation extends Simulation {
 	val viewandresponsefeeder = csv("viewandresponsecases.csv").circular
 	val cpfulltestsmallclaimsFeeder=csv("cuir2cpsmallclaims.csv").circular
 	val cpfulltestfasttrackFeeder=csv("cuir2cpfasttrack.csv").circular
+	//following are for S&D
+	val SDDefResponseFeeder=csv("sddefresponsecaseIds.csv").circular
+	val SDJudicialReferralValidateFeeder=csv("sdjudicialreferralvalidatecaseIds.csv").circular
+	val SDJudicialReferralInValidateFeeder=csv("sdjudicialreferralinvalidatecaseIds.csv").circular
+	val SDHearingReadinessFeeder=csv("sdhearingreadinesscaseIds.csv").circular
+	val SDHearingAdminFeeder=csv("sdhearingadmincaseIds.csv").circular
+	
+	
+	
 	
 	
   val httpProtocol = Environment.HttpProtocol
@@ -271,6 +280,7 @@ class CivilDamagesSimulation extends Simulation {
 					.pause(20)
 				.exec(Logout.XUILogout)
 		}
+	
 	
 	
 	/*
@@ -697,39 +707,83 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 				.exec(STRel3.IssueDecision)
 
 		}
-
 	
-
-		/*/*
-      Step 2: login to manage org as defendant solicitor to assign the case to other users from defendant solicitor firm
-
-       */
-		.exec(EXUIMCLogin.manageOrgHomePage)
-		.exec(EXUIMCLogin.manageOrglogin)
-		.exec(EXUI_AssignCase.run)
-		.exec(EXUIMCLogin.manageOrg_Logout)
-		.pause(50)
-		/*
-  Step 3: login as defendant user  and complete the defendant journey and logout
-
-   */
-
-		.exec(EXUIMCLogin.manageCasesHomePage)
-		.exec(EXUIMCLogin.manageCasesloginToDefendantJourney)
-		.exec(DefendantResponse.run)
-		.pause(50)
-		.exec(EXUIMCLogin.manageCase_Logout)
-
-		/*
-	 Step 4: below is the journey for response to defendant by claimant
-		*/
-		.exec(EXUIMCLogin.manageCasesHomePage)
-		.exec(EXUIMCLogin.manageCaseslogin)
-		.exec(ClaimResponseToDefendant.run)
-		.pause(50)
-		.exec(EXUIMCLogin.manageCase_Logout)
-*/
-
+	/*======================================================================================
+* Below scenario is for Settle And Discontinue
+======================================================================================*/
+	
+	/*======================================================================================
+* Below S&D scenario is for Settle the claim by Claimant and validate by CTSC
+======================================================================================*/
+	
+	val SettleByClaimant= scenario("Settle By Claimant")
+		.feed(loginFeeder).feed(SDDefResponseFeeder)
+		.exitBlockOnFail {
+			exec(_.set("env", s"${env}"))
+				//below login as tribunal user for region 4
+				.exec(Homepage.XUIHomePage)
+				.exec(Login.XUILogin)//this user is for sdo region 4 tribunal user which is ia requirement for request for reconsider
+				.exec(SettleAndDiscontinue.SettleSpecClaimByClaimant)
+				.exec(EXUIMCLogin.manageCase_Logout)
+		}
+	
+	/*======================================================================================
+* Below S&D scenario is for Settle the claim by Hearing Admin
+======================================================================================*/
+	
+	val SettleByHearingAdmin = scenario("Settle By Hearing Admin")
+		.feed(loginFeeder).feed(SDHearingAdminFeeder)
+		.exitBlockOnFail {
+			exec(_.set("env", s"${env}"))
+				//below login as tribunal user for region 4
+				.exec(Homepage.XUIHomePage)
+				.exec(Login.XUICenterAdminLogin)
+				.exec(SettleAndDiscontinue.SettleSpecClaimByHearingAdmin)
+				.exec(EXUIMCLogin.manageCase_Logout)
+		}
+	
+	/*======================================================================================
+* Below S&D scenario - Dicontinue by Claimant and validated by CTSC - case JD state
+======================================================================================*/
+	
+	val DiscontinueByClaimantAndValidate = scenario("Discontinue By Claimant And validated by CTSC")
+		.feed(loginFeeder).feed(SDJudicialReferralValidateFeeder)
+		.exitBlockOnFail {
+			exec(_.set("env", s"${env}"))
+				//below login as tribunal user for region 4
+				.exec(Homepage.XUIHomePage)
+				.exec(Login.XUILogin)
+				.exec(SettleAndDiscontinue.DiscontinueSpecClaimByClaimantForJDState)
+				.exec(EXUIMCLogin.manageCase_Logout)
+				.pause(20)
+				.exec(Homepage.XUIHomePage)
+				.exec(Login.XUICTSCLogin)
+				.exec(SettleAndDiscontinue.ValidateDiscontinueByCTSCForJDState)
+				.exec(EXUIMCLogin.manageCase_Logout)
+		}
+	
+	
+	/*======================================================================================
+* Below S&D scenario - Dicontinue by Claimant and validated by CTSC - case JD state
+======================================================================================*/
+	
+	val DiscontinueByClaimantAndInValidate = scenario("Discontinue By Claimant And In validated by CTSC")
+		.feed(loginFeeder).feed(SDJudicialReferralInValidateFeeder)
+		.exitBlockOnFail {
+			exec(_.set("env", s"${env}"))
+				//below login as tribunal user for region 4
+				.exec(Homepage.XUIHomePage)
+				.exec(Login.XUILogin)
+				.exec(SettleAndDiscontinue.DiscontinueSpecClaimByClaimantForJDState)
+				.exec(EXUIMCLogin.manageCase_Logout)
+				.pause(20)
+				.exec(Homepage.XUIHomePage)
+				.exec(Login.XUICTSCLogin)
+				.exec(SettleAndDiscontinue.InValidateDiscontinueByCTSCForJDState)
+				.exec(EXUIMCLogin.manageCase_Logout)
+		}
+	
+	
 	//defines the Gatling simulation model, based on the inputs
 	def simulationProfile(simulationType: String, numberOfPerformanceTestUsers: Double, numberOfPipelineUsers: Double): Seq[OpenInjectionStep] = {
 		simulationType match {
@@ -760,8 +814,8 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 		
 	//	SDOSmallClaimsCUIR2.inject(nothingFor(1),rampUsers(1) during (1)),
 		//SDOFastTrackCUIR2.inject(nothingFor(1),rampUsers(3) during (50)),
-		CUIR2SmallClaimsCaseProgression.inject(nothingFor(1),rampUsers(14) during (3600)),
-		CUIR2FastTrackCaseProgression.inject(nothingFor(50),rampUsers(14) during (3600)),
+	//	CUIR2SmallClaimsCaseProgression.inject(nothingFor(1),rampUsers(14) during (3600)),
+	//	CUIR2FastTrackCaseProgression.inject(nothingFor(50),rampUsers(14) during (3600)),
 		//	CivilUIR2ClaimCreationScenario.inject(nothingFor(1),rampUsers(1) during (1))
 		
 	//	CivilUIClaimCreationScenario.inject(nothingFor(1),rampUsers(1) during (1))
@@ -778,6 +832,15 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 	//CivilCaseDataPrep.inject(nothingFor(1),rampUsers(18) during (600))
 	//	STCitizen.inject(nothingFor(1),rampUsers(1) during (2700))
 		//CivilDamageScenario.inject(nothingFor(1),rampUsers(1) during (2))
+		
+		
+		// Settle And Discontinue Scenarios
+		
+		SettleByClaimant.inject(nothingFor(1),rampUsers(28) during (3600)),
+		SettleByHearingAdmin.inject(nothingFor(25),rampUsers(28) during (3600)),
+		DiscontinueByClaimantAndValidate.inject(nothingFor(50),rampUsers(37) during (3600)),
+		DiscontinueByClaimantAndInValidate.inject(nothingFor(100),rampUsers(37) during (3600)),
+	
 ).protocols(httpProtocol)
 	
 	/*setUp(

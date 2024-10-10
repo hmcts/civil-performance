@@ -1,0 +1,18 @@
+{
+  "data": {
+    "markPaidConsent": "YES"
+  },
+  "event": {
+    "id": "SETTLE_CLAIM_MARK_PAID_FULL",
+    "summary": "",
+    "description": ""
+  },
+  "event_data": {
+    "addApplicant2": "No",
+    "hearingDate": null,
+    "markPaidConsent": "YES"
+  },
+  "event_token": "#{event_token}",
+  "ignore_warning": false,
+  "case_reference": "#{caseId}"
+}

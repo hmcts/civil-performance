@@ -374,5 +374,62 @@ object Login {
       
     }
       .pause(MinThinkTime, MaxThinkTime)
+      
   
-}
+  //below is for ctsc login
+  
+  // Tribunal login is a condition for region 4 for SDO
+  val XUICTSCLogin =
+    
+    group("XUI_020_Login") {
+      exec(flushHttpCache)
+        .exec(http("XUI_020_005_Login")
+          .post(IdamUrl + "/login?client_id=xuiwebapp&redirect_uri=" + BaseURL + "/oauth2/callback&state=#{state}&nonce=#{nonce}&response_type=code&scope=profile%20openid%20roles%20manage-user%20create-user%20search-user&prompt=")
+          .formParam("username", "#{ctscadminuser}")
+          .formParam("password", "#{ctscadminpassword}")
+          .formParam("azureLoginEnabled", "true")
+          .formParam("mojLoginEnabled", "true")
+          .formParam("selfRegistrationEnabled", "false")
+          .formParam("_csrf", "#{csrf}")
+          .headers(Headers.navigationHeader)
+          .headers(Headers.postHeader)
+          .check(regex("Manage cases")))
+    
+        //see xui-webapp cookie capture in the Homepage scenario for details of why this is being used
+        .exec(addCookie(Cookie("xui-webapp", "#{xuiWebAppCookie}")
+          .withMaxAge(28800)
+          .withSecure(true)))
+    
+        .exec(Common.configurationui)
+    
+        .exec(Common.configJson)
+    
+        .exec(Common.TsAndCs)
+    
+        .exec(Common.configUI)
+    
+        .exec(Common.userDetails)
+    
+        .exec(Common.isAuthenticated)
+    
+        .exec(Common.monitoringTools)
+    
+        //if there is no in-flight case, set the case to 0 for the activity calls
+        .doIf("#{caseId.isUndefined()}") {
+          exec(_.set("caseId", "0"))
+        }
+    
+        // .exec(Common.caseActivityGet)
+    
+        .exec(http("XUI_020_010_Jurisdictions")
+          .get("/aggregated/caseworkers/:uid/jurisdictions?access=read")
+          .headers(Headers.commonHeader)
+          .header("accept", "application/json")
+          .check(substring("id")))
+    
+        .exec(getCookieValue(CookieKey("XSRF-TOKEN").withDomain(BaseURL.replace("https://", "")).saveAs("XSRFToken")))
+    
+        .exec(Common.orgDetails)
+    }
+    
+    }

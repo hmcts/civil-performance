@@ -1,0 +1,18 @@
+{
+  "data": {
+    "addApplicant2": "No",
+    "hearingDate": null
+  },
+  "event": {
+    "id": "SETTLE_CLAIM_MARK_PAID_FULL",
+    "summary": "",
+    "description": ""
+  },
+  "event_data": {
+    "addApplicant2": "No",
+    "hearingDate": null
+  },
+  "event_token": "#{event_token}",
+  "ignore_warning": false,
+  "case_reference": "#{caseId}"
+}
