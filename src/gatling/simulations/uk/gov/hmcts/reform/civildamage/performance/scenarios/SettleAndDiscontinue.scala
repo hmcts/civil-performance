@@ -384,7 +384,7 @@ object SettleAndDiscontinue {
     ==========================================================================================*/
       .group("XUI_DiscontinueByClaimant_040_ClickOnDisContinue") {
         exec(http("XUI_DiscontinueByClaimant_040_005_ClickOnDisContinue")
-          .get("/workallocation/case/tasks/1727083363722287/event/DISCONTINUE_CLAIM_CLAIMANT/caseType/CIVIL/jurisdiction/CIVIL")
+          .get("/workallocation/case/tasks/#{caseId}/event/DISCONTINUE_CLAIM_CLAIMANT/caseType/CIVIL/jurisdiction/CIVIL")
           .headers(CivilDamagesHeader.MoneyClaimNav)
           .header("accept", "application/json")
           .check(substring("task_required_for_event"))
