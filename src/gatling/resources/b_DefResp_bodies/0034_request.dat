@@ -1,0 +1,52 @@
+{
+	"data": {
+		"showConditionFlags": [
+			"CAN_ANSWER_RESPONDENT_1"
+		],
+		"multiPartyResponseTypeFlags": null,
+		"addRespondent2": "No",
+		"respondent1ResponseDate": null,
+		"respondent1ClaimResponseTestForSpec": null,
+		"isRespondent1": null,
+		"respondent2ClaimResponseTestForSpec": null,
+		"isRespondent2": null,
+		"isApplicant1": null,
+		"showHowToAddTimeLinePage": null,
+		"fullAdmissionAndFullAmountPaid": null,
+		"partAdmittedByEitherRespondents": null,
+		"neitherCompanyNorOrganisation": null,
+		"defenceAdmitPartPaymentTimeRouteGeneric": null,
+		"respondentClaimResponseTypeForSpecGeneric": null,
+		"respondToClaimAdmitPartEmploymentTypeLRspecGeneric": null,
+		"totalClaimAmount": "9000"
+	},
+	"event": {
+		"id": "DEFENDANT_RESPONSE_SPEC",
+		"summary": "",
+		"description": ""
+	},
+	"event_data": {
+		"showConditionFlags": [
+			"CAN_ANSWER_RESPONDENT_1"
+		],
+		"multiPartyResponseTypeFlags": null,
+		"addRespondent2": "No",
+		"respondent1ResponseDate": null,
+		"respondent1ClaimResponseTestForSpec": null,
+		"isRespondent1": null,
+		"respondent2ClaimResponseTestForSpec": null,
+		"isRespondent2": null,
+		"isApplicant1": null,
+		"showHowToAddTimeLinePage": null,
+		"fullAdmissionAndFullAmountPaid": null,
+		"partAdmittedByEitherRespondents": null,
+		"neitherCompanyNorOrganisation": null,
+		"defenceAdmitPartPaymentTimeRouteGeneric": null,
+		"respondentClaimResponseTypeForSpecGeneric": null,
+		"respondToClaimAdmitPartEmploymentTypeLRspecGeneric": null,
+		"totalClaimAmount": "9000"
+	},
+	"event_token": "#{event_token}",
+	"ignore_warning": false,
+	"case_reference": "#{caseId}"
+}

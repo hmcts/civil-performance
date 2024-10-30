@@ -1,0 +1,11 @@
+{
+  "data": {},
+  "event": {
+    "description": "",
+    "id": "CREATE_CLAIM_SPEC",
+    "summary": ""
+  },
+  "event_data": {},
+  "event_token": "#{event_token}",
+  "ignore_warning": false
+}

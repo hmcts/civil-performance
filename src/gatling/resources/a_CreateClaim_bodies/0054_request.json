@@ -1,0 +1,136 @@
+{
+  "data": {
+    "calculatedInterest": "| Description | Amount | \n |---|---| \n | Claim amount | £ 9000 | \n | Interest amount | £ 0 | \n | Total amount | £ 9000 |"
+  },
+  "event": {
+    "description": "",
+    "id": "CREATE_CLAIM_SPEC",
+    "summary": ""
+  },
+  "event_data": {
+    "CaseAccessCategory": null,
+    "addApplicant2": "No",
+    "addRespondent2": "No",
+    "applicant1": {
+      "companyName": "CLAIMAINT",
+      "flags": {
+        "details": [],
+        "groupId": null,
+        "partyName": null,
+        "roleOnCase": null,
+        "visibility": null
+      },
+      "partyEmail": "T@G.COM",
+      "partyID": null,
+      "partyName": "CLAIMAINT",
+      "partyPhone": null,
+      "partyTypeDisplayValue": "Company",
+      "primaryAddress": {
+        "AddressLine1": "Flat 64",
+        "AddressLine2": "Roxborough Heights",
+        "AddressLine3": "Headstone Road",
+        "Country": "United Kingdom",
+        "County": "",
+        "PostCode": "HA1 1GP",
+        "PostTown": "Harrow"
+      },
+      "type": "COMPANY",
+      "unavailableDates": []
+    },
+    "applicant1OrganisationPolicy": {
+      "OrgPolicyReference": "CLAIM.REP",
+      "Organisation": {
+        "OrganisationID": "7H4MGE5",
+        "OrganisationName": "Civil Damages Claims - Organisation 1"
+      },
+      "PrepopulateToUsersOrganisation": null,
+      "PreviousOrganisations": []
+    },
+    "applicantSolicitor1CheckEmail": {
+      "correct": "No",
+      "email": "civil.damages.claims+organisation.1.solicitor.1@gmail.com"
+    },
+    "applicantSolicitor1UserDetails": {
+      "email": "civilmoneyclaimsdemo@gmail.com",
+      "id": null
+    },
+    "calculatedInterest": "| Description | Amount | \n |---|---| \n | Claim amount | £ 9000 | \n | Interest amount | £ 0 | \n | Total amount | £ 9000 |",
+    "claimAmountBreakup": [
+      {
+        "id": "9373bb65-579a-4405-aa5c-a1f197b598e8",
+        "value": {
+          "claimAmount": "900000",
+          "claimReason": "NFT CLAIM"
+        }
+      }
+    ],
+    "claimAmountBreakupSummaryObject": "| Description | Amount | \n |---|---| \n | NFT CLAIM | £ 9000.00 |\n | **Total** | £ 9000.00 |",
+    "claimInterest": "No",
+    "detailsOfClaim": "FASFASF",
+    "isFlightDelayClaim": "No",
+    "respondent1": {
+      "companyName": "DEFENDANT",
+      "flags": {
+        "details": [],
+        "groupId": null,
+        "partyName": null,
+        "roleOnCase": null,
+        "visibility": null
+      },
+      "individualDateOfBirth": null,
+      "partyEmail": "T@G.CM",
+      "partyID": null,
+      "partyName": "DEFENDANT",
+      "partyPhone": null,
+      "partyTypeDisplayValue": "Company",
+      "primaryAddress": {
+        "AddressLine1": "42",
+        "AddressLine2": "Flanders Court 12-14",
+        "AddressLine3": "St. Albans Road",
+        "Country": "United Kingdom",
+        "County": "",
+        "PostCode": "WD17 1BN",
+        "PostTown": "Watford"
+      },
+      "soleTraderDateOfBirth": null,
+      "type": "COMPANY",
+      "unavailableDates": []
+    },
+    "respondent1OrgRegistered": "Yes",
+    "respondent1OrganisationPolicy": {
+      "OrgPolicyReference": "DEFENDANT.REP",
+      "Organisation": {
+        "OrganisationID": "MEVCCQF",
+        "OrganisationName": "Civil Damages Claims - Organisation 2"
+      },
+      "PreviousOrganisations": []
+    },
+    "respondentSolicitor1EmailAddress": "civilmoneyclaimsdemo@gmail.com",
+    "specApplicantCorrespondenceAddressRequired": "No",
+    "specClaimTimelineList": "MANUAL",
+    "specRespondent1Represented": "Yes",
+    "specRespondentCorrespondenceAddressRequired": "No",
+    "speclistYourEvidenceList": [
+      {
+        "id": "bc08d0d7-ff72-4f37-bffc-d89559cdeaa6",
+        "value": {
+          "evidenceType": "EXPERT_WITNESS",
+          "expertWitnessEvidence": "AFSASFS"
+        }
+      }
+    ],
+    "timelineOfEvents": [
+      {
+        "id": "ab6d93f7-3871-47e4-98c1-19c00a1239c5",
+        "value": {
+          "timelineDate": "2023-11-11",
+          "timelineDescription": "AFSFSF"
+        }
+      }
+    ],
+    "totalClaimAmount": "9000",
+    "totalInterest": null
+  },
+  "event_token": "#{event_token}",
+  "ignore_warning": false
+}

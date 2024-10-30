@@ -1,0 +1,46 @@
+plugins {
+    id 'org.owasp.dependencycheck' version 'latest.release'
+    id 'scala'
+    id 'java-library'
+    // The following line allows to load io.gatling.gradle plugin and directly apply it
+    id 'io.gatling.gradle' version '3.12.0.2'
+}
+
+
+tasks.withType(ScalaCompile) {
+    scalaCompileOptions.additionalParameters = ['-release', '8']
+}
+
+repositories {
+  mavenCentral()
+}
+
+sourceSets {
+    gatling {
+        scala {
+            srcDirs = ['src/gatling/simulations']
+        }
+        resources {
+            srcDirs = ['src/gatling/resources']
+        }
+    }
+}
+
+dependencies {
+    implementation 'io.gatling.highcharts:gatling-charts-highcharts:3.9.5'
+    implementation 'io.gatling:gatling-test-framework:3.9.5'
+}
+
+tasks.register('runGatlingTest', JavaExec) {
+    description = 'Run Gatling test'
+    group = 'Gatling'
+
+    classpath = sourceSets.gatling.runtimeClasspath
+    mainClass = 'io.gatling.app.Gatling'
+    args = [
+        '--simulation', 'HomePG',
+        '--results-folder', "${buildDir}/gatling-results",
+        '--f_DefResp_bodies-folder', "${projectDir}/src/gatling/resources",
+        '--simulations-folder', "${projectDir}/src/gatling/simulations"
+    ]
+}
