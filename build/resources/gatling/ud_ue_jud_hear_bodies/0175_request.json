@@ -1,0 +1,1 @@
+{"searchRequest":{"search_parameters":[{"key":"user","operator":"IN","values":["4581b838-873e-4d28-8134-50eb1edb3d43"]},{"key":"state","operator":"IN","values":["assigned"]}],"sorting_parameters":[],"search_by":"caseworker"},"view":"MyTasks"}

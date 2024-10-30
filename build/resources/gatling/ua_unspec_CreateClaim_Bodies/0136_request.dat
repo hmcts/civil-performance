@@ -1,0 +1,1 @@
+{"data":{"servedDocumentFiles":{"particularsOfClaimText":"NFT","particularsOfClaimDocument":[],"medicalReport":[],"scheduleOfLoss":[],"certificateOfSuitability":[],"other":[],"timelineEventUpload":[]}},"event":{"id":"NOTIFY_DEFENDANT_OF_CLAIM_DETAILS","summary":"","description":""},"event_token":"#{event_token}","ignore_warning":false}

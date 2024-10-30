@@ -1,0 +1,76 @@
+{
+  "data": {
+    "notificationText": null,
+    "caseTypeFlag": "do_not_show",
+    "caseProgAllocatedTrack": "FAST_CLAIM",
+    "disclosureSelectionEvidenceRes": [],
+    "witnessSelectionEvidenceRes": [
+      "WITNESS_STATEMENT"
+    ],
+    "expertSelectionEvidenceRes": [],
+    "trialSelectionEvidenceRes": [],
+    "bundleSelectionEvidence": [],
+    "witnessStatementFlag": "show_witness_statement",
+    "witnessSummaryFlag": "do_not_show",
+    "witnessReferredStatementFlag": "do_not_show",
+    "expertReportFlag": "do_not_show",
+    "expertJointFlag": "do_not_show",
+    "trialAuthorityFlag": "do_not_show",
+    "trialCostsFlag": "do_not_show",
+    "trialDocumentaryFlag": "do_not_show",
+    "documentDisclosureListRes": [],
+    "documentForDisclosureRes": [],
+    "documentWitnessStatementRes": [
+      {
+        "value": {
+          "witnessOptionName": "DF WITNESS",
+          "witnessOptionUploadDate": "2023-11-11",
+          "createdDatetime": null,
+          "witnessOptionDocument": {
+            "document_url": "#{DF_WitnessStatementDocument_url}",
+            "document_binary_url": "#{DF_WitnessStatementDocument_url}/binary",
+            "document_filename": "WitnessStatement.docx",
+            "document_hash": "#{DF_WitnessStatementHashToken}"
+          }
+        },
+        "id": null
+      }
+    ],
+    "documentWitnessSummaryRes": [],
+    "documentHearsayNoticeRes": [],
+    "documentReferredInStatementRes": [],
+    "documentExpertReportRes": [],
+    "documentJointStatementRes": [],
+    "bundleEvidence": [],
+    "documentQuestionsRes": [],
+    "documentAnswersRes": [],
+    "documentCaseSummaryRes": [],
+    "documentSkeletonArgumentRes": [],
+    "documentAuthoritiesRes": [],
+    "documentCostsRes": [],
+    "documentEvidenceForTrialRes": [],
+    "documentDisclosureListRes2": [],
+    "documentForDisclosureRes2": [],
+    "documentWitnessStatementRes2": [],
+    "documentWitnessSummaryRes2": [],
+    "documentHearsayNoticeRes2": [],
+    "documentReferredInStatementRes2": [],
+    "documentExpertReportRes2": [],
+    "documentJointStatementRes2": [],
+    "documentQuestionsRes2": [],
+    "documentAnswersRes2": [],
+    "documentCaseSummaryRes2": [],
+    "documentSkeletonArgumentRes2": [],
+    "documentAuthoritiesRes2": [],
+    "documentCostsRes2": [],
+    "documentEvidenceForTrialRes2": [],
+    "caseDocumentUploadDateRes": null
+  },
+  "event": {
+    "id": "EVIDENCE_UPLOAD_RESPONDENT",
+    "summary": "",
+    "description": ""
+  },
+  "event_token": "#{event_token}",
+  "ignore_warning": false
+}

@@ -1,0 +1,72 @@
+{
+  "data": {
+    "witnessStatementFlag": "show_witness_statement",
+    "witnessSummaryFlag": "do_not_show",
+    "witnessReferredStatementFlag": "do_not_show",
+    "expertReportFlag": "do_not_show",
+    "expertJointFlag": "do_not_show",
+    "trialAuthorityFlag": "do_not_show",
+    "trialCostsFlag": "do_not_show",
+    "trialDocumentaryFlag": "do_not_show",
+    "documentWitnessStatementRes": [
+      {
+        "value": {
+          "witnessOptionName": "DF WITNESS",
+          "witnessOptionUploadDate": "2023-11-11",
+          "witnessOptionDocument": {
+            "document_url": "#{DF_WitnessStatementDocument_url}",
+            "document_binary_url": "#{DF_WitnessStatementDocument_url}/binary",
+            "document_filename": "WitnessStatement.docx",
+            "document_hash": "#{DF_WitnessStatementHashToken}"
+          }
+        },
+        "id": null
+      }
+    ],
+    "caseDocumentUploadDateRes": null
+  },
+  "event": {
+    "id": "EVIDENCE_UPLOAD_RESPONDENT",
+    "summary": "",
+    "description": ""
+  },
+  "event_data": {
+    "notificationText": null,
+    "caseTypeFlag": "do_not_show",
+    "caseProgAllocatedTrack": "FAST_CLAIM",
+    "disclosureSelectionEvidenceRes": [],
+    "witnessSelectionEvidenceRes": [
+      "WITNESS_STATEMENT"
+    ],
+    "expertSelectionEvidenceRes": [],
+    "trialSelectionEvidenceRes": [],
+    "bundleSelectionEvidence": [],
+    "witnessStatementFlag": "show_witness_statement",
+    "witnessSummaryFlag": "do_not_show",
+    "witnessReferredStatementFlag": "do_not_show",
+    "expertReportFlag": "do_not_show",
+    "expertJointFlag": "do_not_show",
+    "trialAuthorityFlag": "do_not_show",
+    "trialCostsFlag": "do_not_show",
+    "trialDocumentaryFlag": "do_not_show",
+    "documentWitnessStatementRes": [
+      {
+        "value": {
+          "witnessOptionName": "DF WITNESS",
+          "witnessOptionUploadDate": "2023-11-11",
+          "witnessOptionDocument": {
+            "document_url": "#{DF_WitnessStatementDocument_url}",
+            "document_binary_url": "#{DF_WitnessStatementDocument_url}/binary",
+            "document_filename": "WitnessStatement.docx",
+            "document_hash": "#{DF_WitnessStatementHashToken}"
+          }
+        },
+        "id": null
+      }
+    ],
+    "caseDocumentUploadDateRes": null
+  },
+  "event_token": "#{event_token}",
+  "ignore_warning": false,
+  "case_reference": "#{caseId}"
+}

@@ -1,0 +1,109 @@
+{
+  "data": {
+    "respondent1DQWitnesses": {
+      "witnessesToAppear": "No",
+      "details": []
+    }
+  },
+  "event": {
+    "id": "DEFENDANT_RESPONSE",
+    "summary": "",
+    "description": ""
+  },
+  "event_data": {
+    "respondent1Copy": {
+      "partyID": "#{PartyID}",
+      "type": "COMPANY",
+      "companyName": "DEFENDANT",
+      "primaryAddress": {
+        "AddressLine1": "4",
+        "AddressLine2": "Flanders Court 12-14",
+        "AddressLine3": "St. Albans Road",
+        "PostTown": "Watford",
+        "Country": "United Kingdom",
+        "PostCode": "WD17 1BN"
+      },
+      "partyName": "DEFENDANT",
+      "partyTypeDisplayValue": "Company",
+      "partyEmail": "T@G.CM",
+      "flags": {
+        "partyName": "DEFENDANT",
+        "roleOnCase": "Defendant 1"
+      }
+    },
+    "respondent2Copy": null,
+    "allocatedTrack": "FAST_CLAIM",
+    "claimType": "CLINICAL_NEGLIGENCE",
+    "addRespondent2": "No",
+    "addApplicant2": "No",
+    "respondent2SameLegalRepresentative": null,
+    "respondent1": {
+      "type": "COMPANY",
+      "individualTitle": null,
+      "individualFirstName": null,
+      "individualLastName": null,
+      "companyName": "DEFENDANT",
+      "organisationName": null,
+      "soleTraderTitle": null,
+      "soleTraderFirstName": null,
+      "soleTraderLastName": null,
+      "soleTraderTradingAs": null,
+      "partyName": "DEFENDANT",
+      "partyTypeDisplayValue": "Company",
+      "partyEmail": "T@G.CM",
+      "partyPhone": null,
+      "partyID": "#{PartyID}",
+      "primaryAddress": {
+        "AddressLine1": "4",
+        "AddressLine2": "Flanders Court 12-14",
+        "AddressLine3": "St. Albans Road",
+        "PostTown": "Watford",
+        "County": null,
+        "PostCode": "WD17 1BN",
+        "Country": "United Kingdom"
+      },
+      "unavailableDates": []
+    },
+    "multiPartyResponseTypeFlags": "FULL_DEFENCE",
+    "respondent1ClaimResponseType": "FULL_DEFENCE",
+    "isRespondent1": "Yes",
+    "solicitorReferences": {
+      "respondentSolicitor1Reference": null,
+      "applicantSolicitor1Reference": null,
+      "respondentSolicitor2Reference": null
+    },
+    "respondent1ClaimResponseDocument": {
+      "file": {
+        "document_url": "#{DF_Document_url}",
+        "document_binary_url": "#{DF_Document_url}/binary",
+        "document_filename": "DF_upload.docx",
+        "document_hash": "#{DF_HashToken}"
+      }
+    },
+    "respondent1DQFileDirectionsQuestionnaire": {
+      "oneMonthStayRequested": "No",
+      "reactionProtocolCompliedWith": "Yes",
+      "explainedToClient": [
+        "CONFIRM"
+      ]
+    },
+    "respondent1DQFixedRecoverableCosts": {
+      "isSubjectToFixedRecoverableCostRegime": "No",
+      "reasons": null
+    },
+    "respondent1DQDisclosureOfNonElectronicDocuments": {
+      "directionsForDisclosureProposed": "No"
+    },
+    "respondent1DQExperts": {
+      "expertRequired": "No",
+      "details": []
+    },
+    "respondent1DQWitnesses": {
+      "witnessesToAppear": "No",
+      "details": []
+    }
+  },
+  "event_token": "#{event_token}",
+  "ignore_warning": false,
+  "case_reference": "#{caseId}"
+}

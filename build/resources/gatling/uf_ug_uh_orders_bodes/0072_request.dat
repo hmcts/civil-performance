@@ -1,0 +1,56 @@
+{
+  "data": {
+    "documentWitnessStatement": [
+      {
+        "value": {
+          "witnessOptionName": "CL_UPLOAD",
+          "witnessOptionUploadDate": "2023-11-11",
+          "witnessOptionDocument": {
+            "document_url": "#{CL_StatementDocument_url}",
+            "document_binary_url": "#{CL_StatementDocument_url}/binary",
+            "document_filename": "WitnessStatement.docx",
+            "document_hash": "#{CL_HashToken}"
+          }
+        },
+        "id": null
+      }
+    ],
+    "caseDocumentUploadDate": null
+  },
+  "event": {
+    "id": "EVIDENCE_UPLOAD_APPLICANT",
+    "summary": "",
+    "description": ""
+  },
+  "event_data": {
+    "notificationText": "Defendant 1 - Witness statement",
+    "caseProgAllocatedTrack": "FAST_CLAIM",
+    "caseTypeFlag": "do_not_show",
+    "disclosureSelectionEvidence": [],
+    "witnessSelectionEvidence": [
+      "WITNESS_STATEMENT"
+    ],
+    "expertSelectionEvidence": [],
+    "trialSelectionEvidence": [],
+    "bundleSelectionEvidence": [],
+    "documentWitnessStatement": [
+      {
+        "value": {
+          "witnessOptionName": "CL_UPLOAD",
+          "witnessOptionUploadDate": "2023-11-11",
+          "witnessOptionDocument": {
+            "document_url": "#{CL_StatementDocument_url}",
+            "document_binary_url": "#{CL_StatementDocument_url}/binary",
+            "document_filename": "WitnessStatement.docx",
+            "document_hash": "#{CL_HashToken}"
+          }
+        },
+        "id": null
+      }
+    ],
+    "caseDocumentUploadDate": null
+  },
+  "event_token": "#{event_token}",
+  "ignore_warning": false,
+  "case_reference": "#{caseId}"
+}

@@ -1,0 +1,20 @@
+{
+  "data": {
+    "notificationText": "Defendant 1 - Witness statement\nDefendant 1 - Witness summary\nClaimant 1 - Documents for disclosure",
+    "caseProgAllocatedTrack": "FAST_CLAIM",
+    "caseTypeFlag": "do_not_show"
+  },
+  "event": {
+    "id": "EVIDENCE_UPLOAD_APPLICANT",
+    "summary": "",
+    "description": ""
+  },
+  "event_data": {
+    "notificationText": "Defendant 1 - Witness statement\nDefendant 1 - Witness summary\nClaimant 1 - Documents for disclosure",
+    "caseProgAllocatedTrack": "FAST_CLAIM",
+    "caseTypeFlag": "do_not_show"
+  },
+  "event_token": "#{event_token}",
+  "ignore_warning": false,
+  "case_reference": "#{caseId}"
+}

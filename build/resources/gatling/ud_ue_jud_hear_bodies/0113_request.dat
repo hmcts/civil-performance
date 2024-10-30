@@ -1,0 +1,25 @@
+{
+  "data": {
+    "claimsTrack": "fastTrack",
+    "fastClaims": [
+      "fastClaimClinicalNegligence"
+    ]
+  },
+  "event": {
+    "id": "CREATE_SDO",
+    "summary": "",
+    "description": ""
+  },
+  "event_data": {
+    "drawDirectionsOrderRequired": "No",
+    "showCarmFields": "No",
+    "featureToggleWA": "Prod",
+    "claimsTrack": "fastTrack",
+    "fastClaims": [
+      "fastClaimClinicalNegligence"
+    ]
+  },
+  "event_token": "#{event_token}",
+  "ignore_warning": false,
+  "case_reference": "#{caseId}"
+}

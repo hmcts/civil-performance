@@ -1,0 +1,54 @@
+{
+  "data": {
+    "applicant1DQDisclosureOfNonElectronicDocuments": {
+      "directionsForDisclosureProposed": "No"
+    }
+  },
+  "event": {
+    "id": "CLAIMANT_RESPONSE",
+    "summary": "",
+    "description": ""
+  },
+  "event_data": {
+    "respondent2SameLegalRepresentative": null,
+    "respondent1ClaimResponseType": "FULL_DEFENCE",
+    "respondent1ClaimResponseDocument": {
+      "file": {
+        "document_url": "#{DF_Document_url}",
+        "document_binary_url": "#{DF_Document_url}/binary",
+        "document_filename": "DF_upload.docx",
+        "category_id": "defendant1DefenseDirectionsQuestionnaire",
+        "upload_timestamp": "#{upload_timestamp}"
+      }
+    },
+    "applicant1ProceedWithClaim": "Yes",
+    "featureToggleWA": "Prod",
+    "allocatedTrack": "FAST_CLAIM",
+    "claimType": "CLINICAL_NEGLIGENCE",
+    "respondent2ClaimResponseType": null,
+    "applicantsProceedIntention": "Yes",
+    "addApplicant2": "No",
+    "respondentResponseIsSame": null,
+    "claimantResponseScenarioFlag": "ONE_V_ONE",
+    "claimantResponseDocumentToDefendant2Flag": "No",
+    "claimant2ResponseFlag": "No",
+    "applicant1DefenceResponseDocument": {},
+    "applicant1DQFileDirectionsQuestionnaire": {
+      "oneMonthStayRequested": "No",
+      "reactionProtocolCompliedWith": "Yes",
+      "explainedToClient": [
+        "CONFIRM"
+      ]
+    },
+    "applicant1DQFixedRecoverableCosts": {
+      "isSubjectToFixedRecoverableCostRegime": "No",
+      "reasons": null
+    },
+    "applicant1DQDisclosureOfNonElectronicDocuments": {
+      "directionsForDisclosureProposed": "No"
+    }
+  },
+  "event_token": "#{event_token}",
+  "ignore_warning": false,
+  "case_reference": "#{caseId}"
+}

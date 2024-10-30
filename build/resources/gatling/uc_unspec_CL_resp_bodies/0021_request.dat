@@ -1,0 +1,95 @@
+{
+  "data": {
+    "uiStatementOfTruth": {
+      "name": "CLAIMAINT",
+      "role": "NFT"
+    }
+  },
+  "event": {
+    "id": "CLAIMANT_RESPONSE",
+    "summary": "",
+    "description": ""
+  },
+  "event_data": {
+    "respondent2SameLegalRepresentative": null,
+    "respondent1ClaimResponseType": "FULL_DEFENCE",
+    "respondent1ClaimResponseDocument": {
+      "file": {
+        "document_url": "#{DF_Document_url}",
+        "document_binary_url": "#{DF_Document_url}/binary",
+        "document_filename": "DF_upload.docx",
+        "category_id": "defendant1DefenseDirectionsQuestionnaire",
+        "upload_timestamp": "#{upload_timestamp}"
+      }
+    },
+    "applicant1ProceedWithClaim": "Yes",
+    "featureToggleWA": "Prod",
+    "allocatedTrack": "FAST_CLAIM",
+    "claimType": "CLINICAL_NEGLIGENCE",
+    "respondent2ClaimResponseType": null,
+    "applicantsProceedIntention": "Yes",
+    "addApplicant2": "No",
+    "respondentResponseIsSame": null,
+    "claimantResponseScenarioFlag": "ONE_V_ONE",
+    "claimantResponseDocumentToDefendant2Flag": "No",
+    "claimant2ResponseFlag": "No",
+    "applicant1DefenceResponseDocument": {},
+    "applicant1DQFileDirectionsQuestionnaire": {
+      "oneMonthStayRequested": "No",
+      "reactionProtocolCompliedWith": "Yes",
+      "explainedToClient": [
+        "CONFIRM"
+      ]
+    },
+    "applicant1DQFixedRecoverableCosts": {
+      "isSubjectToFixedRecoverableCostRegime": "No",
+      "reasons": null
+    },
+    "applicant1DQDisclosureOfNonElectronicDocuments": {
+      "directionsForDisclosureProposed": "No"
+    },
+    "applicant1DQExperts": {
+      "expertRequired": "No",
+      "details": []
+    },
+    "applicant1DQWitnesses": {
+      "witnessesToAppear": "No",
+      "details": []
+    },
+    "applicant1DQLanguage": {
+      "court": "ENGLISH",
+      "documents": "ENGLISH",
+      "evidence": null
+    },
+    "applicant1DQHearing": {
+      "unavailableDatesRequired": "No",
+      "hearingLength": null,
+      "hearingLengthHours": null,
+      "hearingLengthDays": null,
+      "unavailableDates": []
+    },
+    "applicant1DQDraftDirections": {
+      "document_url": "#{CL_Document_url}",
+      "document_binary_url": "#{CL_Document_url}/binary",
+      "document_filename": "CL_upload.docx",
+      "document_hash": "#{CL_HashToken}"
+    },
+    "applicant1DQHearingSupport": {
+      "supportRequirements": "No"
+    },
+    "applicant1DQVulnerabilityQuestions": {
+      "vulnerabilityAdjustmentsRequired": "No"
+    },
+    "applicant1DQFurtherInformation": {
+      "futureApplications": "No",
+      "otherInformationForJudge": null
+    },
+    "uiStatementOfTruth": {
+      "name": "CLAIMAINT",
+      "role": "NFT"
+    }
+  },
+  "event_token": "#{event_token}",
+  "ignore_warning": false,
+  "case_reference": "#{caseId}"
+}

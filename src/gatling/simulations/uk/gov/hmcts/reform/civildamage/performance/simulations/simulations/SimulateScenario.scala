@@ -79,23 +79,23 @@ class SimulateScenario extends Simulation {
       .exec(unspec_CL_Resp.RespToDF)
       .exec(Logout.Signout)
       .pause(20)
-
-//==============================JUDGE RESP==================================================
-          .exec(_.set("LoginId", "EMP261004@ejudiciary.net"))
-          .exec(_.set("Passwordx", "Testing123"))
-          .exec(Home.Homepage)
-          .exec(Login.Loginpage)
-          .exec(unspec_Jud_Hear.sdoJudge)
-          .exec(Logout.Signout)
-          .pause(10)
-    //==============================HEARING RESP==================================================
-    .exec(_.set("LoginId", "hearings_admin_region2_user@justice.gov.uk"))
-    .exec(_.set("Passwordx", "Password12!"))
-    .exec(Home.Homepage)
-    .exec(Login.Loginpage)
-    .exec(unspec_Jud_Hear.HearingAdmin)
-    .exec(Logout.Signout)
-    .pause(10)
+//
+////==============================JUDGE RESP==================================================
+//          .exec(_.set("LoginId", "EMP261004@ejudiciary.net"))
+//          .exec(_.set("Passwordx", "Testing123"))
+//          .exec(Home.Homepage)
+//          .exec(Login.Loginpage)
+//          .exec(unspec_Jud_Hear.sdoJudge)
+//          .exec(Logout.Signout)
+//          .pause(10)
+//    //==============================HEARING RESP==================================================
+//    .exec(_.set("LoginId", "hearings_admin_region2_user@justice.gov.uk"))
+//    .exec(_.set("Passwordx", "Password12!"))
+//    .exec(Home.Homepage)
+//    .exec(Login.Loginpage)
+//    .exec(unspec_Jud_Hear.HearingAdmin)
+//    .exec(Logout.Signout)
+//    .pause(10)
 ////==============================RESP RESP==================================================
 //    .exec(_.set("LoginId", "civil.damages.claims+organisation.2.solicitor.1@gmail.com"))
 //    .exec(_.set("Passwordx", "Password12!"))
@@ -225,7 +225,7 @@ class SimulateScenario extends Simulation {
   //    .exec(h_CourtOrder.MakeAnOrder)
   //    .exec(Logout.Signout)
   setUp(
-//        CreateUnSpecClaimSCN.inject(atOnceUsers(1))
-     CreateSpecClaimSCN.inject(atOnceUsers(1))
+        CreateUnSpecClaimSCN.inject(atOnceUsers(1))
+//     CreateSpecClaimSCN.inject(atOnceUsers(1))
   ).protocols(httpProtocol)
 }

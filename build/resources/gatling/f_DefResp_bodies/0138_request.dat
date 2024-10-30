@@ -1,0 +1,33 @@
+{
+  "data": {
+    "disclosureSelectionEvidenceRes": [],
+    "witnessSelectionEvidenceRes": [
+      "WITNESS_STATEMENT",
+      "WITNESS_SUMMARY"
+    ],
+    "expertSelectionEvidenceRes": [],
+    "trialSelectionEvidenceRes": [],
+    "bundleSelectionEvidence": []
+  },
+  "event": {
+    "id": "EVIDENCE_UPLOAD_RESPONDENT",
+    "summary": "",
+    "description": ""
+  },
+  "event_data": {
+    "notificationText": null,
+    "caseTypeFlag": null,
+    "caseProgAllocatedTrack": "FAST_CLAIM",
+    "disclosureSelectionEvidenceRes": [],
+    "witnessSelectionEvidenceRes": [
+      "WITNESS_STATEMENT",
+      "WITNESS_SUMMARY"
+    ],
+    "expertSelectionEvidenceRes": [],
+    "trialSelectionEvidenceRes": [],
+    "bundleSelectionEvidence": []
+  },
+  "event_token": "#{event_token}",
+  "ignore_warning": false,
+  "case_reference": "#{caseId}"
+}
