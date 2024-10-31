@@ -43,7 +43,7 @@ object unspec_notification {
   .group("Civil_UnSpecClaim_10_NotifyDEF") {
         exec(http("005_CLAIMAccessGrantedWarning")
           .post("/data/case-types/CIVIL/validate?pageId=NOTIFY_DEFENDANT_OF_CLAIMAccessGrantedWarning")
-          .headers(headers_114)
+          .headers(Headers.validateHeader)
           .body(ElFileBody("ua_unspec_CreateClaim_Bodies/0114_request.dat")))
       }
           .pause(10)
@@ -98,7 +98,7 @@ group("Civil_UnSpecClaim_10_NotifyDetails") {
       .group("Civil_UnSpecClaim_10_NotifyDetails") {
         exec(http("005_DetailsUpload")
           .post("/data/case-types/CIVIL/validate?pageId=NOTIFY_DEFENDANT_OF_CLAIM_DETAILSUpload")
-          .headers(headers_135)
+          .headers(Headers.validateHeader)
           .body(ElFileBody("ua_unspec_CreateClaim_Bodies/0135_request.dat")))
       }
       .pause(10)

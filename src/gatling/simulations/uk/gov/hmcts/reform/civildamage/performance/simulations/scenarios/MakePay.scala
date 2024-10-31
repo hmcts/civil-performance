@@ -3,7 +3,7 @@ package uk.gov.hmcts.reform.civildamage.performance.simulations.scenarios
 
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
-import utils.Common
+import utils._
 
 object MakePay  {
 
@@ -11,20 +11,20 @@ object MakePay  {
   		"Priority" -> "u=0",
   		"Sec-Fetch-Dest" -> "empty",
   		"Sec-Fetch-Mode" -> "cors",
-  		"Sec-Fetch-Site" -> "same-origin",
+  		"Sec-Fetch-Site" -> "same-origin"
   )
-	 val headers_33 = Map(
-  		"Priority" -> "u=0",
-  		"Sec-Fetch-Dest" -> "empty",
-  		"Sec-Fetch-Mode" -> "cors",
-  		"Sec-Fetch-Site" -> "same-origin",
-  )
-	val headers_35 = Map(
-		"Priority" -> "u=0",
-		"Sec-Fetch-Dest" -> "empty",
-		"Sec-Fetch-Mode" -> "cors",
-		"Sec-Fetch-Site" -> "same-origin"
-	)
+//	 val headers_33 = Map(
+//  		"Priority" -> "u=0",
+//  		"Sec-Fetch-Dest" -> "empty",
+//  		"Sec-Fetch-Mode" -> "cors",
+//  		"Sec-Fetch-Site" -> "same-origin",
+//  )
+//	val headers_35 = Map(
+//		"Priority" -> "u=0",
+//		"Sec-Fetch-Dest" -> "empty",
+//		"Sec-Fetch-Mode" -> "cors",
+//		"Sec-Fetch-Site" -> "same-origin"
+//	)
    val headers_34 = Map(
   		"Sec-Fetch-Dest" -> "empty",
   		"Sec-Fetch-Mode" -> "cors",
@@ -54,7 +54,7 @@ object MakePay  {
 
 					.exec(http("010_PaymentGroups")
 						.get("/payments/cases/#{caseId}/paymentgroups")
-						.headers(headers_33)
+						.headers(headers_32)
 						.check(regex("calculated_amount\":(.*?).00,").saveAs("calculated_amount"))
 					)
 
@@ -69,7 +69,7 @@ object MakePay  {
 	.group("Civil_CreateClaim_010_MakePay") {
 				exec(http("005_PayNow")
 					.get("/payments/pba-accounts")
-					.headers(headers_35))
+					.headers(headers_32))
 			}
       .pause(20)
       // ======================CONFIRM PAY======================,

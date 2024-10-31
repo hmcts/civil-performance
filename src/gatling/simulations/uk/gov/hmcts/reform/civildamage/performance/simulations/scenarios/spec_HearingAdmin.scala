@@ -98,7 +98,7 @@ object spec_HearingAdmin{
 
     .exec(http("E_request_106")
       .post(BaseURL + "/data/case-types/CIVIL/validate?pageId=HEARING_SCHEDULEDListingOrRelisting")
-      .headers(headers_106).header("X-Xsrf-Token", "#{xsrf_token}")
+      .headers(headers_100).header("X-Xsrf-Token", "#{xsrf_token}")
       .body(ElFileBody("e_HearingAdmin_bodies/0106_request.dat")))
   .pause(1)
 
@@ -106,12 +106,12 @@ object spec_HearingAdmin{
 
     .exec(http("HEARING_SCHEDULEDHearingDetails")
       .post(BaseURL + "/data/case-types/CIVIL/validate?pageId=HEARING_SCHEDULEDHearingDetails")
-      .headers(headers_123).header("X-Xsrf-Token", "#{xsrf_token}")
+      .headers(headers_100).header("X-Xsrf-Token", "#{xsrf_token}")
       .body(ElFileBody("e_HearingAdmin_bodies/0123_request.dat")))
 
     .exec(http("HEARING_SCHEDULEDHearingInformation")
       .post(BaseURL + "/data/case-types/CIVIL/validate?pageId=HEARING_SCHEDULEDHearingInformation")
-      .headers(headers_127).header("X-Xsrf-Token", "#{xsrf_token}")
+      .headers(headers_100).header("X-Xsrf-Token", "#{xsrf_token}")
       .body(ElFileBody("e_HearingAdmin_bodies/0127_request.dat")))
   .pause(2)
 

@@ -73,7 +73,7 @@ object unspec_DF_resp{
       .group("Civil_20_UnSpecClaim_DefResp") {
         exec(http("ClaimInfo_005_ConfirmDetails")
           .post("/data/case-types/CIVIL/validate?pageId=DEFENDANT_RESPONSEConfirmDetails")
-          .headers(headers_36).header("X-Xsrf-Token", "#{xsrf_token}")
+          .headers(Headers.validateHeader).header("X-Xsrf-Token", "#{xsrf_token}")
           .body(ElFileBody("ub_unspec_DF_resp_bodies/0036_request.dat")))
       }
       .pause(14)
@@ -81,7 +81,7 @@ object unspec_DF_resp{
       .group("Civil_20_UnSpecClaim_DefResp") {
         exec(http("RejectClaim_005_RespondentResponseType")
           .post("/data/case-types/CIVIL/validate?pageId=DEFENDANT_RESPONSERespondentResponseType")
-          .headers(headers_37).header("X-Xsrf-Token", "#{xsrf_token}")
+          .headers(Headers.validateHeader).header("X-Xsrf-Token", "#{xsrf_token}")
           .body(ElFileBody("ub_unspec_DF_resp_bodies/0037_request.dat")))
       }
       .pause(10)
@@ -89,7 +89,7 @@ object unspec_DF_resp{
       .group("Civil_20_UnSpecClaim_DefResp") {
         exec(http("FileRef_005_SolicitorReferences")
           .post("/data/case-types/CIVIL/validate?pageId=DEFENDANT_RESPONSESolicitorReferences")
-          .headers(headers_38).header("X-Xsrf-Token", "#{xsrf_token}")
+          .headers(Headers.validateHeader).header("X-Xsrf-Token", "#{xsrf_token}")
           .body(ElFileBody("ub_unspec_DF_resp_bodies/0038_request.dat")))
       }
       .pause(20)
@@ -118,7 +118,7 @@ object unspec_DF_resp{
       .group("Civil_20_UnSpecClaim_DefResp") {
         exec(http("005_FileDirectionsQuestionnaire")
           .post("/data/case-types/CIVIL/validate?pageId=DEFENDANT_RESPONSEFileDirectionsQuestionnaire")
-          .headers(headers_41).header("X-Xsrf-Token", "#{xsrf_token}")
+          .headers(Headers.validateHeader).header("X-Xsrf-Token", "#{xsrf_token}")
           .body(ElFileBody("ub_unspec_DF_resp_bodies/0041_request.dat")))
       }
       .pause(15)
@@ -126,7 +126,7 @@ object unspec_DF_resp{
       .group("Civil_20_UnSpecClaim_DefResp") {
         exec(http("005_FixedRecoverableCosts")
           .post("/data/case-types/CIVIL/validate?pageId=DEFENDANT_RESPONSEFixedRecoverableCosts")
-          .headers(headers_42).header("X-Xsrf-Token", "#{xsrf_token}")
+          .headers(Headers.validateHeader).header("X-Xsrf-Token", "#{xsrf_token}")
           .body(ElFileBody("ub_unspec_DF_resp_bodies/0042_request.dat")))
       }
       .pause(11)
@@ -134,7 +134,7 @@ object unspec_DF_resp{
       .group("Civil_20_UnSpecClaim_DefResp") {
         exec(http("005_DisclosureOfNonElectronicDocuments")
           .post("/data/case-types/CIVIL/validate?pageId=DEFENDANT_RESPONSEDisclosureOfNonElectronicDocuments")
-          .headers(headers_43).header("X-Xsrf-Token", "#{xsrf_token}")
+          .headers(Headers.validateHeader).header("X-Xsrf-Token", "#{xsrf_token}")
           .body(ElFileBody("ub_unspec_DF_resp_bodies/0043_request.dat")))
       }
       .pause(8)
@@ -142,7 +142,7 @@ object unspec_DF_resp{
       .group("Civil_20_UnSpecClaim_DefResp") {
         exec(http("005_RESPONSEExperts")
           .post("/data/case-types/CIVIL/validate?pageId=DEFENDANT_RESPONSEExperts")
-          .headers(headers_44).header("X-Xsrf-Token", "#{xsrf_token}")
+          .headers(Headers.validateHeader).header("X-Xsrf-Token", "#{xsrf_token}")
           .body(ElFileBody("ub_unspec_DF_resp_bodies/0044_request.dat")))
       }
       .pause(6)
@@ -150,7 +150,7 @@ object unspec_DF_resp{
       .group("Civil_20_UnSpecClaim_DefResp") {
         exec(http("005_RESPONSEWitnesses")
           .post("/data/case-types/CIVIL/validate?pageId=DEFENDANT_RESPONSEWitnesses")
-          .headers(headers_45).header("X-Xsrf-Token", "#{xsrf_token}")
+          .headers(Headers.validateHeader).header("X-Xsrf-Token", "#{xsrf_token}")
           .body(ElFileBody("ub_unspec_DF_resp_bodies/0045_request.dat")))
       }
       .pause(10)
@@ -158,7 +158,7 @@ object unspec_DF_resp{
       .group("Civil_20_UnSpecClaim_DefResp") {
         exec(http("005_RESPONSELanguage")
           .post("/data/case-types/CIVIL/validate?pageId=DEFENDANT_RESPONSELanguage")
-          .headers(headers_46).header("X-Xsrf-Token", "#{xsrf_token}")
+          .headers(Headers.validateHeader).header("X-Xsrf-Token", "#{xsrf_token}")
           .body(ElFileBody("ub_unspec_DF_resp_bodies/0046_request.dat")))
       }
       .pause(20)
@@ -166,7 +166,7 @@ object unspec_DF_resp{
       .group("Civil_20_UnSpecClaim_DefResp") {
         exec(http("005_RESPONSEHearing")
           .post("/data/case-types/CIVIL/validate?pageId=DEFENDANT_RESPONSEHearing")
-          .headers(headers_47).header("X-Xsrf-Token", "#{xsrf_token}")
+          .headers(Headers.validateHeader).header("X-Xsrf-Token", "#{xsrf_token}")
           .body(ElFileBody("ub_unspec_DF_resp_bodies/0047_request.dat")))
       }
       .pause(8)
@@ -195,7 +195,7 @@ object unspec_DF_resp{
     .group("Civil_20_UnSpecClaim_DefResp") {
       exec(http("005_RESPONSEDraftDirections")
         .post("/data/case-types/CIVIL/validate?pageId=DEFENDANT_RESPONSEDraftDirections")
-        .headers(headers_49).header("X-Xsrf-Token", "#{xsrf_token}")
+        .headers(Headers.validateHeader).header("X-Xsrf-Token", "#{xsrf_token}")
         .body(ElFileBody("ub_unspec_DF_resp_bodies/0049_request.dat")))
     }
       .pause(27)
@@ -205,7 +205,7 @@ object unspec_DF_resp{
       .group("Civil_20_UnSpecClaim_DefResp") {
         exec(http("005_RESPONSERequestedCourt")
           .post("/data/case-types/CIVIL/validate?pageId=DEFENDANT_RESPONSERequestedCourt")
-          .headers(headers_50).header("X-Xsrf-Token", "#{xsrf_token}")
+          .headers(Headers.validateHeader).header("X-Xsrf-Token", "#{xsrf_token}")
           .body(ElFileBody("ub_unspec_DF_resp_bodies/0050_request.dat")))
       }
       .pause(10)
@@ -213,7 +213,7 @@ object unspec_DF_resp{
       .group("Civil_20_UnSpecClaim_DefResp") {
         exec(http("005_RESPONSEHearingSupport")
           .post("/data/case-types/CIVIL/validate?pageId=DEFENDANT_RESPONSEHearingSupport")
-          .headers(headers_51).header("X-Xsrf-Token", "#{xsrf_token}")
+          .headers(Headers.validateHeader).header("X-Xsrf-Token", "#{xsrf_token}")
           .body(ElFileBody("ub_unspec_DF_resp_bodies/0051_request.dat")))
       }
       .pause(10)
@@ -221,7 +221,7 @@ object unspec_DF_resp{
       .group("Civil_20_UnSpecClaim_DefResp") {
         exec(http("005_RESPONSEVulnerabilityQuestions")
           .post("/data/case-types/CIVIL/validate?pageId=DEFENDANT_RESPONSEVulnerabilityQuestions")
-          .headers(headers_52).header("X-Xsrf-Token", "#{xsrf_token}")
+          .headers(Headers.validateHeader).header("X-Xsrf-Token", "#{xsrf_token}")
           .body(ElFileBody("ub_unspec_DF_resp_bodies/0052_request.dat")))
       }
       .pause(14)
@@ -229,7 +229,7 @@ object unspec_DF_resp{
       .group("Civil_20_UnSpecClaim_DefResp") {
       exec(http("005_RESPONSEFurtherInformation")
           .post("/data/case-types/CIVIL/validate?pageId=DEFENDANT_RESPONSEFurtherInformation")
-          .headers(headers_53)
+          .headers(Headers.validateHeader)
           .body(ElFileBody("ub_unspec_DF_resp_bodies/0053_request.dat")))
       }
       .pause(20)
@@ -237,7 +237,7 @@ object unspec_DF_resp{
       .group("Civil_20_UnSpecClaim_DefResp") {
       exec(http("005_RESPONSEStatementOfTruth")
           .post("/data/case-types/CIVIL/validate?pageId=DEFENDANT_RESPONSEStatementOfTruth")
-          .headers(headers_54).header("X-Xsrf-Token", "#{xsrf_token}")
+          .headers(Headers.validateHeader).header("X-Xsrf-Token", "#{xsrf_token}")
           .body(ElFileBody("ub_unspec_DF_resp_bodies/0054_request.dat")))
       }
       .pause(10)

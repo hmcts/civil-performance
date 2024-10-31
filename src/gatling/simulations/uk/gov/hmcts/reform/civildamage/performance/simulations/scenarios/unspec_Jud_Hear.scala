@@ -73,24 +73,16 @@ object unspec_Jud_Hear {
           .headers(headers_78))
           .pause(820.milliseconds)
 
-          .exec(http("005_RESPONSEExperts")
-            .get(BaseURL + "/external/configuration-ui/")
-            .headers(headers_79))
-          .exec(http("request_80")
-            .get(BaseURL + "/external/config/ui")
-            .headers(headers_80))
-          .exec(http("request_81")
-            .get(BaseURL + "/api/configuration?configurationKey=termsAndConditionsEnabled")
-            .headers(headers_80))
-          .exec(http("request_82")
-            .get(BaseURL + "/api/user/details?refreshRoleAssignments=undefined")
-            .headers(headers_80))
+          .exec(Common.configurationui)
+          .exec(Common.configUI)
+          .exec(Common.TsAndCs)
+          .exec(Common.userDetails)
+          .exec(Common.isAuthenticated)
+
           .exec(http("request_83")
             .get(BaseURL + "/api/monitoring-tools")
             .headers(headers_80))
-          .exec(http("request_84")
-            .get(BaseURL + "/auth/isAuthenticated")
-            .headers(headers_80))
+
           .exec(http("request_85")
             .get(BaseURL + "/workallocation/case/tasks/#{caseId}/event/CREATE_SDO/caseType/CIVIL/jurisdiction/CIVIL")
             .headers(headers_85))
@@ -98,6 +90,7 @@ object unspec_Jud_Hear {
           .exec(http("request_88")
             .get(BaseURL + "/data/internal/cases/#{caseId}")
             .headers(headers_88))
+
           .pause(161.milliseconds)
           .exec(http("request_89")
             .get(BaseURL + "/data/internal/profile")
@@ -116,7 +109,7 @@ object unspec_Jud_Hear {
       .group("Civil_40_UnSpecClaim_SDO") {
         exec(http("005_SDO_Amount")
           .post(BaseURL + "/data/case-types/CIVIL/validate?pageId=CREATE_SDOSDO")
-          .headers(headers_100).header("X-Xsrf-Token", "#{xsrf_token}")
+          .headers(Headers.validateHeader).header("X-Xsrf-Token", "#{xsrf_token}")
           .body(ElFileBody("ud_ue_jud_hear_bodies/0100_request.dat")))
       }
           .pause(449.milliseconds)
@@ -126,7 +119,7 @@ object unspec_Jud_Hear {
       .group("Civil_40_UnSpecClaim_SDO") {
         exec(http("005_ClaimsTrack")
           .post(BaseURL + "/data/case-types/CIVIL/validate?pageId=CREATE_SDOClaimsTrack")
-          .headers(headers_113).header("X-Xsrf-Token", "#{xsrf_token}")
+          .headers(Headers.validateHeader).header("X-Xsrf-Token", "#{xsrf_token}")
           .body(ElFileBody("ud_ue_jud_hear_bodies/0113_request.dat")))
       }
           // =======================ORDER DETAILS=======================,
@@ -134,7 +127,7 @@ object unspec_Jud_Hear {
       .group("Civil_40_UnSpecClaim_SDO") {
         exec(http("005_FastTrack")
           .post(BaseURL + "/data/case-types/CIVIL/validate?pageId=CREATE_SDOFastTrack")
-          .headers(headers_128).header("X-Xsrf-Token", "#{xsrf_token}")
+          .headers(Headers.validateHeader).header("X-Xsrf-Token", "#{xsrf_token}")
           .body(ElFileBody("ud_ue_jud_hear_bodies/0128_request.dat"))
           .check(jsonPath("$.data.sdoOrderDocument.createdDatetime").saveAs("createdDatetime"))
           .check(jsonPath("$.data.sdoOrderDocument.documentLink.document_url").saveAs("sdoDocument_url"))
@@ -148,7 +141,7 @@ object unspec_Jud_Hear {
       .group("Civil_40_UnSpecClaim_SDO") {
         exec(http("005_OrderPreview")
           .post(BaseURL + "/data/case-types/CIVIL/validate?pageId=CREATE_SDOOrderPreview")
-          .headers(headers_136)
+          .headers(Headers.validateHeader)
           .body(ElFileBody("ud_ue_jud_hear_bodies/0136_request.dat")))
       }
               .pause(2)
@@ -170,6 +163,8 @@ object unspec_Jud_Hear {
         .pause(921.milliseconds)
 
 
+
+
       val HearingAdmin =
         exec(_.setAll(
           "CaseProgRandomString" -> Common.randomString(5),
@@ -188,14 +183,6 @@ object unspec_Jud_Hear {
           .headers(headers_189))
           .pause(167.milliseconds)
 
-//          .exec(http("010_jurisdiction")
-//            .get(BaseURL + "/api/wa-supported-jurisdiction/get")
-//            .headers(headers_190))
-//
-//          .exec(http("015_RoleAssignment")
-//            .post(BaseURL + "/api/role-access/roles/manageLabellingRoleAssignment/#{caseId}")
-//            .headers(headers_192)
-//            .body(ElFileBody("ud_ue_jud_hear_bodies/0192_request.bin")))
       }
 
           .pause(5)
@@ -205,12 +192,13 @@ object unspec_Jud_Hear {
             exec(http("005_jurisdiction")
               .get(BaseURL + "/workallocation/case/tasks/#{caseId}/event/HEARING_SCHEDULED/caseType/CIVIL/jurisdiction/CIVIL")
               .headers(headers_232))
-              .exec(http("005_RESPONSEExperts")
+
+              .exec(http("010_RESPONSEExperts")
                 .get(BaseURL + "/data/internal/profile")
                 .headers(headers_233))
               .pause(2)
 
-              .exec(http("010_IgnoreWarning")
+              .exec(http("015_IgnoreWarning")
                 .get(BaseURL + "/data/internal/cases/#{caseId}/event-triggers/HEARING_SCHEDULED?ignore-warning=false")
                 .headers(headers_236)
                 .check(jsonPath("$.event_token").saveAs("event_token"))
@@ -229,7 +217,7 @@ object unspec_Jud_Hear {
           .group("Civil_50_UnSpecClaim_HearingAdmin") {
             exec(http("005_HearingNoticeSelect")
               .post(BaseURL + "/data/case-types/CIVIL/validate?pageId=HEARING_SCHEDULEDHearingNoticeSelect")
-              .headers(headers_246)
+              .headers(Headers.validateHeader)
               .body(ElFileBody("ud_ue_jud_hear_bodies/0246_request.dat")))
           }
           .pause(5)
@@ -238,7 +226,7 @@ object unspec_Jud_Hear {
           .group("Civil_50_UnSpecClaim_HearingAdmin") {
             exec(http("005_ListingOrRelisting")
               .post(BaseURL + "/data/case-types/CIVIL/validate?pageId=HEARING_SCHEDULEDListingOrRelisting")
-              .headers(headers_251)
+              .headers(Headers.validateHeader)
               .body(ElFileBody("ud_ue_jud_hear_bodies/0251_request.dat")))
           }
           .pause(3)
@@ -248,7 +236,7 @@ object unspec_Jud_Hear {
           .group("Civil_50_UnSpecClaim_HearingAdmin") {
             exec(http("005_HearingInformation")
               .post(BaseURL + "/data/case-types/CIVIL/validate?pageId=HEARING_SCHEDULEDHearingInformation")
-              .headers(headers_280)
+              .headers(Headers.validateHeader)
               .body(ElFileBody("ud_ue_jud_hear_bodies/0280_request.dat")))
           }
               .pause(768.milliseconds)

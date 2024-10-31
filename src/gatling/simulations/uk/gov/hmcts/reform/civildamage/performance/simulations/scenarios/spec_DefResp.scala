@@ -45,19 +45,19 @@ object spec_DefResp {
   			// ===========================IS DEFENDANT  ADDRESS CORRECT====================,
   		.exec(http("request_35")
 					.post("/data/case-types/CIVIL/validate?pageId=DEFENDANT_RESPONSE_SPECResponseConfirmNameAddress")
-					.headers(headers_35)
+					.headers(headers_34)
   				.header("x-xsrf-token", "#{xsrf_token}")
   				.body(ElFileBody("b_DefResp_bodies/0035_request.dat")))
   				.pause(385.milliseconds)
 
 			.exec(http("request_36")
-				.get("/api/caseshare/orgs").headers(headers_36))
+				.get("/api/caseshare/orgs").headers(headers_34))
   				.pause(10)
 
   			// =============================================LEGAL REPO ADDRESS CORECT==========================,
   		.exec(http("request_37")
 					.post("/data/case-types/CIVIL/validate?pageId=DEFENDANT_RESPONSE_SPECResponseConfirmDetails")
-					.headers(headers_37)
+					.headers(headers_34)
   				.header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.case-data-validate.v2+json;charset=UTF-8")
 					.body(ElFileBody("b_DefResp_bodies/0037_request.dat")))
   				.pause(10)
@@ -65,7 +65,7 @@ object spec_DefResp {
   			// ========================RESPOND TO CLAIM==================================,
   		.exec(http("request_38")
 					.post("/data/case-types/CIVIL/validate?pageId=DEFENDANT_RESPONSE_SPECRespondentResponseTypeSpec")
-  				.headers(headers_38)
+  				.headers(headers_34)
 					.header("x-xsrf-token", "#{xsrf_token}")
 					.header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.case-data-validate.v2+json;charset=UTF-8")
   				.body(ElFileBody("b_DefResp_bodies/0038_request.dat")))
@@ -74,7 +74,7 @@ object spec_DefResp {
   			// ========================DISPUTE MONEY==================,
   		.exec(http("request_39")
 					.post("/data/case-types/CIVIL/validate?pageId=DEFENDANT_RESPONSE_SPECdefenceRoute")
-  				.headers(headers_39)
+  				.headers(headers_34)
 					.header("x-xsrf-token", "#{xsrf_token}")
 					.header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.case-data-validate.v2+json;charset=UTF-8")
   				.body(ElFileBody("b_DefResp_bodies/0039_request.dat")))
@@ -83,7 +83,7 @@ object spec_DefResp {
   			// ===============================DESC DISPUTING THE CLAIM===============,
   		.exec(http("request_40")
 					.post("/data/case-types/CIVIL/validate?pageId=DEFENDANT_RESPONSE_SPECUpload")
-  				.headers(headers_40)
+  				.headers(headers_34)
 					.header("x-xsrf-token", "#{xsrf_token}")
 					.header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.case-data-validate.v2+json;charset=UTF-8")
   				.body(ElFileBody("b_DefResp_bodies/0040_request.dat")))
@@ -92,7 +92,7 @@ object spec_DefResp {
   			// ===========================CLAIM TIMELINE===========================,
   		.exec(http("request_41")
 					.post("/data/case-types/CIVIL/validate?pageId=DEFENDANT_RESPONSE_SPECHowToAddTimeline")
-						.headers(headers_41)
+						.headers(headers_34)
 						.header("x-xsrf-token", "#{xsrf_token}")
 					.header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.case-data-validate.v2+json;charset=UTF-8")
 						 .body(ElFileBody("b_DefResp_bodies/0041_request.dat")))
@@ -100,7 +100,7 @@ object spec_DefResp {
 
   		.exec(http("request_42")
 				.post("/data/case-types/CIVIL/validate?pageId=DEFENDANT_RESPONSE_SPECHowToAddTimelineManual")
-					.headers(headers_42)
+					.headers(headers_34)
 					.header("x-xsrf-token", "#{xsrf_token}")
 				.header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.case-data-validate.v2+json;charset=UTF-8")
 					.body(ElFileBody("b_DefResp_bodies/0042_request.dat")))
@@ -109,7 +109,7 @@ object spec_DefResp {
   			// ========================MEDINIATION NO===============,
   		.exec(http("request_43")
 					.post("/data/case-types/CIVIL/validate?pageId=DEFENDANT_RESPONSE_SPECMediation")
-  				.headers(headers_43)
+  				.headers(headers_34)
 					.header("x-xsrf-token", "#{xsrf_token}")
 					.header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.case-data-validate.v2+json;charset=UTF-8")
   				.body(ElFileBody("b_DefResp_bodies/0043_request.dat")))
@@ -118,14 +118,14 @@ object spec_DefResp {
   			// ==============================NO EXPERTS======================,
   		.exec(http("request_44")
 					.post("/data/case-types/CIVIL/validate?pageId=DEFENDANT_RESPONSE_SPECSmallClaimExperts")
-  				.headers(headers_44)
+  				.headers(headers_34)
 					.header("x-xsrf-token", "#{xsrf_token}")
   				.body(ElFileBody("b_DefResp_bodies/0044_request.dat")))
   				.pause(10)
 
   		.exec(http("request_45")
 				.post("/data/case-types/CIVIL/validate?pageId=DEFENDANT_RESPONSE_SPECSmallClaimWitnesses")
-					.headers(headers_45)
+					.headers(headers_34)
 					.header("x-xsrf-token", "#{xsrf_token}")
 					.body(ElFileBody("b_DefResp_bodies/0045_request.dat")))
 					.pause(10)
@@ -134,7 +134,7 @@ object spec_DefResp {
   			// ========================LANGUAGE=================,
   		.exec(http("request_46")
 					.post("/data/case-types/CIVIL/validate?pageId=DEFENDANT_RESPONSE_SPECLanguage")
-  				.headers(headers_46)
+  				.headers(headers_34)
 					.header("x-xsrf-token", "#{xsrf_token}")
   				.body(ElFileBody("b_DefResp_bodies/0046_request.dat")))
   				.pause(10)
@@ -142,28 +142,28 @@ object spec_DefResp {
   			// ==================HEARIN=============,
   		.exec(http("request_47")
 					.post("/data/case-types/CIVIL/validate?pageId=DEFENDANT_RESPONSE_SPECSmaillClaimHearing")
-  				.headers(headers_47)
+  				.headers(headers_34)
 					.body(ElFileBody("b_DefResp_bodies/0047_request.dat")))
   				.pause(10)
 
   			// ==================================COURT LOCATION====================,
   		.exec(http("request_48")
 					.post("/data/case-types/CIVIL/validate?pageId=DEFENDANT_RESPONSE_SPECRequestedCourtLocationLRspec")
-  				.headers(headers_48)
+  				.headers(headers_34)
 					.body(ElFileBody("b_DefResp_bodies/0048_request.dat")))
   				.pause(10)
 
   			// ====================================ACCESS NEEDS===========
   		.exec(http("request_49")
 					.post("/data/case-types/CIVIL/validate?pageId=DEFENDANT_RESPONSE_SPECHearingSupport")
-  				.headers(headers_49)
+  				.headers(headers_34)
 					.header("x-xsrf-token", "#{xsrf_token}")
   				.body(ElFileBody("b_DefResp_bodies/0049_request.dat")))
   				.pause(3)
 
   		.exec(http("request_50")
 				.post("/data/case-types/CIVIL/validate?pageId=DEFENDANT_RESPONSE_SPECVulnerabilityQuestions")
-					.headers(headers_50)
+					.headers(headers_34)
 					.header("x-xsrf-token", "#{xsrf_token}")
 					.body(ElFileBody("b_DefResp_bodies/0050_request.dat")))
 					.pause(10)
@@ -171,7 +171,7 @@ object spec_DefResp {
   			// ================================================SOT============================
   		.exec(http("request_51")
 					.post("/data/case-types/CIVIL/validate?pageId=DEFENDANT_RESPONSE_SPECStatementOfTruth")
-  				.headers(headers_51)
+  				.headers(headers_34)
 					.header("x-xsrf-token", "#{xsrf_token}")
   				.body(ElFileBody("b_DefResp_bodies/0051_request.dat")))
   				.pause(404.milliseconds)

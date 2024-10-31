@@ -84,13 +84,13 @@ val MakeAnOrder =
 
     .exec(http("GENERATE_DIRECTIONS_ORDERFinalOrderSelect")
       .post(BaseURL + "/data/case-types/CIVIL/validate?pageId=GENERATE_DIRECTIONS_ORDERFinalOrderSelect")
-      .headers(headers_80).header("X-Xsrf-Token", "#{xsrf_token}")
+      .headers(headers_72).header("X-Xsrf-Token", "#{xsrf_token}")
       .body(ElFileBody("h_CourtOrder_bodies/OrderSelection.dat")))
   .pause(4)
 
     .exec(http("GENERATE_DIRECTIONS_ORDERFreeFormOrder")
       .post(BaseURL + "/data/case-types/CIVIL/validate?pageId=GENERATE_DIRECTIONS_ORDERFreeFormOrder")
-      .headers(headers_89).header("X-Xsrf-Token", "#{xsrf_token}")
+      .headers(headers_72).header("X-Xsrf-Token", "#{xsrf_token}")
       .body(ElFileBody("h_CourtOrder_bodies/RecitalsAndOrder.json"))
 //      .check(substring("GENERATE_DIRECTIONS_ORDERFreeFormOrder"))
       .check(jsonPath("$.data.finalOrderDocument.documentLink.document_url").saveAs("finalOrderDocument_url"))
@@ -102,7 +102,7 @@ val MakeAnOrder =
 
     .exec(http("GENERATE_DIRECTIONS_ORDERFinalOrderPreview")
       .post(BaseURL + "/data/case-types/CIVIL/validate?pageId=GENERATE_DIRECTIONS_ORDERFinalOrderPreview")
-      .headers(headers_93).header("X-Xsrf-Token", "#{xsrf_token}")
+      .headers(headers_72).header("X-Xsrf-Token", "#{xsrf_token}")
       .body(ElFileBody("h_CourtOrder_bodies/OrderPDF.json")))
       .pause(1)
 

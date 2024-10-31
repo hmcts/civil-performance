@@ -4,7 +4,7 @@ import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import utils._
 import utils.unspec_CreateClaim_Headers._
-
+import utils.Headers
 object unspec_CreateClaim {
 
 
@@ -33,7 +33,7 @@ object unspec_CreateClaim {
       .group("CivilDamage_UnSpecClaim_10_03_CreateCase") {
         exec(http("CLAIMEligibility")
           .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIMEligibility")
-          .headers(headers_29)
+          .headers(Headers.validateHeader)
           .body(ElFileBody("xunspec_CreateClam/0029_request.dat")))
       }
       .pause(7)
@@ -41,7 +41,7 @@ object unspec_CreateClaim {
       .group("CivilDamage_UnSpecClaim_10_04_CreateCase") {
         exec(http("CLAIMReferences")
           .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIMReferences")
-          .headers(headers_30)
+          .headers(Headers.validateHeader)
           .body(ElFileBody("xunspec_CreateClam/0030_request.dat")))
       }
       .pause(7)
@@ -49,7 +49,7 @@ object unspec_CreateClaim {
       .group("CivilDamage_UnSpecClaim_10_05_CreateCase") {
         exec(http("CLAIMCourt")
           .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIMCourt")
-          .headers(headers_31)
+          .headers(Headers.validateHeader)
           .body(ElFileBody("xunspec_CreateClam/0031_request.dat")))
       }
       .pause(7)
@@ -64,7 +64,7 @@ object unspec_CreateClaim {
       .group("CivilDamage_UnSpecClaim_10_07_CreateCase") {
         exec(http("CLAIMClaimant")
           .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIMClaimant")
-          .headers(headers_33)
+          .headers(Headers.validateHeader)
           .body(ElFileBody("xunspec_CreateClam/0033_request.dat")))
       }
       .pause(7)
@@ -72,7 +72,7 @@ object unspec_CreateClaim {
       .group("CivilDamage_UnSpecClaim_10_08_CreateCase") {
         exec(http("CREATE_CLAIMClaimantLitigationFriend")
           .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIMClaimantLitigationFriend")
-          .headers(headers_34)
+          .headers(Headers.validateHeader)
           .body(ElFileBody("xunspec_CreateClam/0034_request.dat")))
       }
       .pause(7)
@@ -80,7 +80,7 @@ object unspec_CreateClaim {
       .group("CivilDamage_UnSpecClaim_10_09_CreateCase") {
         exec(http("CREATE_CLAIMNotifications")
           .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIMNotifications")
-          .headers(headers_35)
+          .headers(Headers.validateHeader)
           .body(ElFileBody("xunspec_CreateClam/0035_request.dat")))
       }
       .pause(7)
@@ -88,7 +88,7 @@ object unspec_CreateClaim {
       .group("CivilDamage_UnSpecClaim_10_10_CreateCase") {
         exec(http("ClaimantSolicitorOrganisation")
           .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIMClaimantSolicitorOrganisation")
-          .headers(headers_37)
+          .headers(Headers.validateHeader)
           .body(ElFileBody("xunspec_CreateClam/0037_request.dat")))
       }
       .pause(7)
@@ -97,7 +97,7 @@ object unspec_CreateClaim {
       .group("CivilDamage_UnSpecClaim_10_11_CreateCase") {
         exec(http("ClaimantSolicitorAddres")
           .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIMClaimantSolicitorServiceAddress")
-          .headers(headers_38)
+          .headers(Headers.validateHeader)
           .body(ElFileBody("xunspec_CreateClam/0038_request.dat")))
       }
       .pause(7)
@@ -105,7 +105,7 @@ object unspec_CreateClaim {
       .group("CivilDamage_UnSpecClaim_10_12_CreateCase") {
         exec(http("AddAnotherClaimant")
           .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIMAddAnotherClaimant")
-          .headers(headers_39)
+          .headers(Headers.validateHeader)
           .body(ElFileBody("xunspec_CreateClam/0039_request.dat")))
       }
       .pause(7)
@@ -113,14 +113,14 @@ object unspec_CreateClaim {
       .group("CivilDamage_UnSpecClaim_10_13_CreateCase") {
         exec(http("postcode")
           .get("/api/addresses?postcode=WD171BN")
-          .headers(headers_40))
+          .headers(Headers.validateHeader))
       }
       .pause(7)
       // ==================DF DETAILS==================,
       .group("CivilDamage_UnSpecClaim_10_14_CreateCase") {
         exec(http("CLAIMDefendant")
           .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIMDefendant")
-          .headers(headers_41)
+          .headers(Headers.validateHeader)
           .body(ElFileBody("xunspec_CreateClam/0041_request.dat")))
       }
       .pause(7)
@@ -128,7 +128,7 @@ object unspec_CreateClaim {
       .group("CivilDamage_UnSpecClaim_10_15_CreateCase") {
         exec(http("LegalRepresentation")
           .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIMLegalRepresentation")
-          .headers(headers_42)
+          .headers(Headers.validateHeader)
           .body(ElFileBody("xunspec_CreateClam/0042_request.dat")))
       }
       .pause(7)
@@ -136,7 +136,7 @@ object unspec_CreateClaim {
       .group("CivilDamage_UnSpecClaim_10_16_CreateCase") {
         exec(http("DefendantSolicitorOrganisation")
           .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIMDefendantSolicitorOrganisation")
-          .headers(headers_43)
+          .headers(Headers.validateHeader)
           .body(ElFileBody("xunspec_CreateClam/0043_request.dat")))
       }
       .pause(7)
@@ -144,7 +144,7 @@ object unspec_CreateClaim {
       .group("CivilDamage_UnSpecClaim_10_17_CreateCase") {
         exec(http("DefendantSolicitorServiceAddress")
           .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIMDefendantSolicitorServiceAddress")
-          .headers(headers_44)
+          .headers(Headers.validateHeader)
           .body(ElFileBody("xunspec_CreateClam/0044_request.dat")))
       }
       .pause(7)
@@ -153,7 +153,7 @@ object unspec_CreateClaim {
       .group("CivilDamage_UnSpecClaim_10_18_CreateCase") {
         exec(http("CLAIMAddAnotherDefendant")
           .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIMDefendantSolicitorEmail")
-          .headers(headers_45)
+          .headers(Headers.validateHeader)
           .body(ElFileBody("xunspec_CreateClam/0045_request.dat")))
       }
       .pause(7)
@@ -162,7 +162,7 @@ object unspec_CreateClaim {
       .group("CivilDamage_UnSpecClaim_10_19_CreateCase") {
         exec(http("AddAnotherDefendant")
           .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIMAddAnotherDefendant")
-          .headers(headers_46)
+          .headers(Headers.validateHeader)
           .body(ElFileBody("xunspec_CreateClam/0046_request.dat")))
       }
       .pause(7)
@@ -171,7 +171,7 @@ object unspec_CreateClaim {
       .group("CivilDamage_UnSpecClaim_10_20_CreateCase") {
         exec(http("CLAIMClaimType")
           .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIMClaimType")
-          .headers(headers_47)
+          .headers(Headers.validateHeader)
           .body(ElFileBody("xunspec_CreateClam/0047_request.dat")))
       }
       .pause(7)
@@ -180,7 +180,7 @@ object unspec_CreateClaim {
       .group("CivilDamage_UnSpecClaim_10_21_CreateCase") {
         exec(http("CLAIMDetails")
           .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIMDetails")
-          .headers(headers_48)
+          .headers(Headers.validateHeader)
           .body(ElFileBody("xunspec_CreateClam/0048_request.dat")))
       }
       .pause(7)
@@ -189,7 +189,7 @@ object unspec_CreateClaim {
       .group("CivilDamage_UnSpecClaim_10_22_CreateCase") {
         exec(http("CLAIMuploadParticularsOfClaim")
           .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIMuploadParticularsOfClaim")
-          .headers(headers_49)
+          .headers(Headers.validateHeader)
           .body(ElFileBody("xunspec_CreateClam/0049_request.dat")))
       }
       .pause(7)
@@ -198,7 +198,7 @@ object unspec_CreateClaim {
       .group("CivilDamage_UnSpecClaim_10_23_CreateCase") {
         exec(http("CLAIMClaimValue")
           .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIMClaimValue")
-          .headers(headers_50)
+          .headers(Headers.validateHeader)
           .body(ElFileBody("xunspec_CreateClam/0050_request.dat"))
           .check(regex("calculatedAmountInPence\":\"(.*?)\"").saveAs("calculatedAmountInPence"))
           .check(regex("statementOfValueInPennies\":\"(.*?)\"").saveAs("statementOfValueInPennies"))
@@ -209,7 +209,7 @@ object unspec_CreateClaim {
       .group("CivilDamage_UnSpecClaim_10_24_CreateCase") {
         exec(http("CLAIMPbaNumber")
           .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIMPbaNumber")
-          .headers(headers_51)
+          .headers(Headers.validateHeader)
           .body(ElFileBody("xunspec_CreateClam/0051_request.dat")))
       }
       .pause(7)
@@ -217,7 +217,7 @@ object unspec_CreateClaim {
       .group("CivilDamage_UnSpecClaim_10_25_CreateCase") {
         exec(http("StatementOfTruth")
           .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIMStatementOfTruth")
-          .headers(headers_52)
+          .headers(Headers.validateHeader)
           .body(ElFileBody("xunspec_CreateClam/0052_request.dat")))
       }
       .pause(7)

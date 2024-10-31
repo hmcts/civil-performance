@@ -2,12 +2,11 @@ package uk.gov.hmcts.reform.civildamage.performance.simulations
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import io.gatling.core.scenario.Simulation
-//import simulations.scenarios._
 import scenarios.utils.Environment._
 import scenarios.utils._
 import scenarios._
 import io.gatling.core.controller.inject.open.OpenInjectionStep
-//import uk.gov.hmcts.reform.civildamage.performance.simulations.scenarios.unspec_CreateClaim1.CreateUnSpecClaim
+
 
 class SimulateScenario extends Simulation {
   val BaseURL = Environment.baseURL
@@ -16,7 +15,7 @@ class SimulateScenario extends Simulation {
   val MaxThinkTime = Environment.maxThinkTime
   val CaseIdFeeder = csv("caseIds.csv").circular
   val loginFeeder = csv("login.csv").circular
-//  val ClaimAmt = 5000
+  val ClaimAmt = 5000
 //  val ClaimAmt = 11000
 //  val ClaimAmt = 35000
 
@@ -25,69 +24,69 @@ class SimulateScenario extends Simulation {
   )
 
   val CreateUnSpecClaimSCN = scenario("UnSpec_CreateClaim")
+//    //==========01.Create Claim==================
+//        .exec(_.set("LoginId", "civil.damages.claims+organisation.1.solicitor.1@gmail.com"))
+//        .exec(_.set("Passwordx", "Password12!"))
+//        .exec(Home.Homepage)
+//        .exec(Login.Loginpage)
+//        .exec(unspec_CreateClaim.CreateUnSpecClaim)
+//        .exec(Logout.Signout)
+//        .exec(FileWriterx.WriteToFile)
+//        .pause(50)
+////============02.Make Pay & Notify================
     .feed(CaseIdFeeder).feed(loginFeeder)
-    //==========01.Create Claim==================
-        .exec(_.set("LoginId", "civil.damages.claims+organisation.1.solicitor.1@gmail.com"))
-        .exec(_.set("Passwordx", "Password12!"))
-        .exec(Home.Homepage)
-        .exec(Login.Loginpage)
-        .exec(unspec_CreateClaim.CreateUnSpecClaim)
-        .exec(Logout.Signout)
-        .exec(FileWriterx.WriteToFile)
-        .pause(50)
-//============02.Make Pay & Notify================
-    .exec(_.set("LoginId", "civil.damages.claims+organisation.1.solicitor.1@gmail.com"))
-    .exec(_.set("Passwordx", "Password12!"))
-    .exec(Home.Homepage)
-    .exec(Login.Loginpage)
-    .pause(30)
-    .exec(MakePay.MakePay)
-    .pause(30)
-     .exec(Logout.Signout)
-    .pause(10)
-//============02.Notify================
-          .exec(_.set("LoginId", "civil.damages.claims+organisation.1.solicitor.1@gmail.com"))
-          .exec(_.set("Passwordx", "Password12!"))
-          .exec(Home.Homepage)
-          .exec(Login.Loginpage)
-          .exec(unspec_notification.NotifyClaim)
-          .exec(Logout.Signout)
-          .pause(10)
-//============02.Notify================
-    .exec(_.set("LoginId", "civil.damages.claims+organisation.1.solicitor.1@gmail.com"))
-    .exec(_.set("Passwordx", "Password12!"))
-    .exec(Home.Homepage)
-    .exec(Login.Loginpage)
-    .exec(unspec_notification.NotifyClaimDetails)
-    .exec(Logout.Signout)
-    .pause(10)
-//============03.Respond to Claimant===============
-          .exec(_.set("LoginId", "civil.damages.claims+organisation.2.solicitor.1@gmail.com"))
-          .exec(_.set("Passwordx", "Password12!"))
-          .exec(Home.Homepage)
-          .exec(Login.Loginpage)
-          .exec(CivilAssignCase.AssignCase)
-          .pause(50)
-          .exec(unspec_DF_resp.DF_Resp)
-          .exec(Logout.Signout)
-          .pause(10)
+//    .exec(_.set("LoginId", "civil.damages.claims+organisation.1.solicitor.1@gmail.com"))
+//    .exec(_.set("Passwordx", "Password12!"))
+//    .exec(Home.Homepage)
+//    .exec(Login.Loginpage)
+//    .pause(30)
+//    .exec(MakePay.MakePay)
+//    .pause(30)
+//     .exec(Logout.Signout)
+//    .pause(10)
+////============02.Notify================
+//          .exec(_.set("LoginId", "civil.damages.claims+organisation.1.solicitor.1@gmail.com"))
+//          .exec(_.set("Passwordx", "Password12!"))
+//          .exec(Home.Homepage)
+//          .exec(Login.Loginpage)
+//          .exec(unspec_notification.NotifyClaim)
+//          .exec(Logout.Signout)
+//          .pause(10)
+////============02.Notify================
+//    .exec(_.set("LoginId", "civil.damages.claims+organisation.1.solicitor.1@gmail.com"))
+//    .exec(_.set("Passwordx", "Password12!"))
+//    .exec(Home.Homepage)
+//    .exec(Login.Loginpage)
+//    .exec(unspec_notification.NotifyClaimDetails)
+//    .exec(Logout.Signout)
+//    .pause(10)
+////============03.Respond to Claimant===============
+//          .exec(_.set("LoginId", "civil.damages.claims+organisation.2.solicitor.1@gmail.com"))
+//          .exec(_.set("Passwordx", "Password12!"))
+//          .exec(Home.Homepage)
+//          .exec(Login.Loginpage)
+//          .exec(CivilAssignCase.AssignCase)
+//          .pause(50)
+//          .exec(unspec_DF_resp.DF_Resp)
+//          .exec(Logout.Signout)
+//          .pause(10)
 //===========04.Claimant Response to DF================
-      .exec(_.set("LoginId", "civil.damages.claims+organisation.1.solicitor.1@gmail.com"))
-      .exec(_.set("Passwordx", "Password12!"))
-      .exec(Home.Homepage)
-      .exec(Login.Loginpage)
-      .exec(unspec_CL_Resp.RespToDF)
-      .exec(Logout.Signout)
-      .pause(20)
+//      .exec(_.set("LoginId", "civil.damages.claims+organisation.1.solicitor.1@gmail.com"))
+//      .exec(_.set("Passwordx", "Password12!"))
+//      .exec(Home.Homepage)
+//      .exec(Login.Loginpage)
+//      .exec(unspec_CL_Resp.RespToDF)
+//      .exec(Logout.Signout)
+//      .pause(20)
 
-//==============================JUDGE RESP==================================================
-          .exec(_.set("LoginId", "EMP261004@ejudiciary.net"))
-          .exec(_.set("Passwordx", "Testing123"))
-          .exec(Home.Homepage)
-          .exec(Login.Loginpage)
-          .exec(unspec_Jud_Hear.sdoJudge)
-          .exec(Logout.Signout)
-          .pause(10)
+////==============================JUDGE RESP==================================================
+//          .exec(_.set("LoginId", "EMP261004@ejudiciary.net"))
+//          .exec(_.set("Passwordx", "Testing123"))
+//          .exec(Home.Homepage)
+//          .exec(Login.Loginpage)
+//          .exec(unspec_Jud_Hear.sdoJudge)
+//          .exec(Logout.Signout)
+//          .pause(10)
     //==============================HEARING RESP==================================================
     .exec(_.set("LoginId", "hearings_admin_region2_user@justice.gov.uk"))
     .exec(_.set("Passwordx", "Password12!"))
@@ -101,7 +100,7 @@ class SimulateScenario extends Simulation {
     .exec(_.set("Passwordx", "Password12!"))
     .exec(Home.Homepage)
     .exec(Login.Loginpage)
-    .exec(unspec_DF_CL_FinalOrder.DF_upload)
+    .exec(unspec_DF_CL_FinalOrder_Not_In_Scope.DF_upload)
     .exec(Logout.Signout)
     .pause(10)
     //==============================CLAIMANT RESP==================================================
@@ -110,7 +109,7 @@ class SimulateScenario extends Simulation {
     .exec(_.set("Passwordx", "Password12!"))
     .exec(Home.Homepage)
     .exec(Login.Loginpage)
-    .exec(unspec_DF_CL_FinalOrder.CL_upload)
+    .exec(unspec_DF_CL_FinalOrder_Not_In_Scope.CL_upload)
     .exec(Logout.Signout)
     .pause(10)
     //==============================JUDGE RESP==================================================
@@ -119,7 +118,7 @@ class SimulateScenario extends Simulation {
     .exec(_.set("Passwordx", "Testing123"))
     .exec(Home.Homepage)
     .exec(Login.Loginpage)
-    .exec(unspec_DF_CL_FinalOrder.FinalOrder)
+    .exec(unspec_DF_CL_FinalOrder_Not_In_Scope.FinalOrder)
     .exec(Logout.Signout)
     .pause(10)
 
@@ -195,32 +194,6 @@ class SimulateScenario extends Simulation {
     .exec(spec_HearingAdmin.ScheduleHearing)
     .exec(Logout.Signout)
 
-      //    //==========06.Defendant File Upload==================
-      .exec(_.set("LoginId", "civil.damages.claims+organisation.2.solicitor.1@gmail.com"))
-      .exec(_.set("Passwordx", "Password12!"))
-      .exec(Home.Homepage)
-      .exec(Login.Loginpage)
-      .exec(f_DefResp.GoToCase)
-      .exec(f_DefResp.SelectUpload)
-      .exec(Logout.Signout)
-
-      //    //==========07.Claimant File Upload==================
-      .exec(_.set("LoginId", "civil.damages.claims+organisation.1.solicitor.1@gmail.com"))
-      .exec(_.set("Passwordx", "Password12!"))
-      .exec(Home.Homepage)
-      .exec(Login.Loginpage)
-      .exec(g_ClaimResp.GoToCase)
-      .exec(g_ClaimResp.SelectUpload)
-      .exec(Logout.Signout)
-
-      //    //==========08.Judge Final Order==================
-      .exec(_.set("LoginId", "EMP261004@ejudiciary.net"))
-      .exec(_.set("Passwordx", "Testing123"))
-      .exec(Home.Homepage)
-      .exec(Login.Loginpage)
-      .exec(spec_FinalOrder.GoToCase)
-      .exec(spec_FinalOrder.MakeAnOrder)
-      .exec(Logout.Signout)
 
 
   setUp(

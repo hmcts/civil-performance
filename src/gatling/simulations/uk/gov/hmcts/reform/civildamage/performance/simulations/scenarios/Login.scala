@@ -3,7 +3,6 @@ package uk.gov.hmcts.reform.civildamage.performance.simulations.scenarios
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import utils._
-import utils.a_CreateClaimPay_Headers._
 
 object Login {
   val BaseURL = Environment.baseURL
@@ -17,7 +16,7 @@ object Login {
       exec(flushHttpCache)
         .exec(http("005_clientId")
           .post(IdamURL + "/login?client_id=xuiwebapp&redirect_uri=https://manage-case.perftest.platform.hmcts.net/oauth2/callback&state=#{state}&nonce=#{nonce}&response_type=code&scope=profile%20openid%20roles%20manage-user%20create-user%20search-user&prompt=")
-          .headers(headers_10)
+          .headers(Headers.navigationHeader)
           .formParam("username", "#{LoginId}")
           .formParam("password", "#{Passwordx}")
           .formParam("selfRegistrationEnabled", "false")
@@ -29,14 +28,16 @@ object Login {
 
         .exec(http("010_LoginCallback")
           .get("/oauth2/callback?code=#{codex}&state=#{state}&client_id=xuiwebapp&iss=https%3A%2F%2Fidam-web-public.perftest.platform.hmcts.net%2Fo")
-          .headers(headers_11)
+//          .headers(headers_11)
+          .headers(Headers.navigationHeader)
           .check(status.is(302)))
 
         .exec(getCookieValue(CookieKey("__auth__").withDomain(BaseURL.replace("https://", "")).saveAs("auth_token")))
 
         .exec(http("015_idamurl")
           .get("/")
-          .headers(headers_11))
+//          .headers(headers_11))
+        .headers(Headers.navigationHeader))
         .pause(1)
         .exec(Common.configurationui)
         .exec(Common.configUI)

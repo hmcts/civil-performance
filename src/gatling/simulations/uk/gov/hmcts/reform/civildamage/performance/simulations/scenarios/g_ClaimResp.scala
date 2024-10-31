@@ -78,7 +78,7 @@ object g_ClaimResp {
           // ==========WITNESS STATEMENT========,
           .exec(http("EVIDENCE_UPLOAD_APPLICANTDocumentSelectionFastTrack")
             .post("/data/case-types/CIVIL/validate?pageId=EVIDENCE_UPLOAD_APPLICANTDocumentSelectionFastTrack")
-            .headers(headers_36).header("X-Xsrf-Token", "#{xsrf_token}")
+            .headers(headers_35).header("X-Xsrf-Token", "#{xsrf_token}")
             .body(ElFileBody("g_ClaimResp_bodies/0036_request.dat"))
           )
           .pause(19)
@@ -106,7 +106,8 @@ object g_ClaimResp {
           .exec(http("2SUBMIT")
             .post("/data/case-types/CIVIL/validate?pageId=EVIDENCE_UPLOAD_APPLICANTDocumentUpload")
             .headers(headers_38)
-            .headers(headers_37).header("X-Xsrf-Token", "#{xsrf_token}")
+//            .headers(headers_37)
+            .header("X-Xsrf-Token", "#{xsrf_token}")
             .body(ElFileBody("g_ClaimResp_bodies/0038_request.dat")))
           .pause(11)
   

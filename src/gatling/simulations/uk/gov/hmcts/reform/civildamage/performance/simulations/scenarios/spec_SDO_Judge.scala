@@ -78,7 +78,7 @@ object spec_SDO_Judge {
 
     .exec(http("D_request_65")
       .post(BaseURL + "/workallocation/task/#{JudgeId}/claim")
-      .headers(headers_65)
+      .headers(headers_58)
       .header("X-Xsrf-Token", "#{xsrf_token}")
       .body(ElFileBody("d_SDO_Judge_bodies/0065_request.bin")))
     .pause(5)
@@ -128,7 +128,7 @@ object spec_SDO_Judge {
 
     .exec(http("D_request_117")
       .post(BaseURL + "/data/case-types/CIVIL/validate?pageId=CREATE_SDOClaimsTrack")
-      .headers(headers_117)
+      .headers(headers_104)
       .header("X-Xsrf-Token", "#{xsrf_token}")
       .body(ElFileBody("d_SDO_Judge_bodies/0117_request.dat")))
     .pause(2)
@@ -137,7 +137,7 @@ object spec_SDO_Judge {
     // ========================JUDGE ORDER====================,
     .exec(http("D_request_135")
       .post(BaseURL + "/data/case-types/CIVIL/validate?pageId=CREATE_SDOFastTrack")
-      .headers(headers_135)
+      .headers(headers_104)
       .header("X-Xsrf-Token", "#{xsrf_token}")
       .body(ElFileBody("d_SDO_Judge_bodies/0135_request.dat"))
       .check(jsonPath("$.data.sdoOrderDocument.createdDatetime").saveAs("createdDatetime"))
@@ -153,7 +153,7 @@ object spec_SDO_Judge {
 
     .exec(http("CREATE_SDOOrderPreview")
       .post(BaseURL + "/data/case-types/CIVIL/validate?pageId=CREATE_SDOOrderPreview")
-      .headers(headers_143)
+      .headers(headers_104)
       .header("X-Xsrf-Token", "#{xsrf_token}")
       .body(ElFileBody("d_SDO_Judge_bodies/0143_request.dat")))
       .pause(2)

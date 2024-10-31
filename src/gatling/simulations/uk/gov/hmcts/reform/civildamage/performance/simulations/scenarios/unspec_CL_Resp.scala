@@ -63,7 +63,7 @@ object unspec_CL_Resp {
 					.group("Civil_30_UnSpecClaim_ClaimantResp") {
 						exec(http("005_RespondentResponse")
 							.post("/data/case-types/CIVIL/validate?pageId=CLAIMANT_RESPONSERespondentResponse")
-							.headers(headers_7)
+							.headers(Headers.validateHeader)
 							.body(ElFileBody("uc_unspec_CL_resp_bodies/0007_request.dat")))
 					}
 					.pause(5)
@@ -71,7 +71,7 @@ object unspec_CL_Resp {
 					.group("Civil_30_UnSpecClaim_ClaimantResp") {
 						exec(http("005_DefenceResponseDocument")
 							.post("/data/case-types/CIVIL/validate?pageId=CLAIMANT_RESPONSEApplicantDefenceResponseDocument")
-							.headers(headers_8)
+							.headers(Headers.validateHeader)
 							.body(ElFileBody("uc_unspec_CL_resp_bodies/0008_request.dat")))
 					}
 					.pause(5)
@@ -79,7 +79,7 @@ object unspec_CL_Resp {
 					.group("Civil_30_UnSpecClaim_ClaimantResp") {
 						exec(http("005_FileDirectionsQuestionnaire")
 							.post("/data/case-types/CIVIL/validate?pageId=CLAIMANT_RESPONSEFileDirectionsQuestionnaire")
-							.headers(headers_9)
+							.headers(Headers.validateHeader)
 							.body(ElFileBody("uc_unspec_CL_resp_bodies/0009_request.dat")))
 					}
 					.pause(5)
@@ -87,7 +87,7 @@ object unspec_CL_Resp {
 					.group("Civil_30_UnSpecClaim_ClaimantResp") {
 						exec(http("005_FixedRecoverableCosts")
 							.post("/data/case-types/CIVIL/validate?pageId=CLAIMANT_RESPONSEFixedRecoverableCosts")
-							.headers(headers_10)
+							.headers(Headers.validateHeader)
 							.body(ElFileBody("uc_unspec_CL_resp_bodies/0010_request.dat")))
 					}
 					.pause(5)
@@ -95,7 +95,7 @@ object unspec_CL_Resp {
 					.group("Civil_30_UnSpecClaim_ClaimantResp") {
 						exec(http("005_DisclosureOfNonElectronicDocuments")
 							.post("/data/case-types/CIVIL/validate?pageId=CLAIMANT_RESPONSEDisclosureOfNonElectronicDocuments")
-							.headers(headers_11)
+							.headers(Headers.validateHeader)
 							.body(ElFileBody("uc_unspec_CL_resp_bodies/0011_request.dat")))
 					}
 					.pause(5)
@@ -103,7 +103,7 @@ object unspec_CL_Resp {
 					.group("Civil_30_UnSpecClaim_ClaimantResp") {
 						exec(http("005_Experts")
 							.post("/data/case-types/CIVIL/validate?pageId=CLAIMANT_RESPONSEExperts")
-							.headers(headers_12)
+							.headers(Headers.validateHeader)
 							.body(ElFileBody("uc_unspec_CL_resp_bodies/0012_request.dat")))
 					}
 					.pause(5)
@@ -111,7 +111,7 @@ object unspec_CL_Resp {
 					.group("Civil_30_UnSpecClaim_ClaimantResp") {
 						exec(http("005_Witnesses")
 							.post("/data/case-types/CIVIL/validate?pageId=CLAIMANT_RESPONSEWitnesses")
-							.headers(headers_13)
+							.headers(Headers.validateHeader)
 							.body(ElFileBody("uc_unspec_CL_resp_bodies/0013_request.dat")))
 					}
 					.pause(5)
@@ -119,7 +119,7 @@ object unspec_CL_Resp {
 					.group("Civil_30_UnSpecClaim_ClaimantResp") {
 						exec(http("005_Language")
 							.post("/data/case-types/CIVIL/validate?pageId=CLAIMANT_RESPONSELanguage")
-							.headers(headers_14)
+							.headers(Headers.validateHeader)
 							.body(ElFileBody("uc_unspec_CL_resp_bodies/0014_request.dat")))
 					}
 					.pause(5)
@@ -127,7 +127,7 @@ object unspec_CL_Resp {
 					.group("Civil_30_UnSpecClaim_ClaimantResp") {
 						exec(http("005_Hearing")
 							.post("/data/case-types/CIVIL/validate?pageId=CLAIMANT_RESPONSEHearing")
-							.headers(headers_15)
+							.headers(Headers.validateHeader)
 							.body(ElFileBody("uc_unspec_CL_resp_bodies/0015_request.dat")))
 					}
 					.pause(5)
@@ -152,7 +152,7 @@ object unspec_CL_Resp {
 					.group("Civil_30_UnSpecClaim_ClaimantResp") {
 						exec(http("010_DraftDirections")
 							.post("/data/case-types/CIVIL/validate?pageId=CLAIMANT_RESPONSEDraftDirections")
-							.headers(headers_17)
+							.headers(Headers.validateHeader)
 							.body(ElFileBody("uc_unspec_CL_resp_bodies/0017_request.dat")))
 					}
 					.pause(5)
@@ -160,7 +160,7 @@ object unspec_CL_Resp {
 					.group("Civil_30_UnSpecClaim_ClaimantResp") {
 						exec(http("005_HearingSupport")
 							.post("/data/case-types/CIVIL/validate?pageId=CLAIMANT_RESPONSEHearingSupport")
-							.headers(headers_18)
+							.headers(Headers.validateHeader)
 							.body(ElFileBody("uc_unspec_CL_resp_bodies/0018_request.dat")))
 					}
 					.pause(5)
@@ -168,7 +168,7 @@ object unspec_CL_Resp {
 					.group("Civil_30_UnSpecClaim_ClaimantResp") {
 						exec(http("005_VulnerabilityQuestions")
 							.post("/data/case-types/CIVIL/validate?pageId=CLAIMANT_RESPONSEVulnerabilityQuestions")
-							.headers(headers_19)
+							.headers(Headers.validateHeader)
 							.body(ElFileBody("uc_unspec_CL_resp_bodies/0019_request.dat")))
 					}
 					.pause(5)
@@ -176,7 +176,7 @@ object unspec_CL_Resp {
 					.group("Civil_30_UnSpecClaim_ClaimantResp") {
 						exec(http("005_FurtherInformation")
 							.post("/data/case-types/CIVIL/validate?pageId=CLAIMANT_RESPONSEFurtherInformation")
-							.headers(headers_20)
+							.headers(Headers.validateHeader)
 							.body(ElFileBody("uc_unspec_CL_resp_bodies/0020_request.dat")))
 					}
 					.pause(5)
@@ -184,7 +184,7 @@ object unspec_CL_Resp {
 					.group("Civil_30_UnSpecClaim_ClaimantResp") {
 						exec(http("005_StatementOfTruth")
 						.post("/data/case-types/CIVIL/validate?pageId=CLAIMANT_RESPONSEStatementOfTruth")
-						.headers(headers_21)
+						.headers(Headers.validateHeader)
 						.body(ElFileBody("uc_unspec_CL_resp_bodies/0021_request.dat")))
 							}
 					.pause(5)

@@ -20,7 +20,7 @@ object Headers {
   val postHeader = Map(
     "content-type" -> "application/x-www-form-urlencoded"
   )
-  val MoneyClaimPostHeader = Map(
+  val validateHeader = Map(
     "accept" -> "application/vnd.uk.gov.hmcts.ccd-data-store-api.case-data-validate.v2+json;charset=UTF-8",
     "content-type" -> "application/json",
     "experimental" -> "true",
@@ -29,13 +29,6 @@ object Headers {
     "sec-fetch-mode" -> "cors",
     "sec-fetch-site" -> "same-origin"
   )
-//
-//  val headers_6 = Map(
-//    "Accept" -> "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/png,image/svg+xml,*/*;q=0.8",
-//    "Priority" -> "u=0, i",
-//    "Sec-Fetch-Dest" -> "document",
-//    "Sec-Fetch-Mode" -> "navigate",
-//    "Sec-Fetch-Site" -> "same-origin",
-//    "Upgrade-Insecure-Requests" -> "1"
-//  )
+
+
 }

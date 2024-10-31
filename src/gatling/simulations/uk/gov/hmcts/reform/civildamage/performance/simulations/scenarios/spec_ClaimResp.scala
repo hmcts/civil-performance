@@ -58,7 +58,7 @@ object spec_ClaimResp{
           .group("Civil_CreateClaim_050_CLAIMEligibility") {
             exec(http("C_request_37")
               .post("/data/case-types/CIVIL/validate?pageId=CLAIMANT_RESPONSE_SPECApplicantDefenceResponseDocument")
-              .headers(headers_37)
+              .headers(headers_36)
               .body(ElFileBody("c_RespToDef/0037_request.dat")))
           }
 
@@ -66,56 +66,56 @@ object spec_ClaimResp{
           // =============================UESE OF EXPERT===============================,
           .exec( http("C_request_38")
             .post("/data/case-types/CIVIL/validate?pageId=CLAIMANT_RESPONSE_SPECSmallClaimExperts")
-            .headers(headers_38)
+            .headers(headers_36)
             .body(ElFileBody("c_RespToDef/0038_request.dat")))
 
           .pause(10)
           // ========================================WITNESS===================,
           .exec( http("C_request_39")
             .post("/data/case-types/CIVIL/validate?pageId=CLAIMANT_RESPONSE_SPECSmallClaimWitnesses")
-            .headers(headers_39)
+            .headers(headers_36)
             .body(ElFileBody("c_RespToDef/0039_request.dat")))
           .pause(10)
 
           // ===================================LANGUAGE===========================,
           .exec( http("C_request_40")
             .post("/data/case-types/CIVIL/validate?pageId=CLAIMANT_RESPONSE_SPECLanguage")
-            .headers(headers_40)
+            .headers(headers_36)
             .body(ElFileBody("c_RespToDef/0040_request.dat")))
           .pause(10)
 
           // ===========================HEARING==================,
           .exec( http("C_request_41")
             .post("/data/case-types/CIVIL/validate?pageId=CLAIMANT_RESPONSE_SPECHearing")
-            .headers(headers_41)
+            .headers(headers_36)
             .body(ElFileBody("c_RespToDef/0041_request.dat")))
           .pause(10)
 
           // ==================================REQUESTED COURT======================,
           .exec( http("C_request_42")
             .post("/data/case-types/CIVIL/validate?pageId=CLAIMANT_RESPONSE_SPECApplicantCourtLocationLRspec")
-            .headers(headers_42)
+            .headers(headers_36)
             .body(ElFileBody("c_RespToDef/0042_request.dat")))
           .pause(10)
 
           // ==============================SUPPORT WITH ACCESS NEEDS=======================,
           .exec( http("C_request_43")
             .post("/data/case-types/CIVIL/validate?pageId=CLAIMANT_RESPONSE_SPECHearingSupport")
-            .headers(headers_43)
+            .headers(headers_36)
             .body(ElFileBody("c_RespToDef/0043_request.dat")))
           .pause(10)
 
           // =====================================VULNERABILITY=======================,
           .exec( http("C_request_44")
             .post("/data/case-types/CIVIL/validate?pageId=CLAIMANT_RESPONSE_SPECVulnerabilityQuestions")
-            .headers(headers_44)
+            .headers(headers_36)
             .body(ElFileBody("c_RespToDef/0044_request.dat")))
           .pause(10)
 
           // =======================================================SOT===========================,
           .exec( http("C_request_45")
             .post("/data/case-types/CIVIL/validate?pageId=CLAIMANT_RESPONSE_SPECStatementOfTruth")
-            .headers(headers_45)
+            .headers(headers_36)
             .body(ElFileBody("c_RespToDef/0045_request.dat")))
           .pause(10)
 

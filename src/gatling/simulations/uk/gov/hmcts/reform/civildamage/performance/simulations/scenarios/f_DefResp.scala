@@ -75,7 +75,7 @@ val SelectUpload =
       //==============Select the type of document==================
     .exec(http("F_request_138")
         .post("/data/case-types/CIVIL/validate?pageId=EVIDENCE_UPLOAD_RESPONDENTDocumentSelectionFastTrack")
-        .headers(headers_138)
+        .headers(headers_118)
         .header("X-Xsrf-Token", "#{xsrf_token}")
       . body(ElFileBody("f_DefResp_bodies/0138_request.dat")))
         .pause(491.milliseconds)
@@ -104,7 +104,7 @@ val SelectUpload =
 //=========================- Witness Statement Upload DOC================
     .exec(http("EVIDENCE_UPLOAD_RESPONDENTDocumentUpload")
       .post("/data/case-types/CIVIL/validate?pageId=EVIDENCE_UPLOAD_RESPONDENTDocumentUpload")
-      .headers(headers_220).header("X-Xsrf-Token", "#{xsrf_token}")
+      .headers(headers_118).header("X-Xsrf-Token", "#{xsrf_token}")
       .body(ElFileBody("f_DefResp_bodies/0220_request.dat"))
     .check(substring("EVIDENCE_UPLOAD_RESPONDENTDocumentUpload")))
     .pause(563.milliseconds)
