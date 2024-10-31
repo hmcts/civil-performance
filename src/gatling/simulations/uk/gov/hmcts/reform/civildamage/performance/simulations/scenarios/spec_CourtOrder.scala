@@ -17,16 +17,6 @@ object spec_CourtOrder{
   val MaxThinkTime = Environment.maxThinkTime
 
 
-    // =================================================SEARCH CASE====================,
-//    .exec(http("H_request_41")
-//      .get("/data/internal/case-types/GENERALAPPLICATION/work-basket-inputs")
-//      .headers(headers_41))
-//      .pause(118.milliseconds)
-//
-//    .exec(http("H_request_42")
-//      .get("/data/internal/case-types/CIVIL/work-basket-inputs")
-//      .headers(headers_42))
-//      .pause(11)
 
     val GoToCase =
 

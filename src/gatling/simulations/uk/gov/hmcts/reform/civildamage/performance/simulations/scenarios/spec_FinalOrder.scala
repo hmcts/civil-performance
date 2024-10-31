@@ -9,24 +9,13 @@ import io.gatling.core.Predef.ElFileBody
 import utils._
 import utils.h_CourtOrder_Headers._
 
-object h_CourtOrder{
+object spec_FinalOrder{
 
   val BaseURL = Environment.baseURL
   val IdamURL = Environment.idamURL
   val MinThinkTime = Environment.minThinkTime
   val MaxThinkTime = Environment.maxThinkTime
 
-
-    // =================================================SEARCH CASE====================,
-//    .exec(http("H_request_41")
-//      .get("/data/internal/case-types/GENERALAPPLICATION/work-basket-inputs")
-//      .headers(headers_41))
-//      .pause(118.milliseconds)
-//
-//    .exec(http("H_request_42")
-//      .get("/data/internal/case-types/CIVIL/work-basket-inputs")
-//      .headers(headers_42))
-//      .pause(11)
 
     val GoToCase =
 
@@ -84,11 +73,7 @@ val MakeAnOrder =
       .post(BaseURL + "/data/case-types/CIVIL/validate?pageId=GENERATE_DIRECTIONS_ORDERTrackAllocation")
       .headers(headers_72).header("X-Xsrf-Token", "#{xsrf_token}")
       .body(ElFileBody("h_CourtOrder_bodies/0072_request.dat")))
-//  .pause(4)
-
   .pause(2)
-
-
 
     // ============================MAKE AN ORDER=================,
 

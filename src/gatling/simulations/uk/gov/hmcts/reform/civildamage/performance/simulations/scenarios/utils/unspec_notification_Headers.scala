@@ -3,7 +3,7 @@ package uk.gov.hmcts.reform.civildamage.performance.simulations.scenarios.utils
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 
-object ua_unspec_CreateClaim_Headers{
+object unspec_notification_Headers{
 
 
 
