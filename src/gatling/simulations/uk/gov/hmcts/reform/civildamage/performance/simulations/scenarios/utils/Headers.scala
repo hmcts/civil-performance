@@ -17,10 +17,7 @@ object Headers {
     "upgrade-insecure-requests" -> "1")
 
 
-  val postHeader = Map(
-    "content-type" -> "application/x-www-form-urlencoded"
-  )
-  val validateHeader = Map(
+   val validateHeader = Map(
     "accept" -> "application/vnd.uk.gov.hmcts.ccd-data-store-api.case-data-validate.v2+json;charset=UTF-8",
     "content-type" -> "application/json",
     "experimental" -> "true",

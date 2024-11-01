@@ -7,7 +7,7 @@ import utils.spec_CL1_Headers._
 
 import scala.concurrent.duration.DurationInt
 
-object spec_DF2_Resp{
+object spec_CL1_Resp{
 
   val BaseURL = Environment.baseURL
   val IdamURL = Environment.idamURL

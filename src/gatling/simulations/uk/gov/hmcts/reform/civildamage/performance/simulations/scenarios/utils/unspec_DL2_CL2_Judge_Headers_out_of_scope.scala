@@ -2,7 +2,7 @@ package uk.gov.hmcts.reform.civildamage.performance.simulations.scenarios.utils
 
 
 
-object unspec_DL_CL_Judge_Headers_out_of_scope{
+object unspec_DL2_CL2_Judge_Headers_out_of_scope{
 
 
 
@@ -392,15 +392,7 @@ object unspec_DL_CL_Judge_Headers_out_of_scope{
     "Sec-Fetch-Site" -> "same-origin",
   )
 
-  val headers_114 = Map(
-    "Accept" -> "*/*",
-    "Access-Control-Request-Headers" -> "authorization,content-type",
-    "Access-Control-Request-Method" -> "POST",
-    "Priority" -> "u=4",
-    "Sec-Fetch-Dest" -> "empty",
-    "Sec-Fetch-Mode" -> "cors",
-    "Sec-Fetch-Site" -> "same-site"
-  )
+
 
   val headers_115 = Map(
     "Content-Type" -> "application/json",

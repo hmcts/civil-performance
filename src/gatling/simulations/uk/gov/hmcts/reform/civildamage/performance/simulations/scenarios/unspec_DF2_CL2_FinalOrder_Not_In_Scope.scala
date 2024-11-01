@@ -2,7 +2,7 @@ package uk.gov.hmcts.reform.civildamage.performance.simulations.scenarios
 
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
-import utils.unspec_DL_CL_Judge_Headers_out_of_scope._
+import utils.unspec_DL2_CL2_Judge_Headers_out_of_scope._
 import utils._
 
 import scala.concurrent.duration.DurationInt

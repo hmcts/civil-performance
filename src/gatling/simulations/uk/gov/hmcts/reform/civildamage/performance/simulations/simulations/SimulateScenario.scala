@@ -167,33 +167,33 @@ class SimulateScenario extends Simulation {
     .exec(Logout.Signout)
     .pause(25)
 
-//    //    //==========03.Claimant Response==================
-//    .exec(_.set("LoginId", "civil.damages.claims+organisation.1.solicitor.1@gmail.com"))
-//    .exec(_.set("Passwordx", "Password12!"))
-//    .exec(Home.Homepage)
-//    .exec(Login.Loginpage)
-    .exec(spec_DF2_Resp.ResToDef)
-//    .exec(Logout.Signout)
-//    .pause(25)
-//
-//    //    //==========04.Judge SDO==================
-//    .exec(_.set("LoginId", "EMP261004@ejudiciary.net"))
-//    .exec(_.set("Passwordx", "Testing123"))
-//    .exec(Home.Homepage)
-//    .exec(Login.Loginpage)
-//    .exec(spec_SDO_Judge.sdoJudge)
-//    .exec(Logout.Signout)
-//    .pause(25)
-//
-//    //    //==========05.Hearing Schedule==================
-//    .exec(_.set("LoginId", "hearings_admin_region2_user@justice.gov.uk"))
-//    .exec(_.set("Passwordx", "Password12!"))
-//    .exec(Home.Homepage)
-//    .exec(Login.Loginpage)
-//    .exec(spec_HearingAdmin.ClickTaskTab)
-//    .exec(spec_HearingAdmin.ScheduleHearing)
-//    .exec(Logout.Signout)
-//
+    //    //==========03.Claimant Response==================
+    .exec(_.set("LoginId", "civil.damages.claims+organisation.1.solicitor.1@gmail.com"))
+    .exec(_.set("Passwordx", "Password12!"))
+    .exec(Home.Homepage)
+    .exec(Login.Loginpage)
+    .exec(spec_CL1_Resp.ResToDef)
+    .exec(Logout.Signout)
+    .pause(25)
+
+    //    //==========04.Judge SDO==================
+    .exec(_.set("LoginId", "EMP261004@ejudiciary.net"))
+    .exec(_.set("Passwordx", "Testing123"))
+    .exec(Home.Homepage)
+    .exec(Login.Loginpage)
+    .exec(spec_SDO_Judge.sdoJudge)
+    .exec(Logout.Signout)
+    .pause(25)
+
+    //    //==========05.Hearing Schedule==================
+    .exec(_.set("LoginId", "hearings_admin_region2_user@justice.gov.uk"))
+    .exec(_.set("Passwordx", "Password12!"))
+    .exec(Home.Homepage)
+    .exec(Login.Loginpage)
+    .exec(spec_HearingAdmin.ClickTaskTab)
+    .exec(spec_HearingAdmin.ScheduleHearing)
+    .exec(Logout.Signout)
+
 
 
   setUp(
