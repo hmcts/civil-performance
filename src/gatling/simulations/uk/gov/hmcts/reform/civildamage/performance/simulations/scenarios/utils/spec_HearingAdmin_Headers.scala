@@ -120,13 +120,6 @@ object spec_HearingAdmin_Headers{
     "Upgrade-Insecure-Requests" -> "1"
   )
 
-//  val headers_77 = Map(
-//    "Accept" -> "*/*",
-//    "Priority" -> "u=4",
-//    "Sec-Fetch-Dest" -> "empty",
-//    "Sec-Fetch-Mode" -> "cors",
-//    "Sec-Fetch-Site" -> "same-origin"
-//  )
 
   val headers_85 = Map(
     "Accept" -> "application/json",

@@ -17,42 +17,38 @@ object unspec_notification_Headers{
     "Sec-Fetch-Mode" -> "cors",
     "Sec-Fetch-Site" -> "same-origin"
   )
-
-  val headers_111 = Map(
-    "Accept" -> "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-start-event-trigger.v2+json;charset=UTF-8",
-    "Content-Type" -> "application/json",
-    "Sec-Fetch-Dest" -> "empty",
-    "Sec-Fetch-Mode" -> "cors",
-    "Sec-Fetch-Site" -> "same-origin",
-    "experimental" -> "true"
-  )
-
-  val headers_112 = Map(
-    "Accept" -> "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-user-profile.v2+json;charset=UTF-8",
-    "Content-Type" -> "application/json",
-    "Sec-Fetch-Dest" -> "empty",
-    "Sec-Fetch-Mode" -> "cors",
-    "Sec-Fetch-Site" -> "same-origin",
-    "experimental" -> "true"
-  )
-
-  val headers_113 = Map(
-    "Accept" -> "application/json",
-    "Content-Type" -> "application/json",
-    "Sec-Fetch-Dest" -> "empty",
-    "Sec-Fetch-Mode" -> "cors",
-    "Sec-Fetch-Site" -> "same-origin",
-  )
-
-  val headers_115 = Map(
-    "Accept" -> "application/vnd.uk.gov.hmcts.ccd-data-store-api.create-event.v2+json;charset=UTF-8",
-    "Content-Type" -> "application/json",
-    "Priority" -> "u=0",
-    "Sec-Fetch-Dest" -> "empty",
-    "Sec-Fetch-Mode" -> "cors",
-    "Sec-Fetch-Site" -> "same-origin",
-    "experimental" -> "true",
-  )
+//  val headers_113 = Map(
+//    "Accept" -> "application/json",
+//    "Content-Type" -> "application/json",
+//    "Sec-Fetch-Dest" -> "empty",
+//    "Sec-Fetch-Mode" -> "cors",
+//    "Sec-Fetch-Site" -> "same-origin",
+//  )
+//val headers_131 = Map(
+//  "Accept" -> "application/json",
+//  "Content-Type" -> "application/json",
+//  "Priority" -> "u=0",
+//  "Sec-Fetch-Dest" -> "empty",
+//  "Sec-Fetch-Mode" -> "cors",
+//  "Sec-Fetch-Site" -> "same-origin"
+//)
+//  val headers_112 = Map(
+//    "Accept" -> "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-user-profile.v2+json;charset=UTF-8",
+//    "Content-Type" -> "application/json",
+//    "Sec-Fetch-Dest" -> "empty",
+//    "Sec-Fetch-Mode" -> "cors",
+//    "Sec-Fetch-Site" -> "same-origin",
+//    "experimental" -> "true"
+//  )
+//  val headers_115 = Map(
+//    "Accept" -> "application/vnd.uk.gov.hmcts.ccd-data-store-api.create-event.v2+json;charset=UTF-8",
+//    "Content-Type" -> "application/json",
+//    "Priority" -> "u=0",
+//    "Sec-Fetch-Dest" -> "empty",
+//    "Sec-Fetch-Mode" -> "cors",
+//    "Sec-Fetch-Site" -> "same-origin",
+//    "experimental" -> "true",
+//  )
 
   val headers_117 = Map(
     "Priority" -> "u=0",
@@ -68,7 +64,6 @@ object unspec_notification_Headers{
     "Sec-Fetch-Mode" -> "cors",
     "Sec-Fetch-Site" -> "same-origin"
   )
-
   val headers_120 = Map(
     "Accept" -> "*/*",
     "Priority" -> "u=4",
@@ -76,51 +71,14 @@ object unspec_notification_Headers{
     "Sec-Fetch-Mode" -> "cors",
     "Sec-Fetch-Site" -> "same-origin"
   )
-
-
-  val headers_131 = Map(
-    "Accept" -> "application/json",
-    "Content-Type" -> "application/json",
-    "Priority" -> "u=0",
-    "Sec-Fetch-Dest" -> "empty",
-    "Sec-Fetch-Mode" -> "cors",
-    "Sec-Fetch-Site" -> "same-origin"
-  )
-
-  val headers_132 = Map(
-    "Accept" -> "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-start-event-trigger.v2+json;charset=UTF-8",
-    "Content-Type" -> "application/json",
-    "Sec-Fetch-Dest" -> "empty",
-    "Sec-Fetch-Mode" -> "cors",
-    "Sec-Fetch-Site" -> "same-origin",
-    "experimental" -> "true"
-  )
-
-  val headers_133 = Map(
-    "Accept" -> "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-user-profile.v2+json;charset=UTF-8",
-    "Content-Type" -> "application/json",
-    "Sec-Fetch-Dest" -> "empty",
-    "Sec-Fetch-Mode" -> "cors",
-    "Sec-Fetch-Site" -> "same-origin",
-    "experimental" -> "true"
-  )
-
-  val headers_134 = Map(
-    "Accept" -> "application/json",
-    "Content-Type" -> "application/json",
-    "Sec-Fetch-Dest" -> "empty",
-    "Sec-Fetch-Mode" -> "cors",
-    "Sec-Fetch-Site" -> "same-origin"
-  )
-
-  val headers_136 = Map(
-    "Accept" -> "application/vnd.uk.gov.hmcts.ccd-data-store-api.create-event.v2+json;charset=UTF-8",
-    "Content-Type" -> "application/json",
-    "Priority" -> "u=0",
-    "Sec-Fetch-Dest" -> "empty",
-    "Sec-Fetch-Mode" -> "cors",
-    "Sec-Fetch-Site" -> "same-origin",
-    "experimental" -> "true"
-  )
+//  val headers_136 = Map(
+//    "Accept" -> "application/vnd.uk.gov.hmcts.ccd-data-store-api.create-event.v2+json;charset=UTF-8",
+//    "Content-Type" -> "application/json",
+//    "Priority" -> "u=0",
+//    "Sec-Fetch-Dest" -> "empty",
+//    "Sec-Fetch-Mode" -> "cors",
+//    "Sec-Fetch-Site" -> "same-origin",
+//    "experimental" -> "true"
+//  )
 
 }

@@ -67,7 +67,7 @@ class SimulateScenario extends Simulation {
           .exec(Login.Loginpage)
           .exec(CivilAssignCase.AssignCase)
           .pause(50)
-          .exec(unspec_DF_resp.DF_Resp)
+          .exec(unspec_DF1_resp.DF_Resp)
           .exec(Logout.Signout)
           .pause(10)
 //===========04.Claimant Response to DF================
@@ -75,7 +75,7 @@ class SimulateScenario extends Simulation {
       .exec(_.set("Passwordx", "Password12!"))
       .exec(Home.Homepage)
       .exec(Login.Loginpage)
-      .exec(unspec_CL_Resp.RespToDF)
+      .exec(unspec_CL1_Resp.RespToDF)
       .exec(Logout.Signout)
       .pause(20)
 
@@ -100,7 +100,7 @@ class SimulateScenario extends Simulation {
     .exec(_.set("Passwordx", "Password12!"))
     .exec(Home.Homepage)
     .exec(Login.Loginpage)
-    .exec(unspec_DF_CL_FinalOrder_Not_In_Scope.DF_upload)
+    .exec(unspec_DF2_CL2_FinalOrder_Not_In_Scope.DF_upload)
     .exec(Logout.Signout)
     .pause(10)
     //==============================CLAIMANT RESP==================================================
@@ -109,7 +109,7 @@ class SimulateScenario extends Simulation {
     .exec(_.set("Passwordx", "Password12!"))
     .exec(Home.Homepage)
     .exec(Login.Loginpage)
-    .exec(unspec_DF_CL_FinalOrder_Not_In_Scope.CL_upload)
+    .exec(unspec_DF2_CL2_FinalOrder_Not_In_Scope.CL_upload)
     .exec(Logout.Signout)
     .pause(10)
     //==============================JUDGE RESP==================================================
@@ -118,7 +118,7 @@ class SimulateScenario extends Simulation {
     .exec(_.set("Passwordx", "Testing123"))
     .exec(Home.Homepage)
     .exec(Login.Loginpage)
-    .exec(unspec_DF_CL_FinalOrder_Not_In_Scope.FinalOrder)
+    .exec(unspec_DF2_CL2_FinalOrder_Not_In_Scope.FinalOrder)
     .exec(Logout.Signout)
     .pause(10)
 
@@ -154,7 +154,7 @@ class SimulateScenario extends Simulation {
     .pause(30)
     .exec(CivilAssignCase.AssignCase)
     .pause(50)
-    .exec(spec_DefResp.selectRespon2Claim)
+    .exec(spec_DF1_Resp.selectRespon2Claim)
     .exec(Logout.Signout)
     .pause(25)
 
@@ -163,7 +163,7 @@ class SimulateScenario extends Simulation {
     .exec(_.set("Passwordx", "Password12!"))
     .exec(Home.Homepage)
     .exec(Login.Loginpage)
-    .exec(spec_DefResp.selectRespon2Claim)
+    .exec(spec_DF1_Resp.selectRespon2Claim)
     .exec(Logout.Signout)
     .pause(25)
 
@@ -172,7 +172,7 @@ class SimulateScenario extends Simulation {
 //    .exec(_.set("Passwordx", "Password12!"))
 //    .exec(Home.Homepage)
 //    .exec(Login.Loginpage)
-//    .exec(spec_ClaimResp.ResToDef)
+    .exec(spec_DF2_Resp.ResToDef)
 //    .exec(Logout.Signout)
 //    .pause(25)
 //

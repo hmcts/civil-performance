@@ -25,17 +25,17 @@ object unspec_notification {
         .pause(5)
         .exec(http("010_warning")
           .get("/data/internal/cases/#{caseId}/event-triggers/NOTIFY_DEFENDANT_OF_CLAIM?ignore-warning=false")
-          .headers(headers_111)
+          .headers(Headers.startEventHeader)
           .check(status.in(200, 304))
           .check(jsonPath("$.event_token").optional.saveAs("event_token")))
 
         .exec(http("015_Profile")
           .get("/data/internal/profile")
-          .headers(headers_112))
+          .headers(Headers.UIUserProfileHeader))
 
         .exec(http("020_jurisdiction")
           .get("/workallocation/case/tasks/#{caseId}/event/NOTIFY_DEFENDANT_OF_CLAIM/caseType/CIVIL/jurisdiction/CIVIL")
-          .headers(headers_113))
+          .headers(headers_110))
     }
         .pause(10)
 
@@ -52,7 +52,7 @@ object unspec_notification {
       .group("Civil_UnSpecClaim_10_NotifyDEF") {
         exec(http("330_SubmitNotification")
           .post("/data/cases/#{caseId}/events")
-          .headers(headers_115)
+          .headers(Headers.createEventHeader)
           .body(ElFileBody("ua_unspec_CreateClaim_Bodies/0115_request.dat")))
       }
           .pause(10)
@@ -76,21 +76,21 @@ group("Civil_UnSpecClaim_10_NotifyDetails") {
   // =======================NOTIFY CLAIM DETAILS=======================,
   exec(http("005_jurisdiction")
     .get("/workallocation/case/tasks/#{caseId}/event/NOTIFY_DEFENDANT_OF_CLAIM_DETAILS/caseType/CIVIL/jurisdiction/CIVIL")
-    .headers(headers_131))
+    .headers(headers_110))
 
     .exec(http("010_IgnoreWarning")
       .get("/data/internal/cases/#{caseId}/event-triggers/NOTIFY_DEFENDANT_OF_CLAIM_DETAILS?ignore-warning=false")
-      .headers(headers_132)
+      .headers(Headers.startEventHeader)
       .check(status.in(200, 304))
       .check(jsonPath("$.event_token").optional.saveAs("event_token")))
 
     .exec(http("015_profile")
       .get("/data/internal/profile")
-      .headers(headers_133))
+      .headers(Headers.UIUserProfileHeader))
 
     .exec(http("020_jurisdiction")
       .get("/workallocation/case/tasks/#{caseId}/event/NOTIFY_DEFENDANT_OF_CLAIM_DETAILS/caseType/CIVIL/jurisdiction/CIVIL")
-      .headers(headers_134))
+      .headers(headers_110))
 }
       .pause(19)
 
@@ -107,7 +107,7 @@ group("Civil_UnSpecClaim_10_NotifyDetails") {
       .group("Civil_UnSpecClaim_10_NotifyDetails") {
         exec(http("005_SubmitNotifyDetails")
           .post("/data/cases/#{caseId}/events")
-          .headers(headers_136)
+          .headers(Headers.createEventHeader)
           .body(ElFileBody("ua_unspec_CreateClaim_Bodies/0136_request.dat")))
       }
 }

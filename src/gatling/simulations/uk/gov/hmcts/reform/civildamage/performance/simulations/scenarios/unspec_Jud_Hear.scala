@@ -163,8 +163,6 @@ object unspec_Jud_Hear {
         .pause(921.milliseconds)
 
 
-
-
       val HearingAdmin =
         exec(_.setAll(
           "CaseProgRandomString" -> Common.randomString(5),
@@ -186,63 +184,64 @@ object unspec_Jud_Hear {
       }
 
           .pause(5)
-          // =======================HEARING NOTICE DROPDOWN=======================,
+      // =======================HEARING NOTICE DROPDOWN=======================,
 
-          .group("Civil_50_UnSpecClaim_HearingAdmin") {
-            exec(http("005_jurisdiction")
-              .get(BaseURL + "/workallocation/case/tasks/#{caseId}/event/HEARING_SCHEDULED/caseType/CIVIL/jurisdiction/CIVIL")
-              .headers(headers_232))
+    .group("Civil_50_UnSpecClaim_HearingAdmin") {
+      exec(http("005_jurisdiction")
+        .get(BaseURL + "/workallocation/case/tasks/#{caseId}/event/HEARING_SCHEDULED/caseType/CIVIL/jurisdiction/CIVIL")
+        .headers(headers_232))
 
-              .exec(http("010_RESPONSEExperts")
-                .get(BaseURL + "/data/internal/profile")
-                .headers(headers_233))
-              .pause(2)
+        .exec(http("010_RESPONSEExperts")
+          .get(BaseURL + "/data/internal/profile")
+          .headers(headers_233))
+        .pause(2)
 
-              .exec(http("015_IgnoreWarning")
-                .get(BaseURL + "/data/internal/cases/#{caseId}/event-triggers/HEARING_SCHEDULED?ignore-warning=false")
-                .headers(headers_236)
-                .check(jsonPath("$.event_token").saveAs("event_token"))
-              )
+        .exec(http("015_IgnoreWarning")
+          .get(BaseURL + "/data/internal/cases/#{caseId}/event-triggers/HEARING_SCHEDULED?ignore-warning=false")
+          .headers(headers_236)
+          .check(jsonPath("$.event_token").saveAs("event_token"))
+        )
 
-              .exec(getCookieValue(CookieKey("XSRF-TOKEN").withDomain(BaseURL.replace("https://", "")).saveAs("xsrf_token")))
+        .exec(getCookieValue(CookieKey("XSRF-TOKEN").withDomain(BaseURL.replace("https://", "")).saveAs("xsrf_token")))
 
-          .pause(5)
-          // =======================SMALL CLAIM=======================,
+    .pause(5)
+      // =======================SMALL CLAIM=======================,
 
-          .group("Civil_50_UnSpecClaim_HearingAdmin") {
-            exec(http("005_HearingNoticeSelect")
-              .post(BaseURL + "/data/case-types/CIVIL/validate?pageId=HEARING_SCHEDULEDHearingNoticeSelect")
-              .headers(Headers.validateHeader)
-              .body(ElFileBody("ud_ue_jud_hear_bodies/0246_request.dat")))
-          }
-          .pause(5)
-          // =======================LISTING=======================,
+      .group("Civil_50_UnSpecClaim_HearingAdmin") {
+        exec(http("005_HearingNoticeSelect")
+          .post(BaseURL + "/data/case-types/CIVIL/validate?pageId=HEARING_SCHEDULEDHearingNoticeSelect")
+          .headers(Headers.validateHeader)
+          .body(ElFileBody("ud_ue_jud_hear_bodies/0246_request.dat")))
+      }
+      .pause(5)
+      // =======================LISTING=======================,
 
-          .group("Civil_50_UnSpecClaim_HearingAdmin") {
-            exec(http("005_ListingOrRelisting")
-              .post(BaseURL + "/data/case-types/CIVIL/validate?pageId=HEARING_SCHEDULEDListingOrRelisting")
-              .headers(Headers.validateHeader)
-              .body(ElFileBody("ud_ue_jud_hear_bodies/0251_request.dat")))
-          }
-          .pause(3)
+      .group("Civil_50_UnSpecClaim_HearingAdmin") {
+        exec(http("005_ListingOrRelisting")
+          .post(BaseURL + "/data/case-types/CIVIL/validate?pageId=HEARING_SCHEDULEDListingOrRelisting")
+          .headers(Headers.validateHeader)
+          .body(ElFileBody("ud_ue_jud_hear_bodies/0251_request.dat")))
+      }
+      .pause(3)
 
           //
-          // =======================NOTICE LETTER INFO=======================,
-          .group("Civil_50_UnSpecClaim_HearingAdmin") {
-            exec(http("005_HearingInformation")
-              .post(BaseURL + "/data/case-types/CIVIL/validate?pageId=HEARING_SCHEDULEDHearingInformation")
-              .headers(Headers.validateHeader)
-              .body(ElFileBody("ud_ue_jud_hear_bodies/0280_request.dat")))
-          }
-              .pause(768.milliseconds)
+    // =======================NOTICE LETTER INFO=======================,
+    .group("Civil_50_UnSpecClaim_HearingAdmin") {
+      exec(http("005_HearingInformation")
+        .post(BaseURL + "/data/case-types/CIVIL/validate?pageId=HEARING_SCHEDULEDHearingInformation")
+        .headers(Headers.validateHeader)
+        .body(ElFileBody("ud_ue_jud_hear_bodies/0280_request.dat")))
+    }
+        .pause(768.milliseconds)
 
-              // =======================SUBMIT=======================,
+      // =======================SUBMIT=======================,
 
-              .group("Civil_50_UnSpecClaim_HearingAdmin") {
-                exec(http("005_Submit")
-                  .post(BaseURL + "/data/cases/#{caseId}/events")
-                  .headers(headers_287)
-                  .body(ElFileBody("ud_ue_jud_hear_bodies/0287_request.dat")))
-              }
+    .group("Civil_50_UnSpecClaim_HearingAdmin") {
+      exec(http("005_Submit")
+        .post(BaseURL + "/data/cases/#{caseId}/events")
+        .headers(headers_287)
+        .body(ElFileBody("ud_ue_jud_hear_bodies/0287_request.dat")))
+    }
 
+}
 }
