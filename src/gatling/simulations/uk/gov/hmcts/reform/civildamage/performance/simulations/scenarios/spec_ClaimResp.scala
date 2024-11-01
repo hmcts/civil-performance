@@ -3,7 +3,7 @@ package uk.gov.hmcts.reform.civildamage.performance.simulations.scenarios
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import utils._
-import utils.c_ClaimResp_Headers._
+import utils.spec_CL1_Headers._
 
 import scala.concurrent.duration.DurationInt
 
@@ -29,7 +29,7 @@ object spec_ClaimResp{
             .get("/workallocation/case/tasks/#{caseId}/event/CLAIMANT_RESPONSE_SPEC/caseType/CIVIL/jurisdiction/CIVIL")
             .headers(headers_32))
 
-          exec( http("C_C_request_34")
+          exec( http("C_request_34")
             .get("/data/internal/cases/#{caseId}/event-triggers/CLAIMANT_RESPONSE_SPEC?ignore-warning=false")
             .headers(headers_34)
             .check(jsonPath("$.case_fields[0].value.partyID").saveAs("repPartyID"))
@@ -49,7 +49,7 @@ object spec_ClaimResp{
           .group("Civil_CreateClaim_050_CLAIMEligibility") {
           exec(http("Civil_CreateClaim_050_CLAIMEligibility")
               .post("/data/case-types/CIVIL/validate?pageId=CLAIMANT_RESPONSE_SPECRespondentResponse")
-              .headers(headers_36)
+              .headers(Headers.validateHeader)
               .body(ElFileBody("c_RespToDef/0036_request.dat")))
           }
           .pause(10)
@@ -58,7 +58,7 @@ object spec_ClaimResp{
           .group("Civil_CreateClaim_050_CLAIMEligibility") {
             exec(http("C_request_37")
               .post("/data/case-types/CIVIL/validate?pageId=CLAIMANT_RESPONSE_SPECApplicantDefenceResponseDocument")
-              .headers(headers_36)
+              .headers(Headers.validateHeader)
               .body(ElFileBody("c_RespToDef/0037_request.dat")))
           }
 
@@ -66,56 +66,56 @@ object spec_ClaimResp{
           // =============================UESE OF EXPERT===============================,
           .exec( http("C_request_38")
             .post("/data/case-types/CIVIL/validate?pageId=CLAIMANT_RESPONSE_SPECSmallClaimExperts")
-            .headers(headers_36)
+            .headers(Headers.validateHeader)
             .body(ElFileBody("c_RespToDef/0038_request.dat")))
 
           .pause(10)
           // ========================================WITNESS===================,
           .exec( http("C_request_39")
             .post("/data/case-types/CIVIL/validate?pageId=CLAIMANT_RESPONSE_SPECSmallClaimWitnesses")
-            .headers(headers_36)
+            .headers(Headers.validateHeader)
             .body(ElFileBody("c_RespToDef/0039_request.dat")))
           .pause(10)
 
           // ===================================LANGUAGE===========================,
           .exec( http("C_request_40")
             .post("/data/case-types/CIVIL/validate?pageId=CLAIMANT_RESPONSE_SPECLanguage")
-            .headers(headers_36)
+            .headers(Headers.validateHeader)
             .body(ElFileBody("c_RespToDef/0040_request.dat")))
           .pause(10)
 
           // ===========================HEARING==================,
           .exec( http("C_request_41")
             .post("/data/case-types/CIVIL/validate?pageId=CLAIMANT_RESPONSE_SPECHearing")
-            .headers(headers_36)
+            .headers(Headers.validateHeader)
             .body(ElFileBody("c_RespToDef/0041_request.dat")))
           .pause(10)
 
           // ==================================REQUESTED COURT======================,
           .exec( http("C_request_42")
             .post("/data/case-types/CIVIL/validate?pageId=CLAIMANT_RESPONSE_SPECApplicantCourtLocationLRspec")
-            .headers(headers_36)
+            .headers(Headers.validateHeader)
             .body(ElFileBody("c_RespToDef/0042_request.dat")))
           .pause(10)
 
           // ==============================SUPPORT WITH ACCESS NEEDS=======================,
           .exec( http("C_request_43")
             .post("/data/case-types/CIVIL/validate?pageId=CLAIMANT_RESPONSE_SPECHearingSupport")
-            .headers(headers_36)
+            .headers(Headers.validateHeader)
             .body(ElFileBody("c_RespToDef/0043_request.dat")))
           .pause(10)
 
           // =====================================VULNERABILITY=======================,
           .exec( http("C_request_44")
             .post("/data/case-types/CIVIL/validate?pageId=CLAIMANT_RESPONSE_SPECVulnerabilityQuestions")
-            .headers(headers_36)
+            .headers(Headers.validateHeader)
             .body(ElFileBody("c_RespToDef/0044_request.dat")))
           .pause(10)
 
           // =======================================================SOT===========================,
           .exec( http("C_request_45")
             .post("/data/case-types/CIVIL/validate?pageId=CLAIMANT_RESPONSE_SPECStatementOfTruth")
-            .headers(headers_36)
+            .headers(Headers.validateHeader)
             .body(ElFileBody("c_RespToDef/0045_request.dat")))
           .pause(10)
 

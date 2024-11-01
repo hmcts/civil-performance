@@ -1,16 +1,6 @@
 package uk.gov.hmcts.reform.civildamage.performance.simulations.scenarios.utils
-
-import scala.concurrent.duration._
-import a_CreateClaimPay_Headers._
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
-import io.gatling.jdbc.Predef._
-import io.gatling.core.scenario.Simulation
-
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
-import scala.util.Random
-
 
 object Environment {
 

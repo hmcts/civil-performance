@@ -7,7 +7,7 @@ import utils.Environment._
 import scala.concurrent.duration.DurationInt
 import io.gatling.core.Predef.ElFileBody
 import utils._
-import utils.d_SDO_Judge_Headers._
+import utils.spec_SDO_Judge_Headers._
 
 object spec_SDO_Judge {
 
@@ -40,23 +40,6 @@ object spec_SDO_Judge {
       "LRrandomString" -> Common.randomString(5)
     ))
 
-//    // ====================SEARCH FOR CASE==============================,
-//    .exec(http("D_request_41")
-//      .get(BaseURL + "/data/internal/case-types/GENERALAPPLICATION/work-basket-inputs")
-//      .headers(headers_41)
-//)
-//    .pause(457.milliseconds)
-//    .exec(http("D_request_42")
-//      .get(BaseURL + "/data/internal/case-types/CIVIL/work-basket-inputs")
-//      .headers(headers_42))
-//    .pause(5)
-//    .exec(http("D_request_43")
-//      .post(BaseURL + "/data/internal/searchCases?ctid=CIVIL&use_case=WORKBASKET&view=WORKBASKET&page=1&case_reference=#{caseId}")
-//      .headers(headers_43)
-//      .body(ElFileBody("d_SDO_Judge_bodies/0043_request.json")))
-
-
-
     // ===================================OPEN CASE=================,
     .exec(http("D_request_46")
       .get(BaseURL + "/data/internal/cases/#{caseId}")
@@ -65,21 +48,20 @@ object spec_SDO_Judge {
 
 
     // =========================================GO TO TASK TAB======================,
-
-    .exec(http("D_request_58")
+    .exec(http("Go_to_Task")
       .post(BaseURL + "/workallocation/case/task/#{caseId}")
       .headers(headers_58)
-      .header("X-Xsrf-Token", "#{xsrf_token}")
+      //.header("X-Xsrf-Token", "#{xsrf_token}")
       .body(ElFileBody("d_SDO_Judge_bodies/0058_request.json"))
       .check(jsonPath("$[0].id").saveAs("JudgeId")))
-      .exec(getCookieValue(CookieKey("__userid__").withDomain(BaseURL.replace("https://", "")).saveAs("UserIdx")))
+
+//      .exec(getCookieValue(CookieKey("__userid__").withDomain(BaseURL.replace("https://", "")).saveAs("UserIdx")))
 
 //    // =====================ASIGN TO ME=================,
-
     .exec(http("D_request_65")
       .post(BaseURL + "/workallocation/task/#{JudgeId}/claim")
       .headers(headers_58)
-      .header("X-Xsrf-Token", "#{xsrf_token}")
+      ////.header("X-Xsrf-Token", "#{xsrf_token}")
       .body(ElFileBody("d_SDO_Judge_bodies/0065_request.bin")))
     .pause(5)
 
@@ -119,8 +101,8 @@ object spec_SDO_Judge {
 
     .exec(http("D_request_104")
       .post(BaseURL + "/data/case-types/CIVIL/validate?pageId=CREATE_SDOSDO")
-      .headers(headers_104)
-      .header("X-Xsrf-Token", "#{xsrf_token}")
+      .headers(Headers.validateHeader)
+      //.header("X-Xsrf-Token", "#{xsrf_token}")
       .body(ElFileBody("d_SDO_Judge_bodies/0104_request.dat")))
 
 
@@ -128,8 +110,8 @@ object spec_SDO_Judge {
 
     .exec(http("D_request_117")
       .post(BaseURL + "/data/case-types/CIVIL/validate?pageId=CREATE_SDOClaimsTrack")
-      .headers(headers_104)
-      .header("X-Xsrf-Token", "#{xsrf_token}")
+      .headers(Headers.validateHeader)
+      //.header("X-Xsrf-Token", "#{xsrf_token}")
       .body(ElFileBody("d_SDO_Judge_bodies/0117_request.dat")))
     .pause(2)
 
@@ -137,8 +119,8 @@ object spec_SDO_Judge {
     // ========================JUDGE ORDER====================,
     .exec(http("D_request_135")
       .post(BaseURL + "/data/case-types/CIVIL/validate?pageId=CREATE_SDOFastTrack")
-      .headers(headers_104)
-      .header("X-Xsrf-Token", "#{xsrf_token}")
+      .headers(Headers.validateHeader)
+      //.header("X-Xsrf-Token", "#{xsrf_token}")
       .body(ElFileBody("d_SDO_Judge_bodies/0135_request.dat"))
       .check(jsonPath("$.data.sdoOrderDocument.createdDatetime").saveAs("createdDatetime"))
       .check(jsonPath("$.data.sdoOrderDocument.documentLink.document_url").saveAs("sdoDocument_url"))
@@ -153,8 +135,8 @@ object spec_SDO_Judge {
 
     .exec(http("CREATE_SDOOrderPreview")
       .post(BaseURL + "/data/case-types/CIVIL/validate?pageId=CREATE_SDOOrderPreview")
-      .headers(headers_104)
-      .header("X-Xsrf-Token", "#{xsrf_token}")
+      .headers(Headers.validateHeader)
+      //.header("X-Xsrf-Token", "#{xsrf_token}")
       .body(ElFileBody("d_SDO_Judge_bodies/0143_request.dat")))
       .pause(2)
 
@@ -164,6 +146,6 @@ object spec_SDO_Judge {
     .exec(http("SUBMIT")
       .post(BaseURL + "/data/cases/#{caseId}/events")
       .headers(headers_150)
-      .header("X-Xsrf-Token", "#{xsrf_token}")
+      //.header("X-Xsrf-Token", "#{xsrf_token}")
       .body(ElFileBody("d_SDO_Judge_bodies/0150_request.dat")))
 }

@@ -2,8 +2,8 @@ package uk.gov.hmcts.reform.civildamage.performance.simulations.scenarios
 
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
-import utils.uf_ug_uh_unspec_Headeers._
-import uk.gov.hmcts.reform.civildamage.performance.simulations.scenarios.utils._
+import utils.unspec_DL_CL_Judge_Headeers._
+import utils._
 
 import scala.concurrent.duration.DurationInt
 
@@ -99,12 +99,6 @@ val DF_upload =
 
 
    val CL_upload =
-      // =======================SEARCH CASE=======================,
-//      exec(http("request_61")
-//        .post("/data/internal/searchCases?ctid=CIVIL&use_case=WORKBASKET&view=WORKBASKET&page=1&case_reference=#{caseId}&case.CaseAccessCategory=UNSPEC_CLAIM")
-//        .headers(headers_61)
-//        .body(ElFileBody("uf_ug_uh_orders_bodes/0061_request.json")))
-//      .pause(5)
 
       // =======================OPEN CASE=======================,
       exec(http("request_62")
@@ -308,5 +302,5 @@ val FinalOrder =
       .pause(833.milliseconds)
 
       .pause(5)
-       
+
 }

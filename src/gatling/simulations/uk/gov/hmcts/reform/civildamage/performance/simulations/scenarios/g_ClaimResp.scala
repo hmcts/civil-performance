@@ -5,7 +5,7 @@ import io.gatling.http.Predef._
 //import uk.gov.hmcts.reform.civildamage.performance.simulations.scenarios.utils.Common
 import utils._
 import scala.concurrent.duration.DurationInt
-import utils.g_ClaimResp_Headers._
+import utils.spec_CL2_Headers._
 
 object g_ClaimResp {
 

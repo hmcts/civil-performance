@@ -13,18 +13,6 @@ object MakePay  {
   		"Sec-Fetch-Mode" -> "cors",
   		"Sec-Fetch-Site" -> "same-origin"
   )
-//	 val headers_33 = Map(
-//  		"Priority" -> "u=0",
-//  		"Sec-Fetch-Dest" -> "empty",
-//  		"Sec-Fetch-Mode" -> "cors",
-//  		"Sec-Fetch-Site" -> "same-origin",
-//  )
-//	val headers_35 = Map(
-//		"Priority" -> "u=0",
-//		"Sec-Fetch-Dest" -> "empty",
-//		"Sec-Fetch-Mode" -> "cors",
-//		"Sec-Fetch-Site" -> "same-origin"
-//	)
    val headers_34 = Map(
   		"Sec-Fetch-Dest" -> "empty",
   		"Sec-Fetch-Mode" -> "cors",

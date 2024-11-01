@@ -7,7 +7,7 @@ import utils.Environment._
 import scala.concurrent.duration.DurationInt
 import io.gatling.core.Predef.ElFileBody
 import utils._
-import utils.h_CourtOrder_Headers._
+import utils.spec_FinalOrder_Headers._
 
 object spec_FinalOrder_Not_In_Scope{
 
@@ -71,7 +71,7 @@ val MakeAnOrder =
 //
     .exec(http("H_request_72")
       .post(BaseURL + "/data/case-types/CIVIL/validate?pageId=GENERATE_DIRECTIONS_ORDERTrackAllocation")
-      .headers(headers_72).header("X-Xsrf-Token", "#{xsrf_token}")
+      .headers(Headers.validateHeader).header("X-Xsrf-Token", "#{xsrf_token}")
       .body(ElFileBody("h_CourtOrder_bodies/0072_request.dat")))
   .pause(2)
 
@@ -79,13 +79,13 @@ val MakeAnOrder =
 
     .exec(http("GENERATE_DIRECTIONS_ORDERFinalOrderSelect")
       .post(BaseURL + "/data/case-types/CIVIL/validate?pageId=GENERATE_DIRECTIONS_ORDERFinalOrderSelect")
-      .headers(headers_72).header("X-Xsrf-Token", "#{xsrf_token}")
+      .headers(Headers.validateHeader).header("X-Xsrf-Token", "#{xsrf_token}")
       .body(ElFileBody("h_CourtOrder_bodies/OrderSelection.dat")))
   .pause(4)
 
     .exec(http("GENERATE_DIRECTIONS_ORDERFreeFormOrder")
       .post(BaseURL + "/data/case-types/CIVIL/validate?pageId=GENERATE_DIRECTIONS_ORDERFreeFormOrder")
-      .headers(headers_72).header("X-Xsrf-Token", "#{xsrf_token}")
+      .headers(Headers.validateHeader).header("X-Xsrf-Token", "#{xsrf_token}")
       .body(ElFileBody("h_CourtOrder_bodies/RecitalsAndOrder.json"))
 //      .check(substring("GENERATE_DIRECTIONS_ORDERFreeFormOrder"))
       .check(jsonPath("$.data.finalOrderDocument.documentLink.document_url").saveAs("finalOrderDocument_url"))
@@ -97,7 +97,7 @@ val MakeAnOrder =
 
     .exec(http("GENERATE_DIRECTIONS_ORDERFinalOrderPreview")
       .post(BaseURL + "/data/case-types/CIVIL/validate?pageId=GENERATE_DIRECTIONS_ORDERFinalOrderPreview")
-      .headers(headers_72).header("X-Xsrf-Token", "#{xsrf_token}")
+      .headers(Headers.validateHeader).header("X-Xsrf-Token", "#{xsrf_token}")
       .body(ElFileBody("h_CourtOrder_bodies/OrderPDF.json")))
       .pause(1)
 

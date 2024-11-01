@@ -7,7 +7,7 @@ import utils.Environment._
 import scala.concurrent.duration.DurationInt
 import io.gatling.core.Predef.ElFileBody
 import utils._
-import utils.e_HearingAdmin_Headers._
+import utils.spec_HearingAdmin_Headers._
 
 
 object spec_HearingAdmin{
@@ -89,7 +89,7 @@ object spec_HearingAdmin{
 
     .exec(http("E_request_100")
       .post(BaseURL + "/data/case-types/CIVIL/validate?pageId=HEARING_SCHEDULEDHearingNoticeSelect")
-      .headers(headers_100).header("X-Xsrf-Token", "#{xsrf_token}")
+      .headers(Headers.validateHeader).header("X-Xsrf-Token", "#{xsrf_token}")
       .body(ElFileBody("e_HearingAdmin_bodies/0100_request.dat")))
   .pause(2)
 
@@ -98,7 +98,7 @@ object spec_HearingAdmin{
 
     .exec(http("E_request_106")
       .post(BaseURL + "/data/case-types/CIVIL/validate?pageId=HEARING_SCHEDULEDListingOrRelisting")
-      .headers(headers_100).header("X-Xsrf-Token", "#{xsrf_token}")
+      .headers(Headers.validateHeader).header("X-Xsrf-Token", "#{xsrf_token}")
       .body(ElFileBody("e_HearingAdmin_bodies/0106_request.dat")))
   .pause(1)
 
@@ -106,12 +106,12 @@ object spec_HearingAdmin{
 
     .exec(http("HEARING_SCHEDULEDHearingDetails")
       .post(BaseURL + "/data/case-types/CIVIL/validate?pageId=HEARING_SCHEDULEDHearingDetails")
-      .headers(headers_100).header("X-Xsrf-Token", "#{xsrf_token}")
+      .headers(Headers.validateHeader).header("X-Xsrf-Token", "#{xsrf_token}")
       .body(ElFileBody("e_HearingAdmin_bodies/0123_request.dat")))
 
     .exec(http("HEARING_SCHEDULEDHearingInformation")
       .post(BaseURL + "/data/case-types/CIVIL/validate?pageId=HEARING_SCHEDULEDHearingInformation")
-      .headers(headers_100).header("X-Xsrf-Token", "#{xsrf_token}")
+      .headers(Headers.validateHeader).header("X-Xsrf-Token", "#{xsrf_token}")
       .body(ElFileBody("e_HearingAdmin_bodies/0127_request.dat")))
   .pause(2)
 

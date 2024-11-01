@@ -2,8 +2,8 @@ package uk.gov.hmcts.reform.civildamage.performance.simulations.scenarios
 
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
-import utils.ud_ue_unspec_Jud_Hear_Headers._
-import uk.gov.hmcts.reform.civildamage.performance.simulations.scenarios.utils._
+import utils.unspec_Jud_Hear_Headers._
+import utils._
 
 import scala.concurrent.duration.DurationInt
 
@@ -205,12 +205,7 @@ object unspec_Jud_Hear {
               )
 
               .exec(getCookieValue(CookieKey("XSRF-TOKEN").withDomain(BaseURL.replace("https://", "")).saveAs("xsrf_token")))
-//
-//
-//              .exec(http("005_RESPONSEExperts")
-//                .get(BaseURL + "/workallocation/case/tasks/#{caseId}/event/HEARING_SCHEDULED/caseType/CIVIL/jurisdiction/CIVIL")
-//                .headers(headers_237))
-          }
+
           .pause(5)
           // =======================SMALL CLAIM=======================,
 

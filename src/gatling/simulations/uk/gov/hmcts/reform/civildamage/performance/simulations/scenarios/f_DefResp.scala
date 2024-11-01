@@ -6,7 +6,7 @@ import uk.gov.hmcts.reform.civildamage.performance.simulations.scenarios.utils.C
 import utils._
 
 import scala.concurrent.duration.DurationInt
-import utils.f_DefResp_Headers._
+import utils.spec_DF2_Headers._
 
 object f_DefResp{
 
