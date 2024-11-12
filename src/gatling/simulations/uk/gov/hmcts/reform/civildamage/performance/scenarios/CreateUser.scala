@@ -41,6 +41,13 @@ object CreateUser {
           .body(ElFileBody("CreateUserTemplateDef.json")).asJson
           .check(status.is(201)))
       }
+      .exec { session =>
+        val fw = new BufferedWriter(new FileWriter("CUIDefUsers.csv", true))
+        try {
+          fw.write(session("defEmailAddress").as[String]  + "\r\n")
+        } finally fw.close()
+        session
+      }
       
     
     

@@ -24,15 +24,11 @@ class CivilDamagesSimulation extends Simulation {
 	val assigncasesFeeder=csv("caseIds.csv").circular
 	//val viewAndResponseFeeder=csv("claimantcaseIds.csv").circular
 	
-	
-	
-	
   val httpProtocol = Environment.HttpProtocol
 		.baseUrl(BaseURL)
 		.doNotTrackHeader("1")
 		.inferHtmlResources(DenyList("https://card.payments.service.gov.uk/.*"))
 		.silentResources
-
 	implicit val postHeaders: Map[String, String] = Map(
 		"Origin" -> BaseURL
 	)
@@ -111,14 +107,14 @@ class CivilDamagesSimulation extends Simulation {
 			
 			//Claim Creation
 			exec(CreateUser.CreateDefCitizen)
-				.repeat(1) {
-					exec(CreateUser.CreateClaimantCitizen)
-						.exec(CUIR2HomePage.CUIR2HomePage)
-						.exec(CUIR2Login.CUIR2Login)
-						.exec(CUIR2ClaimCreation.run)
-						.exec(CUIR2Logout.CUILogout)
-						//.exec(CivilAssignCase.cuiassign)
-				}
+//				repeat(1) {
+//					exec(CreateUser.CreateClaimantCitizen)
+//						.exec(CUIR2HomePage.CUIR2HomePage)
+//						.exec(CUIR2Login.CUIR2Login)
+//						.exec(CUIR2ClaimCreation.run)
+//						.exec(CUIR2Logout.CUILogout)
+//						//.exec(CivilAssignCase.cuiassign)
+//				}
 
 		}
 	
@@ -294,15 +290,15 @@ class CivilDamagesSimulation extends Simulation {
 	}
 	
 	setUp(
-		CivilUIR2ClaimCreationScenario.inject(nothingFor(1),rampUsers(115) during (3600)),
+	//	CivilUIR2ClaimCreationScenario.inject(nothingFor(1),rampUsers(25) during (200)),
 	//	CivilUIR2ClaimCreationFTScenario.inject(nothingFor(1),rampUsers(15) during (300)),
-		CivilUIR2DefResponseScenario.inject(nothingFor(30),rampUsers(100) during (3600)),
+	//	CivilUIR2DefResponseScenario.inject(nothingFor(30),rampUsers(100) during (3600)),
 	//	CivilUIR2DefResponseCaseProgScenario.inject(nothingFor(3),rampUsers(15) during (200)),
 	//	CivilUIR2DefResponseCaseProgFastTrackScenario.inject(nothingFor(4),rampUsers(15) during (300)),
-	CivilUIR2ClaimantIntentionScenario.inject(nothingFor(50),rampUsers(25) during (3600))
+//	CivilUIR2ClaimantIntentionScenario.inject(nothingFor(50),rampUsers(25) during (3600))
 	//	CivilUIR2ClaimantIntentionCaseProgScenario.inject(nothingFor(5),rampUsers(15) during (200))
 	//	CivilUIR2ClaimantIntentionFastTrackCaseProgScenario.inject(nothingFor(5),rampUsers(15) during (300))
 		//	CivilUIR2CaseProgScenario.inject(nothingFor(5),rampUsers(1) during (1))
-	//	CivilCaseAssignScenario.inject(nothingFor(1),rampUsers(196) during (600))
+		CivilCaseAssignScenario.inject(nothingFor(1),rampUsers(1) during (1))
 ).protocols(httpProtocol)
 }
