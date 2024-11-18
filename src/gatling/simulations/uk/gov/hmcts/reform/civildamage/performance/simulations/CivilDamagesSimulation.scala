@@ -370,7 +370,7 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 	val CivilCaseProg = scenario("Create Civil damage")
 		.feed(loginFeeder)
 	.exitBlockOnFail {
-		exec(EXUIMCLogin.manageCasesHomePage)
+	//	exec(EXUIMCLogin.manageCasesHomePage)
 		//	.exec(EXUIMCLogin.manageCasesloginToCentreAdminJourney)
 	//		.doSwitch("#{claimantuser}")(
 	//			"civil.damages.claims+organisation.1.solicitor.1@gmail.com" -> feed(defresponsecasesFeeder),
@@ -390,7 +390,7 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 				//}
 
 				//	.exitBlockOnFail {
-				.exec(EXUIMCLogin.manageCasesHomePage)
+				exec(EXUIMCLogin.manageCasesHomePage)
 				.exec(EXUIMCLogin.manageCaseslogin)
 		//		.exec(CaseProgression.EvidenceUploadClaimant)
 
@@ -818,7 +818,7 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 	//	CUIR2FastTrackCaseProgression.inject(nothingFor(50),rampUsers(14) during (3600)),
 		//	CivilUIR2ClaimCreationScenario.inject(nothingFor(1),rampUsers(1) during (1))
 		
-	//	CivilUIClaimCreationScenario.inject(nothingFor(1),rampUsers(1) during (1))
+		CivilUIClaimCreationScenario.inject(nothingFor(1),rampUsers(1) during (1))
 	//		PBAServiceScenario.inject(nothingFor(1),rampUsers(1) during (1))
 	//	CivilCaseAssignScenario.inject(nothingFor(1),rampUsers(18) during (300))
 	//		RequestForReConsiderScenario.inject(nothingFor(1),rampUsers(25) during (1800))
@@ -827,7 +827,7 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 		/*CivilUIClaimCreationScenario.inject(nothingFor(5),rampUsers(90) during (3600)),
 			CivilUIDefAndIntentScenario.inject(nothingFor(30),rampUsers(20) during (3600))*/
 
-	//	CivilCaseProg.inject(nothingFor(5),rampUsers(1) during (650))
+	//	CivilCaseProg.inject(nothingFor(5),rampUsers(1) during (1))
 		//CivilCaseProg.inject(nothingFor(1),rampUsers(12) during (2700))
 	//CivilCaseDataPrep.inject(nothingFor(1),rampUsers(18) during (600))
 	//	STCitizen.inject(nothingFor(1),rampUsers(1) during (2700))
@@ -836,10 +836,11 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 		
 		// Settle And Discontinue Scenarios
 		
-		SettleByClaimant.inject(nothingFor(1),rampUsers(28) during (3600)),
+		/*SettleByClaimant.inject(nothingFor(1),rampUsers(28) during (3600)),
 		SettleByHearingAdmin.inject(nothingFor(25),rampUsers(28) during (3600)),
 		DiscontinueByClaimantAndValidate.inject(nothingFor(50),rampUsers(37) during (3600)),
 		DiscontinueByClaimantAndInValidate.inject(nothingFor(100),rampUsers(37) during (3600)),
+		*/
 ).protocols(httpProtocol)
 	
 	/*setUp(
