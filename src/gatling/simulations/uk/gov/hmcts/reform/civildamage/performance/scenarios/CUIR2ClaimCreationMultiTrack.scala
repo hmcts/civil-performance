@@ -7,7 +7,7 @@ import uk.gov.hmcts.reform.civildamage.performance.scenarios.utils.{CivilDamages
 
 import java.io.{BufferedWriter, FileWriter}
 
-object CUIR2ClaimCreation {
+object CUIR2ClaimCreationMultiTrack {
 
   val BaseURL = Environment.baseURL
   val CitizenURL = Environment.citizenURL

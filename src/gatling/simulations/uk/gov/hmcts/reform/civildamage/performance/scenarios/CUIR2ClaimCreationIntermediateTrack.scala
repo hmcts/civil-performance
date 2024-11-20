@@ -7,7 +7,7 @@ import uk.gov.hmcts.reform.civildamage.performance.scenarios.utils.{CivilDamages
 
 import java.io.{BufferedWriter, FileWriter}
 
-object CUIR2ClaimCreation {
+object CUIR2ClaimCreationIntermediateTrack {
 
   val BaseURL = Environment.baseURL
   val CitizenURL = Environment.citizenURL
@@ -475,14 +475,14 @@ object CUIR2ClaimCreation {
           .headers(CivilDamagesHeader.CUIR2Post)
           .formParam("_csrf", "#{csrf}")
           .formParam("claimAmountRows[0][reason]", "Claim Amount Perftest Desc")
-          .formParam("claimAmountRows[0][amount]", "9000")
+          .formParam("claimAmountRows[0][amount]", "30000")
           .formParam("claimAmountRows[1][reason]", "")
           .formParam("claimAmountRows[1][amount]", "")
           .formParam("claimAmountRows[2][reason]", "")
           .formParam("claimAmountRows[2][amount]", "")
           .formParam("claimAmountRows[3][reason]", "")
           .formParam("claimAmountRows[3][amount]", "")
-          .formParam("totalAmount", "9000")
+          .formParam("totalAmount", "30000")
           .formParam("saveAndContinue", "true")
           .check(CsrfCheck.save)
           .check(substring("Do you want to claim interest?")))
