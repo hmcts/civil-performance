@@ -9,6 +9,7 @@
     "summary": "",
     "description": ""
   },
+
   "event_data": {
     "respondent1Copy": {
       "partyID": "#{repPartyID}",

@@ -52,7 +52,7 @@ object  CivilAssignCase {
 			exec(http("Civil_000_GetBearerToken")
 				.post("https://idam-api.perftest.platform.hmcts.net/loginUser") //change this to idamapiurl if this not works
 		//		.formParam("grant_type", "password")
-				.formParam("username", "hmcts.civil+organisation.2.solicitor.1@gmail.com")
+				.formParam("username", "civil.damages.claims+organisation.2.solicitor.1@gmail.com")
 				.formParam("password", "Password12!")
 		//		.formParam("client_id", "civil_citizen_ui")
 				// .formParam("client_secret", clientSecret)
@@ -63,13 +63,30 @@ object  CivilAssignCase {
 			
 			.pause(minThinkTime,maxThinkTime)
 	
+	
+	val AuthXUI =
+		
+		exec(http("Civil_000_GetBearerToken")
+			.post(idamURL + "/o/token") //change this to idamapiurl if this not works
+			.formParam("grant_type", "password")
+			.formParam("username", "civil.damages.claims+organisation.2.solicitor.1@gmail.com")
+			.formParam("password", "Password12!")
+			.formParam("client_id", "civil_citizen_ui")
+			// .formParam("client_secret", clientSecret)
+			.formParam("client_secret", "47js6e86Wv5718D2O77OL466020731ii")
+			.formParam("scope", "profile roles openid")
+			.header("Content-Type", "application/x-www-form-urlencoded")
+			.check(jsonPath("$.access_token").saveAs("bearerToken")))
+			
+			.pause(minThinkTime, maxThinkTime)
+	
 	//Below is the code for assign the case to defendant,
 		val run =
 	group("CIVIL_AssignCase_000_AssignCase") {
 	//	feed(caseFeeder)
 		exec(http("CIVIL_AssignCase_000_AssignCase")
 			.post("http://civil-service-perftest.service.core-compute-perftest.internal/testing-support/assign-case/#{caseId}/RESPONDENTSOLICITORONE")
-			.header("Authorization", "Bearer eyJ0eXAiOiJKV1QiLCJraWQiOiI4cDJpajg2S0pTeENKeGcveUovV2w3TjcxMXM9IiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiJjaXZpbC5kYW1hZ2VzLmNsYWltcytvcmdhbmlzYXRpb24uMi5zb2xpY2l0b3IuMUBnbWFpbC5jb20iLCJjdHMiOiJPQVVUSDJfU1RBVEVMRVNTX0dSQU5UIiwiYXV0aF9sZXZlbCI6MCwiYXVkaXRUcmFja2luZ0lkIjoiYjBiODY4MzItOThhMi00OWUwLWJhNmQtZmZiNTFjNjhmNGY5LTUzMDQ5NDk4NCIsInN1Ym5hbWUiOiJjaXZpbC5kYW1hZ2VzLmNsYWltcytvcmdhbmlzYXRpb24uMi5zb2xpY2l0b3IuMUBnbWFpbC5jb20iLCJpc3MiOiJodHRwczovL2Zvcmdlcm9jay1hbS5zZXJ2aWNlLmNvcmUtY29tcHV0ZS1pZGFtLXBlcmZ0ZXN0LmludGVybmFsOjg0NDMvb3BlbmFtL29hdXRoMi9yZWFsbXMvcm9vdC9yZWFsbXMvaG1jdHMiLCJ0b2tlbk5hbWUiOiJhY2Nlc3NfdG9rZW4iLCJ0b2tlbl90eXBlIjoiQmVhcmVyIiwiYXV0aEdyYW50SWQiOiJmMFlQZHpnakdidllWMmtSeTRURE4xWXRrcXciLCJub25jZSI6IlhIS00yblY2eU5YRmJ4dXFtNjhFRnBCNVlCZHBzdm9MbW5oSzduUVdBaE0iLCJhdWQiOiJ4dWl3ZWJhcHAiLCJuYmYiOjE3MTYyMzU5OTMsImdyYW50X3R5cGUiOiJhdXRob3JpemF0aW9uX2NvZGUiLCJzY29wZSI6WyJvcGVuaWQiLCJwcm9maWxlIiwicm9sZXMiLCJjcmVhdGUtdXNlciIsIm1hbmFnZS11c2VyIiwic2VhcmNoLXVzZXIiXSwiYXV0aF90aW1lIjoxNzE2MjM1OTkyLCJyZWFsbSI6Ii9obWN0cyIsImV4cCI6MTcxNjI2NDc5MywiaWF0IjoxNzE2MjM1OTkzLCJleHBpcmVzX2luIjoyODgwMCwianRpIjoidVZOSXRDdENTZ3gyS0ZCR3Q2d3JMSE04emtFIn0.aGU35f2nulvOxX4Iwz7h-1EJPInryxYwAgbWHY3I61W0esXAxsIM8wsJPnwAU9GhtpDBh81X2a1MtnoNr1_bl-Yr7IKzAGFME4cBz502kxnIGDkjeYXlTEEvQvn7oGAgCb821UxSVbuhdzpp4H5WE4CQCFrVhi2YS3BMPZpDDC37Q68U68Wuz3cosKPddvcnYiKSCEL3V0H5-JbTgxeO5gQklxYH9AkBaz0dysHZ4fZAExYHqa05PmA2mjWaQqDRp86_fPSz5VOsumMEVILIEjYFavZr6Lm6BeJ8bDnyX6wbWjI1B8MVCWbZdhxEFbm4gDEvCDTxBU9CIzYMeYIN4Q")
+			.header("Authorization", "Bearer eyJ0eXAiOiJKV1QiLCJraWQiOiI4cDJpajg2S0pTeENKeGcveUovV2w3TjcxMXM9IiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiJjaXZpbC5kYW1hZ2VzLmNsYWltcytvcmdhbmlzYXRpb24uMi5zb2xpY2l0b3IuMUBnbWFpbC5jb20iLCJjdHMiOiJPQVVUSDJfU1RBVEVMRVNTX0dSQU5UIiwiYXV0aF9sZXZlbCI6MCwiYXVkaXRUcmFja2luZ0lkIjoiMjM1NWUwZmQtNzFjMi00NTdmLTg2ZGUtOWMwMGQ0MzBlNjExLTM4MDIxOTcyIiwic3VibmFtZSI6ImNpdmlsLmRhbWFnZXMuY2xhaW1zK29yZ2FuaXNhdGlvbi4yLnNvbGljaXRvci4xQGdtYWlsLmNvbSIsImlzcyI6Imh0dHBzOi8vZm9yZ2Vyb2NrLWFtLnNlcnZpY2UuY29yZS1jb21wdXRlLWlkYW0tcGVyZnRlc3QuaW50ZXJuYWw6ODQ0My9vcGVuYW0vb2F1dGgyL3JlYWxtcy9yb290L3JlYWxtcy9obWN0cyIsInRva2VuTmFtZSI6ImFjY2Vzc190b2tlbiIsInRva2VuX3R5cGUiOiJCZWFyZXIiLCJhdXRoR3JhbnRJZCI6IkZJR01BSmtBNU5naHZoLTZHalhGa09VcTRBbyIsIm5vbmNlIjoieVQ2aENhWDJOeEZ5Znkxc2Y4YV9FTkVLY2ZJS3JiM210TFVVS1hzNVdqTSIsImF1ZCI6Inh1aXdlYmFwcCIsIm5iZiI6MTczMTU3OTkxMiwiZ3JhbnRfdHlwZSI6ImF1dGhvcml6YXRpb25fY29kZSIsInNjb3BlIjpbIm9wZW5pZCIsInByb2ZpbGUiLCJyb2xlcyIsImNyZWF0ZS11c2VyIiwibWFuYWdlLXVzZXIiLCJzZWFyY2gtdXNlciJdLCJhdXRoX3RpbWUiOjE3MzE1Nzk5MTIsInJlYWxtIjoiL2htY3RzIiwiZXhwIjoxNzMxNjA4NzEyLCJpYXQiOjE3MzE1Nzk5MTIsImV4cGlyZXNfaW4iOjI4ODAwLCJqdGkiOiJ5cHRvUS1oYkJZUGpLRmJWZmR6LVc5MmZEcTgifQ.K9GtjEISBiuQZlbSSJn69Bm9168CQHBFXA6mLDxJy3yb726q_GFog3MaqsjJSb50GPXNGf7wGGDAmkScml_HO6PIv4NKhkIhNVcid4Ts9TE0_D4Mg0jjOvaKdE0H5bm8ZHjNCr6J4HqVFkI4aJouvEPSipaOJEoJARkgH-DEsqOGKJ0fz-_lS7UwLNYi6K-JYc0zD0mVTQ2UF8xSISdUvMsEBgxfgMgU3MdisnwiH6V36-iTkAxJRnhCz88Wc5vwTrhSI3lEE2bNPDWzRpdfkTTJNWyEKQ_XA2gL5yBi19eH3mUkBrLfxWinF1rLvTKbHkXkaMh5gTlXdGqQ6UIqcg")
 			.header("Content-Type", "application/json")
 			.header("Accept", "*/*")
 			.check(status.in(200, 201))
@@ -89,7 +106,7 @@ object  CivilAssignCase {
 	val cuiassign =
 		group("CIVIL_AssignCase_000_AssignCase") {
 		//	feed(caseFeeder)
-			exec(Auth)
+			exec(AuthXUI)
 				.exec(http("CIVIL_AssignCase_000_AssignCase")
 					.post("http://civil-service-perftest.service.core-compute-perftest.internal/testing-support/assign-case/#{caseId}/RESPONDENTSOLICITORONE")
 					//   .get( "/cases/searchCases?start_date=#{randomStartDate}&end_date=#{randomEndDate}")

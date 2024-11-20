@@ -1,0 +1,18 @@
+{
+  "data": {
+    "finalOrderAllocateToTrack": "Yes",
+    "finalOrderTrackAllocation": "MULTI_CLAIM"
+  },
+  "event": {
+    "id": "GENERATE_DIRECTIONS_ORDER",
+    "summary": "",
+    "description": ""
+  },
+  "event_data": {
+    "finalOrderAllocateToTrack": "Yes",
+    "finalOrderTrackAllocation": "MULTI_CLAIM"
+  },
+  "event_token": "#{event_token}",
+  "ignore_warning": false,
+  "case_reference": "#{caseId}"
+}

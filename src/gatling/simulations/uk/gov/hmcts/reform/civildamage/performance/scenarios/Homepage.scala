@@ -33,7 +33,7 @@ object Homepage {
 
       .exec(Common.configUI)
 
-      .exec(Common.userDetails)
+    //  .exec(Common.userDetails)
 
       .exec(Common.isAuthenticated)
 

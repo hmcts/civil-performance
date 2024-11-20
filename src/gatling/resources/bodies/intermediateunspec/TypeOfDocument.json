@@ -1,0 +1,31 @@
+{
+  "data": {
+    "disclosureSelectionEvidence": [],
+    "witnessSelectionEvidence": [],
+    "expertSelectionEvidence": [],
+    "trialSelectionEvidence": [],
+    "bundleSelectionEvidence": [
+      "BUNDLE_UPLOAD"
+    ]
+  },
+  "event": {
+    "id": "EVIDENCE_UPLOAD_APPLICANT",
+    "summary": "",
+    "description": ""
+  },
+  "event_data": {
+    "notificationText": null,
+    "caseProgAllocatedTrack": "INTERMEDIATE_CLAIM",
+    "caseTypeFlag": null,
+    "disclosureSelectionEvidence": [],
+    "witnessSelectionEvidence": [],
+    "expertSelectionEvidence": [],
+    "trialSelectionEvidence": [],
+    "bundleSelectionEvidence": [
+      "BUNDLE_UPLOAD"
+    ]
+  },
+  "event_token": "#{event_token}",
+  "ignore_warning": false,
+  "case_reference": "#{caseId}"
+}

@@ -1,0 +1,70 @@
+{
+  "data": {
+    "applicant1OrganisationPolicy": {
+      "OrgPolicyCaseAssignedRole": "[APPLICANTSOLICITORONE]",
+      "OrgPolicyReference": "asasas",
+      "PrepopulateToUsersOrganisation": null,
+      "Organisation": {
+        "OrganisationID": "7H4MGE5",
+        "OrganisationName": "Civil Damages Claims - Organisation 1"
+      },
+      "PreviousOrganisations": []
+    }
+  },
+  "event": {
+    "id": "CREATE_CLAIM_SPEC",
+    "summary": "",
+    "description": ""
+  },
+  "event_data": {
+    "applicant1": {
+      "type": "COMPANY",
+      "individualTitle": null,
+      "companyName": "claimant ltd",
+      "soleTraderTitle": null,
+      "partyEmail": null,
+      "partyPhone": null,
+      "partyName": "claimant ltd",
+      "partyTypeDisplayValue": "Company",
+      "partyID": null,
+      "primaryAddress": {
+        "AddressLine1": "30 Hibernia Gardens",
+        "AddressLine2": "",
+        "AddressLine3": "",
+        "PostTown": "Hounslow",
+        "County": "",
+        "Country": "United Kingdom",
+        "PostCode": "TW3 3SD"
+      },
+      "unavailableDates": [],
+      "flags": {
+        "roleOnCase": null,
+        "partyName": null,
+        "groupId": null,
+        "visibility": null,
+        "details": []
+      }
+    },
+    "addApplicant2": "No",
+    "applicantSolicitor1CheckEmail": {
+      "email": "civil.damages.claims+organisation.1.solicitor.1@gmail.com",
+      "correct": "No"
+    },
+    "applicantSolicitor1UserDetails": {
+      "email": "civilmoneyclaimsdemo@gmail.com",
+      "id": null
+    },
+    "applicant1OrganisationPolicy": {
+      "OrgPolicyCaseAssignedRole": "[APPLICANTSOLICITORONE]",
+      "OrgPolicyReference": "asasas",
+      "PrepopulateToUsersOrganisation": null,
+      "Organisation": {
+        "OrganisationID": "7H4MGE5",
+        "OrganisationName": "Civil Damages Claims - Organisation 1"
+      },
+      "PreviousOrganisations": []
+    }
+  },
+  "event_token": "#{event_token}",
+  "ignore_warning": false
+}

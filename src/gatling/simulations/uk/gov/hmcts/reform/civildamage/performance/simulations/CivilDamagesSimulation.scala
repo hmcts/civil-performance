@@ -33,12 +33,13 @@ class CivilDamagesSimulation extends Simulation {
 	val viewandresponsefeeder = csv("viewandresponsecases.csv").circular
 	val cpfulltestsmallclaimsFeeder=csv("cuir2cpsmallclaims.csv").circular
 	val cpfulltestfasttrackFeeder=csv("cuir2cpfasttrack.csv").circular
+	val updateSubmitDateForIntermediateMulti=csv("updatesubmitdateimi.csv").circular
 	
 	
   val httpProtocol = Environment.HttpProtocol
     .baseUrl(BaseURL)
    // .doNotTrackHeader("1")
-    .inferHtmlResources()
+   // .inferHtmlResources()
     .silentResources
 		.header("Experimental", "true")
 
@@ -129,6 +130,9 @@ class CivilDamagesSimulation extends Simulation {
 			
 		}
 	
+	
+	
+	
 	//below scenario is to generate claims data for Request For Reconsider
 	
 	val RequestForReConsiderScenario = scenario("Create Civil UI Claim")
@@ -217,7 +221,7 @@ class CivilDamagesSimulation extends Simulation {
 			
 		}
 	
-	//below scenario is to generate claims data for GA process
+	//below is for flight delay claim
 	
 	val FlightDelayClaimCreationScenario = scenario("Create Flight Delay Claim")
 		.feed(loginFeeder)
@@ -256,6 +260,64 @@ class CivilDamagesSimulation extends Simulation {
 				.exec(Login.XUILogin)
 				.exec(SpecifiedDefAndClaimantResponse.RespondToDefence)
 				.exec(EXUIMCLogin.manageCase_Logout)
+		}
+	
+	val SpecifiedClaimAndIntentScenario = scenario("Def And Intent")
+		.feed(loginFeeder).feed(defresponsecasesFeeder)
+		.exitBlockOnFail {
+			//CUI claim creation
+		
+				/*
+        following are for defendant response
+         */
+				exec(EXUIMCLogin.manageCasesHomePage)
+				.exec(EXUIMCLogin.manageCasesloginToDefendantJourney)
+				.exec(SpecifiedDefAndClaimantResponse.RespondToClaim)
+				.exec(EXUIMCLogin.manageCase_Logout)
+				.pause(20)
+			//feed(viewandresponsefeeder)
+				.exec(Homepage.XUIHomePage)
+				.exec(Login.XUILogin)
+				.exec(SpecifiedDefAndClaimantResponse.RespondToDefence)
+				.exec(EXUIMCLogin.manageCase_Logout)
+		}
+	
+	val SpecifiedMultiTrackClaimAndIntentScenario = scenario("Def And Intent For Multi Track")
+		.feed(loginFeeder).feed(defresponsecasesFeeder)
+		.exitBlockOnFail {
+			//CUI claim creation
+			
+			/*
+      following are for defendant response
+       */
+			exec(EXUIMCLogin.manageCasesHomePage)
+				.exec(EXUIMCLogin.manageCasesloginToDefendantJourney)
+				.exec(SpecifiedMultiTrackDefAndClaimantResponse.RespondToClaim)
+				.exec(EXUIMCLogin.manageCase_Logout)
+				.pause(20)
+				//feed(viewandresponsefeeder)
+				exec(Homepage.XUIHomePage)
+				.exec(Login.XUILogin)
+				.exec(SpecifiedMultiTrackDefAndClaimantResponse.RespondToDefence)
+				.exec(EXUIMCLogin.manageCase_Logout)
+				
+					//below is the defendant upload documents
+					.exec(CUIR2HomePage.CUIR2HomePage)
+					.exec(CUIR2Login.CUIR2DefLogin)
+					.exec(CUIR2DocUploadCaseProg.CaseProgUploadDocsByDefendantForFastTrack)
+					.pause(10)
+					.exec(CUIR2DocUploadCaseProg.viewUploadedDocumentsForFastTrack)
+					.exec(CUIR2Logout.CUILogout)
+					.pause(10)
+					
+					//Following is for creating the hearing notice for small claims
+					.exec(Homepage.XUIHomePage)
+					.exec(Login.XUICenterAdminLogin)
+					.exec(CUIR2CaseProgression.HearingNoticeFastTrack)
+					.exec(EXUIMCLogin.manageCase_Logout)
+					.pause(10)
+					
+			
 		}
 	
 	val CivilUIDefAndIntentScenario = scenario(" Civil UI Case Def and Intent")
@@ -407,11 +469,6 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 		//		.exec(CaseProgression.FinalGeneralOrders)
 				.exec(EXUIMCLogin.manageCase_Logout)
 
-
-
-
-
-
 		}
 
 		.exec {
@@ -424,12 +481,12 @@ Step 3: login as defendant user  and complete the defendant journey and logout
   * Below scenario is for cases that are data prep for hearing management.
   ======================================================================================*/
 	val CivilCaseDataPrep = scenario("Create Civil damage")
-		.feed(loginFeeder)//.feed(casesfordefresponseFeeder)
+		.feed(loginFeeder).feed(casesfordefresponseFeeder)
 		.exitBlockOnFail {
-		/*	exec(_.set("env", s"${env}"))
+			exec(_.set("env", s"${env}"))
 			.exec(Homepage.XUIHomePage)
 				.exec(Login.XUILogin)
-				.exec(ClaimCreationLRvsLR.run)*/
+				.exec(ClaimCreationLRvsLR.run)
 			//	.exec(S2S.s2s("ccd_data"))
 				//.exec(IdamLogin.GetIdamToken)
 		//	.exec(S2S.s2s("xui_webapp"))
@@ -440,21 +497,161 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 				.exec(ClaimCreationLRvsLR.notifyClaim)
 				.exec(CivilAssignCase.run)
 				.exec(EXUIMCLogin.manageCase_Logout)*/
-				feed(assigncasesFeeder)
+			//	feed(assigncasesFeeder)
 			/*	.exec(EXUIMCLogin.manageCasesHomePage)
 				.exec(EXUIMCLogin.manageCasesloginToDefendantJourney)
 				.exec(ClaimCreationLRvsLR.RespondToClaim)
 				.exec(EXUIMCLogin.manageCase_Logout)
 				.pause(20)*/
-				.exec(Homepage.XUIHomePage)
+				/*.exec(Homepage.XUIHomePage)
 				.exec(Login.XUILogin)
 				.exec(ClaimCreationLRvsLR.RespondToDefence)
-			.exec(EXUIMCLogin.manageCase_Logout)
+			.exec(EXUIMCLogin.manageCase_Logout)*/
 			/*	.exec(EXUIMCLogin.manageCasesHomePage)
 				.exec(EXUIMCLogin.manageCasesloginToJudgeJourney)
 				.exec(ClaimCreationLRvsLR.SDO)*/
 			
 		}
+	
+	
+	/*======================================================================================
+* Below scenario is for cases that are data prep for hearing management.
+======================================================================================*/
+	val UnSpecIntermediateTrack = scenario("Create Intermediate Track")
+		.feed(loginFeeder).feed(casesfordefresponseFeeder)
+		.exitBlockOnFail {
+		/*	exec(_.set("env", s"${env}"))
+				.exec(Homepage.XUIHomePage)
+				.exec(Login.XUILogin)
+				.exec(UnspecIntermediateTrack.run)
+				
+				// adding apymnt through pba
+			.exec(UnspecIntermediateTrack.addPBAPayment)
+      .pause(50)
+      .exec(UnspecIntermediateTrack.notifyClaim)
+				
+				// assign case
+				
+      .exec(CivilAssignCase.cuiassign)
+				.pause(10)
+				
+      .exec(EXUIMCLogin.manageCase_Logout)
+				// intermediate track unspec defendant journey
+			.exec(EXUIMCLogin.manageCasesHomePage)
+        .exec(EXUIMCLogin.manageCasesloginToDefendantJourney)
+        .exec(UnspecIntermediateTrack.RespondToClaim)
+        .exec(EXUIMCLogin.manageCase_Logout)
+        .pause(20)
+				
+				// intermediate track unspec claimant intent
+			.exec(Homepage.XUIHomePage)
+      .exec(Login.XUILogin)
+      .exec(UnspecIntermediateTrack.RespondToDefence)
+    .exec(EXUIMCLogin.manageCase_Logout)
+				.pause(20)
+				
+				//Following is for creating the transfer  online
+				.exec(Homepage.XUIHomePage)
+				.exec(Login.XUICenterAdminLogin)
+				.exec(UnSpecIntermediateTrackCaseProgression.TransferOnlineByHearingAdmin)
+				.exec(EXUIMCLogin.manageCase_Logout)
+				.pause(20)*/
+				
+				//Following is for make an order
+				exec(Homepage.XUIHomePage)
+				.exec(Login.XUIJudgeLogin)
+				.exec(UnSpecIntermediateTrackCaseProgression.MakeAnOrder)
+				.exec(EXUIMCLogin.manageCase_Logout)
+				.pause(20)
+				
+				//Following is for upload documents
+				.exec(Homepage.XUIHomePage)
+				.exec(Login.XUILogin)
+				.exec(UnSpecIntermediateTrackCaseProgression.EvidenceUploadClaimant)
+				.exec(EXUIMCLogin.manageCase_Logout)
+				.pause(20)
+				
+				// Follwing is for Hearing Notice
+				.exec(Homepage.XUIHomePage)
+				.exec(Login.XUICenterAdminLogin)
+				.exec(UnSpecIntermediateTrackCaseProgression.HearingNotice)
+				.exec(EXUIMCLogin.manageCase_Logout)
+				.pause(20)
+			
+			
+		}
+	
+	
+	//below scenario is to generate claims data for GA process
+	
+	val SpecMultiTrack = scenario("Spec Multi Track End to End Journey")
+		.feed(loginFeeder)//.feed(defresponsecasesFeeder)
+		.exitBlockOnFail {
+			//CUI claim creation
+			exec(Homepage.XUIHomePage)
+				.exec(Login.XUILogin)
+				.exec(CUIClaimCreationForMultiTrack.run)
+				// PBS payment
+				.exec(CUIClaimCreationForMultiTrack.PBSPayment)
+				.pause(50)
+				.exec(CivilAssignCase.cuiassign)
+				.pause(10)
+				.exec(Logout.XUILogout)
+			// below is the defendant jourey multi claim
+			.exec(EXUIMCLogin.manageCasesHomePage)
+				.exec(EXUIMCLogin.manageCasesloginToDefendantJourney)
+				.exec(SpecifiedMultiTrackDefAndClaimantResponse.RespondToClaim)
+				.exec(EXUIMCLogin.manageCase_Logout)
+				.pause(20)
+			// This is the multi claim response to defendant
+			.exec(Homepage.XUIHomePage)
+				.exec(Login.XUILogin)
+				.exec(SpecifiedMultiTrackDefAndClaimantResponse.RespondToDefence)
+				.exec(EXUIMCLogin.manageCase_Logout)
+				.pause(20)
+				
+				//Following is for creating the transfer  online
+				.exec(Homepage.XUIHomePage)
+				.exec(Login.XUICenterAdminLogin)
+				.exec(SpecMultiTrackCaseProgression.TransferOnlineByHearingAdmin)
+				.exec(EXUIMCLogin.manageCase_Logout)
+				.pause(10)
+				
+				//Following is for make an order
+				.exec(Homepage.XUIHomePage)
+				.exec(Login.XUIJudgeLogin)
+				.exec(SpecMultiTrackCaseProgression.SpecMultiTrackMakeAnOrder)
+				.exec(EXUIMCLogin.manageCase_Logout)
+				.pause(20)
+				
+				//Following is for upload documents
+				.exec(Homepage.XUIHomePage)
+				.exec(Login.XUILogin)
+				.exec(SpecMultiTrackCaseProgression.EvidenceUploadClaimant)
+				.exec(EXUIMCLogin.manageCase_Logout)
+				.pause(20)
+				
+				// Follwing is for Hearing Notice
+				.exec(Homepage.XUIHomePage)
+				.exec(Login.XUICenterAdminLogin)
+				.exec(SpecMultiTrackCaseProgression.HearingNotice)
+				.exec(EXUIMCLogin.manageCase_Logout)
+				.pause(10)
+		}
+	
+	
+	/*======================================================================================
+* Below scenario is for cases that are data prep for hearing management.
+======================================================================================*/
+	val UpdateSubmitDateFromUnSpecClaimCreation = scenario("Update Submit Date")
+		.feed(loginFeeder) .feed(updateSubmitDateForIntermediateMulti)
+		.exitBlockOnFail {
+			
+			exec(S2S.s2s("civil_service"))
+			.exec(UnspecIntermediateTrack.UnSpecClaimUpdateWithSubmittedDate)
+			
+		}
+	
 	
 	/*======================================================================================
 * Below scenario is for cases that are data prep for hearing management.
@@ -760,24 +957,30 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 		
 	//	SDOSmallClaimsCUIR2.inject(nothingFor(1),rampUsers(1) during (1)),
 		//SDOFastTrackCUIR2.inject(nothingFor(1),rampUsers(3) during (50)),
-		CUIR2SmallClaimsCaseProgression.inject(nothingFor(1),rampUsers(14) during (3600)),
-		CUIR2FastTrackCaseProgression.inject(nothingFor(50),rampUsers(14) during (3600)),
+	//	CUIR2SmallClaimsCaseProgression.inject(nothingFor(1),rampUsers(14) during (3600)),
+//		CUIR2FastTrackCaseProgression.inject(nothingFor(50),rampUsers(14) during (3600)),
 		//	CivilUIR2ClaimCreationScenario.inject(nothingFor(1),rampUsers(1) during (1))
 		
-	//	CivilUIClaimCreationScenario.inject(nothingFor(1),rampUsers(1) during (1))
+		//Following is the spec claim end to end journey
+	//	CivilUIClaimCreationScenario.inject(nothingFor(1),rampUsers(1) during (3))
+	//	SpecifiedClaimAndIntentScenario.inject(nothingFor(1),rampUsers(81) during (1800))
+		
 	//		PBAServiceScenario.inject(nothingFor(1),rampUsers(1) during (1))
-	//	CivilCaseAssignScenario.inject(nothingFor(1),rampUsers(18) during (300))
+	//	CivilCaseAssignScenario.inject(nothingFor(1),rampUsers(81) during (300))
 	//		RequestForReConsiderScenario.inject(nothingFor(1),rampUsers(25) during (1800))
 		//		ClaimCreationDRHScenario.inject(nothingFor(1),rampUsers(20) during (1200))
 	//	FlightDelayClaimCreationScenario.inject(nothingFor(1),rampUsers(25) during (1800))
-		/*CivilUIClaimCreationScenario.inject(nothingFor(5),rampUsers(90) during (3600)),
-			CivilUIDefAndIntentScenario.inject(nothingFor(30),rampUsers(20) during (3600))*/
-
+		//CivilUIClaimCreationScenario.inject(nothingFor(5),rampUsers(90) during (3600)),
+		//	CivilUIDefAndIntentScenario.inject(nothingFor(30),rampUsers(2) during (50))
 	//	CivilCaseProg.inject(nothingFor(5),rampUsers(1) during (650))
 		//CivilCaseProg.inject(nothingFor(1),rampUsers(12) during (2700))
-	//CivilCaseDataPrep.inject(nothingFor(1),rampUsers(18) during (600))
+	//CivilCaseDataPrep.inject(nothingFor(1),rampUsers(1) during (6))
+	//	UpdateSubmitDateFromUnSpecClaimCreation.inject(nothingFor(1),rampUsers(1) during (6))
+			UnSpecIntermediateTrack.inject(nothingFor(1),rampUsers(1) during (5))
+		//	SpecMultiTrack.inject(nothingFor(1),rampUsers(1) during (1))
+	//	SpecifiedMultiTrackClaimAndIntentScenario.inject(nothingFor(3),rampUsers(1) during (1))
 	//	STCitizen.inject(nothingFor(1),rampUsers(1) during (2700))
-		//CivilDamageScenario.inject(nothingFor(1),rampUsers(1) during (2))
+	//	CivilDamageScenario.inject(nothingFor(1),rampUsers(1) during (2))
 ).protocols(httpProtocol)
 	
 	/*setUp(
