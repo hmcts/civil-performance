@@ -1,0 +1,58 @@
+{
+  "data": {
+    "respondent2SameLegalRepresentative": null,
+    "respondent1ClaimResponseType": "FULL_DEFENCE",
+    "respondent1ClaimResponseDocument": {
+      "file": {
+        "document_url": "#{document_url}",
+        "document_binary_url": "#{document_url}/binary",
+        "document_filename": "casesummary.docx",
+        "category_id": "defendant1DefenseDirectionsQuestionnaire",
+        "upload_timestamp": "2024-11-14T17:59:20.416031166"
+      }
+    },
+    "applicant1ProceedWithClaim": "Yes",
+    "allocatedTrack": "INTERMEDIATE_CLAIM",
+    "featureToggleWA": "Prod",
+    "claimType": "PERSONAL_INJURY",
+    "respondent2ClaimResponseType": null,
+    "applicantsProceedIntention": null,
+    "addApplicant2": "No",
+    "respondentResponseIsSame": null,
+    "claimantResponseScenarioFlag": "ONE_V_ONE",
+    "claimantResponseDocumentToDefendant2Flag": null,
+    "claimant2ResponseFlag": null
+  },
+  "event": {
+    "id": "CLAIMANT_RESPONSE",
+    "summary": "",
+    "description": ""
+  },
+  "event_data": {
+    "respondent2SameLegalRepresentative": null,
+    "respondent1ClaimResponseType": "FULL_DEFENCE",
+    "respondent1ClaimResponseDocument": {
+      "file": {
+        "document_url": "#{document_url}",
+        "document_binary_url": "#{document_url}/binary",
+        "document_filename": "casesummary.docx",
+        "category_id": "defendant1DefenseDirectionsQuestionnaire",
+        "upload_timestamp": "2024-11-14T17:59:20.416031166"
+      }
+    },
+    "applicant1ProceedWithClaim": "Yes",
+    "allocatedTrack": "INTERMEDIATE_CLAIM",
+    "featureToggleWA": "Prod",
+    "claimType": "PERSONAL_INJURY",
+    "respondent2ClaimResponseType": null,
+    "applicantsProceedIntention": null,
+    "addApplicant2": "No",
+    "respondentResponseIsSame": null,
+    "claimantResponseScenarioFlag": "ONE_V_ONE",
+    "claimantResponseDocumentToDefendant2Flag": null,
+    "claimant2ResponseFlag": null
+  },
+  "event_token": "#{event_token}",
+  "ignore_warning": false,
+  "case_reference": "#{caseId}"
+}

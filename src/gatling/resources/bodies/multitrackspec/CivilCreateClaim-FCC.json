@@ -1,0 +1,148 @@
+{
+  "data": {
+    "fixedCosts": {
+      "claimFixedCosts": "No"
+    }
+  },
+  "event": {
+    "id": "CREATE_CLAIM_SPEC",
+    "summary": "",
+    "description": ""
+  },
+  "event_data": {
+    "applicant1": {
+      "type": "COMPANY",
+      "companyName": "asasa",
+      "partyEmail": "xcxcx@xcxcx.com",
+      "partyPhone": null,
+      "partyName": "asasa",
+      "partyTypeDisplayValue": "Company",
+      "partyID": null,
+      "primaryAddress": {
+        "AddressLine1": "28 Hibernia Gardens",
+        "AddressLine2": "",
+        "AddressLine3": "",
+        "PostTown": "Hounslow",
+        "County": "",
+        "Country": "United Kingdom",
+        "PostCode": "TW3 3SD"
+      },
+      "unavailableDates": [],
+      "flags": {
+        "roleOnCase": null,
+        "partyName": null,
+        "groupId": null,
+        "visibility": null,
+        "details": []
+      }
+    },
+    "addApplicant2": "No",
+    "applicantSolicitor1CheckEmail": {
+      "email": "civil.damages.claims+organisation.1.solicitor.1@gmail.com",
+      "correct": "No"
+    },
+    "applicantSolicitor1UserDetails": {
+      "email": "civilmoneyclaimsdemo@gmail.com",
+      "id": null
+    },
+    "applicant1OrganisationPolicy": {
+      "OrgPolicyReference": null,
+      "PrepopulateToUsersOrganisation": null,
+      "Organisation": {
+        "OrganisationID": "7H4MGE5",
+        "OrganisationName": "Civil Damages Claims - Organisation 1"
+      },
+      "PreviousOrganisations": []
+    },
+    "specApplicantCorrespondenceAddressRequired": "No",
+    "respondent1": {
+      "type": "COMPANY",
+      "companyName": "cvg",
+      "partyEmail": "cvg@cfg.com",
+      "partyPhone": null,
+      "individualDateOfBirth": null,
+      "soleTraderDateOfBirth": null,
+      "partyName": "cvg",
+      "partyTypeDisplayValue": "Company",
+      "partyID": null,
+      "primaryAddress": {
+        "AddressLine1": "24 Hibernia Gardens",
+        "AddressLine2": "",
+        "AddressLine3": "",
+        "PostTown": "Hounslow",
+        "County": "",
+        "Country": "United Kingdom",
+        "PostCode": "TW3 3SD"
+      },
+      "unavailableDates": [],
+      "flags": {
+        "roleOnCase": null,
+        "partyName": null,
+        "groupId": null,
+        "visibility": null,
+        "details": []
+      }
+    },
+    "specRespondent1Represented": "Yes",
+    "respondent1OrgRegistered": "Yes",
+    "respondent1OrganisationPolicy": {
+      "OrgPolicyReference": null,
+      "Organisation": {
+        "OrganisationID": "MEVCCQF",
+        "OrganisationName": "Civil Damages Claims - Organisation 2"
+      },
+      "PreviousOrganisations": []
+    },
+    "respondentSolicitor1EmailAddress": "civilmoneyclaimsdemo@gmail.com",
+    "specRespondentCorrespondenceAddressRequired": "No",
+    "addRespondent2": "No",
+    "isFlightDelayClaim": "No",
+    "detailsOfClaim": "asasas",
+    "specClaimTimelineList": "MANUAL",
+    "timelineOfEvents": [
+      {
+        "value": {
+          "timelineDate": "2024-08-01",
+          "timelineDescription": "asasasas"
+        },
+        "id": "d173506e-bc89-450a-b764-2e16e63e0189"
+      }
+    ],
+    "speclistYourEvidenceList": [
+      {
+        "value": {
+          "evidenceType": "CONTRACTS_AND_AGREEMENTS",
+          "contractAndAgreementsEvidence": "asasasas"
+        },
+        "id": "cc02fdad-d45e-4448-830f-c132a7e68de7"
+      }
+    ],
+    "claimAmountBreakup": [
+      {
+        "value": {
+          "claimReason": "asasasas",
+          "claimAmount": "11000000"
+        },
+        "id": "f7537fcb-d944-46d4-b19f-47a5ff5d06ce"
+      }
+    ],
+    "claimAmountBreakupSummaryObject": "| Description | Amount | \n |---|---| \n | asasasas | £ 110000.00 |\n | **Total** | £ 110000.00 |",
+    "totalClaimAmount": "110000",
+    "CaseAccessCategory": null,
+    "totalInterest": "0",
+    "claimInterest": "No",
+    "calculatedInterest": "| Description | Amount | \n |---|---| \n | Claim amount | £ 110000 | \n | Interest amount | £ 0 | \n | Total amount | £ 110000 |",
+    "caseNameHmctsInternal": null,
+    "featureToggleWA": null,
+    "claimFee": {
+      "calculatedAmountInPence": "550000",
+      "code": "FEE0209",
+      "version": "3"
+    },
+    "fixedCosts": {
+      "claimFixedCosts": "No"
+    }
+  },
+  "event_token": "#{event_token}",
+  "ignore_warning": false
+}

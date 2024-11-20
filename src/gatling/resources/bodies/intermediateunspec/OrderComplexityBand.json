@@ -1,0 +1,26 @@
+{
+  "data": {
+    "finalOrderIntermediateTrackComplexityBand": {
+      "assignComplexityBand": "Yes",
+      "band": "BAND_2",
+      "reasons": "asasasas"
+    }
+  },
+  "event": {
+    "id": "GENERATE_DIRECTIONS_ORDER",
+    "summary": "",
+    "description": ""
+  },
+  "event_data": {
+    "finalOrderAllocateToTrack": "Yes",
+    "finalOrderTrackAllocation": "INTERMEDIATE_CLAIM",
+    "finalOrderIntermediateTrackComplexityBand": {
+      "assignComplexityBand": "Yes",
+      "band": "BAND_2",
+      "reasons": "asasasas"
+    }
+  },
+  "event_token": "#{event_token}",
+  "ignore_warning": false,
+  "case_reference": "#{caseId}"
+}

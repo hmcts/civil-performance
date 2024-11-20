@@ -777,8 +777,8 @@ object CUIR2DocUploadCaseProg {
      ==========================================================================================*/
   
     // confirm the card details and submit
-    .group("CUICPFT_Claimant_HearingPay_140_CardDetail_ConfirmCardDetail") {
-      exec(http("CUICPFT_Claimant_HearingPay_140_005_CardDetail_ConfirmCardDetail")
+    .group("CUICPFT_Claimant_HearingPay_140_CardDetail_SubmitConfirmCardDetail") {
+      exec(http("CUICPFT_Claimant_HearingPay_140_005_SubmitCardDetail_ConfirmCardDetail")
         .post(paymentURL + "/card_details/${CardDetailPageChargeId}/confirm")
         .formParam("csrfToken", "#{_csrfTokenCardDetailConfirm}")
         .formParam("chargeId", "#{CardDetailPageChargeId}")

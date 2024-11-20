@@ -1,0 +1,56 @@
+{
+  "data": {
+    "bundleEvidence": [
+      {
+        "value": {
+          "bundleName": "test bundle",
+          "documentIssuedDate": "2025-01-01",
+          "documentUpload": {
+            "document_url": "#{claimMTDisclosureDocument_url}",
+            "document_binary_url": "#{claimMTDisclosureDocument_url}/binary",
+            "document_filename": "3MB.pdf",
+            "document_hash": "#{claimMTDisclosureHashToken}"
+          }
+        },
+        "id": null
+      }
+    ],
+    "caseDocumentUploadDate": null
+  },
+  "event": {
+    "id": "EVIDENCE_UPLOAD_APPLICANT",
+    "summary": "",
+    "description": ""
+  },
+  "event_data": {
+    "notificationText": null,
+    "caseProgAllocatedTrack": "MULTI_CLAIM",
+    "caseTypeFlag": "do_not_show",
+    "disclosureSelectionEvidence": [],
+    "witnessSelectionEvidence": [],
+    "expertSelectionEvidence": [],
+    "trialSelectionEvidence": [],
+    "bundleSelectionEvidence": [
+      "BUNDLE_UPLOAD"
+    ],
+    "bundleEvidence": [
+      {
+        "value": {
+          "bundleName": "test bundle",
+          "documentIssuedDate": "2025-01-01",
+          "documentUpload": {
+            "document_url": "#{claimMTDisclosureDocument_url}",
+            "document_binary_url": "#{claimMTDisclosureDocument_url}/binary",
+            "document_filename": "3MB.pdf",
+            "document_hash": "#{claimMTDisclosureHashToken}"
+          }
+        },
+        "id": null
+      }
+    ],
+    "caseDocumentUploadDate": null
+  },
+  "event_token": "#{event_token}",
+  "ignore_warning": false,
+  "case_reference": "#{caseId}"
+}

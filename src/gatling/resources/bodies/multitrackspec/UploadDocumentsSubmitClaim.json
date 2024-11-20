@@ -1,0 +1,68 @@
+{
+  "data": {
+    "notificationText": null,
+    "caseProgAllocatedTrack": "MULTI_CLAIM",
+    "caseTypeFlag": "do_not_show",
+    "disclosureSelectionEvidence": [],
+    "witnessSelectionEvidence": [],
+    "expertSelectionEvidence": [],
+    "trialSelectionEvidence": [],
+    "bundleSelectionEvidence": [
+      "BUNDLE_UPLOAD"
+    ],
+    "documentDisclosureList": [],
+    "documentForDisclosure": [],
+    "documentWitnessStatement": [],
+    "documentWitnessSummary": [],
+    "documentHearsayNotice": [],
+    "documentReferredInStatement": [],
+    "documentExpertReport": [],
+    "documentJointStatement": [],
+    "documentQuestions": [],
+    "documentAnswers": [],
+    "documentCaseSummary": [],
+    "documentSkeletonArgument": [],
+    "documentAuthorities": [],
+    "documentCosts": [],
+    "documentEvidenceForTrial": [],
+    "documentDisclosureListApp2": [],
+    "bundleEvidence": [
+      {
+        "value": {
+          "bundleName": "test bundle",
+          "documentIssuedDate": "2025-01-01",
+          "createdDatetime": null,
+          "documentUpload": {
+            "document_url": "#{claimMTDisclosureDocument_url}",
+            "document_binary_url": "#{claimMTDisclosureDocument_url}/binary",
+            "document_filename": "3MB.pdf",
+            "document_hash": "#{claimMTDisclosureHashToken}"
+          }
+        },
+        "id": null
+      }
+    ],
+    "documentForDisclosureApp2": [],
+    "documentWitnessStatementApp2": [],
+    "documentWitnessSummaryApp2": [],
+    "documentHearsayNoticeApp2": [],
+    "documentReferredInStatementApp2": [],
+    "documentExpertReportApp2": [],
+    "documentJointStatementApp2": [],
+    "documentQuestionsApp2": [],
+    "documentAnswersApp2": [],
+    "documentCaseSummaryApp2": [],
+    "documentSkeletonArgumentApp2": [],
+    "documentAuthoritiesApp2": [],
+    "documentCostsApp2": [],
+    "documentEvidenceForTrialApp2": [],
+    "caseDocumentUploadDate": null
+  },
+  "event": {
+    "id": "EVIDENCE_UPLOAD_APPLICANT",
+    "summary": "",
+    "description": ""
+  },
+  "event_token": "#{event_token}",
+  "ignore_warning": false
+}

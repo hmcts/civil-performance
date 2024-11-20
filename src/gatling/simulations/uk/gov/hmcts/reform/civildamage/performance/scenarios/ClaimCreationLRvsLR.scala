@@ -27,11 +27,9 @@ object ClaimCreationLRvsLR {
       "Idempotencynumber" -> (Common.getIdempotency()),
       "LRrandomString" -> Common.randomString(5))
     )
-  //val createclaim =
-
-    //val startCreateClaim =
+  
     /*======================================================================================
-                 * Create Civil Claim - Start the case
+                 * Create Un Spec Civil Claim - Start the case
       ==========================================================================================*/
     .group("Civil_CreateClaim_040_StartCreateCase1") {
       exec(http("Civil_CreateClaim_040_StartCreateCase1")
