@@ -243,8 +243,8 @@ object UnspecIntermediateTrack {
                  * Create Civil Claim - Notify Continue
       ==========================================================================================*/
     // val claimnotifyeventcontinue =
-    .group("CivilIT_CreateClaim_170_CLAIMAccessGrantedWarning") {
-      exec(http("CivilIT_CreateClaim_170_005_grant")
+    .group("CivilIT_CreateClaim_160_CLAIMAccessGrantedWarning") {
+      exec(http("CivilIT_CreateClaim_160_005_grant")
         .post("/data/case-types/CIVIL/validate?pageId=NOTIFY_DEFENDANT_OF_CLAIMAccessGrantedWarning")
         .headers(CivilDamagesHeader.headers_783)
         .body(ElFileBody("bodies/intermediateunspec/0187_request.json"))
@@ -258,8 +258,8 @@ object UnspecIntermediateTrack {
                  * Submit Notify
       ==========================================================================================*/
     // val claimnotifyeventsubmit =
-    .group("CivilIT_CreateClaim_180_ClaimNotifyEventSubmit") {
-      exec(http("CivilIT_CreateClaim_180_ClaimNotifyEventSubmit")
+    .group("CivilIT_CreateClaim_170_ClaimNotifyEventSubmit") {
+      exec(http("CivilIT_CreateClaim_170_ClaimNotifyEventSubmit")
         .post("/data/cases/#{caseId}/events")
         .headers(CivilDamagesHeader.headers_803)
         .body(ElFileBody("bodies/intermediateunspec/0191_request.json"))
@@ -274,9 +274,9 @@ object UnspecIntermediateTrack {
       ==========================================================================================*/
     //val backtocasedetailsafterclaimnotify =
 
-    .group("CivilIT_CreateClaim_190_CasedetailsAfterClaimNotify") {
+    .group("CivilIT_CreateClaim_180_CasedetailsAfterClaimNotify") {
 
-      exec(http("Civil_AfterClaimNotify_190_010")
+      exec(http("Civil_AfterClaimNotify_180_010")
         .get("/data/internal/cases/#{caseId}")
         .headers(CivilDamagesHeader.headers_717)
         .check(substring("Notify claim"))
@@ -292,9 +292,9 @@ object UnspecIntermediateTrack {
       ==========================================================================================*/
     //beginning of notify details
 
-    .group("CD_CreateClaim_200_NotifyDetailsEvent") {
+    .group("CD_CreateClaim_190_NotifyDetailsEvent") {
 
-      exec(http("CivilIT_CreateClaim_200_005_NotifyDetailCreate")
+      exec(http("CivilIT_CreateClaim_190_005_NotifyDetailCreate")
         .get("/data/internal/cases/#{caseId}/event-triggers/NOTIFY_DEFENDANT_OF_CLAIM_DETAILS?ignore-warning=false")
         .headers(CivilDamagesHeader.headers_notify)
         .check(substring("NOTIFY_DEFENDANT_OF_CLAIM_DETAILS"))
@@ -316,8 +316,8 @@ object UnspecIntermediateTrack {
                  * Create Civil Claim - event submit for notify detail
       ==========================================================================================*/
     // val notifyclaimdetailseventsubmit=
-    .group("CD_CreateClaim_220_NotifyDetailsEventSubmit") {
-      exec(http("CD_CreateClaim_220_EventSubmit")
+    .group("CD_CreateClaim_200_NotifyDetailsEventSubmit") {
+      exec(http("CD_CreateClaim_200_EventSubmit")
         .post("/data/cases/#{caseId}/events")
         .headers(CivilDamagesHeader.headers_886)
         // .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.create-event.v2+json;charset=UTF-8")
@@ -332,8 +332,8 @@ object UnspecIntermediateTrack {
                  * Create Civil Claim - Notify Details
       ==========================================================================================*/
     // val returntocasedetailsafternotifydetails =
-    .group("CD_CreateClaim_230_ReturnToCaseDetailsAfterNotifyDetails") {
-      exec(http("CD_CreateClaim_230_005_NotifyDetails")
+    .group("CD_CreateClaim_210_ReturnToCaseDetailsAfterNotifyDetails") {
+      exec(http("CD_CreateClaim_210_005_NotifyDetails")
         .post("/api/role-access/roles/manageLabellingRoleAssignment/#{caseId}")
         .headers(CivilDamagesHeader.headers_894)
         .body(StringBody("{\"searchRequest\":{\"ccdId\":\"#{caseId}\",\"eventId\":\"NOTIFY_DEFENDANT_OF_CLAIM_DETAILS\",\"jurisdiction\":\"CIVIL\",\"caseTypeId\":\"UNSPECIFIED_CLAIMS\"}}"))
@@ -363,14 +363,14 @@ object UnspecIntermediateTrack {
            * Create Civil Claim - Start Event 'Respond to Claim'
 ==========================================================================================*/
      
-      .group("CivilIT_DefResponse_420_RespondToClaim") {
-        exec(http("CivilIT_DefResponse_420_005_RespondToClaim")
+      .group("CivilIT_DefResponse_030_RespondToClaim") {
+        exec(http("CivilIT_DefResponse_30_005_RespondToClaim")
           .get("/workallocation/case/tasks/#{caseId}/event/DEFENDANT_RESPONSE/caseType/CIVIL/jurisdiction/CIVIL")
           .headers(CivilDamagesHeader.MoneyClaimNav)
           .check(substring("task_required_for_event"))
         )
           
-          .exec(http("CivilIT_DefResponse_420_010_RespondToClaim")
+          .exec(http("CivilIT_DefResponse_030_010_RespondToClaim")
             .get(BaseURL + "/data/internal/cases/#{caseId}/event-triggers/DEFENDANT_RESPONSE?ignore-warning=false")
             .headers(CivilDamagesHeader.headers_notify)
             .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-start-event-trigger.v2+json;charset=UTF-8")
@@ -379,7 +379,7 @@ object UnspecIntermediateTrack {
             .check(jsonPath("$.case_fields[75].value.partyName").saveAs("partyName"))
             .check(jsonPath("$.event_token").saveAs("event_token"))
           )
-        .exec(http("CivilIT_DefResponse_420_005_RespondToClaim")
+        .exec(http("CivilIT_DefResponse_030_005_RespondToClaim")
           .get("/workallocation/case/tasks/#{caseId}/event/DEFENDANT_RESPONSE/caseType/CIVIL/jurisdiction/CIVIL")
           .headers(CivilDamagesHeader.MoneyClaimNav)
           .check(substring("task_required_for_event"))
@@ -395,8 +395,8 @@ object UnspecIntermediateTrack {
    * Create Civil Claim - Respond to Claim Defendant Details
 ==========================================================================================*/
       // val returntocasedetailsafternotifydetails =
-      .group("CivilIT_DefResponse_430_RespondDefDetails") {
-        exec(http("CivilIT_DefResponse_430_005_RespondDefDetails")
+      .group("CivilIT_DefResponse_040_RespondDefDetails") {
+        exec(http("CivilIT_DefResponse_040_005_RespondDefDetails")
           .post(BaseURL + "/data/case-types/CIVIL/validate?pageId=DEFENDANT_RESPONSEConfirmDetails")
           .headers(CivilDamagesHeader.MoneyClaimPostHeader)
           .header("x-xsrf-token", "#{XSRFToken}")
@@ -413,8 +413,8 @@ object UnspecIntermediateTrack {
 * Create Civil Claim - Respond to Claim Defendant Choice - Reject
 ==========================================================================================*/
 
-      .group("CivilIT_DefResponse_440_RespondDefChoice") {
-        exec(http("CivilIT_DefResponse_440_005_RespondDefChoice")
+      .group("CivilIT_DefResponse_050_RespondDefChoice") {
+        exec(http("CivilIT_DefResponse_050_005_RespondDefChoice")
           .post("/data/case-types/CIVIL/validate?pageId=DEFENDANT_RESPONSERespondentResponseType")
           .headers(CivilDamagesHeader.MoneyClaimPostHeader)
           .header("x-xsrf-token", "#{XSRFToken}")
@@ -429,8 +429,8 @@ object UnspecIntermediateTrack {
 * Create Civil Claim - Your File Reference
 ==========================================================================================*/
 
-      .group("CivilIT_DefResponse_450_YourFileReference") {
-        exec(http("CivilIT_DefResponse_450_005_YourFileReference")
+      .group("CivilIT_DefResponse_060_YourFileReference") {
+        exec(http("CivilIT_DefResponse_060_005_YourFileReference")
           .post(BaseURL + "/data/case-types/CIVIL/validate?pageId=DEFENDANT_RESPONSESolicitorReferences")
           .headers(CivilDamagesHeader.MoneyClaimPostHeader)
           .header("x-xsrf-token", "#{XSRFToken}")
@@ -445,8 +445,8 @@ object UnspecIntermediateTrack {
 * Create Civil Claim - Upload Defence
 ==========================================================================================*/
 
-      .group("CivilIT_DefResponse_460_UploadDefence") {
-        exec(http("CivilIT_DefResponse_460_005_UploadDefence")
+      .group("CivilIT_DefResponse_070_UploadDefence") {
+        exec(http("CivilIT_DefResponse_070_005_UploadDefence")
           .post(BaseURL + "/documentsv2")
           .headers(CivilDamagesHeader.MoneyClaimPostHeader)
           .header("accept", "application/json, text/plain, */*")
@@ -471,8 +471,8 @@ object UnspecIntermediateTrack {
 * Create Civil Claim - Upload Defence Submit
 ==========================================================================================*/
 
-      .group("CivilIT_DefResponse_465_UploadDefenceSubmit") {
-        exec(http("CivilIT_DefResponse_465_005_UploadDefenceSubmit")
+      .group("CivilIT_DefResponse_080_UploadDefenceSubmit") {
+        exec(http("CivilIT_DefResponse_080_005_UploadDefenceSubmit")
           .post("/data/case-types/CIVIL/validate?pageId=DEFENDANT_RESPONSEUpload")
           .headers(CivilDamagesHeader.MoneyClaimPostHeader)
           .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.case-data-validate.v2+json;charset=UTF-8")
@@ -488,8 +488,8 @@ object UnspecIntermediateTrack {
 * Create Civil Claim -File directions questionnaire
 ==========================================================================================*/
 
-      .group("CivilIT_DefResponse_470_FileDirectionsQuestionnaire") {
-        exec(http("CivilIT_DefResponse_470_005_FileDirectionsQuestionnaire")
+      .group("CivilIT_DefResponse_090_FileDirectionsQuestionnaire") {
+        exec(http("CivilIT_DefResponse_090_005_FileDirectionsQuestionnaire")
           .post("/data/case-types/CIVIL/validate?pageId=DEFENDANT_RESPONSEFileDirectionsQuestionnaire")
           .headers(CivilDamagesHeader.MoneyClaimPostHeader)
           .header("x-xsrf-token", "#{XSRFToken}")
@@ -504,8 +504,8 @@ object UnspecIntermediateTrack {
 * Create Civil Claim - Fixed Recoverable Costs
 ==========================================================================================*/
 
-      .group("CivilIT_DefResponse_480_FixedRecoverableCosts") {
-        exec(http("CivilIT_DefResponse_480_005_FixedRecoverableCosts")
+      .group("CivilIT_DefResponse_100_FixedRecoverableCosts") {
+        exec(http("CivilIT_DefResponse_100_005_FixedRecoverableCosts")
           .post("/data/case-types/CIVIL/validate?pageId=DEFENDANT_RESPONSEFixedRecoverableCosts")
           .headers(CivilDamagesHeader.MoneyClaimPostHeader)
           .header("x-xsrf-token", "#{XSRFToken}")
@@ -520,8 +520,8 @@ object UnspecIntermediateTrack {
     * Create Civil Claim - Disclosure of electronic documents
     ==========================================================================================*/
   
-          .group("CivilIT_DefResponse_490_DisclosureElectDocuments") {
-            exec(http("CivilIT_DefResponse_490_005_DisclosureElectDocuments")
+          .group("CivilIT_DefResponse_110_DisclosureElectDocuments") {
+            exec(http("CivilIT_DefResponse_110_005_DisclosureElectDocuments")
               .post("/data/case-types/CIVIL/validate?pageId=DEFENDANT_RESPONSEDisclosureOfElectronicDocuments")
               .headers(CivilDamagesHeader.MoneyClaimPostHeader)
               .header("x-xsrf-token", "#{XSRFToken}")
@@ -538,8 +538,8 @@ object UnspecIntermediateTrack {
 * Create Civil Claim - Disclosure of non-electronic documents
 ==========================================================================================*/
 
-      .group("CivilIT_DefResponse_490_DisclosureNonElectDocuments") {
-        exec(http("CivilIT_DefResponse_490_005_DisclosureNonElectDocuments")
+      .group("CivilIT_DefResponse_120_DisclosureNonElectDocuments") {
+        exec(http("CivilIT_DefResponse_120_005_DisclosureNonElectDocuments")
           .post("/data/case-types/CIVIL/validate?pageId=DEFENDANT_RESPONSEDisclosureOfNonElectronicDocuments")
           .headers(CivilDamagesHeader.MoneyClaimPostHeader)
           .header("x-xsrf-token", "#{XSRFToken}")
@@ -555,8 +555,8 @@ object UnspecIntermediateTrack {
 * Create Civil Claim - Do you want to use an expert?
 ==========================================================================================*/
 
-      .group("CivilIT_DefResponse_500_UseAnExpert") {
-        exec(http("CivilIT_DefResponse_500_005_UseAnExpert")
+      .group("CivilIT_DefResponse_130_UseAnExpert") {
+        exec(http("CivilIT_DefResponse_130_005_UseAnExpert")
           .post("/data/case-types/CIVIL/validate?pageId=DEFENDANT_RESPONSEExperts")
           .headers(CivilDamagesHeader.MoneyClaimPostHeader)
           .header("x-xsrf-token", "#{XSRFToken}")
@@ -572,8 +572,8 @@ object UnspecIntermediateTrack {
 * Create Civil Claim - Are there any witnesses who should attend the hearing?
 ==========================================================================================*/
 
-      .group("CivilIT_DefResponse_510_AnyWitnesses") {
-        exec(http("CivilIT_DefResponse_510_005_AnyWitnesses")
+      .group("CivilIT_DefResponse_140_AnyWitnesses") {
+        exec(http("CivilIT_DefResponse_140_005_AnyWitnesses")
           .post("/data/case-types/CIVIL/validate?pageId=DEFENDANT_RESPONSEWitnesses")
           .headers(CivilDamagesHeader.MoneyClaimPostHeader)
           .header("x-xsrf-token", "#{XSRFToken}")
@@ -589,8 +589,8 @@ object UnspecIntermediateTrack {
 * Create Civil Claim - Welsh language
 ==========================================================================================*/
 
-      .group("CivilIT_DefResponse_520_WelshLanguage") {
-        exec(http("CivilIT_DefResponse_520_005_WelshLanguage")
+      .group("CivilIT_DefResponse_150_WelshLanguage") {
+        exec(http("CivilIT_DefResponse_150_005_WelshLanguage")
           .post("/data/case-types/CIVIL/validate?pageId=DEFENDANT_RESPONSELanguage")
           .headers(CivilDamagesHeader.MoneyClaimPostHeader)
           .header("x-xsrf-token", "#{XSRFToken}")
@@ -605,8 +605,8 @@ object UnspecIntermediateTrack {
 * Create Civil Claim - Hearing Availability
 ==========================================================================================*/
 
-      .group("CivilIT_DefResponse_530_HearingAvailability") {
-        exec(http("CivilIT_DefResponse_530_005_HearingAvailability")
+      .group("CivilIT_DefResponse_160_HearingAvailability") {
+        exec(http("CivilIT_DefResponse_160_005_HearingAvailability")
           .post("/data/case-types/CIVIL/validate?pageId=DEFENDANT_RESPONSEHearing")
           .headers(CivilDamagesHeader.MoneyClaimPostHeader)
           .header("x-xsrf-token", "#{XSRFToken}")
@@ -622,8 +622,8 @@ object UnspecIntermediateTrack {
 * Create Civil Claim - Upload draft directions
 ==========================================================================================*/
 
-      .group("CivilIT_DefResponse_540_UploadDraftDirections") {
-        exec(http("CivilIT_DefResponse_540_005_UploadDraftDirections")
+      .group("CivilIT_DefResponse_170_UploadDraftDirections") {
+        exec(http("CivilIT_DefResponse_170_005_UploadDraftDirections")
           .post(BaseURL + "/documentsv2")
           .headers(CivilDamagesHeader.MoneyClaimPostHeader)
           .header("accept", "application/json, text/plain, */*")
@@ -648,8 +648,8 @@ object UnspecIntermediateTrack {
 * Create Civil Claim - Upload draft directions Submit
 ==========================================================================================*/
 
-      .group("CivilIT_DefResponse_550_UploadDraftDirectionsSubmit") {
-        exec(http("CivilIT_DefResponse_550_005_UploadDraftDirectionsSubmit")
+      .group("CivilIT_DefResponse_180_UploadDraftDirectionsSubmit") {
+        exec(http("CivilIT_DefResponse_180_005_UploadDraftDirectionsSubmit")
           .post("/data/case-types/CIVIL/validate?pageId=DEFENDANT_RESPONSEDraftDirections")
           .headers(CivilDamagesHeader.MoneyClaimPostHeader)
           .header("x-xsrf-token", "#{XSRFToken}")
@@ -664,8 +664,8 @@ object UnspecIntermediateTrack {
 * Create Civil Claim - Court location code
 ==========================================================================================*/
 
-      .group("CivilIT_DefResponse_560_CourtLocationCode") {
-        exec(http("CivilIT_DefResponse_560_005_CourtLocationCode")
+      .group("CivilIT_DefResponse_190_CourtLocationCode") {
+        exec(http("CivilIT_DefResponse_190_005_CourtLocationCode")
           .post("/data/case-types/CIVIL/validate?pageId=DEFENDANT_RESPONSERequestedCourt")
           .headers(CivilDamagesHeader.MoneyClaimPostHeader)
           .header("x-xsrf-token", "#{XSRFToken}")
@@ -679,8 +679,8 @@ object UnspecIntermediateTrack {
 * Create Civil Claim - Support with access needs
 ==========================================================================================*/
 
-      .group("CivilIT_DefResponse_570_SupportAccessNeeds") {
-        exec(http("CivilIT_DefResponse_570_005_SupportAccessNeeds")
+      .group("CivilIT_DefResponse_200_SupportAccessNeeds") {
+        exec(http("CivilIT_DefResponse_200_005_SupportAccessNeeds")
           .post("/data/case-types/CIVIL/validate?pageId=DEFENDANT_RESPONSEHearingSupport")
          
           .headers(CivilDamagesHeader.MoneyClaimPostHeader)
@@ -697,8 +697,8 @@ object UnspecIntermediateTrack {
 * Create Civil Claim - Vulnerability Questions
 ==========================================================================================*/
 
-      .group("CivilIT_DefResponse_580_VulnerabilityQuestions") {
-        exec(http("CivilIT_DefResponse_580_005_VulnerabilityQuestions")
+      .group("CivilIT_DefResponse_210_VulnerabilityQuestions") {
+        exec(http("CivilIT_DefResponse_210_005_VulnerabilityQuestions")
           .post("/data/case-types/CIVIL/validate?pageId=DEFENDANT_RESPONSEVulnerabilityQuestions")
           .headers(CivilDamagesHeader.MoneyClaimPostHeader)
           .header("x-xsrf-token", "#{XSRFToken}")
@@ -714,8 +714,8 @@ object UnspecIntermediateTrack {
 * Create Civil Claim - Do you intend to make any applications in the future?
 ==========================================================================================*/
 
-      .group("CivilIT_DefResponse_590_AnyFutureApplications") {
-        exec(http("CivilIT_DefResponse_590_005_AnyFutureApplications")
+      .group("CivilIT_DefResponse_220_AnyFutureApplications") {
+        exec(http("CivilIT_DefResponse_220_005_AnyFutureApplications")
           .post("/data/case-types/CIVIL/validate?pageId=DEFENDANT_RESPONSEFurtherInformation")
           .headers(CivilDamagesHeader.MoneyClaimPostHeader)
           .header("x-xsrf-token", "#{XSRFToken}")
@@ -731,8 +731,8 @@ object UnspecIntermediateTrack {
 * Create Civil Claim - Respond to claim SoT
 ==========================================================================================*/
 
-      .group("CivilIT_DefResponse_600_RespondToClaimSoT") {
-        exec(http("CivilIT_DefResponse_600_005_RespondToClaimSoT")
+      .group("CivilIT_DefResponse_230_RespondToClaimSoT") {
+        exec(http("CivilIT_DefResponse_230_005_RespondToClaimSoT")
           .post(BaseURL + "/data/case-types/CIVIL/validate?pageId=DEFENDANT_RESPONSEStatementOfTruth")
           .headers(CivilDamagesHeader.MoneyClaimPostHeader)
           .header("x-xsrf-token", "#{XSRFToken}")
@@ -748,8 +748,8 @@ object UnspecIntermediateTrack {
 * Create Civil Claim - Respond to claim Submit
 ==========================================================================================*/
 
-      .group("CivilIT_DefResponse_610_RespondToClaimSubmit") {
-        exec(http("CivilIT_DefResponse_610_005_RespondToClaimSubmit")
+      .group("CivilIT_DefResponse_240_RespondToClaimSubmit") {
+        exec(http("CivilIT_DefResponse_240_005_RespondToClaimSubmit")
           .post("/data/cases/#{caseId}/events")
           .headers(CivilDamagesHeader.MoneyClaimDefPostHeader)
           .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.create-event.v2+json;charset=UTF-8")
