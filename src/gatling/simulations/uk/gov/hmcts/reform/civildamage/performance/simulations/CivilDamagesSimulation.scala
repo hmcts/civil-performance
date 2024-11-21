@@ -548,11 +548,12 @@ Step 3: login as defendant user  and complete the defendant journey and logout
       .exec(Login.XUILogin)
       .exec(UnspecIntermediateTrack.RespondToDefence)
     .exec(EXUIMCLogin.manageCase_Logout)
-				.pause(30)
+				.pause(50)
 				
 				//Following is for creating the transfer  online
 				.exec(Homepage.XUIHomePage)
 				.exec(Login.XUICenterAdminLogin)
+				.pause(10)
 				.exec(UnSpecIntermediateTrackCaseProgression.TransferOnlineByHearingAdmin)
 				.exec(EXUIMCLogin.manageCase_Logout)
 				.pause(20)
@@ -608,11 +609,12 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 				.exec(Login.XUILogin)
 				.exec(SpecifiedMultiTrackDefAndClaimantResponse.RespondToDefence)
 				.exec(EXUIMCLogin.manageCase_Logout)
-				.pause(20)
+				.pause(50)
 				
 				//Following is for creating the transfer  online
 				.exec(Homepage.XUIHomePage)
 				.exec(Login.XUICenterAdminLogin)
+				.pause(10)
 				.exec(SpecMultiTrackCaseProgression.TransferOnlineByHearingAdmin)
 				.exec(EXUIMCLogin.manageCase_Logout)
 				.pause(10)
@@ -976,9 +978,9 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 		//CivilCaseProg.inject(nothingFor(1),rampUsers(12) during (2700))
 	//CivilCaseDataPrep.inject(nothingFor(1),rampUsers(1) during (6))
 	//	UpdateSubmitDateFromUnSpecClaimCreation.inject(nothingFor(1),rampUsers(1) during (6))
-			UnSpecIntermediateTrack.inject(nothingFor(1),rampUsers(1) during (1)),
-		//	SpecMultiTrack.inject(nothingFor(100),rampUsers(1) during (1))
-	//	SpecifiedMultiTrackClaimAndIntentScenario.inject(nothingFor(3),rampUsers(1) during (1))
+			UnSpecIntermediateTrack.inject(nothingFor(1),rampUsers(30) during (3600)),
+			SpecMultiTrack.inject(nothingFor(100),rampUsers(30) during (3600)),
+	//	SpecifiedMultiTrackClaimAndIntentScenario.inject(nothingFor(30),rampUsers(3) during (50))
 	//	STCitizen.inject(nothingFor(1),rampUsers(1) during (2700))
 	//	CivilDamageScenario.inject(nothingFor(1),rampUsers(1) during (2))
 ).protocols(httpProtocol)
