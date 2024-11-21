@@ -292,7 +292,7 @@ object UnspecIntermediateTrack {
       ==========================================================================================*/
     //beginning of notify details
 
-    .group("CD_CreateClaim_190_NotifyDetailsEvent") {
+    .group("CivilIT_CreateClaim_190_NotifyDetailsEvent") {
 
       exec(http("CivilIT_CreateClaim_190_005_NotifyDetailCreate")
         .get("/data/internal/cases/#{caseId}/event-triggers/NOTIFY_DEFENDANT_OF_CLAIM_DETAILS?ignore-warning=false")
@@ -316,8 +316,8 @@ object UnspecIntermediateTrack {
                  * Create Civil Claim - event submit for notify detail
       ==========================================================================================*/
     // val notifyclaimdetailseventsubmit=
-    .group("CD_CreateClaim_200_NotifyDetailsEventSubmit") {
-      exec(http("CD_CreateClaim_200_EventSubmit")
+    .group("CivilIT_CreateClaim_200_NotifyDetailsEventSubmit") {
+      exec(http("CivilIT_CreateClaim_200_EventSubmit")
         .post("/data/cases/#{caseId}/events")
         .headers(CivilDamagesHeader.headers_886)
         // .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.create-event.v2+json;charset=UTF-8")
@@ -332,21 +332,21 @@ object UnspecIntermediateTrack {
                  * Create Civil Claim - Notify Details
       ==========================================================================================*/
     // val returntocasedetailsafternotifydetails =
-    .group("CD_CreateClaim_210_ReturnToCaseDetailsAfterNotifyDetails") {
-      exec(http("CD_CreateClaim_210_005_NotifyDetails")
+    .group("CivilIT_CreateClaim_210_ReturnToCaseDetailsAfterNotifyDetails") {
+      exec(http("CivilIT_CreateClaim_210_005_NotifyDetails")
         .post("/api/role-access/roles/manageLabellingRoleAssignment/#{caseId}")
         .headers(CivilDamagesHeader.headers_894)
         .body(StringBody("{\"searchRequest\":{\"ccdId\":\"#{caseId}\",\"eventId\":\"NOTIFY_DEFENDANT_OF_CLAIM_DETAILS\",\"jurisdiction\":\"CIVIL\",\"caseTypeId\":\"UNSPECIFIED_CLAIMS\"}}"))
         .check(status.in(200,204,201,304))
       )
 
-        .exec { session =>
+       /* .exec { session =>
           val fw = new BufferedWriter(new FileWriter("UnspecIntermediatecases.csv", true))
           try {
             fw.write(session("caseId").as[String] + "\r\n")
           } finally fw.close()
           session
-        }
+        }*/
 
     }
     .pause(MinThinkTime, MaxThinkTime)
@@ -757,13 +757,13 @@ object UnspecIntermediateTrack {
           .body(ElFileBody("bodies/intermediateunspec/RespondToClaimSubmit.json"))
           .check(substring("AWAITING_APPLICANT_INTENTION"))
         )
-          .exec { session =>
+         /* .exec { session =>
             val fw = new BufferedWriter(new FileWriter("ResponseToClaimCompleted.csv", true))
             try {
               fw.write(session("caseId").as[String] + "\r\n")
             } finally fw.close()
             session
-          }
+          }*/
       }
       .pause(MinThinkTime, MaxThinkTime)
   
@@ -790,9 +790,12 @@ object UnspecIntermediateTrack {
             .headers(CivilDamagesHeader.headers_notify)
             .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-start-event-trigger.v2+json;charset=UTF-8")
             .check(substring("CLAIMANT_RESPONSE"))
-            .check(jsonPath("$.case_fields[2].value.partyID").saveAs("repPartyID"))
-            .check(jsonPath("$.case_fields[2].value.partyName").saveAs("partyName"))
-            .check(jsonPath("$.case_fields[2].value.partyName").saveAs("defPartyName"))
+           // .check(jsonPath("$.case_fields[2].value.partyID").saveAs("repPartyID"))
+           // .check(jsonPath("$.case_fields[2].value.partyName").saveAs("partyName"))
+           // .check(jsonPath("$.case_fields[2].value.partyName").saveAs("defPartyName"))
+            .check(regex("partyID\":\"(.*?)\"").saveAs("partyID"))
+            .check(regex("partyName\":\"(.*?)\"").saveAs("partyName"))
+            .check(regex("partyName\":\"(.*?)\"").saveAs("defPartyName"))
             .check(jsonPath("$..formatted_value.file.document_url").saveAs("document_url"))
             .check(jsonPath("$.event_token").saveAs("event_token"))
           )
@@ -1114,13 +1117,13 @@ object UnspecIntermediateTrack {
           .check(substring("JUDICIAL_REFERRAL"))
         )
 
-          .exec { session =>
+         /* .exec { session =>
             val fw = new BufferedWriter(new FileWriter("JudicialRefVMLatest.csv", true))
             try {
               fw.write(session("caseId").as[String] + "\r\n")
             } finally fw.close()
             session
-          }
+          }*/
       }
       .pause(MinThinkTime, MaxThinkTime)
 

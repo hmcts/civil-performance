@@ -203,7 +203,6 @@ object UnSpecIntermediateTrackCaseProgression {
           .header("accept", "application/json")
           .check(substring("task_required_for_event"))
         )
-          
           .exec(http("CivilIT_TransferOnline_040_010_TransferOnline")
             .get("/data/internal/cases/#{caseId}/event-triggers/TRANSFER_ONLINE_CASE?ignore-warning=false")
             .headers(CivilDamagesHeader.MoneyClaimNav)
@@ -221,8 +220,6 @@ object UnSpecIntermediateTrackCaseProgression {
         
       }
       .pause(MinThinkTime, MaxThinkTime)
-      
-      
       
       /*======================================================================================
              *  *  Civil Progression - '	What hearing notice do you want to create?
