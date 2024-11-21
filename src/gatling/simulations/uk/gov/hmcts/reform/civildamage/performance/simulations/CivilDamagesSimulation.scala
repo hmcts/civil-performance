@@ -510,7 +510,6 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 			/*	.exec(EXUIMCLogin.manageCasesHomePage)
 				.exec(EXUIMCLogin.manageCasesloginToJudgeJourney)
 				.exec(ClaimCreationLRvsLR.SDO)*/
-			
 		}
 	
 	
@@ -520,7 +519,7 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 	val UnSpecIntermediateTrack = scenario("Create Intermediate Track")
 		.feed(loginFeeder).feed(casesfordefresponseFeeder)
 		.exitBlockOnFail {
-		/*	exec(_.set("env", s"${env}"))
+			exec(_.set("env", s"${env}"))
 				.exec(Homepage.XUIHomePage)
 				.exec(Login.XUILogin)
 				.exec(UnspecIntermediateTrack.run)
@@ -555,7 +554,7 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 				.exec(Login.XUICenterAdminLogin)
 				.exec(UnSpecIntermediateTrackCaseProgression.TransferOnlineByHearingAdmin)
 				.exec(EXUIMCLogin.manageCase_Logout)
-				.pause(20)*/
+				.pause(20)
 				
 				//Following is for make an order
 				exec(Homepage.XUIHomePage)
