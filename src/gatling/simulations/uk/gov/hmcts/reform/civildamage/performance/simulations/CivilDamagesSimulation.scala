@@ -976,8 +976,8 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 		//CivilCaseProg.inject(nothingFor(1),rampUsers(12) during (2700))
 	//CivilCaseDataPrep.inject(nothingFor(1),rampUsers(1) during (6))
 	//	UpdateSubmitDateFromUnSpecClaimCreation.inject(nothingFor(1),rampUsers(1) during (6))
-			UnSpecIntermediateTrack.inject(nothingFor(1),rampUsers(30) during (3600)),
-			SpecMultiTrack.inject(nothingFor(100),rampUsers(30) during (3600))
+			UnSpecIntermediateTrack.inject(nothingFor(1),rampUsers(1) during (1)),
+		//	SpecMultiTrack.inject(nothingFor(100),rampUsers(1) during (1))
 	//	SpecifiedMultiTrackClaimAndIntentScenario.inject(nothingFor(3),rampUsers(1) during (1))
 	//	STCitizen.inject(nothingFor(1),rampUsers(1) during (2700))
 	//	CivilDamageScenario.inject(nothingFor(1),rampUsers(1) during (2))
