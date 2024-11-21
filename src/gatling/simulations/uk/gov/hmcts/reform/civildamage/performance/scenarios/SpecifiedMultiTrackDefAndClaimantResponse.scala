@@ -454,13 +454,13 @@ object SpecifiedMultiTrackDefAndClaimantResponse {
                .check(substring("AWAITING_APPLICANT_INTENTION"))
              )
         
-               .exec { session =>
+              /* .exec { session =>
                  val fw = new BufferedWriter(new FileWriter("ResponseToClaimCompleted.csv", true))
                  try {
                    fw.write(session("caseId").as[String] + "\r\n")
                  } finally fw.close()
                  session
-               }
+               }*/
            }
            .pause(MinThinkTime, MaxThinkTime)
   
@@ -555,7 +555,7 @@ object SpecifiedMultiTrackDefAndClaimantResponse {
 ==========================================================================================*/
   
       .group("CivilMT_ClaimantIntent_070_FileDirectionsQuestionnaire") {
-        exec(http("CivilMT_DefResponse_070_005_FileDirectionsQuestionnaire")
+        exec(http("CivilMT_ClaimantIntent_070_005_FileDirectionsQuestionnaire")
           .post("/data/case-types/CIVIL/validate?pageId=CLAIMANT_RESPONSE_SPECFileDirectionsQuestionnaire")
           .headers(CivilDamagesHeader.MoneyClaimPostHeader)
           .header("x-xsrf-token", "#{XSRFToken}")
