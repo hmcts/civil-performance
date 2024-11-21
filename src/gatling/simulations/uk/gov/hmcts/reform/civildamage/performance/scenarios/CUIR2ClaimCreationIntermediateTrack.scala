@@ -114,8 +114,8 @@ object CUIR2ClaimCreationIntermediateTrack {
           .formParam("_csrf", "#{csrf}")
           .formParam("claimType", "just-myself")
           .check(CsrfCheck.save)
-          .check(substring("Do you have a postal address in the UK?")))
-      }
+          .check(substring("Do you have a postal address in England or Wales?")))
+             }
       .pause(MinThinkTime, MaxThinkTime)
       
       /*======================================================================================
@@ -738,20 +738,12 @@ object CUIR2ClaimCreationIntermediateTrack {
       }
       .pause(MinThinkTime, MaxThinkTime)
   
-   .exec { session =>
-         val fw = new BufferedWriter(new FileWriter("CUIIntermediateClaimDetails.csv", true))
-         try {
-           fw.write(session("claimantEmailAddress").as[String] + "," + session("defEmailAddress").as[String] + "," + session("password").as[String] + "," + session("claimNumber").as[String] + "\r\n")
-         } finally fw.close()
-         session
-       }
-  
-     /* .exec { session =>
-        val fw = new BufferedWriter(new FileWriter("CUIDefClaimDetails.csv", true))
+      .exec { session =>
+        val fw = new BufferedWriter(new FileWriter("CUIIntermediateClaimDetails.csv", true))
         try {
-          fw.write(session("claimantEmailAddress").as[String] +  "," + session("defEmailAddress").as[String] +  ","+ session("password").as[String] + "," + session("claimNumber").as[String] + "\r\n")
+          fw.write(session("claimantEmailAddress").as[String] + "," + session("defEmailAddress").as[String] + "," + session("password").as[String] + "," + session("claimNumber").as[String] + "\r\n")
         } finally fw.close()
         session
-      }*/
+      }
   
 }

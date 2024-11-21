@@ -128,15 +128,14 @@ class CivilDamagesSimulation extends Simulation {
 			
 			//Claim Creation
 			exec(CreateUser.CreateDefCitizen)
-			repeat(1) {
+			.repeat(1) {
 				exec(CreateUser.CreateClaimantCitizen)
 					.exec(CUIR2HomePage.CUIR2HomePage)
 					.exec(CUIR2Login.CUIR2Login)
-					.exec(CUIR2ClaimCreation.run)
+					.exec(CUIR2ClaimCreationIntermediateTrack.run)
 					.exec(CUIR2Logout.CUILogout)
 				.exec(CivilAssignCase.cuiassign)
 			}
-			
 		}
 	
 	/*
@@ -189,7 +188,7 @@ class CivilDamagesSimulation extends Simulation {
 		}
 	
 	/*
-#######################  CUI R2 Defendant Response ############################################
+#######################  CUI R2 Defendant Response  For Fast Track  ############################################
 */
 	
 	val CivilUIR2DefResponseCaseProgFastTrackScenario = scenario(" Civil UI R2 Defendant Response Case prog Fast Track")
@@ -198,6 +197,34 @@ class CivilDamagesSimulation extends Simulation {
 			exec(CUIR2HomePage.CUIR2HomePage)
 				.exec(CUIR2Login.CUIR2DefLogin)
 				.exec(CUIR2DefendantResponseCaseProgFastTrack.run)
+				.exec(CUIR2Logout.CUILogout)
+		}
+	
+	
+	/*
+#######################  CUI R2 Defendant Response  For Intermediate Track  ############################################
+*/
+	
+	val CivilUIR2DefResponseIntermediateTrackScenario = scenario(" Civil UI R2 Defendant Response Intermediate Track")
+		.feed(defresponsecasesFeeder)
+		.exitBlockOnFail {
+			exec(CUIR2HomePage.CUIR2HomePage)
+				.exec(CUIR2Login.CUIR2DefLogin)
+				.exec(CUIR2DefendantResponseIntermediateTrack.run)
+				.exec(CUIR2Logout.CUILogout)
+		}
+	
+	
+	/*
+#######################  CUI R2 Defendant Response  For Multi Track  ############################################
+*/
+	
+	val CivilUIR2DefResponseMultiTrackScenario = scenario(" Civil UI R2 Defendant Response Multi Track")
+		.feed(defresponsecasesFeeder)
+		.exitBlockOnFail {
+			exec(CUIR2HomePage.CUIR2HomePage)
+				.exec(CUIR2Login.CUIR2DefLogin)
+				.exec(CUIR2DefendantResponseMultiTrack.run)
 				.exec(CUIR2Logout.CUILogout)
 		}
 	

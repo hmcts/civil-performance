@@ -11,13 +11,13 @@ object CreateUser {
   val IdamAPIURL = Environment.idamAPIURL
 
   val newUserFeeder = Iterator.continually(Map(
-    "claimantEmailAddress" -> ("cuicpclaimantuser" + Common.randomString(5) + "@gmail.com"),
+    "claimantEmailAddress" -> ("cuiimtclaimantuser" + Common.randomString(5) + "@gmail.com"),
     "password" -> "Password12!",
     "role" -> "citizen"
   ))
   
   val newUserFeederDef = Iterator.continually(Map(
-    "defEmailAddress" -> ("cuicpdefuser" + Common.randomString(5) + "@gmail.com"),
+    "defEmailAddress" -> ("cuiimtdefuser" + Common.randomString(5) + "@gmail.com"),
     "password" -> "Password12!",
     "role" -> "citizen"
   ))
@@ -31,7 +31,13 @@ object CreateUser {
           .body(ElFileBody("CreateUserTemplate.json")).asJson
           .check(status.is(201)))
       }
-  
+      .exec { session =>
+        val fw = new BufferedWriter(new FileWriter("CUIClaimUsers.csv", true))
+        try {
+          fw.write(session("claimantEmailAddress").as[String] + "\r\n")
+        } finally fw.close()
+        session
+      }
   
   val CreateDefCitizen =
     feed(newUserFeederDef)
