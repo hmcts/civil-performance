@@ -965,7 +965,7 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 		
 		//Following is the spec claim end to end journey
 	//	CivilUIClaimCreationScenario.inject(nothingFor(1),rampUsers(180) during (3600))
-		SpecifiedClaimAndIntentScenario.inject(nothingFor(1),rampUsers(99) during (1800))
+		SpecifiedClaimAndIntentScenario.inject(nothingFor(1),rampUsers(89) during (1800))
 		
 	//		PBAServiceScenario.inject(nothingFor(1),rampUsers(1) during (1))
 	//	CivilCaseAssignScenario.inject(nothingFor(1),rampUsers(81) during (300))
