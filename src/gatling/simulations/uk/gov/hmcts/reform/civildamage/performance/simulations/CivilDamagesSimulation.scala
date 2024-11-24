@@ -836,17 +836,11 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 		
 		// Settle And Discontinue Scenarios
 		
-		/*SettleByClaimant.inject(nothingFor(1),rampUsers(28) during (3600)),
-		SettleByHearingAdmin.inject(nothingFor(25),rampUsers(28) during (3600)),
-		DiscontinueByClaimantAndValidate.inject(nothingFor(50),rampUsers(37) during (3600)),
-		DiscontinueByClaimantAndInValidate.inject(nothingFor(100),rampUsers(37) during (3600)),
-		*/
+		SettleByClaimant.inject(nothingFor(1),rampUsers(30) during (3600)),
+		SettleByHearingAdmin.inject(nothingFor(25),rampUsers(30) during (3600)),
+		DiscontinueByClaimantAndValidate.inject(nothingFor(50),rampUsers(35) during (3600)),
+		DiscontinueByClaimantAndInValidate.inject(nothingFor(100),rampUsers(35) during (3600)),
 		
-		SettleByClaimant.inject(nothingFor(1),rampUsers(1) during (1)),
-    SettleByHearingAdmin.inject(nothingFor(25),rampUsers(1) during (1)),
-    DiscontinueByClaimantAndValidate.inject(nothingFor(50),rampUsers(1) during (1)),
-    DiscontinueByClaimantAndInValidate.inject(nothingFor(100),rampUsers(1) during (1)),
-    
 ).protocols(httpProtocol)
 	
 	/*setUp(
