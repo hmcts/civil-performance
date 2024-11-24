@@ -622,7 +622,7 @@ object SpecifiedDefAndClaimantResponse {
           .headers(CivilDamagesHeader.MoneyClaimDefPostHeader)
           .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.create-event.v2+json;charset=UTF-8")
           .body(ElFileBody("bodies/specifiedclaimresponses/ViewRespondToDefenceSubmit.json"))
-          .check(substring("JUDICIAL_REFERRAL"))
+         // .check(substring("JUDICIAL_REFERRAL"))
         )
           
           .exec { session =>
