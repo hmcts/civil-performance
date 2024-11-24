@@ -818,7 +818,7 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 	//	CUIR2FastTrackCaseProgression.inject(nothingFor(50),rampUsers(14) during (3600)),
 		//	CivilUIR2ClaimCreationScenario.inject(nothingFor(1),rampUsers(1) during (1))
 		
-		CivilUIClaimCreationScenario.inject(nothingFor(1),rampUsers(1) during (1))
+	//	CivilUIClaimCreationScenario.inject(nothingFor(1),rampUsers(1) during (1))
 	//		PBAServiceScenario.inject(nothingFor(1),rampUsers(1) during (1))
 	//	CivilCaseAssignScenario.inject(nothingFor(1),rampUsers(18) during (300))
 	//		RequestForReConsiderScenario.inject(nothingFor(1),rampUsers(25) during (1800))
@@ -841,6 +841,12 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 		DiscontinueByClaimantAndValidate.inject(nothingFor(50),rampUsers(37) during (3600)),
 		DiscontinueByClaimantAndInValidate.inject(nothingFor(100),rampUsers(37) during (3600)),
 		*/
+		
+		SettleByClaimant.inject(nothingFor(1),rampUsers(1) during (1)),
+    SettleByHearingAdmin.inject(nothingFor(25),rampUsers(1) during (1)),
+    DiscontinueByClaimantAndValidate.inject(nothingFor(50),rampUsers(1) during (1)),
+    DiscontinueByClaimantAndInValidate.inject(nothingFor(100),rampUsers(1) during (1)),
+    
 ).protocols(httpProtocol)
 	
 	/*setUp(
