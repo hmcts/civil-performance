@@ -139,6 +139,27 @@ class CivilDamagesSimulation extends Simulation {
 		}
 	
 	/*
+#######################  CUI R2 Claim Creation ScenarioIntermediate Track ############################################
+*/
+	
+	val CivilUIR2ClaimCreationMultiTrackScenario = scenario(" Civil UI R2 Claim Creation For Intermediate Track")
+		
+		.exitBlockOnFail {
+			
+			//Claim Creation
+			exec(CreateUser.CreateDefCitizen)
+				.repeat(1) {
+					exec(CreateUser.CreateClaimantCitizen)
+						.exec(CUIR2HomePage.CUIR2HomePage)
+						.exec(CUIR2Login.CUIR2Login)
+						.exec(CUIR2ClaimCreationMultiTrack.run)
+						.exec(CUIR2Logout.CUILogout)
+						.exec(CivilAssignCase.cuiassign)
+				}
+		}
+	
+	
+	/*
 #######################  CUI R2 Claim Creation Scenario Large Claim ############################################
  */
 	
@@ -340,7 +361,8 @@ class CivilDamagesSimulation extends Simulation {
 	setUp(
 	//	CivilUIR2ClaimCreationScenario.inject(nothingFor(1),rampUsers(25) during (200)),
 	//	CivilUIR2ClaimCreationFTScenario.inject(nothingFor(1),rampUsers(15) during (300)),
-		CivilUIR2ClaimCreationIntermediateTrackScenario.inject(nothingFor(1),rampUsers(1) during (1)),
+	//	CivilUIR2ClaimCreationIntermediateTrackScenario.inject(nothingFor(1),rampUsers(1) during (1)),
+		CivilUIR2ClaimCreationMultiTrackScenario.inject(nothingFor(1),rampUsers(1) during (1)),
 	//	CivilUIR2DefResponseScenario.inject(nothingFor(30),rampUsers(100) during (3600)),
 	//	CivilUIR2DefResponseCaseProgScenario.inject(nothingFor(3),rampUsers(15) during (200)),
 	//	CivilUIR2DefResponseCaseProgFastTrackScenario.inject(nothingFor(4),rampUsers(15) during (300)),

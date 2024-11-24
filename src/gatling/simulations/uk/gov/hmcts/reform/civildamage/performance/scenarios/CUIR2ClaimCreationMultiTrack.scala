@@ -102,8 +102,7 @@ object CUIR2ClaimCreationMultiTrack {
           .check(substring("Who are you making the claim for?")))
       }
       .pause(MinThinkTime, MaxThinkTime)
-  
-  
+    
       /*======================================================================================
                * Civil Citizen - Eligibility Questionaire - who are you making the claim
     ==========================================================================================*/
@@ -114,7 +113,7 @@ object CUIR2ClaimCreationMultiTrack {
           .formParam("_csrf", "#{csrf}")
           .formParam("claimType", "just-myself")
           .check(CsrfCheck.save)
-          .check(substring("Do you have a postal address in the UK?")))
+          .check(substring("Do you have a postal address in England or Wales?")))
       }
       .pause(MinThinkTime, MaxThinkTime)
       
@@ -475,14 +474,14 @@ object CUIR2ClaimCreationMultiTrack {
           .headers(CivilDamagesHeader.CUIR2Post)
           .formParam("_csrf", "#{csrf}")
           .formParam("claimAmountRows[0][reason]", "Claim Amount Perftest Desc")
-          .formParam("claimAmountRows[0][amount]", "9000")
+          .formParam("claimAmountRows[0][amount]", "110000")
           .formParam("claimAmountRows[1][reason]", "")
           .formParam("claimAmountRows[1][amount]", "")
           .formParam("claimAmountRows[2][reason]", "")
           .formParam("claimAmountRows[2][amount]", "")
           .formParam("claimAmountRows[3][reason]", "")
           .formParam("claimAmountRows[3][amount]", "")
-          .formParam("totalAmount", "9000")
+          .formParam("totalAmount", "110000")
           .formParam("saveAndContinue", "true")
           .check(CsrfCheck.save)
           .check(substring("Do you want to claim interest?")))
@@ -738,13 +737,13 @@ object CUIR2ClaimCreationMultiTrack {
       }
       .pause(MinThinkTime, MaxThinkTime)
   
-   .exec { session =>
-         val fw = new BufferedWriter(new FileWriter("CUIIntermediateClaimDetails.csv", true))
-         try {
-           fw.write(session("claimantEmailAddress").as[String] + "," + session("defEmailAddress").as[String] + "," + session("password").as[String] + "," + session("claimNumber").as[String] + "\r\n")
-         } finally fw.close()
-         session
-       }
+      .exec { session =>
+        val fw = new BufferedWriter(new FileWriter("CUIMultiTrackClaimDetails.csv", true))
+        try {
+          fw.write(session("claimantEmailAddress").as[String] + "," + session("defEmailAddress").as[String] + "," + session("password").as[String] + "," + session("claimNumber").as[String] + "\r\n")
+        } finally fw.close()
+        session
+      }
   
      /* .exec { session =>
         val fw = new BufferedWriter(new FileWriter("CUIDefClaimDetails.csv", true))
