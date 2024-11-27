@@ -548,7 +548,7 @@ Step 3: login as defendant user  and complete the defendant journey and logout
       .exec(Login.XUILogin)
       .exec(UnspecIntermediateTrack.RespondToDefence)
     .exec(EXUIMCLogin.manageCase_Logout)
-				.pause(120)
+				.pause(20)
 				
 				//Following is for creating the transfer  online
 				.exec(Homepage.XUIHomePage)
@@ -609,7 +609,7 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 				.exec(Login.XUILogin)
 				.exec(SpecifiedMultiTrackDefAndClaimantResponse.RespondToDefence)
 				.exec(EXUIMCLogin.manageCase_Logout)
-				.pause(100)
+				.pause(20)
 				
 				//Following is for creating the transfer  online
 			/*	.exec(Homepage.XUIHomePage)
