@@ -69,7 +69,7 @@ object  CivilAssignCase {
 		exec(http("Civil_000_GetBearerToken")
 			.post(idamURL + "/o/token") //change this to idamapiurl if this not works
 			.formParam("grant_type", "password")
-			.formParam("username", "civil.damages.claims+organisation.2.solicitor.1@gmail.com")
+			.formParam("username", "#{defendantuser}")
 			.formParam("password", "Password12!")
 			.formParam("client_id", "civil_citizen_ui")
 			// .formParam("client_secret", clientSecret)

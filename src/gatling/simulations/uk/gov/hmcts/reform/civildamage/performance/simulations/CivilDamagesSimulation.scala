@@ -578,8 +578,6 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 				.exec(UnSpecIntermediateTrackCaseProgression.HearingNotice)
 				.exec(EXUIMCLogin.manageCase_Logout)
 				.pause(20)
-			
-			
 		}
 	
 	
