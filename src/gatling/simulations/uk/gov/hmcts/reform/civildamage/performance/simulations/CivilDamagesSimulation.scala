@@ -548,7 +548,7 @@ Step 3: login as defendant user  and complete the defendant journey and logout
       .exec(Login.XUILogin)
       .exec(UnspecIntermediateTrack.RespondToDefence)
     .exec(EXUIMCLogin.manageCase_Logout)
-				.pause(50)
+				.pause(120)
 				
 				//Following is for creating the transfer  online
 				.exec(Homepage.XUIHomePage)
@@ -609,15 +609,15 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 				.exec(Login.XUILogin)
 				.exec(SpecifiedMultiTrackDefAndClaimantResponse.RespondToDefence)
 				.exec(EXUIMCLogin.manageCase_Logout)
-				.pause(120)
+				.pause(100)
 				
 				//Following is for creating the transfer  online
-				.exec(Homepage.XUIHomePage)
+			/*	.exec(Homepage.XUIHomePage)
 				.exec(Login.XUICenterAdminLogin)
 				.pause(10)
 				.exec(SpecMultiTrackCaseProgression.TransferOnlineByHearingAdmin)
 				.exec(EXUIMCLogin.manageCase_Logout)
-				.pause(10)
+				.pause(10)*/
 				
 				//Following is for make an order
 				.exec(Homepage.XUIHomePage)
@@ -965,7 +965,7 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 		
 		//Following is the spec claim end to end journey
 	//	CivilUIClaimCreationScenario.inject(nothingFor(1),rampUsers(180) during (3600))
-		SpecifiedClaimAndIntentScenario.inject(nothingFor(1),rampUsers(89) during (1800))
+	//	SpecifiedClaimAndIntentScenario.inject(nothingFor(1),rampUsers(89) during (1800))
 		
 	//		PBAServiceScenario.inject(nothingFor(1),rampUsers(1) during (1))
 	//	CivilCaseAssignScenario.inject(nothingFor(1),rampUsers(81) during (300))
@@ -978,8 +978,8 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 		//CivilCaseProg.inject(nothingFor(1),rampUsers(12) during (2700))
 	//CivilCaseDataPrep.inject(nothingFor(1),rampUsers(1) during (6))
 	//	UpdateSubmitDateFromUnSpecClaimCreation.inject(nothingFor(1),rampUsers(1) during (6))
-		//	UnSpecIntermediateTrack.inject(nothingFor(1),rampUsers(30) during (3600)),
-		//	SpecMultiTrack.inject(nothingFor(100),rampUsers(10) during (600)),
+			UnSpecIntermediateTrack.inject(nothingFor(1),rampUsers(30) during (3600)),
+			SpecMultiTrack.inject(nothingFor(100),rampUsers(30) during (3600)),
 	//	SpecifiedMultiTrackClaimAndIntentScenario.inject(nothingFor(30),rampUsers(3) during (50))
 	//	STCitizen.inject(nothingFor(1),rampUsers(1) during (2700))
 	//	CivilDamageScenario.inject(nothingFor(1),rampUsers(1) during (2))
