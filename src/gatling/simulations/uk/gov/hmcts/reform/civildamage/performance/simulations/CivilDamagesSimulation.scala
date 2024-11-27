@@ -39,7 +39,7 @@ class CivilDamagesSimulation extends Simulation {
   val httpProtocol = Environment.HttpProtocol
     .baseUrl(BaseURL)
    // .doNotTrackHeader("1")
-   // .inferHtmlResources()
+    .inferHtmlResources()
     .silentResources
 		.header("Experimental", "true")
 
