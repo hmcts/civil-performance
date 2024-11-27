@@ -865,7 +865,7 @@ object SpecMultiTrackCaseProgression {
           .get(BaseURL + "/data/internal/cases/#{caseId}")
           .headers(CivilDamagesHeader.MoneyClaimNav)
           .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-case-view.v2+json")
-          .check(substring("Summary")))
+          .check(substring("summary")))
       }
       .pause(MinThinkTime, MaxThinkTime)
     
