@@ -32,8 +32,7 @@ object SpecifiedMultiTrackDefAndClaimantResponse {
                "Idempotencynumber" -> (Common.getIdempotency()),
                "LRrandomString" -> Common.randomString(5)
              ))
-    
-    
+           
          }
            /*======================================================================================
                 * Create Civil Claim - Start Event 'Respond to Claim'

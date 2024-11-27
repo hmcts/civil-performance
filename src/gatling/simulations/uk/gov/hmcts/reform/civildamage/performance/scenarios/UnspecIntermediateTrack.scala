@@ -375,8 +375,11 @@ object UnspecIntermediateTrack {
             .headers(CivilDamagesHeader.headers_notify)
             .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-start-event-trigger.v2+json;charset=UTF-8")
             .check(substring("DEFENDANT_RESPONSE"))
-            .check(jsonPath("$.case_fields[75].value.partyID").saveAs("repPartyID"))
-            .check(jsonPath("$.case_fields[75].value.partyName").saveAs("partyName"))
+           /* .check(jsonPath("$.case_fields[75].value.partyID").saveAs("repPartyID"))
+            .check(jsonPath("$.case_fields[75].value.partyName").saveAs("partyName"))*/
+  
+            .check(regex("partyID\":\"(.*?)\"").saveAs("repPartyID"))
+            .check(regex("partyName\":\"(.*?)\"").saveAs("partyName"))
             .check(jsonPath("$.event_token").saveAs("event_token"))
           )
         .exec(http("CivilIT_DefResponse_030_005_RespondToClaim")
