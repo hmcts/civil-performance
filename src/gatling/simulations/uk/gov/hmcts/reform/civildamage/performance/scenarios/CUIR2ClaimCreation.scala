@@ -114,7 +114,7 @@ object CUIR2ClaimCreation {
           .formParam("_csrf", "#{csrf}")
           .formParam("claimType", "just-myself")
           .check(CsrfCheck.save)
-          .check(substring("Do you have a postal address in the UK?")))
+          .check(substring("Do you have a postal address in")))
       }
       .pause(MinThinkTime, MaxThinkTime)
       

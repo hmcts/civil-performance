@@ -375,10 +375,10 @@ class CivilDamagesSimulation extends Simulation {
 		
 		
 		// Below is for data prep - Claim Creation
-		CivilUIR2ClaimCreationScenario.inject(nothingFor(1),rampUsers(150) during (1800)),
-		// below i for creating the test data for claimant intention
+		CivilUIR2ClaimCreationMultiTrackScenario.inject(nothingFor(1),rampUsers(150) during (1800))
+		// Below is for creating the test data for claimant intention
 		//CivilUIR2DefResponseScenario.inject(nothingFor(1),rampUsers(30) during (1200)),
-		//Below set up is for background laod for CUI R2 Journey
+		// Below set up is for background load for CUI R2 Journey
 		
 	/*	CivilUIR2ClaimCreationScenario.inject(nothingFor(1),rampUsers(115) during (3600)),
 		CivilUIR2DefResponseScenario.inject(nothingFor(30),rampUsers(100) during (3600)),

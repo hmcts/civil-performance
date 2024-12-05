@@ -736,6 +736,8 @@ object CUIR2ClaimCreationMultiTrack {
          )
       }
       .pause(MinThinkTime, MaxThinkTime)
+
+      .exec(_.set("caseId", "#{claimNumber}"))
   
       .exec { session =>
         val fw = new BufferedWriter(new FileWriter("CUIMultiTrackClaimDetails.csv", true))
