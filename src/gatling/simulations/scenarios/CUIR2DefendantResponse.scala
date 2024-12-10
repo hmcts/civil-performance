@@ -85,8 +85,8 @@ object CUIR2DefendantResponse {
         .headers(CivilDamagesHeader.CUIR2Post)
         .formParam("_csrf", "#{csrf}")
         .formParam("title", "Mr")
-        .formParam("firstName", "Def First")
-        .formParam("lastName", "Def Last")
+        .formParam("firstName", "DFirst")
+        .formParam("lastName", "DLast")
         .formParam("addressLine1", "10 Hibernia Gardens")
         .formParam("addressLine2", "")
         .formParam("addressLine3", "")
@@ -387,10 +387,26 @@ object CUIR2DefendantResponse {
 
     .group("CUIR2_DefResponse_240_FreeTelephone") {
       exec(http("CUIR2_DefResponse_240_005_FreeTelephone")
-        .get(CivilUiURL + "/case/#{claimNumber}/mediation/free-telephone-mediation")
+        .get(CivilUiURL + "/case/#{claimNumber}/mediation/telephone-mediation")
         .headers(CivilDamagesHeader.CUIR2Get)
         .check(status.in(200, 304))
         .check(substring("telephone mediation")))
+    }
+
+    .pause(MinThinkTime, MaxThinkTime)
+
+    /*======================================================================================
+     * Civil UI Claim - Free telephone mediation Redirect
+    ======================================================================================*/
+
+    .group("CUIR2_DefResponse_245_FreeTelephonePost") {
+      exec(http("CUIR2_DefResponse_245_005_FreeTelephone")
+        .post(CivilUiURL + "/case/#{claimNumber}/mediation/telephone-mediation")
+        .headers(CivilDamagesHeader.CUIR2Post)
+        .formParam("_csrf", "#{csrf}")
+        .check(status.in(200, 304))
+//        .check(substring("telephone mediation"))
+      )
     }
 
     .pause(MinThinkTime, MaxThinkTime)
@@ -436,11 +452,11 @@ object CUIR2DefendantResponse {
       exec(http("CUIR2_DefResponse_270_005_GiveDetails")
         .post(CivilUiURL + "/case/#{claimNumber}/mediation/next-three-months")
         .headers(CivilDamagesHeader.CUIR2Post)
-        .check(CsrfCheck.save)
+//        .check(CsrfCheck.save)
         .formParam("_csrf", "#{csrf}")
         .formParam("option", "no")
         .check(status.in(200, 304))
-        .check(substring("Are they any dates in the next 3 months")))
+        .check(substring("Give us details in case")))
     }
 
     .pause(MinThinkTime, MaxThinkTime)
@@ -454,10 +470,7 @@ object CUIR2DefendantResponse {
         .get(CivilUiURL + "/case/#{claimNumber}/directions-questionnaire/determination-without-hearing")
         .headers(CivilDamagesHeader.CUIR2Get)
         .check(CsrfCheck.save)
-        .formParam("_csrf", "#{csrf}")
-        .formParam("option", "yes")
-        .formParam("reasonForHearing", "")
-        .check(substring("Using an expert")))
+        .check(substring("Do you consider that this claim is suitable for determination without a hearing")))
     }
 
     .pause(MinThinkTime, MaxThinkTime)

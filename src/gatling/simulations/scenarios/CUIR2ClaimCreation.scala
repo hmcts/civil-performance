@@ -314,8 +314,8 @@ object CUIR2ClaimCreation {
           .headers(CivilDamagesHeader.CUIR2Post)
           .formParam("_csrf", "#{csrf}")
           .formParam("title", "Mr")
-          .formParam("firstName", "Claimant First")
-          .formParam("lastName", "Claimant Last")
+          .formParam("firstName", "First")
+          .formParam("lastName", "Last")
           .formParam("primaryAddressPostcode","")
           .formParam("addressList", "")
           .formParam("addressLine1", "28 HIBERNIA GARDENS")
@@ -404,8 +404,8 @@ object CUIR2ClaimCreation {
           .headers(CivilDamagesHeader.CUIR2Post)
           .formParam("_csrf", "#{csrf}")
           .formParam("title", "Mr")
-          .formParam("firstName", "Def First")
-          .formParam("lastName", "Def Last")
+          .formParam("firstName", "DFirst")
+          .formParam("lastName", "DLast")
           .formParam("primaryAddressPostcode", "")
           .formParam("addressList", "")
           .formParam("addressLine1", "10, HIBERNIA GARDENS")
@@ -626,8 +626,8 @@ object CUIR2ClaimCreation {
           .check(CsrfCheck.save)
           .check(substring("Equality and diversity question"))
         )
-        
       }
+
       .pause(MinThinkTime, MaxThinkTime)
   
       /*======================================================================================
@@ -690,6 +690,7 @@ object CUIR2ClaimCreation {
           .formParam("saveAndContinue", "true")
           //.check(CsrfCheck.save)
           .check(substring("Enter card details"))
+//          .check(headerRegex("location", """\/card_details\/(.{26})""").ofType[(String)].saveAs("CardDetailPageChargeId"))
           .check(css("input[name='csrfToken']", "value").saveAs("_csrfTokenCardDetailPage"))
           .check(css("input[name='chargeId']", "value").saveAs("CardDetailPageChargeId"))
         )
