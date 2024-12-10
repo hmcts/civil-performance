@@ -416,33 +416,19 @@ object CUIR2DefendantResponse {
        * Civil UI Claim - Free telephone mediation Redirect
 ==========================================================================================*/
 
-    .group("CUIR2_DefResponse_240_FreeTelephone") {
-      exec(http("CUIR2_DefResponse_240_005_FreeTelephone")
-        .get(CivilUiURL + "/case/#{caseId}/mediation/free-telephone-mediation")
+    .group("CUIR2_DefResponse_240_Telephone") {
+      exec(http("CUIR2_DefResponse_240_005_Telephone")
+        .get(CivilUiURL + "/case/#{caseId}/mediation/telephone-mediation")
         .headers(CivilDamagesHeader.CUIR2Get)
         .check(status.in(200, 304))
-        .check(substring("Free telephone mediation"))
+        .check(substring("Telephone mediation"))
       )
     }
     .pause(MinThinkTime, MaxThinkTime)
 
 
 
-    /*======================================================================================
-     * Civil UI Claim - Free telephone mediation
-==========================================================================================*/
-
-    .group("CUIR2_DefResponse_250_FreeTelephoneMed") {
-      exec(http("CUIR2_DefResponse_250_005_FreeTelephoneMed")
-        .get(CivilUiURL + "/case/#{caseId}/mediation/can-we-use")
-        .headers(CivilDamagesHeader.CUIR2Get)
-        .check(CsrfCheck.save)
-        .check(status.in(200, 304))
-        .check(substring("Confirm your telephone number"))
-      )
-    }
-    .pause(MinThinkTime, MaxThinkTime)
-
+   
 
     /*======================================================================================
  * Civil UI Claim - Confirm your telephone number - yes
@@ -450,19 +436,80 @@ object CUIR2DefendantResponse {
 
     .group("CUIR2_DefResponse_260_ConfirmNumber") {
       exec(http("CUIR2_DefResponse_260_005_ConfirmNumber")
-        .post(CivilUiURL + "/case/#{caseId}/mediation/can-we-use")
+        .post(CivilUiURL + "/case/#{caseId}/mediation/telephone-mediation")
         .headers(CivilDamagesHeader.CUIR2Post)
         .formParam("_csrf", "#{csrf}")
-        .formParam("option", "yes")
-        .formParam("mediationPhoneNumber", "")
-        .check(substring("Free telephone mediation"))
+       
+        .check(substring("Respond to a money claim"))
       )
     }
     .pause(MinThinkTime, MaxThinkTime)
-
-
-
-    /*======================================================================================
+  
+  
+      /*======================================================================================
+          * Civil UI Claim - Mediation Confirmation
+     ==========================================================================================*/
+  
+       .group("CUIR2_DefResponse_250_MediationConfirmation") {
+         exec(http("CUIR2_DefResponse_250_005_MediationConfirmation")
+           .get(CivilUiURL + "/case/#{caseId}/mediation/phone-confirmation")
+           .headers(CivilDamagesHeader.CUIR2Get)
+           .check(CsrfCheck.save)
+           .check(status.in(200, 304))
+           .check(substring("Can the mediator use"))
+         )
+       }
+       .pause(MinThinkTime, MaxThinkTime)
+  
+      /*======================================================================================
+    * Civil UI Claim - Confirm your telephone number - yes
+    ==========================================================================================*/
+  
+      .group("CUIR2_DefResponse_260_ConfirmNumber") {
+        exec(http("CUIR2_DefResponse_260_005_ConfirmNumber")
+          .post(CivilUiURL + "/case/#{caseId}/mediation/phone-confirmation")
+          .headers(CivilDamagesHeader.CUIR2Post)
+          .formParam("_csrf", "#{csrf}")
+          .formParam("option", "yes")
+      
+          .check(substring("Can the mediation team use"))
+        )
+      }
+      .pause(MinThinkTime, MaxThinkTime)
+  
+      /*======================================================================================
+    * Civil UI Claim - Confirm your email - yes
+    ==========================================================================================*/
+  
+      .group("CUIR2_DefResponse_260_ConfirmEmail") {
+        exec(http("CUIR2_DefResponse_260_005_ConfirmEmail")
+          .post(CivilUiURL + "/case/#{caseId}/mediation/email-confirmation")
+          .headers(CivilDamagesHeader.CUIR2Post)
+          .formParam("_csrf", "#{csrf}")
+          .formParam("option", "yes")
+      
+          .check(substring("Are there any dates in the next 3 months when you cannot attend mediation?"))
+        )
+      }
+      .pause(MinThinkTime, MaxThinkTime)
+  
+      /*======================================================================================
+    * Civil UI Claim - Confirm your dates for the mediation - No
+    ==========================================================================================*/
+  
+      .group("CUIR2_DefResponse_260_ConfirmMediationDates") {
+        exec(http("CUIR2_DefResponse_260_005_ConfirmMediationDates")
+          .post(CivilUiURL + "/case/#{caseId}/mediation/next-three-months")
+          .headers(CivilDamagesHeader.CUIR2Post)
+          .formParam("_csrf", "#{csrf}")
+          .formParam("option", "no")
+      
+          .check(substring("You have completed 8 of 10 sections"))
+        )
+      }
+      .pause(MinThinkTime, MaxThinkTime)
+      
+      /*======================================================================================
      * Civil UI Claim - Give us details in case there's a hearing Redirect
 ==========================================================================================*/
 
@@ -612,7 +659,7 @@ object CUIR2DefendantResponse {
         .formParam("model[items][0][languageInterpreter][content]", "")
         .formParam("model[items][0][otherSupport][content]", "")
         .formParam("option", "no")
-        .check(substring("Do you want to ask for the hearing to be held at a specific court?"))
+        .check(substring("Please select your preferred court hearing location"))
       )
     }
     .pause(MinThinkTime, MaxThinkTime)
@@ -627,9 +674,8 @@ object CUIR2DefendantResponse {
         .post(CivilUiURL + "/case/#{caseId}/directions-questionnaire/court-location")
         .headers(CivilDamagesHeader.CUIR2Post)
         .formParam("_csrf", "#{csrf}")
-        .formParam("courtLocation", "")
-        .formParam("reason", "")
-        .formParam("option", "no")
+        .formParam("courtLocation", "Birmingham Civil and Family Justice Centre - Priory Courts, 33 Bull Street - B4 6DS")
+        .formParam("reason", "asasasasas")
         .check(substring("Welsh language"))
       )
     }

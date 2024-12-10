@@ -743,6 +743,7 @@ object CUIR2ClaimCreation {
          try {
            fw.write(session("claimantEmailAddress").as[String] + "," + session("defEmailAddress").as[String] + "," + session("password").as[String] + "," + session("claimNumber").as[String] + "\r\n")
          } finally fw.close()
+         
          session
        }
   

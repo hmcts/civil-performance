@@ -64,7 +64,7 @@ object CivilAssignCase {
       //	feed(caseFeeder)
       exec(Auth)
         .exec(http("CIVIL_AssignCase_000_AssignCase")
-          .post("http://civil-service-perftest.service.core-compute-perftest.internal/testing-support/assign-case/${caseId}/DEFENDANT")
+          .post("http://civil-service-perftest.service.core-compute-perftest.internal/testing-support/assign-case/#{claimNumber}/DEFENDANT")
           //   .get( "/cases/searchCases?start_date=#{randomStartDate}&end_date=#{randomEndDate}")
           // .get( "/cases/searchCases?start_date=2022-01-13T00:00:00&end_date=2023-04-16T15:38:00")
           .header("Authorization", "Bearer ${bearerToken}")
