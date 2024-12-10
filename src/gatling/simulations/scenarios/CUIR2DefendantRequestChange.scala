@@ -194,8 +194,9 @@ object CUIR2DefendantRequestChange {
 
   .exec(http("request_32")
     .post("/case/#{claimNumber}/general-application/apply-help-fee-selection?id=#{feeSelectionId}&appFee=119") //84f9db4d-5bfe-4393-baae-f252fbf2e407
-//    .disableFollowRedirect
+    .disableFollowRedirect
     .headers(CivilDamagesHeader.CUIR2Post)
+    .header("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7")
     .header("content-type", "application/x-www-form-urlencoded")
     .check(CsrfCheck.save)
     .check(headerRegex("location", """https:\/\/card.payments.service.gov.uk\/secure\/(.{8}-.{4}-.{4}-.{4}-.{12})""").ofType[(String)].saveAs("CardDetailPageChargeId")) //.ofType[(String)]
@@ -204,8 +205,10 @@ object CUIR2DefendantRequestChange {
     .check(status.in(200, 302))
   )
 
+  .pause(MinThinkTime, MaxThinkTime)
+
   .exec(http("request_33")
-    .get("https://card.payments.service.gov.uk/secure/#{paymentId}")
+    .get("https://card.payments.service.gov.uk/secure/#{CardDetailPageChargeId}")
     .disableFollowRedirect
     .headers(CivilDamagesHeader.CUIR2Post)
     .header("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9")
@@ -213,17 +216,17 @@ object CUIR2DefendantRequestChange {
     .check(
       headerRegex("location", """\/card_details\/(.{26})""")
         .ofType[(String)]
-        .saveAs("CardDetailPageChargeId")
+        .saveAs("paymentId")
     )
     .check(status.is(303)))
 
   .pause(MinThinkTime, MaxThinkTime)
 
   .exec(http("request_36")
-    .post(paymentURL + "/card_details/#{CardDetailPageChargeId}")
+    .post(paymentURL + "/card_details/#{paymentId}")
     .headers(CivilDamagesHeader.CUIR2Post)
     .check(CsrfCheck.save)
-    .formParam("chargeId", "#{CardDetailPageChargeId}")
+    .formParam("chargeId", "#{paymentId}")
     .formParam("csrfToken", "#{_csrfTokenCardDetailPage}")
     .formParam("cardNo", "4444333322221111")
     .formParam("expiryMonth", "02")
@@ -241,10 +244,10 @@ object CUIR2DefendantRequestChange {
   .pause(MinThinkTime, MaxThinkTime)
 
   .exec(http("request_38")
-    .post(paymentURL + "/card_details/#{CardDetailPageChargeId}/confirm")
+    .post(paymentURL + "/card_details/#{paymentId}/confirm")
     .headers(CivilDamagesHeader.CUIR2Post)
     .formParam("csrfToken", "#{_csrfTokenCardDetailConfirm}")
-    .formParam("chargeId", "#{CardDetailPageChargeId}"))
+    .formParam("chargeId", "#{paymentId}"))
 
   .pause(MinThinkTime, MaxThinkTime)
 
