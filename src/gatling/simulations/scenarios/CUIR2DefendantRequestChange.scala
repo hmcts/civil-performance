@@ -187,19 +187,20 @@ object CUIR2DefendantRequestChange {
   .exec(http("request_30")
     .get("/case/#{claimNumber}/general-application/apply-help-fee-selection?id=#{feeSelectionId}&appFee=119")
     .headers(CivilDamagesHeader.CUIR2Get)
-    .check(CsrfCheck.save)
+//    .check(CsrfCheck.save)
   )
 
   .pause(MinThinkTime, MaxThinkTime)
 
-  .exec(http("request_32")
+  .exec(http("request_31")
     .post("/case/#{claimNumber}/general-application/apply-help-fee-selection?id=#{feeSelectionId}&appFee=119") //84f9db4d-5bfe-4393-baae-f252fbf2e407
-    .disableFollowRedirect
+//    .disableFollowRedirect
     .headers(CivilDamagesHeader.CUIR2Post)
     .header("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7")
     .header("content-type", "application/x-www-form-urlencoded")
     .check(CsrfCheck.save)
     .check(headerRegex("location", """https:\/\/card.payments.service.gov.uk\/secure\/(.{8}-.{4}-.{4}-.{4}-.{12})""").ofType[(String)].saveAs("CardDetailPageChargeId")) //.ofType[(String)]
+//    .check(regex("""a href="/case/#{claimNumber}/general-application/(.+?)/view-application.index=""").saveAs("newClaimNumber"))
     .formParam("_csrf", "#{csrf}")
     .formParam("option", "no")
     .check(status.in(200, 302))
