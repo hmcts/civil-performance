@@ -21,8 +21,13 @@ class CivilDamagesSimulation extends Simulation {
   val httpProtocol = Environment.HttpProtocol
 		.baseUrl(BaseURL)
 		.doNotTrackHeader("1")
+//		.inferHtmlResources()
 		.inferHtmlResources(DenyList("https://card.payments.service.gov.uk/.*"))
 		.silentResources
+
+	implicit val postHeaders: Map[String, String] = Map(
+		"Origin" -> BaseURL
+	)
 
 	/* TEST TYPE DEFINITION */
 	/* pipeline = nightly pipeline against the AAT environment (see the Jenkins_nightly file) */
@@ -79,20 +84,34 @@ class CivilDamagesSimulation extends Simulation {
 		.exitBlockOnFail {
 			exec(_.set("env", s"${env}"))
 			//Claim Creation
-			.exec(CreateUser.CreateClaimantCitizen)
-			.exec(CreateUser.CreateDefCitizen)
-			.repeat(1) {
-				exec(CreateUser.CreateClaimantCitizen)
-				.exec(CUIR2HomePage.CUIR2HomePage)
-				.exec(CUIR2Login.CUIR2Login)
-				.exec(CUIR2ClaimCreation.run)
-				.exec(CUIR2Logout.CUILogout)
-				//assigning the case to defendant
-				.exec(CivilAssignCase.cuiassign)
-				.exec(CUIR2HomePage.CUIR2HomePage)
-				.exec(CUIR2Login.CUIR2DefLogin)
-				.exec(CUIR2DefendantResponse.run)
-			}
+//			.exec(CreateUser.CreateClaimantCitizen)
+//			.exec(CreateUser.CreateDefCitizen)
+//			.exec(CreateUser.CreateClaimantCitizen)
+//			.exec(CUIR2HomePage.CUIR2HomePage)
+//			.exec(CUIR2Login.CUIR2Login)
+//			.exec(CUIR2ClaimCreation.run)
+//			.exec(CUIR2Logout.CUILogout)
+//			.pause(30)
+//			//assigning the case to defendant
+//			.exec(CivilAssignCase.cuiassign)
+			.exec(_.set("claimNumber", "1733912060210075"))
+			.exec(_.set("defEmailAddress", "cuiimtdefuserVdMkV@gmail.com"))
+			.exec(CUIR2HomePage.CUIR2HomePage)
+			.exec(CUIR2Login.CUIR2DefLogin)
+//			.exec(CUIR2DefendantResponse.run)
+			.exec(CUIR2DefendantRequestChange.run)
+
+				//request change & make payment
+
+				// login as claimant, review & respond to change
+
+				// log in as judge to XUI and make an order
+
+				//log in as claimant and upload doc - with notice application as well?
+
+
+
+
 		}
 
 	//defines the Gatling simulation model, based on the inputs

@@ -154,7 +154,8 @@ object CUIR2DefendantRequestChange {
     .formParam("_csrf", "#{csrf}")
     .formParam("signLanguageContent", "")
     .formParam("languageContent", "")
-    .formParam("otherContent", ""))
+    .formParam("otherContent", "")
+    .check(substring("Application fee to pay")))
 
   .pause(MinThinkTime, MaxThinkTime)
 
@@ -173,8 +174,7 @@ object CUIR2DefendantRequestChange {
     .formParam("signed", "true")
     .formParam("name", "perf test")
     .check(regex("""/case/#{claimNumber}/general-application/apply-help-fee-selection.id=(.{8}-.{4}-.{4}-.{4}-.{12})&amp;appFee=119" role="button" draggable=""").saveAs("feeSelectionId"))
-//    .check(bodyString.saveAs("BODY"))
-  )
+    .check(substring("Until you pay the application fee")))
 
 //  .exec(session => {
 //    val response = session("BODY").as[String]
@@ -187,20 +187,23 @@ object CUIR2DefendantRequestChange {
   .exec(http("request_30")
     .get("/case/#{claimNumber}/general-application/apply-help-fee-selection?id=#{feeSelectionId}&appFee=119")
     .headers(CivilDamagesHeader.CUIR2Get)
-//    .check(CsrfCheck.save)
+    .check(CsrfCheck.save)
   )
 
   .pause(MinThinkTime, MaxThinkTime)
 
   .exec(http("request_31")
     .post("/case/#{claimNumber}/general-application/apply-help-fee-selection?id=#{feeSelectionId}&appFee=119") //84f9db4d-5bfe-4393-baae-f252fbf2e407
-//    .disableFollowRedirect
+    .disableFollowRedirect
     .headers(CivilDamagesHeader.CUIR2Post)
     .header("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7")
     .header("content-type", "application/x-www-form-urlencoded")
-    .check(CsrfCheck.save)
-    .check(headerRegex("location", """https:\/\/card.payments.service.gov.uk\/secure\/(.{8}-.{4}-.{4}-.{4}-.{12})""").ofType[(String)].saveAs("CardDetailPageChargeId")) //.ofType[(String)]
-//    .check(regex("""a href="/case/#{claimNumber}/general-application/(.+?)/view-application.index=""").saveAs("newClaimNumber"))
+    // .check(css("input[name='csrfToken']", "value").saveAs("_csrfTokenCardDetailPage"))
+    .check(
+      header("Location") // Extract the Location header
+        .transform(location => location.split("/").last) // Optionally, extract the UUID directly
+        .saveAs("CardDetailPageChargeId") // Save the extracted UUID
+    )
     .formParam("_csrf", "#{csrf}")
     .formParam("option", "no")
     .check(status.in(200, 302))
@@ -210,23 +213,25 @@ object CUIR2DefendantRequestChange {
 
   .exec(http("request_33")
     .get("https://card.payments.service.gov.uk/secure/#{CardDetailPageChargeId}")
-    .disableFollowRedirect
+    //  .disableFollowRedirect
     .headers(CivilDamagesHeader.CUIR2Post)
     .header("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9")
     .header("content-type", "application/x-www-form-urlencoded")
-    .check(
-      headerRegex("location", """\/card_details\/(.{26})""")
-        .ofType[(String)]
-        .saveAs("paymentId")
-    )
-    .check(status.is(303)))
+    .check(css("input[name='csrfToken']", "value").saveAs("_csrfTokenCardDetailPage"))
+    .check(css("input[name='chargeId']", "value").saveAs("paymentId"))
+    /* .check(
+       headerRegex("location", """\/card_details\/(.{26})""")
+         .ofType[(String)]
+         .saveAs("paymentId")
+     )*/
+    .check(status.is(200)))
 
   .pause(MinThinkTime, MaxThinkTime)
 
   .exec(http("request_36")
     .post(paymentURL + "/card_details/#{paymentId}")
     .headers(CivilDamagesHeader.CUIR2Post)
-    .check(CsrfCheck.save)
+//    .check(CsrfCheck.save)
     .formParam("chargeId", "#{paymentId}")
     .formParam("csrfToken", "#{_csrfTokenCardDetailPage}")
     .formParam("cardNo", "4444333322221111")
@@ -240,7 +245,8 @@ object CUIR2DefendantRequestChange {
     .formParam("addressCountry", "GB")
     .formParam("addressPostcode", "kt25bu")
     .formParam("email", "perftest@gmail.com")
-    .check(css("input[name='csrfToken']", "value").saveAs("_csrfTokenCardDetailConfirm")))
+    .check(css("input[name='csrfToken']", "value").saveAs("_csrfTokenCardDetailConfirm"))
+    .check(regex("Confirm your payment")))
 
   .pause(MinThinkTime, MaxThinkTime)
 
@@ -248,7 +254,8 @@ object CUIR2DefendantRequestChange {
     .post(paymentURL + "/card_details/#{paymentId}/confirm")
     .headers(CivilDamagesHeader.CUIR2Post)
     .formParam("csrfToken", "#{_csrfTokenCardDetailConfirm}")
-    .formParam("chargeId", "#{paymentId}"))
+    .formParam("chargeId", "#{paymentId}")
+    .check(regex("Your payment was")))
 
   .pause(MinThinkTime, MaxThinkTime)
 
