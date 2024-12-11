@@ -218,11 +218,9 @@ object CUIR2DefRequestChange {
       .headers(CivilDamagesHeader.CUIR2Post)
       .header("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7")
       .header("content-type", "application/x-www-form-urlencoded")
-     // .check(css("input[name='csrfToken']", "value").saveAs("_csrfTokenCardDetailPage"))
-      .check(
-        header("Location") // Extract the Location header
-          .transform(location => location.split("/").last) // Optionally, extract the UUID directly
-          .saveAs("CardDetailPageChargeId") // Save the extracted UUID
+      .check(header("Location")
+          .transform(location => location.split("/").last)
+          .saveAs("CardDetailPageChargeId")
       )
     .formParam("_csrf", "#{csrf}")
       .formParam("option", "no")
@@ -239,16 +237,11 @@ object CUIR2DefRequestChange {
       .header("content-type", "application/x-www-form-urlencoded")
       .check(css("input[name='csrfToken']", "value").saveAs("_csrfTokenCardDetailPage"))
       .check(css("input[name='chargeId']", "value").saveAs("paymentId"))
-     /* .check(
-        headerRegex("location", """\/card_details\/(.{26})""")
-          .ofType[(String)]
-          .saveAs("paymentId")
-      )*/
       .check(status.is(200)))
-    
     .pause(MinThinkTime, MaxThinkTime)
     
-    .exec(http("request_36")
+   
+  /*  .exec(http("request_36")
       .post(paymentURL + "/card_details/#{paymentId}")
       .headers(CivilDamagesHeader.CUIR2Post)
      // .check(CsrfCheck.save)
@@ -277,10 +270,8 @@ object CUIR2DefRequestChange {
       .check(regex("Your payment was"))
     )
     
-    .pause(MinThinkTime, MaxThinkTime)
+    .pause(MinThinkTime, MaxThinkTime)*/
   
-  //  .exec(http("request_40")
-  //    .get("/case/#{claimNumber}/generalApplication/cancel")
-  //    .headers(headers_4))
+ 
   
 }
