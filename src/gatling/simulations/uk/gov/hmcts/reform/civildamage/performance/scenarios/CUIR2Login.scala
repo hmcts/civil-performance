@@ -66,7 +66,7 @@ object CUIR2Login {
         .exec(http("CUIR2_Def_020_Login")
           .post(IdamUrl + "/login?client_id=civil_citizen_ui&response_type=code&redirect_uri=" + CitizenURL + "/oauth2/callback&scope=profile%20openid%20roles%20manage-user%20create-user%20search-user")
           .headers(CivilDamagesHeader.MoneyClaimSignInHeader)
-          .formParam("username", "cuiimtdefusermgZvO@gmail.com")
+          .formParam("username", "cuiimtdefuserqEFro@gmail.com")
           .formParam("password", "Password12!")
           .formParam("selfRegistrationEnabled", "true")
           .formParam("_csrf", "#{csrf}")
