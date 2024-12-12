@@ -378,7 +378,7 @@ class CivilDamagesSimulation extends Simulation {
 	}
 	
 	setUp(
-	//	CivilUIR2ClaimCreationScenario.inject(nothingFor(1),rampUsers(25) during (200)),
+		CivilUIR2ClaimCreationScenario.inject(nothingFor(1),rampUsers(5) during (100)),
 	//	CivilUIR2ClaimCreationFTScenario.inject(nothingFor(1),rampUsers(15) during (300)),
 	//	CivilUIR2ClaimCreationIntermediateTrackScenario.inject(nothingFor(1),rampUsers(1) during (1)),
 	//	CivilUIR2ClaimCreationMultiTrackScenario.inject(nothingFor(1),rampUsers(1) during (1)),
@@ -398,9 +398,9 @@ class CivilDamagesSimulation extends Simulation {
 	//	CivilUIR2DefRequestChange.inject(nothingFor(1),rampUsers(1) during (1)),
 		// Below set up is for background load for CUI R2 Journey
 		
-		CivilUIR2ClaimCreationScenario.inject(nothingFor(1),rampUsers(115) during (3600)),
+	/*	CivilUIR2ClaimCreationScenario.inject(nothingFor(1),rampUsers(115) during (3600)),
 		CivilUIR2DefResponseScenario.inject(nothingFor(30),rampUsers(100) during (3600)),
-		CivilUIR2ClaimantIntentionScenario.inject(nothingFor(50),rampUsers(25) during (3600))
+		CivilUIR2ClaimantIntentionScenario.inject(nothingFor(50),rampUsers(25) during (3600))*/
 		
 ).protocols(httpProtocol)
 }
