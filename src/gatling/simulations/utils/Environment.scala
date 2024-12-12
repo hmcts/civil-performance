@@ -18,8 +18,8 @@ object Environment {
   val idamCookieName="SESSION_ID"
   val HttpProtocol = http
 
-  val minThinkTime = 1 //8
-  val maxThinkTime = 2 //10
+  val minThinkTime = 8 //8
+  val maxThinkTime = 10 //10
   
   val commonHeader = Map(
     "Accept" -> "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8",

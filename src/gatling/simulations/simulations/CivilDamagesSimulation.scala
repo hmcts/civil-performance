@@ -21,8 +21,8 @@ class CivilDamagesSimulation extends Simulation {
   val httpProtocol = Environment.HttpProtocol
 		.baseUrl(BaseURL)
 		.doNotTrackHeader("1")
-//		.inferHtmlResources()
-		.inferHtmlResources(DenyList("https://card.payments.service.gov.uk/.*"))
+		.inferHtmlResources()
+//		.inferHtmlResources(DenyList("https://card.payments.service.gov.uk/.*"))
 		.silentResources
 
 	implicit val postHeaders: Map[String, String] = Map(
@@ -84,22 +84,23 @@ class CivilDamagesSimulation extends Simulation {
 		.exitBlockOnFail {
 			exec(_.set("env", s"${env}"))
 			//Claim Creation
-//			.exec(CreateUser.CreateClaimantCitizen)
-//			.exec(CreateUser.CreateDefCitizen)
-//			.exec(CreateUser.CreateClaimantCitizen)
-//			.exec(CUIR2HomePage.CUIR2HomePage)
-//			.exec(CUIR2Login.CUIR2Login)
-//			.exec(CUIR2ClaimCreation.run)
-//			.exec(CUIR2Logout.CUILogout)
-//			.pause(30)
+			.exec(CreateUser.CreateClaimantCitizen)
+			.exec(CreateUser.CreateDefCitizen)
+			.exec(CreateUser.CreateClaimantCitizen)
+			.exec(CUIR2HomePage.CUIR2HomePage)
+			.exec(CUIR2Login.CUIR2Login)
+			.exec(CUIR2ClaimCreation.run)
+			.exec(CUIR2Logout.CUILogout)
+			.pause(30)
 //			//assigning the case to defendant
-//			.exec(CivilAssignCase.cuiassign)
-			.exec(_.set("claimNumber", "1733912060210075"))
-			.exec(_.set("defEmailAddress", "cuiimtdefuserVdMkV@gmail.com"))
+			.exec(CivilAssignCase.cuiassign)
+//			.exec(_.set("claimNumber", "1733929831126802"))
+//			.exec(_.set("defEmailAddress", "cuiimtdefuservpviE@gmail.com"))
 			.exec(CUIR2HomePage.CUIR2HomePage)
 			.exec(CUIR2Login.CUIR2DefLogin)
-//			.exec(CUIR2DefendantResponse.run)
+			.exec(CUIR2DefendantResponse.run)
 			.exec(CUIR2DefendantRequestChange.run)
+			.exec(CUIR2Logout.CUILogout)
 
 				//request change & make payment
 

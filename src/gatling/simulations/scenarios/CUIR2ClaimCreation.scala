@@ -624,25 +624,25 @@ object CUIR2ClaimCreation {
           .get("/claim/check-and-send")
           .headers(CivilDamagesHeader.CUIR2Get)
           .check(CsrfCheck.save)
-          .check(substring("Equality and diversity question"))
+          .check(substring("Correspondence address"))
         )
       }
 
       .pause(MinThinkTime, MaxThinkTime)
   
-      /*======================================================================================
+    /*======================================================================================
                * Civil Citizen -  PCQ Questionaire Opt out
-    ==========================================================================================*/
-      .group("CUIR2_Claimant_420_PCQQuestionaire") {
-        exec(http("CUIR2_Claimant_420_005_PCQQuestionaire")
-          .post("https://pcq.perftest.platform.hmcts.net/opt-out")
-          .headers(CivilDamagesHeader.CUIR2Post)
-          .formParam("_csrf", "#{csrf}")
-          .formParam("opt-out-button", "")
-          .check(CsrfCheck.save)
-          .check(substring("Check your answers")))
-      }
-      .pause(MinThinkTime, MaxThinkTime)
+    ======================================================================================*/
+//      .group("CUIR2_Claimant_420_PCQQuestionaire") {
+//        exec(http("CUIR2_Claimant_420_005_PCQQuestionaire")
+//          .post("https://pcq.perftest.platform.hmcts.net/opt-out")
+//          .headers(CivilDamagesHeader.CUIR2Post)
+//          .formParam("_csrf", "#{csrf}")
+//          .formParam("opt-out-button", "")
+//          .check(CsrfCheck.save)
+//          .check(substring("Check your answers")))
+//      }
+//      .pause(MinThinkTime, MaxThinkTime)
   
       /*======================================================================================
                * Civil Citizen -  2.Prepare your claim - Check And Send Post
