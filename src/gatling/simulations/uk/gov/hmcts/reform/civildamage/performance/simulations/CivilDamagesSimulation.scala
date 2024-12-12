@@ -390,22 +390,17 @@ class CivilDamagesSimulation extends Simulation {
 	//	CivilUIR2ClaimantIntentionFastTrackCaseProgScenario.inject(nothingFor(5),rampUsers(15) during (300))
 		//	CivilUIR2CaseProgScenario.inject(nothingFor(5),rampUsers(1) during (1))
 	//	CivilCaseAssignScenario.inject(nothingFor(1),rampUsers(1) during (1))
-		
-		
 		// Below is for data prep - Claim Creation
-		 CivilUIR2ClaimCreationScenario.inject(nothingFor(1),rampUsers(5) during (50))
+		// CivilUIR2ClaimCreationScenario.inject(nothingFor(1),rampUsers(150) during (1800))
 		// Below is for creating the test data for claimant intention
-		//CivilUIR2DefResponseScenario.inject(nothingFor(1),rampUsers(1) during (1)),
+		//CivilUIR2DefResponseScenario.inject(nothingFor(1),rampUsers(32) during (600)),
 	//	CivilUIR2ClaimantIntentionScenario.inject(nothingFor(1),rampUsers(1) during (1)),
-		
 	//	CivilUIR2DefRequestChange.inject(nothingFor(1),rampUsers(1) during (1)),
-		
-		
 		// Below set up is for background load for CUI R2 Journey
 		
-	/*	CivilUIR2ClaimCreationScenario.inject(nothingFor(1),rampUsers(115) during (3600)),
+		CivilUIR2ClaimCreationScenario.inject(nothingFor(1),rampUsers(115) during (3600)),
 		CivilUIR2DefResponseScenario.inject(nothingFor(30),rampUsers(100) during (3600)),
-		CivilUIR2ClaimantIntentionScenario.inject(nothingFor(50),rampUsers(25) during (3600))*/
+		CivilUIR2ClaimantIntentionScenario.inject(nothingFor(50),rampUsers(25) during (3600))
 		
 ).protocols(httpProtocol)
 }
