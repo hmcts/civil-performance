@@ -4,20 +4,17 @@ package scenarios
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import utils.{CivilDamagesHeader, Common, CsrfCheck, Environment}
-
 import java.io.{BufferedWriter, FileWriter}
 
 object CUIR2ClaimCreation {
 
-  val BaseURL = Environment.baseURL
+  val BaseURL = Environment.citizenURL
   val CitizenURL = Environment.citizenURL
   val IdAMURL = Environment.idamURL
   val IdamUrl = Environment.idamURL
   val paymentURL = Environment.PaymentURL
   val MinThinkTime = Environment.minThinkTime
   val MaxThinkTime = Environment.maxThinkTime
-
-  val caseFeeder=csv("caseIds.csv").circular
 
   /*======================================================================================
              * Civil Citizen R2 Claim creation
@@ -35,27 +32,29 @@ object CUIR2ClaimCreation {
 
     /*======================================================================================
                * Civil Citizen - Click on make a new claim
-    ==========================================================================================*/
+    =======================================================================================*/
+
     .group("CUIR2_Claimant_030_ClickOnMakeNewClaim") {
       exec(http("CUIR2_Claimant_030_005_ClickOnMakeNewClaim")
-        .get("/eligibility")
+        .get(CitizenURL + "/eligibility")
         .headers(CivilDamagesHeader.CUIR2Get)
-        .check(substring("Try the new online service"))
-      )
+        .check(substring("Try the new online service")))
     }
-    .pause(MinThinkTime, MaxThinkTime)
 
+    .pause(MinThinkTime, MaxThinkTime)
 
     /*======================================================================================
                * Civil Citizen - Eligibility Questionaire - Know claim amount claiming
-    ==========================================================================================*/
-      .group("CUIR2_Claimant_040_EligibilityClaimAmount") {
-        exec(http("CUIR2_Claimant_040_005_EligibilityClaimAmount")
-          .get("/eligibility/known-claim-amount")
-          .headers(CivilDamagesHeader.CUIR2Get)
-          .check(CsrfCheck.save)
-          .check(substring("Do you know the amount you are claiming?")))
+    =======================================================================================*/
+
+    .group("CUIR2_Claimant_040_EligibilityClaimAmount") {
+      exec(http("CUIR2_Claimant_040_005_EligibilityClaimAmount")
+        .get("/eligibility/known-claim-amount")
+        .headers(CivilDamagesHeader.CUIR2Get)
+        .check(CsrfCheck.save)
+        .check(substring("Do you know the amount you are claiming?")))
       }
+
       .pause(MinThinkTime, MaxThinkTime)
   
       /*======================================================================================
@@ -612,10 +611,7 @@ object CUIR2ClaimCreation {
           .check(substring("You have completed 6 of 7 sections")))
       }
       .pause(MinThinkTime, MaxThinkTime)
-  
-     
-     
-  
+
       /*======================================================================================
                * Civil Citizen -  2.Prepare your claim - CheckAndSendGet
     ==========================================================================================*/
@@ -624,7 +620,7 @@ object CUIR2ClaimCreation {
           .get("/claim/check-and-send")
           .headers(CivilDamagesHeader.CUIR2Get)
           .check(CsrfCheck.save)
-          .check(substring("Correspondence address"))
+          .check(substring("Equality and diversity question"))
         )
       }
 
@@ -633,16 +629,16 @@ object CUIR2ClaimCreation {
     /*======================================================================================
                * Civil Citizen -  PCQ Questionaire Opt out
     ======================================================================================*/
-//      .group("CUIR2_Claimant_420_PCQQuestionaire") {
-//        exec(http("CUIR2_Claimant_420_005_PCQQuestionaire")
-//          .post("https://pcq.perftest.platform.hmcts.net/opt-out")
-//          .headers(CivilDamagesHeader.CUIR2Post)
-//          .formParam("_csrf", "#{csrf}")
-//          .formParam("opt-out-button", "")
-//          .check(CsrfCheck.save)
-//          .check(substring("Check your answers")))
-//      }
-//      .pause(MinThinkTime, MaxThinkTime)
+      .group("CUIR2_Claimant_420_PCQQuestionaire") {
+        exec(http("CUIR2_Claimant_420_005_PCQQuestionaire")
+          .post("https://pcq.perftest.platform.hmcts.net/opt-out")
+          .headers(CivilDamagesHeader.CUIR2Post)
+          .formParam("_csrf", "#{csrf}")
+          .formParam("opt-out-button", "")
+          .check(CsrfCheck.save)
+          .check(substring("Check your answers")))
+      }
+      .pause(MinThinkTime, MaxThinkTime)
   
       /*======================================================================================
                * Civil Citizen -  2.Prepare your claim - Check And Send Post

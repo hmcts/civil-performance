@@ -1,0 +1,53 @@
+{
+  "data": {
+    "judicialDecision": {
+      "decision": "MAKE_AN_ORDER"
+    },
+    "judgeTitle": "District Judge",
+    "bilingualHint": "No",
+    "makeAppVisibleToRespondents": {
+      "makeAppAvailableCheck": [
+        "CONSENT_AGREEMENT_CHECKBOX"
+      ]
+    },
+    "judicialDecisionMakeOrder": {
+      "makeAnOrder": "APPROVE_OR_EDIT",
+      "judgeRecitalText": "#{judgeRecitalText}",
+      "orderText": "The hearing arranged for [enter date] be moved to the first available date after [enter date], avoiding [enter dates to avoid].",
+      "judgeApproveEditOptionDoc": null,
+      "judgeApproveEditOptionDate": null,
+      "judgeApproveEditOptionDateForUnlessOrder": null,
+      "dismissalOrderText": "This application is dismissed.",
+      "directionsText": null,
+      "directionsResponseByDate": null,
+      "judicialByCourtsInitiative": "OPTION_1",
+      "orderCourtOwnInitiative": "As this order was made on the court's own initiative, any party affected by the order may apply to set aside, vary, or stay the order. Any such application must be made by 4pm on",
+      "orderCourtOwnInitiativeDate": "#{currentDate}",
+      "orderWithoutNotice": "If you were not notified of the application before this order was made, you may apply to set aside, vary, or stay the order. Any such application must be made by 4pm on",
+      "orderWithoutNoticeDate": "#{currentDate}",
+      "showReasonForDecision": "No",
+      "reasonForDecisionText": null,
+      "displayjudgeApproveEditOptionDate": "No",
+      "displayjudgeApproveEditOptionDoc": "No",
+      "isOrderProcessedByStayScheduler": "No",
+      "isOrderProcessedByUnlessScheduler": "No",
+      "displayjudgeApproveEditOptionDateForUnlessOrder": "No",
+      "showJudgeRecitalText": [
+        "SHOW"
+      ]
+    },
+    "judicialMakeOrderDocPreview": {
+      "document_url": "#{documentUrl}",
+      "document_binary_url": "#{documentUrl}/binary",
+      "document_filename": "#{documentFilename}",
+      "document_hash": "#{documentHash}"
+    }
+  },
+  "event": {
+    "id": "MAKE_DECISION",
+    "summary": "",
+    "description": ""
+  },
+  "event_token": "#{event_token}",
+  "ignore_warning": false
+}

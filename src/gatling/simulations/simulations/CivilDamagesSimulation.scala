@@ -11,18 +11,11 @@ import scala.concurrent.duration._
 class CivilDamagesSimulation extends Simulation {
   
   val BaseURL = Environment.citizenURL
-  val loginFeeder = csv("login.csv").circular
-	val stFeeder = csv("loginSt.csv").circular
-	val defresponsecasesFeeder=csv("defResponseDetails.csv").circular
-	val claimantIntentioncasesFeeder=csv("claimantIntentionDetails.csv").circular
-	val assigncasesFeeder=csv("caseIds.csv").circular
-	//val viewAndResponseFeeder=csv("claimantcaseIds.csv").circular
-	
+
   val httpProtocol = Environment.HttpProtocol
 		.baseUrl(BaseURL)
 		.doNotTrackHeader("1")
 		.inferHtmlResources()
-//		.inferHtmlResources(DenyList("https://card.payments.service.gov.uk/.*"))
 		.silentResources
 
 	implicit val postHeaders: Map[String, String] = Map(
@@ -79,10 +72,10 @@ class CivilDamagesSimulation extends Simulation {
 /*======================================================================================
 * Civil Lips vs Lips Scenario
 ======================================================================================*/
-	val CivilLipsScenario = scenario("Civil Create Claim, Add Defendent and Lips")
-//		.feed(assigncasesFeeder)
+	val CivilLipsScenario = scenario("Civil Create Claim for LIPS")
 		.exitBlockOnFail {
 			exec(_.set("env", s"${env}"))
+
 			//Claim Creation
 			.exec(CreateUser.CreateClaimantCitizen)
 			.exec(CreateUser.CreateDefCitizen)
@@ -92,26 +85,39 @@ class CivilDamagesSimulation extends Simulation {
 			.exec(CUIR2ClaimCreation.run)
 			.exec(CUIR2Logout.CUILogout)
 			.pause(30)
-//			//assigning the case to defendant
+			// Assign the case to defendant
 			.exec(CivilAssignCase.cuiassign)
-//			.exec(_.set("claimNumber", "1733929831126802"))
-//			.exec(_.set("defEmailAddress", "cuiimtdefuservpviE@gmail.com"))
+
+//			.exec(_.set("claimNumber", "1734013013817931"))
+//			.exec(_.set("defEmailAddress", "cuiimtdefusermXYVu@gmail.com"))
+
+			// Login as Defendant & Reply
 			.exec(CUIR2HomePage.CUIR2HomePage)
 			.exec(CUIR2Login.CUIR2DefLogin)
 			.exec(CUIR2DefendantResponse.run)
+
+			// Defendant to Request a Hearing Change
 			.exec(CUIR2DefendantRequestChange.run)
 			.exec(CUIR2Logout.CUILogout)
+			.pause(10)
 
-				//request change & make payment
+//			.exec(_.set("claimantEmailAddress", "cuiimtclaimantuserBrbxN@gmail.com"))
 
-				// login as claimant, review & respond to change
+			// Login as Claimant & Reply to Request
+			.exec(CUIR2HomePage.CUIR2HomePage)
+			.exec(CUIR2Login.CUIR2Login)
+			.exec(CUIR2ClaimantRespondToRequest.run)
+			.pause(10)
 
-				// log in as judge to XUI and make an order
+//			.exec(_.set("newClaimNumber", "1734021576998733"))
+
+			//Login as Judge & Make an Order
+			.exec(CUIR2HomePage.XUIHomePage)
+			.exec(CUIR2Login.XUIJudicialLogin)
+			.exec(CUIR2JudicialMakeDecision.run)
+			.exec(CUIR2Logout.XUILogout)
 
 				//log in as claimant and upload doc - with notice application as well?
-
-
-
 
 		}
 

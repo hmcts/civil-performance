@@ -12,11 +12,14 @@ import com.fasterxml.jackson.databind.JsonNode
 
 object Common {
 
+  val manageCaseURL = Environment.manageCaseURL
+
   val rnd = new Random()
   val now = LocalDate.now()
   val patternDay = DateTimeFormatter.ofPattern("dd")
   val patternMonth = DateTimeFormatter.ofPattern("MM")
   val patternYear = DateTimeFormatter.ofPattern("yyyy")
+  val patternReference = DateTimeFormatter.ofPattern("yyyy-MM-dd")
 
   def randomString(length: Int) = {
     rnd.alphanumeric.filter(_.isLetter).take(length).mkString
@@ -269,71 +272,85 @@ object Common {
   
   val configurationui =
     exec(http("XUI_Common_000_ConfigurationUI")
-      .get("/external/configuration-ui/")
+      .get(manageCaseURL + "/external/configuration-ui/")
       .headers(Headers.commonHeader)
       .header("accept", "*/*")
       .check(substring("ccdGatewayUrl")))
   
   val configJson =
     exec(http("XUI_Common_000_ConfigJson")
-      .get("/assets/config/config.json")
+      .get(manageCaseURL + "/assets/config/config.json")
       .header("accept", "application/json, text/plain, */*")
       .check(substring("caseEditorConfig")))
   
   val TsAndCs =
     exec(http("XUI_Common_000_TsAndCs")
-      .get("/api/configuration?configurationKey=termsAndConditionsEnabled")
+      .get(manageCaseURL + "/api/configuration?configurationKey=termsAndConditionsEnabled")
       .headers(Headers.commonHeader)
       .header("accept", "application/json, text/plain, */*")
       .check(substring("false")))
   
   val userDetails =
     exec(http("XUI_Common_000_UserDetails")
-      .get("/api/user/details")
+      .get(manageCaseURL + "/api/user/details")
       .headers(Headers.commonHeader)
       .header("accept", "application/json, text/plain, */*"))
   
   val configUI =
     exec(http("XUI_Common_000_ConfigUI")
-      .get("/external/config/ui")
+      .get(manageCaseURL + "/external/config/ui")
       .headers(Headers.commonHeader)
       .header("accept", "application/json, text/plain, */*")
       .check(substring("ccdGatewayUrl")))
   
   val isAuthenticated =
     exec(http("XUI_Common_000_IsAuthenticated")
-      .get("/auth/isAuthenticated")
+      .get(manageCaseURL + "/auth/isAuthenticated")
       .headers(Headers.commonHeader)
       .header("accept", "application/json, text/plain, */*")
       .check(regex("true|false")))
   
   val profile =
     exec(http("XUI_Common_000_Profile")
-      .get("/data/internal/profile")
+      .get(manageCaseURL + "/data/internal/profile")
       .headers(Headers.commonHeader)
       .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-user-profile.v2+json;charset=UTF-8")
       .check(jsonPath("$.user.idam.id").notNull))
   
   val monitoringTools =
     exec(http("XUI_Common_000_MonitoringTools")
-      .get("/api/monitoring-tools")
+      .get(manageCaseURL + "/api/monitoring-tools")
       .headers(Headers.commonHeader)
       .header("accept", "application/json, text/plain, */*")
       .check(jsonPath("$.key").notNull))
   
   val caseShareOrgs =
     exec(http("XUI_Common_000_CaseShareOrgs")
-      .get("/api/caseshare/orgs")
+      .get(manageCaseURL + "/api/caseshare/orgs")
       .headers(Headers.commonHeader)
       .header("accept", "application/json, text/plain, */*")
       .check(jsonPath("$.name").notNull))
   
   val orgDetails =
     exec(http("XUI_Common_000_OrgDetails")
-      .get("/api/organisation")
+      .get(manageCaseURL + "/api/organisation")
       .headers(Headers.commonHeader)
       .header("accept", "application/json, text/plain, */*")
       .check(regex("name|Organisation route error"))
       .check(status.in(200, 304, 403)))
-  
+
+  val waJurisdictions =
+    exec(http("XUI_Common_000_WAJurisdictionsGet")
+      .get("/api/wa-supported-jurisdiction/get")
+      .headers(Headers.commonHeader)
+      .check(substring("[")))
+
+  val manageLabellingRoleAssignment =
+    exec(http("XUI_Common_000_ManageLabellingRoleAssignments")
+      .post("/api/role-access/roles/manageLabellingRoleAssignment/#{newClaimNumber}")
+      .headers(Headers.commonHeader)
+      .header("x-xsrf-token", "#{XSRFToken}")
+      .body(StringBody("{}"))
+      .check(status.in(200, 204)))
+      //No response body is returned, therefore no substring check is possible
 }

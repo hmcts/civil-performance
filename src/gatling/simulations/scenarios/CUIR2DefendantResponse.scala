@@ -308,7 +308,7 @@ object CUIR2DefendantResponse {
         .formParam("rows[0][day]", "01")
         .formParam("rows[0][month]", "01")
         .formParam("rows[0][year]", "2024")
-        .formParam("rows[0][description]", "first description0")
+        .formParam("rows[0][description]", "first description")
         .formParam("rows[1][day]", "01")
         .formParam("rows[1][month]", "02")
         .formParam("rows[1][year]", "2024")
@@ -649,8 +649,20 @@ object CUIR2DefendantResponse {
         .headers(CivilDamagesHeader.CUIR2Get)
         .check(CsrfCheck.save)
         .check(status.in(200, 304))
+        .check(substring("Equality and diversity questions")))
+    }
+    .pause(MinThinkTime, MaxThinkTime)
+
+    .group("CUIR2_DefResponse_385_PCQQuestionnaire") {
+      exec(http("CUIR2_DefResponse_385_005PCQQuestionnaire")
+        .post("https://pcq.#{env}.platform.hmcts.net/opt-out")
+        .headers(CivilDamagesHeader.CUIR2Post)
+        .formParam("_csrf", "#{csrf}")
+        .formParam("opt-out-button", "")
+        .check(CsrfCheck.save)
         .check(substring("Check your answers")))
     }
+
     .pause(MinThinkTime, MaxThinkTime)
 
     /*======================================================================================
