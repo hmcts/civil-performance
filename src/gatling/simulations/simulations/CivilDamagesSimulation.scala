@@ -85,6 +85,7 @@ class CivilDamagesSimulation extends Simulation {
 			.exec(CUIR2ClaimCreation.run)
 			.exec(CUIR2Logout.CUILogout)
 			.pause(30)
+
 			// Assign the case to defendant
 			.exec(CivilAssignCase.cuiassign)
 
