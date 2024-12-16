@@ -1,5 +1,6 @@
 package scenarios
 
+import com.typesafe.config.{Config, ConfigFactory}
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import utils.Environment
@@ -7,17 +8,13 @@ import utils.Environment
 import java.io.{BufferedWriter, FileWriter}
 
 object CivilAssignCase {
-  
+
+  val config: Config = ConfigFactory.load()
   val minThinkTime = Environment.minThinkTime
   val maxThinkTime = Environment.maxThinkTime
-  
-  val manageOrgURL = Environment.manageOrgURL
   val idamURL = Environment.idamURL
+  val civilSecret = config.getString("auth.civilUiSecret")
 
-  /*======================================================================================
-*Business process : As part of the create FR respondent application share a case
-* Below group contains all the share the unassigned case
-======================================================================================*/
   //userType must be "Caseworker", "Legal" or "Citizen"
   val Auth =
   
@@ -27,8 +24,8 @@ object CivilAssignCase {
     .formParam("username", "#{defEmailAddress}")
     .formParam("password", "Password12!")
     .formParam("client_id", "civil_citizen_ui")
-    // .formParam("client_secret", clientSecret)
-    .formParam("client_secret", "47js6e86Wv5718D2O77OL466020731ii")
+     .formParam("client_secret", civilSecret)
+    .formParam("scope", "profile roles openid")
     .formParam("scope", "profile roles openid")
     .header("Content-Type", "application/x-www-form-urlencoded")
     .check(jsonPath("$.access_token").saveAs("bearerToken")))

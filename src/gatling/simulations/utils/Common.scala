@@ -175,10 +175,7 @@ object Common {
   def getIdempotency (): String = {
     Random.nextDouble().toString.replace(".", "-")
   }
-  
-  
-  
-  
+
   //Date of Separation >= 6 years < 30 years
   def getSeparationYear (): String = {
     now.minusYears(6 + rnd.nextInt(23)).format(patternYear)
