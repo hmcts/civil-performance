@@ -341,7 +341,8 @@ object Common {
     exec(http("XUI_Common_000_WAJurisdictionsGet")
       .get("/api/wa-supported-jurisdiction/get")
       .headers(Headers.commonHeader)
-      .check(substring("[")))
+      .check(substring("["))
+      .check(status.in(200,204,302,304,401)))
 
   val manageLabellingRoleAssignment =
     exec(http("XUI_Common_000_ManageLabellingRoleAssignments")

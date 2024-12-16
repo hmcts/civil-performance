@@ -29,7 +29,6 @@ case object CUIR2JudicialMakeDecision {
         .header("x-xsrf-token", "#{XSRFToken}")
         .header("experimental", "true"))
 
-        .exec(Common.waJurisdictions)
         .exec(Common.manageLabellingRoleAssignment)
     }
 
@@ -102,7 +101,6 @@ case object CUIR2JudicialMakeDecision {
       .header("x-xsrf-token", "#{XSRFToken}")
       .header("experimental", "true"))
 
-    .exec(Common.waJurisdictions)
     .exec(Common.manageLabellingRoleAssignment)
   }
 }

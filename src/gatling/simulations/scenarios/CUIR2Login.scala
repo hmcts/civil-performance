@@ -102,13 +102,6 @@ object CUIR2Login {
       .exec(Common.isAuthenticated)
       .exec(Common.monitoringTools)
 
-      .exec(http("XUI_020_010_Jurisdictions")
-        .get(manageCaseURL + "/aggregated/caseworkers/:uid/jurisdictions?access=read")
-        .headers(Headers.commonHeader)
-        .header("accept", "application/json")
-        .check(substring("id"))
-        .check(status.in(200,204,302,304,401)))
-
       .exec(getCookieValue(CookieKey("XSRF-TOKEN").withDomain(manageCaseURL.replace("https://", "")).saveAs("XSRFToken")))
 
       .exec(Common.orgDetails)
