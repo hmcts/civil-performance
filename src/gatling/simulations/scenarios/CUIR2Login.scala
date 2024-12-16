@@ -28,8 +28,7 @@ object CUIR2Login {
           .formParam("save", "Sign in")
           .formParam("selfRegistrationEnabled", "true")
           .formParam("_csrf", "#{csrf}")
-          .check(substring("Your money claims account"))
-        )
+          .check(substring("Your money claims account")))
     }
 
     .pause(MinThinkTime, MaxThinkTime)
@@ -39,19 +38,20 @@ object CUIR2Login {
   ======================================================================================*/
 
   val CUIR2DefLogin =
-  group("CUIR2_Def_020_Login") {
-    exec(http("CUIR2_Def_020_Login")
-      .post(IdamUrl + "/login?client_id=civil_citizen_ui&response_type=code&redirect_uri=" + CitizenURL + "/oauth2/callback&profile openid roles manage-user create-user search-user")
-      .headers(CivilDamagesHeader.MoneyClaimSignInHeader)
-      .formParam("username", "#{defEmailAddress}")
-      .formParam("password", "Password12!")
-      .formParam("selfRegistrationEnabled", "true")
-      .formParam("_csrf", "#{csrf}")
-      .check(status.in(200, 304))
-      .check(substring("Claims made against you")))
-  }
 
-  .pause(MinThinkTime, MaxThinkTime)
+    group("CUIR2_Def_020_Login") {
+      exec(http("CUIR2_Def_020_Login")
+        .post(IdamUrl + "/login?client_id=civil_citizen_ui&response_type=code&redirect_uri=" + CitizenURL + "/oauth2/callback&profile openid roles manage-user create-user search-user")
+        .headers(CivilDamagesHeader.MoneyClaimSignInHeader)
+        .formParam("username", "#{defEmailAddress}")
+        .formParam("password", "Password12!")
+        .formParam("selfRegistrationEnabled", "true")
+        .formParam("_csrf", "#{csrf}")
+        .check(status.in(200, 304))
+        .check(substring("Claims made against you")))
+    }
+
+    .pause(MinThinkTime, MaxThinkTime)
 
   /*====================================================================================
       *CUI R2 Login

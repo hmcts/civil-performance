@@ -291,7 +291,8 @@ object Common {
     exec(http("XUI_Common_000_UserDetails")
       .get(manageCaseURL + "/api/user/details")
       .headers(Headers.commonHeader)
-      .header("accept", "application/json, text/plain, */*"))
+      .header("accept", "application/json, text/plain, */*")
+      .check(status.in(200, 204, 302, 304, 401)))
   
   val configUI =
     exec(http("XUI_Common_000_ConfigUI")
