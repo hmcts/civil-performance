@@ -84,6 +84,7 @@ class CivilDamagesSimulation extends Simulation {
 			.exec(CUIR2Login.CUIR2Login)
 			.exec(CUIR2ClaimCreation.run)
 			.exec(CUIR2Logout.CUILogout)
+
 			.pause(30)
 
 			// Assign the case to defendant
@@ -100,6 +101,7 @@ class CivilDamagesSimulation extends Simulation {
 			// Defendant to Request a Hearing Change
 			.exec(CUIR2DefendantRequestChange.run)
 			.exec(CUIR2Logout.CUILogout)
+
 			.pause(10)
 
 //			.exec(_.set("claimantEmailAddress", "cuiimtclaimantuserBrbxN@gmail.com"))
@@ -108,17 +110,19 @@ class CivilDamagesSimulation extends Simulation {
 			.exec(CUIR2HomePage.CUIR2HomePage)
 			.exec(CUIR2Login.CUIR2Login)
 			.exec(CUIR2ClaimantRespondToRequest.run)
+			.exec(CUIR2Logout.CUILogout)
+
 			.pause(10)
 
-//			.exec(_.set("newClaimNumber", "1734021576998733"))
+//			.exec(_.set("newClaimNumber", "1734435595945832"))
+			.exec(_.set("email", "EMP261004@ejudiciary.net"))
+			.exec(_.set("password", "Testing123"))
 
 			//Login as Judge & Make an Order
 			.exec(CUIR2HomePage.XUIHomePage)
 			.exec(CUIR2Login.XUIJudicialLogin)
 			.exec(CUIR2JudicialMakeDecision.run)
 			.exec(CUIR2Logout.XUILogout)
-
-				//log in as claimant and upload doc - with notice application as well?
 
 		}
 

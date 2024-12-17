@@ -44,11 +44,8 @@ object CUIR2HomePage {
         .header("sec-fetch-site", "none"))
 
         .exec(Common.configurationui)
-
         .exec(Common.configJson)
-
         .exec(Common.TsAndCs)
-
         .exec(Common.configUI)
 
         // .exec(Common.userDetails)

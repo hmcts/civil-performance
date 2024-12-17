@@ -221,52 +221,6 @@ object Common {
         .check(regex(""""(?:BUILDING|ORGANISATION)_.+" : "(.+?)",(?s).*?"(?:DEPENDENT_LOCALITY|THOROUGHFARE_NAME)" : "(.+?)",.*?"POST_TOWN" : "(.+?)",.*?"POSTCODE" : "(.+?)"""")
           .ofType[(String, String, String, String)].findRandom.saveAs("addressLines")))
   
-  def healthcheck (path: String) =
-    exec(http("XUI_Common_000_Healthcheck")
-      .get(s"/api/healthCheck?path=${path}")
-      .headers(Headers.commonHeader)
-      .header("accept", "application/json, text/plain, */*")
-      .check(substring("""{"healthState":true}""")))
-  
-  val activity =
-    exec(http("XUI_Common_000_ActivityOptions")
-      .options("/activity/cases/${caseId}/activity")
-      .headers(Headers.commonHeader)
-      .header("accept", "application/json, text/plain, */*")
-      .header("sec-fetch-site", "same-site")
-      .check(status.in(200, 304, 403)))
-  
-  val caseActivityGet =
-    exec(http("XUI_Common_000_ActivityOptions")
-      .options("/activity/cases/${caseId}/activity")
-      .headers(Headers.commonHeader)
-      .header("accept", "application/json, text/plain, */*")
-      .header("sec-fetch-site", "same-site")
-      .check(status.in(200, 304, 403)))
-      
-      .exec(http("XUI_Common_000_ActivityGet")
-        .get("/activity/cases/${caseId}/activity")
-        .headers(Headers.commonHeader)
-        .header("accept", "application/json, text/plain, */*")
-        .header("sec-fetch-site", "same-site")
-        .check(status.in(200, 304, 403)))
-  
-  val caseActivityPost =
-    exec(http("XUI_Common_000_ActivityOptions")
-      .options("/activity/cases/${caseId}/activity")
-      .headers(Headers.commonHeader)
-      .header("accept", "application/json, text/plain, */*")
-      .header("sec-fetch-site", "same-site")
-      .check(status.in(200, 304, 403)))
-      
-      .exec(http("XUI_Common_000_ActivityPost")
-        .post("/activity/cases/${caseId}/activity")
-        .headers(Headers.commonHeader)
-        .header("accept", "application/json, text/plain, */*")
-        .header("sec-fetch-site", "same-site")
-        .body(StringBody("{\n  \"activity\": \"view\"\n}"))
-        .check(status.in(200, 201, 304, 403)))
-  
   val configurationui =
     exec(http("XUI_Common_000_ConfigurationUI")
       .get(manageCaseURL + "/external/configuration-ui/")
@@ -339,17 +293,31 @@ object Common {
 
   val waJurisdictions =
     exec(http("XUI_Common_000_WAJurisdictionsGet")
-      .get("/api/wa-supported-jurisdiction/get")
+      .get(manageCaseURL + "/api/wa-supported-jurisdiction/get")
       .headers(Headers.commonHeader)
       .check(substring("["))
       .check(status.in(200,204,302,304,401)))
 
+  val waJurisdictionsRead =
+    exec(http("XUI_Common_000_WAJurisdictionsGet")
+      .get(manageCaseURL + "/aggregated/caseworkers/:uid/jurisdictions?access=read")
+      .headers(Headers.commonHeader)
+      .formParam("access", "read")
+      .check(status.in(200)))
+
   val manageLabellingRoleAssignment =
     exec(http("XUI_Common_000_ManageLabellingRoleAssignments")
-      .post("/api/role-access/roles/manageLabellingRoleAssignment/#{newClaimNumber}")
+      .post(manageCaseURL + "/api/role-access/roles/manageLabellingRoleAssignment/#{newClaimNumber}")
       .headers(Headers.commonHeader)
       .header("x-xsrf-token", "#{XSRFToken}")
       .body(StringBody("{}"))
       .check(status.in(200, 204)))
       //No response body is returned, therefore no substring check is possible
+
+  val refreshRoleAssignments =
+    exec(http("XUI_Common_000_RefreshRoleAssignments")
+      .get(manageCaseURL + "/api/user/details?refreshRoleAssignments=true/")
+      .headers(Headers.commonHeader)
+      .header("Accept", "application/json, text/plain, */*")
+      .check(status.in(200, 204)))
 }
