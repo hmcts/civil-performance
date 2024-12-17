@@ -103,23 +103,6 @@ object CUIR2Login {
       .exec(Common.monitoringTools)
 
       .exec(getCookieValue(CookieKey("XSRF-TOKEN").withDomain(manageCaseURL.replace("https://", "")).saveAs("XSRFToken")))
-
-//      .exec(Common.orgDetails)
-
-      .exec(http("XUI_020_015_WorkBasketInputs")
-        .get(manageCaseURL + "/data/internal/case-types/GENERALAPPLICATION/work-basket-inputs")
-        .headers(Headers.commonHeader)
-        .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-workbasket-input-details.v2+json;charset=UTF-8")
-        .check(regex("workbasketInputs|Not Found"))
-        .check(status.in(200, 404)))
-
-      .exec(http("XUI_020_020_SearchCases")
-        .post(manageCaseURL + "/data/internal/searchCases?ctid=GENERALAPPLICATION&use_case=WORKBASKET&view=WORKBASKET&page=1")
-        .headers(Headers.commonHeader)
-        .header("accept", "application/json")
-        .formParam("x-xsrf-token", "#{XSRFToken}")
-        .body(StringBody("""{"size":25}"""))
-        .check(substring("columns")))
     }
 
     .pause(MinThinkTime , MaxThinkTime)
