@@ -9,12 +9,14 @@ import utils.Environment
 import scala.concurrent.duration._
 
 class CivilDamagesSimulation extends Simulation {
+
+	val judicialUsersFeeder = csv("judicialUsers.csv").circular
   
   val BaseURL = Environment.citizenURL
 
   val httpProtocol = Environment.HttpProtocol
 		.baseUrl(BaseURL)
-		.doNotTrackHeader("1")
+//		.doNotTrackHeader("1")
 		.inferHtmlResources()
 		.silentResources
 
@@ -114,16 +116,14 @@ class CivilDamagesSimulation extends Simulation {
 
 			.pause(10)
 
-//			.exec(_.set("newClaimNumber", "1734435595945832"))
-			.exec(_.set("email", "EMP261004@ejudiciary.net"))
-			.exec(_.set("password", "Testing123"))
-
 			//Login as Judge & Make an Order
+//			.exec(_.set("newClaimNumber", "1734436785675601"))
+
+			.feed(judicialUsersFeeder)
 			.exec(CUIR2HomePage.XUIHomePage)
 			.exec(CUIR2Login.XUIJudicialLogin)
 			.exec(CUIR2JudicialMakeDecision.run)
 			.exec(CUIR2Logout.XUILogout)
-
 		}
 
 	//defines the Gatling simulation model, based on the inputs

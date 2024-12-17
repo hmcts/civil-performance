@@ -20,7 +20,7 @@ case object CUIR2JudicialMakeDecision {
 
   val run = {
 
-    group("XUI_JuidicialOrder_010_ViewCases") {
+    group("XUI_JudicialOrder_010_ViewCases") {
       exec(http("XUI_JudicialOrder_010_005_ViewCases")
         .get(manageCaseURL + "/cases")
         .headers(Headers.commonHeader)
