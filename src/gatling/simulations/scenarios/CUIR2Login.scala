@@ -104,7 +104,7 @@ object CUIR2Login {
 
       .exec(getCookieValue(CookieKey("XSRF-TOKEN").withDomain(manageCaseURL.replace("https://", "")).saveAs("XSRFToken")))
 
-      .exec(Common.orgDetails)
+//      .exec(Common.orgDetails)
 
       .exec(http("XUI_020_015_WorkBasketInputs")
         .get(manageCaseURL + "/data/internal/case-types/GENERALAPPLICATION/work-basket-inputs")
