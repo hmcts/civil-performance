@@ -36,6 +36,12 @@ case object CUIR2JudicialMakeDecision {
       .exec(Common.configUI)
       .exec(Common.configJson)
       .exec(Common.TsAndCs)
+
+      //see xui-webapp cookie capture in the Homepage scenario for details of why this is being used
+      .exec(addCookie(Cookie("xui-webapp", "#{xuiWebAppCookie}")
+        .withMaxAge(28800)
+        .withSecure(true)))
+
       .exec(Common.refreshRoleAssignments)
       .exec(Common.isAuthenticated)
       .exec(Common.waJurisdictionsRead)
