@@ -27,6 +27,11 @@ case object CUIR2JudicialMakeDecision {
         .header("Content-Type", "application/json")
         .header("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7"))
 
+      //see xui-webapp cookie capture in the Homepage scenario for details of why this is being used
+      .exec(addCookie(Cookie("xui-webapp", "#{xuiWebAppCookie}")
+        .withMaxAge(28800)
+        .withSecure(true)))
+
       .exec(Common.configurationui)
       .exec(Common.configUI)
       .exec(Common.configJson)
@@ -55,14 +60,14 @@ case object CUIR2JudicialMakeDecision {
 
     .pause(MinThinkTime , MaxThinkTime)
 
-      .group("XUI_JudicialOrder_020_SearchCase") {
-        exec(http("XUI_JudicialOrder_020_005_SearchCase")
-          .post(manageCaseURL + "/data/internal/searchCases?ctid=GENERALAPPLICATION&use_case=WORKBASKET&view=WORKBASKET&page=1&case_reference=#{newClaimNumber}")
-          .headers(Headers.commonHeader)
-          .header("accept", "application/json")
-          .header("Content-Type", "application/json")
-          .header("x-xsrf-token", "#{XSRFToken}"))
-      }
+    .group("XUI_JudicialOrder_020_SearchCase") {
+      exec(http("XUI_JudicialOrder_020_005_SearchCase")
+        .post(manageCaseURL + "/data/internal/searchCases?ctid=GENERALAPPLICATION&use_case=WORKBASKET&view=WORKBASKET&page=1&case_reference=#{newClaimNumber}")
+        .headers(Headers.commonHeader)
+        .header("accept", "application/json")
+        .header("Content-Type", "application/json")
+        .header("x-xsrf-token", "#{XSRFToken}"))
+    }
 
     .pause(MinThinkTime , MaxThinkTime)
 
@@ -74,7 +79,7 @@ case object CUIR2JudicialMakeDecision {
         .header("Accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-case-view.v2+json")
         .header("experimental", "true"))
 
-        .exec(Common.manageLabellingRoleAssignment)
+      .exec(Common.manageLabellingRoleAssignment)
     }
 
     .pause(MinThinkTime , MaxThinkTime)
