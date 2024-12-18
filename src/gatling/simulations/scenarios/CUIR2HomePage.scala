@@ -34,10 +34,10 @@ object CUIR2HomePage {
 
   val XUIHomePage =
 
-    exec(flushHttpCache)
-    .exec(flushCookieJar)
+//    exec(flushHttpCache)
+//    .exec(flushCookieJar)
 
-    .group("XUI_010_Homepage") {
+    group("XUI_010_Homepage") {
       exec(http("XUI_010_005_Homepage")
         .get(manageCaseURL + "/")
         .headers(Headers.navigationHeader)
