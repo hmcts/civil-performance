@@ -38,7 +38,7 @@ class CivilDamagesSimulation extends Simulation {
 	}
 
 	/* PERFORMANCE TEST CONFIGURATION */
-	val lipsTargetPerHour: Double = 200 //110
+	val lipsTargetPerHour: Double = 110 //110
 
 	/* ADDITIONAL COMMAND LINE ARGUMENT OPTIONS */
 	val debugMode = System.getProperty("debug", "off") //runs a single user e.g. ./gradle gatlingRun -Ddebug=on (default: off)
@@ -152,6 +152,6 @@ class CivilDamagesSimulation extends Simulation {
 	
 	setUp(
 		CivilLipsScenario.inject(simulationProfile(testType, lipsTargetPerHour, numberOfPipelineUsers)).pauses(pauseOption),
-//		CivilJudicialMakeOrder.inject(simulationProfile(testType, lipsTargetPerHour, numberOfPipelineUsers)).pauses(pauseOption)
+		CivilJudicialMakeOrder.inject(simulationProfile(testType, lipsTargetPerHour, numberOfPipelineUsers)).pauses(pauseOption)
 	).protocols(httpProtocol)
 }
