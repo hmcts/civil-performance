@@ -770,7 +770,7 @@ object CUIR2ClaimCreation {
   
       .group("CUIR2_Claimant_470_CardDetail_ConfirmCardDetail") {
         exec(http("CUIR2_Claimant_470_005_CardDetail_ConfirmCardDetail")
-          .post(paymentURL + "/card_details/${CardDetailPageChargeId}/confirm")
+          .post(paymentURL + "/card_details/#{CardDetailPageChargeId}/confirm")
           .formParam("csrfToken", "#{_csrfTokenCardDetailConfirm}")
           .formParam("chargeId", "#{CardDetailPageChargeId}")
           .check(regex("Your payment was")))

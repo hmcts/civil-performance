@@ -214,7 +214,7 @@ object Common {
   val postcodeLookup =
     feed(postcodeFeeder)
       .exec(http("XUI_Common_000_PostcodeLookup")
-        .get("/api/addresses?postcode=${postcode}")
+        .get("/api/addresses?postcode=#{postcode}")
         .headers(Headers.commonHeader)
         .header("accept", "application/json")
         .check(jsonPath("#.header.totalresults").ofType[Int].gt(0))

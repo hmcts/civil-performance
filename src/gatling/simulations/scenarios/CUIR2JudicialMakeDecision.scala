@@ -18,7 +18,7 @@ case object CUIR2JudicialMakeDecision {
   val patternDate = DateTimeFormatter.ofPattern("yyyy-MM-dd")
   val now = LocalDate.now()
 
-  val run = {
+  val run =
 
     group("XUI_JudicialOrder_010_ViewCases") {
       exec(http("XUI_JudicialOrder_010_005_ViewCases")
@@ -90,7 +90,9 @@ case object CUIR2JudicialMakeDecision {
 
     .pause(MinThinkTime , MaxThinkTime)
 
-    .group("XUI_JudicialOrder_040_SelectMakeDecision") {
+  val judicialMakeDecisionEvent =
+
+    group("XUI_JudicialOrder_040_SelectMakeDecision") {
       exec(http("XUI_JudicialOrder_040_005_SelectMakeDecision")
         .get(manageCaseURL + "/data/internal/cases/#{newClaimNumber}/event-triggers/MAKE_DECISION?ignore-warning=false")
         .headers(Headers.commonHeader)
@@ -158,5 +160,4 @@ case object CUIR2JudicialMakeDecision {
       .header("experimental", "true"))
 
     .exec(Common.manageLabellingRoleAssignment)
-  }
 }

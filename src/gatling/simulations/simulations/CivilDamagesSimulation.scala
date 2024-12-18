@@ -78,51 +78,52 @@ class CivilDamagesSimulation extends Simulation {
 		.exitBlockOnFail {
 			exec(_.set("env", s"${env}"))
 
-			//Claim Creation
-			.exec(CreateUser.CreateClaimantCitizen)
-			.exec(CreateUser.CreateDefCitizen)
-			.exec(CreateUser.CreateClaimantCitizen)
-			.exec(CUIR2HomePage.CUIR2HomePage)
-			.exec(CUIR2Login.CUIR2Login)
-			.exec(CUIR2ClaimCreation.run)
-			.exec(CUIR2Logout.CUILogout)
-
-			.pause(30)
-
-			// Assign the case to defendant
-			.exec(CivilAssignCase.cuiassign)
-
-//			.exec(_.set("claimNumber", "1734013013817931"))
-//			.exec(_.set("defEmailAddress", "cuiimtdefusermXYVu@gmail.com"))
-
-			// Login as Defendant & Reply
-			.exec(CUIR2HomePage.CUIR2HomePage)
-			.exec(CUIR2Login.CUIR2DefLogin)
-			.exec(CUIR2DefendantResponse.run)
-
-			// Defendant to Request a Hearing Change
-			.exec(CUIR2DefendantRequestChange.run)
-			.exec(CUIR2Logout.CUILogout)
-
-			.pause(10)
-
-//			.exec(_.set("claimantEmailAddress", "cuiimtclaimantuserBrbxN@gmail.com"))
-
-			// Login as Claimant & Reply to Request
-			.exec(CUIR2HomePage.CUIR2HomePage)
-			.exec(CUIR2Login.CUIR2Login)
-			.exec(CUIR2ClaimantRespondToRequest.run)
-			.exec(CUIR2Logout.CUILogout)
-
-			.pause(10)
+//			//Claim Creation
+//			.exec(CreateUser.CreateClaimantCitizen)
+//			.exec(CreateUser.CreateDefCitizen)
+//			.exec(CreateUser.CreateClaimantCitizen)
+//			.exec(CUIR2HomePage.CUIR2HomePage)
+//			.exec(CUIR2Login.CUIR2Login)
+//			.exec(CUIR2ClaimCreation.run)
+//			.exec(CUIR2Logout.CUILogout)
+//
+//			.pause(30)
+//
+//			// Assign the case to defendant
+//			.exec(CivilAssignCase.cuiassign)
+//
+////			.exec(_.set("claimNumber", "1734013013817931"))
+////			.exec(_.set("defEmailAddress", "cuiimtdefusermXYVu@gmail.com"))
+//
+//			// Login as Defendant & Reply
+//			.exec(CUIR2HomePage.CUIR2HomePage)
+//			.exec(CUIR2Login.CUIR2DefLogin)
+//			.exec(CUIR2DefendantResponse.run)
+//
+//			// Defendant to Request a Hearing Change
+//			.exec(CUIR2DefendantRequestChange.run)
+//			.exec(CUIR2Logout.CUILogout)
+//
+//			.pause(10)
+//
+////			.exec(_.set("claimantEmailAddress", "cuiimtclaimantuserBrbxN@gmail.com"))
+//
+//			// Login as Claimant & Reply to Request
+//			.exec(CUIR2HomePage.CUIR2HomePage)
+//			.exec(CUIR2Login.CUIR2Login)
+//			.exec(CUIR2ClaimantRespondToRequest.run)
+//			.exec(CUIR2Logout.CUILogout)
+//
+//			.pause(10)
 
 			//Login as Judge & Make an Order
-//			.exec(_.set("newClaimNumber", "1734436785675601"))
+			.exec(_.set("newClaimNumber", "1734436785675601"))
 
 			.feed(judicialUsersFeeder)
 			.exec(CUIR2HomePage.XUIHomePage)
 			.exec(CUIR2Login.XUIJudicialLogin)
 			.exec(CUIR2JudicialMakeDecision.run)
+			.exec(CUIR2JudicialMakeDecision.judicialMakeDecisionEvent)
 			.exec(CUIR2Logout.XUILogout)
 		}
 
