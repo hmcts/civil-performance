@@ -316,7 +316,7 @@ object Common {
 
   val refreshRoleAssignments =
     exec(http("XUI_Common_000_RefreshRoleAssignments")
-      .get(manageCaseURL + "/api/user/details?refreshRoleAssignments=true/")
+      .get(manageCaseURL + "/api/user/details?refreshRoleAssignments=true")
       .headers(Headers.commonHeader)
       .header("Accept", "application/json, text/plain, */*")
       .check(status.in(200, 204)))

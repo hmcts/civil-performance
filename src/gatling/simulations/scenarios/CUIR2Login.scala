@@ -91,6 +91,7 @@ object CUIR2Login {
 
       //see xui-webapp cookie capture in the Homepage scenario for details of why this is being used
       .exec(addCookie(Cookie("xui-webapp", "#{xuiWebAppCookie}")
+        .withDomain(manageCaseURL.replace("https://", ""))
         .withMaxAge(28800)
         .withSecure(true)))
 

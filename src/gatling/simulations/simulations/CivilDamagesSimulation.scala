@@ -113,18 +113,27 @@ class CivilDamagesSimulation extends Simulation {
 			.exec(CUIR2Login.CUIR2Login)
 			.exec(CUIR2ClaimantRespondToRequest.run)
 			.exec(CUIR2Logout.CUILogout)
+
+			//Login as Judge & Make an Order
+			.feed(judicialUsersFeeder)
+//			.feed(judicialCaseFeeder)
+			.exec(CUIR2HomePage.XUIHomePage)
+			.exec(CUIR2Login.XUIJudicialLogin)
+			.exec(CUIR2JudicialMakeDecision.run)
+			.exec(CUIR2JudicialMakeDecision.judicialMakeDecisionEvent)
+			.exec(CUIR2Logout.XUILogout)
 		}
 
 	val CivilJudicialMakeOrder = scenario("Civil LIPS Claim - Judicial Make Order")
 		.exitBlockOnFail {
 			exec(_.set("env", s"${env}"))
 			//Login as Judge & Make an Order
-			feed(judicialUsersFeeder)
+			.feed(judicialUsersFeeder)
 			.feed(judicialCaseFeeder)
 			.exec(CUIR2HomePage.XUIHomePage)
 			.exec(CUIR2Login.XUIJudicialLogin)
 			.exec(CUIR2JudicialMakeDecision.run)
-//			.exec(CUIR2JudicialMakeDecision.judicialMakeDecisionEvent)
+			.exec(CUIR2JudicialMakeDecision.judicialMakeDecisionEvent)
 			.exec(CUIR2Logout.XUILogout)
 		}
 
@@ -151,7 +160,7 @@ class CivilDamagesSimulation extends Simulation {
 	}
 	
 	setUp(
-//		CivilLipsScenario.inject(simulationProfile(testType, lipsTargetPerHour, numberOfPipelineUsers)).pauses(pauseOption),
-		CivilJudicialMakeOrder.inject(simulationProfile(testType, lipsTargetPerHour, numberOfPipelineUsers)).pauses(pauseOption)
+		CivilLipsScenario.inject(simulationProfile(testType, lipsTargetPerHour, numberOfPipelineUsers)).pauses(pauseOption),
+//		CivilJudicialMakeOrder.inject(simulationProfile(testType, lipsTargetPerHour, numberOfPipelineUsers)).pauses(pauseOption)
 	).protocols(httpProtocol)
 }

@@ -27,11 +27,16 @@ case object CUIR2JudicialMakeDecision {
         .header("Content-Type", "application/json")
         .header("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7"))
 
+      //see xui-webapp cookie capture in the Homepage scenario for details of why this is being used
+      .exec(addCookie(Cookie("xui-webapp", "#{xuiWebAppCookie}")
+        .withDomain(manageCaseURL.replace("https://", ""))
+        .withMaxAge(28800)
+        .withSecure(true)))
+
       .exec(Common.configurationui)
       .exec(Common.configUI)
       .exec(Common.configJson)
       .exec(Common.TsAndCs)
-
       .exec(Common.refreshRoleAssignments)
       .exec(Common.isAuthenticated)
       .exec(Common.waJurisdictionsRead)
@@ -49,7 +54,6 @@ case object CUIR2JudicialMakeDecision {
         .post(manageCaseURL + "/data/internal/searchCases?ctid=GENERALAPPLICATION&use_case=WORKBASKET&view=WORKBASKET&page=1")
         .headers(Headers.commonHeader)
         .header("accept", "application/json")
-        .header("Content-Type", "application/json")
         .body(StringBody("""{"size":25}"""))
         .check(substring("columns")))
     }
@@ -61,7 +65,6 @@ case object CUIR2JudicialMakeDecision {
         .post(manageCaseURL + "/data/internal/searchCases?ctid=GENERALAPPLICATION&use_case=WORKBASKET&view=WORKBASKET&page=1&case_reference=#{newClaimNumber}")
         .headers(Headers.commonHeader)
         .header("accept", "application/json")
-        .header("Content-Type", "application/json")
         .header("x-xsrf-token", "#{XSRFToken}"))
     }
 
