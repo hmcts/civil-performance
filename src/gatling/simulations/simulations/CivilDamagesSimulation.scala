@@ -124,7 +124,7 @@ class CivilDamagesSimulation extends Simulation {
 			.exec(CUIR2HomePage.XUIHomePage)
 			.exec(CUIR2Login.XUIJudicialLogin)
 			.exec(CUIR2JudicialMakeDecision.run)
-			.exec(CUIR2JudicialMakeDecision.judicialMakeDecisionEvent)
+//			.exec(CUIR2JudicialMakeDecision.judicialMakeDecisionEvent)
 			.exec(CUIR2Logout.XUILogout)
 		}
 
