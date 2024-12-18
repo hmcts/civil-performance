@@ -27,20 +27,10 @@ case object CUIR2JudicialMakeDecision {
         .header("Content-Type", "application/json")
         .header("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7"))
 
-      //see xui-webapp cookie capture in the Homepage scenario for details of why this is being used
-      .exec(addCookie(Cookie("xui-webapp", "#{xuiWebAppCookie}")
-        .withMaxAge(28800)
-        .withSecure(true)))
-
       .exec(Common.configurationui)
       .exec(Common.configUI)
       .exec(Common.configJson)
       .exec(Common.TsAndCs)
-
-      //see xui-webapp cookie capture in the Homepage scenario for details of why this is being used
-      .exec(addCookie(Cookie("xui-webapp", "#{xuiWebAppCookie}")
-        .withMaxAge(28800)
-        .withSecure(true)))
 
       .exec(Common.refreshRoleAssignments)
       .exec(Common.isAuthenticated)
