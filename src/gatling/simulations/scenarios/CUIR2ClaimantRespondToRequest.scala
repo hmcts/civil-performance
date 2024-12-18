@@ -3,6 +3,7 @@ package scenarios
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import utils.{CivilDamagesHeader, CsrfCheck, Environment}
+import java.io.{BufferedWriter, FileWriter}
 
 object CUIR2ClaimantRespondToRequest {
 
@@ -191,6 +192,14 @@ object CUIR2ClaimantRespondToRequest {
       .formParam("name", "Perf test"))
 
     .pause(MinThinkTime, MaxThinkTime)
+
+    .exec { session =>
+       val fw = new BufferedWriter(new FileWriter("LIPSJudicialData.csv", true))
+       try {
+         fw.write(session("newClaimNumber").as[String] + "\r\n")
+       } finally fw.close()
+       session
+     }
 
     /*======================================================================================
       * Civil UI Claim - Return to the citizen homepage/dashboard

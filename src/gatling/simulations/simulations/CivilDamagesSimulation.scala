@@ -11,6 +11,7 @@ import scala.concurrent.duration._
 class CivilDamagesSimulation extends Simulation {
 
 	val judicialUsersFeeder = csv("judicialUsers.csv").circular
+	val judicialCaseFeeder = csv("judicialCaseData.csv")
   
   val BaseURL = Environment.citizenURL
 
@@ -112,15 +113,14 @@ class CivilDamagesSimulation extends Simulation {
 			.exec(CUIR2Login.CUIR2Login)
 			.exec(CUIR2ClaimantRespondToRequest.run)
 			.exec(CUIR2Logout.CUILogout)
+		}
 
-			.pause(10)
-
+	val CivilJudicialMakeOrder = scenario("Civil LIPS Claim - Judicial Make Order")
+		.exitBlockOnFail {
+			exec(_.set("env", s"${env}"))
 			//Login as Judge & Make an Order
-
-//				Only used for debugging
-//			.exec(_.set("newClaimNumber", "1734436785675601"))
-
-			.feed(judicialUsersFeeder)
+			feed(judicialUsersFeeder)
+			.feed(judicialCaseFeeder)
 			.exec(CUIR2HomePage.XUIHomePage)
 			.exec(CUIR2Login.XUIJudicialLogin)
 			.exec(CUIR2JudicialMakeDecision.run)
@@ -128,7 +128,7 @@ class CivilDamagesSimulation extends Simulation {
 			.exec(CUIR2Logout.XUILogout)
 		}
 
-	//defines the Gatling simulation model, based on the inputs
+			//defines the Gatling simulation model, based on the inputs
 	def simulationProfile(simulationType: String, userPerHourRate: Double, numberOfPipelineUsers: Double): Seq[OpenInjectionStep] = {
 		val userPerSecRate = userPerHourRate / 3600
 		simulationType match {
@@ -152,5 +152,6 @@ class CivilDamagesSimulation extends Simulation {
 	
 	setUp(
 		CivilLipsScenario.inject(simulationProfile(testType, lipsTargetPerHour, numberOfPipelineUsers)).pauses(pauseOption),
+//		CivilJudicialMakeOrder.inject(simulationProfile(testType, lipsTargetPerHour, numberOfPipelineUsers)).pauses(pauseOption)
 	).protocols(httpProtocol)
 }
