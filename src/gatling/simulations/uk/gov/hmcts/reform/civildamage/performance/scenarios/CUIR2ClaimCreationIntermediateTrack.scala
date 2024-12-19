@@ -7,7 +7,7 @@ import uk.gov.hmcts.reform.civildamage.performance.scenarios.utils.{CivilDamages
 
 import java.io.{BufferedWriter, FileWriter}
 
-object CUIR2ClaimCreation {
+object CUIR2ClaimCreationIntermediateTrack {
 
   val BaseURL = Environment.baseURL
   val CitizenURL = Environment.citizenURL
@@ -114,8 +114,8 @@ object CUIR2ClaimCreation {
           .formParam("_csrf", "#{csrf}")
           .formParam("claimType", "just-myself")
           .check(CsrfCheck.save)
-          .check(substring("Do you have a postal address in")))
-      }
+          .check(substring("Do you have a postal address in England or Wales?")))
+             }
       .pause(MinThinkTime, MaxThinkTime)
       
       /*======================================================================================
@@ -475,14 +475,14 @@ object CUIR2ClaimCreation {
           .headers(CivilDamagesHeader.CUIR2Post)
           .formParam("_csrf", "#{csrf}")
           .formParam("claimAmountRows[0][reason]", "Claim Amount Perftest Desc")
-          .formParam("claimAmountRows[0][amount]", "9000")
+          .formParam("claimAmountRows[0][amount]", "30000")
           .formParam("claimAmountRows[1][reason]", "")
           .formParam("claimAmountRows[1][amount]", "")
           .formParam("claimAmountRows[2][reason]", "")
           .formParam("claimAmountRows[2][amount]", "")
           .formParam("claimAmountRows[3][reason]", "")
           .formParam("claimAmountRows[3][amount]", "")
-          .formParam("totalAmount", "9000")
+          .formParam("totalAmount", "30000")
           .formParam("saveAndContinue", "true")
           .check(CsrfCheck.save)
           .check(substring("Do you want to claim interest?")))
@@ -738,21 +738,12 @@ object CUIR2ClaimCreation {
       }
       .pause(MinThinkTime, MaxThinkTime)
   
-   .exec { session =>
-         val fw = new BufferedWriter(new FileWriter("CUIR2Claims.csv", true))
-         try {
-           fw.write(session("claimantEmailAddress").as[String] + "," + session("defEmailAddress").as[String] + "," + session("password").as[String] + "," + session("claimNumber").as[String] + "\r\n")
-         } finally fw.close()
-         
-         session
-       }
-  
-     /* .exec { session =>
-        val fw = new BufferedWriter(new FileWriter("CUIDefClaimDetails.csv", true))
+      .exec { session =>
+        val fw = new BufferedWriter(new FileWriter("CUIIntermediateClaimDetails.csv", true))
         try {
-          fw.write(session("claimantEmailAddress").as[String] +  "," + session("defEmailAddress").as[String] +  ","+ session("password").as[String] + "," + session("claimNumber").as[String] + "\r\n")
+          fw.write(session("claimantEmailAddress").as[String] + "," + session("defEmailAddress").as[String] + "," + session("password").as[String] + "," + session("claimNumber").as[String] + "\r\n")
         } finally fw.close()
         session
-      }*/
+      }
   
 }

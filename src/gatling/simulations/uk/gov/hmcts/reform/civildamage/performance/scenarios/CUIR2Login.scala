@@ -57,6 +57,28 @@ object CUIR2Login {
     .pause(MinThinkTime, MaxThinkTime)
   
   
+  /*======================================================================================
+                     * Civil UI Claim - Sign In
+  ==============================================================================================*/
+  val CUIR2DefTestLogin =
+    group("CUIR2_Def_020_Login") {
+      exec(flushHttpCache)
+        .exec(http("CUIR2_Def_020_Login")
+          .post(IdamUrl + "/login?client_id=civil_citizen_ui&response_type=code&redirect_uri=" + CitizenURL + "/oauth2/callback&scope=profile%20openid%20roles%20manage-user%20create-user%20search-user")
+          .headers(CivilDamagesHeader.MoneyClaimSignInHeader)
+          .formParam("username", "cuiimtdefuserqEFro@gmail.com")
+          .formParam("password", "Password12!")
+          .formParam("selfRegistrationEnabled", "true")
+          .formParam("_csrf", "#{csrf}")
+          .check(status.in(200, 304))
+          .check(substring("Claims made against you"))
+        )
+    }
+      .pause(MinThinkTime, MaxThinkTime)
+  
+  
+  
+  
   /*====================================================================================
   *CUI R2 Login
   *=====================================================================================*/

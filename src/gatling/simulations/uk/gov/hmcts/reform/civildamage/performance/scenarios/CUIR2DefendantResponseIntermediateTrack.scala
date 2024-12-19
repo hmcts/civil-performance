@@ -5,14 +5,13 @@ import io.gatling.core.Predef.{exec, _}
 import io.gatling.http.Predef._
 import uk.gov.hmcts.reform.civildamage.performance.scenarios.utils.{CivilDamagesHeader, CsrfCheck, Environment}
 
-object CUIR2DefendantResponse {
+object CUIR2DefendantResponseIntermediateTrack {
   
   val BaseURL = Environment.baseURL
   val IdAMURL = Environment.idamURL
   val CivilUiURL = "https://civil-citizen-ui.perftest.platform.hmcts.net"
   val MinThinkTime = Environment.minThinkTime
   val MaxThinkTime = Environment.maxThinkTime
-  
   
   val run=
     
@@ -29,9 +28,6 @@ object CUIR2DefendantResponse {
       )
     }
     .pause(MinThinkTime, MaxThinkTime)
-  
-  
-    
     
     /*======================================================================================
                * Civil UI Claim - click on Respond to Claim
@@ -227,10 +223,10 @@ object CUIR2DefendantResponse {
         .post(CivilUiURL + "/case/#{caseId}/response/response-type")
         .headers(CivilDamagesHeader.CUIR2Post)
         .formParam("_csrf", "#{csrf}")
-        .formParam("responseType", "PART_ADMISSION")
+        .formParam("responseType", "FULL_DEFENCE")
         .check(status.in(200, 304))
         .check(CsrfCheck.save)
-        .check(substring("Have you paid the claimant the amount you admit you owe?"))
+        .check(substring("Why do you believe you don’t owe Mr Claimant First Claimant Last any money?"))
       )
     }
     .pause(MinThinkTime, MaxThinkTime)
@@ -239,12 +235,12 @@ object CUIR2DefendantResponse {
      * Civil UI Claim - Have you paid the claimant the amount you admit you owe? - no
 ==========================================================================================*/
 
-    .group("CUIR2_DefResponse_150_HaveYouPaid") {
-      exec(http("CUIR2_DefResponse_150_005_HaveYouPaid")
-        .post(CivilUiURL + "/case/#{caseId}/response/partial-admission/already-paid")
+    .group("CUIR2_DefResponse_150_RejectAll") {
+      exec(http("CUIR2_DefResponse_150_005_RejectAll")
+        .post(CivilUiURL + "/case/#{caseId}/response/reject-all-of-claim")
         .headers(CivilDamagesHeader.CUIR2Post)
         .formParam("_csrf", "#{csrf}")
-        .formParam("option", "no")
+        .formParam("option", "dispute")
         .check(status.in(200, 304))
         .check(substring("Choose a response"))
       )
@@ -254,16 +250,16 @@ object CUIR2DefendantResponse {
 
 
     /*======================================================================================
-         * Civil UI Claim - How much money do you admit you owe? - redirect
+         * Civil UI Claim - Your Defence
 ==========================================================================================*/
 
-    .group("CUIR2_DefResponse_160_ConfirmDetails") {
-      exec(http("CUIR2_DefResponse_160_005_ConfirmDetails")
-        .get(CivilUiURL + "/case/#{caseId}/response/partial-admission/how-much-do-you-owe")
+    .group("CUIR2_DefResponse_160_YourDefence") {
+      exec(http("CUIR2_DefResponse_160_005_YourDefence")
+        .get(CivilUiURL + "/case/#{caseId}/response/your-defence")
         .headers(CivilDamagesHeader.CUIR2Get)
         .check(CsrfCheck.save)
         .check(status.in(200, 304))
-        .check(substring("How much money do you admit you owe?"))
+        .check(substring("Why do you disagree with the claim?"))
       )
     }
     .pause(MinThinkTime, MaxThinkTime)
@@ -273,55 +269,20 @@ object CUIR2DefendantResponse {
        * Civil UI Claim - How much money do you admit you owe?
 ==========================================================================================*/
 
-    .group("CUIR2_DefResponse_170_MoneyOwed") {
-      exec(http("CUIR2_DefResponse_170_005_MoneyOwed")
-        .post(CivilUiURL + "/case/#{caseId}/response/partial-admission/how-much-do-you-owe")
+    .group("CUIR2_DefResponse_170_YourDefencePost") {
+      exec(http("CUIR2_DefResponse_170_005_YourDefencePost")
+        .post(CivilUiURL + "/case/#{caseId}/response/your-defence")
         .headers(CivilDamagesHeader.CUIR2Post)
         .formParam("_csrf", "#{csrf}")
-        .formParam("amount", "500")
+        .formParam("text", "asasasasas")
         .check(status.in(200, 304))
       )
         
     }
     .pause(MinThinkTime, MaxThinkTime)
-    
+      
 
-
-    /*======================================================================================
-       * Civil UI Claim - Why do you disagree with the amount claimed? - redirect
-==========================================================================================*/
-
-    .group("CUIR2_DefResponse_180_WhyDisagree") {
-      exec(http("CUIR2_DefResponse_180_005_WhyDisagree")
-        .get(CivilUiURL + "/case/#{caseId}/response/partial-admission/why-do-you-disagree")
-        .headers(CivilDamagesHeader.CUIR2Get)
-        .check(CsrfCheck.save)
-        .check(status.in(200, 304))
-        .check(substring("This includes the claim fee and any interest."))
-      )
-    }
-    .pause(MinThinkTime, MaxThinkTime)
-
-
-    /*======================================================================================
-     * Civil UI Claim - Why do you disagree with the claim amount?
-==========================================================================================*/
-
-    .group("CUIR2_DefResponse_190_WhyDisagreeExplain") {
-      exec(http("CUIR2_DefResponse_190_005_WhyDisagreeExplain")
-        .post(CivilUiURL + "/case/#{caseId}/response/partial-admission/why-do-you-disagree")
-        .headers(CivilDamagesHeader.CUIR2Post)
-        .formParam("_csrf", "#{csrf}")
-        .formParam("text", "yes we disagree for perftest purposes")
-        .check(substring("Add your timeline of events"))
-      )
-    }
-    .pause(MinThinkTime, MaxThinkTime)
-
-
-
-
-    /*======================================================================================
+      /*======================================================================================
    * Civil UI Claim - Add your timeline of events
 ==========================================================================================*/
 
@@ -372,56 +333,21 @@ object CUIR2DefendantResponse {
     .formParam("evidenceItem[3][type]", "")
     .formParam("evidenceItem[3][description]]", "")
   .formParam("comment", "comment")
-    .check(substring("Why do you disagree with the amount claimed?"))
+    .check(substring("Choose a response"))
   )
 }
   .pause(MinThinkTime, MaxThinkTime)
 
-
     /*======================================================================================
-       * Civil UI Claim - When will you pay? Redirect
+       * Civil UI Claim - Give us details incase there is a hearing -directions questionaire
 ==========================================================================================*/
 
-    .group("CUIR2_DefResponse_220_WhenPay") {
-      exec(http("CUIR2_DefResponse_220_005_WhenPay")
-        .get(CivilUiURL + "/case/#{caseId}/response/partial-admission/payment-option")
-        .headers(CivilDamagesHeader.CUIR2Get)
-        .check(CsrfCheck.save)
-        .check(status.in(200, 304))
-        .check(substring("When do you want to pay the"))
-      )
-    }
-    .pause(MinThinkTime, MaxThinkTime)
-
-
-
-    /*======================================================================================
-   * Civil UI Claim - When do you want to pay the?
-==========================================================================================*/
-
-    .group("CUIR2_DefResponse_230_PayDate") {
-      exec(http("CUIR2_DefResponse_230_005_PayDate")
-        .post(CivilUiURL + "/case/#{caseId}/response/partial-admission/payment-option")
-        .headers(CivilDamagesHeader.CUIR2Post)
-        .formParam("_csrf", "#{csrf}")
-        .formParam("paymentType", "IMMEDIATELY")
-        .check(substring("When will you pay the £500.00?"))
-      )
-    }
-    .pause(MinThinkTime, MaxThinkTime)
-
-
-
-    /*======================================================================================
-       * Civil UI Claim - Free telephone mediation Redirect
-==========================================================================================*/
-
-    .group("CUIR2_DefResponse_240_Telephone") {
-      exec(http("CUIR2_DefResponse_240_005_Telephone")
-        .get(CivilUiURL + "/case/#{caseId}/mediation/telephone-mediation")
+    .group("CUIR2_DefResponse_240_TriedToSettle") {
+      exec(http("CUIR2_DefResponse_240_005_TriedToSettle")
+        .get(CivilUiURL + "/case/#{caseId}/directions-questionnaire/tried-to-settle")
         .headers(CivilDamagesHeader.CUIR2Get)
         .check(status.in(200, 304))
-        .check(substring("Telephone mediation"))
+        .check(substring("Have you tried to settle this claim before going to court?"))
       )
     }
     .pause(MinThinkTime, MaxThinkTime)
@@ -429,131 +355,71 @@ object CUIR2DefendantResponse {
 
 
    
-
     /*======================================================================================
- * Civil UI Claim - Confirm your telephone number - yes
+ * Civil UI Claim - Tried to settle
 ==========================================================================================*/
 
-    .group("CUIR2_DefResponse_260_ConfirmNumber") {
-      exec(http("CUIR2_DefResponse_260_005_ConfirmNumber")
-        .post(CivilUiURL + "/case/#{caseId}/mediation/telephone-mediation")
+    .group("CUIR2_DefResponse_260_TriedSettle") {
+      exec(http("CUIR2_DefResponse_260_005_ConfirmNumberTriedSettle")
+        .post(CivilUiURL + "/case/#{caseId}/directions-questionnaire/tried-to-settle")
         .headers(CivilDamagesHeader.CUIR2Post)
         .formParam("_csrf", "#{csrf}")
-       
-        .check(substring("Respond to a money claim"))
+        .formParam("option", "no")
+        .check(substring("Do you want an extra 4 weeks to try to settle the claim?"))
       )
     }
     .pause(MinThinkTime, MaxThinkTime)
   
   
       /*======================================================================================
-          * Civil UI Claim - Mediation Confirmation
-     ==========================================================================================*/
+      * Civil UI Claim - Request extra Time
+      ==========================================================================================*/
   
-       .group("CUIR2_DefResponse_250_MediationConfirmation") {
-         exec(http("CUIR2_DefResponse_250_005_MediationConfirmation")
-           .get(CivilUiURL + "/case/#{caseId}/mediation/phone-confirmation")
-           .headers(CivilDamagesHeader.CUIR2Get)
-           .check(CsrfCheck.save)
-           .check(status.in(200, 304))
-           .check(substring("Can the mediator use"))
-         )
-       }
-       .pause(MinThinkTime, MaxThinkTime)
-  
-      /*======================================================================================
-    * Civil UI Claim - Confirm your telephone number - yes
-    ==========================================================================================*/
-  
-      .group("CUIR2_DefResponse_260_ConfirmNumber") {
-        exec(http("CUIR2_DefResponse_260_005_ConfirmNumber")
-          .post(CivilUiURL + "/case/#{caseId}/mediation/phone-confirmation")
-          .headers(CivilDamagesHeader.CUIR2Post)
-          .formParam("_csrf", "#{csrf}")
-          .formParam("option", "yes")
-      
-          .check(substring("Can the mediation team use"))
-        )
-      }
-      .pause(MinThinkTime, MaxThinkTime)
-  
-      /*======================================================================================
-    * Civil UI Claim - Confirm your email - yes
-    ==========================================================================================*/
-  
-      .group("CUIR2_DefResponse_260_ConfirmEmail") {
-        exec(http("CUIR2_DefResponse_260_005_ConfirmEmail")
-          .post(CivilUiURL + "/case/#{caseId}/mediation/email-confirmation")
-          .headers(CivilDamagesHeader.CUIR2Post)
-          .formParam("_csrf", "#{csrf}")
-          .formParam("option", "yes")
-      
-          .check(substring("Are there any dates in the next 3 months when you cannot attend mediation?"))
-        )
-      }
-      .pause(MinThinkTime, MaxThinkTime)
-  
-      /*======================================================================================
-    * Civil UI Claim - Confirm your dates for the mediation - No
-    ==========================================================================================*/
-  
-      .group("CUIR2_DefResponse_260_ConfirmMediationDates") {
-        exec(http("CUIR2_DefResponse_260_005_ConfirmMediationDates")
-          .post(CivilUiURL + "/case/#{caseId}/mediation/next-three-months")
+      .group("CUIR2_DefResponse_260_RequestExtraTime") {
+        exec(http("CUIR2_DefResponse_260_005_RequestExtraTime")
+          .post(CivilUiURL + "/case/#{caseId}/directions-questionnaire/request-extra-4-weeks")
           .headers(CivilDamagesHeader.CUIR2Post)
           .formParam("_csrf", "#{csrf}")
           .formParam("option", "no")
-      
-          .check(substring("You have completed 8 of 10 sections"))
+          .check(substring("Are there any documents the other party has that you want the court to consider?"))
+        )
+      }
+      .pause(MinThinkTime, MaxThinkTime)
+  
+      /*======================================================================================
+      * Civil UI Claim - Claim Documents
+      ==========================================================================================*/
+  
+      .group("CUIR2_DefResponse_260_ClaimantDocuments") {
+        exec(http("CUIR2_DefResponse_260_005_ClaimantDocuments")
+          .post(CivilUiURL + "/case/#{caseId}/directions-questionnaire/consider-claimant-documents")
+          .headers(CivilDamagesHeader.CUIR2Post)
+          .formParam("_csrf", "#{csrf}")
+          .formParam("detail","")
+          .formParam("option", "no")
+          .check(substring("Do you want to use expert evidence?"))
         )
       }
       .pause(MinThinkTime, MaxThinkTime)
       
-      /*======================================================================================
-     * Civil UI Claim - Give us details in case there's a hearing Redirect
+    /*======================================================================================
+     * Civil UI Claim - Give us details in case expert evidence
 ==========================================================================================*/
 
     .group("CUIR2_DefResponse_270_GiveDetails") {
       exec(http("CUIR2_DefResponse_270_005_GiveDetails")
-        .get(CivilUiURL + "/case/#{caseId}/directions-questionnaire/determination-without-hearing")
-        .headers(CivilDamagesHeader.CUIR2Get)
+        .post(CivilUiURL + "/case/#{caseId}/directions-questionnaire/expert-evidence")
+        .headers(CivilDamagesHeader.CUIR2Post)
+        .formParam("_csrf", "#{csrf}")
+        .formParam("option", "no")
         .check(CsrfCheck.save)
         .check(status.in(200, 304))
-        .check(substring("Determination without Hearing Questions"))
-      )
-    }
-    .pause(MinThinkTime, MaxThinkTime)
-
-    /*======================================================================================
-     * Civil UI Claim - Determination without Hearing Questions
-==========================================================================================*/
-
-    .group("CUIR2_DefResponse_280_Determination") {
-      exec(http("CUIR2_DefResponse_280_005_Determination")
-        .post(CivilUiURL + "/case/#{caseId}/directions-questionnaire/determination-without-hearing")
-        .headers(CivilDamagesHeader.CUIR2Post)
-        .formParam("_csrf", "#{csrf}")
-        .formParam("option", "yes")
-        .formParam("reasonForHearing", "")
-        .check(substring("Using an expert"))
-      )
-    }
-    .pause(MinThinkTime, MaxThinkTime)
-
-
-    /*======================================================================================
-   * Civil UI Claim - Using an expert
-==========================================================================================*/
-
-    .group("CUIR2_DefResponse_290_UsingExpert") {
-      exec(http("CUIR2_DefResponse_290_005_UsingExpert")
-        .post(CivilUiURL + "/case/#{caseId}/directions-questionnaire/expert")
-        .headers(CivilDamagesHeader.CUIR2Post)
-        .formParam("_csrf", "#{csrf}")
         .check(substring("Do you want to give evidence yourself?"))
       )
     }
     .pause(MinThinkTime, MaxThinkTime)
+
+    
 
 
     /*======================================================================================
@@ -659,7 +525,7 @@ object CUIR2DefendantResponse {
         .formParam("model[items][0][languageInterpreter][content]", "")
         .formParam("model[items][0][otherSupport][content]", "")
         .formParam("option", "no")
-        .check(substring("Please select your preferred court hearing location"))
+        .check(substring("Do you want to ask for the hearing to be held at a specific court?"))
       )
     }
     .pause(MinThinkTime, MaxThinkTime)
@@ -674,8 +540,9 @@ object CUIR2DefendantResponse {
         .post(CivilUiURL + "/case/#{caseId}/directions-questionnaire/court-location")
         .headers(CivilDamagesHeader.CUIR2Post)
         .formParam("_csrf", "#{csrf}")
-        .formParam("courtLocation", "Birmingham Civil and Family Justice Centre - Priory Courts, 33 Bull Street - B4 6DS")
-        .formParam("reason", "asasasasas")
+        .formParam("courtLocation", "")
+        .formParam("reason", "")
+        .formParam("option", "no")
         .check(substring("Welsh language"))
       )
     }
