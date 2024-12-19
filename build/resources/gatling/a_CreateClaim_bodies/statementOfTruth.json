@@ -1,0 +1,153 @@
+{
+  "data": {
+    "uiStatementOfTruth": {
+      "name": "CLAIMANT",
+      "role": "NFT"
+    }
+  },
+  "event": {
+    "id": "CREATE_CLAIM_SPEC",
+    "summary": "",
+    "description": ""
+  },
+  "event_data": {
+    "applicant1": {
+      "type": "COMPANY",
+      "companyName": "CLAIMANT",
+      "partyEmail": null,
+      "partyPhone": null,
+      "partyName": "CLAIMANT",
+      "partyTypeDisplayValue": "Company",
+      "partyID": null,
+      "primaryAddress": {
+        "AddressLine1": "Flat 64",
+        "AddressLine2": "Roxborough Heights",
+        "AddressLine3": "Headstone Road",
+        "PostTown": "Harrow",
+        "County": "",
+        "Country": "United Kingdom",
+        "PostCode": "HA1 1GP"
+      },
+      "unavailableDates": [],
+      "flags": {
+        "roleOnCase": null,
+        "partyName": null,
+        "groupId": null,
+        "visibility": null,
+        "details": []
+      }
+    },
+    "addApplicant2": "No",
+    "applicantSolicitor1CheckEmail": {
+      "email": "civil.damages.claims+organisation.1.solicitor.1@gmail.com",
+      "correct": "No"
+    },
+    "applicantSolicitor1UserDetails": {
+      "email": "civilmoneyclaimsdemo@gmail.com",
+      "id": null
+    },
+    "applicant1OrganisationPolicy": {
+      "OrgPolicyReference": "CLAIM.REP",
+      "PrepopulateToUsersOrganisation": null,
+      "Organisation": {
+        "OrganisationID": "TACAJW6",
+        "OrganisationName": "Civil Damages Claims - Organisation 1"
+      },
+      "PreviousOrganisations": []
+    },
+    "specApplicantCorrespondenceAddressRequired": "No",
+    "respondent1": {
+      "type": "COMPANY",
+      "companyName": "DEFENDANT",
+      "partyEmail": null,
+      "partyPhone": null,
+      "individualDateOfBirth": null,
+      "soleTraderDateOfBirth": null,
+      "partyName": "DEFENDANT",
+      "partyTypeDisplayValue": "Company",
+      "partyID": null,
+      "primaryAddress": {
+        "AddressLine1": "42",
+        "AddressLine2": "Flanders Court 12-14",
+        "AddressLine3": "St. Albans Road",
+        "PostTown": "Watford",
+        "County": "",
+        "Country": "United Kingdom",
+        "PostCode": "WD17 1BN"
+      },
+      "unavailableDates": [],
+      "flags": {
+        "roleOnCase": null,
+        "partyName": null,
+        "groupId": null,
+        "visibility": null,
+        "details": []
+      }
+    },
+    "specRespondent1Represented": "Yes",
+    "respondent1OrgRegistered": "Yes",
+    "respondent1OrganisationPolicy": {
+      "OrgPolicyReference": "DEFENDANT.REP",
+      "Organisation": {
+        "OrganisationID": "MEVCCQF",
+        "OrganisationName": "Civil Damages Claims - Organisation 2"
+      },
+      "PreviousOrganisations": []
+    },
+    "respondentSolicitor1EmailAddress": "civilmoneyclaimsdemo@gmail.com",
+    "specRespondentCorrespondenceAddressRequired": "No",
+    "addRespondent2": "No",
+    "isFlightDelayClaim": "No",
+    "detailsOfClaim": "Description",
+    "specClaimTimelineList": "MANUAL",
+    "timelineOfEvents": [
+      {
+        "value": {
+          "timelineDate": "2023-11-11",
+          "timelineDescription": "What happened"
+        },
+        "id": "8e9f96a3-787e-4909-b1d0-08f9f7693fb0"
+      }
+    ],
+    "speclistYourEvidenceList": [
+      {
+        "value": {
+          "evidenceType": "EXPERT_WITNESS",
+          "expertWitnessEvidence": "Expert"
+        },
+        "id": "018d9040-9d8a-4577-8635-81085b601141"
+      }
+    ],
+    "claimAmountBreakup": [
+      {
+        "value": {
+          "claimReason": "NFT CLAIM",
+          "claimAmount": "900000"
+        },
+        "id": "cbcc4f67-76db-4734-b84f-80885d50d728"
+      }
+    ],
+    "claimAmountBreakupSummaryObject": "| Description | Amount | \n |---|---| \n | NFT CLAIM | £ 9000.00 |\n | **Total** | £ 9000.00 |",
+    "totalInterest": "0",
+    "CaseAccessCategory": null,
+    "totalClaimAmount": "9000",
+    "claimInterest": "No",
+    "calculatedInterest": "| Description | Amount | \n |---|---| \n | Claim amount | £ 9000 | \n | Interest amount | £ 0 | \n | Total amount | £ 9000 |",
+    "claimFee": {
+      "calculatedAmountInPence": "45500",
+      "code": "FEE0208",
+      "version": "4"
+    },
+    "caseNameHmctsInternal": null,
+    "featureToggleWA": null,
+    "fixedCosts": {
+      "claimFixedCosts": "No"
+    },
+    "uiStatementOfTruth": {
+      "name": "CLAIMANT",
+      "role": "NFT"
+    }
+  },
+  "event_token": "#{event_token}",
+  "ignore_warning": false
+}

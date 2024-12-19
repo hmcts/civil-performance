@@ -9,298 +9,533 @@ import scala.concurrent.duration.DurationInt
 
 object unspec_DF2_CL2_FinalOrder_Not_In_Scope {
 
-   val BaseURL = Environment.baseURL
-   val IdamURL = Environment.idamURL
-   val MinThinkTime = Environment.minThinkTime
-   val MaxThinkTime = Environment.maxThinkTime
+ val BaseURL = Environment.baseURL
+ val IdamURL = Environment.idamURL
+ val MinThinkTime = Environment.minThinkTime
+ val MaxThinkTime = Environment.maxThinkTime
 
 
-val DF_upload =
+  val DF_upload =
 
-      // =======================OPEN CASE=======================,
-      group("Civil_UnSpecClaim_60_DocUpload") {
-        exec(http("request_28")
-          .get("/data/internal/cases/#{caseId}")
-          .headers(headers_28))
-      }
-      .pause(5)
-      // =======================DF UPLOAD DOC=======================,
-      .exec(http("request_31")
+
+    // ========================LANDING PAGE=====================,
+    group("Civil_UnSpecClaim_60_DefendantDocUpload") {
+      exec(http("Land_005_Jurisdictions")
+        .get("/aggregated/caseworkers/:uid/jurisdictions?access=read")
+        .headers(Headers.commonHeader)
+        .check(substring("callback_get_case_url")))
+
+      .exec(http("Land_010_Organisation")
+        .get("/api/organisation")
+        .headers(Headers.commonHeader)
+        .check(substring("organisationProfileIds")))
+    }
+    .pause(MinThinkTime, MaxThinkTime)
+
+    // ========================SEARCH=====================,
+    .group("Civil_UnSpecClaim_60_DefendantDocUpload") {
+      exec(http("Search_005_WorkBasket")
+        .get("/data/internal/case-types/CIVIL/work-basket-inputs")
+        .headers(Headers.validateHeader)
+        .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-workbasket-input-details.v2+json;charset=UTF-8")
+        .check(substring("workbasketInputs")))
+
+      .exec(http("Search_010_CaseReference")
+        .post("/data/internal/searchCases?ctid=CIVIL&use_case=WORKBASKET&view=WORKBASKET&page=1&case_reference=#{caseId}")
+        .headers(Headers.commonHeader)
+        .body(StringBody("""{"size": 25}""".stripMargin))
+        .check(substring("HEARING_READINESS")))
+    }
+    .pause(MinThinkTime, MaxThinkTime)
+
+    // =======================OPEN CASE=======================,
+    .group("Civil_UnSpecClaim_60_DefendantDocUpload") {
+      exec(http("OpenCase_005_InternalCases")
+        .get("/data/internal/cases/#{caseId}")
+        .headers(Headers.validateHeader)
+        .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-case-view.v2+json")
+        .check(substring("Hearing Readiness")))
+
+      .exec(http("OpenCase_010_RoleAssignment")
+        .post("/api/role-access/roles/manageLabellingRoleAssignment/#{caseId}")
+        .headers(Headers.commonHeader)
+        .check(status.is(204)))
+
+      .exec(http("OpenCase_015_Jurisdiction")
+        .get("/api/wa-supported-jurisdiction/get")
+        .headers(Headers.commonHeader)
+        .check(substring("CIVIL")))
+    }
+    .pause(MinThinkTime, MaxThinkTime)
+
+    // =======================DF UPLOAD DOC=======================,
+    .group("Civil_UnSpecClaim_60_DefendantDocUpload") {
+      exec(http("DF_005_UploadDoc")
         .get("/workallocation/case/tasks/#{caseId}/event/EVIDENCE_UPLOAD_RESPONDENT/caseType/CIVIL/jurisdiction/CIVIL")
-        .headers(headers_31))
-      .exec(http("request_32")
-        .get("/data/internal/profile")
-        .headers(headers_32))
-      .exec(http("request_33")
+        .headers(Headers.commonHeader)
+        .check(substring("task_required_for_event")))
 
+      .exec(http("DF_010_Profile")
+        .get("/data/internal/profile")
+        .headers(Headers.validateHeader)
+        .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-user-profile.v2+json;charset=UTF-8")
+        .check(substring("#{LoginId}")))
+
+      .exec(http("DF_015_IgnoreWarning")
         .get("/data/internal/cases/#{caseId}/event-triggers/EVIDENCE_UPLOAD_RESPONDENT?ignore-warning=false")
-        .headers(headers_33)
+        .headers(Headers.validateHeader)
+        .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-start-event-trigger.v2+json;charset=UTF-8")
+        .check(substring("EVIDENCE_UPLOAD_RESPONDENT"))
         .check(jsonPath("$.event_token").saveAs("event_token")))
 
-        .exec(getCookieValue(CookieKey("XSRF-TOKEN").withDomain(BaseURL.replace("https://", "")).saveAs("xsrf_token")))
-
-      .exec(http("request_34")
+      .exec(http("DF_020_UploadDoc")
         .get("/workallocation/case/tasks/#{caseId}/event/EVIDENCE_UPLOAD_RESPONDENT/caseType/CIVIL/jurisdiction/CIVIL")
-        .headers(headers_34))
-      .pause(5)
+        .headers(Headers.commonHeader)
+        .check(substring("task_required_for_event")))
+    }
+    .pause(MinThinkTime, MaxThinkTime)
 
+    .exec(getCookieValue(CookieKey("XSRF-TOKEN").withDomain(BaseURL.replace("https://", "")).saveAs("xsrf_token")))
 
-      // =======================HOW TO UPLOAD=======================,
-      .exec(http("request_35")
+    // =======================HOW TO UPLOAD=======================,
+    .group("Civil_UnSpecClaim_60_DefendantDocUpload") {
+      exec(http("DF_005_UploadChoice")
         .post("/data/case-types/CIVIL/validate?pageId=EVIDENCE_UPLOAD_RESPONDENTEvidenceUpload")
         .headers(Headers.validateHeader)
-        .body(ElFileBody("uf_ug_uh_orders_bodes/0035_request.dat")))
-      .pause(5)
+        .body(ElFileBody("uf_ug_uh_orders_bodes/respondentHowToUpload.dat"))
+        .check(substring("caseTypeFlag")))
+    }
+    .pause(MinThinkTime, MaxThinkTime)
 
-
-      // =======================DF WITNESS STATEMENT=======================,
-      .exec(http("request_36")
+    // =======================DF WITNESS STATEMENT=======================,
+    .group("Civil_UnSpecClaim_60_DefendantDocUpload") {
+      exec(http("DF_005_WitnessStatement")
         .post("/data/case-types/CIVIL/validate?pageId=EVIDENCE_UPLOAD_RESPONDENTDocumentSelectionFastTrack")
         .headers(Headers.validateHeader)
-        .body(ElFileBody("uf_ug_uh_orders_bodes/0036_request.dat")))
+        .body(ElFileBody("uf_ug_uh_orders_bodes/respondentWitnessStatement.dat"))
+        .check(substring("allPartyNames")))
+    }
+    .pause(MinThinkTime, MaxThinkTime)
 
-      .pause(5)
-
-
-      // =======================DF UPLOAD WITNESS STATEMENT=======================,
-      .exec(http("request_37")
+    // =======================DF UPLOAD WITNESS STATEMENT=======================,
+    .group("Civil_UnSpecClaim_60_DefendantDocUpload") {
+      exec(http("DF_005_UploadWitnessStatement")
         .post("/documentsv2")
-        .headers(headers_37)
-          .header("content-type", "multipart/form-data; boundary=----263708296816916542312907778465")
-          .bodyPart(RawFileBodyPart("files", "WitnessStatement.docx")
-          .fileName("WitnessStatement.docx")
-          .transferEncoding("binary"))
-          .asMultipartForm
-          .formParam("classification", "PUBLIC")
-          .formParam("caseTypeId", "CIVIL")
-          .formParam("jurisdictionId", "CIVIL")
-          .check(jsonPath("$.documents[0].hashToken").saveAs("DF_HashToken"))
-          .check(jsonPath("$.documents[0]._links.self.href").saveAs("DF_StatementDocument_url"))
-          .check(substring("WitnessStatement.docx")))
-      .pause(5)
+        .headers(Headers.commonHeader)
+        .header("content-type", "multipart/form-data; boundary=----263708296816916542312907778465")
+        .bodyPart(RawFileBodyPart("files", "WitnessStatement.docx").fileName("WitnessStatement.docx")
+          .transferEncoding("binary")).asMultipartForm
+        .formParam("classification", "PUBLIC")
+        .formParam("caseTypeId", "CIVIL")
+        .formParam("jurisdictionId", "CIVIL")
+        .check(jsonPath("$.documents[0].hashToken").saveAs("DF_HashToken"))
+        .check(jsonPath("$.documents[0]._links.self.href").saveAs("DF_StatementDocument_url"))
+        .check(substring("WitnessStatement.docx")))
+    }
+    .pause(MinThinkTime, MaxThinkTime)
 
-
-      .exec(http("request_38")
+    .group("Civil_UnSpecClaim_60_DefendantDocUpload") {
+      exec(http("DF_010_UploadWitnessStatement")
         .post("/data/case-types/CIVIL/validate?pageId=EVIDENCE_UPLOAD_RESPONDENTDocumentUpload")
         .headers(Headers.validateHeader)
-        .body(ElFileBody("uf_ug_uh_orders_bodes/0038_request.dat")))
-      .pause(5)
+        .body(ElFileBody("uf_ug_uh_orders_bodes/respondentFileUpload.dat"))
+        .check(substring("documentWitnessStatement")))
+    }
+    .pause(MinThinkTime, MaxThinkTime)
 
-      // =======================DF SUBMIT=======================,
-      .exec(http("request_39")
+    // =======================DF SUBMIT=======================,
+    .group("Civil_UnSpecClaim_60_DefendantDocUpload") {
+      exec(http("DF_005_Submit")
         .post("/data/cases/#{caseId}/events")
-        .headers(headers_39)
-        .body(ElFileBody("uf_ug_uh_orders_bodes/0039_request.dat")))
-      .exec(http("request_40")
+        .headers(Headers.validateHeader)
+        .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.create-event.v2+json;charset=UTF-8")
+        .body(ElFileBody("uf_ug_uh_orders_bodes/respondentSubmit.dat"))
+        .check(substring("You can continue uploading documents or return later.")))
+
+      .exec(http("DF_010_InternalCases")
         .get("/data/internal/cases/#{caseId}")
-        .headers(headers_40))
-      .pause(5)
+        .headers(Headers.validateHeader)
+        .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-case-view.v2+json")
+        .check(substring("http://gateway-ccd.perftest.platform.hmcts.net/internal/cases/#{caseId}")))
+    }
+    .pause(MinThinkTime, MaxThinkTime)
 
 
 
-   val CL_upload =
+  val CL_upload =
 
-      // =======================OPEN CASE=======================,
-      exec(http("request_62")
+    // ========================LANDING PAGE=====================,
+    group("Civil_UnSpecClaim_70_ClaimantDocUpload") {
+      exec(http("005_SearchCase")
+        .get("/aggregated/caseworkers/:uid/jurisdictions?access=read")
+        .headers(Headers.commonHeader)
+        .check(substring("callback_get_case_url")))
+
+      .exec(http("010_SearchCase")
+        .get("/api/organisation")
+        .headers(Headers.commonHeader)
+        .check(substring("organisationProfileIds")))
+    }
+    .pause(MinThinkTime, MaxThinkTime)
+
+    // ========================SEARCH=====================,
+    .group("Civil_UnSpecClaim_70_ClaimantDocUpload") {
+      exec(http("Search_005_WorkBasket")
+        .get("/data/internal/case-types/CIVIL/work-basket-inputs")
+        .headers(Headers.validateHeader)
+        .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-workbasket-input-details.v2+json;charset=UTF-8")
+        .check(substring("workbasketInputs")))
+
+      .exec(http("Search_010_CaseReference")
+        .post("/data/internal/searchCases?ctid=CIVIL&use_case=WORKBASKET&view=WORKBASKET&page=1&case_reference=#{caseId}")
+        .headers(Headers.commonHeader)
+        .body(StringBody("""{"size": 25}""".stripMargin))
+        .check(substring("HEARING_READINESS")))
+    }
+    .pause(MinThinkTime, MaxThinkTime)
+
+    // =======================OPEN CASE=======================,
+    .group("Civil_UnSpecClaim_70_ClaimantDocUpload") {
+      exec(http("OpenCase_005_InternalCases")
         .get("/data/internal/cases/#{caseId}")
-        .headers(headers_62))
-      .pause(169.milliseconds)
-      .exec(http("request_63")
-        .get("/api/wa-supported-jurisdiction/get")
-        .headers(headers_63))
-      .exec(http("request_64")
+        .headers(Headers.validateHeader)
+        .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-case-view.v2+json")
+        .check(substring("Hearing Readiness")))
+
+      .exec(http("OpenCase_010_RoleAssignment")
         .post("/api/role-access/roles/manageLabellingRoleAssignment/#{caseId}")
-        .headers(headers_64)
-        .body(ElFileBody("uf_ug_uh_orders_bodes/0064_request.bin")))
-      .pause(5)
+        .headers(Headers.commonHeader)
+        .check(status.is(204)))
 
-      // =======================SELECT UPLOAD DOC=======================,
-      .exec(http("request_65")
+      .exec(http("OpenCase_015_Jurisdiction")
+        .get("/api/wa-supported-jurisdiction/get")
+        .headers(Headers.commonHeader)
+        .check(substring("CIVIL")))
+    }
+    .pause(MinThinkTime, MaxThinkTime)
+
+    // =======================CLAIMANT UPLOAD DOC=======================,
+    .group("Civil_UnSpecClaim_70_ClaimantDocUpload") {
+      exec(http("DF_005_UploadDoc")
         .get("/workallocation/case/tasks/#{caseId}/event/EVIDENCE_UPLOAD_APPLICANT/caseType/CIVIL/jurisdiction/CIVIL")
-        .headers(headers_65))
-      .exec(http("request_66")
+        .headers(Headers.commonHeader)
+        .check(substring("task_required_for_event")))
+
+      .exec(http("DF_010_Profile")
         .get("/data/internal/profile")
-        .headers(headers_66))
-      .exec(http("request_67")
+        .headers(Headers.validateHeader)
+        .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-user-profile.v2+json;charset=UTF-8")
+        .check(substring("#{LoginId}")))
+
+      .exec(http("DF_015_IgnoreWarning")
         .get("/data/internal/cases/#{caseId}/event-triggers/EVIDENCE_UPLOAD_APPLICANT?ignore-warning=false")
-        .headers(headers_67)
+        .headers(Headers.validateHeader)
+        .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-start-event-trigger.v2+json;charset=UTF-8")
+        .check(substring("EVIDENCE_UPLOAD_APPLICANT"))
         .check(jsonPath("$.event_token").saveAs("event_token")))
 
-        .exec(getCookieValue(CookieKey("XSRF-TOKEN").withDomain(BaseURL.replace("https://", "")).saveAs("xsrf_token")))
-
-      .exec(http("request_68")
+      .exec(http("DF_020_UploadDoc")
         .get("/workallocation/case/tasks/#{caseId}/event/EVIDENCE_UPLOAD_APPLICANT/caseType/CIVIL/jurisdiction/CIVIL")
-        .headers(headers_68))
-      .pause(5)
+        .headers(Headers.commonHeader)
+        .check(substring("task_required_for_event")))
+    }
+    .pause(MinThinkTime, MaxThinkTime)
 
+    .exec(getCookieValue(CookieKey("XSRF-TOKEN").withDomain(BaseURL.replace("https://", "")).saveAs("xsrf_token")))
 
-      // =======================HOW TO UPLOAD=======================,
-      .exec(http("request_69")
+    // =======================HOW TO UPLOAD=======================,
+    .group("Civil_UnSpecClaim_70_ClaimantDocUpload") {
+      exec(http("DF_005_UploadChoice")
         .post("/data/case-types/CIVIL/validate?pageId=EVIDENCE_UPLOAD_APPLICANTEvidenceUpload")
         .headers(Headers.validateHeader)
-        .body(ElFileBody("uf_ug_uh_orders_bodes/0069_request.dat")))
-      .pause(5)
+        .body(ElFileBody("uf_ug_uh_orders_bodes/claimantHowToUpload.dat"))
+        .check(substring("caseTypeFlag")))
+    }
+    .pause(MinThinkTime, MaxThinkTime)
 
-      // =======================CL WITNESS STATE=======================,
-      .exec(http("request_70")
+    // =======================CL WITNESS STATEMENT=======================,
+    .group("Civil_UnSpecClaim_70_ClaimantDocUpload") {
+      exec(http("DF_005_WitnessStatement")
         .post("/data/case-types/CIVIL/validate?pageId=EVIDENCE_UPLOAD_APPLICANTDocumentSelectionFastTrack")
         .headers(Headers.validateHeader)
-        .body(ElFileBody("uf_ug_uh_orders_bodes/0070_request.dat")))
+        .body(ElFileBody("uf_ug_uh_orders_bodes/applicantWitnessStatement.dat"))
+        .check(substring("allPartyNames")))
+    }
+    .pause(MinThinkTime, MaxThinkTime)
 
-      .pause(5)
 
-      // =======================CL UPLOAD DOC=======================,
-      .exec(http("request_71")
+    // =======================CL UPLOAD WITNESS STATEMENT=======================,
+    .group("Civil_UnSpecClaim_70_ClaimantDocUpload") {
+      exec(http("DF_005_UploadWitnessStatement")
         .post("/documentsv2")
-        .headers(headers_71)
-//        .body(ElFileBody("uf_ug_uh_orders_bodes/0071_request.json")))
+        .headers(Headers.commonHeader)
         .header("content-type", "multipart/form-data; boundary=----263708296816916542312907778465")
-        .bodyPart(RawFileBodyPart("files", "WitnessStatement.docx")
-          .fileName("WitnessStatement.docx")
-          .transferEncoding("binary"))
-        .asMultipartForm
+        .bodyPart(RawFileBodyPart("files", "WitnessStatement.docx").fileName("WitnessStatement.docx")
+          .transferEncoding("binary")).asMultipartForm
         .formParam("classification", "PUBLIC")
         .formParam("caseTypeId", "CIVIL")
         .formParam("jurisdictionId", "CIVIL")
         .check(jsonPath("$.documents[0].hashToken").saveAs("CL_HashToken"))
         .check(jsonPath("$.documents[0]._links.self.href").saveAs("CL_StatementDocument_url"))
         .check(substring("WitnessStatement.docx")))
-        .pause(5)
-      .pause(5)
+    }
+    .pause(MinThinkTime, MaxThinkTime)
 
-
-      .exec(http("request_72")
+    .group("Civil_UnSpecClaim_70_ClaimantDocUpload") {
+      exec(http("DF_010_UploadWitnessStatement")
         .post("/data/case-types/CIVIL/validate?pageId=EVIDENCE_UPLOAD_APPLICANTDocumentUpload")
         .headers(Headers.validateHeader)
-        .body(ElFileBody("uf_ug_uh_orders_bodes/0072_request.dat")))
-      .pause(5)
+        .body(ElFileBody("uf_ug_uh_orders_bodes/claimantFileUpload.dat"))
+        .check(substring("documentWitnessStatement")))
+    }
+    .pause(MinThinkTime, MaxThinkTime)
 
-      // =======================SUBMIT DOC=======================,
-      .exec(http("request_73")
+
+    // =======================CL SUBMIT=======================,
+    .group("Civil_UnSpecClaim_70_ClaimantDocUpload") {
+      exec(http("DF_005_Submit")
         .post("/data/cases/#{caseId}/events")
-        .headers(headers_73)
-        .body(ElFileBody("uf_ug_uh_orders_bodes/0073_request.dat")))
-      .exec(http("request_74")
+        .headers(Headers.validateHeader)
+        .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.create-event.v2+json;charset=UTF-8")
+        .body(ElFileBody("uf_ug_uh_orders_bodes/claimantSubmit.dat"))
+        .check(substring("You can continue uploading documents or return later.")))
+
+      .exec(http("DF_010_InternalCases")
         .get("/data/internal/cases/#{caseId}")
-        .headers(headers_74))
-      .pause(5)
+        .headers(Headers.validateHeader)
+        .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-case-view.v2+json")
+        .check(substring("http://gateway-ccd.perftest.platform.hmcts.net/internal/cases/#{caseId}")))
+    }
+    .pause(MinThinkTime, MaxThinkTime)
 
 
-val FinalOrder =
-      // =======================GO TO CASE LIST=======================,
-      exec(http("request_100")
-        .get("/auth/isAuthenticated")
-        .headers(headers_100))
+  val FinalOrder =
+    // ========================LANDING PAGE=====================,
+    group("Civil_UnSpecClaim_80_FinalOrder") {
+      exec(http("005_HealthCheck")
+        .get("/api/healthCheck?path=%2Fwork%2Fmy-work%2Flist")
+        .headers(Headers.commonHeader)
+        .check(substring("healthState")))
 
-      .exec(http("request_103")
-        .get("/api/organisation")
-        .headers(headers_103)
-        .check(status.is(403)))
-      .exec(http("request_104")
-        .get("/aggregated/caseworkers/:uid/jurisdictions?access=read")
-        .headers(headers_104))
-      .exec(http("request_105")
-        .post("/data/internal/searchCases?ctid=CIVIL&use_case=WORKBASKET&view=WORKBASKET&page=1&case_reference=#{caseId}&case.CaseAccessCategory=UNSPEC_CLAIM")
-        .headers(headers_105)
-        .body(ElFileBody("uf_ug_uh_orders_bodes/0105_request.json")))
+      .exec(http("005_RegionLocation")
+        .post("/workallocation/region-location")
+        .headers(Headers.commonHeader)
+        .body(StringBody("""{"serviceIds": ["PRIVATELAW", "CIVIL"]}""".stripMargin))
+        .check(substring("regionId")))
 
-      .pause(5)
-      // =======================SEARCH CASE=======================,
-      .exec(http("request_109")
-        .post("/data/internal/searchCases?ctid=CIVIL&use_case=WORKBASKET&view=WORKBASKET&page=1&case_reference=#{caseId}&case.CaseAccessCategory=UNSPEC_CLAIM")
-        .headers(headers_109)
-        .body(ElFileBody("uf_ug_uh_orders_bodes/0109_request.json")))
+      .exec(http("005_GetMyAccess")
+        .get("/api/role-access/roles/get-my-access-new-count")
+        .headers(Headers.commonHeader)
+        .check(substring("count")))
 
-      .pause(5)
-      // =======================OPEN CASE=======================,
-      .exec(http("request_112")
-        .get("/data/internal/cases/#{caseId}")
-        .headers(headers_112))
-      .pause(178.milliseconds)
-      .exec(http("request_113")
+      .exec(http("010_GetMyAccess")
+        .get("/api/role-access/roles/get-my-access-new-count")
+        .headers(Headers.commonHeader)
+        .check(substring("count")))
+
+      .exec(http("005_TypesOfWork")
+        .get("/workallocation/task/types-of-work")
+        .headers(Headers.commonHeader)
+        .check(substring("Hearing work")))
+
+      .exec(http("005_Jurisdiction")
         .get("/api/wa-supported-jurisdiction/get")
-        .headers(headers_113))
+        .headers(Headers.commonHeader)
+        .check(substring("CIVIL")))
 
-      .exec(http("request_115")
+      .exec(http("005_WorkAllocationTask")
+        .post("/workallocation/task")
+        .body(StringBody(
+          """{"searchRequest": {"search_parameters": [ {"key": "user", "operator": "IN", "values": ["#{uId}"]},
+            |{"key": "state", "operator": "IN", "values": ["assigned"]} ], "sorting_parameters": [],
+            |"search_by": "judge"}, "view": "MyTasks"}""".stripMargin))
+        .headers(Headers.commonHeader)
+        .check(substring("Small Claims Track Directions")))
+
+      .exec(http("010_Jurisdiction")
+        .get("/api/wa-supported-jurisdiction/get")
+        .headers(Headers.commonHeader)
+        .check(substring("CIVIL")))
+
+      .exec(http("005_GetUsersByServiceName")
+        .post("/workallocation/caseworker/getUsersByServiceName")
+        .body(StringBody("""{"services": ["IA", "CIVIL", "PRIVATELAW", "PUBLICLAW", "SSCS", "ST_CIC",
+                           |"EMPLOYMENT"]}""".stripMargin))
+        .headers(Headers.commonHeader)
+        .check(substring("BIRMINGHAM CIVIL AND FAMILY JUSTICE CENTRE")))
+
+      .exec(http("010_WorkAllocationTask")
+        .post("/workallocation/task")
+        .body(StringBody("""{"searchRequest": {"search_parameters": [{"key": "user", "operator": "IN", "values":
+                           |["#{uId}"]}, {"key": "state", "operator": "IN", "values": ["assigned"]}, {"key":
+                           |"jurisdiction", "operator": "IN", "values": ["CIVIL", "PRIVATELAW"]}], "sorting_parameters":
+                           |[], "search_by": "judge", "pagination_parameters": {"page_number": 1, "page_size": 25}},
+                           |"view": "MyTasks", "refined": false, "currentUser": "#{uId}"}""".stripMargin))
+        .headers(Headers.commonHeader)
+        .check(substring("Small Claims Track Directions")))
+
+      .exec(http("005_GetJudicialUsers")
+        .post("/api/role-access/roles/getJudicialUsers")
+        .body(StringBody("""{"userIds": ["#{uId}", "#{uId}", "#{uId}", "#{uId}", "#{uId}", "#{uId}", "#{uId}", "#{uId}",
+                           |"#{uId}", "#{uId}", "#{uId}", "#{uId}", "#{uId}", "#{uId}", "#{uId}", "#{uId}", "#{uId}",
+                           |"#{uId}", "#{uId}", "#{uId}", "#{uId}", "#{uId}", "#{uId}", "#{uId}", "#{uId}"],
+                           |"services": ["CIVIL", "PRIVATELAW"]}""".stripMargin))
+        .headers(Headers.commonHeader)
+        .check(status.in(200, 406)))
+    }
+    .pause(MinThinkTime, MaxThinkTime)
+
+    // =======================SEARCH CASE=======================,
+    .group("Civil_UnSpecClaim_80_FinalOrder") {
+      exec(http("005_SearchCase")
+        .get("/aggregated/caseworkers/:uid/jurisdictions?access=read")
+        .headers(Headers.commonHeader)
+        .check(substring("callback_get_case_url")))
+
+      .exec(http("010_SearchCase")
+        .get("/data/internal/case-types/CIVIL/work-basket-inputs")
+        .headers(Headers.validateHeader)
+        .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-workbasket-input-details.v2+json;charset=UTF-8")
+        .check(substring("workbasketInputs")))
+
+      .exec(http("015_SearchCase")
+        .post("/data/internal/searchCases?ctid=CIVIL&use_case=WORKBASKET&view=WORKBASKET&page=1&case_reference=#{caseId}")
+        .headers(Headers.commonHeader)
+        .body(StringBody("""{"size": 25}""".stripMargin))
+        .check(substring("HEARING_READINESS")))
+    }
+    .pause(MinThinkTime, MaxThinkTime)
+
+    // =======================OPEN CASE=======================,
+    .group("Civil_UnSpecClaim_80_FinalOrder") {
+      exec(http("005_OpenCase")
+        .get("/data/internal/cases/#{caseId}")
+        .headers(Headers.validateHeader)
+        .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-case-view.v2+json")
+        .check(substring("http://gateway-ccd.perftest.platform.hmcts.net/internal/cases/#{caseId}")))
+    }
+
+    .group("Civil_UnSpecClaim_80_FinalOrder") {
+      exec(http("010_OpenCase")
         .post("/api/role-access/roles/manageLabellingRoleAssignment/#{caseId}")
-        .headers(headers_115)
-        .body(ElFileBody("uf_ug_uh_orders_bodes/0115_request.bin")))
+        .headers(Headers.commonHeader)
+        .check(status.is(204)))
+    }
 
-      // =======================TASK TAB=======================,
-      .exec(http("request_120")
-        .post("/workallocation/case/task/#{caseId}")
-        .headers(headers_120)
-        .body(ElFileBody("uf_ug_uh_orders_bodes/0120_request.json")))
-      .pause(5)
+    .group("Civil_UnSpecClaim_80_FinalOrder") {
+      exec(http("015_OpenCase")
+        .get("/api/wa-supported-jurisdiction/get")
+        .headers(Headers.commonHeader)
+        .check(substring("CIVIL")))
+    }
+    .pause(MinThinkTime, MaxThinkTime)
+
+//      // =======================TASK TAB=======================,
+//      .exec(http("request_120")
+//        .post("/workallocation/case/task/#{caseId}")
+//        .headers(headers_120)
+//        .body(ElFileBody("uf_ug_uh_orders_bodes/0120_request.json")))
+//      .pause(5)
 
 
-      // =======================SELECT MAKE AN ORDER=======================,
-
-      .exec(http("request_135")
+    // =======================SELECT MAKE AN ORDER=======================,
+    .group("Civil_UnSpecClaim_80_FinalOrder") {
+      exec(http("005_MakeAnOrder")
         .get("/workallocation/case/tasks/#{caseId}/event/GENERATE_DIRECTIONS_ORDER/caseType/CIVIL/jurisdiction/CIVIL")
-        .headers(headers_135))
-      .exec(http("request_136")
-        .get("/data/internal/profile")
-        .headers(headers_136))
-      .pause(472.milliseconds)
+        .headers(Headers.commonHeader)
+        .check(substring("task_required_for_event")))
 
-      .exec(http("request_139")
+      .exec(http("010_MakeAnOrder")
+        .get("/data/internal/profile")
+        .headers(Headers.validateHeader)
+        .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-user-profile.v2+json;charset=UTF-8")
+        .check(substring("#{LoginId}")))
+
+      .exec(http("015_MakeAnOrder")
         .get("/data/internal/cases/#{caseId}/event-triggers/GENERATE_DIRECTIONS_ORDER?ignore-warning=false")
-        .headers(headers_139)
+        .headers(Headers.validateHeader)
+        .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-start-event-trigger.v2+json;charset=UTF-8")
         .check(substring("GENERATE_DIRECTIONS_ORDER"))
         .check(jsonPath("$.event_token").saveAs("event_token")))
 
-      .pause(141.milliseconds)
-      .exec(http("request_140")
+      .exec(http("020_MakeAnOrder")
         .get("/workallocation/case/tasks/#{caseId}/event/GENERATE_DIRECTIONS_ORDER/caseType/CIVIL/jurisdiction/CIVIL")
-        .headers(headers_140))
+        .headers(Headers.commonHeader)
+        .check(substring("task_required_for_event")))
+    }
+    .pause(MinThinkTime, MaxThinkTime)
 
-      // =======================SELECT TRACK=======================,
-
-      .exec(http("request_147")
+    // =======================ALLOCATE TRACK=======================,
+    .group("Civil_UnSpecClaim_80_FinalOrder") {
+      exec(http("005_AllocateToTrack")
         .post("/data/case-types/CIVIL/validate?pageId=GENERATE_DIRECTIONS_ORDERTrackAllocation")
         .headers(Headers.validateHeader)
-        .body(ElFileBody("uf_ug_uh_orders_bodes/0147_request.dat")))
-      .pause(5)
+        .body(ElFileBody("uf_ug_uh_orders_bodes/judgeAllocateToTrack.dat"))
+        .check(substring("http://gateway-ccd.perftest.platform.hmcts.net/case-types/CIVIL/validate?" +
+          "pageId=GENERATE_DIRECTIONS_ORDERTrackAllocation")))
+    }
+    .pause(MinThinkTime, MaxThinkTime)
 
-      // =======================FREE FORM ORDER=======================,
+    // =======================COMPLEXITY BAND=======================,
+    .group("Civil_UnSpecClaim_80_FinalOrder") {
+        exec(http("005_ComplexityBand")
+        .post("/data/case-types/CIVIL/validate?pageId=GENERATE_DIRECTIONS_ORDERFastTrackComplexityBand")
+        .headers(Headers.validateHeader)
+        .body(ElFileBody("uf_ug_uh_orders_bodes/judgeComplexityBand.dat"))
+        .check(substring("finalOrderFastTrackComplexityBand")))
+    }
+    .pause(MinThinkTime, MaxThinkTime)
 
-      .exec(http("request_152")
+    // =======================ORDER SELECT=======================,
+    .group("Civil_UnSpecClaim_80_FinalOrder") {
+      exec(http("005_OrderSelect")
         .post("/data/case-types/CIVIL/validate?pageId=GENERATE_DIRECTIONS_ORDERFinalOrderSelect")
         .headers(Headers.validateHeader)
-        .body(ElFileBody("uf_ug_uh_orders_bodes/0152_request.dat")))
-      .pause(394.milliseconds)
+        .body(ElFileBody("uf_ug_uh_orders_bodes/judgeOrderSelect.dat"))
+        .check(substring("FREE_FORM_ORDER")))
+    }
+    .pause(MinThinkTime, MaxThinkTime)
 
-      // =======================MAKE AN ORDER=======================,
-
-      .exec(http("request_166")
+    // =======================FREE FORM ORDER=======================,
+    .group("Civil_UnSpecClaim_80_FinalOrder") {
+      exec(http("005_FreeFormOrder")
         .post("/data/case-types/CIVIL/validate?pageId=GENERATE_DIRECTIONS_ORDERFreeFormOrder")
         .headers(Headers.validateHeader)
-        .body(ElFileBody("uf_ug_uh_orders_bodes/0166_request.dat"))
+        .body(ElFileBody("uf_ug_uh_orders_bodes/judgeFreeFormOrder.dat"))
+        .check(substring("freeFormOrderedTextArea"))
         .check(jsonPath("$.data.finalOrderDocument.documentLink.document_url").saveAs("finalOrderDocument_url"))
         .check(jsonPath("$.data.finalOrderDocument.documentLink.document_hash").saveAs("finalOrderDocument_hash"))
         .check(jsonPath("$.data.finalOrderDocument.documentLink.document_filename").saveAs("finalOrderDocument_filename"))
         .check(jsonPath("$.data.finalOrderDocument.createdDatetime").saveAs("createdDatetime"))
         .check(jsonPath("$.data.finalOrderDocument.documentSize").saveAs("documentSize")))
-        .pause(2)
+    }
+    .pause(MinThinkTime, MaxThinkTime)
 
-      .pause(5)
-
-      // =======================ORDR DOC=======================,
-      .exec(http("request_172")
+    // =======================FINAL ORDER PREVIEW=======================,
+    .group("Civil_UnSpecClaim_80_FinalOrder") {
+      exec(http("005_FinalOrderPreview")
         .post("/data/case-types/CIVIL/validate?pageId=GENERATE_DIRECTIONS_ORDERFinalOrderPreview")
         .headers(Headers.validateHeader)
-        .body(ElFileBody("uf_ug_uh_orders_bodes/0172_request.dat")))
-      .pause(5)
+        .body(ElFileBody("uf_ug_uh_orders_bodes/judgeFinalOrderPreview.dat"))
+        .check(substring("finalOrderDocument")))
+    }
+    .pause(MinThinkTime, MaxThinkTime)
 
-      // =======================ORDER SUBMIT=======================,
+    // =======================ORDER SUBMIT=======================,
 
-      .exec(http("request_177")
+    .group("Civil_UnSpecClaim_70_ClaimantDocUpload") {
+      exec(http("005_SubmitOrder")
         .post("/data/cases/#{caseId}/events")
-        .headers(headers_177)
-        .body(ElFileBody("uf_ug_uh_orders_bodes/0177_request.dat")))
-      .pause(833.milliseconds)
+        .headers(Headers.validateHeader)
+        .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.create-event.v2+json;charset=UTF-8")
+        .body(ElFileBody("uf_ug_uh_orders_bodes/judgeSubmit.dat"))
+        .check(substring("The order has been sent to")))
 
-      .pause(5)
-
+      .exec(http("005_InternalCases")
+        .get("/data/internal/cases/#{caseId}")
+        .headers(Headers.validateHeader)
+        .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-case-view.v2+json")
+        .check(substring("http://gateway-ccd.perftest.platform.hmcts.net/internal/cases/#{caseId}")))
+    }
+    .pause(MinThinkTime, MaxThinkTime)
 }

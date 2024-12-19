@@ -9,7 +9,7 @@ object Headers {
     "sec-fetch-site" -> "same-origin")
 
   val navigationHeader = Map(
-    "accept" -> "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
+    "accept" -> "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
     "sec-fetch-dest" -> "document",
     "sec-fetch-mode" -> "navigate",
     "sec-fetch-site" -> "same-origin",
@@ -21,7 +21,6 @@ object Headers {
     "accept" -> "application/vnd.uk.gov.hmcts.ccd-data-store-api.case-data-validate.v2+json;charset=UTF-8",
     "content-type" -> "application/json",
     "experimental" -> "true",
-    "sec-ch-ua-mobile" -> "?0",
     "sec-fetch-dest" -> "empty",
     "sec-fetch-mode" -> "cors",
     "sec-fetch-site" -> "same-origin"

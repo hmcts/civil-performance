@@ -5,7 +5,6 @@ import io.gatling.core.Predef._
 import io.gatling.core.check.CheckBuilder
 import io.gatling.core.check.jsonpath.JsonPathCheckType
 import io.gatling.http.Predef._
-import Home_Headers.headers_6
 
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -43,10 +42,10 @@ object Common {
 //    }
 //  }
 
-  def getRequestId (): String = {
-    val chars = ('a' to 'z') ++ ('A' to 'Z') ++ ('0' to '9')
-    Random.shuffle(chars).take(5).mkString
-  }
+//  def getRequestId (): String = {
+//    val chars = ('a' to 'z') ++ ('A' to 'Z') ++ ('0' to '9')
+//    Random.shuffle(chars).take(5).mkString
+//  }
 //
   def getDay(): String = {
     (1 + rnd.nextInt(28)).toString.format(patternDay).reverse.padTo(2, '0').reverse //pads single-digit dates with a leading zero
@@ -217,40 +216,38 @@ object Common {
     exec(http("Common_000_ConfigurationUI")
       .get("/external/configuration-ui/")
       .headers(Headers.commonHeader)
-      .header("accept", "*/*")
+      //.header("accept", "*/*")
       .check(substring("ccdGatewayUrl")))
 
   val configJson =
     exec(http("Common_000_ConfigJson")
       .get("/assets/config/config.json")
-      .header("accept", "application/json, text/plain, */*")
+      .headers(Headers.commonHeader)
       .check(substring("caseEditorConfig")))
 
   val TsAndCs =
     exec(http("Common_000_TsAndCs")
       .get("/api/configuration?configurationKey=termsAndConditionsEnabled")
       .headers(Headers.commonHeader)
-      .header("accept", "application/json, text/plain, */*")
       .check(substring("false")))
 
   val userDetails =
     exec(http("Common_000_UserDetails")
-      .get("/api/user/details")
+      .get("/api/user/details?refreshRoleAssignments=undefined")
       .headers(Headers.commonHeader)
-      .header("accept", "application/json, text/plain, */*"))
+      .check(status.in(200, 401)))
+      //.check(substring("roleAssignmentInfo")))
 
   val configUI =
     exec(http("Common_000_ConfigUI")
       .get("/external/config/ui")
       .headers(Headers.commonHeader)
-      .header("accept", "application/json, text/plain, */*")
       .check(substring("ccdGatewayUrl")))
 
   val isAuthenticated =
     exec(http("Common_000_IsAuthenticated")
       .get("/auth/isAuthenticated")
       .headers(Headers.commonHeader)
-      .header("accept", "application/json, text/plain, */*")
       .check(regex("true|false")))
 
   val profile =
@@ -264,7 +261,6 @@ object Common {
     exec(http("Common_000_MonitoringTools")
       .get("/api/monitoring-tools")
       .headers(Headers.commonHeader)
-      .header("accept", "application/json, text/plain, */*")
       .check(jsonPath("$.key").notNull))
 
   val caseShareOrgs =

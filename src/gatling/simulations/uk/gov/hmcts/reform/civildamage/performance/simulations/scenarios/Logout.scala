@@ -12,12 +12,9 @@ object Logout{
     exec(http("XUI_020_Signout")
       .get("/auth/logout")
       .headers(Headers.navigationHeader)
-      .check(status.is(302)))
+      .check(substring("Sign in")))
 
 //      .exec(session => {
 //        session.removeAll()
 //      })
-
-
-
 }
