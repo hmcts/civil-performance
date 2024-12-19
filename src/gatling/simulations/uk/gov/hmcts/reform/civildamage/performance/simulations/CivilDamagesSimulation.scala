@@ -595,13 +595,15 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 				.pause(50)
 				.exec(CivilAssignCase.cuiassign)
 				.pause(10)
-				.exec(Logout.XUILogout)
+				.exec(EXUIMCLogin.manageCase_Logout)
 			// below is the defendant jourey multi claim
-			.exec(EXUIMCLogin.manageCasesHomePage)
+				
+				.exec(EXUIMCLogin.manageCasesHomePage)
 				.exec(EXUIMCLogin.manageCasesloginToDefendantJourney)
 				.exec(SpecifiedMultiTrackDefAndClaimantResponse.RespondToClaim)
 				.exec(EXUIMCLogin.manageCase_Logout)
 				.pause(20)
+				
 			// This is the multi claim response to defendant
 			.exec(Homepage.XUIHomePage)
 				.exec(Login.XUILogin)
@@ -978,12 +980,12 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 	//	UpdateSubmitDateFromUnSpecClaimCreation.inject(nothingFor(1),rampUsers(1) during (6))
 		
 		// below is the sanity test for intermediate and multi tracking
-	//	UnSpecIntermediateTrack.inject(nothingFor(1), rampUsers(3) during (36)),
-		SpecMultiTrack.inject(nothingFor(100), rampUsers(3) during (3)),
+	/*	UnSpecIntermediateTrack.inject(nothingFor(1), rampUsers(3) during (36)),
+		SpecMultiTrack.inject(nothingFor(10), rampUsers(3) during (36)),*/
 		
 		//below is the actual scenrio to run intermediate and multi track
-		/*	UnSpecIntermediateTrack.inject(nothingFor(1),rampUsers(30) during (3600)),
-			SpecMultiTrack.inject(nothingFor(100),rampUsers(30) during (3600)),*/
+			UnSpecIntermediateTrack.inject(nothingFor(1),rampUsers(35) during (3600)),
+			SpecMultiTrack.inject(nothingFor(100),rampUsers(35) during (3600)),
 	//	SpecifiedMultiTrackClaimAndIntentScenario.inject(nothingFor(30),rampUsers(3) during (50))
 	//	STCitizen.inject(nothingFor(1),rampUsers(1) during (2700))
 	//	CivilDamageScenario.inject(nothingFor(1),rampUsers(1) during (2))
