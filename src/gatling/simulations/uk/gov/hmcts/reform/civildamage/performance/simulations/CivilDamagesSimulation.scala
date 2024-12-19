@@ -107,13 +107,13 @@ class CivilDamagesSimulation extends Simulation {
 			
 			//Claim Creation
 			exec(CreateUser.CreateDefCitizen)
-//				repeat(1) {
-//					exec(CreateUser.CreateClaimantCitizen)
-//						.exec(CUIR2HomePage.CUIR2HomePage)
-//						.exec(CUIR2Login.CUIR2Login)
-//						.exec(CUIR2ClaimCreation.run)
-//						.exec(CUIR2Logout.CUILogout)
-//						//.exec(CivilAssignCase.cuiassign)
+				repeat(1) {
+					exec(CreateUser.CreateClaimantCitizen)
+					.exec(CUIR2HomePage.CUIR2HomePage)
+					.exec(CUIR2Login.CUIR2Login)
+					.exec(CUIR2ClaimCreation.run)
+					.exec(CUIR2Logout.CUILogout)
+					//.exec(CivilAssignCase.cuiassign)
 //				}
 
 		}
