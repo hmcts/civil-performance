@@ -103,7 +103,7 @@
           "timelineDate": "2023-11-11",
           "timelineDescription": "What happened"
         },
-        "id": "8e9f96a3-787e-4909-b1d0-08f9f7693fb0"
+        "id": "ee3b010e-a2c9-4987-bacb-49aca41a954b"
       }
     ],
     "speclistYourEvidenceList": [
@@ -112,7 +112,7 @@
           "evidenceType": "EXPERT_WITNESS",
           "expertWitnessEvidence": "Expert"
         },
-        "id": "018d9040-9d8a-4577-8635-81085b601141"
+        "id": "e37447ad-1e39-4b10-abba-4163ea2ee443"
       }
     ],
     "claimAmountBreakup": [
@@ -121,13 +121,13 @@
           "claimReason": "NFT CLAIM",
           "claimAmount": "900000"
         },
-        "id": "cbcc4f67-76db-4734-b84f-80885d50d728"
+        "id": "8ab6a8fd-a844-453d-8034-8c9be6b67bc2"
       }
     ],
     "claimAmountBreakupSummaryObject": "| Description | Amount | \n |---|---| \n | NFT CLAIM | £ 9000.00 |\n | **Total** | £ 9000.00 |",
-    "totalInterest": null,
     "CaseAccessCategory": null,
     "totalClaimAmount": "9000",
+    "totalInterest": null,
     "claimInterest": "No"
   },
   "event_token": "#{event_token}",

@@ -105,7 +105,6 @@ object spec_DF1_Resp {
 				.check(substring("DEFENDANT_RESPONSE"))
 				.check(jsonPath("$.event_token").saveAs("event_token"))
 				.check(regex("partyID\":\"(.*?)\"").saveAs("PartyId")))
-				//.check(jsonPath("$.case_fields[75].value.partyID").saveAs("PartyID")))
 
 			.exec(http("RespondToClaim_020_WA")
 				.get("/workallocation/case/tasks/#{caseId}/event/DEFENDANT_RESPONSE/caseType/CIVIL/jurisdiction/CIVIL")
@@ -140,7 +139,7 @@ object spec_DF1_Resp {
 		}
 		.pause(MinThinkTime, MaxThinkTime)
 
-		// ==========================LEGAL REPO ADDRESS CORRECT==========================,
+		// ==========================LEGAL REP ADDRESS CORRECT==========================,
 		.group("Civil_Claim_20_RespondToClaim") {
 			exec(http("RespondToClaim_005_LegalRepAddress")
 				.post("/data/case-types/CIVIL/validate?pageId=DEFENDANT_RESPONSE_SPECResponseConfirmDetails")
@@ -219,7 +218,7 @@ object spec_DF1_Resp {
 				.post("/data/case-types/CIVIL/validate?pageId=DEFENDANT_RESPONSE_SPECMediationAvailability")
 				.headers(Headers.validateHeader)
 				.body(ElFileBody("b_DefResp_bodies/respondentMediationInfo.dat"))
-				.check(substring("isMediationUnavailabilityExists")))
+				.check(substring("unavailableDates")))
 		}
 		.pause(MinThinkTime, MaxThinkTime)
 

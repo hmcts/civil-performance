@@ -1,1 +1,0 @@
-{"data":{"hearingNoticeList":"SMALL_CLAIMS"},"event":{"id":"HEARING_SCHEDULED","summary":"","description":""},"event_data":{"hearingNoticeList":"SMALL_CLAIMS"},"event_token":"#{event_token}","ignore_warning":false,"case_reference":"#{caseId}"}

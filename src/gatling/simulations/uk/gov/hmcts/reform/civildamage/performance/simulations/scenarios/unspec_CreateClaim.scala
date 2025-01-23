@@ -273,7 +273,6 @@ object unspec_CreateClaim {
         .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.create-case.v2+json;charset=UTF-8")
         .body(ElFileBody("xunspec_CreateClam/submitClaimFinal.dat"))
         .check(substring("CALLBACK_COMPLETED"))
-        //.check(jsonPath("$.event_token").saveAs("event_token"))
         .check(jsonPath("$.id").saveAs("caseId")))
     }
     .pause(MinThinkTime, MaxThinkTime)

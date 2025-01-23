@@ -38,7 +38,7 @@ object spec_CreateClaim {
 
     .group("Civil_CreateSpecClaim_10_02_CreateCase") {
       exec(http("IgnoreWarning")
-        .get("/data/internal/case-types/CIVIL/event-triggers/CREATE_CLAIM?ignore-warning=false")
+        .get("/data/internal/case-types/CIVIL/event-triggers/CREATE_CLAIM_SPEC?ignore-warning=false")
         .headers(Headers.validateHeader)
         .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-start-case-trigger.v2+json;charset=UTF-8")
         .check(substring("Issue civil court proceedings"))
@@ -155,6 +155,7 @@ object spec_CreateClaim {
         .check(substring("DEFENDANT")))
     }
     .pause(MinThinkTime, MaxThinkTime)
+
     // ==================DEF LEGAL REP=============,
     .group("Civil_CreateSpecClaim_10_14_CreateCase") {
       exec(http("DefLegalRep")
@@ -264,8 +265,6 @@ object spec_CreateClaim {
         .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIM_SPECClaimAmount")
         .headers(Headers.validateHeader)
         .body(ElFileBody("a_CreateClaim_bodies/claimAmount.dat"))
-//        .check(regex("calculatedAmountInPence\":\"(.*?)\"").saveAs("calculatedAmountInPence"))
-//        .check(regex("statementOfValueInPennies\":\"(.*?)\"").saveAs("statementOfValueInPennies"))
         .check(substring("claimAmountBreakup")))
     }
     .pause(MinThinkTime, MaxThinkTime)
@@ -326,12 +325,6 @@ object spec_CreateClaim {
         .check(substring("StatementOfTruth")))
     }
 
-    .group("Civil_CreateSpecClaim_10_31_CreateCase") {
-      exec(http("CREATE_CLAIM_SPECCaseshare")
-        .get("/api/caseshare/orgs")
-        .headers(Headers.commonHeader)
-        .check(substring("organisationIdentifier")))
-    }
     .exec(getCookieValue(CookieKey("XSRF-TOKEN").withDomain(BaseURL.replace("https://", "")).saveAs("xsrf_token")))
 
     .pause(MinThinkTime, MaxThinkTime)

@@ -72,14 +72,14 @@ object spec_CL2_Resp {
           .exec(http("HOW TO UPLOAD")
             .post("/data/case-types/CIVIL/validate?pageId=EVIDENCE_UPLOAD_APPLICANTEvidenceUpload")
             .headers(headers_35).header("X-Xsrf-Token", "#{xsrf_token}")
-            .body(ElFileBody("g_ClaimResp_bodies/0035_request.dat")))
+            .body(ElFileBody("g_ClaimResp_bodies/claimantHowToUpload.dat")))
           .pause(12)
 
           // ==========WITNESS STATEMENT========,
           .exec(http("EVIDENCE_UPLOAD_APPLICANTDocumentSelectionFastTrack")
             .post("/data/case-types/CIVIL/validate?pageId=EVIDENCE_UPLOAD_APPLICANTDocumentSelectionFastTrack")
             .headers(headers_35).header("X-Xsrf-Token", "#{xsrf_token}")
-            .body(ElFileBody("g_ClaimResp_bodies/0036_request.dat"))
+            .body(ElFileBody("g_ClaimResp_bodies/claimantWitnessStatement.dat"))
           )
           .pause(19)
 
@@ -108,7 +108,7 @@ object spec_CL2_Resp {
             .headers(headers_38)
 //            .headers(headers_37)
             .header("X-Xsrf-Token", "#{xsrf_token}")
-            .body(ElFileBody("g_ClaimResp_bodies/0038_request.dat")))
+            .body(ElFileBody("g_ClaimResp_bodies/claimantSubmit.dat")))
           .pause(11)
 
 }
