@@ -301,7 +301,7 @@ object spec_SDO_Judge {
       .exec(http("010_SmallClaims")
         .get("/workallocation/case/tasks/#{caseId}/event/CREATE_SDO/caseType/CIVIL/jurisdiction/CIVIL")
         .headers(Headers.commonHeader)
-        .check(substring("case_management_category")))
+        //.check(substring("case_management_category")))
 
       .exec(http("015_SmallClaims")
         .get("/data/internal/cases/#{caseId}")

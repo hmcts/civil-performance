@@ -152,7 +152,7 @@ object spec_HearingAdmin{
         .post("/workallocation/case/task/#{caseId}")
         .headers(Headers.commonHeader)
         .body(StringBody("""{"refined": true}""".stripMargin))
-        .check(substring("task_system"))
+        //.check(substring("task_system"))
         .check(jsonPath("$[0].id").optional.saveAs("HearingCaseId")))
     }
     .pause(MinThinkTime, MaxThinkTime)

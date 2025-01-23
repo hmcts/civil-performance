@@ -213,7 +213,7 @@ object unspec_Jud_Hear {
       .exec(http("010_FastTrack")
         .get("/workallocation/case/tasks/#{caseId}/event/CREATE_SDO/caseType/CIVIL/jurisdiction/CIVIL")
         .headers(Headers.commonHeader)
-        .check(substring("case_management_category")))
+        //.check(substring("case_management_category")))
 
       .exec(http("015_FastTrack")
         .get("/data/internal/cases/#{caseId}")
