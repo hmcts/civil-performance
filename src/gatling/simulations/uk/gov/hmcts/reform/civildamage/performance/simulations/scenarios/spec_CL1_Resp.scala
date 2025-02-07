@@ -81,15 +81,13 @@ object spec_CL1_Resp{
         .get("/data/internal/profile")
         .headers(Headers.validateHeader)
         .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-user-profile.v2+json;charset=UTF-8")
-        .check(substring("#{LoginId}")))
+        .check(substring("#{claimantuser}")))
 
       .exec(http("RespToDef_015_IgnoreWarning")
         .get("/data/internal/cases/#{caseId}/event-triggers/CLAIMANT_RESPONSE_SPEC?ignore-warning=false")
         .headers(Headers.validateHeader)
         .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-start-event-trigger.v2+json;charset=UTF-8")
         .check(substring("CLAIMANT_RESPONSE"))
-//        .check(jsonPath("$.case_fields[0].value.partyID").saveAs("repPartyID"))
-//        .check(jsonPath("$.case_fields[0].value.partyName").saveAs("partyName"))
         .check(regex("partyID\":\"(.*?)\"").saveAs("repPartyID"))
         .check(regex("partyName\":\"(.*?)\"").saveAs("partyName"))
         .check(jsonPath("$..formatted_value.documentLink.document_url").saveAs("document_url"))
@@ -97,6 +95,7 @@ object spec_CL1_Resp{
         .check(jsonPath("$..formatted_value.documentSize").saveAs("document_size"))
         .check(jsonPath("$..formatted_value.createdDatetime").saveAs("createDateTime"))
         .check(jsonPath("$.event_token").saveAs("event_token")))
+      .exitHereIf(session => !session.contains("repPartyID"))
 
       //.exec(getCookieValue(CookieKey("XSRF-TOKEN").withDomain(BaseURL.replace("https://", "")).saveAs("xsrf_token")))
 

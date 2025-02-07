@@ -51,7 +51,6 @@ object spec_CL2_Resp {
 //      .exec(http("G_request_30")
 //        .post("/api/role-access/roles/manageLabellingRoleAssignment/#{caseId}")
 //        .headers(headers_30)
-//        .body(ElFileBody("g_ClaimResp_bodies/0030_request.bin")))
 //      .pause(18)
 
 

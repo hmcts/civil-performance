@@ -9,7 +9,7 @@
       "individualTitle" : null ,
       "organisationName" : null ,
       "partyEmail" : "T@G.CM" ,
-      "partyID" : "94d7b688-ab9d-41" ,
+      "partyID" : "#{PartyID}" ,
       "partyName" : "DEFENDANT" ,
       "partyPhone" : null ,
       "partyTypeDisplayValue" : "Company" ,
@@ -70,7 +70,7 @@
       "individualTitle" : null ,
       "organisationName" : null ,
       "partyEmail" : "T@G.CM" ,
-      "partyID" : "94d7b688-ab9d-41" ,
+      "partyID" : "#{PartyID}" ,
       "partyName" : "DEFENDANT" ,
       "partyPhone" : null ,
       "partyTypeDisplayValue" : "Company" ,
@@ -98,7 +98,7 @@
         "roleOnCase" : "Defendant 1"
       } ,
       "partyEmail" : "T@G.CM" ,
-      "partyID" : "94d7b688-ab9d-41" ,
+      "partyID" : "#{PartyID}" ,
       "partyName" : "DEFENDANT" ,
       "partyTypeDisplayValue" : "Company" ,
       "primaryAddress" : {

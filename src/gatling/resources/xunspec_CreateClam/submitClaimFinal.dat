@@ -607,7 +607,7 @@
     },
     "applicant1LitigationFriendRequired": "No",
     "applicantSolicitor1CheckEmail": {
-      "email": "civil.damages.claims+organisation.1.solicitor.1@gmail.com",
+      "email": "#{claimantuser}",
       "correct": "No"
     },
     "applicantSolicitor1UserDetails": {
@@ -701,7 +701,7 @@
     "summary": "",
     "description": ""
   },
-  "event_token": "#{event_token}",
+  "event_token": "#{event_token_create}",
   "ignore_warning": false,
   "draft_id": null
 }

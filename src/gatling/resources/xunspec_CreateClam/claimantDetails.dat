@@ -628,6 +628,6 @@
       "reasonForHearingAtSpecificCourt" : null
     }
   } ,
-  "event_token" : "#{event_token}" ,
+  "event_token" : "#{event_token_create}" ,
   "ignore_warning" : false
 }

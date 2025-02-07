@@ -168,14 +168,15 @@ object spec_HearingAdmin{
         .get("/data/internal/profile")
         .headers(Headers.validateHeader)
         .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-user-profile.v2+json;charset=UTF-8")
-        .check(substring("#{LoginId}")))
+        .check(substring("#{centreadminuser}")))
 
       .exec(http("015_IgnoreWarning")
         .get("/data/internal/cases/#{caseId}/event-triggers/HEARING_SCHEDULED?ignore-warning=false")
         .headers(Headers.validateHeader)
         .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-start-event-trigger.v2+json;charset=UTF-8")
         .check(substring("HEARING_SCHEDULED"))
-        .check(jsonPath("$.event_token").saveAs("event_token")))
+        .check(jsonPath("$.event_token").saveAs("event_token_admin")))
+      .exitHereIf(session => !session.contains("event_token_admin"))
 
       .exec(http("020_HearingScheduled")
         .get("/workallocation/case/tasks/#{caseId}/event/HEARING_SCHEDULED/caseType/CIVIL/jurisdiction/CIVIL")

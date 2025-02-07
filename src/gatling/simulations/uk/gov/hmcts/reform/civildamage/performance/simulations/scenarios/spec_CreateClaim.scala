@@ -43,6 +43,7 @@ object spec_CreateClaim {
         .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-start-case-trigger.v2+json;charset=UTF-8")
         .check(substring("Issue civil court proceedings"))
         .check(jsonPath("$.event_token").saveAs("event_token")))
+      .exitHereIf(session => !session.contains("event_token"))
     }
     .pause(MinThinkTime, MaxThinkTime)
 
@@ -338,6 +339,7 @@ object spec_CreateClaim {
         .body(ElFileBody("a_CreateClaim_bodies/submitClaimFinal.dat"))
         .check(substring("CALLBACK_COMPLETED"))
         .check(jsonPath("$.id").saveAs("caseId")))
+      .exitHereIf(session => !session.contains("caseId"))
     }
     .pause(MinThinkTime, MaxThinkTime)
 
@@ -388,7 +390,7 @@ object spec_CreateClaim {
     }
     .pause(2)
 
-    // ==========================================Click Pay Now=======================,
+    // ================================Click Pay Now=======================,
     .group("Civil_CreateSpecClaim_10_37_CreateCase") {
       exec(http("PayNow")
         .get("/payments/pba-accounts")
@@ -399,15 +401,15 @@ object spec_CreateClaim {
 
     // ====================CONFIRM PAY========================,
     .group("Civil_CreateSpecClaim_10_38_CreateCase") {
-        exec(http("ConfirmPayment")
-          .post("/payments/service-request/#{OrdRefNo}/pba-payments")
-          .headers(Headers.commonHeader)
-          .header("x-requested-with", "xmlhttprequest")
-          .body(StringBody("""{"account_number": "PBA0077597", "amount": #{calculated_amount}, "currency": "GBP",
-						|"customer_reference": "NFT", "idempotency_key": "idam-key-#{Idempotencynumber}",
-						|"organisation_name": "Civil Damages Claims - Organisation 1"}""".stripMargin))
-          .check(substring("success")))
+      exec(http("ConfirmPayment")
+        .post("/payments/service-request/#{OrdRefNo}/pba-payments")
+        .headers(Headers.commonHeader)
+        .header("x-requested-with", "xmlhttprequest")
+        .body(StringBody("""{"account_number": "PBA0077597", "amount": #{calculated_amount}, "currency": "GBP",
+          |"customer_reference": "NFT", "idempotency_key": "idam-key-#{Idempotencynumber}",
+          |"organisation_name": "Civil Damages Claims - Organisation 1"}""".stripMargin))
+        .check(substring("success")))
     }
-    .pause(MinThinkTime, MaxThinkTime)
+    .pause(60)
 
 }

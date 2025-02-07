@@ -3,7 +3,6 @@ package uk.gov.hmcts.reform.civildamage.performance.simulations.scenarios
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import utils._
-import utils.unspec_CreateClaim_Headers._
 import utils.Headers
 object unspec_CreateClaim {
 
@@ -43,7 +42,8 @@ object unspec_CreateClaim {
         .headers(Headers.validateHeader)
         .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-start-case-trigger.v2+json;charset=UTF-8")
         .check(substring("Issue civil court proceedings"))
-        .check(jsonPath("$.event_token").saveAs("event_token")))
+        .check(jsonPath("$.event_token").saveAs("event_token_create")))
+      .exitHereIf(session => !session.contains("event_token_create"))
     }
     .pause(MinThinkTime, MaxThinkTime)
     // ==================COURT PROCEEDINGS==================,
@@ -52,7 +52,7 @@ object unspec_CreateClaim {
         .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIMEligibility")
         .headers(Headers.validateHeader)
         .body(StringBody("""{"data": {"claimStarted": null}, "event": {"description": "", "id": "CREATE_CLAIM",
-           |"summary": ""}, "event_data": {"claimStarted": null}, "event_token": "#{event_token}",
+           |"summary": ""}, "event_data": {"claimStarted": null}, "event_token": "#{event_token_create}",
            |"ignore_warning": false}""".stripMargin))
         .check(substring("Birmingham Civil and Family Justice Centre")))
     }
@@ -63,7 +63,7 @@ object unspec_CreateClaim {
         .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIMReferences")
         .headers(Headers.validateHeader)
         .body(StringBody("""{"data": {}, "event": {"id": "CREATE_CLAIM", "summary": "", "description": ""},
-            |"event_data": {"claimStarted": "Yes"}, "event_token": "#{event_token}",
+            |"event_data": {"claimStarted": "Yes"}, "event_token": "#{event_token_create}",
             |"ignore_warning": false}""".stripMargin))
         .check(substring("http://gateway-ccd.perftest.platform.hmcts.net/case-types/CIVIL/validate?" +
           "pageId=CREATE_CLAIMReferences")))
@@ -274,6 +274,7 @@ object unspec_CreateClaim {
         .body(ElFileBody("xunspec_CreateClam/submitClaimFinal.dat"))
         .check(substring("CALLBACK_COMPLETED"))
         .check(jsonPath("$.id").saveAs("caseId")))
+      .exitHereIf(session => !session.contains("caseId"))
     }
     .pause(MinThinkTime, MaxThinkTime)
 

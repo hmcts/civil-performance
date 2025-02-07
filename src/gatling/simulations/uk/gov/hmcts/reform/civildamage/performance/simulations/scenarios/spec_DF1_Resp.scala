@@ -8,7 +8,6 @@ import scala.concurrent.duration.DurationInt
 
 object spec_DF1_Resp {
 
-
 	val BaseURL = Environment.baseURL
 	val IdamURL = Environment.idamURL
 	val MinThinkTime = Environment.minThinkTime
@@ -95,16 +94,18 @@ object spec_DF1_Resp {
 				.get("/data/internal/profile")
 				.headers(Headers.validateHeader)
 				.header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-user-profile.v2+json;charset=UTF-8")
-				.check(substring("#{LoginId}")))
-			.pause(45)
+				.check(substring("#{defendantuser}")))
+			//.pause(45)
 
 			.exec(http("RespondToClaim_015_IgnoreWarning")
 				.get("/data/internal/cases/#{caseId}/event-triggers/DEFENDANT_RESPONSE_SPEC?ignore-warning=false")
 				.headers(Headers.validateHeader)
 				.header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-start-event-trigger.v2+json;charset=UTF-8")
+				.header("content-type", "application/json")
 				.check(substring("DEFENDANT_RESPONSE"))
 				.check(jsonPath("$.event_token").saveAs("event_token"))
-				.check(regex("partyID\":\"(.*?)\"").saveAs("PartyId")))
+				.check(regex("partyID\":\"(.*?)\",").saveAs("PartyID")))
+			.exitHereIf(session => !session.contains("PartyID"))
 
 			.exec(http("RespondToClaim_020_WA")
 				.get("/workallocation/case/tasks/#{caseId}/event/DEFENDANT_RESPONSE/caseType/CIVIL/jurisdiction/CIVIL")

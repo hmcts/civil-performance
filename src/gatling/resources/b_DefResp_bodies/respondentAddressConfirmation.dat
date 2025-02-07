@@ -1,7 +1,7 @@
 {
 	"data": {
 		"respondent1Copy": {
-			"partyID": "94d7b688-ab9d-41",
+			"partyID": "#{PartyID}",
 			"type": "COMPANY",
 			"companyName": "DEFENDANT",
 			"primaryAddress": {
@@ -50,7 +50,7 @@
 		"respondToClaimAdmitPartEmploymentTypeLRspecGeneric": null,
 		"totalClaimAmount": "9000",
 		"respondent1Copy": {
-			"partyID": "94d7b688-ab9d-41",
+			"partyID": "#{PartyID}",
 			"type": "COMPANY",
 			"companyName": "DEFENDANT",
 			"primaryAddress": {

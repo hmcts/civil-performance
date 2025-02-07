@@ -941,6 +941,6 @@
     "summary": "",
     "description": ""
   },
-  "event_token": "#{event_token}",
+  "event_token": "#{event_token_judge}",
   "ignore_warning": false
 }

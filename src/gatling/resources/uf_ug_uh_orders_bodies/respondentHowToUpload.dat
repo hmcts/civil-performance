@@ -14,7 +14,7 @@
     "caseTypeFlag": null,
     "caseProgAllocatedTrack": "FAST_CLAIM"
   },
-  "event_token": "#{event_token}",
+  "event_token": "#{event_token_docUpload}",
   "ignore_warning": false,
   "case_reference": "#{caseId}"
 }

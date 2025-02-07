@@ -14,8 +14,8 @@ class SimulateScenario extends Simulation {
   val MinThinkTime = Environment.minThinkTime
   val MaxThinkTime = Environment.maxThinkTime
   val CaseIdFeeder = csv("caseIds.csv").circular
-  val loginFeeder = csv("login.csv").circular
-  val ClaimAmt = 5000
+  val loginFeeder = csv("users.csv").circular
+//  val ClaimAmt = 5000
 //  val ClaimAmt = 11000
 //  val ClaimAmt = 35000
 
@@ -25,8 +25,8 @@ class SimulateScenario extends Simulation {
 
   val CreateUnSpecClaimSCN = scenario("UnSpec_CreateClaim")
 //==========01. Create Claim==================
-    .exec(_.set("LoginId", "civil.damages.claims+organisation.1.solicitor.1@gmail.com"))
-    .exec(_.set("Passwordx", "Password12!"))
+    .feed(loginFeeder)
+    .exec(_.set("loginFlag", "claimant"))
     .exec(Home.Homepage)
     .exec(Login.Loginpage)
     .exec(unspec_CreateClaim.CreateUnSpecClaim)
@@ -35,57 +35,57 @@ class SimulateScenario extends Simulation {
     .exec(Logout.Signout)
     .exec(FileWriterx.WriteToFile)
     .pause(MaxThinkTime)
+
 //============02. Respond to Claimant==================
-    .exec(_.set("LoginId", "civil.damages.claims+organisation.2.solicitor.1@gmail.com"))
-    //.exec(_.set("Passwordx", "Password12!"))
+    .exec(_.set("loginFlag", "defendant"))
     .exec(Home.Homepage)
     .exec(Login.Loginpage)
     .exec(unspec_DF1_resp.DF_Resp)
     .exec(Logout.Signout)
     .pause(MaxThinkTime)
+
 //===========03. Claimant Response to DF================
-    .exec(_.set("LoginId", "civil.damages.claims+organisation.1.solicitor.1@gmail.com"))
-    //.exec(_.set("Passwordx", "Password12!"))
+    .exec(_.set("loginFlag", "claimant"))
     .exec(Home.Homepage)
     .exec(Login.Loginpage)
     .exec(unspec_CL1_Resp.RespToDF)
     .exec(Logout.Signout)
     .pause(MaxThinkTime)
+
 //============04. Judge SDO==============================
-    .exec(_.set("LoginId", "EMP261004@ejudiciary.net"))
-    .exec(_.set("Passwordx", "Testing123"))
+    .exec(_.set("loginFlag", "judge"))
     .exec(Home.Homepage)
     .exec(Login.Loginpage)
     .exec(unspec_Jud_Hear.sdoJudge)
     .exec(Logout.Signout)
     .pause(MaxThinkTime)
+
 //============05. Hearing Admin===========================
-    .exec(_.set("LoginId", "hearings_admin_region2_user@justice.gov.uk"))
-    .exec(_.set("Passwordx", "Password12!"))
+    .exec(_.set("loginFlag", "admin"))
     .exec(Home.Homepage)
     .exec(Login.Loginpage)
     .exec(unspec_Jud_Hear.HearingAdmin)
     .exec(Logout.Signout)
     .pause(MaxThinkTime)
+
 //=============06. Respondent Doc Upload===================
-    .exec(_.set("LoginId", "civil.damages.claims+organisation.2.solicitor.1@gmail.com"))
-    //.exec(_.set("Passwordx", "Password12!"))
+    .exec(_.set("loginFlag", "defendant"))
     .exec(Home.Homepage)
     .exec(Login.Loginpage)
     .exec(unspec_DF2_CL2_FinalOrder_Not_In_Scope.DF_upload)
     .exec(Logout.Signout)
     .pause(MaxThinkTime)
+
 //==============07. Claimant Doc Upload====================
-    .exec(_.set("LoginId", "civil.damages.claims+organisation.1.solicitor.1@gmail.com"))
-    //.exec(_.set("Passwordx", "Password12!"))
+    .exec(_.set("loginFlag", "claimant"))
     .exec(Home.Homepage)
     .exec(Login.Loginpage)
     .exec(unspec_DF2_CL2_FinalOrder_Not_In_Scope.CL_upload)
     .exec(Logout.Signout)
     .pause(MaxThinkTime)
+
 //===============08. Judge Final Order=====================
-    .exec(_.set("LoginId", "EMP261004@ejudiciary.net"))
-    .exec(_.set("Passwordx", "Testing123"))
+    .exec(_.set("loginFlag", "judge"))
     .exec(Home.Homepage)
     .exec(Login.Loginpage)
     .exec(unspec_DF2_CL2_FinalOrder_Not_In_Scope.FinalOrder)
@@ -95,10 +95,9 @@ class SimulateScenario extends Simulation {
 
   //==============================SPEC=====================================
   val CreateSpecClaimSCN = scenario("Spec_Create_Claim")
-//    .feed(CaseIdFeeder)
 //==========01. Create Claim==================
-    .exec(_.set("LoginId", "civil.damages.claims+organisation.1.solicitor.1@gmail.com"))
-    .exec(_.set("Passwordx", "Password12!"))
+    .feed(loginFeeder)
+    .exec(_.set("loginFlag", "claimant"))
     .exec(Home.Homepage)
     .exec(Login.Loginpage)
     .exec(spec_CreateClaim.CreateSpecClaim)
@@ -108,8 +107,7 @@ class SimulateScenario extends Simulation {
     .pause(MaxThinkTime)
 
 //==========02. Def Response==================
-    .exec(_.set("LoginId", "civil.damages.claims+organisation.2.solicitor.1@gmail.com"))
-    //.exec(_.set("Passwordx", "Password12!"))
+    .exec(_.set("loginFlag", "defendant"))
     .exec(Home.Homepage)
     .exec(Login.Loginpage)
     .exec(spec_DF1_Resp.selectRespondToClaim)
@@ -117,8 +115,7 @@ class SimulateScenario extends Simulation {
     .pause(MaxThinkTime)
 
 //==========03. Claimant Response==================
-    .exec(_.set("LoginId", "civil.damages.claims+organisation.1.solicitor.1@gmail.com"))
-    //.exec(_.set("Passwordx", "Password12!"))
+    .exec(_.set("loginFlag", "claimant"))
     .exec(Home.Homepage)
     .exec(Login.Loginpage)
     .exec(spec_CL1_Resp.RespToDef)
@@ -126,8 +123,7 @@ class SimulateScenario extends Simulation {
     .pause(MaxThinkTime)
 
 //==========04. Judge SDO==================
-    .exec(_.set("LoginId", "EMP261004@ejudiciary.net"))
-    .exec(_.set("Passwordx", "Testing123"))
+    .exec(_.set("loginFlag", "judge"))
     .exec(Home.Homepage)
     .exec(Login.Loginpage)
     .exec(spec_SDO_Judge.sdoJudge)
@@ -135,8 +131,7 @@ class SimulateScenario extends Simulation {
     .pause(MaxThinkTime)
 
 //==========05.Hearing Schedule==================
-    .exec(_.set("LoginId", "hearings_admin_region2_user@justice.gov.uk"))
-    .exec(_.set("Passwordx", "Password12!"))
+    .exec(_.set("loginFlag", "admin"))
     .exec(Home.Homepage)
     .exec(Login.Loginpage)
     .exec(spec_HearingAdmin.HearingAdmin)
@@ -144,8 +139,7 @@ class SimulateScenario extends Simulation {
     .pause(MaxThinkTime)
 
 //==========06. Respondent Doc Upload==================
-    .exec(_.set("LoginId", "civil.damages.claims+organisation.2.solicitor.1@gmail.com"))
-    //.exec(_.set("Passwordx", "Password12!"))
+    .exec(_.set("loginFlag", "defendant"))
     .exec(Home.Homepage)
     .exec(Login.Loginpage)
     .exec(spec_DF2_CL2_FinalOrder_Not_In_Scope.DF_upload)
@@ -153,8 +147,7 @@ class SimulateScenario extends Simulation {
     .pause(MaxThinkTime)
 
 //==========07. Claimant Doc Upload==================
-    .exec(_.set("LoginId", "civil.damages.claims+organisation.1.solicitor.1@gmail.com"))
-    //.exec(_.set("Passwordx", "Password12!"))
+    .exec(_.set("loginFlag", "claimant"))
     .exec(Home.Homepage)
     .exec(Login.Loginpage)
     .exec(spec_DF2_CL2_FinalOrder_Not_In_Scope.CL_upload)
@@ -162,15 +155,14 @@ class SimulateScenario extends Simulation {
     .pause(MaxThinkTime)
 
 //==========08. Judge Final Order=====================
-    .exec(_.set("LoginId", "EMP261004@ejudiciary.net"))
-    .exec(_.set("Passwordx", "Testing123"))
+    .exec(_.set("loginFlag", "judge"))
     .exec(Home.Homepage)
     .exec(Login.Loginpage)
     .exec(spec_DF2_CL2_FinalOrder_Not_In_Scope.FinalOrder)
     .exec(Logout.Signout)
 
   setUp(
-    CreateUnSpecClaimSCN.inject(rampUsers(40) during 600),
-    CreateSpecClaimSCN.inject(rampUsers(40) during 600)
+    CreateUnSpecClaimSCN.inject(nothingFor(120),rampUsers(40).during(1800)),
+    CreateSpecClaimSCN.inject(rampUsers(40).during(1800))
   ).protocols(httpProtocol)
 }

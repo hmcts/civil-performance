@@ -91,17 +91,17 @@ object unspec_DF1_resp{
         .get("/data/internal/profile")
         .headers(Headers.validateHeader)
         .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-user-profile.v2+json;charset=UTF-8")
-        .check(substring("#{LoginId}")))
-      .pause(45)
+        .check(substring("#{defendantuser}")))
 
       .exec(http("RespToClaim_015_IgnoreWarning")
         .get("/data/internal/cases/#{caseId}/event-triggers/DEFENDANT_RESPONSE?ignore-warning=false")
         .headers(Headers.validateHeader)
         .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-start-event-trigger.v2+json;charset=UTF-8")
-        //.check(status.in(200, 304))
+        .header("content-type", "application/json")
         .check(substring("DEFENDANT_RESPONSE"))
         .check(jsonPath("$.event_token").saveAs("event_token"))
-        .check(jsonPath("$.case_fields[75].value.partyID").saveAs("PartyID")))
+        .check(regex("partyID\":\"(.*?)\",").saveAs("PartyID")))
+      .exitHereIf(session => !session.contains("PartyID"))
 
       .exec(http("RespToClaim_020_jurisdiction")
         .get("/workallocation/case/tasks/#{caseId}/event/DEFENDANT_RESPONSE/caseType/CIVIL/jurisdiction/CIVIL")
@@ -123,6 +123,7 @@ object unspec_DF1_resp{
         .check(substring("respondent1ResponseDeadline")))
     }
     .pause(MinThinkTime, MaxThinkTime)
+
     // ========================REJECT CLAIM========================,
     .group("Civil_UnSpecClaim_20_DefResp") {
       exec(http("RejectClaim_005_RespondentResponseType")
@@ -132,6 +133,7 @@ object unspec_DF1_resp{
         .check(substring("FULL_DEFENCE")))
     }
     .pause(MinThinkTime, MaxThinkTime)
+
     // ========================FILE REF========================,
     .group("Civil_UnSpecClaim_20_DefResp") {
       exec(http("FileRef_005_SolicitorReferences")

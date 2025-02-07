@@ -28,15 +28,16 @@ object unspec_notification {
         .get("/data/internal/profile")
         .headers(Headers.validateHeader)
         .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-user-profile.v2+json;charset=UTF-8")
-        .check(substring("#{LoginId}")))
-      .pause(45)
+        .check(substring("#{claimantuser}")))
+      //.pause(45)
 
       .exec(http("015_warning")
         .get("/data/internal/cases/#{caseId}/event-triggers/NOTIFY_DEFENDANT_OF_CLAIM?ignore-warning=false")
         .headers(Headers.validateHeader)
         .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-start-event-trigger.v2+json;charset=UTF-8")
         .check(substring("NOTIFY_DEFENDANT_OF_CLAIM"))
-        .check(jsonPath("$.event_token").saveAs("event_token")))
+        .check(jsonPath("$.event_token").saveAs("event_token_notify")))
+      .exitHereIf(session => !session.contains("event_token_notify"))
 
       .exec(http("020_jurisdiction")
         .get("/workallocation/case/tasks/#{caseId}/event/NOTIFY_DEFENDANT_OF_CLAIM/caseType/CIVIL/jurisdiction/CIVIL")
@@ -52,7 +53,7 @@ object unspec_notification {
         .headers(Headers.validateHeader)
         .body(StringBody(
           """{"data":{},"event":{"id":"NOTIFY_DEFENDANT_OF_CLAIM","summary":"","description":""},"event_data":{},
-            |"event_token":"#{event_token}","ignore_warning":false,"case_reference":"#{caseId}"}""".stripMargin))
+            |"event_token":"#{event_token_notify}","ignore_warning":false,"case_reference":"#{caseId}"}""".stripMargin))
         .check(substring("http://gateway-ccd.perftest.platform.hmcts.net/case-types/CIVIL/validate?pageId=NOTIFY_DEFENDANT_OF_CLAIMAccessGrantedWarning")))
     }
     .pause(MinThinkTime, MaxThinkTime)
@@ -65,7 +66,7 @@ object unspec_notification {
         .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.create-event.v2+json;charset=UTF-8")
         .body(StringBody(
           """{"data":{},"event":{"id":"NOTIFY_DEFENDANT_OF_CLAIM","summary":"","description":""},
-            |"event_token":"#{event_token}","ignore_warning":false}""".stripMargin))
+            |"event_token":"#{event_token_notify}","ignore_warning":false}""".stripMargin))
         .check(substring("after_submit_callback_response")))
 
       .exec(http("335_getCases")
@@ -100,14 +101,14 @@ object unspec_notification {
         .get("/workallocation/case/tasks/#{caseId}/event/NOTIFY_DEFENDANT_OF_CLAIM_DETAILS/caseType/CIVIL/jurisdiction/CIVIL")
         .headers(Headers.commonHeader)
         .check(substring("task_required_for_event")))
-        //.pause(45)
 
-      .exec(http("010_IgnoreWarning")
+      exec(http("010_IgnoreWarning")
         .get("/data/internal/cases/#{caseId}/event-triggers/NOTIFY_DEFENDANT_OF_CLAIM_DETAILS?ignore-warning=false")
         .headers(Headers.validateHeader)
         .header("accept","application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-start-event-trigger.v2+json;charset=UTF-8")
         .check(substring("NOTIFY_DEFENDANT_OF_CLAIM_DETAILS"))
-        .check(jsonPath("$.event_token").saveAs("event_token")))
+        .check(jsonPath("$.event_token").saveAs("event_token_notifyDetails")))
+      .exitHereIf(session => !session.contains("event_token_notifyDetails"))
 
 //      .exec(http("015_profile")
 //        .get("/data/internal/profile")
@@ -130,8 +131,8 @@ object unspec_notification {
             |"scheduleOfLoss":[],"certificateOfSuitability":[],"other":[],"timelineEventUpload":[]}},
             |"event":{"id":"NOTIFY_DEFENDANT_OF_CLAIM_DETAILS","summary":"","description":""},
             |"event_data":{"servedDocumentFiles":{"particularsOfClaimText":"NFT","particularsOfClaimDocument":[],"medicalReport":[],
-            |"scheduleOfLoss":[],"certificateOfSuitability":[],"other":[],"timelineEventUpload":[]}},"event_token":"#{event_token}",
-            |"ignore_warning":false,"case_reference":"#{caseId}"}""".stripMargin))
+            |"scheduleOfLoss":[],"certificateOfSuitability":[],"other":[],"timelineEventUpload":[]}},"event_token":
+            |"#{event_token_notifyDetails}","ignore_warning":false,"case_reference":"#{caseId}"}""".stripMargin))
         .check(substring("caseNamePublic")))
     }
     .pause(MinThinkTime, MaxThinkTime)
@@ -146,8 +147,7 @@ object unspec_notification {
           """{"data":{"servedDocumentFiles":{"particularsOfClaimText":"NFT","particularsOfClaimDocument":[],
             |"medicalReport":[],"scheduleOfLoss":[],"certificateOfSuitability":[],"other":[],"timelineEventUpload":[]}},
             |"event":{"id":"NOTIFY_DEFENDANT_OF_CLAIM_DETAILS","summary":"","description":""},
-            |"event_token":"#{event_token}","ignore_warning":false}""".stripMargin))
-//        .body(ElFileBody("ua_unspec_CreateClaim_Bodies/judgeViewOrder.dat"))
+            |"event_token":"#{event_token_notifyDetails}","ignore_warning":false}""".stripMargin))
         .check(substring("Defendant notified")))
 
       .exec(http("010_getCases")
@@ -163,7 +163,6 @@ object unspec_notification {
       exec(http("005_APIRoleAssignment")
         .post("/api/role-access/roles/manageLabellingRoleAssignment/#{caseId}")
         .headers(Headers.commonHeader)
-        //.body(StringBody("""{}"""))
         .check(status.is(204)))
     }
 

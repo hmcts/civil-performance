@@ -10,7 +10,7 @@
   "event_data": {
     "hearingNoticeList": "SMALL_CLAIMS"
   },
-  "event_token": "#{event_token}",
+  "event_token": "#{event_token_admin}",
   "ignore_warning": false,
   "case_reference": "#{caseId}"
 }

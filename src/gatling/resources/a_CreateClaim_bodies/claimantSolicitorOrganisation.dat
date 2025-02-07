@@ -44,7 +44,7 @@
     },
     "addApplicant2": "No",
     "applicantSolicitor1CheckEmail": {
-      "email": "civil.damages.claims+organisation.1.solicitor.1@gmail.com",
+      "email": "#{claimantuser}",
       "correct": "No"
     },
     "applicantSolicitor1UserDetails": {

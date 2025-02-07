@@ -78,14 +78,15 @@ object unspec_DF2_CL2_FinalOrder_Not_In_Scope {
         .get("/data/internal/profile")
         .headers(Headers.validateHeader)
         .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-user-profile.v2+json;charset=UTF-8")
-        .check(substring("#{LoginId}")))
+        .check(substring("#{defendantuser}")))
 
-      .exec(http("DF_015_IgnoreWarning")
+      exec(http("DF_015_IgnoreWarning")
         .get("/data/internal/cases/#{caseId}/event-triggers/EVIDENCE_UPLOAD_RESPONDENT?ignore-warning=false")
         .headers(Headers.validateHeader)
         .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-start-event-trigger.v2+json;charset=UTF-8")
         .check(substring("EVIDENCE_UPLOAD_RESPONDENT"))
-        .check(jsonPath("$.event_token").saveAs("event_token")))
+        .check(jsonPath("$.event_token").saveAs("event_token_docUpload")))
+      .exitHereIf(session => !session.contains("event_token_docUpload"))
 
       .exec(http("DF_020_UploadDoc")
         .get("/workallocation/case/tasks/#{caseId}/event/EVIDENCE_UPLOAD_RESPONDENT/caseType/CIVIL/jurisdiction/CIVIL")
@@ -224,7 +225,7 @@ object unspec_DF2_CL2_FinalOrder_Not_In_Scope {
         .get("/data/internal/profile")
         .headers(Headers.validateHeader)
         .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-user-profile.v2+json;charset=UTF-8")
-        .check(substring("#{LoginId}")))
+        .check(substring("#{claimantuser}")))
 
       .exec(http("CL_015_IgnoreWarning")
         .get("/data/internal/cases/#{caseId}/event-triggers/EVIDENCE_UPLOAD_APPLICANT?ignore-warning=false")
@@ -440,7 +441,7 @@ object unspec_DF2_CL2_FinalOrder_Not_In_Scope {
         .get("/data/internal/profile")
         .headers(Headers.validateHeader)
         .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-user-profile.v2+json;charset=UTF-8")
-        .check(substring("#{LoginId}")))
+        .check(substring("#{judgeuser}")))
 
       .exec(http("015_MakeAnOrder")
         .get("/data/internal/cases/#{caseId}/event-triggers/GENERATE_DIRECTIONS_ORDER?ignore-warning=false")

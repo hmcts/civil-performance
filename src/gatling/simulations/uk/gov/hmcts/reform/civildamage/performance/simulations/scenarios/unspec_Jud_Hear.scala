@@ -212,7 +212,7 @@ object unspec_Jud_Hear {
 
       .exec(http("010_FastTrack")
         .get("/workallocation/case/tasks/#{caseId}/event/CREATE_SDO/caseType/CIVIL/jurisdiction/CIVIL")
-        .headers(Headers.commonHeader)
+        .headers(Headers.commonHeader))
         //.check(substring("case_management_category")))
 
       .exec(http("015_FastTrack")
@@ -225,14 +225,15 @@ object unspec_Jud_Hear {
         .get("/data/internal/profile")
         .headers(Headers.validateHeader)
         .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-user-profile.v2+json;charset=UTF-8")
-        .check(substring("#{LoginId}")))
+        .check(substring("#{judgeuser}")))
 
       .exec(http("025_FastTrack")
         .get("/data/internal/cases/#{caseId}/event-triggers/CREATE_SDO?ignore-warning=false")
         .headers(Headers.validateHeader)
         .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-start-event-trigger.v2+json;charset=UTF-8")
         .check(substring("Standard Direction Order"))
-        .check(jsonPath("$.event_token").saveAs("event_token")))
+        .check(jsonPath("$.event_token").saveAs("event_token_judge")))
+      .exitHereIf(session => !session.contains("event_token_judge"))
     }
     .pause(MinThinkTime, MaxThinkTime)
 
@@ -251,7 +252,6 @@ object unspec_Jud_Hear {
       exec(http("005_ClaimsTrack")
         .post("/data/case-types/CIVIL/validate?pageId=CREATE_SDOClaimsTrack")
         .headers(Headers.validateHeader)
-        //.header("X-Xsrf-Token", "#{xsrf_token}")
         .body(ElFileBody("ud_ue_jud_hear_bodies/judgeFastTrack.dat"))
         .check(substring("http://gateway-ccd.perftest.platform.hmcts.net/case-types/CIVIL/validate?" +
           "pageId=CREATE_SDOClaimsTrack")))
@@ -477,14 +477,15 @@ object unspec_Jud_Hear {
         .get("/data/internal/profile")
         .headers(Headers.validateHeader)
         .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-user-profile.v2+json;charset=UTF-8")
-        .check(substring("#{LoginId}")))
+        .check(substring("#{centreadminuser}")))
 
       .exec(http("015_IgnoreWarning")
         .get("/data/internal/cases/#{caseId}/event-triggers/HEARING_SCHEDULED?ignore-warning=false")
         .headers(Headers.validateHeader)
         .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-start-event-trigger.v2+json;charset=UTF-8")
         .check(substring("HEARING_SCHEDULED"))
-        .check(jsonPath("$.event_token").saveAs("event_token")))
+        .check(jsonPath("$.event_token").saveAs("event_token_admin")))
+      .exitHereIf(session => !session.contains("event_token_admin"))
 
       .exec(http("020_HearingScheduled")
         .get("/workallocation/case/tasks/#{caseId}/event/HEARING_SCHEDULED/caseType/CIVIL/jurisdiction/CIVIL")

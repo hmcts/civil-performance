@@ -50,7 +50,7 @@
     } ,
     "applicantSolicitor1CheckEmail" : {
       "correct" : "No" ,
-      "email" : "civil.damages.claims+organisation.1.solicitor.1@gmail.com"
+      "email" : "#{claimantuser}"
     } ,
     "applicantSolicitor1ServiceAddressRequired" : "No" ,
     "applicantSolicitor1UserDetails" : {
@@ -623,6 +623,6 @@
       "reasonForHearingAtSpecificCourt" : null
     }
   } ,
-  "event_token" : "#{event_token}" ,
+  "event_token" : "#{event_token_create}" ,
   "ignore_warning" : false
 }

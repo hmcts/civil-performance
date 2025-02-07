@@ -1811,7 +1811,7 @@
     },
     "isSdoR2NewScreen": "No"
   },
-  "event_token": "#{event_token}",
+  "event_token": "#{event_token_judge}",
   "ignore_warning": false,
   "case_reference": "#{caseId}"
 }

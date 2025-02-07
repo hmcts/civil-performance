@@ -88,7 +88,7 @@ object unspec_CL1_Resp {
 				.get("/data/internal/profile")
 				.headers(Headers.validateHeader)
 				.header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-user-profile.v2+json;charset=UTF-8")
-				.check(substring("#{LoginId}")))
+				.check(substring("#{claimantuser}")))
 
 			.exec(http("RespToDef_015_IgnoreWarning")
 				.get("/data/internal/cases/#{caseId}/event-triggers/CLAIMANT_RESPONSE?ignore-warning=false")
@@ -99,6 +99,7 @@ object unspec_CL1_Resp {
 				.check(regex("document_url\":\"(.*?)\"").saveAs("DF_Document_url"))
 				.check(regex("upload_timestamp\":\"(.*?)\"").saveAs("upload_timestamp"))
 				.check(regex("partyID\":\"(.*?)\"").saveAs("partyID")))
+			.exitHereIf(session => !session.contains("upload_timestamp"))
 			//.exec(getCookieValue(CookieKey("XSRF-TOKEN").withDomain(BaseURL.replace("https://", "")).saveAs("xsrf_token")))
 
 			.exec(http("RespToDef_020_jurisdiction")

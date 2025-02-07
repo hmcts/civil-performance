@@ -35,8 +35,9 @@ object MakePay  {
 				.header("csrf-token", "#{csrf}")
 				.header("x-requested-with", "xmlhttprequest")
 				.check(jsonPath("$.content[0].orderReference").saveAs("OrdRefNo")))
-			}
-      .pause(2)
+			.exitHereIf(session => !session.contains("OrdRefNo"))
+		}
+		.pause(2)
 		// ======================PAY NOW======================,
 		.group("Civil_CreateClaim_010_MakePay") {
 			exec(http("005_PayNow")
@@ -57,6 +58,6 @@ object MakePay  {
 						|"organisation_name": "Civil Damages Claims - Organisation 1"}""".stripMargin))
 				.check(substring("success")))
 		}
-		.pause(Environment.minThinkTime, Environment.maxThinkTime)
+		.pause(60)
 
 }

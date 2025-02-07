@@ -1,1 +1,1 @@
-{"data":{"listingOrRelisting":"LISTING"},"event":{"id":"HEARING_SCHEDULED","summary":"","description":""},"event_data":{"hearingNoticeList":"SMALL_CLAIMS","listingOrRelisting":"LISTING"},"event_token":"#{event_token}","ignore_warning":false,"case_reference":"#{caseId}"}
+{"data":{"listingOrRelisting":"LISTING"},"event":{"id":"HEARING_SCHEDULED","summary":"","description":""},"event_data":{"hearingNoticeList":"SMALL_CLAIMS","listingOrRelisting":"LISTING"},"event_token":"#{event_token_admin}","ignore_warning":false,"case_reference":"#{caseId}"}

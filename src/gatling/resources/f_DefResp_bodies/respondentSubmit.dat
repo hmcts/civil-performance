@@ -71,6 +71,6 @@
     "summary": "",
     "description": ""
   },
-  "event_token": "#{event_token}",
+  "event_token": "#{event_token_docUpload}",
   "ignore_warning": false
 }

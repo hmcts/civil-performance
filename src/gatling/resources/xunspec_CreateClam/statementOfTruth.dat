@@ -50,7 +50,7 @@
     }
   },
   "applicantSolicitor1CheckEmail": {
-    "email": "civil.damages.claims+organisation.1.solicitor.1@gmail.com",
+    "email": "#{claimantuser}",
     "correct": "No"
   },
   "applicantSolicitor1ServiceAddressRequired": "No",
@@ -681,4 +681,4 @@
   },
   "unassignedCaseListDisplayOrganisationReferences": null,
   "uploadParticularsOfClaim": "No"
-},"event_token":"#{event_token}","ignore_warning":false}
+},"event_token":"#{event_token_create}","ignore_warning":false}

@@ -172,14 +172,15 @@ object spec_SDO_Judge {
         .get("/data/internal/profile")
         .headers(Headers.validateHeader)
         .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-user-profile.v2+json;charset=UTF-8")
-        .check(substring("#{LoginId}")))
+        .check(substring("#{judgeuser}")))
 
-      .exec(http("015_IgnoreWarning")
+      exec(http("015_IgnoreWarning")
         .get("/data/internal/cases/#{caseId}/event-triggers/MEDIATION_UNSUCCESSFUL?ignore-warning=false")
         .headers(Headers.validateHeader)
         .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-start-event-trigger.v2+json;charset=UTF-8")
         .check(substring("MEDIATION_UNSUCCESSFUL"))
-        .check(jsonPath("$.event_token").saveAs("event_token")))
+        .check(jsonPath("$.event_token").saveAs("event_token_mediation")))
+      .exitHereIf(session => !session.contains("event_token_mediation"))
 
       .exec(http("020_HearingScheduled")
         .get("/workallocation/case/tasks/#{caseId}/event/MEDIATION_UNSUCCESSFUL/caseType/CIVIL/jurisdiction/CIVIL")
@@ -247,10 +248,6 @@ object spec_SDO_Judge {
         .body(StringBody("""{"refined": true}""".stripMargin))
         .check(regex("id\":\"(.*?)\"").optional.saveAs("judgeId"))
         .check(status.is(200)))
-//        .exec(session => {
-//          println("The value of judgeId is: " + session("judgeId").as[String])
-//          session
-//        })
 
       .exec(http("010_TaskTab")
         .post("/workallocation/caseworker/getUsersByServiceName")
@@ -300,7 +297,7 @@ object spec_SDO_Judge {
 
       .exec(http("010_SmallClaims")
         .get("/workallocation/case/tasks/#{caseId}/event/CREATE_SDO/caseType/CIVIL/jurisdiction/CIVIL")
-        .headers(Headers.commonHeader)
+        .headers(Headers.commonHeader))
         //.check(substring("case_management_category")))
 
       .exec(http("015_SmallClaims")
@@ -313,14 +310,15 @@ object spec_SDO_Judge {
         .get("/data/internal/profile")
         .headers(Headers.validateHeader)
         .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-user-profile.v2+json;charset=UTF-8")
-        .check(substring("#{LoginId}")))
+        .check(substring("#{judgeuser}")))
 
       .exec(http("025_SmallClaims")
         .get("/data/internal/cases/#{caseId}/event-triggers/CREATE_SDO?ignore-warning=false")
         .headers(Headers.validateHeader)
         .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-start-event-trigger.v2+json;charset=UTF-8")
         .check(substring("Standard Direction Order"))
-        .check(jsonPath("$.event_token").saveAs("event_token")))
+        .check(jsonPath("$.event_token").saveAs("event_token_judge")))
+      .exitHereIf(session => !session.contains("event_token_judge"))
     }
     .pause(MinThinkTime, MaxThinkTime)
 
