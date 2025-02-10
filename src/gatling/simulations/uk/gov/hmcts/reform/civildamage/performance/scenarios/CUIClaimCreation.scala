@@ -404,7 +404,6 @@ object CUIClaimCreation {
                    * Civil UI Claim - Claim Submit
         ==========================================================================================*/
       .group("CUI_CreateClaim_260_SubmitClaim") {
-        
         exec(http("CUI_CreateClaim_260_005_Submit")
           .post(BaseURL + "/data/case-types/CIVIL/cases?ignore-warning=false")
         //  .headers(CivilDamagesHeader.MoneyClaimSubmitHeader)
