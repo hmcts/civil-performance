@@ -405,7 +405,6 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 			}
 		}
 	
-
 	val CivilStrikeOut = scenario("Manually trigger strike out")
 		.feed(loginFeeder)
 		.exitBlockOnFail {
@@ -964,7 +963,7 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 		//	CivilUIR2ClaimCreationScenario.inject(nothingFor(1),rampUsers(1) during (1))
 		
 		//Following is the spec claim end to end journey
-	//	CivilUIClaimCreationScenario.inject(nothingFor(1),rampUsers(180) during (3600))
+		CivilUIClaimCreationScenario.inject(nothingFor(1),rampUsers(1) during (3))
 	//	SpecifiedClaimAndIntentScenario.inject(nothingFor(1),rampUsers(89) during (1800))
 		
 	//		PBAServiceScenario.inject(nothingFor(1),rampUsers(1) during (1))
@@ -981,11 +980,11 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 		
 		// below is the sanity test for intermediate and multi tracking
 	/*	UnSpecIntermediateTrack.inject(nothingFor(1), rampUsers(3) during (36)),
-		SpecMultiTrack.inject(nothingFor(10), rampUsers(3) during (36)),*/
+	//	SpecMultiTrack.inject(nothingFor(10), rampUsers(3) during (36)),*/
 		
 		//below is the actual scenrio to run intermediate and multi track
-			UnSpecIntermediateTrack.inject(nothingFor(1),rampUsers(35) during (3600)),
-			SpecMultiTrack.inject(nothingFor(100),rampUsers(35) during (3600)),
+		//	UnSpecIntermediateTrack.inject(nothingFor(1),rampUsers(35) during (3600)),
+		//	SpecMultiTrack.inject(nothingFor(100),rampUsers(35) during (3600)),
 	//	SpecifiedMultiTrackClaimAndIntentScenario.inject(nothingFor(30),rampUsers(3) during (50))
 	//	STCitizen.inject(nothingFor(1),rampUsers(1) during (2700))
 	//	CivilDamageScenario.inject(nothingFor(1),rampUsers(1) during (2))
