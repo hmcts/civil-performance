@@ -1,0 +1,16 @@
+{
+  "data": {
+    "hearingNoticeList": "FAST_TRACK_TRIAL"
+  },
+  "event": {
+    "id": "HEARING_SCHEDULED",
+    "summary": "",
+    "description": ""
+  },
+  "event_data": {
+    "hearingNoticeList": "FAST_TRACK_TRIAL"
+  },
+  "event_token": "#{event_token}",
+  "ignore_warning": false,
+  "case_reference": "#{caseId}"
+}

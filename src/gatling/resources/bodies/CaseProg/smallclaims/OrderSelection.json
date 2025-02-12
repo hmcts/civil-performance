@@ -1,0 +1,16 @@
+{
+  "data": {
+    "finalOrderSelection": "FREE_FORM_ORDER"
+  },
+  "event": {
+    "id": "GENERATE_DIRECTIONS_ORDER",
+    "summary": "",
+    "description": ""
+  },
+  "event_data": {
+    "finalOrderSelection": "FREE_FORM_ORDER"
+  },
+  "event_token": "#{event_token}",
+  "ignore_warning": false,
+  "case_reference": "#{caseId}"
+}

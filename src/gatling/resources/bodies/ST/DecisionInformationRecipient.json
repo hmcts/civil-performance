@@ -1,0 +1,50 @@
+{
+  "data": {
+    "cicCaseFullName": "#{representativeFullName}",
+    "cicCaseRepresentativeFullName": null,
+    "cicCaseRespondentName": "Appeals team",
+    "cicCaseApplicantFullName": null,
+    "cicCaseNotifyPartySubject": [
+      "SubjectCIC"
+    ],
+    "cicCaseNotifyPartyRespondent": [
+      "RespondentCIC"
+    ],
+    "cicCaseNotifyPartyApplicant": [
+      "ApplicantCIC"
+    ]
+  },
+  "event": {
+    "id": "caseworker-issue-decision",
+    "summary": "",
+    "description": ""
+  },
+  "event_data": {
+    "caseIssueDecisionDecisionNotice": "Create from a template",
+    "caseIssueDecisionIssueDecisionTemplate": "CIC1 - Eligibility",
+    "decisionMainContent": "1.     The appeal against the CICA’s Review decision dated…..under paragraph….. is successful. Mr/Mrs …… is eligible for compensation. The CICA must now consider if any compensation should be awarded.\n2.     Mr/ Mrs …….application is now returned to the CICA for further decision making and action.\n3.     Summary of reasons for the decision",
+    "decisionSignature": "#{StRandomString}decisionSignature",
+    "caseIssueDecisionIssueDecisionDraft": {
+      "document_url": "#{caseIssueUrl}",
+      "document_filename": "#{caseIssueFileName}",
+      "document_binary_url": "#{caseIssueUrl}/binary",
+      "category_id": "TD"
+    },
+    "cicCaseFullName": "#{representativeFullName}",
+    "cicCaseRepresentativeFullName": null,
+    "cicCaseRespondentName": "Appeals team",
+    "cicCaseApplicantFullName": null,
+    "cicCaseNotifyPartySubject": [
+      "SubjectCIC"
+    ],
+    "cicCaseNotifyPartyRespondent": [
+      "RespondentCIC"
+    ],
+    "cicCaseNotifyPartyApplicant": [
+      "ApplicantCIC"
+    ]
+  },
+  "event_token": "#{event_token}",
+  "ignore_warning": false,
+  "case_reference": "#{caseId}"
+}

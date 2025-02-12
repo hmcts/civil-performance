@@ -1,0 +1,151 @@
+{
+  "data": {
+    "claimAmountBreakup": [
+      {
+        "value": {
+          "claimReason": "asasasa",
+          "claimAmount": "11000000"
+        },
+        "id": null
+      }
+    ]
+  },
+  "event": {
+    "id": "CREATE_CLAIM_SPEC",
+    "summary": "",
+    "description": ""
+  },
+  "event_data": {
+    "applicant1": {
+      "type": "COMPANY",
+      "individualTitle": null,
+      "companyName": "claimant ltd",
+      "soleTraderTitle": null,
+      "partyEmail": null,
+      "partyPhone": null,
+      "partyName": "claimant ltd",
+      "partyTypeDisplayValue": "Company",
+      "partyID": null,
+      "primaryAddress": {
+        "AddressLine1": "30 Hibernia Gardens",
+        "AddressLine2": "",
+        "AddressLine3": "",
+        "PostTown": "Hounslow",
+        "County": "",
+        "Country": "United Kingdom",
+        "PostCode": "TW3 3SD"
+      },
+      "unavailableDates": [],
+      "flags": {
+        "roleOnCase": null,
+        "partyName": null,
+        "groupId": null,
+        "visibility": null,
+        "details": []
+      }
+    },
+    "addApplicant2": "No",
+    "applicantSolicitor1CheckEmail": {
+      "email": "civil.damages.claims+organisation.1.solicitor.1@gmail.com",
+      "correct": "No"
+    },
+    "applicantSolicitor1UserDetails": {
+      "email": "civilmoneyclaimsdemo@gmail.com",
+      "id": null
+    },
+    "applicant1OrganisationPolicy": {
+      "OrgPolicyCaseAssignedRole": "[APPLICANTSOLICITORONE]",
+      "OrgPolicyReference": "asasas",
+      "PrepopulateToUsersOrganisation": null,
+      "Organisation": {
+        "OrganisationID": "7H4MGE5",
+        "OrganisationName": "Civil Damages Claims - Organisation 1"
+      },
+      "PreviousOrganisations": []
+    },
+    "specApplicantCorrespondenceAddressRequired": "No",
+    "respondent1": {
+      "type": "COMPANY",
+      "individualTitle": null,
+      "companyName": "def ltd",
+      "soleTraderTitle": null,
+      "soleTraderTradingAs": null,
+      "partyEmail": null,
+      "partyPhone": null,
+      "individualDateOfBirth": null,
+      "soleTraderDateOfBirth": null,
+      "partyName": "def ltd",
+      "partyTypeDisplayValue": "Company",
+      "partyID": null,
+      "primaryAddress": {
+        "AddressLine1": "30 Hibernia Gardens",
+        "AddressLine2": "",
+        "AddressLine3": "",
+        "PostTown": "Hounslow",
+        "County": "",
+        "Country": "United Kingdom",
+        "PostCode": "TW3 3SD"
+      },
+      "unavailableDates": [],
+      "flags": {
+        "roleOnCase": null,
+        "partyName": null,
+        "groupId": null,
+        "visibility": null,
+        "details": []
+      }
+    },
+    "specRespondent1Represented": "Yes",
+    "respondent1OrgRegistered": "Yes",
+    "respondent1OrganisationPolicy": {
+      "OrgPolicyCaseAssignedRole": "[RESPONDENTSOLICITORONE]",
+      "OrgPolicyReference": "asasas",
+      "Organisation": {
+        "OrganisationID": "MEVCCQF",
+        "OrganisationName": "Civil Damages Claims - Organisation 2"
+      },
+      "PreviousOrganisations": []
+    },
+    "respondentSolicitor1EmailAddress": "civilmoneyclaimsdemo@gmail.com",
+    "specRespondentCorrespondenceAddressRequired": "No",
+    "addRespondent2": "No",
+    "isFlightDelayClaim": "No",
+    "detailsOfClaim": "asasasasas",
+    "specClaimTimelineList": "MANUAL",
+    "timelineOfEvents": [
+      {
+        "value": {
+          "timelineDate": "2024-01-01",
+          "timelineDescription": "asasasasasa"
+        },
+        "id": null
+      }
+    ],
+    "speclistYourEvidenceList": [
+      {
+        "value": {
+          "evidenceType": "CONTRACTS_AND_AGREEMENTS",
+          "contractAndAgreementsEvidence": "sasasasas",
+          "expertWitnessEvidence": null,
+          "lettersEmailsAndOtherCorrespondenceEvidence": null,
+          "photoEvidence": null,
+          "receiptsEvidence": null,
+          "statementOfTruthEvidence": null,
+          "otherEvidence": null
+        },
+        "id": null
+      }
+    ],
+    "claimAmountBreakup": [
+      {
+        "value": {
+          "claimReason": "asasasa",
+          "claimAmount": "11000000"
+        },
+        "id": null
+      }
+    ]
+  },
+  "event_token": "#{event_token}",
+  "ignore_warning": false
+}

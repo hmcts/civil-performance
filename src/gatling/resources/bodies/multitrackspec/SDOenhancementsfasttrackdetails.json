@@ -1,0 +1,352 @@
+{
+  "data": {
+    "sdoFastTrackJudgesRecital": {
+      "input": "Upon considering the statements of case and the information provided by the parties."
+    },
+    "sdoAltDisputeResolution": {
+      "includeInOrderToggle": [
+        "INCLUDE"
+      ]
+    },
+    "sdoVariationOfDirections": {
+      "includeInOrderToggle": [
+        "INCLUDE"
+      ]
+    },
+    "sdoR2Settlement": {
+      "includeInOrderToggle": [
+        "INCLUDE"
+      ]
+    },
+    "sdoR2DisclosureOfDocumentsToggle": [
+      "INCLUDE"
+    ],
+    "sdoR2DisclosureOfDocuments": {
+      "standardDisclosureTxt": "Standard disclosure shall be provided by the parties by uploading to the Digital Portal their list of documents by 4pm on",
+      "standardDisclosureDate": "2024-05-08",
+      "inspectionTxt": "Any request to inspect a document, or for a copy of a document, shall be made directly to the other party by 4pm on",
+      "inspectionDate": "2024-05-22",
+      "requestsWillBeCompiledLabel": "within 7 days of receipt."
+    },
+    "sdoR2SeparatorWitnessesOfFactToggle": [
+      "INCLUDE"
+    ],
+    "sdoR2WitnessesOfFact": {
+      "sdoStatementOfWitness": "Each party must upload to the Digital Portal copies of the statements of all witnesses of fact on whom they intend to rely.",
+      "sdoWitnessDeadline": "Witness statements shall be uploaded to the Digital Portal by 4pm on",
+      "sdoWitnessDeadlineDate": "2024-06-19",
+      "sdoWitnessDeadlineText": "Evidence will not be permitted at trial from a witness whose statement has not been uploaded in accordance with the Order, except with permission from the Court.",
+      "sdoR2RestrictWitness": {
+        "isRestrictWitness": "No"
+      },
+      "sdoRestrictPages": {
+        "isRestrictPages": "No"
+      }
+    },
+    "sdoR2SeparatorExpertEvidenceToggle": [
+      "INCLUDE"
+    ],
+    "sdoR2ExpertEvidence": {
+      "sdoClaimantPermissionToRelyTxt": "The Claimant has permission to rely upon the written expert evidence already uploaded to the Digital Portal with the particulars of claim."
+    },
+    "sdoR2SeparatorAddendumReportToggle": [
+      "INCLUDE"
+    ],
+    "sdoR2AddendumReport": {
+      "sdoAddendumReportTxt": "The Claimant may upload to the Digital Portal an addendum report from their expert ENT surgeon by 4pm on",
+      "sdoAddendumReportDate": "2024-06-05"
+    },
+    "sdoR2SeparatorFurtherAudiogramToggle": [
+      "INCLUDE"
+    ],
+    "sdoR2FurtherAudiogram": {
+      "sdoClaimantShallUndergoTxt": "The Claimant shall undergo a single further audiogram at the written request of any Defendant. Such request to be made no later than 4pm on",
+      "sdoClaimantShallUndergoDate": "2024-05-22",
+      "sdoServiceReportTxt": "The further audiogram shall be arranged and paid for by the Defendant requesting it. The Defendant shall serve a copy of the further audiogram on the Claimant and upload to the Digital Portal by 4pm on",
+      "sdoServiceReportDate": "2024-07-17"
+    },
+    "sdoR2SeparatorQuestionsClaimantExpertToggle": [
+      "INCLUDE"
+    ],
+    "sdoR2QuestionsClaimantExpert": {
+      "sdoDefendantMayAskTxt": "The Defendant(s) may ask questions of the Claimant's expert which must be sent to the expert directly and uploaded to th Digital Portal by 4pm on",
+      "sdoDefendantMayAskDate": "2024-08-14",
+      "sdoQuestionsShallBeAnsweredTxt": "The questions shall be answered by the expert by",
+      "sdoQuestionsShallBeAnsweredDate": "2024-09-04",
+      "sdoUploadedToDigitalPortalTxt": "by the asking party within 7 days of receipt.",
+      "sdoApplicationToRelyOnFurther": {
+        "doRequireApplicationToRely": "No"
+      }
+    },
+    "sdoR2SeparatorPermissionToRelyOnExpertToggle": [
+      "INCLUDE"
+    ],
+    "sdoR2PermissionToRelyOnExpert": {
+      "sdoPermissionToRelyOnExpertTxt": "The Defendant has permission to rely on written expert evidence from a consultant ENT surgeon. Such report shall be uploaded to the Digital Portal by 4pm on",
+      "sdoPermissionToRelyOnExpertDate": "2024-08-07",
+      "sdoJointMeetingOfExpertsTxt": "The experts instructed by each party shall discuss their reports and shall prepare a schedule of agreement and disagreement which shall be provided to the parties by 4pm on",
+      "sdoJointMeetingOfExpertsDate": "2024-09-04",
+      "sdoUploadedToDigitalPortalTxt": "by the Claimant within 7 days of receipt."
+    },
+    "sdoR2SeparatorEvidenceAcousticEngineerToggle": [
+      "INCLUDE"
+    ],
+    "sdoR2EvidenceAcousticEngineer": {
+      "sdoEvidenceAcousticEngineerTxt": "The parties have permission to rely on the jointly instructed written evidence of an expert acoustic engineer.",
+      "sdoInstructionOfTheExpertTxt": "The expert shall be agreed and instructed by",
+      "sdoInstructionOfTheExpertDate": "2024-05-22",
+      "sdoInstructionOfTheExpertTxtArea": "If no expert has been instructed by the date the Claimant must apply to court by 4pm the following day for further directions.",
+      "sdoExpertReportTxt": "The expert will report to the instructing parties by",
+      "sdoExpertReportDate": "2025-01-15",
+      "sdoExpertReportDigitalPortalTxt": "by the Claimant within 7 days of receipt.",
+      "sdoWrittenQuestionsTxt": "Written questions may be posed by any party directly to the single jointly instructed expert by",
+      "sdoWrittenQuestionsDate": "2025-01-29",
+      "sdoWrittenQuestionsDigitalPortalTxt": "by the same date.",
+      "sdoRepliesTxt": "send the answers to questions to the asking party by",
+      "sdoRepliesDate": "2025-02-19",
+      "sdoRepliesDigitalPortalTxt": "by that party within 7 days of receipt.",
+      "sdoServiceOfOrderTxt": "A copy of this order must be served on the expert by the Claimant with the expert's instructions."
+    },
+    "sdoR2SeparatorQuestionsToEntExpertToggle": [
+      "INCLUDE"
+    ],
+    "sdoR2QuestionsToEntExpert": {
+      "sdoWrittenQuestionsTxt": "The parties may put written questions of an ENT engineering expert for whom permission has been given by 4pm on",
+      "sdoWrittenQuestionsDate": "2025-03-12",
+      "sdoWrittenQuestionsDigPortalTxt": "and shall upload the same to the Digital Portal by the same date.\nSuch questions shall be limited to issues arising from the single jointly instructed expert engineer's report and any answers to questions.",
+      "sdoQuestionsShallBeAnsweredTxt": "Such questions shall be answered by the ENT expert by",
+      "sdoQuestionsShallBeAnsweredDate": "2025-03-26",
+      "sdoShallBeUploadedTxt": "within 7 days of receipt."
+    },
+    "sdoR2ScheduleOfLossToggle": [
+      "INCLUDE"
+    ],
+    "sdoR2ScheduleOfLoss": {
+      "sdoR2ScheduleOfLossClaimantText": "The Claimant must upload to the Digital Portal an up-to-date schedule of loss by 4pm on",
+      "sdoR2ScheduleOfLossClaimantDate": "2025-04-20",
+      "sdoR2ScheduleOfLossDefendantText": "In the event of a challenge to the updated schedule of loss, a defendant shall upload to the Digital Portal a counter-schedule by 4pm on",
+      "sdoR2ScheduleOfLossDefendantDate": "2025-04-23",
+      "isClaimForPecuniaryLoss": "No"
+    },
+    "sdoR2SeparatorUploadOfDocumentsToggle": [
+      "INCLUDE"
+    ],
+    "sdoR2UploadOfDocuments": {
+      "sdoUploadOfDocumentsTxt": "Each party must upload to the Digital Portal copies of those documents on which they wish to rely at trial 21 days before the hearing."
+    },
+    "sdoR2AddNewDirection": [],
+    "sdoR2TrialToggle": [
+      "INCLUDE"
+    ],
+    "sdoR2Trial": {
+      "trialOnOptions": "OPEN_DATE",
+      "lengthList": "ONE_HOUR",
+      "hearingCourtLocationList": {
+        "value": {
+          "code": "739514",
+          "label": "Clerkenwell and Shoreditch County Court and Family Court - 29-41 Gee Street - EC1V 3RE"
+        },
+        "list_items": [
+          {
+            "code": "739514",
+            "label": "Clerkenwell and Shoreditch County Court and Family Court - 29-41 Gee Street - EC1V 3RE"
+          },
+          {
+            "code": "OTHER_LOCATION",
+            "label": "Other location"
+          }
+        ]
+      },
+      "methodOfHearing": "fastTrackMethodInPerson",
+      "physicalBundleOptions": "NONE",
+      "hearingNotesTxt": null,
+      "sdoR2TrialFirstOpenDateAfter": {
+        "listFrom": "2025-06-18"
+      }
+    },
+    "sdoR2ImportantNotesTxt": "This Order has been made without hearing. Each party has the right to apply to have this Order set aside or varied. Any such application must be received by the Court (together with the appropriate fee) by 4pm on",
+    "sdoR2ImportantNotesDate": "2024-04-20"
+  },
+  "event": {
+    "id": "CREATE_SDO",
+    "summary": "",
+    "description": ""
+  },
+  "event_data": {
+    "drawDirectionsOrderRequired": "No",
+    "featureToggleWA": "Prod",
+    "claimsTrack": "fastTrack",
+    "fastClaims": [
+      "fastClaimNoiseInducedHearingLoss"
+    ],
+    "sdoFastTrackJudgesRecital": {
+      "input": "Upon considering the statements of case and the information provided by the parties."
+    },
+    "sdoAltDisputeResolution": {
+      "includeInOrderToggle": [
+        "INCLUDE"
+      ]
+    },
+    "sdoVariationOfDirections": {
+      "includeInOrderToggle": [
+        "INCLUDE"
+      ]
+    },
+    "sdoR2Settlement": {
+      "includeInOrderToggle": [
+        "INCLUDE"
+      ]
+    },
+    "sdoR2DisclosureOfDocumentsToggle": [
+      "INCLUDE"
+    ],
+    "sdoR2DisclosureOfDocuments": {
+      "standardDisclosureTxt": "Standard disclosure shall be provided by the parties by uploading to the Digital Portal their list of documents by 4pm on",
+      "standardDisclosureDate": "2024-05-08",
+      "inspectionTxt": "Any request to inspect a document, or for a copy of a document, shall be made directly to the other party by 4pm on",
+      "inspectionDate": "2024-05-22",
+      "requestsWillBeCompiledLabel": "within 7 days of receipt."
+    },
+    "sdoR2SeparatorWitnessesOfFactToggle": [
+      "INCLUDE"
+    ],
+    "sdoR2WitnessesOfFact": {
+      "sdoStatementOfWitness": "Each party must upload to the Digital Portal copies of the statements of all witnesses of fact on whom they intend to rely.",
+      "sdoWitnessDeadline": "Witness statements shall be uploaded to the Digital Portal by 4pm on",
+      "sdoWitnessDeadlineDate": "2024-06-19",
+      "sdoWitnessDeadlineText": "Evidence will not be permitted at trial from a witness whose statement has not been uploaded in accordance with the Order, except with permission from the Court.",
+      "sdoR2RestrictWitness": {
+        "isRestrictWitness": "No"
+      },
+      "sdoRestrictPages": {
+        "isRestrictPages": "No"
+      }
+    },
+    "sdoR2SeparatorExpertEvidenceToggle": [
+      "INCLUDE"
+    ],
+    "sdoR2ExpertEvidence": {
+      "sdoClaimantPermissionToRelyTxt": "The Claimant has permission to rely upon the written expert evidence already uploaded to the Digital Portal with the particulars of claim."
+    },
+    "sdoR2SeparatorAddendumReportToggle": [
+      "INCLUDE"
+    ],
+    "sdoR2AddendumReport": {
+      "sdoAddendumReportTxt": "The Claimant may upload to the Digital Portal an addendum report from their expert ENT surgeon by 4pm on",
+      "sdoAddendumReportDate": "2024-06-05"
+    },
+    "sdoR2SeparatorFurtherAudiogramToggle": [
+      "INCLUDE"
+    ],
+    "sdoR2FurtherAudiogram": {
+      "sdoClaimantShallUndergoTxt": "The Claimant shall undergo a single further audiogram at the written request of any Defendant. Such request to be made no later than 4pm on",
+      "sdoClaimantShallUndergoDate": "2024-05-22",
+      "sdoServiceReportTxt": "The further audiogram shall be arranged and paid for by the Defendant requesting it. The Defendant shall serve a copy of the further audiogram on the Claimant and upload to the Digital Portal by 4pm on",
+      "sdoServiceReportDate": "2024-07-17"
+    },
+    "sdoR2SeparatorQuestionsClaimantExpertToggle": [
+      "INCLUDE"
+    ],
+    "sdoR2QuestionsClaimantExpert": {
+      "sdoDefendantMayAskTxt": "The Defendant(s) may ask questions of the Claimant's expert which must be sent to the expert directly and uploaded to th Digital Portal by 4pm on",
+      "sdoDefendantMayAskDate": "2024-08-14",
+      "sdoQuestionsShallBeAnsweredTxt": "The questions shall be answered by the expert by",
+      "sdoQuestionsShallBeAnsweredDate": "2024-09-04",
+      "sdoUploadedToDigitalPortalTxt": "by the asking party within 7 days of receipt.",
+      "sdoApplicationToRelyOnFurther": {
+        "doRequireApplicationToRely": "No"
+      }
+    },
+    "sdoR2SeparatorPermissionToRelyOnExpertToggle": [
+      "INCLUDE"
+    ],
+    "sdoR2PermissionToRelyOnExpert": {
+      "sdoPermissionToRelyOnExpertTxt": "The Defendant has permission to rely on written expert evidence from a consultant ENT surgeon. Such report shall be uploaded to the Digital Portal by 4pm on",
+      "sdoPermissionToRelyOnExpertDate": "2024-08-07",
+      "sdoJointMeetingOfExpertsTxt": "The experts instructed by each party shall discuss their reports and shall prepare a schedule of agreement and disagreement which shall be provided to the parties by 4pm on",
+      "sdoJointMeetingOfExpertsDate": "2024-09-04",
+      "sdoUploadedToDigitalPortalTxt": "by the Claimant within 7 days of receipt."
+    },
+    "sdoR2SeparatorEvidenceAcousticEngineerToggle": [
+      "INCLUDE"
+    ],
+    "sdoR2EvidenceAcousticEngineer": {
+      "sdoEvidenceAcousticEngineerTxt": "The parties have permission to rely on the jointly instructed written evidence of an expert acoustic engineer.",
+      "sdoInstructionOfTheExpertTxt": "The expert shall be agreed and instructed by",
+      "sdoInstructionOfTheExpertDate": "2024-05-22",
+      "sdoInstructionOfTheExpertTxtArea": "If no expert has been instructed by the date the Claimant must apply to court by 4pm the following day for further directions.",
+      "sdoExpertReportTxt": "The expert will report to the instructing parties by",
+      "sdoExpertReportDate": "2025-01-15",
+      "sdoExpertReportDigitalPortalTxt": "by the Claimant within 7 days of receipt.",
+      "sdoWrittenQuestionsTxt": "Written questions may be posed by any party directly to the single jointly instructed expert by",
+      "sdoWrittenQuestionsDate": "2025-01-29",
+      "sdoWrittenQuestionsDigitalPortalTxt": "by the same date.",
+      "sdoRepliesTxt": "send the answers to questions to the asking party by",
+      "sdoRepliesDate": "2025-02-19",
+      "sdoRepliesDigitalPortalTxt": "by that party within 7 days of receipt.",
+      "sdoServiceOfOrderTxt": "A copy of this order must be served on the expert by the Claimant with the expert's instructions."
+    },
+    "sdoR2SeparatorQuestionsToEntExpertToggle": [
+      "INCLUDE"
+    ],
+    "sdoR2QuestionsToEntExpert": {
+      "sdoWrittenQuestionsTxt": "The parties may put written questions of an ENT engineering expert for whom permission has been given by 4pm on",
+      "sdoWrittenQuestionsDate": "2025-03-12",
+      "sdoWrittenQuestionsDigPortalTxt": "and shall upload the same to the Digital Portal by the same date.\nSuch questions shall be limited to issues arising from the single jointly instructed expert engineer's report and any answers to questions.",
+      "sdoQuestionsShallBeAnsweredTxt": "Such questions shall be answered by the ENT expert by",
+      "sdoQuestionsShallBeAnsweredDate": "2025-03-26",
+      "sdoShallBeUploadedTxt": "within 7 days of receipt."
+    },
+    "sdoR2ScheduleOfLossToggle": [
+      "INCLUDE"
+    ],
+    "sdoR2ScheduleOfLoss": {
+      "sdoR2ScheduleOfLossClaimantText": "The Claimant must upload to the Digital Portal an up-to-date schedule of loss by 4pm on",
+      "sdoR2ScheduleOfLossClaimantDate": "2025-04-20",
+      "sdoR2ScheduleOfLossDefendantText": "In the event of a challenge to the updated schedule of loss, a defendant shall upload to the Digital Portal a counter-schedule by 4pm on",
+      "sdoR2ScheduleOfLossDefendantDate": "2025-04-23",
+      "isClaimForPecuniaryLoss": "No"
+    },
+    "sdoR2SeparatorUploadOfDocumentsToggle": [
+      "INCLUDE"
+    ],
+    "sdoR2UploadOfDocuments": {
+      "sdoUploadOfDocumentsTxt": "Each party must upload to the Digital Portal copies of those documents on which they wish to rely at trial 21 days before the hearing."
+    },
+    "sdoR2AddNewDirection": [],
+    "sdoR2TrialToggle": [
+      "INCLUDE"
+    ],
+    "sdoR2Trial": {
+      "trialOnOptions": "OPEN_DATE",
+      "lengthList": "ONE_HOUR",
+      "hearingCourtLocationList": {
+        "value": {
+          "code": "739514",
+          "label": "Clerkenwell and Shoreditch County Court and Family Court - 29-41 Gee Street - EC1V 3RE"
+        },
+        "list_items": [
+          {
+            "code": "739514",
+            "label": "Clerkenwell and Shoreditch County Court and Family Court - 29-41 Gee Street - EC1V 3RE"
+          },
+          {
+            "code": "OTHER_LOCATION",
+            "label": "Other location"
+          }
+        ]
+      },
+      "methodOfHearing": "fastTrackMethodInPerson",
+      "physicalBundleOptions": "NONE",
+      "hearingNotesTxt": null,
+      "sdoR2TrialFirstOpenDateAfter": {
+        "listFrom": "2025-06-18"
+      }
+    },
+    "sdoR2ImportantNotesTxt": "This Order has been made without hearing. Each party has the right to apply to have this Order set aside or varied. Any such application must be received by the Court (together with the appropriate fee) by 4pm on",
+    "sdoR2ImportantNotesDate": "2024-04-20"
+  },
+  "event_token": "#{event_token}}",
+  "ignore_warning": false,
+  "case_reference": "#{caseId}"
+}

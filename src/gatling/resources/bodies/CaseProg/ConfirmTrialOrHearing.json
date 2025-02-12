@@ -1,0 +1,32 @@
+{
+  "data": {
+    "isApplicant1": "Yes",
+    "hearingDurationTextApplicant": "30 minutes",
+    "trialReadyApplicant": "Yes",
+    "applicantRevisedHearingRequirements": {
+      "revisedHearingRequirements": "No"
+    },
+    "applicantHearingOtherComments": {
+      "hearingOtherComments": "#{CaseProgRandomString}"
+    }
+  },
+  "event": {
+    "id": "TRIAL_READINESS",
+    "summary": "",
+    "description": ""
+  },
+  "event_data": {
+    "isApplicant1": "Yes",
+    "hearingDurationTextApplicant": "30 minutes",
+    "trialReadyApplicant": "Yes",
+    "applicantRevisedHearingRequirements": {
+      "revisedHearingRequirements": "No"
+    },
+    "applicantHearingOtherComments": {
+      "hearingOtherComments": "#{CaseProgRandomString}"
+    }
+  },
+  "event_token": "#{event_token}",
+  "ignore_warning": false,
+  "case_reference": "#{caseId}"
+}

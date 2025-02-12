@@ -1,0 +1,114 @@
+{
+  "data": {
+    "respondent2SameLegalRepresentative": null,
+    "respondent1ClaimResponseType": "FULL_DEFENCE",
+    "respondent1ClaimResponseDocument": {
+      "file": {
+        "document_url": "#{document_url}",
+        "document_binary_url": "#{document_url}/binary",
+        "document_filename": "casesummary.docx",
+        "category_id": "defendant1DefenseDirectionsQuestionnaire",
+        "upload_timestamp": "2024-11-14T17:59:20.416031166"
+      }
+    },
+    "applicant1ProceedWithClaim": "Yes",
+    "allocatedTrack": "INTERMEDIATE_CLAIM",
+    "featureToggleWA": "Prod",
+    "claimType": "PERSONAL_INJURY",
+    "respondent2ClaimResponseType": null,
+    "applicantsProceedIntention": "Yes",
+    "addApplicant2": "No",
+    "respondentResponseIsSame": null,
+    "claimantResponseScenarioFlag": "ONE_V_ONE",
+    "claimantResponseDocumentToDefendant2Flag": "No",
+    "claimant2ResponseFlag": "No",
+    "applicant1DefenceResponseDocument": {
+      "file": {
+        "document_url": "#{defenceDocument_url}",
+        "document_binary_url": "#{defenceDocument_url}/binary",
+        "document_filename": "casesummary.docx",
+        "document_hash": "#{defenceHashToken}"
+      }
+    },
+    "applicant1DQFileDirectionsQuestionnaire": {
+      "oneMonthStayRequested": "No",
+      "reactionProtocolCompliedWith": "Yes",
+      "reactionProtocolNotCompliedWithReason": null,
+      "explainedToClient": [
+        "CONFIRM"
+      ]
+    },
+    "applicant1DQFixedRecoverableCostsIntermediate": {
+      "isSubjectToFixedRecoverableCostRegime": "Yes",
+      "complexityBandingAgreed": "Yes",
+      "band": "BAND_2",
+      "reasons": "asasasas"
+    },
+    "applicant1DQDisclosureOfElectronicDocuments": {
+      "reachedAgreement": "Yes",
+      "agreementLikely": null,
+      "reasonForNoAgreement": null
+    },
+    "applicant1DQDisclosureOfNonElectronicDocuments": {
+      "directionsForDisclosureProposed": "Yes",
+      "standardDirectionsRequired": "Yes",
+      "bespokeDirections": null
+    },
+    "applicant1DQExperts": {
+      "expertRequired": "No",
+      "expertReportsSent": null,
+      "jointExpertSuitable": null,
+      "details": []
+    },
+    "applicant1DQWitnesses": {
+      "witnessesToAppear": "No",
+      "details": []
+    },
+    "applicant1DQLanguage": {
+      "court": "ENGLISH",
+      "documents": "ENGLISH",
+      "evidence": null
+    },
+    "applicant1DQHearing": {
+      "unavailableDatesRequired": "No",
+      "hearingLength": null,
+      "hearingLengthHours": null,
+      "hearingLengthDays": null,
+      "unavailableDates": []
+    },
+    "applicant1DQDraftDirections": {
+      "document_url": "#{defenceDocument_url}",
+      "document_binary_url": "#{defenceDocument_url}/binary",
+      "document_filename": "casesummary.docx",
+      "document_hash": "#{defenceHashToken}"
+    },
+    "applicant1DQHearingSupport": {
+      "signLanguageRequired": null,
+      "languageToBeInterpreted": null,
+      "otherSupport": null,
+      "supportRequirements": "No",
+      "supportRequirementsAdditional": null,
+      "requirements": []
+    },
+    "applicant1DQVulnerabilityQuestions": {
+      "vulnerabilityAdjustmentsRequired": "No",
+      "vulnerabilityAdjustments": null
+    },
+    "applicant1DQFurtherInformation": {
+      "futureApplications": "No",
+      "reasonForFutureApplications": null,
+      "otherInformationForJudge": "sdsdsdsds"
+    },
+    "uiStatementOfTruth": {
+      "name": "aasas",
+      "role": "vbvbvbvb"
+    }
+  },
+  "event": {
+    "id": "CLAIMANT_RESPONSE",
+    "summary": "",
+    "description": ""
+  },
+  "event_token": "#{event_token}",
+  "ignore_warning": false
+}

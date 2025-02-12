@@ -1,0 +1,167 @@
+{
+  "data": {
+    "respondent1DQDraftDirections": {
+      "document_url": "#{specclaimantmultitrackdocurl}",
+      "document_binary_url": "#{specclaimantmultitrackdocurl}/binary",
+      "document_filename": "casesummary.docx",
+      "document_hash": "#{specclaimantmultitrackhashtoken}"
+    }
+  },
+  "event": {
+    "id": "DEFENDANT_RESPONSE_SPEC",
+    "summary": "",
+    "description": ""
+  },
+  "event_data": {
+    "multiPartyResponseTypeFlags": "FULL_DEFENCE",
+    "showConditionFlags": [
+      "CAN_ANSWER_RESPONDENT_1",
+      "SOMEONE_DISPUTES",
+      "ONLY_RESPONDENT_1_DISPUTES",
+      "TIMELINE_MANUALLY"
+    ],
+    "respondent1ResponseDate": null,
+    "addRespondent2": "No",
+    "isRespondent1": "Yes",
+    "respondent1ClaimResponseTestForSpec": null,
+    "isRespondent2": "No",
+    "respondent2ClaimResponseTestForSpec": null,
+    "isApplicant1": "No",
+    "showHowToAddTimeLinePage": null,
+    "fullAdmissionAndFullAmountPaid": "No",
+    "partAdmittedByEitherRespondents": "No",
+    "neitherCompanyNorOrganisation": "No",
+    "defenceAdmitPartPaymentTimeRouteGeneric": "IMMEDIATELY",
+    "respondentClaimResponseTypeForSpecGeneric": "FULL_DEFENCE",
+    "respondToClaimAdmitPartEmploymentTypeLRspecGeneric": null,
+    "totalClaimAmount": "110000",
+    "respondent2Copy": null,
+    "respondent2SameLegalRepresentative": null,
+    "respondent1Copy": {
+      "partyID": "2625f445-040a-45",
+      "type": "COMPANY",
+      "companyName": "cvg",
+      "primaryAddress": {
+        "AddressLine1": "24 Hibernia Gardens",
+        "PostTown": "Hounslow",
+        "Country": "United Kingdom",
+        "PostCode": "TW3 3SD"
+      },
+      "partyName": "cvg",
+      "partyTypeDisplayValue": "Company",
+      "partyEmail": "cvg@cfg.com",
+      "flags": {
+        "partyName": "cvg",
+        "roleOnCase": "Defendant 1"
+      }
+    },
+    "specAoSApplicantCorrespondenceAddressRequired": "Yes",
+    "solicitorReferences": {
+      "respondentSolicitor1Reference": null,
+      "applicantSolicitor1Reference": null,
+      "respondentSolicitor2Reference": null
+    },
+    "respondent1OrganisationPolicy": {
+      "Organisation": {
+        "OrganisationID": "MEVCCQF"
+      },
+      "OrgPolicyCaseAssignedRole": "[RESPONDENTSOLICITORONE]"
+    },
+    "respondent2OrganisationPolicy": {
+      "OrgPolicyCaseAssignedRole": "[RESPONDENTSOLICITORTWO]"
+    },
+    "respondent1": {
+      "individualDateOfBirth": null,
+      "soleTraderDateOfBirth": null,
+      "type": "COMPANY",
+      "individualTitle": null,
+      "individualFirstName": null,
+      "individualLastName": null,
+      "companyName": "cvg",
+      "organisationName": null,
+      "soleTraderTitle": null,
+      "soleTraderFirstName": null,
+      "soleTraderLastName": null,
+      "soleTraderTradingAs": null,
+      "partyName": "cvg",
+      "partyTypeDisplayValue": "Company",
+      "partyEmail": "cvg@cfg.com",
+      "partyPhone": null,
+      "partyID": "2625f445-040a-45",
+      "primaryAddress": {
+        "AddressLine1": "24 Hibernia Gardens",
+        "AddressLine2": null,
+        "AddressLine3": null,
+        "PostTown": "Hounslow",
+        "County": null,
+        "PostCode": "TW3 3SD",
+        "Country": "United Kingdom"
+      },
+      "unavailableDates": []
+    },
+    "specAoSRespondentCorrespondenceAddressRequired": "Yes",
+    "addApplicant2": "No",
+    "respondent1ClaimResponseTypeForSpec": "FULL_DEFENCE",
+    "specPaidLessAmountOrDisputesOrPartAdmission": "Yes",
+    "specFullDefenceOrPartAdmission1V1": "Yes",
+    "responseClaimTrack": "MULTI_CLAIM",
+    "specFullAdmissionOrPartAdmission": "No",
+    "specFullDefenceOrPartAdmission": "Yes",
+    "sameSolicitorSameResponse": null,
+    "defenceRouteRequired": "DISPUTES_THE_CLAIM",
+    "respondent1ClaimResponsePaymentAdmissionForSpec": "DID_NOT_PAY",
+    "detailsOfWhyDoesYouDisputeTheClaim": "asasasas",
+    "specDisputesOrPartAdmission": "Yes",
+    "specClaimResponseTimelineList": "MANUAL",
+    "specResponseTimelineOfEvents": [
+      {
+        "value": {
+          "timelineDate": "2024-01-01",
+          "timelineDescription": "aasasas"
+        },
+        "id": null
+      }
+    ],
+    "respondent1DQFileDirectionsQuestionnaire": {
+      "oneMonthStayRequested": "No",
+      "reactionProtocolCompliedWith": "Yes",
+      "explainedToClient": [
+        "CONFIRM"
+      ]
+    },
+    "specRespondent1DQDisclosureOfElectronicDocuments": {
+      "reachedAgreement": "Yes"
+    },
+    "respondent1DQDisclosureReport": {
+      "disclosureFormFiledAndServed": "Yes",
+      "disclosureProposalAgreed": "Yes",
+      "draftOrderNumber": "aasas"
+    },
+    "respondent1DQExperts": {
+      "expertRequired": "No",
+      "details": []
+    },
+    "respondent1DQWitnessesRequiredSpec": "No",
+    "respondent1DQLanguage": {
+      "court": "ENGLISH",
+      "documents": "ENGLISH",
+      "evidence": null
+    },
+    "respondent1DQHearingFastClaim": {
+      "unavailableDatesRequired": "No",
+      "hearingLength": null,
+      "hearingLengthHours": null,
+      "hearingLengthDays": null,
+      "unavailableDates": []
+    },
+    "respondent1DQDraftDirections": {
+      "document_url": "#{specclaimantmultitrackdocurl}",
+      "document_binary_url": "#{specclaimantmultitrackdocurl}/binary",
+      "document_filename": "casesummary.docx",
+      "document_hash": "#{specclaimantmultitrackhashtoken}"
+    }
+  },
+  "event_token": "#{event_token}",
+  "ignore_warning": false,
+  "case_reference": "#{caseId}"
+}

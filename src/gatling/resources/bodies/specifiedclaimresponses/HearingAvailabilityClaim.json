@@ -1,0 +1,185 @@
+{
+  "data": {
+    "applicant1DQSmallClaimHearing": {
+      "unavailableDatesRequired": "No"
+    }
+  },
+  "event": {
+    "id": "CLAIMANT_RESPONSE_SPEC",
+    "summary": "",
+    "description": ""
+  },
+  "event_data": {
+    "respondent1": {
+      "type": "COMPANY",
+      "individualTitle": null,
+      "individualFirstName": null,
+      "individualLastName": null,
+      "individualDateOfBirth": null,
+      "companyName": "#{partyName}",
+      "organisationName": null,
+      "soleTraderTitle": null,
+      "soleTraderFirstName": null,
+      "soleTraderLastName": null,
+      "soleTraderTradingAs": null,
+      "soleTraderDateOfBirth": null,
+      "partyName": "#{partyName}",
+      "partyTypeDisplayValue": "Company",
+      "partyEmail": null,
+      "partyPhone": null,
+      "partyID": "#{repPartyID}",
+      "primaryAddress": {
+        "AddressLine1": null,
+        "AddressLine2": null,
+        "AddressLine3": null,
+        "PostTown": null,
+        "County": null,
+        "PostCode": null,
+        "Country": null
+      },
+      "unavailableDates": []
+    },
+    "applicant1": {
+      "type": "COMPANY",
+      "individualTitle": null,
+      "individualFirstName": null,
+      "individualLastName": null,
+      "individualDateOfBirth": null,
+      "companyName": "cdb limited",
+      "organisationName": null,
+      "soleTraderTitle": null,
+      "soleTraderFirstName": null,
+      "soleTraderLastName": null,
+      "soleTraderTradingAs": null,
+      "soleTraderDateOfBirth": null,
+      "partyName": "cdb limited",
+      "partyTypeDisplayValue": "Company",
+      "partyEmail": null,
+      "partyPhone": null,
+      "partyID": "1e76f823-948e-46",
+      "primaryAddress": {
+        "AddressLine1": null,
+        "AddressLine2": null,
+        "AddressLine3": null,
+        "PostTown": null,
+        "County": null,
+        "PostCode": null,
+        "Country": null
+      },
+      "unavailableDates": []
+    },
+    "applicant2": {
+      "type": null,
+      "individualTitle": null,
+      "individualFirstName": null,
+      "individualLastName": null,
+      "individualDateOfBirth": null,
+      "companyName": null,
+      "organisationName": null,
+      "soleTraderTitle": null,
+      "soleTraderFirstName": null,
+      "soleTraderLastName": null,
+      "soleTraderTradingAs": null,
+      "soleTraderDateOfBirth": null,
+      "partyName": null,
+      "partyTypeDisplayValue": null,
+      "partyEmail": null,
+      "partyPhone": null,
+      "partyID": null,
+      "primaryAddress": {
+        "AddressLine1": null,
+        "AddressLine2": null,
+        "AddressLine3": null,
+        "PostTown": null,
+        "County": null,
+        "PostCode": null,
+        "Country": null
+      },
+      "unavailableDates": []
+    },
+    "partAdmitPaidValuePounds": null,
+    "respondent2": {
+      "type": null,
+      "individualTitle": null,
+      "individualFirstName": null,
+      "individualLastName": null,
+      "individualDateOfBirth": null,
+      "companyName": null,
+      "organisationName": null,
+      "soleTraderTitle": null,
+      "soleTraderFirstName": null,
+      "soleTraderLastName": null,
+      "soleTraderTradingAs": null,
+      "soleTraderDateOfBirth": null,
+      "partyName": null,
+      "partyTypeDisplayValue": null,
+      "partyEmail": null,
+      "partyPhone": null,
+      "partyID": null,
+      "primaryAddress": {
+        "AddressLine1": null,
+        "AddressLine2": null,
+        "AddressLine3": null,
+        "PostTown": null,
+        "County": null,
+        "PostCode": null,
+        "Country": null
+      },
+      "unavailableDates": []
+    },
+    "claimantResponseScenarioFlag": "ONE_V_ONE",
+    "respondToAdmittedClaimOwingAmountPounds": null,
+    "respondent1PaymentDateToStringSpec": "19 April 2024",
+    "featureToggleWA": "Prod",
+    "respondent1ClaimResponseDocumentSpec": {
+      "documentLink": null,
+      "documentName": null,
+      "documentType": null,
+      "documentSize": null,
+      "createdDatetime": null,
+      "createdBy": null,
+      "ownedBy": null
+    },
+    "applicant1ProceedWithClaim": "Yes",
+    "applicantDefenceResponseDocumentAndDQFlag": "Yes",
+    "showConditionFlags": [
+      "TIMELINE_MANUALLY",
+      "ONLY_RESPONDENT_1_DISPUTES",
+      "SOMEONE_DISPUTES",
+      "CAN_ANSWER_RESPONDENT_1",
+      "VULNERABILITY"
+    ],
+    "responseClaimTrack": "SMALL_CLAIM",
+    "allocatedTrack": null,
+    "claimType": null,
+    "defenceRouteRequired": "DISPUTES_THE_CLAIM",
+    "respondentResponseIsSame": null,
+    "defendantSingleResponseToBothClaimants": null,
+    "respondent1ClaimResponseTypeForSpec": "FULL_DEFENCE",
+    "defenceAdmitPartPaymentTimeRouteRequired": null,
+    "showResponseOneVOneFlag": "ONE_V_ONE_FULL_DEFENCE",
+    "applicant1DefenceResponseDocumentSpec": {},
+    "applicant1ClaimExpertSpecRequired": "No",
+    "applicant1DQWitnessesSmallClaim": {
+      "witnessesToAppear": "No",
+      "details": []
+    },
+    "applicant1ClaimWitnesses": "1",
+    "applicant1DQLanguage": {
+      "court": "ENGLISH",
+      "documents": "ENGLISH",
+      "evidence": null
+    },
+    "respondent1DQLanguage": {
+      "court": "ENGLISH",
+      "documents": "ENGLISH"
+    },
+    "respondent2DQLanguage": null,
+    "applicant1DQSmallClaimHearing": {
+      "unavailableDatesRequired": "No"
+    }
+  },
+  "event_token": "#{event_token}",
+  "ignore_warning": false,
+  "case_reference": "#{caseId}"
+}

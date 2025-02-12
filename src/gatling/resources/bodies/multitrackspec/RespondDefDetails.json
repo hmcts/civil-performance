@@ -1,0 +1,75 @@
+{
+  "data": {
+    "respondent2SameLegalRepresentative": null,
+    "respondent2Copy": null,
+    "respondent1Copy": {
+      "partyID": "5075d2d2-11c6-4e",
+      "type": "COMPANY",
+      "companyName": "cvg",
+      "primaryAddress": {
+        "AddressLine1": "24 Hibernia Gardens",
+        "PostTown": "Hounslow",
+        "Country": "United Kingdom",
+        "PostCode": "TW3 3SD"
+      },
+      "partyName": "cvg",
+      "partyTypeDisplayValue": "Company",
+      "partyEmail": "cvg@cfg.com",
+      "flags": {
+        "partyName": "cvg",
+        "roleOnCase": "Defendant 1"
+      }
+    },
+    "specAoSApplicantCorrespondenceAddressRequired": "Yes"
+  },
+  "event": {
+    "id": "DEFENDANT_RESPONSE_SPEC",
+    "summary": "",
+    "description": ""
+  },
+  "event_data": {
+    "showConditionFlags": [
+      "CAN_ANSWER_RESPONDENT_1"
+    ],
+    "multiPartyResponseTypeFlags": null,
+    "respondent1ResponseDate": null,
+    "addRespondent2": "No",
+    "isRespondent1": "Yes",
+    "respondent1ClaimResponseTestForSpec": null,
+    "respondent2ClaimResponseTestForSpec": null,
+    "isRespondent2": "No",
+    "isApplicant1": "No",
+    "showHowToAddTimeLinePage": null,
+    "fullAdmissionAndFullAmountPaid": null,
+    "partAdmittedByEitherRespondents": null,
+    "neitherCompanyNorOrganisation": "No",
+    "defenceAdmitPartPaymentTimeRouteGeneric": null,
+    "respondToClaimAdmitPartEmploymentTypeLRspecGeneric": null,
+    "respondentClaimResponseTypeForSpecGeneric": null,
+    "totalClaimAmount": "110000",
+    "respondent2SameLegalRepresentative": null,
+    "respondent2Copy": null,
+    "respondent1Copy": {
+      "partyID": "5075d2d2-11c6-4e",
+      "type": "COMPANY",
+      "companyName": "cvg",
+      "primaryAddress": {
+        "AddressLine1": "24 Hibernia Gardens",
+        "PostTown": "Hounslow",
+        "Country": "United Kingdom",
+        "PostCode": "TW3 3SD"
+      },
+      "partyName": "cvg",
+      "partyTypeDisplayValue": "Company",
+      "partyEmail": "cvg@cfg.com",
+      "flags": {
+        "partyName": "cvg",
+        "roleOnCase": "Defendant 1"
+      }
+    },
+    "specAoSApplicantCorrespondenceAddressRequired": "Yes"
+  },
+  "event_token": "#{event_token}",
+  "ignore_warning": false,
+  "case_reference": "#{caseId}"
+}

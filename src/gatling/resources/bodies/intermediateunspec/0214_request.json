@@ -1,0 +1,20 @@
+{
+  "data": {
+    "servedDocumentFiles": {
+      "particularsOfClaimText": "${LRrandomString} particularsOfClaim",
+      "particularsOfClaimDocument": [],
+      "medicalReport": [],
+      "scheduleOfLoss": [],
+      "certificateOfSuitability": [],
+      "other": [],
+      "timelineEventUpload": []
+    }
+  },
+  "event": {
+    "id": "NOTIFY_DEFENDANT_OF_CLAIM_DETAILS",
+    "summary": "",
+    "description": ""
+  },
+  "event_token": "${event_token_notifyclaimdetail}",
+  "ignore_warning": false
+}
