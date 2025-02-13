@@ -34,6 +34,10 @@ class CivilDamagesSimulation extends Simulation {
 	val cpfulltestsmallclaimsFeeder=csv("cuir2cpsmallclaims.csv").circular
 	val cpfulltestfasttrackFeeder=csv("cuir2cpfasttrack.csv").circular
 	val updateSubmitDateForIntermediateMulti=csv("updatesubmitdateimi.csv").circular
+	val updateRespondantDateJO=csv("updaterespondantDateJO.csv").circular
+	
+	
+	
 	
 	
   val httpProtocol = Environment.HttpProtocol
@@ -662,6 +666,20 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 		.exitBlockOnFail {
 			exec(_.set("env", s"${env}"))
 				.exec(CivilAssignCase.run)
+		}
+	
+	
+	/*======================================================================================
+* Below scenario is for Update the date of respondant for JO
+======================================================================================*/
+	val UpdateSubmitDateRespondantJO = scenario("Update Date for Respondant JO")
+		.feed(loginFeeder).feed(updateRespondantDateJO)
+		.exitBlockOnFail {
+			
+				exec(S2S.s2s("civil_service"))
+			
+				.exec(UnspecIntermediateTrack.UnSpecClaimUpdateWithSubmittedDate)
+			
 		}
 	
 	/*======================================================================================
