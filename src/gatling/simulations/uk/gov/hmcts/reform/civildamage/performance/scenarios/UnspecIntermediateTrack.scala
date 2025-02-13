@@ -138,7 +138,7 @@ object UnspecIntermediateTrack {
     }
     .pause(MinThinkTime, MaxThinkTime)
   
-  val UnSpecClaimUpdateWithSubmittedDate =
+  val UpdateDateForRespondantJO =
        
         exec(http("API_Civil_UpdateSubmittedDate")
           .put("http://civil-service-perftest.service.core-compute-perftest.internal/testing-support/case/#{caseId}")
@@ -147,6 +147,18 @@ object UnspecIntermediateTrack {
           .header("Content-type", "application/json")
           .body(ElFileBody("bodies/updatesubmitteddate.json")))
   
+      .pause(MinThinkTime, MaxThinkTime)
+  
+  
+  val UnSpecClaimUpdateWithSubmittedDate =
+    
+    exec(http("API_Civil_UpdateSubmittedDate")
+      .put("http://civil-service-perftest.service.core-compute-perftest.internal/testing-support/case/#{caseId}")
+      .header("Authorization", "Bearer eyJ0eXAiOiJKV1QiLCJraWQiOiI4cDJpajg2S0pTeENKeGcveUovV2w3TjcxMXM9IiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiJjaXZpbC5kYW1hZ2VzLmNsYWltcytvcmdhbmlzYXRpb24uMS5zb2xpY2l0b3IuMUBnbWFpbC5jb20iLCJjdHMiOiJPQVVUSDJfU1RBVEVMRVNTX0dSQU5UIiwiYXV0aF9sZXZlbCI6MCwiYXVkaXRUcmFja2luZ0lkIjoiYjg3NTI3YjctMGEzNC00NDI0LWI5ZGMtOTMzY2I1ZjMxZDQ2LTI3NDE0ODc3Iiwic3VibmFtZSI6ImNpdmlsLmRhbWFnZXMuY2xhaW1zK29yZ2FuaXNhdGlvbi4xLnNvbGljaXRvci4xQGdtYWlsLmNvbSIsImlzcyI6Imh0dHBzOi8vZm9yZ2Vyb2NrLWFtLnNlcnZpY2UuY29yZS1jb21wdXRlLWlkYW0tcGVyZnRlc3QuaW50ZXJuYWw6ODQ0My9vcGVuYW0vb2F1dGgyL3JlYWxtcy9yb290L3JlYWxtcy9obWN0cyIsInRva2VuTmFtZSI6ImFjY2Vzc190b2tlbiIsInRva2VuX3R5cGUiOiJCZWFyZXIiLCJhdXRoR3JhbnRJZCI6Ii1nMTEtemI4bU41ZWw4ZmF4UEdPbDNKYUFSUSIsIm5vbmNlIjoiU1dyS25ZUkRqdjBZYk0xZ0RPdlRGdndIc24xbXVlMnlIcUpLb0tNcVVVUSIsImF1ZCI6Inh1aXdlYmFwcCIsIm5iZiI6MTczMDk5MTIzNywiZ3JhbnRfdHlwZSI6ImF1dGhvcml6YXRpb25fY29kZSIsInNjb3BlIjpbIm9wZW5pZCIsInByb2ZpbGUiLCJyb2xlcyIsImNyZWF0ZS11c2VyIiwibWFuYWdlLXVzZXIiLCJzZWFyY2gtdXNlciJdLCJhdXRoX3RpbWUiOjE3MzA5OTEyMzYsInJlYWxtIjoiL2htY3RzIiwiZXhwIjoxNzMxMDIwMDM3LCJpYXQiOjE3MzA5OTEyMzcsImV4cGlyZXNfaW4iOjI4ODAwLCJqdGkiOiIxaUpiRW1Xemw4NC1DMmppQWxzd0JKOEdkY1EifQ.VGZEx0IIodSPGy2Z15eUrFfv_WrrlUxQ0Oa7YqPQgQybkcoYXFCRb2AKQeglHihpeYgV_qykaCLoianCuvYTSEGzowieOd-avB6V3jUMMU_rkSQXB86Ei5oLbcCtcbBw6RsAfrqtk-CGFwsaQw8eNQAL9zTGqv_BMft0ssDXNCuTyQHLwFaorKWHsRM0hJ9rzRZ9dI5gF5Noj8wyl0gLEea6ThgXtuCYyvk1kUNEk0br2Eec5IbO3G2Q6gDEZrBCI90iLE39Unb8rdy8znpD7ZiJf-mSClBUMuvQ6ueZI3iwNpOpOigEehMQpxUA8BCEu8kj_dCt94tjQ9PXM-x8Cw")
+      .header("ServiceAuthorization", "#{civil_serviceBearerToken}")
+      .header("Content-type", "application/json")
+      .body(ElFileBody("bodies/updatesubmitteddate.json")))
+      
       .pause(MinThinkTime, MaxThinkTime)
   
       
