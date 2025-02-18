@@ -615,9 +615,7 @@ object CUIR2ClaimCreation {
           .check(substring("You have completed 6 of 7 sections")))
       }
       .pause(MinThinkTime, MaxThinkTime)
-  
-     
-     
+      
   
       /*======================================================================================
                * Civil Citizen -  2.Prepare your claim - CheckAndSendGet

@@ -5,6 +5,8 @@ import io.gatling.core.Predef.{exec, _}
 import io.gatling.http.Predef._
 import uk.gov.hmcts.reform.civildamage.performance.scenarios.utils.{CivilDamagesHeader, CsrfCheck, Environment}
 
+import java.io.{BufferedWriter, FileWriter}
+
 object CUIR2DefendantResponse {
   
   val BaseURL = Environment.baseURL
@@ -697,9 +699,36 @@ object CUIR2DefendantResponse {
       )
     }
     .pause(MinThinkTime, MaxThinkTime)
-
-
-    /*======================================================================================
+  
+      /*======================================================================================
+                * Civil Citizen -  2.Prepare your claim - CheckAndSendGet
+      ==========================================================================================*/
+      .group("CUIR2_DefResponse_380_CheckYourAnswers") {
+        exec(http("CUIR2_DefResponse_380_CheckYourAnswers")
+          .get(CivilUiURL + "/case/#{caseId}/response/check-and-send")
+          .headers(CivilDamagesHeader.CUIR2Get)
+          .check(CsrfCheck.save)
+          .check(substring("Equality and diversity questions"))
+        )
+    
+      }
+      .pause(MinThinkTime, MaxThinkTime)
+  
+      /*======================================================================================
+               * Civil Citizen -  PCQ Questionaire Opt out
+     ==========================================================================================*/
+      .group("CUIR2_DefResponse_390_PCQQuestionaire") {
+        exec(http("CUIR2_DefResponse_390_005_PCQQuestionaire")
+          .post("https://pcq.perftest.platform.hmcts.net/opt-out")
+          .headers(CivilDamagesHeader.CUIR2Post)
+          .formParam("_csrf", "#{csrf}")
+          .formParam("opt-out-button", "")
+          .check(CsrfCheck.save)
+          .check(substring("Check your answers")))
+      }
+      .pause(MinThinkTime, MaxThinkTime)
+  
+     /* /*======================================================================================
    * Civil UI Claim - Check and submit your response Redirect
 ==========================================================================================*/
 
@@ -712,7 +741,7 @@ object CUIR2DefendantResponse {
         .check(substring("Check your answers"))
       )
     }
-    .pause(MinThinkTime, MaxThinkTime)
+    .pause(MinThinkTime, MaxThinkTime)*/
 
 
     /*======================================================================================
@@ -732,5 +761,14 @@ object CUIR2DefendantResponse {
       )
     }
     .pause(MinThinkTime, MaxThinkTime)
+  
+      .exec { session =>
+        val fw = new BufferedWriter(new FileWriter("CUIR2DefFinal.csv", true))
+        try {
+          fw.write(session("claimantEmail").as[String] + "," + session("defEmail").as[String] + "," + session("password").as[String] + "," + session("caseId").as[String] + "\r\n")
+        } finally fw.close()
+    
+        session
+      }
 }
 
