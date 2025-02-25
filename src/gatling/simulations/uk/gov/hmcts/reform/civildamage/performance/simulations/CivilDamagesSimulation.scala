@@ -87,17 +87,36 @@ class CivilDamagesSimulation extends Simulation {
       CreateUser.CreateClaimantCitizen
         .pause(20)
     )
-  
-  //below scenario is to generate claims data for GA process
-		
-	
-	
-	
-	
 
-	
-	
-	
+  val DefaultJudgment = scenario(" Default Judgment")
+		.feed(loginFeeder)
+		.exec(_.set("loginFlag", "claimant"))
+		.exec(XUILogin.Homepage)
+		.exec(XUILogin.Loginpage)
+		.exec(XUIClaimCreation.CreateSpecClaim)
+		.exec(XUIClaimCreation.ClaimFeePayment)
+		.exec(CivilAssignCase.cuiassign)
+		.exec(CivilAssignCase.UpdateDeadlineDefaultJudgment)
+		.exec(XUIDefaultJudgment.DefaultJudgment)
+		.exec(XUILogin.Logout)
+		.exec(CUIR2HomePage.CUIR2HomePage)
+		.exec(CUIR2Login.CUIR2DefLogin)
+		.exec(CUIR2ConfirmYouPaid.CoSC)
+		.exec(CUIR2ConfirmYouPaid.ApplicationFee)
+		.exec(CUIR2Logout.CUILogout)
+		.exec(_.set("loginFlag", "admin"))
+		.exec(XUILogin.Homepage)
+		.exec(XUILogin.Loginpage)
+		.exec(HearingAdminJudgment.SetAsideJudgment)
+		.exec(XUILogin.Logout)
+
+
+
+
+
+
+
+
 	/*
 	#######################  CUI R2 Claim Creation Scenario Small Claim ############################################
 	 */
@@ -375,7 +394,7 @@ class CivilDamagesSimulation extends Simulation {
 						Seq(nothingFor(0))
 				}
 			}
-			
+
 			setUp(
 			//	CivilUIR2ClaimCreationScenario.inject(nothingFor(1), rampUsers(5) during (100)),
 				//	CivilUIR2ClaimCreationFTScenario.inject(nothingFor(1),rampUsers(15) during (300)),
@@ -397,7 +416,11 @@ class CivilDamagesSimulation extends Simulation {
 				//	CivilUIR2DefRequestChange.inject(nothingFor(1),rampUsers(1) during (1)),
 				// Below set up is for background load for CUI R2 Journey
 				
-					CivilUIR2ClaimCreationScenario.inject(nothingFor(1),rampUsers(5) during (100)),
+					//CivilUIR2ClaimCreationScenario.inject(nothingFor(1),rampUsers(5) during (100)),
+//				CivilUIR2ClaimCreationScenario.inject(atOnceUsers(1)),
+
+//				Temp.inject(atOnceUsers(1))
+				DefaultJudgment.inject(atOnceUsers(1))
 				
 		//CivilUIR2DefResponseScenario.inject(nothingFor(30),rampUsers(100) during (3600)),
 	//	CivilUIR2ClaimantIntentionScenario.inject(nothingFor(50),rampUsers(25) during (3600))
