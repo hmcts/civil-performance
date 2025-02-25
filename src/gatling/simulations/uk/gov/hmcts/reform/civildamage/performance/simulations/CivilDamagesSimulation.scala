@@ -114,7 +114,7 @@ class CivilDamagesSimulation extends Simulation {
 					.exec(CUIR2Login.CUIR2Login)
 					.exec(CUIR2ClaimCreation.run)
 					.exec(CUIR2Logout.CUILogout)
-				//	.exec(CivilAssignCase.cuiassign)
+					//.exec(CivilAssignCase.cuiassign)
 									}
 			}
 			
@@ -390,7 +390,7 @@ class CivilDamagesSimulation extends Simulation {
 				//	CivilUIR2CaseProgScenario.inject(nothingFor(5),rampUsers(1) during (1))
 				//	CivilCaseAssignScenario.inject(nothingFor(1),rampUsers(1) during (1))
 				// Below is for data prep - Claim Creation
-				// CivilUIR2ClaimCreationScenario.inject(nothingFor(1),rampUsers(150) during (1800))
+				// CivilUIR2ClaimCreationScenario.inject(nothingFor(1),rampUsers(160) during (1800))
 				// Below is for creating the test data for claimant intention
 				//CivilUIR2DefResponseScenario.inject(nothingFor(1),rampUsers(32) during (600)),
 				//	CivilUIR2ClaimantIntentionScenario.inject(nothingFor(1),rampUsers(1) during (1)),

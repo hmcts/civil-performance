@@ -737,7 +737,7 @@ object CUIR2ClaimCreation {
       .pause(MinThinkTime, MaxThinkTime)
   
    .exec { session =>
-         val fw = new BufferedWriter(new FileWriter("CUIR2Claims.csv", true))
+         val fw = new BufferedWriter(new FileWriter("CUIR2Claims2.csv", true))
          try {
            fw.write(session("claimantEmailAddress").as[String] + "," + session("defEmailAddress").as[String] + "," + session("password").as[String] + "," + session("claimNumber").as[String] + "\r\n")
          } finally fw.close()
