@@ -335,5 +335,54 @@ object Common {
       .header("accept", "application/json, text/plain, */*")
       .check(regex("name|Organisation route error"))
       .check(status.in(200, 304, 403)))
-  
+
+
+  val configurationuiXUI =
+    exec(http("XUI_Common_000_ConfigurationUI")
+      .get(Environment.baseURL + "/external/configuration-ui/")
+      .headers(Headers.commonHeader)
+      .header("accept", "*/*")
+      .check(substring("ccdGatewayUrl")))
+
+  val configJsonXUI =
+    exec(http("XUI_Common_000_ConfigJson")
+      .get(Environment.baseURL + "/assets/config/config.json")
+      .header("accept", "application/json, text/plain, */*")
+      .check(substring("caseEditorConfig")))
+
+  val TsAndCsXUI =
+    exec(http("XUI_Common_000_TsAndCs")
+      .get(Environment.baseURL + "/api/configuration?configurationKey=termsAndConditionsEnabled")
+      .headers(Headers.commonHeader)
+      .header("accept", "application/json, text/plain, */*")
+      .check(substring("false")))
+
+  val userDetailsXUI =
+    exec(http("XUI_Common_000_UserDetails")
+      .get(Environment.baseURL + "/api/user/details")
+      .headers(Headers.commonHeader)
+      .header("accept", "application/json, text/plain, */*")
+      .check(status.in(200, 401)))
+
+  val configUIXUI =
+    exec(http("XUI_Common_000_ConfigUI")
+      .get(Environment.baseURL + "/external/config/ui")
+      .headers(Headers.commonHeader)
+      .header("accept", "application/json, text/plain, */*")
+      .check(substring("ccdGatewayUrl")))
+
+  val isAuthenticatedXUI =
+    exec(http("XUI_Common_000_IsAuthenticated")
+      .get(Environment.baseURL + "/auth/isAuthenticated")
+      .headers(Headers.commonHeader)
+      .header("accept", "application/json, text/plain, */*")
+      .check(regex("true|false")))
+
+  val monitoringToolsXUI =
+    exec(http("XUI_Common_000_MonitoringTools")
+      .get(Environment.baseURL + "/api/monitoring-tools")
+      .headers(Headers.commonHeader)
+      .header("accept", "application/json, text/plain, */*")
+      .check(jsonPath("$.key").notNull))
+
 }

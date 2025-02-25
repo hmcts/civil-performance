@@ -16,4 +16,5 @@ object CUIR2Logout {
         .check(substring("Sign in or create an account")))
       
     }
+    .pause(Environment.minThinkTime, Environment.maxThinkTime)
 }

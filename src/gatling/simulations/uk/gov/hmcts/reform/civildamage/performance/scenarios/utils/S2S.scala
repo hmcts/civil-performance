@@ -11,12 +11,11 @@ object S2S {
   //microservice is a string defined in the Simulation and passed into the body below
   def s2s(microservice: String) = {
 
-    exec(http("GetS2SToken")
+    exec(http("CIVIL_GetS2SToken_000_GetBearerToken")
       .post(Environment.s2sUrl + "/testing-support/lease")
       .header("Content-Type", "application/json")
       .body(StringBody(s"""{"microservice":"${microservice}"}"""))
       .check(bodyString.saveAs(s"${microservice}BearerToken")))
-      .exitHereIfFailed
 
   }
 }
