@@ -42,8 +42,6 @@ class CivilDamagesSimulation extends Simulation {
 	
 	
 	
-	
-	
   val httpProtocol = Environment.HttpProtocol
     .baseUrl(BaseURL)
    // .doNotTrackHeader("1")
@@ -126,7 +124,7 @@ class CivilDamagesSimulation extends Simulation {
 				/*
 			defendant and clamant intent journey for specidied cases starts here
 				 */
-				.exec(EXUIMCLogin.manageCasesHomePage)
+				/*.exec(EXUIMCLogin.manageCasesHomePage)
         .exec(EXUIMCLogin.manageCasesloginToDefendantJourney)
         .exec(SpecifiedDefAndClaimantResponse.RespondToClaim)
         .exec(EXUIMCLogin.manageCase_Logout)
@@ -134,7 +132,7 @@ class CivilDamagesSimulation extends Simulation {
         .exec(Homepage.XUIHomePage)
         .exec(Login.XUILogin)
         .exec(SpecifiedDefAndClaimantResponse.RespondToDefence)
-        .exec(EXUIMCLogin.manageCase_Logout)
+        .exec(EXUIMCLogin.manageCase_Logout)*/
 			
 		}
 	
@@ -271,14 +269,16 @@ class CivilDamagesSimulation extends Simulation {
 		.feed(loginFeeder).feed(defresponsecasesFeeder)
 		.exitBlockOnFail {
 				//Defendant response
-				exec(DefendantResponse.run)
-					.pause(20)
-			//claimant intention
-				 .exec(Homepage.XUIHomePage)
-				.exec(Login.XUILogin)
-				.exec(ClaimantIntention.claimantintention)
-					.pause(20)
-				.exec(Logout.XUILogout)
+			/*exec(Homepage.XUIHomePage)
+				.exec(Login.manageCasesloginToDefendantJourney)
+    .exec(SpecifiedDefAndClaimantResponse.RespondToClaim)
+    .exec(EXUIMCLogin.manageCase_Logout)
+    .pause(20)*/
+				//claimant intent
+   exec(Homepage.XUIHomePage)
+    .exec(Login.XUILogin)
+    .exec(SpecifiedDefAndClaimantResponse.RespondToDefence)
+    .exec(EXUIMCLogin.manageCase_Logout)
 		}
 	
 	
@@ -818,14 +818,14 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 	//	CUIR2FastTrackCaseProgression.inject(nothingFor(50),rampUsers(14) during (3600)),
 		//	CivilUIR2ClaimCreationScenario.inject(nothingFor(1),rampUsers(1) during (1))
 		
-		CivilUIClaimCreationScenario.inject(nothingFor(1),rampUsers(1) during (1))
+	//	CivilUIClaimCreationScenario.inject(nothingFor(1),rampUsers(1) during (1))
 	//		PBAServiceScenario.inject(nothingFor(1),rampUsers(1) during (1))
 	//	CivilCaseAssignScenario.inject(nothingFor(1),rampUsers(18) during (300))
 	//		RequestForReConsiderScenario.inject(nothingFor(1),rampUsers(25) during (1800))
 		//		ClaimCreationDRHScenario.inject(nothingFor(1),rampUsers(20) during (1200))
 	//	FlightDelayClaimCreationScenario.inject(nothingFor(1),rampUsers(25) during (1800))
-		/*CivilUIClaimCreationScenario.inject(nothingFor(5),rampUsers(90) during (3600)),
-			CivilUIDefAndIntentScenario.inject(nothingFor(30),rampUsers(20) during (3600))*/
+	//	CivilUIClaimCreationScenario.inject(nothingFor(5),rampUsers(100) during (1800)),
+	//		CivilUIDefAndIntentScenario.inject(nothingFor(30),rampUsers(80) during (1800))
 
 	//	CivilCaseProg.inject(nothingFor(5),rampUsers(1) during (1))
 		//CivilCaseProg.inject(nothingFor(1),rampUsers(12) during (2700))
@@ -836,12 +836,15 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 		
 		// Settle And Discontinue Scenarios
 		
-
-		/*SettleByClaimant.inject(nothingFor(1),rampUsers(28) during (3600)),
+		SettleByClaimant.inject(nothingFor(1),rampUsers(28) during (3600)),
 		SettleByHearingAdmin.inject(nothingFor(25),rampUsers(28) during (3600)),
-		DiscontinueByClaimantAndValidate.inject(nothingFor(50),rampUsers(37) during (3600)),
-		DiscontinueByClaimantAndInValidate.inject(nothingFor(100),rampUsers(37) during (3600)),
-		*/
+		DiscontinueByClaimantAndValidate.inject(nothingFor(50), rampUsers(37) during (3600)),
+		DiscontinueByClaimantAndInValidate.inject(nothingFor(100), rampUsers(37) during (3600)),
+		
+		//	SettleByClaimant.inject(nothingFor(1),rampUsers(2) during (36)),
+	//	SettleByHearingAdmin.inject(nothingFor(25),rampUsers(2) during (36)),
+	//	DiscontinueByClaimantAndValidate.inject(nothingFor(5),rampUsers(2) during (36)),
+	//	DiscontinueByClaimantAndInValidate.inject(nothingFor(10),rampUsers(2) during (36)),
 
 ).protocols(httpProtocol)
 	

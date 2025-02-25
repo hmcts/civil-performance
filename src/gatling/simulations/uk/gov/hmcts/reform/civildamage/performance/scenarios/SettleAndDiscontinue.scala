@@ -66,7 +66,7 @@ object SettleAndDiscontinue {
             .check(substring("SETTLE_CLAIM_MARK_PAID_FULL"))
             .check(jsonPath("$.event_token").saveAs("event_token"))
           )
-          .exec(getCookieValue(CookieKey("XSRF-TOKEN").withDomain(BaseURL.replace("https://", "")).saveAs("XSRFToken")))
+       //   .exec(getCookieValue(CookieKey("XSRF-TOKEN").withDomain(BaseURL.replace("https://", "")).saveAs("XSRFToken")))
           
           .exec(http("XUI_SettleByClaimant_040_015_ClickOnPaidInFull")
             .get("/workallocation/case/tasks/#{caseId}/event/SETTLE_CLAIM_MARK_PAID_FULL/caseType/CIVIL/jurisdiction/CIVIL")
@@ -176,7 +176,7 @@ object SettleAndDiscontinue {
             .check(substring("SETTLE_CLAIM"))
             .check(jsonPath("$.event_token").saveAs("event_token"))
           )
-          .exec(getCookieValue(CookieKey("XSRF-TOKEN").withDomain(BaseURL.replace("https://", "")).saveAs("XSRFToken")))
+       //   .exec(getCookieValue(CookieKey("XSRF-TOKEN").withDomain(BaseURL.replace("https://", "")).saveAs("XSRFToken")))
           
           .exec(http("XUI_SettleByHearingAdmin_040_015_ClickOnSettlement")
             .get("/workallocation/case/tasks/#{caseId}/event/SETTLE_CLAIM/caseType/CIVIL/jurisdiction/CIVIL")
@@ -272,7 +272,7 @@ object SettleAndDiscontinue {
             .check(substring("claimantWhoIsDiscontinuing"))
             .check(jsonPath("$.event_token").saveAs("event_token"))
           )
-          .exec(getCookieValue(CookieKey("XSRF-TOKEN").withDomain(BaseURL.replace("https://", "")).saveAs("XSRFToken")))
+        //  .exec(getCookieValue(CookieKey("XSRF-TOKEN").withDomain(BaseURL.replace("https://", "")).saveAs("XSRFToken")))
           
           .exec(http("XUI_DiscontinueByClaimant_040_015_ClickOnDiscontinue")
             .get("/workallocation/case/tasks/#{caseId}/event/DISCONTINUE_CLAIM_CLAIMANT/caseType/CIVIL/jurisdiction/CIVIL")
@@ -397,7 +397,7 @@ object SettleAndDiscontinue {
             .check(substring("claimantWhoIsDiscontinuing"))
             .check(jsonPath("$.event_token").saveAs("event_token"))
           )
-          .exec(getCookieValue(CookieKey("XSRF-TOKEN").withDomain(BaseURL.replace("https://", "")).saveAs("XSRFToken")))
+       //   .exec(getCookieValue(CookieKey("XSRF-TOKEN").withDomain(BaseURL.replace("https://", "")).saveAs("XSRFToken")))
           
           .exec(http("XUI_DiscontinueByClaimant_040_015_ClickOnDisContinue")
             .get("/workallocation/case/tasks/#{caseId}/event/DISCONTINUE_CLAIM_CLAIMANT/caseType/CIVIL/jurisdiction/CIVIL")
@@ -523,7 +523,7 @@ object SettleAndDiscontinue {
             .check(substring("VALIDATE_DISCONTINUE_CLAIM"))
             .check(jsonPath("$.event_token").saveAs("event_token"))
           )
-          .exec(getCookieValue(CookieKey("XSRF-TOKEN").withDomain(BaseURL.replace("https://", "")).saveAs("XSRFToken")))
+        //  .exec(getCookieValue(CookieKey("XSRF-TOKEN").withDomain(BaseURL.replace("https://", "")).saveAs("XSRFToken")))
           
           .exec(http("XUI_DiscontinueValidateByCTSC_040_015_ClickOnValidateDisContinue")
             .get("/workallocation/case/tasks/#{caseId}/event/VALIDATE_DISCONTINUE_CLAIM_CLAIMANT/caseType/CIVIL/jurisdiction/CIVIL")
@@ -606,7 +606,7 @@ object SettleAndDiscontinue {
             .check(substring("VALIDATE_DISCONTINUE_CLAIM"))
             .check(jsonPath("$.event_token").saveAs("event_token"))
           )
-          .exec(getCookieValue(CookieKey("XSRF-TOKEN").withDomain(BaseURL.replace("https://", "")).saveAs("XSRFToken")))
+      //    .exec(getCookieValue(CookieKey("XSRF-TOKEN").withDomain(BaseURL.replace("https://", "")).saveAs("XSRFToken")))
           
           .exec(http("XUI_DiscontinueInValidateByCTSC_040_015_ClickOnDisContinue")
             .get("/workallocation/case/tasks/#{caseId}/event/VALIDATE_DISCONTINUE_CLAIM_CLAIMANT/caseType/CIVIL/jurisdiction/CIVIL")

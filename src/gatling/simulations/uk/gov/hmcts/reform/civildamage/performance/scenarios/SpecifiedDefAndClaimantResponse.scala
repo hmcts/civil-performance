@@ -74,7 +74,7 @@ object SpecifiedDefAndClaimantResponse {
                  .check(jsonPath("$.case_fields[75].value.partyName").saveAs("partyName"))*/
                  .check(jsonPath("$.event_token").saveAs("event_token"))
                )
-               .exec(getCookieValue(CookieKey("XSRF-TOKEN").withDomain(BaseURL.replace("https://", "")).saveAs("XSRFToken")))
+              // .exec(getCookieValue(CookieKey("XSRF-TOKEN").withDomain(BaseURL.replace("https://", "")).saveAs("XSRFToken")))
       
            }
            .pause(MinThinkTime, MaxThinkTime)
@@ -380,7 +380,7 @@ object SpecifiedDefAndClaimantResponse {
              )
         
                .exec { session =>
-                 val fw = new BufferedWriter(new FileWriter("ResponseToClaimCompleted.csv", true))
+                 val fw = new BufferedWriter(new FileWriter("ResponseToClaimCompleted2.csv", true))
                  try {
                    fw.write(session("caseId").as[String] + "\r\n")
                  } finally fw.close()
@@ -434,7 +434,7 @@ object SpecifiedDefAndClaimantResponse {
             .check(jsonPath("$..formatted_value.createdDatetime").saveAs("createDateTime"))
             .check(jsonPath("$.event_token").saveAs("event_token"))
           )
-          .exec(getCookieValue(CookieKey("XSRF-TOKEN").withDomain(BaseURL.replace("https://", "")).saveAs("XSRFToken")))
+        //  .exec(getCookieValue(CookieKey("XSRF-TOKEN").withDomain(BaseURL.replace("https://", "")).saveAs("XSRFToken")))
         
         
       }
@@ -626,7 +626,7 @@ object SpecifiedDefAndClaimantResponse {
         )
           
           .exec { session =>
-            val fw = new BufferedWriter(new FileWriter("Flightdelay.csv", true))
+            val fw = new BufferedWriter(new FileWriter("ClaimantIntention2.csv", true))
             try {
               fw.write(session("caseId").as[String] + "\r\n")
             } finally fw.close()
