@@ -1,0 +1,56 @@
+{
+  "data": {
+    "applicantSolicitor1CheckEmail": {
+      "email": null,
+      "correct": "No"
+    },
+    "applicantSolicitor1UserDetails": {
+      "email": "civilmoneyclaimsdemo@gmail.com",
+      "id": null
+    }
+  },
+  "event": {
+    "id": "CREATE_CLAIM_SPEC",
+    "summary": "",
+    "description": ""
+  },
+  "event_data": {
+    "applicant1": {
+      "type": "COMPANY",
+      "companyName": "CLAIMANT",
+      "partyEmail": null,
+      "partyPhone": null,
+      "partyName": "CLAIMANT",
+      "partyTypeDisplayValue": "Company",
+      "partyID": null,
+      "primaryAddress": {
+        "AddressLine1": "Flat 64",
+        "AddressLine2": "Roxborough Heights",
+        "AddressLine3": "Headstone Road",
+        "PostTown": "Harrow",
+        "County": "",
+        "Country": "United Kingdom",
+        "PostCode": "HA1 1GP"
+      },
+      "unavailableDates": [],
+      "flags": {
+        "roleOnCase": null,
+        "partyName": null,
+        "groupId": null,
+        "visibility": null,
+        "details": []
+      }
+    },
+    "addApplicant2": "No",
+    "applicantSolicitor1CheckEmail": {
+      "email": null,
+      "correct": "No"
+    },
+    "applicantSolicitor1UserDetails": {
+      "email": "civilmoneyclaimsdemo@gmail.com",
+      "id": null
+    }
+  },
+  "event_token": "#{event_token}",
+  "ignore_warning": false
+}

@@ -1,0 +1,21 @@
+{
+  "data": {
+    "joSetAsideOrderDate": "2025-02-01",
+    "joSetAsideOrderType": "ORDER_AFTER_APPLICATION",
+    "joSetAsideApplicationDate": "2025-01-01"
+  },
+  "event": {
+    "id": "SET_ASIDE_JUDGMENT",
+    "summary": "",
+    "description": ""
+  },
+  "event_data": {
+    "joSetAsideReason": "JUDGE_ORDER",
+    "joSetAsideOrderDate": "2025-02-01",
+    "joSetAsideOrderType": "ORDER_AFTER_APPLICATION",
+    "joSetAsideApplicationDate": "2025-01-01"
+  },
+  "event_token": "#{event_token}",
+  "ignore_warning": false,
+  "case_reference": "#{caseId}"
+}

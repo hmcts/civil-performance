@@ -1,0 +1,56 @@
+{
+  "data": {
+    "CPRAcceptance": {
+      "acceptance": [
+        "CERTIFIED"
+      ]
+    }
+  },
+  "event": {
+    "id": "DEFAULT_JUDGEMENT_SPEC",
+    "summary": "",
+    "description": ""
+  },
+  "event_data": {
+    "respondent1": {
+      "partyID": "#{repPartyID}",
+      "type": "COMPANY",
+      "companyName": "DEFENDANT",
+      "primaryAddress": {
+        "AddressLine1": "42",
+        "AddressLine2": "Flanders Court 12-14",
+        "AddressLine3": "St. Albans Road",
+        "PostTown": "Watford",
+        "Country": "United Kingdom",
+        "PostCode": "WD17 1BN"
+      },
+      "partyName": "DEFENDANT",
+      "partyTypeDisplayValue": "Company"
+    },
+    "fixedCosts": {
+      "claimFixedCosts": "No"
+    },
+    "showOldDJFixedCostsScreen": null,
+    "showDJFixedCostsScreen": null,
+    "defendantDetailsSpec": {
+      "value": {
+        "code": "7e4cc9af-2d52-4d0e-ad2c-4a13673b2172",
+        "label": "DEFENDANT"
+      },
+      "list_items": [
+        {
+          "code": "7e4cc9af-2d52-4d0e-ad2c-4a13673b2172",
+          "label": "DEFENDANT"
+        }
+      ]
+    },
+    "CPRAcceptance": {
+      "acceptance": [
+        "CERTIFIED"
+      ]
+    }
+  },
+  "event_token": "#{event_token}",
+  "ignore_warning": false,
+  "case_reference": "#{caseId}"
+}

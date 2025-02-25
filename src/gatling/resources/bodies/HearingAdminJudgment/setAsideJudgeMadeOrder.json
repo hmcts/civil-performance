@@ -1,0 +1,16 @@
+{
+  "data": {
+    "joSetAsideReason": "JUDGE_ORDER"
+  },
+  "event": {
+    "id": "SET_ASIDE_JUDGMENT",
+    "summary": "",
+    "description": ""
+  },
+  "event_data": {
+    "joSetAsideReason": "JUDGE_ORDER"
+  },
+  "event_token": "#{event_token}",
+  "ignore_warning": false,
+  "case_reference": "#{caseId}"
+}
