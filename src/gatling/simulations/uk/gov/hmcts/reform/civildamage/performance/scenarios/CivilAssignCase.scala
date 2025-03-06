@@ -20,22 +20,44 @@ object CivilAssignCase {
 * Below group contains all the share the unassigned case
 ======================================================================================*/
   //userType must be "Caseworker", "Legal" or "Citizen"
-  val Auth =
-  
-  exec(http("Civil_000_GetBearerToken")
-    .post(idamURL + "/o/token") //change this to idamapiurl if this not works
-    .formParam("grant_type", "password")
-    .formParam("username", "#{defEmailAddress}")
-    .formParam("password", "Password12!")
-    .formParam("client_id", "civil_citizen_ui")
-    // .formParam("client_secret", clientSecret)
-    .formParam("client_secret", "47js6e86Wv5718D2O77OL466020731ii")
-    .formParam("scope", "profile roles openid")
-    .header("Content-Type", "application/x-www-form-urlencoded")
-    .check(jsonPath("$.access_token").saveAs("bearerToken")))
-    
+  val Auth = {
+
+    exec(http("Civil_000_GetBearerToken")
+      .post(idamURL + "/o/token") //change this to idamapiurl if this not works
+      .formParam("grant_type", "password")
+      .formParam("username", "#{defEmailAddress}")
+      .formParam("password", "Password12!")
+      .formParam("client_id", "civil_citizen_ui")
+      // .formParam("client_secret", clientSecret)
+      .formParam("client_secret", "47js6e86Wv5718D2O77OL466020731ii")
+      .formParam("scope", "profile roles openid")
+      .header("Content-Type", "application/x-www-form-urlencoded")
+      .check(jsonPath("$.access_token").saveAs("bearerToken")))
+  }
     .pause(minThinkTime, maxThinkTime)
-  
+
+
+
+  //following is the retrieving auth code for cui API
+
+  val AuthForClaimCreationAPI = {
+
+    exec(http("Civil_000_GetBearerToken")
+      .post(idamURL + "/o/token") //change this to idamapiurl if this not works
+      .formParam("grant_type", "password")
+      .formParam("username", "cuiimtclaimantusergwSPM@gmail.com")
+      .formParam("password", "Password12!")
+      .formParam("client_id", "civil_citizen_ui")
+      // .formParam("client_secret", clientSecret)
+      .formParam("client_secret", "47js6e86Wv5718D2O77OL466020731ii")
+      .formParam("scope", "profile roles openid")
+      .header("Content-Type", "application/x-www-form-urlencoded")
+      .check(jsonPath("$.access_token").saveAs("bearerToken")))
+  }
+      .pause(minThinkTime, maxThinkTime)
+
+
+
   //def run(implicit postHeaders: Map[String, String]): ChainBuilder = {
   val run =
     group("CIVIL_AssignCase_000_AssignCase") {
@@ -74,6 +96,26 @@ object CivilAssignCase {
         )
     }
       .pause(minThinkTime, maxThinkTime)
+
+
+  //following is for retrieving the userId of the user name
+
+
+  val getUserId =
+    group("CIVIL_GetUserId_000_GetUserId") {
+      //	feed(caseFeeder)
+      exec(AuthForClaimCreationAPI)
+        .exec(http("CIVIL_GetUserId_000_GetUserId")
+          .get("https://idam-api.perftest.platform.hmcts.net/o/userInfo")
+          //   .get( "/cases/searchCases?start_date=#{randomStartDate}&end_date=#{randomEndDate}")
+          // .get( "/cases/searchCases?start_date=2022-01-13T00:00:00&end_date=2023-04-16T15:38:00")
+          .header("Authorization", "Bearer ${bearerToken}")
+          .header("Content-Type", "application/json")
+          .header("Accept", "*/*")
+          .check(status.in(200, 201))
+        )
+    }
+      .pause(minThinkTime, maxThinkTime)
       
       //Deepak - Cases that make the final step
      /* .exec { session =>
@@ -83,6 +125,23 @@ object CivilAssignCase {
         } finally fw.close()
         session
       }*/
+
+
+  // below code is for creating a claim with cui thru API
+
+  val CreateClaimCUIR2WithAPI =
+    group("CUIR2_CreateCase_Case_000_CreateCase") {
+      // feed(caseFeeder)
+      exec(http("CIVIL_AssignCase_000_AssignCase")
+        .post("http://civil-service-perftest.service.core-compute-perftest.internal/cases/draft/citizen/#{userId}/event")
+        .header("Authorization", "Bearer ${bearerToken}")
+        .header("ServiceAuthorization", "#{civil_service_ServiceToken}")
+        .header("Content-Type", "application/json")
+        .body(ElFileBody("bodies/cuiclaim/CUI_Create_Claim.json"))
+        .check(status.in(200, 201))
+      )
+    }
+      .pause(minThinkTime, maxThinkTime)
   
   
 }

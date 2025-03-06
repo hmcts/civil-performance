@@ -117,6 +117,25 @@ class CivilDamagesSimulation extends Simulation {
 					//.exec(CivilAssignCase.cuiassign)
 									}
 			}
+
+	/*
+    #######################  CUI R2 Claim Creation Scenario for API ############################################
+     */
+	val CivilUIR2ClaimCreationWithAPIScenario = scenario(" Civil UI R2 Claim Creation with API")
+
+		.exitBlockOnFail {
+
+			//Claim Creation
+			/* exec(CreateUser.CreateDefCitizen)
+        .repeat(1) {*/
+			//exec(CreateUser.CreateClaimantCitizen)
+				exec(CivilAssignCase.AuthForClaimCreationAPI)
+				.exec(S2S.s2sForCUIAPI())
+				.exec(CivilAssignCase.getUserId)
+				.exec(CivilAssignCase.CreateClaimCUIR2WithAPI)
+
+			// }
+		}
 			
 			
 			/*
@@ -396,10 +415,14 @@ class CivilDamagesSimulation extends Simulation {
 				//	CivilUIR2ClaimantIntentionScenario.inject(nothingFor(1),rampUsers(1) during (1)),
 				//	CivilUIR2DefRequestChange.inject(nothingFor(1),rampUsers(1) during (1)),
 				// Below set up is for background load for CUI R2 Journey
+
+				//below is for cui r2 create claim
+
+				CivilUIR2ClaimCreationWithAPIScenario.inject(nothingFor(1),rampUsers(1) during (1)),
 				
-				CivilUIR2ClaimCreationScenario.inject(nothingFor(1),rampUsers(115) during (3600)),
+		/*		CivilUIR2ClaimCreationScenario.inject(nothingFor(1),rampUsers(115) during (3600)),
 		CivilUIR2DefResponseScenario.inject(nothingFor(30),rampUsers(100) during (3600)),
-	CivilUIR2ClaimantIntentionScenario.inject(nothingFor(50),rampUsers(25) during (3600))
+	CivilUIR2ClaimantIntentionScenario.inject(nothingFor(50),rampUsers(25) during (3600))*/
 			
 			).protocols(httpProtocol)
 			

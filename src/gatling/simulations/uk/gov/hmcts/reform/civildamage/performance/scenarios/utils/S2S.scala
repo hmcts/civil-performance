@@ -19,4 +19,16 @@ object S2S {
       .exitHereIfFailed
 
   }
+
+  //microservice is a string defined in the Simulation and passed into the body below
+  def s2sForCUIAPI() = {
+
+    exec(http("GetS2STokenFor CUI API")
+      .post(Environment.s2sUrl + "/testing-support/lease")
+      .header("Content-Type", "application/json")
+      .body(StringBody(s"""{"microservice":"civil_service"}"""))
+      .check(bodyString.saveAs(s"civil_service_ServiceToken")))
+      .exitHereIfFailed
+
+  }
 }
