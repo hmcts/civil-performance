@@ -77,7 +77,7 @@ object XUIDefaultJudgment{
         .get(BaseURL + "/data/internal/profile")
         .headers(Headers.validateHeader)
         .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-user-profile.v2+json;charset=UTF-8")
-        .check(substring("#{claimantuser}")))
+        .check(substring("solicitor")))
 
       .exec(http("ReqDefJud_015_IgnoreWarning")
         .get(BaseURL + "/data/internal/cases/#{caseId}/event-triggers/DEFAULT_JUDGEMENT_SPEC?ignore-warning=false")

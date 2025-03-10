@@ -69,7 +69,7 @@ object XUIRespondToDefence {
 			.pause(MinThinkTime, MaxThinkTime)
 
 			// =============================VIEW & RESPOND=============================,
-			.group("XUI_ClaimantResponse_450_ViewRespond") {
+			.group("XUI_ClaimantResponse_450_ViewAndRespond") {
 				exec(http("RespToDef_005_Jurisdiction")
 					.get(BaseURL + "/workallocation/case/tasks/#{caseId}/event/CLAIMANT_RESPONSE_SPEC/caseType/CIVIL/jurisdiction/CIVIL")
 					.headers(Headers.commonHeader)

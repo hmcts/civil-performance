@@ -438,7 +438,7 @@ class CivilDamagesSimulation extends Simulation {
 					//CivilUIR2ClaimCreationScenario.inject(nothingFor(1),rampUsers(5) during (100)),
 //				CivilUIR2ClaimCreationScenario.inject(atOnceUsers(1)),
 
-				DefaultJudgment.inject(rampUsers(30).during(1800)),
+				DefaultJudgment.inject(rampUsers(30).during(2400)),
 				JudgmentByAdmission.inject(nothingFor(300),rampUsers(10).during(2400))
 				
 		//CivilUIR2DefResponseScenario.inject(nothingFor(30),rampUsers(100) during (3600)),
