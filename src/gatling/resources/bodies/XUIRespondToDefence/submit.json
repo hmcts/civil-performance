@@ -1,0 +1,93 @@
+{
+  "data": {
+    "applicant2": null,
+    "applicant1": {
+      "type": "COMPANY",
+      "companyName": "CLAIMANT",
+      "partyName": "CLAIMANT",
+      "partyTypeDisplayValue": "Company",
+      "partyID": "#{repPartyID}",
+      "flags": {
+        "roleOnCase": "Claimant 1",
+        "partyName": "CLAIMANT",
+        "groupId": null,
+        "visibility": null,
+        "details": []
+      },
+      "primaryAddress": {
+        "AddressLine1": null,
+        "AddressLine2": null,
+        "AddressLine3": null,
+        "PostTown": null,
+        "County": null,
+        "PostCode": null,
+        "Country": null
+      }
+    },
+    "respondent1": {
+      "type": "COMPANY",
+      "companyName": "DEFENDANT",
+      "partyName": "DEFENDANT",
+      "partyTypeDisplayValue": "Company",
+      "partyPhone": "01234567890",
+      "partyID": "89093612-5800-4a",
+      "flags": {
+        "roleOnCase": "Defendant 1",
+        "partyName": "DEFENDANT",
+        "groupId": null,
+        "visibility": null,
+        "details": []
+      },
+      "primaryAddress": {
+        "AddressLine1": null,
+        "AddressLine2": null,
+        "AddressLine3": null,
+        "PostTown": null,
+        "County": null,
+        "PostCode": null,
+        "Country": null
+      }
+    },
+    "respondent2": null,
+    "partAdmitPaidValuePounds": null,
+    "claimantResponseScenarioFlag": "ONE_V_ONE",
+    "respondToAdmittedClaimOwingAmountPounds": "500",
+    "respondent1PaymentDateToStringSpec": "06 March 2025",
+    "featureToggleWA": "Prod",
+    "respondent1ClaimResponseDocumentSpec": {
+      "documentLink": {
+        "document_url": "#{document_url}",
+        "document_binary_url": "#{document_url}/binary",
+        "document_filename": "#{document_filename}",
+        "category_id": "defendant1DefenseDirectionsQuestionnaire",
+        "upload_timestamp": "2025-02-27T11:30:53.318549853"
+      },
+      "documentName": "#{document_filename}",
+      "documentType": "DEFENDANT_DEFENCE",
+      "documentSize": "#{document_size}",
+      "createdDatetime": "#{createdDateTime}",
+      "createdBy": "Civil",
+      "ownedBy": null
+    },
+    "applicant1AcceptAdmitAmountPaidSpec": "Yes",
+    "applicantDefenceResponseDocumentAndDQFlag": "No",
+    "showConditionFlags": null,
+    "applicant1ProceedWithClaimSpec2v1": null,
+    "responseClaimTrack": "SMALL_CLAIM",
+    "allocatedTrack": null,
+    "claimType": null,
+    "defenceRouteRequired": null,
+    "respondentResponseIsSame": null,
+    "defendantSingleResponseToBothClaimants": null,
+    "respondent1ClaimResponseTypeForSpec": "PART_ADMISSION",
+    "defenceAdmitPartPaymentTimeRouteRequired": "IMMEDIATELY",
+    "showResponseOneVOneFlag": "ONE_V_ONE_PART_ADMIT_PAY_IMMEDIATELY"
+  },
+  "event": {
+    "id": "CLAIMANT_RESPONSE_SPEC",
+    "summary": "",
+    "description": ""
+  },
+  "event_token": "#{event_token}",
+  "ignore_warning": false
+}

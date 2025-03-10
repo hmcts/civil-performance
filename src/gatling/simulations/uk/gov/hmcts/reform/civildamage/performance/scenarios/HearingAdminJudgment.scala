@@ -4,8 +4,6 @@ import io.gatling.core.Predef.{ElFileBody, _}
 import io.gatling.http.Predef._
 import uk.gov.hmcts.reform.civildamage.performance.scenarios.utils._
 
-import scala.concurrent.duration.DurationInt
-
 
 object HearingAdminJudgment{
 
@@ -148,8 +146,8 @@ object HearingAdminJudgment{
       exec(http("HearingAdmin_SetAside_640_DateOfOrder")
         .post(BaseURL + "/data/case-types/CIVIL/validate?pageId=SET_ASIDE_JUDGMENTSetAsideOrderType")
         .headers(Headers.validateHeader)
-        .body(ElFileBody("bodies/HearingAdminJudgment/setAsideJudgeMadeOrder.json"))
-        .check(substring("joDateOfOrder")))
+        .body(ElFileBody("bodies/HearingAdminJudgment/setAsideOrderDate.json"))
+        .check(substring("joSetAsideApplicationDate")))
     }
     .pause(MinThinkTime, MaxThinkTime)
 
@@ -175,7 +173,7 @@ object HearingAdminJudgment{
     exec(_.set("uId_hearing", "4581b838-873e-4d28-8134-50eb1edb3d43"))
 
     // =======================LANDING PAGE==================,
-    .group("Civil_SpecClaim_50_HearingAdmin") {
+    .group("HearingAdmin_MarkAsPaid_600_LandingPage") {
       exec(http("005_HealthCheck")
         .get(BaseURL + "/api/healthCheck?path=%2Fwork%2Fmy-work%2Flist")
         .headers(Headers.commonHeader)
@@ -242,28 +240,29 @@ object HearingAdminJudgment{
     .pause(MinThinkTime, MaxThinkTime)
 
     // =======================OPEN CASE=======================,
-    .group("Civil_SpecClaim_50_HearingAdmin") {
+    .group("HearingAdmin_MarkAsPaid_610_OpenCase") {
       exec(http("005_OpenCase")
         .get(BaseURL + "/data/internal/cases/#{caseId}")
         .headers(Headers.validateHeader)
         .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-case-view.v2+json")
         .check(substring("http://gateway-ccd.perftest.platform.hmcts.net/internal/cases/#{caseId}")))
-    }
 
-    .group("Civil_SpecClaim_50_HearingAdmin") {
-      exec(http("010_OpenCase")
+      .exec(http("010_OpenCase")
         .post(BaseURL + "/api/role-access/roles/manageLabellingRoleAssignment/#{caseId}")
         .headers(Headers.commonHeader)
         .check(status.is(204)))
-    }
 
-    .group("Civil_SpecClaim_50_HearingAdmin") {
-      exec(http("015_OpenCase")
+      .exec(http("015_OpenCase")
         .get(BaseURL + "/api/wa-supported-jurisdiction/get")
         .headers(Headers.commonHeader)
         .check(substring("CIVIL")))
     }
     .pause(MinThinkTime, MaxThinkTime)
+
+    // =======================MARK AS PAID (DROPDOWN)=======================,
+
+
+
 
     // =======================TASK TAB=======================,
     .group("Civil_SpecClaim_50_HearingAdmin") {

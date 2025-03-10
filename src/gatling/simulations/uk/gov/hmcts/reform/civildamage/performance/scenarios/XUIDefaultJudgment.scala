@@ -10,8 +10,8 @@ object XUIDefaultJudgment{
   val MinThinkTime = Environment.minThinkTime
   val MaxThinkTime = Environment.maxThinkTime
 
-  // ==============================SELECT RESPOND TO DEFENDANT====================
   val DefaultJudgment =
+
     // ========================LANDING PAGE=====================,
     group("XUI_DefaultJudgment_400_LandingPage") {
       exec(http("Land_005_Jurisdictions")
@@ -69,7 +69,7 @@ object XUIDefaultJudgment{
     // ==============================REQUEST DEFAULT JUDGMENT====================
     .group("XUI_DefaultJudgment_450_RequestDefaultJudgment") {
       exec(http("ReqDefJud_005_Jurisdiction")
-        .get(BaseURL + "/workallocation/case/tasks/1739810702232420/event/DEFAULT_JUDGEMENT_SPEC/caseType/CIVIL/jurisdiction/CIVIL")
+        .get(BaseURL + "/workallocation/case/tasks/#{caseId}/event/DEFAULT_JUDGEMENT_SPEC/caseType/CIVIL/jurisdiction/CIVIL")
         .headers(Headers.commonHeader)
         .check(substring("task_required_for_event")))
 

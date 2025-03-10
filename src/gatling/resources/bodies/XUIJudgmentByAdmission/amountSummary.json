@@ -1,0 +1,38 @@
+{
+  "data": {
+    "ccjJudgmentSummarySubtotalAmount": "955.00",
+    "ccjJudgmentStatement": "The judgment request will be processed and a County Court Judgment (CCJ) will be issued, you will receive any further updates by email.",
+    "ccjJudgmentAmountClaimAmount": "500",
+    "claimInterest": "No",
+    "ccjJudgmentAmountInterestToDate": "0",
+    "ccjJudgmentFixedCostAmount": "0",
+    "ccjJudgmentAmountClaimFee": "455.00",
+    "ccjJudgmentAmountSubtotal": null,
+    "ccjPaymentPaidSomeAmountInPounds": "500.00",
+    "ccjJudgmentTotalStillOwed": "455.00"
+  },
+  "event": {
+    "id": "REQUEST_JUDGEMENT_ADMISSION_SPEC",
+    "summary": "",
+    "description": ""
+  },
+  "event_data": {
+    "ccjPaymentPaidSomeOption": "Yes",
+    "ccjPaymentPaidSomeAmount": "50000",
+    "ccjJudgmentFixedCostOption": "No",
+    "applicant1LiPResponse": null,
+    "ccjJudgmentSummarySubtotalAmount": "955.00",
+    "ccjJudgmentStatement": "The judgment request will be processed and a County Court Judgment (CCJ) will be issued, you will receive any further updates by email.",
+    "ccjJudgmentAmountClaimAmount": "500",
+    "claimInterest": "No",
+    "ccjJudgmentAmountInterestToDate": "0",
+    "ccjJudgmentFixedCostAmount": "0",
+    "ccjJudgmentAmountClaimFee": "455.00",
+    "ccjJudgmentAmountSubtotal": null,
+    "ccjPaymentPaidSomeAmountInPounds": "500.00",
+    "ccjJudgmentTotalStillOwed": "455.00"
+  },
+  "event_token": "#{event_token_admission}",
+  "ignore_warning": false,
+  "case_reference": "#{caseId}"
+}

@@ -1,0 +1,18 @@
+{
+  "data": {
+    "ccjPaymentPaidSomeOption": "Yes",
+    "ccjPaymentPaidSomeAmount": "50000"
+  },
+  "event": {
+    "id": "REQUEST_JUDGEMENT_ADMISSION_SPEC",
+    "summary": "",
+    "description": ""
+  },
+  "event_data": {
+    "ccjPaymentPaidSomeOption": "Yes",
+    "ccjPaymentPaidSomeAmount": "50000"
+  },
+  "event_token": "#{event_token_admission}",
+  "ignore_warning": false,
+  "case_reference": "#{caseId}"
+}

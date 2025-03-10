@@ -167,35 +167,6 @@ object XUIClaimCreation {
     }
     .pause(MinThinkTime, MaxThinkTime)
 
-//    .group("XUI_CreateSpecClaim_180_CreateCase") {
-//      exec(http("DefSolOrg")
-//        .post(BaseURL + "/data/case-types/CIVIL/validate?pageId=CREATE_CLAIM_SPECDefendantSolicitorOrganisation")
-//        .headers(Headers.validateHeader)
-//        .body(ElFileBody("bodies/XUIClaimCreation/defendantSolicitorOrganisation.dat"))
-//        .check(substring("respondent1OrganisationPolicy")))
-//    }
-//    .pause(MinThinkTime, MaxThinkTime)
-//
-//    // ==================DF REP EMAIL==================,
-//    .group("XUI_CreateSpecClaim_190_CreateCase") {
-//      exec(http("CDefSolEmail")
-//        .post(BaseURL + "/data/case-types/CIVIL/validate?pageId=CREATE_CLAIM_SPECDefendantSolicitorEmail")
-//        .headers(Headers.validateHeader)
-//        .body(ElFileBody("bodies/XUIClaimCreation/defendantNotificationDetails.dat"))
-//        .check(substring("respondentSolicitor1EmailAddress")))
-//    }
-//    .pause(MinThinkTime, MaxThinkTime)
-//
-//    // ==================DF REP ADDRESS==================,
-//    .group("XUI_CreateSpecClaim_200_CreateCase") {
-//      exec(http("DefAddr")
-//        .post(BaseURL + "/data/case-types/CIVIL/validate?pageId=CREATE_CLAIM_SPECspecRespondentCorrespondenceAddress")
-//        .headers(Headers.validateHeader)
-//        .body(ElFileBody("bodies/XUIClaimCreation/defendantServiceAddress.dat"))
-//        .check(substring("respondentSolicitor1EmailAddress")))
-//    }
-//    .pause(MinThinkTime, MaxThinkTime)
-
     // ============ANOTHER DF===============,
     .group("XUI_CreateSpecClaim_180_CreateCase") {
       exec(http("AddAnotherDefendant")

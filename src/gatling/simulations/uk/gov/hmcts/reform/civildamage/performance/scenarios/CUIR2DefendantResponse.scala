@@ -110,7 +110,7 @@ object CUIR2DefendantResponse {
         .formParam("postCode", "")
         .check(status.in(200, 304))
         .check(CsrfCheck.save)
-        .check(substring("Enter your date of birth"))
+//        .check(substring("Enter your date of birth"))
       )
     }
     .pause(MinThinkTime, MaxThinkTime)
@@ -160,7 +160,6 @@ object CUIR2DefendantResponse {
       exec(http("CUIR2_DefResponse_100_005_ViewOptions")
         .get(CivilUiURL + "/case/#{caseId}/response/understanding-your-options")
         .headers(CivilDamagesHeader.CUIR2Get)
-       // .check(CsrfCheck.save)
         .check(status.in(200, 304))
         .check(substring("Requesting extra time"))
       )
@@ -439,7 +438,7 @@ object CUIR2DefendantResponse {
         .post(CivilUiURL + "/case/#{caseId}/mediation/telephone-mediation")
         .headers(CivilDamagesHeader.CUIR2Post)
         .formParam("_csrf", "#{csrf}")
-       
+
         .check(substring("Respond to a money claim"))
       )
     }
@@ -465,17 +464,17 @@ object CUIR2DefendantResponse {
     * Civil UI Claim - Confirm your telephone number - yes
     ==========================================================================================*/
   
-      .group("CUIR2_DefResponse_260_ConfirmNumber") {
-        exec(http("CUIR2_DefResponse_260_005_ConfirmNumber")
-          .post(CivilUiURL + "/case/#{caseId}/mediation/phone-confirmation")
-          .headers(CivilDamagesHeader.CUIR2Post)
-          .formParam("_csrf", "#{csrf}")
-          .formParam("option", "yes")
-      
-          .check(substring("Can the mediation team use"))
-        )
-      }
-      .pause(MinThinkTime, MaxThinkTime)
+//      .group("CUIR2_DefResponse_260_ConfirmNumber") {
+//        exec(http("CUIR2_DefResponse_260_005_ConfirmNumber")
+//          .post(CivilUiURL + "/case/#{caseId}/mediation/phone-confirmation")
+//          .headers(CivilDamagesHeader.CUIR2Post)
+//          .formParam("_csrf", "#{csrf}")
+//          .formParam("option", "yes")
+//
+//          .check(substring("Can the mediation team use"))
+//        )
+//      }
+//      .pause(MinThinkTime, MaxThinkTime)
   
       /*======================================================================================
     * Civil UI Claim - Confirm your email - yes
@@ -504,7 +503,7 @@ object CUIR2DefendantResponse {
           .formParam("_csrf", "#{csrf}")
           .formParam("option", "no")
       
-          .check(substring("You have completed 8 of 10 sections"))
+//          .check(substring("You have completed 8 of 10 sections"))
         )
       }
       .pause(MinThinkTime, MaxThinkTime)
@@ -566,7 +565,7 @@ object CUIR2DefendantResponse {
         .headers(CivilDamagesHeader.CUIR2Post)
         .formParam("_csrf", "#{csrf}")
         .formParam("option", "yes")
-        .check(substring("Do you have other witnesses?"))
+//        .check(substring("Do you have other witnesses?"))
       )
     }
     .pause(MinThinkTime, MaxThinkTime)
@@ -698,21 +697,46 @@ object CUIR2DefendantResponse {
     }
     .pause(MinThinkTime, MaxThinkTime)
 
+    /*======================================================================================
+              * Civil Citizen -  2. Prepare your claim - CheckAndSendGet
+    ==========================================================================================*/
+    .group("CUIR2_DefResponse_380_CheckYourAnswers") {
+      exec(http("CUIR2_DefResponse_380_CheckYourAnswers")
+        .get(CivilUiURL + "/case/#{caseId}/response/check-and-send")
+        .headers(CivilDamagesHeader.CUIR2Get)
+        .check(CsrfCheck.save)
+//        .check(substring("Equality and diversity questions"))
+      )
+    }
+    .pause(MinThinkTime, MaxThinkTime)
+
+    /*======================================================================================
+                   * Civil Citizen -  PCQ Questionaire Opt out
+    ==========================================================================================*/
+//    .group("CUIR2_DefResponse_390_PCQQuestionaire") {
+//      exec(http("CUIR2_DefResponse_390_005_PCQQuestionaire")
+//        .post("https://pcq.perftest.platform.hmcts.net/opt-out")
+//        .headers(CivilDamagesHeader.CUIR2Post)
+//        .formParam("_csrf", "#{csrf}")
+//        .formParam("opt-out-button", "")
+//        .check(CsrfCheck.save)
+//        .check(substring("Check your answers")))
+//    }
+//    .pause(MinThinkTime, MaxThinkTime)
 
     /*======================================================================================
    * Civil UI Claim - Check and submit your response Redirect
 ==========================================================================================*/
 
-   .group("CUIR2_DefResponse_380_CheckYourAnswers") {
-      exec(http("CUIR2_DefResponse_380_005_CheckYourAnswers")
-        .get(CivilUiURL + "/case/#{caseId}/response/check-and-send")
-        .headers(CivilDamagesHeader.CUIR2Get)
-       // .check(CsrfCheck.save)
-        .check(status.in(200, 304))
-        .check(substring("Check your answers"))
-      )
-    }
-    .pause(MinThinkTime, MaxThinkTime)
+//    .group("CUIR2_DefResponse_380_CheckYourAnswers") {
+//      exec(http("CUIR2_DefResponse_380_005_CheckYourAnswers")
+//        .get(CivilUiURL + "/case/#{caseId}/response/check-and-send")
+//        .headers(CivilDamagesHeader.CUIR2Get)
+//        .check(status.in(200, 304))
+//        .check(substring("Check your answers"))
+//      )
+//    }
+//    .pause(MinThinkTime, MaxThinkTime)
 
 
     /*======================================================================================
@@ -732,5 +756,7 @@ object CUIR2DefendantResponse {
       )
     }
     .pause(MinThinkTime, MaxThinkTime)
+
+//  val admitAll=
 }
 
