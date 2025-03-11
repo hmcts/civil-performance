@@ -21,7 +21,7 @@ object CUIR2ConfirmYouPaid {
       exec(http("CUIR2_CoSC_030_SelectClaim")
         .get("/dashboard/#{caseId}/defendant")
         .headers(CivilDamagesHeader.CUIR2Get)
-        .check(substring("You need to respond before")))
+        .check(substring("Confirm you've paid a judgment")))
     }
       .pause(MinThinkTime, MaxThinkTime)
 

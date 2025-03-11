@@ -130,6 +130,11 @@ class CivilDamagesSimulation extends Simulation {
 		.exec(CivilAssignCase.updatePaymentDateForRespondentJO)
 		.exec(XUIJudgmentByAdmission.requestJudgmentByAdmission)
 		.exec(XUILogin.Logout)
+		.exec(CUIR2HomePage.CUIR2HomePage)
+		.exec(CUIR2Login.CUIR2DefLogin)
+		.exec(CUIR2ConfirmYouPaid.CoSC)
+		.exec(CUIR2ConfirmYouPaid.ApplicationFee)
+		.exec(CUIR2Logout.CUILogout)
 
 
 
@@ -438,8 +443,8 @@ class CivilDamagesSimulation extends Simulation {
 					//CivilUIR2ClaimCreationScenario.inject(nothingFor(1),rampUsers(5) during (100)),
 //				CivilUIR2ClaimCreationScenario.inject(atOnceUsers(1)),
 
-				DefaultJudgment.inject(rampUsers(30).during(2400)),
-				JudgmentByAdmission.inject(nothingFor(300),rampUsers(10).during(2400))
+				DefaultJudgment.inject(rampUsers(30).during(2700)),
+				JudgmentByAdmission.inject(rampUsers(10).during(2400))
 				
 		//CivilUIR2DefResponseScenario.inject(nothingFor(30),rampUsers(100) during (3600)),
 	//	CivilUIR2ClaimantIntentionScenario.inject(nothingFor(50),rampUsers(25) during (3600))
