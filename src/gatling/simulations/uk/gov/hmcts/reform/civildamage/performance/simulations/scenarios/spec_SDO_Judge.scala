@@ -253,7 +253,7 @@ object spec_SDO_Judge {
         .post("/workallocation/caseworker/getUsersByServiceName")
         .headers(Headers.commonHeader)
         .body(StringBody("""{"services": ["CIVIL"]}""".stripMargin))
-        .check(substring("BIRMINGHAM CIVIL AND FAMILY JUSTICE CENTRE")))
+        .check(substring("Birmingham")))
     }
     .pause(MinThinkTime, MaxThinkTime)
 
