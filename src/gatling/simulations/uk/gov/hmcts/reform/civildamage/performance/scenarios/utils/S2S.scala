@@ -9,15 +9,17 @@ object S2S {
   val config: Config = ConfigFactory.load()
 
   //microservice is a string defined in the Simulation and passed into the body below
-  def s2s(microservice: String) = {
+  def s2s() = {
 
     exec(http("GetS2SToken")
       .post(Environment.s2sUrl + "/testing-support/lease")
       .header("Content-Type", "application/json")
-      .body(StringBody(s"""{"microservice":"${microservice}"}"""))
-      .check(bodyString.saveAs(s"${microservice}BearerToken")))
+      .body(StringBody("""{"microservice":"civil_service"}""")).asJson
+      .check(regex("(.+)").saveAs("ServiceToken")))
       .exitHereIfFailed
-
+    
+  
+  
   }
 
   //microservice is a string defined in the Simulation and passed into the body below

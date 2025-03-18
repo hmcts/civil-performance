@@ -10,6 +10,7 @@ import scala.swing.event.Key.Home
 import io.gatling.core.pause.PauseType
 import io.gatling.http
 import io.gatling.http.Predef.flushHttpCache
+import uk.gov.hmcts.reform.civildamage.performance.scenarios.CivilAssignCase.AuthForClaimCreationAPI
 
 import scala.concurrent.duration.DurationInt
 
@@ -27,9 +28,9 @@ class CivilDamagesSimulation extends Simulation {
 	
   val httpProtocol = Environment.HttpProtocol
 		.baseUrl(BaseURL)
-		.doNotTrackHeader("1")
-		.inferHtmlResources(DenyList("https://card.payments.service.gov.uk/.*"))
-		.silentResources
+	//	.doNotTrackHeader("1")
+	//	.inferHtmlResources(DenyList("https://card.payments.service.gov.uk/.*"))
+	//	.silentResources
 	implicit val postHeaders: Map[String, String] = Map(
 		"Origin" -> BaseURL
 	)
@@ -114,29 +115,35 @@ class CivilDamagesSimulation extends Simulation {
 					.exec(CUIR2Login.CUIR2Login)
 					.exec(CUIR2ClaimCreation.run)
 					.exec(CUIR2Logout.CUILogout)
-					//.exec(CivilAssignCase.cuiassign)
+				//	.exec(CivilAssignCase.cuiassign)
 									}
 			}
 
-	/*
-    #######################  CUI R2 Claim Creation Scenario for API ############################################
-     */
-	val CivilUIR2ClaimCreationWithAPIScenario = scenario(" Civil UI R2 Claim Creation with API")
 
+	
+
+	
+	/*
+#######################  CUI R2 Claim Creation Scenario With API ############################################
+ */
+	
+	val CivilUIR2ClaimCreationWithAPIScenario = scenario(" Civil UI R2 Claim Creation with API")
+		
 		.exitBlockOnFail {
 
-			//Claim Creation
-			/* exec(CreateUser.CreateDefCitizen)
-        .repeat(1) {*/
-			//exec(CreateUser.CreateClaimantCitizen)
-				exec(CivilAssignCase.AuthForClaimCreationAPI)
-				.exec(S2S.s2sForCUIAPI())
-				.exec(CivilAssignCase.getUserId)
-				.exec(CivilAssignCase.CreateClaimCUIR2WithAPI)
-
-			// }
-		}
 			
+			//Claim Creation
+		/*	exec(CreateUser.CreateDefCitizen)
+				.repeat(1) {*/
+			exec(CreateUser.CreateClaimantCitizen)
+			.exec(CivilAssignCase.AuthForClaimCreationAPI)
+			.exec(S2S.s2s)
+				.exec(CivilAssignCase.getUserId)
+				.repeat(30) {
+					exec(CivilAssignCase.CreateClaimCUIR2WithAPI)
+				}
+			//	}
+		}
 			
 			/*
 #######################  CUI R2 Claim Creation Scenario Small Claim ############################################
@@ -396,7 +403,7 @@ class CivilDamagesSimulation extends Simulation {
 			}
 			
 			setUp(
-			//	CivilUIR2ClaimCreationScenario.inject(nothingFor(1), rampUsers(5) during (100)),
+				//CivilUIR2ClaimCreationScenario.inject(nothingFor(1), rampUsers(150) during (1800)),
 				//	CivilUIR2ClaimCreationFTScenario.inject(nothingFor(1),rampUsers(15) during (300)),
 				//	CivilUIR2ClaimCreationIntermediateTrackScenario.inject(nothingFor(1),rampUsers(1) during (1)),
 				//	CivilUIR2ClaimCreationMultiTrackScenario.inject(nothingFor(1),rampUsers(1) during (1)),
@@ -409,7 +416,7 @@ class CivilDamagesSimulation extends Simulation {
 				//	CivilUIR2CaseProgScenario.inject(nothingFor(5),rampUsers(1) during (1))
 				//	CivilCaseAssignScenario.inject(nothingFor(1),rampUsers(1) during (1))
 				// Below is for data prep - Claim Creation
-				// CivilUIR2ClaimCreationScenario.inject(nothingFor(1),rampUsers(160) during (1800))
+				// CivilUIR2ClaimCreationScenario.inject(nothingFor(1),rampUsers(3) during (18))
 				// Below is for creating the test data for claimant intention
 				//CivilUIR2DefResponseScenario.inject(nothingFor(1),rampUsers(32) during (600)),
 				//	CivilUIR2ClaimantIntentionScenario.inject(nothingFor(1),rampUsers(1) during (1)),
@@ -418,12 +425,21 @@ class CivilDamagesSimulation extends Simulation {
 
 				//below is for cui r2 create claim
 
-				CivilUIR2ClaimCreationWithAPIScenario.inject(nothingFor(1),rampUsers(1) during (1)),
+			//	CivilUIR2ClaimCreationWithAPIScenario.inject(nothingFor(1),rampUsers(1) during (1)),
 				
+
 		/*		CivilUIR2ClaimCreationScenario.inject(nothingFor(1),rampUsers(115) during (3600)),
 		CivilUIR2DefResponseScenario.inject(nothingFor(30),rampUsers(100) during (3600)),
 	CivilUIR2ClaimantIntentionScenario.inject(nothingFor(50),rampUsers(25) during (3600))*/
 			
+
+				// Below is the claim creation for LIP through API
+				//	 CivilUIR2ClaimCreationWithAPIScenario.inject(nothingFor(1),rampUsers(1000) during (3600)),
+					 
+				CivilUIR2ClaimCreationScenario.inject(nothingFor(1),rampUsers(115) during (3600)),
+		CivilUIR2DefResponseScenario.inject(nothingFor(30),rampUsers(100) during (3600)),
+	CivilUIR2ClaimantIntentionScenario.inject(nothingFor(50),rampUsers(25) during (3600))
+
 			).protocols(httpProtocol)
 			
 		}

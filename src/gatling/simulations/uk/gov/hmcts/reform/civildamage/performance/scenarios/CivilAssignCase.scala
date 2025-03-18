@@ -2,7 +2,8 @@ package uk.gov.hmcts.reform.civildamage.performance.scenarios
 
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
-import uk.gov.hmcts.reform.civildamage.performance.scenarios.utils.{AssignCase_Header, Environment}
+import uk.gov.hmcts.reform.civildamage.performance.scenarios.CreateUser.IdamAPIURL
+import uk.gov.hmcts.reform.civildamage.performance.scenarios.utils.{AssignCase_Header, Environment, S2S}
 
 import java.io.{BufferedWriter, FileWriter}
 
@@ -38,14 +39,19 @@ object CivilAssignCase {
 
 
 
+
   //following is the retrieving auth code for cui API
 
-  val AuthForClaimCreationAPI = {
+ 
 
+  
+  //userType must be "Caseworker", "Legal" or "Citizen"
+  val AuthForClaimCreationAPI =
+    
     exec(http("Civil_000_GetBearerToken")
       .post(idamURL + "/o/token") //change this to idamapiurl if this not works
       .formParam("grant_type", "password")
-      .formParam("username", "cuiimtclaimantusergwSPM@gmail.com")
+      .formParam("username", "#{claimantEmailAddress}")
       .formParam("password", "Password12!")
       .formParam("client_id", "civil_citizen_ui")
       // .formParam("client_secret", clientSecret)
@@ -53,9 +59,6 @@ object CivilAssignCase {
       .formParam("scope", "profile roles openid")
       .header("Content-Type", "application/x-www-form-urlencoded")
       .check(jsonPath("$.access_token").saveAs("bearerToken")))
-  }
-      .pause(minThinkTime, maxThinkTime)
-
 
 
   //def run(implicit postHeaders: Map[String, String]): ChainBuilder = {
@@ -96,52 +99,73 @@ object CivilAssignCase {
         )
     }
       .pause(minThinkTime, maxThinkTime)
-
-
-  //following is for retrieving the userId of the user name
-
-
-  val getUserId =
-    group("CIVIL_GetUserId_000_GetUserId") {
-      //	feed(caseFeeder)
-      exec(AuthForClaimCreationAPI)
-        .exec(http("CIVIL_GetUserId_000_GetUserId")
-          .get("https://idam-api.perftest.platform.hmcts.net/o/userInfo")
-          //   .get( "/cases/searchCases?start_date=#{randomStartDate}&end_date=#{randomEndDate}")
-          // .get( "/cases/searchCases?start_date=2022-01-13T00:00:00&end_date=2023-04-16T15:38:00")
-          .header("Authorization", "Bearer ${bearerToken}")
-          .header("Content-Type", "application/json")
-          .header("Accept", "*/*")
-          .check(status.in(200, 201))
-        )
-    }
-      .pause(minThinkTime, maxThinkTime)
-      
+  
+  
+      //following is for retrieving the userId of the user name
+  
+  
+      val getUserId =
+        group("CIVIL_GetUserId_000_GetUserId") {
+          //	feed(caseFeeder)
+          exec(AuthForClaimCreationAPI)
+            .exec(http("CIVIL_GetUserId_000_GetUserId")
+              .get("https://idam-api.perftest.platform.hmcts.net/o/userInfo")
+              //   .get( "/cases/searchCases?start_date=#{randomStartDate}&end_date=#{randomEndDate}")
+              // .get( "/cases/searchCases?start_date=2022-01-13T00:00:00&end_date=2023-04-16T15:38:00")
+              .header("Authorization", "Bearer ${bearerToken}")
+              .header("Content-Type", "application/json")
+              .header("Accept", "*/*")
+              .check(status.in(200, 201))
+            )
+        }
+          .pause(minThinkTime, maxThinkTime)
+  
       //Deepak - Cases that make the final step
-     /* .exec { session =>
+      /* .exec { session =>
         val fw = new BufferedWriter(new FileWriter("CUIDefUserDetails.csv", true))
         try {
           fw.write(session("claimantEmailAddress").as[String] + "," + session("defEmailAddress").as[String] + "," + session("password").as[String] + "," + session("claimNumber").as[String] + "\r\n")
         } finally fw.close()
         session
       }*/
-
-
-  // below code is for creating a claim with cui thru API
-
-  val CreateClaimCUIR2WithAPI =
-    group("CUIR2_CreateCase_Case_000_CreateCase") {
-      // feed(caseFeeder)
-      exec(http("CIVIL_AssignCase_000_AssignCase")
-        .post("http://civil-service-perftest.service.core-compute-perftest.internal/cases/draft/citizen/#{userId}/event")
+  
+  
+      // below code is for creating a claim with cui thru API
+  
+  
+      val CreateClaimCUIR2WithAPI =
+        group("CUIR2_CreateCase_Case_000_CreateCase") {
+          //	feed(caseFeeder)
+          exec(http("CIVIL_AssignCase_000_AssignCase")
+            .post("http://civil-service-perftest.service.core-compute-perftest.internal/cases/draft/citizen/#{userId}/event")
+            .header("Authorization", "Bearer ${bearerToken}")
+            .header("ServiceAuthorization", "#{ServiceToken}")
+            .header("Content-Type", "application/json")
+            .body(ElFileBody("bodies/cuiclaim/CUI_Create_Claim.json"))
+            .check(jsonPath("$.id").saveAs("claimNumber"))
+            .check(status.in(200, 201))
+          )
+        }
+          .pause(minThinkTime, maxThinkTime)
+      
+          .exec { session =>
+            val fw = new BufferedWriter(new FileWriter("CUIR2ClaimsWithAPI30K.csv", true))
+            try {
+              fw.write(session("claimantEmailAddress").as[String] + "," + session("claimNumber").as[String] + "," + session("password").as[String] + "\r\n")
+            } finally fw.close()
+        
+            session
+          }
+  
+  
+      /* val getUserId =
+    group("CUIR2_Claimant_GetUser") {
+      exec(http("CUIR2_Claimant_GetUser")
+        .get(IdamAPIURL + "/o/userinfo")
         .header("Authorization", "Bearer ${bearerToken}")
-        .header("ServiceAuthorization", "#{civil_service_ServiceToken}")
         .header("Content-Type", "application/json")
-        .body(ElFileBody("bodies/cuiclaim/CUI_Create_Claim.json"))
-        .check(status.in(200, 201))
-      )
+        .check(jsonPath("$.uid").saveAs("userId"))
+        .check(status.is(200)))
+    }*/
+  
     }
-      .pause(minThinkTime, maxThinkTime)
-  
-  
-}
