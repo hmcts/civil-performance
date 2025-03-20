@@ -40,9 +40,9 @@ object CUIR2ClaimCreation {
       ==========================================================================================*/
       .group("CUIR2_Claimant_030_ClickOnMakeNewClaim") {
         exec(http("CUIR2_Claimant_030_005_ClickOnMakeNewClaim")
-          .get("/eligibility")
+         .get(CitizenURL+"/eligibility")
           .headers(CivilDamagesHeader.CUIR2Get)
-         // .check(substring("Try the new online service"))
+          .check(substring("Try the new online service"))
         )
       }
       .pause(MinThinkTime, MaxThinkTime)
@@ -53,7 +53,7 @@ object CUIR2ClaimCreation {
     ==========================================================================================*/
       .group("CUIR2_Claimant_040_EligibilityClaimAmount") {
         exec(http("CUIR2_Claimant_040_005_EligibilityClaimAmount")
-          .get("/eligibility/known-claim-amount")
+         .get(CitizenURL+"/eligibility/known-claim-amount")
           .headers(CivilDamagesHeader.CUIR2Get)
           .check(CsrfCheck.save)
           .check(substring("Do you know the amount you are claiming?")))
@@ -65,7 +65,7 @@ object CUIR2ClaimCreation {
     ==========================================================================================*/
       .group("CUIR2_Claimant_050_EligibilityClaimAmount") {
         exec(http("CUIR2_Claimant_050_005_EligibilityClaimAmount")
-          .post("/eligibility/known-claim-amount")
+         .post(CitizenURL+"/eligibility/known-claim-amount")
           .headers(CivilDamagesHeader.CUIR2Post)
           .formParam("_csrf", "#{csrf}")
           .formParam("option","yes")
@@ -80,7 +80,7 @@ object CUIR2ClaimCreation {
     ==========================================================================================*/
       .group("CUIR2_Claimant_060_IsSingleDefendant") {
         exec(http("CUIR2_Claimant_060_005_IsSingleDefendant")
-          .post("/eligibility/single-defendant")
+         .post(CitizenURL+"/eligibility/single-defendant")
           .headers(CivilDamagesHeader.CUIR2Post)
           .formParam("_csrf", "#{csrf}")
           .formParam("option", "no")
@@ -94,7 +94,7 @@ object CUIR2ClaimCreation {
     ==========================================================================================*/
       .group("CUIR2_Claimant_070_DoesDefBelongsEng") {
         exec(http("CUIR2_Claimant_070_005_DoesDefBelongsEng")
-          .post("/eligibility/defendant-address")
+         .post(CitizenURL+"/eligibility/defendant-address")
           .headers(CivilDamagesHeader.CUIR2Post)
           .formParam("_csrf", "#{csrf}")
           .formParam("option", "yes")
@@ -109,7 +109,7 @@ object CUIR2ClaimCreation {
     ==========================================================================================*/
       .group("CUIR2_Claimant_080_WhoYouMakingClaimFor") {
         exec(http("CUIR2_Claimant_080_005_WhoYouMakingClaimFor")
-          .post("/eligibility/claim-type")
+         .post(CitizenURL+"/eligibility/claim-type")
           .headers(CivilDamagesHeader.CUIR2Post)
           .formParam("_csrf", "#{csrf}")
           .formParam("claimType", "just-myself")
@@ -123,7 +123,7 @@ object CUIR2ClaimCreation {
     ==========================================================================================*/
       .group("CUIR2_Claimant_100_DoYouHavePostalAddress") {
         exec(http("CUIR2_Claimant_100_005_DoYouHavePostalAddress")
-          .post("/eligibility/claimant-address")
+         .post(CitizenURL+"/eligibility/claimant-address")
           .headers(CivilDamagesHeader.CUIR2Post)
           .formParam("_csrf", "#{csrf}")
           .formParam("option", "yes")
@@ -137,7 +137,7 @@ object CUIR2ClaimCreation {
     ==========================================================================================*/
       .group("CUIR2_Claimant_110_TenancyDeposit") {
         exec(http("CUIR2_Claimant_110_005_TenancyDeposit")
-          .post("/eligibility/claim-is-for-tenancy-deposit")
+         .post(CitizenURL+"/eligibility/claim-is-for-tenancy-deposit")
           .headers(CivilDamagesHeader.CUIR2Post)
           .formParam("_csrf", "#{csrf}")
           .formParam("option", "no")
@@ -151,7 +151,7 @@ object CUIR2ClaimCreation {
     ==========================================================================================*/
       .group("CUIR2_Claimant_120_GovtDept") {
         exec(http("CUIR2_Claimant_120_005_GovtDept")
-          .post("/eligibility/government-department")
+         .post(CitizenURL+"/eligibility/government-department")
           .headers(CivilDamagesHeader.CUIR2Post)
           .formParam("_csrf", "#{csrf}")
           .formParam("option", "no")
@@ -165,7 +165,7 @@ object CUIR2ClaimCreation {
     ==========================================================================================*/
       .group("CUIR2_Claimant_130_DefAge") {
         exec(http("CUIR2_Claimant_130_005_DefAge")
-          .post("/eligibility/defendant-age")
+         .post(CitizenURL+"/eligibility/defendant-age")
           .headers(CivilDamagesHeader.CUIR2Post)
           .formParam("_csrf", "#{csrf}")
           .formParam("option", "yes")
@@ -179,7 +179,7 @@ object CUIR2ClaimCreation {
       ==========================================================================================*/
         .group("CUIR2_Claimant_140_Over18") {
           exec(http("CUIR2_Claimant_140_005_Over18")
-            .post("/eligibility/over-18")
+           .post(CitizenURL+"/eligibility/over-18")
             .headers(CivilDamagesHeader.CUIR2Post)
             .formParam("_csrf", "#{csrf}")
             .formParam("option", "yes")
@@ -193,7 +193,7 @@ object CUIR2ClaimCreation {
     ==========================================================================================*/
       .group("CUIR2_Claimant_150_HelpPayingFee") {
         exec(http("CUIR2_Claimant_150_005_HelpPayingFee")
-          .post("/eligibility/help-with-fees")
+         .post(CitizenURL+"/eligibility/help-with-fees")
           .headers(CivilDamagesHeader.CUIR2Post)
           .formParam("_csrf", "#{csrf}")
           .formParam("option", "no")
@@ -207,7 +207,7 @@ object CUIR2ClaimCreation {
     ==========================================================================================*/
       .group("CUIR2_Claimant_160_LanguagePreference") {
         exec(http("CUIR2_Claimant_160_005_LanguagePreference")
-          .get("/claim/bilingual-language-preference")
+         .get(CitizenURL+"/claim/bilingual-language-preference")
           .headers(CivilDamagesHeader.CUIR2Get)
           .check(CsrfCheck.save)
           .check(substring("Language")))
@@ -220,7 +220,7 @@ object CUIR2ClaimCreation {
     ==========================================================================================*/
       .group("CUIR2_Claimant_170_LanguagePreferencePost") {
         exec(http("CUIR2_Claimant_170_005_LanguagePreferencePost")
-          .post("/claim/bilingual-language-preference")
+         .post(CitizenURL+"/claim/bilingual-language-preference")
           .headers(CivilDamagesHeader.CUIR2Post)
           .formParam("_csrf", "#{csrf}")
           .formParam("option", "ENGLISH")
@@ -236,7 +236,7 @@ object CUIR2ClaimCreation {
     ==========================================================================================*/
       .group("CUIR2_Claimant_180_ResolvingDisputeGet") {
         exec(http("CUIR2_Claimant_180_005_ResolvingDisputeGet")
-          .get("/claim/resolving-this-dispute")
+         .get(CitizenURL+"/claim/resolving-this-dispute")
           .headers(CivilDamagesHeader.CUIR2Get)
           .check(CsrfCheck.save)
           .check(substring("Try to resolve the dispute")))
@@ -249,7 +249,7 @@ object CUIR2ClaimCreation {
     ==========================================================================================*/
       .group("CUIR2_Claimant_190_ResolvingDisputePost") {
         exec(http("CUIR2_Claimant_190_005_ResolvingDisputePost")
-          .post("/claim/resolving-this-dispute")
+         .post(CitizenURL+"/claim/resolving-this-dispute")
           .headers(CivilDamagesHeader.CUIR2Post)
           .formParam("_csrf", "#{csrf}")
           .check(substring("You have completed 1 of 7 sections")))
@@ -261,7 +261,7 @@ object CUIR2ClaimCreation {
     ==========================================================================================*/
       .group("CUIR2_Claimant_200_CompletingYourClaimGet") {
         exec(http("CUIR2_Claimant_200_005_CompletingYourClaimGet")
-          .get("/claim/completing-claim")
+         .get(CitizenURL+"/claim/completing-claim")
           .headers(CivilDamagesHeader.CUIR2Get)
           .check(CsrfCheck.save)
           .check(substring("Get the details right")))
@@ -273,7 +273,7 @@ object CUIR2ClaimCreation {
     ==========================================================================================*/
       .group("CUIR2_Claimant_210_CompletingYourClaimPost") {
         exec(http("CUIR2_Claimant_210_005_CompletingYourClaimPost")
-          .post("/claim/completing-claim")
+         .post(CitizenURL+"/claim/completing-claim")
           .headers(CivilDamagesHeader.CUIR2Post)
           .formParam("_csrf", "#{csrf}")
           .check(substring("You have completed 2 of 7 sections")))
@@ -285,7 +285,7 @@ object CUIR2ClaimCreation {
     ==========================================================================================*/
       .group("CUIR2_Claimant_220_YourDetails") {
         exec(http("CUIR2_Claimant_220_005_YourDetailsGet")
-          .get("/claim/claimant-party-type-selection")
+         .get(CitizenURL+"/claim/claimant-party-type-selection")
           .headers(CivilDamagesHeader.CUIR2Get)
           .check(CsrfCheck.save)
           .check(substring("About you and this claim")))
@@ -297,7 +297,7 @@ object CUIR2ClaimCreation {
     ==========================================================================================*/
       .group("CUIR2_Claimant_230_YourDetailsPost") {
         exec(http("CUIR2_Claimant_230_005_YourDetailsPost")
-          .post("/claim/claimant-party-type-selection")
+         .post(CitizenURL+"/claim/claimant-party-type-selection")
           .headers(CivilDamagesHeader.CUIR2Post)
           .formParam("_csrf", "#{csrf}")
           .formParam("option", "INDIVIDUAL")
@@ -313,7 +313,7 @@ object CUIR2ClaimCreation {
     ==========================================================================================*/
       .group("CUIR2_Claimant_240_ClaimantIndividualDetails") {
         exec(http("CUIR2_Claimant_240_005_ClaimantDetails")
-          .post("/claim/claimant-individual-details")
+         .post(CitizenURL+"/claim/claimant-individual-details")
           .headers(CivilDamagesHeader.CUIR2Post)
           .formParam("_csrf", "#{csrf}")
           .formParam("title", "Mr")
@@ -344,7 +344,7 @@ object CUIR2ClaimCreation {
     ==========================================================================================*/
       .group("CUIR2_Claimant_250_ClaimantDOB") {
         exec(http("CUIR2_Claimant_250_005_ClaimantDOB")
-          .post("/claim/claimant-dob")
+         .post(CitizenURL+"/claim/claimant-dob")
           .headers(CivilDamagesHeader.CUIR2Post)
           .formParam("_csrf", "#{csrf}")
           .formParam("day", "01")
@@ -361,7 +361,7 @@ object CUIR2ClaimCreation {
     ==========================================================================================*/
       .group("CUIR2_Claimant_260_ClaimantPhone") {
         exec(http("CUIR2_Claimant_260_005_ClaimantPhone")
-          .post("/claim/claimant-phone")
+         .post(CitizenURL+"/claim/claimant-phone")
           .headers(CivilDamagesHeader.CUIR2Post)
           .formParam("_csrf", "#{csrf}")
           .formParam("telephoneNumber", "07234567890")
@@ -375,7 +375,7 @@ object CUIR2ClaimCreation {
     ==========================================================================================*/
       .group("CUIR2_Claimant_270_TheirDetailsGet") {
         exec(http("CUIR2_Claimant_270_005_TheirDetailsGet")
-          .get("/claim/defendant-party-type-selection")
+         .get(CitizenURL+"/claim/defendant-party-type-selection")
           .headers(CivilDamagesHeader.CUIR2Get)
           .check(CsrfCheck.save)
           .check(substring("Who are you making the claim against?")))
@@ -387,7 +387,7 @@ object CUIR2ClaimCreation {
     ==========================================================================================*/
       .group("CUIR2_Claimant_280_YourDetailsPost") {
         exec(http("CUIR2_Claimant_280_005_YourDetailsPost")
-          .post("/claim/defendant-party-type-selection")
+         .post(CitizenURL+"/claim/defendant-party-type-selection")
           .headers(CivilDamagesHeader.CUIR2Post)
           .formParam("_csrf", "#{csrf}")
           .formParam("option", "INDIVIDUAL")
@@ -426,7 +426,7 @@ object CUIR2ClaimCreation {
     ==========================================================================================*/
       .group("CUIR2_Claimant_300_DefEmail") {
         exec(http("CUIR2_Claimant_300_005_DefEmail")
-          .post("/claim/defendant-email")
+         .post(CitizenURL+"/claim/defendant-email")
           .headers(CivilDamagesHeader.CUIR2Post)
           .formParam("_csrf", "#{csrf}")
           .formParam("emailAddress", "civilmoneyclaimsdemo@gmail.com")
@@ -441,7 +441,7 @@ object CUIR2ClaimCreation {
     ==========================================================================================*/
       .group("CUIR2_Claimant_310_ClaimantPhone") {
         exec(http("CUIR2_Claimant_310_005_ClaimantPhone")
-          .post("/claim/defendant-mobile")
+         .post(CitizenURL+"/claim/defendant-mobile")
           .headers(CivilDamagesHeader.CUIR2Post)
           .formParam("_csrf", "#{csrf}")
           .formParam("telephoneNumber", "07234567890")
@@ -458,7 +458,7 @@ object CUIR2ClaimCreation {
     ==========================================================================================*/
       .group("CUIR2_Claimant_320_ClaimamountGet") {
         exec(http("CUIR2_Claimant_320_005_ClaimAmountGet")
-          .get("/claim/amount")
+         .get(CitizenURL+"/claim/amount")
           .headers(CivilDamagesHeader.CUIR2Get)
           .check(CsrfCheck.save)
           .check(substring("Claim amount")))
@@ -494,7 +494,7 @@ object CUIR2ClaimCreation {
     ==========================================================================================*/
       .group("CUIR2_Claimant_340_ClaimInterest") {
         exec(http("CUIR2_Claimant_340_005_ClaimInterest")
-          .post("/claim/interest")
+         .post(CitizenURL+"/claim/interest")
           .headers(CivilDamagesHeader.CUIR2Post)
           .formParam("_csrf", "#{csrf}")
           .formParam("option", "no")
@@ -509,7 +509,7 @@ object CUIR2ClaimCreation {
     ==========================================================================================*/
       .group("CUIR2_Claimant_350_HelpWithFee") {
         exec(http("CUIR2_Claimant_350_005_HelpWithFee")
-          .post("/claim/help-with-fees")
+         .post(CitizenURL+"/claim/help-with-fees")
           .headers(CivilDamagesHeader.CUIR2Post)
           .formParam("_csrf", "#{csrf}")
           .formParam("referenceNumber", "")
@@ -525,7 +525,7 @@ object CUIR2ClaimCreation {
     ==========================================================================================*/
       .group("CUIR2_Claimant_360_ClaimTotal") {
         exec(http("CUIR2_Claimant_360_005_ClaimTotal")
-          .post("/claim/total")
+         .post(CitizenURL+"/claim/total")
           .headers(CivilDamagesHeader.CUIR2Post)
           .formParam("_csrf", "#{csrf}")
           .formParam("saveAndContinue", "true")
@@ -540,7 +540,7 @@ object CUIR2ClaimCreation {
     ==========================================================================================*/
       .group("CUIR2_Claimant_370_ClaimReasonGet") {
         exec(http("CUIR2_Claimant_370_005_ClaimReason")
-          .get("/claim/reason")
+         .get(CitizenURL+"/claim/reason")
           .headers(CivilDamagesHeader.CUIR2Get)
           .check(CsrfCheck.save)
           .check(substring("Briefly explain your claim")))
@@ -553,7 +553,7 @@ object CUIR2ClaimCreation {
     ==========================================================================================*/
       .group("CUIR2_Claimant_380_ClaimReason") {
         exec(http("CUIR2_Claimant_380_005_ClaimReason")
-          .post("/claim/reason")
+         .post(CitizenURL+"/claim/reason")
           .headers(CivilDamagesHeader.CUIR2Post)
           .formParam("_csrf", "#{csrf}")
           .formParam("text", "Perftest Reason")
@@ -569,7 +569,7 @@ object CUIR2ClaimCreation {
     ==========================================================================================*/
       .group("CUIR2_Claimant_390_ClaimEvents") {
         exec(http("CUIR2_Claimant_390_005_ClaimEvents")
-          .post("/claim/timeline")
+         .post(CitizenURL+"/claim/timeline")
           .headers(CivilDamagesHeader.CUIR2Post)
           .formParam("_csrf", "#{csrf}")
           .formParam("rows[0][day]", "01")
@@ -600,7 +600,7 @@ object CUIR2ClaimCreation {
     ==========================================================================================*/
       .group("CUIR2_Claimant_400_ClaimEvidence") {
         exec(http("CUIR2_Claimant_400_005_ClaimEvidence")
-          .post("/claim/evidence")
+         .post(CitizenURL+"/claim/evidence")
           .headers(CivilDamagesHeader.CUIR2Post)
           .formParam("_csrf", "#{csrf}")
           .formParam("evidenceItem[0][type]", "Contracts and agreements")
@@ -622,7 +622,7 @@ object CUIR2ClaimCreation {
     ==========================================================================================*/
      .group("CUIR2_Claimant_410_CheckAndSendGet") {
         exec(http("CUIR2_Claimant_410_005_CheckAndSendGet")
-          .get("/claim/check-and-send")
+         .get(CitizenURL+"/claim/check-and-send")
           .headers(CivilDamagesHeader.CUIR2Get)
           .check(CsrfCheck.save)
           .check(substring("Equality and diversity question"))
@@ -636,7 +636,7 @@ object CUIR2ClaimCreation {
     ==========================================================================================*/
       .group("CUIR2_Claimant_420_PCQQuestionaire") {
         exec(http("CUIR2_Claimant_420_005_PCQQuestionaire")
-          .post("https://pcq.perftest.platform.hmcts.net/opt-out")
+         .post("https://pcq.perftest.platform.hmcts.net/opt-out")
           .headers(CivilDamagesHeader.CUIR2Post)
           .formParam("_csrf", "#{csrf}")
           .formParam("opt-out-button", "")
@@ -650,7 +650,7 @@ object CUIR2ClaimCreation {
     ==========================================================================================*/
       .group("CUIR2_Claimant_430_CheckAndSendPost") {
         exec(http("CUIR2_Claimant_430_005_CheckAndSendPost")
-          .post("/claim/check-and-send")
+         .post(CitizenURL+"/claim/check-and-send")
           .headers(CivilDamagesHeader.CUIR2Post)
           .formParam("_csrf", "#{csrf}")
           .formParam("type", "basic")

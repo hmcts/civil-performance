@@ -17,6 +17,7 @@ import scala.concurrent.duration.DurationInt
 class CivilDamagesSimulation extends Simulation {
   
   val BaseURL = Environment.baseURL
+	val citizenURL= Environment.citizenURL
   val loginFeeder = csv("login.csv").circular
 	val cpLoginFeeder = csv("cuir2cplogin.csv").circular
 	val stFeeder = csv("loginSt.csv").circular
