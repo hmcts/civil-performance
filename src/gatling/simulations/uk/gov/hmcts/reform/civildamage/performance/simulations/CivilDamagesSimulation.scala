@@ -101,7 +101,7 @@ class CivilDamagesSimulation extends Simulation {
   // below scenario is for user data creation
   val UserCreationScenario = scenario("CMC User Creation")
     .exec(
-      CreateUser.CreateCitizen("citizen")
+      CreateUser.CreateClaimantCitizen
         .pause(20)
     )
   
@@ -740,7 +740,7 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 			
 		}
 	
-	
+		
 	/*======================================================================================
 * Below scenario is for SDO  Small Claims - CUI R2 Civil
 ======================================================================================*/
@@ -760,12 +760,40 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 * Below scenario is for   Small Claims - CUI R2 Civil Case progression -Full Scenario
 ======================================================================================*/
 	val CUIR2SmallClaimsCaseProgression = scenario("SDO For CUIR2 CaseProgression Small Claims")
-		.feed(cpLoginFeeder) .feed(cpfulltestsmallclaimsFeeder)
+		.feed(cpLoginFeeder) //.feed(cpfulltestsmallclaimsFeeder)
 		.exitBlockOnFail {
 			exec(_.set("env", s"${env}"))
+			.exec(CreateUser.CreateDefCitizen)
+				.repeat(1) {
+					exec(CreateUser.CreateClaimantCitizen)
+						.exec(CUIR2HomePage.CUIR2HomePage)
+						.exec(CUIR2Login.CUIR2Login)
+						.exec(CUIR2ClaimCreation.run)
+						.exec(CUIR2Logout.CUILogout)
+						.exec(CivilAssignCase.cuiassign)
+				}
+			// below is for defendant response for case prog small track
+		/*	.exec(CUIR2HomePage.CUIR2HomePage)
+				.exec(CUIR2Login.CUIR2DefLogin)
+				.exec(CUIR2DefendantResponseCaseProg.run)
+				.exec(CUIR2Logout.CUILogout)
+				
+				//below is the for claimant intention for case prog for small claims
+			
+			.exec(CUIR2HomePage.CUIR2HomePage)
+				.exec(CUIR2Login.CUIR2ClaimantIntentionLogin)
+				.exec(CUIR2ClaimantIntentionCaseProg.run)
+				.exec(CUIR2Logout.CUILogout)
+			
+			// below is for SDO for small claims
+				
+				.exec(Homepage.XUIHomePage)
+				.exec(Login.XUIJudgeLogin)
+				.exec(SDOCivilProg.SDOSmallClaimsForCUIR2)
+				.exec(EXUIMCLogin.manageCase_Logout)
 				//Below is for upload claimant evidence
 					exec(CUIR2HomePage.CUIR2HomePage)
-            .exec(CUIR2Login.CUIR2ClaimantIntentionLogin)
+            .exec(CUIR2Login.CUIR2Login)
             .exec(CUIR2DocUploadCaseProg.CaseProgUploadDocsByClaimant)
             .pause(10)
             .exec(CUIR2DocUploadCaseProg.viewUploadedDocuments)
@@ -807,7 +835,7 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 				.exec(Homepage.XUIHomePage)
 				.exec(Login.XUIJudgeLogin)
 				.exec(CUIR2CaseProgression.FinalGeneralOrders)
-				.exec(EXUIMCLogin.manageCase_Logout)
+				.exec(EXUIMCLogin.manageCase_Logout)*/
 		}
 		
 	/*======================================================================================
@@ -817,6 +845,35 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 		.feed(cpLoginFeeder).feed(cpfulltestfasttrackFeeder)
 		.exitBlockOnFail {
 			exec(_.set("env", s"${env}"))
+				
+				.exec(CreateUser.CreateDefCitizen)
+				.repeat(1) {
+					exec(CreateUser.CreateClaimantCitizen)
+						.exec(CUIR2HomePage.CUIR2HomePage)
+						.exec(CUIR2Login.CUIR2Login)
+						.exec(CUIR2ClaimCreation.run)
+						.exec(CUIR2Logout.CUILogout)
+						.exec(CivilAssignCase.cuiassign)
+				}
+				
+				// below is for defendant response for case prog fast track claims
+				.exec(CUIR2HomePage.CUIR2HomePage)
+				.exec(CUIR2Login.CUIR2DefLogin)
+				.exec(CUIR2DefendantResponseCaseProg.run)
+				.exec(CUIR2Logout.CUILogout)
+				
+				//below is the for claimant intention for case prog for fast track claims
+				
+				.exec(CUIR2HomePage.CUIR2HomePage)
+				.exec(CUIR2Login.CUIR2ClaimantIntentionLogin)
+				.exec(CUIR2ClaimantIntentionCaseProgFastTrack.run)
+				.exec(CUIR2Logout.CUILogout)
+				
+				// below is the SDO for fast track
+				.exec(Homepage.XUIHomePage)
+				.exec(Login.XUIJudgeLogin)
+				.exec(SDOCivilProg.SDOSmallClaimsForCUIR2)
+				.exec(EXUIMCLogin.manageCase_Logout)
 			//Below is for upload claimant evidence
 			.exec(CUIR2HomePage.CUIR2HomePage)
 				.exec(CUIR2Login.CUIR2ClaimantIntentionLogin)
@@ -976,8 +1033,8 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 		
 	//	SDOSmallClaimsCUIR2.inject(nothingFor(1),rampUsers(1) during (1)),
 		//SDOFastTrackCUIR2.inject(nothingFor(1),rampUsers(3) during (50)),
-		CUIR2SmallClaimsCaseProgression.inject(nothingFor(1),rampUsers(14) during (3600)),
-		CUIR2FastTrackCaseProgression.inject(nothingFor(50),rampUsers(14) during (3600)),
+		CUIR2SmallClaimsCaseProgression.inject(nothingFor(1),rampUsers(1) during (3)),
+	//	CUIR2FastTrackCaseProgression.inject(nothingFor(50),rampUsers(14) during (3600)),
 		//	CivilUIR2ClaimCreationScenario.inject(nothingFor(1),rampUsers(1) during (1))
 		
 		//Following is the spec claim end to end journey

@@ -33,13 +33,7 @@ object Common {
   }
   
   import scala.util.Random
-  object MyClass {
-    def main(args: Array[String]) {
-      val list = List(12, 65, 89, 41, 99, 102)
-      val random = new Random
-      println("Random value of the list " + list(random.nextInt(list.length)))
-    }
-  }
+  
   
   def getRequestId (): String = {
     val chars = ('a' to 'z') ++ ('A' to 'Z') ++ ('0' to '9')

@@ -1,5 +1,5 @@
 {
-  "email":"#{claimantEmailAddress}",
+  "email":"#{defEmailAddress}",
   "forename":"PerfTest",
   "password":"#{password}",
   "roles":[
