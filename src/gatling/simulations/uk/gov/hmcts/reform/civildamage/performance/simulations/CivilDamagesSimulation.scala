@@ -977,7 +977,7 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 	//	SDOSmallClaimsCUIR2.inject(nothingFor(1),rampUsers(1) during (1)),
 		//SDOFastTrackCUIR2.inject(nothingFor(1),rampUsers(3) during (50)),
 		CUIR2SmallClaimsCaseProgression.inject(nothingFor(1),rampUsers(14) during (3600)),
-		CUIR2FastTrackCaseProgression.inject(nothingFor(50),rampUsers(14) during (3600)),
+	//	CUIR2FastTrackCaseProgression.inject(nothingFor(50),rampUsers(14) during (3600)),
 		//	CivilUIR2ClaimCreationScenario.inject(nothingFor(1),rampUsers(1) during (1))
 		
 		//Following is the spec claim end to end journey
