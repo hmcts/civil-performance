@@ -1,0 +1,26 @@
+{
+  "data": {
+    "joJudgmentPaidInFull": {
+      "dateOfFullPaymentMade": "2025-03-01",
+      "confirmFullPaymentMade": [
+        "CONFIRMED"
+      ]
+    }
+  },
+  "event": {
+    "id": "JUDGMENT_PAID_IN_FULL",
+    "summary": "",
+    "description": ""
+  },
+  "event_data": {
+    "joJudgmentPaidInFull": {
+      "dateOfFullPaymentMade": "2025-03-01",
+      "confirmFullPaymentMade": [
+        "CONFIRMED"
+      ]
+    }
+  },
+  "event_token": "#{event_token_admin}",
+  "ignore_warning": false,
+  "case_reference": "#{caseId}"
+}

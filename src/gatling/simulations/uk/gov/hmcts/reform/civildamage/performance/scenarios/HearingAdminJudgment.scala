@@ -260,41 +260,57 @@ object HearingAdminJudgment{
     .pause(MinThinkTime, MaxThinkTime)
 
     // =======================MARK AS PAID (DROPDOWN)=======================,
-
-
-
-
-    // =======================TASK TAB=======================,
-    .group("Civil_SpecClaim_50_HearingAdmin") {
-      exec(http("005_TaskTab")
-        .post(BaseURL + "/workallocation/case/task/#{caseId}")
+    .group("HearingAdmin_MarkAsPaid_620_EventTrigger") {
+      exec(http("005_Jurisdiction")
+        .get(BaseURL + "/workallocation/case/tasks/#{caseId}/event/JUDGMENT_PAID_IN_FULL/caseType/CIVIL/jurisdiction/CIVIL")
         .headers(Headers.commonHeader)
-        .body(StringBody("""{"refined": true}""".stripMargin))
-        .check(status.is(200)))
+        .check(substring("task_required_for_event")))
 
-        .exec(http("010_TaskTab")
-          .post(BaseURL + "/workallocation/caseworker/getUsersByServiceName")
-          .body(StringBody("""{"services": ["CIVIL"]}""".stripMargin))
-          .headers(Headers.commonHeader)
-          .check(substring("BIRMINGHAM CIVIL AND FAMILY JUSTICE CENTRE")))
+      .exec(http("010_Profile")
+        .get(BaseURL + "/data/internal/profile")
+        .headers(Headers.validateHeader)
+        .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-user-profile.v2+json;charset=UTF-8")
+        .check(substring("#{centreadminuser}")))
+
+      .exec(http("015_IgnoreWarning")
+        .get(BaseURL + "/data/internal/cases/#{caseId}/event-triggers/JUDGMENT_PAID_IN_FULL?ignore-warning=false")
+        .headers(Headers.validateHeader)
+        .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-start-event-trigger.v2+json;charset=UTF-8")
+        .check(substring("Mark a judgment as paid in full"))
+        .check(jsonPath("$.event_token").saveAs("event_token_admin")))
+      .exitHereIf(session => !session.contains("event_token_admin"))
+
+      .exec(http("020_Jurisdiction")
+        .get(BaseURL + "/workallocation/case/tasks/#{caseId}/event/JUDGMENT_PAID_IN_FULL/caseType/CIVIL/jurisdiction/CIVIL")
+        .headers(Headers.commonHeader)
+        .check(substring("task_required_for_event")))
     }
     .pause(MinThinkTime, MaxThinkTime)
 
-    // =======================ASSIGN TO ME=======================,
-    //    .group("Civil_SpecClaim_50_HearingAdmin") {
-    //      exec(http("005_AssignToMe")
-    //        .post(BaseURL + "/workallocation/task/#{HearingCaseId}/claim")
-    //        .headers(Headers.commonHeader)
-    //        .check(status.is(204)))
-    //    }
+    // =======================DATE OF PAYMENT=======================,
+    .group("HearingAdmin_MarkAsPaid_630_DateOfPayment") {
+      exec(http("HearingAdmin_MarkAsPaid_630_DateOfPayment")
+        .post(BaseURL + "/data/case-types/CIVIL/validate?pageId=JUDGMENT_PAID_IN_FULLMarkJudgmentPaidInFull")
+        .headers(Headers.validateHeader)
+        .body(ElFileBody("bodies/HearingAdminJudgment/markAsPaidPaymentDate.json"))
+        .check(substring("dateOfFullPaymentMade")))
+    }
+    .pause(MinThinkTime, MaxThinkTime)
 
-    .group("Civil_SpecClaim_50_HearingAdmin") {
-      exec(http("010_AssignToMe")
-        .post(BaseURL + "/workallocation/case/task/#{caseId}")
-        .headers(Headers.commonHeader)
-        .body(StringBody("""{"refined": true}""".stripMargin))
-        //.check(substring("task_system"))
-        .check(jsonPath("$[0].id").optional.saveAs("HearingCaseId")))
+    // =======================SUBMIT=======================,
+    .group("HearingAdmin_MarkAsPaid_640_Submit") {
+      exec(http("HearingAdmin_MarkAsPaid_640_Submit")
+        .post(BaseURL + "/data/cases/#{caseId}/events")
+        .headers(Headers.validateHeader)
+        .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.create-event.v2+json;charset=UTF-8")
+        .body(ElFileBody("bodies/HearingAdminJudgment/markAsPaidSubmit.json"))
+        .check(substring("The judgment has been marked as paid in full")))
+
+      .exec(http("HearingAdmin_MarkAsPaid_655_Submit")
+        .get(BaseURL + "/data/internal/cases/#{caseId}")
+        .headers(Headers.validateHeader)
+        .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-case-view.v2+json")
+        .check(substring("http://gateway-ccd.perftest.platform.hmcts.net/internal/cases/#{caseId}")))
     }
     .pause(MinThinkTime, MaxThinkTime)
 }
