@@ -204,7 +204,6 @@ object SDOCivilProg {
             .check(substring("Civil"))
           )
         
-        
       }
       .pause(MinThinkTime, MaxThinkTime)
   
@@ -212,7 +211,7 @@ object SDOCivilProg {
     feed(sdodrhfeeder)
       .group("Civil_SDOE_DRH_30_CaseDetails") {
         exec(http("Civil_SDOE_DRH_30_005_CaseDetails")
-            .get(BaseURL + "/data/internal/cases/#{caseId}")
+            .get(BaseURL + "/data/internal/cases/#{claimNumber}")
             .headers(Headers.commonHeader)
             .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-case-view.v2+json")
             .check(substring("Civil"))
@@ -226,7 +225,7 @@ object SDOCivilProg {
     ==========================================================================================*/
       .group("Civil_SDOE_DRH_40_TaskTab") {
         exec(http("Civil_SDOE_DRH_40_005_TaskTab")
-          .post(BaseURL + "/workallocation/case/task/#{caseId}")
+          .post(BaseURL + "/workallocation/case/task/#{claimNumber}")
           .headers(CivilDamagesHeader.MoneyClaimNav)
           .body(ElFileBody("bodies/sdodrh/TaskTab.json"))
           .check(jsonPath("$[0].id").saveAs("JudgeId"))
@@ -261,14 +260,14 @@ object SDOCivilProg {
       // val returntocasedetailsafternotifydetails =
       .group("Civil_SDOE_DRH_60_DirectionsDRH") {
         exec(http("Civil_SDOE_DRH_60_005_DirectionsDRH")
-          .get("/cases/case-details/#{caseId}/trigger/CREATE_SDO/CREATE_SDOSmallClaims?tid=#{JudgeId}")
+          .get("/cases/case-details/#{claimNumber}/trigger/CREATE_SDO/CREATE_SDOSmallClaims?tid=#{JudgeId}")
           .headers(CivilDamagesHeader.headers_notify)
           .header("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7")
           //  .check(substring("assignee"))
         )
           
           .exec(http("Civil_SDOE_DRH_60_010_DirectionsDRH")
-            .get(BaseURL + "/data/internal/cases/#{caseId}/event-triggers/CREATE_SDO?ignore-warning=false")
+            .get(BaseURL + "/data/internal/cases/#{claimNumber}/event-triggers/CREATE_SDO?ignore-warning=false")
             .headers(CivilDamagesHeader.headers_notify)
             .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-start-event-trigger.v2+json;charset=UTF-8")
             .check(substring("CREATE_SDO"))

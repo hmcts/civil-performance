@@ -137,7 +137,7 @@ object Login {
           .header("accept", "application/json")
           .check(substring("id")))
         
-        .exec(getCookieValue(CookieKey("XSRF-TOKEN").withDomain(BaseURL.replace("https://", "")).saveAs("XSRFToken")))
+        .exec(getCookieValue(CookieKey("XSRF-TOKEN").withDomain(BaseURL.replace("https://", "")).withSecure(true).saveAs("XSRFToken")))
         .exec(Common.orgDetails)
       
       /* .exec(http("XUI_020_015_WorkBasketInputs")

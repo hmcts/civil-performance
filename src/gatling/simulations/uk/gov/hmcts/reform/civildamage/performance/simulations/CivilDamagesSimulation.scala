@@ -771,10 +771,12 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 						.exec(CUIR2Login.CUIR2Login)
 						.exec(CUIR2ClaimCreation.run)
 						.exec(CUIR2Logout.CUILogout)
+						.pause(30)
 						.exec(CivilAssignCase.cuiassign)
+						.pause(10)
 				}
 			// below is for defendant response for case prog small track
-		/*	.exec(CUIR2HomePage.CUIR2HomePage)
+			.exec(CUIR2HomePage.CUIR2HomePage)
 				.exec(CUIR2Login.CUIR2DefLogin)
 				.exec(CUIR2DefendantResponseCaseProg.run)
 				.exec(CUIR2Logout.CUILogout)
@@ -782,7 +784,7 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 				//below is the for claimant intention for case prog for small claims
 			
 			.exec(CUIR2HomePage.CUIR2HomePage)
-				.exec(CUIR2Login.CUIR2ClaimantIntentionLogin)
+				.exec(CUIR2Login.CUIR2Login)
 				.exec(CUIR2ClaimantIntentionCaseProg.run)
 				.exec(CUIR2Logout.CUILogout)
 			
@@ -792,6 +794,8 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 				.exec(Login.XUIJudgeLogin)
 				.exec(SDOCivilProg.SDOSmallClaimsForCUIR2)
 				.exec(EXUIMCLogin.manageCase_Logout)
+			
+			/*
 				//Below is for upload claimant evidence
 					exec(CUIR2HomePage.CUIR2HomePage)
             .exec(CUIR2Login.CUIR2Login)
@@ -1034,7 +1038,7 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 		
 	//	SDOSmallClaimsCUIR2.inject(nothingFor(1),rampUsers(1) during (1)),
 		//SDOFastTrackCUIR2.inject(nothingFor(1),rampUsers(3) during (50)),
-		CUIR2SmallClaimsCaseProgression.inject(nothingFor(1),rampUsers(1) during (3)),
+		CUIR2SmallClaimsCaseProgression.inject(nothingFor(1),rampUsers(3) during (10)),
 	//	CUIR2FastTrackCaseProgression.inject(nothingFor(50),rampUsers(14) during (3600)),
 		//	CivilUIR2ClaimCreationScenario.inject(nothingFor(1),rampUsers(1) during (1))
 		

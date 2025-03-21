@@ -47,21 +47,21 @@ object  CivilAssignCase {
 * Below group contains all the share the unassigned case
 ======================================================================================*/
 	//userType must be "Caseworker", "Legal" or "Citizen"
-	val Auth  =
+	val Auth = {
 		
-			exec(http("Civil_000_GetBearerToken")
-				.post("https://idam-api.perftest.platform.hmcts.net/loginUser") //change this to idamapiurl if this not works
-		//		.formParam("grant_type", "password")
-				.formParam("username", "civil.damages.claims+organisation.2.solicitor.1@gmail.com")
-				.formParam("password", "Password12!")
-		//		.formParam("client_id", "civil_citizen_ui")
-				// .formParam("client_secret", clientSecret)
-			//	.formParam("client_secret", "47js6e86Wv5718D2O77OL466020731ii")
-				//.formParam("scope", "profile roles openid")
-				.header("Content-Type", "application/x-www-form-urlencoded")
-				.check(jsonPath("$.access_token").saveAs("bearerToken")))
-			
-			.pause(minThinkTime,maxThinkTime)
+		exec(http("Civil_000_GetBearerToken")
+			.post(idamURL + "/o/token") //change this to idamapiurl if this not works
+			.formParam("grant_type", "password")
+			.formParam("username", "#{defEmailAddress}")
+			.formParam("password", "Password12!")
+			.formParam("client_id", "civil_citizen_ui")
+			// .formParam("client_secret", clientSecret)
+			.formParam("client_secret", "47js6e86Wv5718D2O77OL466020731ii")
+			.formParam("scope", "profile roles openid")
+			.header("Content-Type", "application/x-www-form-urlencoded")
+			.check(jsonPath("$.access_token").saveAs("bearerToken")))
+	}
+		.pause(minThinkTime, maxThinkTime)
 	
 	
 	val AuthXUI =
@@ -105,12 +105,10 @@ object  CivilAssignCase {
 	
 	val cuiassign =
 		group("CIVIL_AssignCase_000_AssignCase") {
-		//	feed(caseFeeder)
-			exec(AuthXUI)
+			//	feed(caseFeeder)
+			exec(Auth)
 				.exec(http("CIVIL_AssignCase_000_AssignCase")
-					.post("http://civil-service-perftest.service.core-compute-perftest.internal/testing-support/assign-case/#{caseId}/RESPONDENTSOLICITORONE")
-					//   .get( "/cases/searchCases?start_date=#{randomStartDate}&end_date=#{randomEndDate}")
-					// .get( "/cases/searchCases?start_date=2022-01-13T00:00:00&end_date=2023-04-16T15:38:00")
+					.post("http://civil-service-perftest.service.core-compute-perftest.internal/testing-support/assign-case/#{claimNumber}/DEFENDANT")
 					.header("Authorization", "Bearer ${bearerToken}")
 					.header("Content-Type", "application/json")
 					.header("Accept", "*/*")
@@ -118,8 +116,8 @@ object  CivilAssignCase {
 				)
 		}
 			.pause(minThinkTime, maxThinkTime)
-			
-			//Deepak - Cases that make the final step
+	
+	//Deepak - Cases that make the final step
 			/*.exec { session =>
 				val fw = new BufferedWriter(new FileWriter("FinalcaseIds.csv", true))
 				try {
