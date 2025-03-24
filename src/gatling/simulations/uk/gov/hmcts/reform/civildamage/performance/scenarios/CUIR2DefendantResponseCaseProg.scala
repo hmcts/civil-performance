@@ -599,8 +599,9 @@ object CUIR2DefendantResponseCaseProg {
           .post(CivilUiURL + "/case/#{claimNumber}/directions-questionnaire/court-location")
           .headers(CivilDamagesHeader.CUIR2Post)
           .formParam("_csrf", "#{csrf}")
-          .formParam("courtLocation", "Blackpool County Court & Family Court - The Law Courts, Civic Centre, Chapel Street - FY1 5RJ")
-          .formParam("reason", "asasasasas")
+          .formParam("courtLocation", "")
+          .formParam("reason", "")
+          .formParam("option", "no")
           .check(substring("Welsh language"))
         )
       }
