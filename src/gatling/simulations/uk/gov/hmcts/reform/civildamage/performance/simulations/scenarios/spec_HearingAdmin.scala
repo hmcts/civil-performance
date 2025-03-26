@@ -119,9 +119,7 @@ object spec_HearingAdmin{
         .headers(Headers.commonHeader)
         .check(substring("CIVIL")))
     }
-    .pause(MinThinkTime, MaxThinkTime)
-
-    //.exec(getCookieValue(CookieKey("XSRF-TOKEN").withDomain(BaseURL.replace("https://", "")).saveAs("xsrf_token")))
+    .pause(60)
 
     // =======================TASK TAB=======================,
     .group("Civil_SpecClaim_50_HearingAdmin") {
@@ -129,7 +127,8 @@ object spec_HearingAdmin{
         .post("/workallocation/case/task/#{caseId}")
         .headers(Headers.commonHeader)
         .body(StringBody("""{"refined": true}""".stripMargin))
-        .check(status.is(200)))
+        .check(regex("id\":\"(.*?)\"").optional.saveAs("HearingCaseId"))
+        .check(substring("task_state")))
 
       .exec(http("010_TaskTab")
         .post("/workallocation/caseworker/getUsersByServiceName")
@@ -140,20 +139,18 @@ object spec_HearingAdmin{
     .pause(MinThinkTime, MaxThinkTime)
 
     // =======================ASSIGN TO ME=======================,
-//    .group("Civil_SpecClaim_50_HearingAdmin") {
-//      exec(http("005_AssignToMe")
-//        .post("/workallocation/task/#{HearingCaseId}/claim")
-//        .headers(Headers.commonHeader)
-//        .check(status.is(204)))
-//    }
-
     .group("Civil_SpecClaim_50_HearingAdmin") {
-      exec(http("010_AssignToMe")
+      exec(http("005_AssignToMe")
+        .post("/workallocation/task/#{HearingCaseId}/claim")
+        .headers(Headers.commonHeader)
+        .check(status.is(204)))
+
+      .exec(http("010_AssignToMe")
         .post("/workallocation/case/task/#{caseId}")
         .headers(Headers.commonHeader)
         .body(StringBody("""{"refined": true}""".stripMargin))
-        //.check(substring("task_system"))
-        .check(jsonPath("$[0].id").optional.saveAs("HearingCaseId")))
+//        .check(jsonPath("$[0].id").optional.saveAs("HearingCaseId")))
+        .check(substring("task_system")))
     }
     .pause(MinThinkTime, MaxThinkTime)
 
@@ -230,23 +227,23 @@ object spec_HearingAdmin{
 
     // =======================SUBMIT=======================,
     .group("Civil_SpecClaim_50_HearingAdmin") {
-//      exec(http("005_Submit")
-//        .get("/workallocation/task/#{HearingCaseId}")
-//        .headers(Headers.commonHeader)
-//        .check(substring("role_category")))
+      exec(http("005_Submit")
+        .get("/workallocation/task/#{HearingCaseId}")
+        .headers(Headers.commonHeader)
+        .check(substring("role_category")))
 
-      exec(http("010_Submit")
+      .exec(http("010_Submit")
         .post("/data/cases/#{caseId}/events")
         .headers(Headers.validateHeader)
         .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.create-event.v2+json;charset=UTF-8")
         .body(ElFileBody("e_HearingAdmin_bodies/adminSubmitHearing.dat"))
         .check(status.is(201)))
 
-//      .exec(http("015_Submit")
-//        .post("/workallocation/task/#{HearingCaseId}/complete")
-//        .headers(Headers.commonHeader)
-//        .body(StringBody("""{"actionByEvent": true, "eventName": "Create a hearing notice"}""".stripMargin))
-//        .check(status.is(204)))
+      .exec(http("015_Submit")
+        .post("/workallocation/task/#{HearingCaseId}/complete")
+        .headers(Headers.commonHeader)
+        .body(StringBody("""{"actionByEvent": true, "eventName": "Create a hearing notice"}""".stripMargin))
+        .check(status.is(204)))
 
       .exec(http("020_Submit")
         .get("/data/internal/cases/#{caseId}")

@@ -112,6 +112,7 @@ object unspec_Jud_Hear {
         .check(status.in(200, 406)))
     }
     .pause(MinThinkTime, MaxThinkTime)
+
     // =======================SEARCH CASE=======================,
     .group("Civil_UnSpecClaim_40_SDO") {
       exec(http("005_SearchCase")
@@ -132,6 +133,7 @@ object unspec_Jud_Hear {
         .check(substring("JUDICIAL_REFERRAL")))
     }
     .pause(MinThinkTime, MaxThinkTime)
+
     // =======================OPEN CASE=======================,
     .group("Civil_UnSpecClaim_40_SDO") {
       exec(http("005_OpenCase")
@@ -154,7 +156,7 @@ object unspec_Jud_Hear {
         .headers(Headers.commonHeader)
         .check(substring("CIVIL")))
     }
-    .pause(MinThinkTime, MaxThinkTime)
+    .pause(150)
 
     // =======================TASK TAB=======================,
     .group("Civil_UnSpecClaim_40_SDO") {
@@ -162,7 +164,8 @@ object unspec_Jud_Hear {
         .post("/workallocation/case/task/#{caseId}")
         .headers(Headers.commonHeader)
         .body(StringBody("""{"refined": true}""".stripMargin))
-        .check(status.is(200)))
+        .check(regex("id\":\"(.*?)\"").optional.saveAs("judgeId"))
+        .check(substring("task_state")))
 
       .exec(http("010_TaskTab")
         .post("/workallocation/caseworker/getUsersByServiceName")
@@ -174,17 +177,17 @@ object unspec_Jud_Hear {
 
     // =======================ASSIGN TO ME=======================,
     .group("Civil_UnSpecClaim_40_SDO") {
-//      exec(http("005_AssignToMe")
-//        .post("/workallocation/task/#{judgeId}/claim")
-//        .headers(Headers.commonHeader)
-//        .check(status.is(204)))
+      exec(http("005_AssignToMe")
+        .post("/workallocation/task/#{judgeId}/claim")
+        .headers(Headers.commonHeader)
+        .check(status.is(204)))
 
       exec(http("010_AssignToMe")
         .post("/workallocation/case/task/#{caseId}")
         .headers(Headers.commonHeader)
         .body(StringBody("""{"refined": true}""".stripMargin))
-        .check(jsonPath("$[0].id").optional.saveAs("judgeId")))
-//        .check(substring("task_system")))
+//        .check(jsonPath("$[0].id").optional.saveAs("judgeId")))
+        .check(substring("task_system")))
 
       .exec(http("015_AssignToMe")
         .post("/api/role-access/roles/getJudicialUsers")
@@ -196,12 +199,12 @@ object unspec_Jud_Hear {
 
     // =======================FAST TRACK=======================,
     .group("Civil_UnSpecClaim_40_SDO") {
-//      exec(http("005_FastTrack")
-//        .get("/cases/case-details/#{caseId}/trigger/CREATE_SDO/CREATE_SDOFastTrack?tid=#{judgeId}")
-//        .headers(Headers.navigationHeader)
-//        .check(substring("flexbox no-flexboxtwenner")))
+      exec(http("005_FastTrack")
+        .get("/cases/case-details/#{caseId}/trigger/CREATE_SDO/CREATE_SDOFastTrack?tid=#{judgeId}")
+        .headers(Headers.navigationHeader)
+        .check(substring("flexbox no-flexboxtwenner")))
 
-      exec(Common.configurationui)
+      .exec(Common.configurationui)
       .exec(Common.configUI)
       .exec(Common.TsAndCs)
       .exec(Common.userDetails)
@@ -212,8 +215,8 @@ object unspec_Jud_Hear {
 
       .exec(http("010_FastTrack")
         .get("/workallocation/case/tasks/#{caseId}/event/CREATE_SDO/caseType/CIVIL/jurisdiction/CIVIL")
-        .headers(Headers.commonHeader))
-        //.check(substring("case_management_category")))
+        .headers(Headers.commonHeader)
+        .check(substring("case_management_category")))
 
       .exec(http("015_FastTrack")
         .get("/data/internal/cases/#{caseId}")
@@ -258,18 +261,6 @@ object unspec_Jud_Hear {
     }
     .pause(MinThinkTime, MaxThinkTime)
 
-
-//https://manage-case.perftest.platform.hmcts.net/data/case-types/CIVIL/validate?pageId=CREATE_SDOSmallClaims
-//https://manage-case.perftest.platform.hmcts.net/data/internal/cases/1731682247743056
-//https://manage-case.perftest.platform.hmcts.net/data/case-types/CIVIL/validate?pageId=CREATE_SDOOrderPreview
-//https://manage-case.perftest.platform.hmcts.net/workallocation/task/e677549d-a361-11ef-821c-ea693610ebb0
-//https://manage-case.perftest.platform.hmcts.net/data/cases/1731682247743056/events
-//https://manage-case.perftest.platform.hmcts.net/workallocation/task/e677549d-a361-11ef-821c-ea693610ebb0/complete
-//https://manage-case.perftest.platform.hmcts.net/data/internal/cases/1731682247743056
-//https://manage-case.perftest.platform.hmcts.net/api/role-access/roles/manageLabellingRoleAssignment/1731682247743056
-//https://manage-case.perftest.platform.hmcts.net/api/wa-supported-jurisdiction/get
-
-
     // =======================ORDER DETAILS=======================,
 
     .group("Civil_UnSpecClaim_40_SDO") {
@@ -296,26 +287,24 @@ object unspec_Jud_Hear {
     .pause(MinThinkTime, MaxThinkTime)
 
     // =======================SUBMIT SDO=======================,
-//    .group("Civil_UnSpecClaim_40_SDO") {
-//      exec(http("005_SubmitSDO")
-//        .get("/workallocation/task/#{judgeId}")
-//        .headers(Headers.commonHeader)
-//        .check(substring("role_category")))
-//    }
-
     .group("Civil_UnSpecClaim_40_SDO") {
       exec(http("005_SubmitSDO")
+        .get("/workallocation/task/#{judgeId}")
+        .headers(Headers.commonHeader)
+        .check(substring("role_category")))
+
+      .exec(http("010_SubmitSDO")
         .post("/data/cases/#{caseId}/events")
         .headers(Headers.validateHeader)
         .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.create-event.v2+json;charset=UTF-8")
         .body(ElFileBody("ud_ue_jud_hear_bodies/judgeSubmitSDO.dat"))
         .check(substring("Your order has been issued")))
 
-//      .exec(http("010_SubmitSDO")
+//      .exec(http("015_SubmitSDO")
 //        .post("/workallocation/task/#{judgeId}/complete")
 //        .headers(Headers.commonHeader)
 //        .body(StringBody("""{"actionByEvent": true, "eventName": "Standard Direction Order"}""".stripMargin))
-//        .check(status.is(204)))
+//        .check(status.in(204, 403)))
 
       .exec(http("015_SubmitSDO")
         .get("/data/internal/cases/#{caseId}")
@@ -430,7 +419,7 @@ object unspec_Jud_Hear {
         .headers(Headers.commonHeader)
         .check(substring("CIVIL")))
     }
-    .pause(MinThinkTime, MaxThinkTime)
+    .pause(60)
 
     // =======================TASK TAB=======================,
     .group("Civil_UnSpecClaim_50_HearingAdmin") {
@@ -438,7 +427,7 @@ object unspec_Jud_Hear {
         .post("/workallocation/case/task/#{caseId}")
         .headers(Headers.commonHeader)
         .body(StringBody("""{"refined": true}""".stripMargin))
-//        .check(substring("Assign to me"))
+        .check(substring("Assign to me"))
         .check(jsonPath("$[0].id").optional.saveAs("HearingCaseId")))
 
       .exec(http("010_TaskTab")
@@ -450,19 +439,17 @@ object unspec_Jud_Hear {
     .pause(MinThinkTime, MaxThinkTime)
 
     // =======================ASSIGN TO ME=======================,
-//    .group("Civil_UnSpecClaim_50_HearingAdmin") {
-//      exec(http("005_AssignToMe")
-//        .post("/workallocation/task/#{HearingCaseId}/claim")
-//        .headers(Headers.commonHeader)
-//        .check(status.is(204)))
-//    }
-
     .group("Civil_UnSpecClaim_50_HearingAdmin") {
-      exec(http("010_AssignToMe")
+      exec(http("005_AssignToMe")
+        .post("/workallocation/task/#{HearingCaseId}/claim")
+        .headers(Headers.commonHeader)
+        .check(status.is(204)))
+
+      .exec(http("010_AssignToMe")
         .post("/workallocation/case/task/#{caseId}")
         .headers(Headers.commonHeader)
-        .body(StringBody("""{"refined": true}""".stripMargin)))
-//        .check(substring("Unassign task")))
+        .body(StringBody("""{"refined": true}""".stripMargin))
+        .check(substring("Unassign task")))
     }
     .pause(MinThinkTime, MaxThinkTime)
 
@@ -539,23 +526,23 @@ object unspec_Jud_Hear {
 
     // =======================SUBMIT=======================,
     .group("Civil_UnSpecClaim_50_HearingAdmin") {
-//      exec(http("005_Submit")
-//        .get("/workallocation/task/#{HearingCaseId}")
-//        .headers(Headers.commonHeader)
-//        .check(substring("role_category")))
+      exec(http("005_Submit")
+        .get("/workallocation/task/#{HearingCaseId}")
+        .headers(Headers.commonHeader)
+        .check(substring("role_category")))
 
-      exec(http("010_Submit")
+      .exec(http("010_Submit")
         .post("/data/cases/#{caseId}/events")
         .headers(Headers.validateHeader)
         .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.create-event.v2+json;charset=UTF-8")
         .body(ElFileBody("ud_ue_jud_hear_bodies/adminSubmitHearing.dat"))
         .check(status.is(201)))
 
-//      .exec(http("015_Submit")
-//        .post("/workallocation/task/#{HearingCaseId}/complete")
-//        .headers(Headers.commonHeader)
-//        .body(StringBody("""{"actionByEvent": true, "eventName": "Create a hearing notice"}""".stripMargin))
-//        .check(status.is(204)))
+      .exec(http("015_Submit")
+        .post("/workallocation/task/#{HearingCaseId}/complete")
+        .headers(Headers.commonHeader)
+        .body(StringBody("""{"actionByEvent": true, "eventName": "Create a hearing notice"}""".stripMargin))
+        .check(status.is(204)))
 
       .exec(http("020_Submit")
         .get("/data/internal/cases/#{caseId}")

@@ -162,7 +162,7 @@ class SimulateScenario extends Simulation {
     .exec(Logout.Signout)
 
   setUp(
-    CreateUnSpecClaimSCN.inject(nothingFor(120),rampUsers(40).during(1800)),
-    CreateSpecClaimSCN.inject(rampUsers(40).during(1800))
+    CreateUnSpecClaimSCN.inject(nothingFor(120),rampUsers(40).during(2500)),
+    CreateSpecClaimSCN.inject(rampUsers(40).during(2500))
   ).protocols(httpProtocol)
 }
