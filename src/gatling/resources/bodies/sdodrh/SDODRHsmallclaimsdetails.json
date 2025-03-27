@@ -10,8 +10,8 @@
       "SHOW"
     ],
     "smallClaimsHearing": {
-      "dateFrom": "2024-09-12",
-      "dateTo": "2024-09-12",
+      "dateFrom": "2025-05-15",
+      "dateTo": "2025-05-15",
       "time": "ONE_AND_HALF_HOUR",
       "input2": "The claimant must by no later than 4 weeks before the hearing date, pay the court the required hearing fee or submit a fully completed application for Help with Fees. \nIf the claimant fails to pay the fee or obtain a fee exemption by that time the claim will be struck without further order.",
       "input1": "The hearing of the claim will be on a date to be notified to you by a separate notification. The hearing will have a time estimate of"
@@ -38,8 +38,8 @@
     },
     "smallClaimsMethodInPerson": {
       "value": {
-        "code": "214320",
-        "label": "Blackpool County Court & Family Court - The Law Courts, Civic Centre, Chapel Street - FY1 5RJ"
+        "code": "231596",
+        "label": "Birmingham Civil and Family Justice Centre - Priory Courts, 33 Bull Street - B4 6DS"
       },
       "list_items": [
         {
@@ -909,8 +909,8 @@
     },
     "smallClaimsMethodInPerson": {
       "value": {
-        "code": "214320",
-        "label": "Blackpool County Court & Family Court - The Law Courts, Civic Centre, Chapel Street - FY1 5RJ"
+        "code": "231596",
+        "label": "Birmingham Civil and Family Justice Centre - Priory Courts, 33 Bull Street - B4 6DS"
       },
       "list_items": [
         {
@@ -1731,5 +1731,5 @@
   },
   "event_token": "#{event_token}",
   "ignore_warning": false,
-  "case_reference": "#{caseId}"
+  "case_reference": "#{claimNumber}"
 }

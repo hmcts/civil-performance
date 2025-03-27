@@ -23,10 +23,10 @@
     "freeFormHearingNotes": "asasasa",
     "orderOnCourtInitiative": {
       "onInitiativeSelectionTextArea": "As this order was made on the court's own initiative any party affected by the order may apply to set aside, vary or stay the order. Any such application must be made by 4pm on",
-      "onInitiativeSelectionDate": "2024-09-17"
+      "onInitiativeSelectionDate": "2025-05-17"
     }
   },
   "event_token": "#{event_token}",
   "ignore_warning": false,
-  "case_reference": "#{caseId}"
+  "case_reference": "#{claimNumber}"
 }

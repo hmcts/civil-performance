@@ -3,7 +3,7 @@ package uk.gov.hmcts.reform.civildamage.performance.scenarios
 
 import io.gatling.core.Predef.{exec, _}
 import io.gatling.http.Predef._
-import uk.gov.hmcts.reform.civildamage.performance.scenarios.utils.{CivilDamagesHeader, Common, CsrfCheck, Environment}
+import uk.gov.hmcts.reform.civildamage.performance.scenarios.utils.{CivilDamagesHeader, Common, CsrfCheck, Environment, Headers}
 
 object CUIR2DocUploadCaseProg {
 
@@ -15,7 +15,7 @@ object CUIR2DocUploadCaseProg {
   val MinThinkTime = Environment.minThinkTime
   val MaxThinkTime = Environment.maxThinkTime
 
-  val caseFeeder=csv("caseIds.csv").circular
+  val caseFeeder=csv("claimNumbers.csv").circular
   
   /*======================================================================================
              * Civil Citizen R2 CP Docs Upload For Small claims
@@ -37,7 +37,7 @@ object CUIR2DocUploadCaseProg {
       ==========================================================================================*/
   .group("CUICPSC_Claimant_UploadDocs_030_ClickOnClaim") {
     exec(http("CUICPSC_Claimant_UploadDocs_030_005_ClickOnClaim")
-      .get(CitizenURL + "/dashboard/#{caseId}/claimant")
+      .get(CitizenURL + "/dashboard/#{claimNumber}/claimant")
       .headers(CivilDamagesHeader.MoneyClaimNavHeader)
       .check(status.in(200, 304))
       .check(substring("Your money claims account"))
@@ -52,7 +52,7 @@ object CUIR2DocUploadCaseProg {
         ==========================================================================================*/
     .group("CUICPSC_Claimant_UploadDocs_040_ClickOnUploadDocLink") {
       exec(http("CUICPSC_Claimant_UploadDocs_040_005_ClickOnUploadDocLink")
-        .get(CitizenURL + "/case/#{caseId}/case-progression/upload-your-documents")
+        .get(CitizenURL + "/case/#{claimNumber}/case-progression/upload-your-documents")
         .headers(CivilDamagesHeader.MoneyClaimNavHeader)
         .check(CsrfCheck.save)
         .check(status.in(200, 304))
@@ -66,7 +66,7 @@ object CUIR2DocUploadCaseProg {
         ==========================================================================================*/
     .group("CUICPSC_Claimant_UploadDocs_050_ClickOnStartForDocTypes") {
       exec(http("CUICPSC_Claimant_UploadDocs_050_005_ClickOnStartForDocTypes")
-        .get(CitizenURL + "/case/#{caseId}/case-progression/type-of-documents")
+        .get(CitizenURL + "/case/#{claimNumber}/case-progression/type-of-documents")
         .headers(CivilDamagesHeader.MoneyClaimNavHeader)
         .check(CsrfCheck.save)
         .check(status.in(200, 304))
@@ -83,7 +83,7 @@ object CUIR2DocUploadCaseProg {
     ==========================================================================================*/
       .group("CUICPSC_Claimant_UploadDocs_060_TypeOfDocs") {
         exec(http("CUICPSC_Claimant_UploadDocs_060_005_TypeOfDocs")
-          .post(CitizenURL + "/case/#{caseId}/case-progression/type-of-documents")
+          .post(CitizenURL + "/case/#{claimNumber}/case-progression/type-of-documents")
           .headers(CivilDamagesHeader.CivilCitizenPost)
           .formParam("_csrf", "#{csrf}")
           .formParam("witnessStatement", "witnessStatement")
@@ -99,17 +99,20 @@ object CUIR2DocUploadCaseProg {
     ==========================================================================================*/
       .group("CUICPSC_Claimant_UploadDocs_070_UploadFile") {
         exec(http("CUICPFT_Claimant_UploadDocs_070_005_UploadFile")
-          .post(CitizenURL + "/upload-file")
-          .headers(CivilDamagesHeader.CitizenSTUpload)
-          .header("accept", "*/*")
-          .header("content-type", "multipart/form-data; boundary=----WebKitFormBoundary1cdrHU4TGOqco6W7")
-          .header("sec-fetch-dest", "")
-          .header("sec-fetch-mode", "cors")
-          .header("csrf-token", "#{csrf}")
+          .post(CitizenURL + "/case/#{claimNumber}/case-progression/upload-documents?_csrf=#{csrf}")
+          .headers(Headers.uploadHeader)
+          .header("accept", "application/json, text/plain, */*")
+          .bodyPart(StringBodyPart("_csrf", "#{csrf}")) // CSRF token
+          .bodyPart(StringBodyPart("witnessStatement[0][witnessName]", "aasasasas"))
+          .bodyPart(StringBodyPart("witnessStatement[0][dateInputFields][dateDay]", "01"))
+          .bodyPart(StringBodyPart("witnessStatement[0][dateInputFields][dateMonth]", "08"))
+          .bodyPart(StringBodyPart("witnessStatement[0][dateInputFields][dateYear]", "2024"))
+          .bodyPart(StringBodyPart("action", "witnessStatement[0][uploadButton]"))
           .bodyPart(RawFileBodyPart("file", "3MB.pdf")
             .fileName("3MB.pdf")
             .transferEncoding("binary"))
           .asMultipartForm
+        //  .formParam("classification", "PUBLIC")
           .check(
             // Extracting values from the JSON response and saving them to session variables
             jsonPath("$.documentLink.document_url").saveAs("documentUrl"),
@@ -125,19 +128,20 @@ object CUIR2DocUploadCaseProg {
       }
       .pause(MinThinkTime, MaxThinkTime)
   
-      
+  
+  
       /*======================================================================================
                * Civil Citizen - do you want to proceed with the claim post
     ==========================================================================================*/
     .group("CUICPSC_Claimant_UploadDocs_080_UploadDocsContinue") {
       exec(http("CUICPSC_Claimant_UploadDocs_080_005_UploadDocsContinue")
-        .post(CitizenURL+"/case/#{caseId}/case-progression/upload-documents")
-        .headers(CivilDamagesHeader.CivilCitizenPost)
-        .header("Content-Type", "application/x-www-form-urlencoded") // Ensure form-encoded data
+        .post(CitizenURL+"/case/1742925439614693/case-progression/upload-documents?_csrf=#{csrf}")
+        .headers(Headers.uploadHeader)
+       // .header("Content-Type", "application/x-www-form-urlencoded") // Ensure form-encoded data
   
         // Add other form parameters
         .formParam("_csrf", "#{csrf}")
-        .formParam("witnessStatement[0][witnessName]", "asaas")
+       /* .formParam("witnessStatement[0][witnessName]", "asaas")
         .formParam("witnessStatement[0][dateInputFields][dateDay]", "01")
         .formParam("witnessStatement[0][dateInputFields][dateMonth]", "01")
         .formParam("witnessStatement[0][dateInputFields][dateYear]", "2024")
@@ -157,8 +161,9 @@ object CUIR2DocUploadCaseProg {
               "createdDatetime": "#{createdDatetime}",
               "createdBy": "Civil"
             }""".stripMargin.replaceAll("\n", "").replaceAll("  ", "")) // Convert to single-line JSON string
-  
+  */
         // Optionally, check the response
+        .check(CsrfCheck.save)
         .check(status.is(200)) // Adjust status code based on expected response
       )
     }
@@ -173,7 +178,7 @@ object CUIR2DocUploadCaseProg {
     
     .group("CUICPSC_Claimant_UploadDocs_090_SubmitDocs") {
       exec(http("CUICPSC_Claimant_UploadDocs_090_005_SubmitDocs")
-        .post(CitizenURL + "/case/#{caseId}/case-progression/check-and-send")
+        .post(CitizenURL + "/case/#{claimNumber}/case-progression/check-and-send")
         .headers(CivilDamagesHeader.DefCheckAndSendPost)
         .formParam("_csrf", "#{csrf}")
         .formParam("type", "")
@@ -204,7 +209,7 @@ object CUIR2DocUploadCaseProg {
           ==========================================================================================*/
       .group("CUICPFT_Claimant_UploadDocs_030_ClickOnClaim") {
         exec(http("CUICPFT_Claimant_UploadDocs_030_005_ClickOnClaim")
-          .get(CitizenURL + "/dashboard/#{caseId}/claimant")
+          .get(CitizenURL + "/dashboard/#{claimNumber}/claimant")
           .headers(CivilDamagesHeader.MoneyClaimNavHeader)
           .check(status.in(200, 304))
           .check(substring("Your money claims account"))
@@ -219,7 +224,7 @@ object CUIR2DocUploadCaseProg {
           ==========================================================================================*/
       .group("CUICPFT_Claimant_UploadDocs_040_ClickOnUploadDocLink") {
         exec(http("CUICPFT_Claimant_UploadDocs_040_005_ClickOnUploadDocLink")
-          .get(CitizenURL + "/case/#{caseId}/case-progression/upload-your-documents")
+          .get(CitizenURL + "/case/#{claimNumber}/case-progression/upload-your-documents")
           .headers(CivilDamagesHeader.MoneyClaimNavHeader)
           .check(CsrfCheck.save)
           .check(status.in(200, 304))
@@ -233,7 +238,7 @@ object CUIR2DocUploadCaseProg {
           ==========================================================================================*/
       .group("CUICPFT_Claimant_UploadDocs_050_ClickOnStartForDocTypes") {
         exec(http("CUICPFT_Claimant_UploadDocs_050_005_ClickOnStartForDocTypes")
-          .get(CitizenURL + "/case/#{caseId}/case-progression/type-of-documents")
+          .get(CitizenURL + "/case/#{claimNumber}/case-progression/type-of-documents")
           .headers(CivilDamagesHeader.MoneyClaimNavHeader)
           .check(CsrfCheck.save)
           .check(status.in(200, 304))
@@ -250,7 +255,7 @@ object CUIR2DocUploadCaseProg {
     ==========================================================================================*/
       .group("CUICPFT_Claimant_UploadDocs_060_TypeOfDocs") {
         exec(http("CUICPFT_Claimant_UploadDocs_060_005_TypeOfDocs")
-          .post(CitizenURL + "/case/#{caseId}/case-progression/type-of-documents")
+          .post(CitizenURL + "/case/#{claimNumber}/case-progression/type-of-documents")
           .headers(CivilDamagesHeader.CivilCitizenPost)
           .formParam("_csrf", "#{csrf}")
           .formParam("witnessStatement", "witnessStatement")
@@ -300,7 +305,7 @@ object CUIR2DocUploadCaseProg {
     ==========================================================================================*/
       .group("CUICPFT_Claimant_UploadDocs_080_UploadDocsContinue") {
         exec(http("CUICPFT_Claimant_UploadDocs_080_005_UploadDocsContinue")
-          .post(CitizenURL + "/case/#{caseId}/case-progression/upload-documents")
+          .post(CitizenURL + "/case/#{claimNumber}/case-progression/upload-documents")
           .headers(CivilDamagesHeader.CivilCitizenPost)
           .header("Content-Type", "application/x-www-form-urlencoded") // Ensure form-encoded data
           
@@ -342,7 +347,7 @@ object CUIR2DocUploadCaseProg {
       
       .group("CUICPFT_Claimant_UploadDocs_090_SubmitDocs") {
         exec(http("CUICPFT_Claimant_UploadDocs_090_005_SubmitDocs")
-          .post(CitizenURL + "/case/#{caseId}/case-progression/check-and-send")
+          .post(CitizenURL + "/case/#{claimNumber}/case-progression/check-and-send")
           .headers(CivilDamagesHeader.DefCheckAndSendPost)
           .formParam("_csrf", "#{csrf}")
           .formParam("type", "")
@@ -372,7 +377,7 @@ object CUIR2DocUploadCaseProg {
       ==========================================================================================*/
   .group("CUICPSC_Def_UploadDocs_030_ClickOnClaimToRespond") {
     exec(http("CUICPSC_Def_UploadDocs_030_005_ClickOnClaimToRespond")
-      .get(CitizenURL + "/dashboard/#{caseId}/defendant")
+      .get(CitizenURL + "/dashboard/#{claimNumber}/defendant")
       .headers(CivilDamagesHeader.MoneyClaimNavHeader)
       .check(status.in(200, 304))
       .check(substring("Upload documents"))
@@ -387,7 +392,7 @@ object CUIR2DocUploadCaseProg {
         ==========================================================================================*/
     .group("CUICPSC_Def_UploadDocs_040_ClickOnUploadDoc") {
       exec(http("CUICPSC_Def_UploadDocs_040_005_ClickOnUploadDoc")
-        .get(CitizenURL + "/case/#{caseId}/case-progression/upload-your-documents")
+        .get(CitizenURL + "/case/#{claimNumber}/case-progression/upload-your-documents")
         .headers(CivilDamagesHeader.MoneyClaimNavHeader)
         .check(CsrfCheck.save)
         .check(status.in(200, 304))
@@ -401,7 +406,7 @@ object CUIR2DocUploadCaseProg {
         ==========================================================================================*/
     .group("CUICPSC_Def_UploadDocs_050_ClickOnStartForDocTypes") {
       exec(http("CUICPSC_Def_UploadDocs_050_005_ClickOnStartForDocTypes")
-        .get(CitizenURL + "/case/#{caseId}/case-progression/type-of-documents")
+        .get(CitizenURL + "/case/#{claimNumber}/case-progression/type-of-documents")
         .headers(CivilDamagesHeader.MoneyClaimNavHeader)
         .check(CsrfCheck.save)
         .check(status.in(200, 304))
@@ -417,7 +422,7 @@ object CUIR2DocUploadCaseProg {
   ==========================================================================================*/
     .group("CUICPSC_Def_UploadDocs_060_TypeOfDocs") {
       exec(http("CUICPSC_Def_UploadDocs_060_005_TypeOfDocs")
-        .post(CitizenURL + "/case/#{caseId}/case-progression/type-of-documents")
+        .post(CitizenURL + "/case/#{claimNumber}/case-progression/type-of-documents")
         .headers(CivilDamagesHeader.CivilCitizenPost)
         .formParam("_csrf", "#{csrf}")
         .formParam("witnessStatement", "witnessStatement")
@@ -425,7 +430,7 @@ object CUIR2DocUploadCaseProg {
         .check(substring("Witness evidence")))
         
      . exec(http("CUICPSC_Def_UploadDocs_040_005_ClickOnStartForDocTypes")
-        .get(CitizenURL + "/case/#{caseId}/case-progression/upload-documents")
+        .get(CitizenURL + "/case/#{claimNumber}/case-progression/upload-documents")
         .headers(CivilDamagesHeader.MoneyClaimNavHeader)
         .check(status.in(200, 304))
         .check(substring("Witness evidence")))
@@ -441,18 +446,18 @@ object CUIR2DocUploadCaseProg {
   ==========================================================================================*/
     .group("CUICPSC_Def_UploadDocs_070_UploadFile") {
       exec(http("CUICPSC_Def_UploadDocs_070_005_UploadFile")
-        .post(CitizenURL + "/upload-file")
-        .headers(CivilDamagesHeader.CitizenSTUpload)
-        .header("accept", "*/*")
-        .header("content-type", "multipart/form-data; boundary=----WebKitFormBoundary1cdrHU4TGOqco6W7")
-        .header("sec-fetch-dest", "")
-        .header("sec-fetch-mode", "cors")
-        .header("csrf-token", "#{csrf}")
-        .bodyPart(RawFileBodyPart("file", "1MB-c.pdf")
-          .fileName("1MB-c.pdf")
+        .post(CitizenURL + "/case/#{claimNumber}/case-progression/upload-documents?_csrf=#{csrf}")
+        .headers(Headers.uploadHeader)
+        // .header("accept", "*/*")
+        // .header("content-type", "multipart/form-data; boundary=----WebKitFormBoundary1cdrHU4TGOqco6W7")
+        //  .header("sec-fetch-dest", "document")
+        //  .header("sec-fetch-mode", "navigate")
+        .formParam("csrf-token", "#{csrf}")
+        .bodyPart(RawFileBodyPart("file", "1MB-C.pdf")
+          .fileName("1MB-C.pdf")
           .transferEncoding("binary"))
         .asMultipartForm
-        .check(
+        /*.check(
           // Extracting values from the JSON response and saving them to session variables
           jsonPath("$.documentLink.document_url").saveAs("documentUrl"),
           jsonPath("$.documentLink.document_binary_url").saveAs("documentBinaryUrl"),
@@ -463,7 +468,9 @@ object CUIR2DocUploadCaseProg {
           jsonPath("$.createdDatetime").saveAs("createdDatetime"),
           jsonPath("$.createdBy").saveAs("createdBy")
         )
-        .check(substring("#{documentName}")))
+        .check(substring("#{documentName}")))*/
+        .check(CsrfCheck.save)
+      )
     }
     .pause(MinThinkTime, MaxThinkTime)
   
@@ -475,34 +482,35 @@ object CUIR2DocUploadCaseProg {
   ==========================================================================================*/
     .group("CUICPSC_Def_UploadDocs_080_UploadDocsContinue") {
       exec(http("CUICPSC_Def_UploadDocs_080_005_UploadDocsContinue")
-        .post(CitizenURL+"/case/#{caseId}/case-progression/upload-documents")
-        .headers(CivilDamagesHeader.CivilCitizenPost)
-        .header("Content-Type", "application/x-www-form-urlencoded") // Ensure form-encoded data
-      
+        .post(CitizenURL + "/case/1742925439614693/case-progression/upload-documents?_csrf=#{csrf}")
+        .headers(Headers.uploadHeader)
+        // .header("Content-Type", "application/x-www-form-urlencoded") // Ensure form-encoded data
+  
         // Add other form parameters
         .formParam("_csrf", "#{csrf}")
-        .formParam("witnessStatement[0][witnessName]", "asaas")
-        .formParam("witnessStatement[0][dateInputFields][dateDay]", "01")
-        .formParam("witnessStatement[0][dateInputFields][dateMonth]", "01")
-        .formParam("witnessStatement[0][dateInputFields][dateYear]", "2024")
-        .formParam(" witnessStatement[0][fileUpload]", "#{documentName}")
-      
-        // JSON as a single string form parameter
-        .formParam("witnessStatement[0][caseDocument]",
-          """{
-           "documentLink": {
-             "document_url": "#{documentUrl}",
-             "document_binary_url": "#{documentBinaryUrl}",
-             "document_filename": "#{documentFilename}",
-             "document_hash": "#{documentHash}"
-           },
-           "documentName": "#{documentName}",
-           "documentSize": #{documentSize},
-           "createdDatetime": "#{createdDatetime}",
-           "createdBy": "Civil"
-         }""".stripMargin.replaceAll("\n", "").replaceAll("  ", "")) // Convert to single-line JSON string
-      
+        /* .formParam("witnessStatement[0][witnessName]", "asaas")
+         .formParam("witnessStatement[0][dateInputFields][dateDay]", "01")
+         .formParam("witnessStatement[0][dateInputFields][dateMonth]", "01")
+         .formParam("witnessStatement[0][dateInputFields][dateYear]", "2024")
+         .formParam(" witnessStatement[0][fileUpload]", "#{documentName}")
+         
+         // JSON as a single string form parameter
+         .formParam("witnessStatement[0][caseDocument]",
+           """{
+               "documentLink": {
+                 "document_url": "#{documentUrl}",
+                 "document_binary_url": "#{documentBinaryUrl}",
+                 "document_filename": "#{documentFilename}",
+                 "document_hash": "#{documentHash}"
+               },
+               "documentName": "#{documentName}",
+               "documentSize": #{documentSize},
+               "createdDatetime": "#{createdDatetime}",
+               "createdBy": "Civil"
+             }""".stripMargin.replaceAll("\n", "").replaceAll("  ", "")) // Convert to single-line JSON string
+   */
         // Optionally, check the response
+        .check(CsrfCheck.save)
         .check(status.is(200)) // Adjust status code based on expected response
       )
     }
@@ -516,7 +524,7 @@ object CUIR2DocUploadCaseProg {
   
     .group("CUICPSC_Def_UploadDocs_090_SubmitDocs") {
       exec(http("CUICPSC_Def_UploadDocs_090_005_SubmitDocs")
-        .post(CitizenURL + "/case/#{caseId}/case-progression/check-and-send")
+        .post(CitizenURL + "/case/#{claimNumber}/case-progression/check-and-send")
         .headers(CivilDamagesHeader.DefCheckAndSendPost)
         .formParam("_csrf", "#{csrf}")
         .formParam("type", "")
@@ -546,7 +554,7 @@ object CUIR2DocUploadCaseProg {
           ==========================================================================================*/
       .group("CUICPFT_Def_UploadDocs_030_ClickOnClaimToRespond") {
         exec(http("CUICPFT_Def_UploadDocs_030_005_ClickOnClaimToRespond")
-          .get(CitizenURL + "/dashboard/#{caseId}/defendant")
+          .get(CitizenURL + "/dashboard/#{claimNumber}/defendant")
           .headers(CivilDamagesHeader.MoneyClaimNavHeader)
           .check(status.in(200, 304))
           .check(substring("Upload documents"))
@@ -561,7 +569,7 @@ object CUIR2DocUploadCaseProg {
           ==========================================================================================*/
       .group("CUICPFT_Def_UploadDocs_040_ClickOnUploadDoc") {
         exec(http("CUICPFT_Def_UploadDocs_040_005_ClickOnUploadDoc")
-          .get(CitizenURL + "/case/#{caseId}/case-progression/upload-your-documents")
+          .get(CitizenURL + "/case/#{claimNumber}/case-progression/upload-your-documents")
           .headers(CivilDamagesHeader.MoneyClaimNavHeader)
           .check(CsrfCheck.save)
           .check(status.in(200, 304))
@@ -575,7 +583,7 @@ object CUIR2DocUploadCaseProg {
           ==========================================================================================*/
       .group("CUICPFT_Def_UploadDocs_050_ClickOnStartForDocTypes") {
         exec(http("CUICPFT_Def_UploadDocs_050_005_ClickOnStartForDocTypes")
-          .get(CitizenURL + "/case/#{caseId}/case-progression/type-of-documents")
+          .get(CitizenURL + "/case/#{claimNumber}/case-progression/type-of-documents")
           .headers(CivilDamagesHeader.MoneyClaimNavHeader)
           .check(CsrfCheck.save)
           .check(status.in(200, 304))
@@ -595,14 +603,14 @@ object CUIR2DocUploadCaseProg {
     ==========================================================================================*/
       .group("CUICPFT_Def_UploadDocs_060_TypeOfDocs") {
         exec(http("CUICPFT_Def_UploadDocs_060_005_TypeOfDocs")
-          .post(CitizenURL + "/case/#{caseId}/case-progression/type-of-documents")
+          .post(CitizenURL + "/case/#{claimNumber}/case-progression/type-of-documents")
           .headers(CivilDamagesHeader.CivilCitizenPost)
           .formParam("_csrf", "#{csrf}")
           .formParam("witnessStatement", "witnessStatement")
           // .check(CsrfCheck.save)
           .check(substring("Witness evidence")))
           .exec(http("CUICPFT_Def_UploadDocs_040_005_ClickOnStartForDocTypes")
-            .get(CitizenURL + "/case/#{caseId}/case-progression/upload-documents")
+            .get(CitizenURL + "/case/#{claimNumber}/case-progression/upload-documents")
             .headers(CivilDamagesHeader.MoneyClaimNavHeader)
             .check(status.in(200, 304))
             .check(substring("Witness evidence")))
@@ -652,7 +660,7 @@ object CUIR2DocUploadCaseProg {
     ==========================================================================================*/
       .group("CUICPFT_Def_UploadDocs_080_UploadDocsContinue") {
         exec(http("CUICPFT_Def_UploadDocs_080_005_UploadDocsContinue")
-          .post(CitizenURL + "/case/#{caseId}/case-progression/upload-documents")
+          .post(CitizenURL + "/case/#{claimNumber}/case-progression/upload-documents")
           .headers(CivilDamagesHeader.CivilCitizenPost)
           .header("Content-Type", "application/x-www-form-urlencoded") // Ensure form-encoded data
           
@@ -693,7 +701,7 @@ object CUIR2DocUploadCaseProg {
       
       .group("CUICPFT_Def_UploadDocs_090_SubmitDocs") {
         exec(http("CUICPFT_Def_UploadDocs_090_005_SubmitDocs")
-          .post(CitizenURL + "/case/#{caseId}/case-progression/check-and-send")
+          .post(CitizenURL + "/case/#{claimNumber}/case-progression/check-and-send")
           .headers(CivilDamagesHeader.DefCheckAndSendPost)
           .formParam("_csrf", "#{csrf}")
           .formParam("type", "")
@@ -710,7 +718,7 @@ object CUIR2DocUploadCaseProg {
 ==========================================================================================*/
     group("CUICPFT_Claimant_HearingPay_100_ClickOnHearingPay") {
       exec(http("CUICPFT_Claimant_HearingPay_100_005_ClickOnHearingPay")
-        .get(CitizenURL + "/case/#{caseId}/case-progression/pay-hearing-fee")
+        .get(CitizenURL + "/case/#{claimNumber}/case-progression/pay-hearing-fee")
         .headers(CivilDamagesHeader.MoneyClaimNavHeader)
         .check(CsrfCheck.save)
         .check(substring("Pay hearing fee")))
@@ -723,7 +731,7 @@ object CUIR2DocUploadCaseProg {
 ==========================================================================================*/
   .group("CUICPFT_Claimant_HearingPay_110_StartHearingPayment") {
     exec(http("CUICPFT_Claimant_110_005_StartHearingPayment")
-      .get(CitizenURL + "/case/#{caseId}/case-progression/pay-hearing-fee/apply-help-fee-selection")
+      .get(CitizenURL + "/case/#{claimNumber}/case-progression/pay-hearing-fee/apply-help-fee-selection")
       .headers(CivilDamagesHeader.MoneyClaimNavHeader)
       .check(CsrfCheck.save)
       .check(substring("Pay hearing fee")))
@@ -736,7 +744,7 @@ object CUIR2DocUploadCaseProg {
   ==========================================================================================*/
     .group("CUICPFT_Claimant_HearingPay_120_ContinueToPayPost") {
       exec(http("CUICPFT_Claimant_HearingPay_120_005_ContinueToPay")
-        .post(CitizenURL + "/case/#{caseId}/case-progression/pay-hearing-fee/apply-help-fee-selection")
+        .post(CitizenURL + "/case/#{claimNumber}/case-progression/pay-hearing-fee/apply-help-fee-selection")
         .headers(CivilDamagesHeader.CivilCitizenPost)
         .formParam("_csrf", "#{csrf}")
         .formParam("option", "no")
@@ -796,7 +804,7 @@ object CUIR2DocUploadCaseProg {
  
     group("CUICPSC_Claimant_ViewHearings_150_ViewOrdersAndNotices") {
       exec(http("CUICPSC_Claimant_ViewHearings_150_005_ViewOrderNotices")
-        .get(CitizenURL + "/case/#{caseId}/view-orders-and-notices")
+        .get(CitizenURL + "/case/#{claimNumber}/view-orders-and-notices")
         .headers(CivilDamagesHeader.MoneyClaimNavHeader)
         .check(substring("View orders and notices")))
     }
@@ -813,7 +821,7 @@ object CUIR2DocUploadCaseProg {
     
     group("CUICPFT_Claimant_ViewHearings_150_ViewOrdersAndNotices") {
       exec(http("CUICPFT_Claimant_ViewHearings_150_005_ViewOrderNotices")
-        .get(CitizenURL + "/case/#{caseId}/view-orders-and-notices")
+        .get(CitizenURL + "/case/#{claimNumber}/view-orders-and-notices")
         .headers(CivilDamagesHeader.MoneyClaimNavHeader)
         .check(substring("View orders and notices")))
     }
@@ -829,7 +837,7 @@ object CUIR2DocUploadCaseProg {
     
     group("CUICPSC_Claimant_ViewDocs_160_ViewUploadedDocuments") {
       exec(http("CUICPSC_Claimant_ViewHearings_160_005_ViewUploadedDocuments")
-        .get(CitizenURL + "/case/#{caseId}/evidence-upload-documents")
+        .get(CitizenURL + "/case/#{claimNumber}/evidence-upload-documents")
         .headers(CivilDamagesHeader.MoneyClaimNavHeader)
         .check(substring("View documents")))
     }
@@ -844,7 +852,7 @@ object CUIR2DocUploadCaseProg {
     
     group("CUICPFT_Claimant_ViewDocs_160_ViewUploadedDocuments") {
       exec(http("CUICPFT_Claimant_ViewHearings_160_005_ViewUploadedDocuments")
-        .get(CitizenURL + "/case/#{caseId}/evidence-upload-documents")
+        .get(CitizenURL + "/case/#{claimNumber}/evidence-upload-documents")
         .headers(CivilDamagesHeader.MoneyClaimNavHeader)
         .check(substring("View documents")))
     }
@@ -861,7 +869,7 @@ object CUIR2DocUploadCaseProg {
     
     group("CUICPFT_Claimant_ViewDocs_160_ViewBundles") {
       exec(http("CUICPFT_Claimant_ViewHearings_160_005_viewBundles")
-        .get(CitizenURL + "/case/#{caseId}/bundle-overview")
+        .get(CitizenURL + "/case/#{claimNumber}/bundle-overview")
         .headers(CivilDamagesHeader.MoneyClaimNavHeader)
         .check(substring("View the bundle")))
     }
@@ -880,7 +888,7 @@ object CUIR2DocUploadCaseProg {
       ==========================================================================================*/
   group("CUICPFT_Claimant_UploadDocs_040_ClickOnTrialArrangements") {
     exec(http("CUICPFT_Claimant_UploadDocs_040_005_ClickOnTrialArrangements")
-      .get(CitizenURL + "/case/#{caseId}/case-progression/finalise-trial-arrangements")
+      .get(CitizenURL + "/case/#{claimNumber}/case-progression/finalise-trial-arrangements")
       .headers(CivilDamagesHeader.MoneyClaimNavHeader)
       .check(CsrfCheck.save)
       .check(status.in(200, 304))
@@ -895,7 +903,7 @@ object CUIR2DocUploadCaseProg {
       ==========================================================================================*/
   .group("CUICPFT_Claimant_UploadDocs_040_IsCaseReadyGet") {
     exec(http("CUICPFT_Claimant_UploadDocs_040_005_IsCaseReady")
-      .get(CitizenURL + "/case/#{caseId}/case-progression/finalise-trial-arrangements/is-case-ready")
+      .get(CitizenURL + "/case/#{claimNumber}/case-progression/finalise-trial-arrangements/is-case-ready")
       .headers(CivilDamagesHeader.MoneyClaimNavHeader)
       .check(CsrfCheck.save)
       .check(status.in(200, 304))
@@ -912,7 +920,7 @@ object CUIR2DocUploadCaseProg {
         ==========================================================================================*/
     .group("CUICPFT_Claimant_UploadDocs_040_IsCaseReadyPost") {
       exec(http("CUICPFT_Claimant_UploadDocs_040_005_IsCaseReadyPost")
-        .post(CitizenURL + "/case/#{caseId}/case-progression/finalise-trial-arrangements/is-case-ready")
+        .post(CitizenURL + "/case/#{claimNumber}/case-progression/finalise-trial-arrangements/is-case-ready")
         .headers(CivilDamagesHeader.CivilCitizenPost)
         .formParam("_csrf", "#{csrf}")
         .formParam("option", "yes")
@@ -929,7 +937,7 @@ object CUIR2DocUploadCaseProg {
         ==========================================================================================*/
     .group("CUICPFT_Claimant_UploadDocs_040_HasAnythingChanged") {
       exec(http("CUICPFT_Claimant_UploadDocs_040_005_HasAnythingChanged")
-        .post(CitizenURL + "/case/#{caseId}/case-progression/finalise-trial-arrangements/has-anything-changed")
+        .post(CitizenURL + "/case/#{claimNumber}/case-progression/finalise-trial-arrangements/has-anything-changed")
         .headers(CivilDamagesHeader.CivilCitizenPost)
         .formParam("_csrf", "#{csrf}")
         .formParam("option", "no")
@@ -948,7 +956,7 @@ object CUIR2DocUploadCaseProg {
         ==========================================================================================*/
     .group("CUICPFT_Claimant_UploadDocs_040_HearingDuration") {
       exec(http("CUICPFT_Claimant_UploadDocs_040_005_HearingDuration")
-        .post(CitizenURL + "/case/#{caseId}/case-progression/finalise-trial-arrangements/hearing-duration-other-info")
+        .post(CitizenURL + "/case/#{claimNumber}/case-progression/finalise-trial-arrangements/hearing-duration-other-info")
         .headers(CivilDamagesHeader.CivilCitizenPost)
         .formParam("_csrf", "#{csrf}")
         .formParam("otherInformation", "sdsdsdsdsd")
@@ -965,7 +973,7 @@ object CUIR2DocUploadCaseProg {
         ==========================================================================================*/
     .group("CUICPFT_Claimant_UploadDocs_040_TrialArrangementsSubmit") {
       exec(http("CUICPFT_Claimant_UploadDocs_040_005_TrialArrangementsSubmit")
-        .post(CitizenURL + "/case/#{caseId}/case-progression/finalise-trial-arrangements/check-trial-arrangements")
+        .post(CitizenURL + "/case/#{claimNumber}/case-progression/finalise-trial-arrangements/check-trial-arrangements")
         .headers(CivilDamagesHeader.CivilCitizenPost)
         .formParam("_csrf", "#{csrf}")
         .check(status.in(200, 304))

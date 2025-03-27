@@ -66,7 +66,7 @@ object CUIR2Login {
         .exec(http("CUIR2_ClaimantIntention_020_005_Login")
           .post(IdamUrl + "/login?client_id=civil_citizen_ui&response_type=code&redirect_uri=" + CitizenURL + "/oauth2/callback&profile openid roles manage-user create-user search-user")
           .headers(CivilDamagesHeader.CivilCitizenPost)
-          .formParam("username", "#{claimantEmail}")
+          .formParam("username", "#{claimantEmailAddress}")
           .formParam("password", "#{password}")
           .formParam("save", "Sign in")
           .formParam("selfRegistrationEnabled", "true")

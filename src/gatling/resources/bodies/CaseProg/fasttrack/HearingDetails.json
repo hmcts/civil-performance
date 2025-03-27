@@ -797,7 +797,7 @@
       ]
     },
     "channel": "IN_PERSON",
-    "hearingDate": "2024-10-10",
+    "hearingDate": "2025-05-17",
     "hearingTimeHourMinute": "0825",
     "hearingDuration": "MINUTES_55"
   },
@@ -1606,11 +1606,11 @@
       ]
     },
     "channel": "IN_PERSON",
-    "hearingDate": "2024-10-15",
+    "hearingDate": "2025-05-17",
     "hearingTimeHourMinute": "0825",
     "hearingDuration": "MINUTES_55"
   },
   "event_token": "#{event_token}",
   "ignore_warning": false,
-  "case_reference": "#{caseId}"
+  "case_reference": "#{claimNumber}"
 }

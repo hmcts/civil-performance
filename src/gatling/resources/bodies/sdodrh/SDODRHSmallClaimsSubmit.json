@@ -21,8 +21,8 @@
       "SHOW"
     ],
     "smallClaimsHearing": {
-      "dateFrom": "2024-09-12",
-      "dateTo": "2024-09-12",
+      "dateFrom": "2025-05-15",
+      "dateTo": "2025-05-15",
       "time": "ONE_AND_HALF_HOUR",
       "otherHours": null,
       "otherMinutes": null,
@@ -51,8 +51,8 @@
     },
     "smallClaimsMethodInPerson": {
       "value": {
-        "code": "214320",
-        "label": "Blackpool County Court & Family Court - The Law Courts, Civic Centre, Chapel Street - FY1 5RJ"
+        "code": "231596",
+        "label": "Birmingham Civil and Family Justice Centre - Priory Courts, 33 Bull Street - B4 6DS"
       },
       "list_items": [
         {
