@@ -18,7 +18,7 @@ object spec_HearingAdmin{
   val MaxThinkTime = Environment.maxThinkTime
 
   val HearingAdmin =
-    // ================================GO TO CASE LIST=============,
+    
     exec(_.setAll(
       "CaseProgRandomString" -> Common.randomString(5),
       "Plus2WeeksDay" -> Common.getPlus2WeeksDay(),
@@ -31,7 +31,7 @@ object spec_HearingAdmin{
     ))
 
     // =======================LANDING PAGE==================,
-    .group("Civil_SpecClaim_50_HearingAdmin") {
+    .group("Civil_SpecClaim_70_01_HearingAdmin") {
       exec(http("005_HealthCheck")
         .get("/api/healthCheck?path=%2Fwork%2Fmy-work%2Flist")
         .headers(Headers.commonHeader)
@@ -98,7 +98,7 @@ object spec_HearingAdmin{
     .pause(MinThinkTime, MaxThinkTime)
 
     // =======================OPEN CASE=======================,
-    .group("Civil_SpecClaim_50_HearingAdmin") {
+    .group("Civil_SpecClaim_70_02_HearingAdmin") {
       exec(http("005_OpenCase")
         .get("/data/internal/cases/#{caseId}")
         .headers(Headers.validateHeader)
@@ -106,23 +106,23 @@ object spec_HearingAdmin{
         .check(substring("http://gateway-ccd.perftest.platform.hmcts.net/internal/cases/#{caseId}")))
     }
 
-    .group("Civil_SpecClaim_50_HearingAdmin") {
+    .group("Civil_SpecClaim_70_02_HearingAdmin") {
       exec(http("010_OpenCase")
         .post("/api/role-access/roles/manageLabellingRoleAssignment/#{caseId}")
         .headers(Headers.commonHeader)
         .check(status.is(204)))
     }
 
-    .group("Civil_SpecClaim_50_HearingAdmin") {
+    .group("Civil_SpecClaim_70_02_HearingAdmin") {
       exec(http("015_OpenCase")
         .get("/api/wa-supported-jurisdiction/get")
         .headers(Headers.commonHeader)
         .check(substring("CIVIL")))
     }
-    .pause(60)
+    .pause(90)
 
     // =======================TASK TAB=======================,
-    .group("Civil_SpecClaim_50_HearingAdmin") {
+    .group("Civil_SpecClaim_70_03_HearingAdmin") {
       exec(http("005_TaskTab")
         .post("/workallocation/case/task/#{caseId}")
         .headers(Headers.commonHeader)
@@ -139,7 +139,7 @@ object spec_HearingAdmin{
     .pause(MinThinkTime, MaxThinkTime)
 
     // =======================ASSIGN TO ME=======================,
-    .group("Civil_SpecClaim_50_HearingAdmin") {
+    .group("Civil_SpecClaim_70_03_HearingAdmin") {
       exec(http("005_AssignToMe")
         .post("/workallocation/task/#{HearingCaseId}/claim")
         .headers(Headers.commonHeader)
@@ -149,13 +149,12 @@ object spec_HearingAdmin{
         .post("/workallocation/case/task/#{caseId}")
         .headers(Headers.commonHeader)
         .body(StringBody("""{"refined": true}""".stripMargin))
-//        .check(jsonPath("$[0].id").optional.saveAs("HearingCaseId")))
         .check(substring("task_system")))
     }
     .pause(MinThinkTime, MaxThinkTime)
 
     // =======================HEARING NOTICE DROPDOWN=======================,
-    .group("Civil_SpecClaim_50_HearingAdmin") {
+    .group("Civil_SpecClaim_70_04_HearingAdmin") {
       exec(http("005_Jurisdiction")
         .get("/workallocation/case/tasks/#{caseId}/event/HEARING_SCHEDULED/caseType/CIVIL/jurisdiction/CIVIL")
         .headers(Headers.commonHeader)
@@ -183,7 +182,7 @@ object spec_HearingAdmin{
     .pause(MinThinkTime, MaxThinkTime)
 
     // =======================SMALL CLAIM==============================,
-    .group("Civil_SpecClaim_50_HearingAdmin") {
+    .group("Civil_SpecClaim_70_05_HearingAdmin") {
       exec(http("005_HearingNoticeSelect")
         .post("/data/case-types/CIVIL/validate?pageId=HEARING_SCHEDULEDHearingNoticeSelect")
         .headers(Headers.validateHeader)
@@ -194,7 +193,7 @@ object spec_HearingAdmin{
     .pause(MinThinkTime, MaxThinkTime)
 
     // =======================LISTING==============================,
-    .group("Civil_SpecClaim_50_HearingAdmin") {
+    .group("Civil_SpecClaim_70_06_HearingAdmin") {
       exec(http("005_ListingOrRelisting")
         .post("/data/case-types/CIVIL/validate?pageId=HEARING_SCHEDULEDListingOrRelisting")
         .headers(Headers.validateHeader)
@@ -204,7 +203,7 @@ object spec_HearingAdmin{
     .pause(MinThinkTime, MaxThinkTime)
 
     // =======================HEARING DETAILS==============================,
-    .group("Civil_SpecClaim_50_HearingAdmin") {
+    .group("Civil_SpecClaim_70_07_HearingAdmin") {
       exec(http("005_HearingDetails")
         .post("/data/case-types/CIVIL/validate?pageId=HEARING_SCHEDULEDHearingDetails")
         .headers(Headers.validateHeader)
@@ -215,7 +214,7 @@ object spec_HearingAdmin{
     .pause(MinThinkTime, MaxThinkTime)
 
     // =======================NOTICE LETTER INFO=======================,
-    .group("Civil_SpecClaim_50_HearingAdmin") {
+    .group("Civil_SpecClaim_70_08_HearingAdmin") {
       exec(http("005_HearingInformation")
         .post("/data/case-types/CIVIL/validate?pageId=HEARING_SCHEDULEDHearingInformation")
         .headers(Headers.validateHeader)
@@ -226,7 +225,7 @@ object spec_HearingAdmin{
     .pause(MinThinkTime, MaxThinkTime)
 
     // =======================SUBMIT=======================,
-    .group("Civil_SpecClaim_50_HearingAdmin") {
+    .group("Civil_SpecClaim_70_09_HearingAdmin") {
       exec(http("005_Submit")
         .get("/workallocation/task/#{HearingCaseId}")
         .headers(Headers.commonHeader)
@@ -252,6 +251,8 @@ object spec_HearingAdmin{
         .check(substring("http://gateway-ccd.perftest.platform.hmcts.net/internal/cases/#{caseId}")))
     }
     .pause(MinThinkTime, MaxThinkTime)
+
+
 
 
   val ScheduleHearing =

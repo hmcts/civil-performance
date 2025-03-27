@@ -18,7 +18,7 @@ object unspec_notification {
 
   val NotifyClaim =
       // =======================NOTIFY CLAIM=======================,
-    group("Civil_UnSpecClaim_10_NotifyDEF") {
+    group("Civil_UnSpecClaim_30_01_NotifyDEF") {
       exec(http("005_jurisdiction")
         .get("/workallocation/case/tasks/#{caseId}/event/NOTIFY_DEFENDANT_OF_CLAIM/caseType/CIVIL/jurisdiction/CIVIL")
         .headers(Headers.commonHeader)
@@ -28,8 +28,7 @@ object unspec_notification {
         .get("/data/internal/profile")
         .headers(Headers.validateHeader)
         .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-user-profile.v2+json;charset=UTF-8")
-        .check(substring("#{claimantuser}")))
-      //.pause(45)
+        .check(substring("solicitor")))
 
       .exec(http("015_warning")
         .get("/data/internal/cases/#{caseId}/event-triggers/NOTIFY_DEFENDANT_OF_CLAIM?ignore-warning=false")
@@ -47,7 +46,7 @@ object unspec_notification {
     .pause(MinThinkTime, MaxThinkTime)
 
       // =======================DF REP NOTIFY=======================,
-    .group("Civil_UnSpecClaim_10_NotifyDEF") {
+    .group("Civil_UnSpecClaim_30_02_NotifyDEF") {
       exec(http("005_CLAIMAccessGrantedWarning")
         .post("/data/case-types/CIVIL/validate?pageId=NOTIFY_DEFENDANT_OF_CLAIMAccessGrantedWarning")
         .headers(Headers.validateHeader)
@@ -59,8 +58,8 @@ object unspec_notification {
     .pause(MinThinkTime, MaxThinkTime)
 
       // =======================SUBMIT NOTIFY=======================,
-    .group("Civil_UnSpecClaim_10_NotifyDEF") {
-      exec(http("330_SubmitNotification")
+    .group("Civil_UnSpecClaim_30_03_NotifyDEF") {
+      exec(http("005_SubmitNotification")
         .post("/data/cases/#{caseId}/events")
         .headers(Headers.validateHeader)
         .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.create-event.v2+json;charset=UTF-8")
@@ -69,7 +68,7 @@ object unspec_notification {
             |"event_token":"#{event_token_notify}","ignore_warning":false}""".stripMargin))
         .check(substring("after_submit_callback_response")))
 
-      .exec(http("335_getCases")
+      .exec(http("010_getCases")
         .get("/data/internal/cases/#{caseId}")
         .headers(Headers.validateHeader)
         .header("accept","application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-case-view.v2+json")
@@ -78,14 +77,14 @@ object unspec_notification {
     .pause(MinThinkTime, MaxThinkTime)
 
       // =======================CLOSE & RETURN TO CASE DETAILS=======================,
-    .group("Civil_UnSpecClaim_10_NotifyDEF") {
+    .group("Civil_UnSpecClaim_30_04_NotifyDEF") {
       exec(http("005_APIRoleAssignment")
         .post("/api/role-access/roles/manageLabellingRoleAssignment/#{caseId}")
         .headers(Headers.commonHeader)
         .check(status.is(204)))
     }
 
-    .group("Civil_UnSpecClaim_10_NotifyDEF") {
+    .group("Civil_UnSpecClaim_30_04_NotifyDEF") {
       exec(http("010_SupportedJurisdiction")
         .get("/api/wa-supported-jurisdiction/get")
         .headers(Headers.commonHeader)
@@ -93,10 +92,8 @@ object unspec_notification {
     }
     .pause(MinThinkTime, MaxThinkTime)
 
-
-  //val NotifyClaimDetails =
-    .group("Civil_UnSpecClaim_10_NotifyDetails") {
       // =======================NOTIFY CLAIM DETAILS=======================,
+    .group("Civil_UnSpecClaim_30_05_NotifyDetails") {
       exec(http("005_jurisdiction")
         .get("/workallocation/case/tasks/#{caseId}/event/NOTIFY_DEFENDANT_OF_CLAIM_DETAILS/caseType/CIVIL/jurisdiction/CIVIL")
         .headers(Headers.commonHeader)
@@ -122,7 +119,7 @@ object unspec_notification {
     .pause(MinThinkTime, MaxThinkTime)
 
       // =======================UPLOAD DOC PARTICULARS=======================,
-    .group("Civil_UnSpecClaim_10_NotifyDetails") {
+    .group("Civil_UnSpecClaim_30_06_NotifyDetails") {
       exec(http("005_DetailsUpload")
         .post("/data/case-types/CIVIL/validate?pageId=NOTIFY_DEFENDANT_OF_CLAIM_DETAILSUpload")
         .headers(Headers.validateHeader)
@@ -138,7 +135,7 @@ object unspec_notification {
     .pause(MinThinkTime, MaxThinkTime)
 
     // =======================SUBMIT CLAIM DETAILS=======================,
-    .group("Civil_UnSpecClaim_10_NotifyDetails") {
+    .group("Civil_UnSpecClaim_30_07_NotifyDetails") {
       exec(http("005_SubmitNotifyDetails")
         .post("/data/cases/#{caseId}/events")
         .headers(Headers.validateHeader)
@@ -159,14 +156,14 @@ object unspec_notification {
     .pause(MinThinkTime, MaxThinkTime)
 
     // =======================CLOSE & RETURN TO CASE DETAILS=======================,
-    .group("Civil_UnSpecClaim_10_NotifyDetails") {
+    .group("Civil_UnSpecClaim_30_08_NotifyDetails") {
       exec(http("005_APIRoleAssignment")
         .post("/api/role-access/roles/manageLabellingRoleAssignment/#{caseId}")
         .headers(Headers.commonHeader)
         .check(status.is(204)))
     }
 
-    .group("Civil_UnSpecClaim_10_NotifyDetails") {
+    .group("Civil_UnSpecClaim_30_08_NotifyDetails") {
       exec(http("010_SupportedJurisdiction")
         .get("/api/wa-supported-jurisdiction/get")
         .headers(Headers.commonHeader)

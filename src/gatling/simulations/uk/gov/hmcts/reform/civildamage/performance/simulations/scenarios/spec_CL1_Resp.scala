@@ -14,10 +14,11 @@ object spec_CL1_Resp{
   val MinThinkTime = Environment.minThinkTime
   val MaxThinkTime = Environment.maxThinkTime
 
-  // ==============================SELECT RESPOND TO DEFENDANT====================
+
   val RespToDef =
+
     // ========================LANDING PAGE=====================,
-    group("Civil_Claim_30_ClaimantResponse") {
+    group("Civil_SpecClaim_40_01_ClaimantResponse") {
       exec(http("Land_005_Jurisdictions")
         .get("/aggregated/caseworkers/:uid/jurisdictions?access=read")
         .headers(Headers.commonHeader)
@@ -31,7 +32,7 @@ object spec_CL1_Resp{
     .pause(MinThinkTime, MaxThinkTime)
 
     // ========================SEARCH=====================,
-    .group("Civil_Claim_30_ClaimantResponse") {
+    .group("Civil_SpecClaim_40_02_ClaimantResponse") {
       exec(http("Search_005_WorkBasket")
         .get("/data/internal/case-types/CIVIL/work-basket-inputs")
         .headers(Headers.validateHeader)
@@ -47,7 +48,7 @@ object spec_CL1_Resp{
     .pause(MinThinkTime, MaxThinkTime)
 
     // ================================OPEN CASE===============================,
-    .group("Civil_Claim_30_ClaimantResponse") {
+    .group("Civil_SpecClaim_40_03_ClaimantResponse") {
       exec(http("OpenCase_005_InternalCases")
         .get("/data/internal/cases/#{caseId}")
         .headers(Headers.validateHeader)
@@ -55,14 +56,14 @@ object spec_CL1_Resp{
         .check(substring("Awaiting Defendant Response")))
       }
 
-    .group("Civil_Claim_30_ClaimantResponse") {
+    .group("Civil_SpecClaim_40_03_ClaimantResponse") {
       exec(http("OpenCase_010_RoleAssignment")
         .post("/api/role-access/roles/manageLabellingRoleAssignment/#{caseId}")
         .headers(Headers.commonHeader)
         .check(status.is(204)))
     }
 
-    .group("Civil_Claim_30_ClaimantResponse") {
+    .group("Civil_SpecClaim_40_03_ClaimantResponse") {
       exec(http("OpenCase_015_Jurisdiction")
         .get("/api/wa-supported-jurisdiction/get")
         .headers(Headers.commonHeader)
@@ -71,7 +72,7 @@ object spec_CL1_Resp{
     .pause(MinThinkTime, MaxThinkTime)
 
     // =============================VIEW & RESPOND=============================,
-    .group("Civil_Claim_30_ClaimantResponse") {
+    .group("Civil_SpecClaim_40_04_ClaimantResponse") {
       exec(http("RespToDef_005_Jurisdiction")
         .get("/workallocation/case/tasks/#{caseId}/event/CLAIMANT_RESPONSE_SPEC/caseType/CIVIL/jurisdiction/CIVIL")
         .headers(Headers.commonHeader)
@@ -81,7 +82,7 @@ object spec_CL1_Resp{
         .get("/data/internal/profile")
         .headers(Headers.validateHeader)
         .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-user-profile.v2+json;charset=UTF-8")
-        .check(substring("#{claimantuser}")))
+        .check(substring("solicitor")))
 
       .exec(http("RespToDef_015_IgnoreWarning")
         .get("/data/internal/cases/#{caseId}/event-triggers/CLAIMANT_RESPONSE_SPEC?ignore-warning=false")
@@ -97,8 +98,6 @@ object spec_CL1_Resp{
         .check(jsonPath("$.event_token").saveAs("event_token")))
       .exitHereIf(session => !session.contains("repPartyID"))
 
-      //.exec(getCookieValue(CookieKey("XSRF-TOKEN").withDomain(BaseURL.replace("https://", "")).saveAs("xsrf_token")))
-
       .exec(http("RespToDef_020_Jurisdiction")
         .get("/workallocation/case/tasks/#{caseId}/event/CLAIMANT_RESPONSE_SPEC/caseType/CIVIL/jurisdiction/CIVIL")
         .headers(Headers.commonHeader)
@@ -107,7 +106,7 @@ object spec_CL1_Resp{
     .pause(MinThinkTime, MaxThinkTime)
 
     // ========================DEF RESP FORM======================,
-    .group("Civil_Claim_30_ClaimantResponse") {
+    .group("Civil_SpecClaim_40_05_ClaimantResponse") {
       exec(http("RespToDef_005_ProceedWithClaim")
         .post("/data/case-types/CIVIL/validate?pageId=CLAIMANT_RESPONSE_SPECRespondentResponse")
         .headers(Headers.validateHeader)
@@ -117,7 +116,7 @@ object spec_CL1_Resp{
     .pause(MinThinkTime, MaxThinkTime)
 
     // ==============================CONTINUE==========================,
-    .group("Civil_Claim_30_ClaimantResponse") {
+    .group("Civil_SpecClaim_40_06_ClaimantResponse") {
       exec(http("RespToDef_005_Continue")
         .post("/data/case-types/CIVIL/validate?pageId=CLAIMANT_RESPONSE_SPECApplicantDefenceResponseDocument")
         .headers(Headers.validateHeader)
@@ -128,7 +127,7 @@ object spec_CL1_Resp{
 
     // ==============================MEDIATION==========================,
     //Please see spec_DF1_Resp.scala for more details in regards with the commented POST bodies.
-    .group("Civil_Claim_30_ClaimantResponse") {
+    .group("Civil_SpecClaim_40_07_ClaimantResponse") {
       exec(http("RespToDef_005_Mediation")
         .post("/data/case-types/CIVIL/validate?pageId=CLAIMANT_RESPONSE_SPECMediationContactInformation")
         .headers(Headers.validateHeader)
@@ -137,7 +136,7 @@ object spec_CL1_Resp{
     }
     .pause(MinThinkTime, MaxThinkTime)
 
-    .group("Civil_Claim_30_ClaimantResponse") {
+    .group("Civil_SpecClaim_40_08_ClaimantResponse") {
       exec(http("RespToDef_010_Mediation")
         .post("/data/case-types/CIVIL/validate?pageId=CLAIMANT_RESPONSE_SPECMediationAvailability")
         .headers(Headers.validateHeader)
@@ -147,7 +146,7 @@ object spec_CL1_Resp{
     .pause(MinThinkTime, MaxThinkTime)
 
     // =============================USE OF EXPERTS=============================,
-    .group("Civil_Claim_30_ClaimantResponse") {
+    .group("Civil_SpecClaim_40_09_ClaimantResponse") {
       exec(http("RespToDef_005_Experts")
         .post("/data/case-types/CIVIL/validate?pageId=CLAIMANT_RESPONSE_SPECSmallClaimExperts")
         .headers(Headers.validateHeader)
@@ -158,7 +157,7 @@ object spec_CL1_Resp{
     .pause(MinThinkTime, MaxThinkTime)
 
     // ===================================WITNESSES===================,
-    .group("Civil_Claim_30_ClaimantResponse") {
+    .group("Civil_SpecClaim_40_10_ClaimantResponse") {
       exec(http("RespToDef_005_Witnesses")
         .post("/data/case-types/CIVIL/validate?pageId=CLAIMANT_RESPONSE_SPECSmallClaimWitnesses")
         .headers(Headers.validateHeader)
@@ -169,7 +168,7 @@ object spec_CL1_Resp{
     .pause(MinThinkTime, MaxThinkTime)
 
     // ===================================LANGUAGE===========================,
-    .group("Civil_Claim_30_ClaimantResponse") {
+    .group("Civil_SpecClaim_40_11_ClaimantResponse") {
       exec(http("RespToDef_005_Language")
         .post("/data/case-types/CIVIL/validate?pageId=CLAIMANT_RESPONSE_SPECLanguage")
         .headers(Headers.validateHeader)
@@ -180,7 +179,7 @@ object spec_CL1_Resp{
     .pause(MinThinkTime, MaxThinkTime)
 
     // ===========================HEARING==================,
-    .group("Civil_Claim_30_ClaimantResponse") {
+    .group("Civil_SpecClaim_40_12_ClaimantResponse") {
       exec(http("RespToDef_005_Hearing")
         .post("/data/case-types/CIVIL/validate?pageId=CLAIMANT_RESPONSE_SPECHearing")
         .headers(Headers.validateHeader)
@@ -191,7 +190,7 @@ object spec_CL1_Resp{
     .pause(MinThinkTime, MaxThinkTime)
 
     // ==================================REQUESTED COURT======================,
-    .group("Civil_Claim_30_ClaimantResponse") {
+    .group("Civil_SpecClaim_40_13_ClaimantResponse") {
       exec(http("RespToDef_005_Court")
         .post("/data/case-types/CIVIL/validate?pageId=CLAIMANT_RESPONSE_SPECApplicantCourtLocationLRspec")
         .headers(Headers.validateHeader)
@@ -202,7 +201,7 @@ object spec_CL1_Resp{
     .pause(MinThinkTime, MaxThinkTime)
 
     // ==============================SUPPORT WITH ACCESS NEEDS=======================,
-    .group("Civil_Claim_30_ClaimantResponse") {
+    .group("Civil_SpecClaim_40_14_ClaimantResponse") {
       exec(http("RespToDef_005_AccessNeeds")
         .post("/data/case-types/CIVIL/validate?pageId=CLAIMANT_RESPONSE_SPECHearingSupport")
         .headers(Headers.validateHeader)
@@ -214,7 +213,7 @@ object spec_CL1_Resp{
     .pause(MinThinkTime, MaxThinkTime)
 
     // =====================================VULNERABILITY=======================,
-    .group("Civil_Claim_30_ClaimantResponse") {
+    .group("Civil_SpecClaim_40_15_ClaimantResponse") {
       exec(http("RespToDef_005_Vulnerability")
         .post("/data/case-types/CIVIL/validate?pageId=CLAIMANT_RESPONSE_SPECVulnerabilityQuestions")
         .headers(Headers.validateHeader)
@@ -225,7 +224,7 @@ object spec_CL1_Resp{
     .pause(MinThinkTime, MaxThinkTime)
 
     // ========================================SOT===========================,
-    .group("Civil_Claim_30_ClaimantResponse") {
+    .group("Civil_SpecClaim_40_16_ClaimantResponse") {
       exec(http("RespToDef_005_SOT")
         .post("/data/case-types/CIVIL/validate?pageId=CLAIMANT_RESPONSE_SPECStatementOfTruth")
         .headers(Headers.validateHeader)
@@ -236,7 +235,7 @@ object spec_CL1_Resp{
     .pause(MinThinkTime, MaxThinkTime)
 
     // ==========================================SOT SUBMIT======================,
-    .group("Civil_Claim_30_ClaimantResponse") {
+    .group("Civil_SpecClaim_40_17_ClaimantResponse") {
       exec(http("RespToDef_005_SOTSubmit")
         .post("/data/cases/#{caseId}/events")
         .headers(Headers.validateHeader)

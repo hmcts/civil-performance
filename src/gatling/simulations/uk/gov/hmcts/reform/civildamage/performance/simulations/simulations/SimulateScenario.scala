@@ -23,17 +23,18 @@ class SimulateScenario extends Simulation {
     "Origin" -> BaseURL
   )
 
+  //==================Unspecified=======================
+
   val CreateUnSpecClaimSCN = scenario("UnSpec_CreateClaim")
-//==========01. Create Claim==================
+//============01. Create Claim=========================
     .feed(loginFeeder)
     .exec(_.set("loginFlag", "claimant"))
     .exec(Home.Homepage)
     .exec(Login.Loginpage)
     .exec(unspec_CreateClaim.CreateUnSpecClaim)
-    .exec(MakePay.MakePay)
+    .exec(MakePay.MakePayment)
     .exec(unspec_notification.NotifyClaim)
     .exec(Logout.Signout)
-    .exec(FileWriterx.WriteToFile)
     .pause(MaxThinkTime)
 
 //============02. Respond to Claimant==================
@@ -93,7 +94,8 @@ class SimulateScenario extends Simulation {
 
 
 
-  //==============================SPEC=====================================
+  //==================Specified=============================
+
   val CreateSpecClaimSCN = scenario("Spec_Create_Claim")
 //==========01. Create Claim==================
     .feed(loginFeeder)
@@ -103,7 +105,6 @@ class SimulateScenario extends Simulation {
     .exec(spec_CreateClaim.CreateSpecClaim)
     .exec(spec_CreateClaim.ClaimFeePayment)
     .exec(Logout.Signout)
-    .exec(FileWriterx.WriteToFile)
     .pause(MaxThinkTime)
 
 //==========02. Def Response==================

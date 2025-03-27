@@ -7,25 +7,20 @@ import utils._
 
 object MakePay  {
 
-	val MakePay =
-//   exec(_.setAll(
-//		"Idempotencynumber" -> (Common.getIdempotency()),
-//		"LRrandomString" -> Common.randomString(5))
-//	)
+
+	val MakePayment =
 
 		// ======================SERVICE TAB======================,
-		group("Civil_CreateClaim_005_MakePayment") {
+		group("Civil_UnSpecClaim_20_01_MakePayment") {
 			exec(http("005_PaymentGroups")
 				.get("/payments/cases/#{caseId}/paymentgroups")
 				.headers(Headers.commonHeader)
-				//.header("content-type", "")
 				.check(regex("calculated_amount\":(.*?).00,").saveAs("calculated_amount"))
 				.check(substring("payment_group_reference")))
 
 			.exec(http("010_ServiceTab")
 				.get("/pay-bulkscan/cases/#{caseId}")
 				.headers(Headers.commonHeader)
-				//.header("content-type", "")
 				.check(substring("HMCTS Manage cases")))
 
 			.exec(http("015_case_ids")
@@ -38,17 +33,18 @@ object MakePay  {
 			.exitHereIf(session => !session.contains("OrdRefNo"))
 		}
 		.pause(2)
+
 		// ======================PAY NOW======================,
-		.group("Civil_CreateClaim_010_MakePay") {
+		.group("Civil_UnSpecClaim_20_02_MakePayment") {
 			exec(http("005_PayNow")
 				.get("/payments/pba-accounts")
 				.headers(Headers.commonHeader)
-				//.header("content-type", "")
 				.check(substring("paymentAccount")))
 		}
 		.pause(2)
+
 		// ======================CONFIRM PAY======================,
-		.group("Civil_CreateClaim_010_MakePay") {
+		.group("Civil_UnSpecClaim_20_03_MakePayment") {
 			exec(http("005_ConfirmPay")
 				.post("/payments/service-request/#{OrdRefNo}/pba-payments")
 				.headers(Headers.commonHeader)

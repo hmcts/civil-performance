@@ -14,7 +14,7 @@ object spec_CreateClaim {
   val CreateSpecClaim =
 
     // ============================LANDING PAGE========================,
-    group("Civil_CreateSpecClaim_10_00_LandingPage") {
+    group("Civil_SpecClaim_10_01_LandingPage") {
       exec(http("Jurisdiction")
         .get("/aggregated/caseworkers/:uid/jurisdictions?access=read")
         .headers(Headers.commonHeader)
@@ -28,7 +28,7 @@ object spec_CreateClaim {
     .pause(MinThinkTime, MaxThinkTime)
 
     // ============================START========================,
-    .group("Civil_CreateSpecClaim_10_01_CreateCase") {
+    .group("Civil_SpecClaim_10_02_CreateCase") {
       exec(http("Create")
         .get("/aggregated/caseworkers/:uid/jurisdictions?access=create")
         .headers(Headers.commonHeader)
@@ -36,7 +36,7 @@ object spec_CreateClaim {
     }
     .pause(MinThinkTime, MaxThinkTime)
 
-    .group("Civil_CreateSpecClaim_10_02_CreateCase") {
+    .group("Civil_SpecClaim_10_03_CreateCase") {
       exec(http("IgnoreWarning")
         .get("/data/internal/case-types/CIVIL/event-triggers/CREATE_CLAIM_SPEC?ignore-warning=false")
         .headers(Headers.validateHeader)
@@ -48,7 +48,7 @@ object spec_CreateClaim {
     .pause(MinThinkTime, MaxThinkTime)
 
     // ==================CONTINUE1=================,
-    .group("Civil_CreateSpecClaim_10_03_CreateCase") {
+    .group("Civil_SpecClaim_10_04_CreateCase") {
       exec(http("CaseChecklist")
         .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIM_SPECCheckList")
         .headers(Headers.validateHeader)
@@ -59,7 +59,7 @@ object spec_CreateClaim {
     }
     .pause(MinThinkTime, MaxThinkTime)
 
-    .group("Civil_CreateSpecClaim_10_04_CreateCase") {
+    .group("Civil_SpecClaim_10_05_CreateCase") {
       exec(http("Eligibility")
         .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIM_SPECEligibility")
         .headers(Headers.validateHeader)
@@ -70,7 +70,7 @@ object spec_CreateClaim {
     }
     .pause(MinThinkTime, MaxThinkTime)
 
-    .group("Civil_CreateSpecClaim_10_05_CreateCase") {
+    .group("Civil_SpecClaim_10_06_CreateCase") {
       exec(http("References")
         .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIM_SPECReferences")
         .headers(Headers.validateHeader)
@@ -82,15 +82,16 @@ object spec_CreateClaim {
     .pause(MinThinkTime, MaxThinkTime)
 
     // ======================CLAIM ADDRESS===============,
-    .group("Civil_CreateSpecClaim_10_06_CreateCase") {
+    .group("Civil_SpecClaim_10_07_CreateCase") {
       exec(http("PostCodeSearch")
         .get("/api/addresses?postcode=HA11GP")
         .headers(Headers.commonHeader)
         .check(substring("This record is within England")))
     }
     .pause(MinThinkTime, MaxThinkTime)
+
     // ========================CLAIM DETAILS===============,
-    .group("Civil_CreateSpecClaim_10_07_CreateCase") {
+    .group("Civil_SpecClaim_10_08_CreateCase") {
       exec(http("Claimant")
         .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIM_SPECClaimant")
         .headers(Headers.validateHeader)
@@ -100,7 +101,7 @@ object spec_CreateClaim {
     .pause(MinThinkTime, MaxThinkTime)
 
     // ==================ANOTHER CLAIMANT===============,
-    .group("Civil_CreateSpecClaim_10_08_CreateCase") {
+    .group("Civil_SpecClaim_10_09_CreateCase") {
       exec(http("AddAnotherClaimant")
         .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIM_SPECAddAnotherClaimant")
         .headers(Headers.validateHeader)
@@ -110,16 +111,17 @@ object spec_CreateClaim {
     .pause(MinThinkTime, MaxThinkTime)
 
     // ==================CLAIMANT EMAIL============,
-    .group("Civil_CreateSpecClaim_10_09_CreateCase") {
+    .group("Civil_SpecClaim_10_10_CreateCase") {
       exec(http("Notifications")
         .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIM_SPECNotifications")
         .headers(Headers.validateHeader)
         .body(ElFileBody("a_CreateClaim_bodies/claimantNotificationDetails.dat"))
         .check(substring("applicantSolicitor1CheckEmail")))
     }
+    .pause(MinThinkTime, MaxThinkTime)
 
     // ==========================LEGAL REP===============,
-    .group("Civil_CreateSpecClaim_10_10_CreateCase") {
+    .group("Civil_SpecClaim_10_11_CreateCase") {
       exec(http("ClaimantSolOrg")
         .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIM_SPECClaimantSolicitorOrganisation")
         .headers(Headers.validateHeader)
@@ -129,7 +131,7 @@ object spec_CreateClaim {
     .pause(MinThinkTime, MaxThinkTime)
 
     // ================LEGAL REP POSTAL==============,
-    .group("Civil_CreateSpecClaim_10_11_CreateCase") {
+    .group("Civil_SpecClaim_10_12_CreateCase") {
       exec(http("CorrespondenceAddress")
         .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIM_SPECspecCorrespondenceAddress")
         .headers(Headers.validateHeader)
@@ -138,8 +140,8 @@ object spec_CreateClaim {
     }
     .pause(MinThinkTime, MaxThinkTime)
 
-    // =======================DEF ADDR===========,
-    .group("Civil_CreateSpecClaim_10_12_CreateCase") {
+    // =======================DEF ADDRESS===========,
+    .group("Civil_SpecClaim_10_13_CreateCase") {
       exec(http("DefPostCode")
         .get("/api/addresses?postcode=WD171BN")
         .headers(Headers.commonHeader)
@@ -148,7 +150,7 @@ object spec_CreateClaim {
     .pause(MinThinkTime, MaxThinkTime)
 
     // ========================DEF DETAILS=============,
-    .group("Civil_CreateSpecClaim_10_13_CreateCase") {
+    .group("Civil_SpecClaim_10_14_CreateCase") {
       exec(http("DefendantDetails")
         .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIM_SPECDefendant")
         .headers(Headers.validateHeader)
@@ -158,7 +160,7 @@ object spec_CreateClaim {
     .pause(MinThinkTime, MaxThinkTime)
 
     // ==================DEF LEGAL REP=============,
-    .group("Civil_CreateSpecClaim_10_14_CreateCase") {
+    .group("Civil_SpecClaim_10_15_CreateCase") {
       exec(http("DefLegalRep")
         .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIM_SPECLegalRepresentation")
         .headers(Headers.validateHeader)
@@ -167,7 +169,7 @@ object spec_CreateClaim {
     }
     .pause(MinThinkTime, MaxThinkTime)
 
-    .group("Civil_CreateSpecClaim_10_15_CreateCase") {
+    .group("Civil_SpecClaim_10_16_CreateCase") {
       exec(http("DefSolOrg")
         .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIM_SPECDefendantSolicitorOrganisation")
         .headers(Headers.validateHeader)
@@ -177,7 +179,7 @@ object spec_CreateClaim {
     .pause(MinThinkTime, MaxThinkTime)
 
     // ==================DF REP EMAIL==================,
-    .group("Civil_CreateSpecClaim_10_16_CreateCase") {
+    .group("Civil_SpecClaim_10_17_CreateCase") {
       exec(http("CDefSolEmail")
         .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIM_SPECDefendantSolicitorEmail")
         .headers(Headers.validateHeader)
@@ -187,7 +189,7 @@ object spec_CreateClaim {
     .pause(MinThinkTime, MaxThinkTime)
 
     // ==================DF REP ADDRESS==================,
-    .group("Civil_CreateSpecClaim_10_17_CreateCase") {
+    .group("Civil_SpecClaim_10_18_CreateCase") {
       exec(http("DefAddr")
         .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIM_SPECspecRespondentCorrespondenceAddress")
         .headers(Headers.validateHeader)
@@ -196,9 +198,8 @@ object spec_CreateClaim {
     }
     .pause(MinThinkTime, MaxThinkTime)
 
-
     // ============ANOTHER DF===============,
-    .group("Civil_CreateSpecClaim_10_18_CreateCase") {
+    .group("Civil_SpecClaim_10_19_CreateCase") {
       exec(http("AddAnotherDefendant")
         .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIM_SPECAddAnotherDefendant")
         .headers(Headers.validateHeader)
@@ -207,9 +208,8 @@ object spec_CreateClaim {
     }
     .pause(MinThinkTime, MaxThinkTime)
 
-
     // =====================AIRLINE CLAIM===========,
-    .group("Civil_CreateSpecClaim_10_19_CreateCase") {
+    .group("Civil_SpecClaim_10_20_CreateCase") {
       exec(http("FlightDelayClaim")
         .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIM_SPECFlightDelayClaim")
         .headers(Headers.validateHeader)
@@ -218,9 +218,8 @@ object spec_CreateClaim {
     }
     .pause(MinThinkTime, MaxThinkTime)
 
-
     // ==================DESC CLAIM===============,
-    .group("Civil_CreateSpecClaim_10_20_CreateCase") {
+    .group("Civil_SpecClaim_10_21_CreateCase") {
       exec(http("CaseDetails")
         .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIM_SPECDetails")
         .headers(Headers.validateHeader)
@@ -229,9 +228,8 @@ object spec_CreateClaim {
     }
     .pause(MinThinkTime, MaxThinkTime)
 
-
     // ===============CLAIM TIMELINE=================,
-    .group("Civil_CreateSpecClaim_10_21_CreateCase") {
+    .group("Civil_SpecClaim_10_22_CreateCase") {
       exec(http("UploadClaimDoc")
         .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIM_SPECUploadClaimDocument")
         .headers(Headers.validateHeader)
@@ -240,7 +238,7 @@ object spec_CreateClaim {
     }
     .pause(MinThinkTime, MaxThinkTime)
 
-    .group("Civil_CreateSpecClaim_10_22_CreateCase") {
+    .group("Civil_SpecClaim_10_23_CreateCase") {
       exec(http("ClaimTimeline")
         .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIM_SPECClaimTimeline")
         .headers(Headers.validateHeader)
@@ -250,7 +248,7 @@ object spec_CreateClaim {
     .pause(MinThinkTime, MaxThinkTime)
 
     // =============LIST EVIDENCE=================================,
-    .group("Civil_CreateSpecClaim_10_23_CreateCase") {
+    .group("Civil_SpecClaim_10_24_CreateCase") {
       exec(http("SPECEvidenceList")
         .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIM_SPECEvidenceList")
         .headers(Headers.validateHeader)
@@ -261,7 +259,7 @@ object spec_CreateClaim {
 
 
    // =========================CLAIM AMOUNT===================,
-    .group("Civil_CreateSpecClaim_10_24_CreateCase") {
+    .group("Civil_SpecClaim_10_25_CreateCase") {
       exec(http("CREATE_CLAIM_SPECClaimAmount")
         .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIM_SPECClaimAmount")
         .headers(Headers.validateHeader)
@@ -270,7 +268,7 @@ object spec_CreateClaim {
     }
     .pause(MinThinkTime, MaxThinkTime)
 
-    .group("Civil_CreateSpecClaim_10_25_CreateCase") {
+    .group("Civil_SpecClaim_10_26_CreateCase") {
       exec(http("CREATE_CLAIM_SPECClaimAmountDetails")
         .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIM_SPECClaimAmountDetails")
         .headers(Headers.validateHeader)
@@ -279,7 +277,7 @@ object spec_CreateClaim {
     }
     .pause(MinThinkTime, MaxThinkTime)
 
-    .group("Civil_CreateSpecClaim_10_26_CreateCase") {
+    .group("Civil_SpecClaim_10_27_CreateCase") {
       exec(http("CREATE_CLAIM_SPECClaimInterest")
         .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIM_SPECClaimInterest")
         .headers(Headers.validateHeader)
@@ -288,7 +286,7 @@ object spec_CreateClaim {
     }
     .pause(MinThinkTime, MaxThinkTime)
 
-    .group("Civil_CreateSpecClaim_10_27_CreateCase") {
+    .group("Civil_SpecClaim_10_28_CreateCase") {
       exec(http("CREATE_CLAIM_SPECInterestSummary")
         .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIM_SPECInterestSummary")
         .headers(Headers.validateHeader)
@@ -297,7 +295,7 @@ object spec_CreateClaim {
     }
     .pause(MinThinkTime, MaxThinkTime)
 
-    .group("Civil_CreateSpecClaim_10_28_CreateCase") {
+    .group("Civil_SpecClaim_10_29_CreateCase") {
       exec(http("CREATE_CLAIM_SPECPbaNumber")
         .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIM_SPECPbaNumber")
         .headers(Headers.validateHeader)
@@ -308,7 +306,7 @@ object spec_CreateClaim {
 
     // =======================FIXED COSTS================,
 
-    .group("Civil_CreateSpecClaim_10_29_CreateCase") {
+    .group("Civil_SpecClaim_10_30_CreateCase") {
       exec(http("CREATE_CLAIM_SPECFixedCommencementCosts")
         .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIM_SPECFixedCommencementCosts")
         .headers(Headers.validateHeader)
@@ -318,7 +316,7 @@ object spec_CreateClaim {
     .pause(MinThinkTime, MaxThinkTime)
 
     // =======================SOT===============,
-    .group("Civil_CreateSpecClaim_10_30_CreateCase") {
+    .group("Civil_SpecClaim_10_31_CreateCase") {
       exec(http("CREATE_CLAIM_SPECStatementOfTruth")
         .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIM_SPECStatementOfTruth")
         .headers(Headers.validateHeader)
@@ -331,7 +329,7 @@ object spec_CreateClaim {
     .pause(MinThinkTime, MaxThinkTime)
 
     // =============================SUBMIT================,
-    .group("Civil_CreateSpecClaim_10_32_CreateCase") {
+    .group("Civil_SpecClaim_10_32_CreateCase") {
       exec(http("CREATE_CLAIM_SPECSOT_Submit")
         .post("/data/case-types/CIVIL/cases?ignore-warning=false")
         .headers(Headers.validateHeader)
@@ -344,7 +342,7 @@ object spec_CreateClaim {
     .pause(MinThinkTime, MaxThinkTime)
 
     // ==================API ROLE ASSIGNMENT==================,
-    .group("Civil_CreateSpecClaim_10_33_APIRoleAssignment") {
+    .group("Civil_SpecClaim_10_33_APIRoleAssignment") {
       exec(http("CREATE_CLAIM_SPECGetCase")
         .get("/data/internal/cases/#{caseId}")
         .headers(Headers.validateHeader)
@@ -352,14 +350,14 @@ object spec_CreateClaim {
         .check(substring("http://gateway-ccd.perftest.platform.hmcts.net/internal/cases/#{caseId}")))
     }
 
-    .group("Civil_CreateSpecClaim_10_34_APIRoleAssignment") {
+    .group("Civil_SpecClaim_10_33_APIRoleAssignment") {
       exec(http("CREATE_CLAIM_SPECAPIRoleAssignment")
         .post("/api/role-access/roles/manageLabellingRoleAssignment/#{caseId}")
         .headers(Headers.commonHeader)
         .check(status.is(204)))
     }
 
-    .group("Civil_CreateSpecClaim_10_35_SupportedJurisdiction") {
+    .group("Civil_SpecClaim_10_33_SupportedJurisdiction") {
       exec(http("CREATE_CLAIM_SPECSupportedJurisdiction")
         .get("/api/wa-supported-jurisdiction/get")
         .headers(Headers.commonHeader)
@@ -369,7 +367,7 @@ object spec_CreateClaim {
 
   val ClaimFeePayment =
     // ================================SERVICE REQUEST TAB==================================,
-    group("Civil_CreateSpecClaim_10_36_CreateCase") {
+    group("Civil_SpecClaim_20_01_CreateCase") {
       exec(http("Paymentgroups")
         .get("/payments/cases/#{caseId}/paymentgroups")
         .headers(Headers.commonHeader)
@@ -391,7 +389,7 @@ object spec_CreateClaim {
     .pause(2)
 
     // ================================Click Pay Now=======================,
-    .group("Civil_CreateSpecClaim_10_37_CreateCase") {
+    .group("Civil_SpecClaim_20_02_CreateCase") {
       exec(http("PayNow")
         .get("/payments/pba-accounts")
         .headers(Headers.commonHeader)
@@ -400,7 +398,7 @@ object spec_CreateClaim {
     .pause(2)
 
     // ====================CONFIRM PAY========================,
-    .group("Civil_CreateSpecClaim_10_38_CreateCase") {
+    .group("Civil_SpecClaim_20_03_CreateCase") {
       exec(http("ConfirmPayment")
         .post("/payments/service-request/#{OrdRefNo}/pba-payments")
         .headers(Headers.commonHeader)
