@@ -845,7 +845,7 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 * Below scenario is for   Fast Track - CUI R2 Civil Case progression -Full Scenario
 ======================================================================================*/
 	val CUIR2FastTrackCaseProgression = scenario("SDO For CUIR2 CaseProgression Fast Track")
-		.feed(cpLoginFeeder).feed(cpfulltestfasttrackFeeder)
+		.feed(cpLoginFeeder)//.feed(cpfulltestfasttrackFeeder)
 		.exitBlockOnFail {
 			exec(_.set("env", s"${env}"))
 				
@@ -1043,9 +1043,9 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 		
 	//	SDOSmallClaimsCUIR2.inject(nothingFor(1),rampUsers(1) during (1)),
 		//SDOFastTrackCUIR2.inject(nothingFor(1),rampUsers(3) during (50)),
-		//CUIR2SmallClaimsCaseProgression.inject(nothingFor(1),rampUsers(1) during (1)),
-		CUIR2FastTrackCaseProgression.inject(nothingFor(1),rampUsers(125) during (3000)),
-		CivilUIR2ClaimCreationScenario.inject(nothingFor(50),rampUsers(125) during (3000))
+		CUIR2SmallClaimsCaseProgression.inject(nothingFor(1),rampUsers(125) during (3000)),
+		CUIR2FastTrackCaseProgression.inject(nothingFor(50),rampUsers(125) during (3000)),
+	//	CivilUIR2ClaimCreationScenario.inject(nothingFor(50),rampUsers(125) during (3000))
 		
 		//Following is the spec claim end to end journey
 		//CivilUIClaimCreationScenario.inject(nothingFor(1),rampUsers(1) during (3))
