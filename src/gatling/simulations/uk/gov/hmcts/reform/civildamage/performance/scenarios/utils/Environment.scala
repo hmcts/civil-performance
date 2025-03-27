@@ -37,8 +37,8 @@ object Environment {
 
  */
   
-  val minThinkTime = 4//8//20
-  val maxThinkTime = 5//10//20
+  val minThinkTime = 20
+  val maxThinkTime = 20
 	
   
   val commonHeader = Map(

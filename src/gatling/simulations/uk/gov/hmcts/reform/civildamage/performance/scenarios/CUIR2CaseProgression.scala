@@ -3,7 +3,7 @@ package uk.gov.hmcts.reform.civildamage.performance.scenarios
 
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
-import uk.gov.hmcts.reform.civildamage.performance.scenarios.SDOCivilProg.sdodrhfeeder
+//import uk.gov.hmcts.reform.civildamage.performance.scenarios.SDOCivilProg.sdodrhfeeder
 import uk.gov.hmcts.reform.civildamage.performance.scenarios.utils.{CivilDamagesHeader, Common, Environment}
 
 import java.io.{BufferedWriter, FileWriter}
@@ -16,7 +16,7 @@ object CUIR2CaseProgression {
   val MinThinkTime = Environment.minThinkTime
   val MaxThinkTime = Environment.maxThinkTime
 
-  val caseFeeder=csv("caseIds.csv").circular
+  val caseFeeder=csv("claimNumbers.csv").circular
   val cpfulltestFeeder=csv("cuir2cpsmallclaims.csv").circular
   
 
@@ -40,7 +40,7 @@ object CUIR2CaseProgression {
       ==========================================================================================*/
       .group("CivilCP_HearingNotice_030_SearchCase") {
           exec(http("CivilCP_HearingNotice_030_SearchCase")
-            .get(BaseURL + "/data/internal/cases/#{caseId}")
+            .get(BaseURL + "/data/internal/cases/#{claimNumber}")
             .headers(CivilDamagesHeader.MoneyClaimNav)
             .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-case-view.v2+json")
             .check(substring("Summary")))
@@ -52,23 +52,23 @@ object CUIR2CaseProgression {
     ==========================================================================================*/
       .group("CivilCP_HearingNotice_040_ScheduleHearing") {
         exec(http("CivilCP_HearingNotice_040_005_ScheduleHearing")
-          .get("/workallocation/case/tasks/#{caseId}/event/HEARING_SCHEDULED/caseType/CIVIL/jurisdiction/CIVIL")
+          .get("/workallocation/case/tasks/#{claimNumber}/event/HEARING_SCHEDULED/caseType/CIVIL/jurisdiction/CIVIL")
           .headers(CivilDamagesHeader.MoneyClaimNav)
           .header("accept", "application/json")
           .check(substring("task_required_for_event"))
         )
           
           .exec(http("CivilCP_HearingNotice_040_010_ScheduleHearing")
-            .get("/data/internal/cases/#{caseId}/event-triggers/HEARING_SCHEDULED?ignore-warning=false")
+            .get("/data/internal/cases/#{claimNumber}/event-triggers/HEARING_SCHEDULED?ignore-warning=false")
             .headers(CivilDamagesHeader.MoneyClaimNav)
             .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-start-event-trigger.v2+json;charset=UTF-8")
             .check(substring("HEARING_SCHEDULED"))
             .check(jsonPath("$.event_token").saveAs("event_token"))
           )
-          .exec(getCookieValue(CookieKey("XSRF-TOKEN").withDomain(BaseURL.replace("https://", "")).saveAs("XSRFToken")))
+        //  .exec(getCookieValue(CookieKey("XSRF-TOKEN").withDomain(BaseURL.replace("https://", "")).saveAs("XSRFToken")))
   
         .exec(http("CivilCP_HearingNotice_040_015_ScheduleHearing")
-          .get("/workallocation/case/tasks/#{caseId}/event/HEARING_SCHEDULED/caseType/CIVIL/jurisdiction/CIVIL")
+          .get("/workallocation/case/tasks/#{claimNumber}/event/HEARING_SCHEDULED/caseType/CIVIL/jurisdiction/CIVIL")
           .headers(CivilDamagesHeader.MoneyClaimNav)
           .header("accept", "application/json")
            .check(substring("task_required_for_event"))
@@ -150,7 +150,7 @@ object CUIR2CaseProgression {
 ==========================================================================================*/
       .group("CivilCP_HearingNotice_100_HearingScheduleSubmit") {
         exec(http("CivilCP_HearingNotice_100_005_HearingScheduleSubmit")
-          .post(BaseURL + "/data/cases/#{caseId}/events")
+          .post(BaseURL + "/data/cases/#{claimNumber}/events")
           .headers(CivilDamagesHeader.MoneyClaimDefPostHeader)
           .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.create-event.v2+json;charset=UTF-8")
           .header("X-Xsrf-Token", "#{XSRFToken}")
@@ -161,7 +161,7 @@ object CUIR2CaseProgression {
           .exec { session =>
             val fw = new BufferedWriter(new FileWriter("HearingScheduled.csv", true))
             try {
-              fw.write(session("caseId").as[String] + "\r\n")
+              fw.write(session("claimNumber").as[String] + "\r\n")
             } finally fw.close()
             session
           }
@@ -188,7 +188,7 @@ object CUIR2CaseProgression {
       ==========================================================================================*/
       .group("CivilCPFT_HearingNotice_030_SearchCase") {
         exec(http("CivilCPFT_HearingNotice_030_SearchCase")
-          .get(BaseURL + "/data/internal/cases/#{caseId}")
+          .get(BaseURL + "/data/internal/cases/#{claimNumber}")
           .headers(CivilDamagesHeader.MoneyClaimNav)
           .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-case-view.v2+json")
           .check(substring("Summary")))
@@ -200,23 +200,23 @@ object CUIR2CaseProgression {
     ==========================================================================================*/
       .group("CivilCPFT_HearingNotice_040_ScheduleHearing") {
         exec(http("CivilCPFT_HearingNotice_040_005_ScheduleHearing")
-          .get("/workallocation/case/tasks/#{caseId}/event/HEARING_SCHEDULED/caseType/CIVIL/jurisdiction/CIVIL")
+          .get("/workallocation/case/tasks/#{claimNumber}/event/HEARING_SCHEDULED/caseType/CIVIL/jurisdiction/CIVIL")
           .headers(CivilDamagesHeader.MoneyClaimNav)
           .header("accept", "application/json")
           .check(substring("task_required_for_event"))
         )
           
           .exec(http("CivilCPFT_HearingNotice_040_010_ScheduleHearing")
-            .get("/data/internal/cases/#{caseId}/event-triggers/HEARING_SCHEDULED?ignore-warning=false")
+            .get("/data/internal/cases/#{claimNumber}/event-triggers/HEARING_SCHEDULED?ignore-warning=false")
             .headers(CivilDamagesHeader.MoneyClaimNav)
             .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-start-event-trigger.v2+json;charset=UTF-8")
             .check(substring("HEARING_SCHEDULED"))
             .check(jsonPath("$.event_token").saveAs("event_token"))
           )
-          .exec(getCookieValue(CookieKey("XSRF-TOKEN").withDomain(BaseURL.replace("https://", "")).saveAs("XSRFToken")))
+         // .exec(getCookieValue(CookieKey("XSRF-TOKEN").withDomain(BaseURL.replace("https://", "")).saveAs("XSRFToken")))
           
           .exec(http("CivilCPFT_HearingNotice_040_015_ScheduleHearing")
-            .get("/workallocation/case/tasks/#{caseId}/event/HEARING_SCHEDULED/caseType/CIVIL/jurisdiction/CIVIL")
+            .get("/workallocation/case/tasks/#{claimNumber}/event/HEARING_SCHEDULED/caseType/CIVIL/jurisdiction/CIVIL")
             .headers(CivilDamagesHeader.MoneyClaimNav)
             .header("accept", "application/json")
             .check(substring("task_required_for_event"))
@@ -298,7 +298,7 @@ object CUIR2CaseProgression {
 ==========================================================================================*/
       .group("CivilCPFT_HearingNotice_100_HearingScheduleSubmit") {
         exec(http("CivilCPFT_HearingNotice_100_005_HearingScheduleSubmit")
-          .post(BaseURL + "/data/cases/#{caseId}/events")
+          .post(BaseURL + "/data/cases/#{claimNumber}/events")
           .headers(CivilDamagesHeader.MoneyClaimDefPostHeader)
           .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.create-event.v2+json;charset=UTF-8")
           .header("X-Xsrf-Token", "#{XSRFToken}")
@@ -309,7 +309,7 @@ object CUIR2CaseProgression {
           .exec { session =>
             val fw = new BufferedWriter(new FileWriter("HearingScheduled.csv", true))
             try {
-              fw.write(session("caseId").as[String] + "\r\n")
+              fw.write(session("claimNumber").as[String] + "\r\n")
             } finally fw.close()
             session
           }
@@ -335,7 +335,7 @@ object CUIR2CaseProgression {
       ==========================================================================================*/
       .group("CivilCP_FinalOrders_110_SearchCase") {
         exec(http("CivilCP_FinalOrders_110_005_SearchCase")
-          .get(BaseURL + "/data/internal/cases/#{caseId}")
+          .get(BaseURL + "/data/internal/cases/#{claimNumber}")
           .headers(CivilDamagesHeader.MoneyClaimNav)
           .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-case-view.v2+json")
           .check(substring("Summary")))
@@ -349,13 +349,13 @@ object CUIR2CaseProgression {
       ==========================================================================================*/
       .group("CivilCP_FinalOrders_120_MakeAnOrder") {
         exec(http("CivilCP_FinalOrders_120_005_MakeAnOrder")
-          .get("/workallocation/case/tasks/{caseId}/event/GENERATE_DIRECTIONS_ORDER/caseType/CIVIL/jurisdiction/CIVIL")
+          .get("/workallocation/case/tasks/{claimNumber}/event/GENERATE_DIRECTIONS_ORDER/caseType/CIVIL/jurisdiction/CIVIL")
           .headers(CivilDamagesHeader.MoneyClaimNav)
           .check(substring("task_required_for_event"))
         )
           
           .exec(http("CivilCP_FinalOrders_120_010_MakeAnOrder")
-            .get(BaseURL + "/data/internal/cases/#{caseId}/event-triggers/GENERATE_DIRECTIONS_ORDER?ignore-warning=false")
+            .get(BaseURL + "/data/internal/cases/#{claimNumber}/event-triggers/GENERATE_DIRECTIONS_ORDER?ignore-warning=false")
             .headers(CivilDamagesHeader.headers_notify)
             .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-start-event-trigger.v2+json;charset=UTF-8")
             .check(substring("GENERATE_DIRECTIONS_ORDER"))
@@ -363,7 +363,7 @@ object CUIR2CaseProgression {
             //  .check(jsonPath("$.case_fields[4].formatted_value.partyName").saveAs("partyName"))
             .check(jsonPath("$.event_token").saveAs("event_token"))
           )
-          .exec(getCookieValue(CookieKey("XSRF-TOKEN").withDomain(BaseURL.replace("https://", "")).saveAs("XSRFToken")))
+        //  .exec(getCookieValue(CookieKey("XSRF-TOKEN").withDomain(BaseURL.replace("https://", "")).saveAs("XSRFToken")))
         
       }
       .pause(MinThinkTime, MaxThinkTime)
@@ -431,7 +431,7 @@ object CUIR2CaseProgression {
   ==========================================================================================*/
       .group("CivilCP_FinalOrders_160_FinalOrdersSubmit") {
         exec(http("CivilCP_FinalOrders_160_005_FinalOrdersSubmit")
-          .post(BaseURL + "/data/cases/#{caseId}/events")
+          .post(BaseURL + "/data/cases/#{claimNumber}/events")
           .headers(CivilDamagesHeader.MoneyClaimDefPostHeader)
           .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.create-event.v2+json;charset=UTF-8")
           .header("X-Xsrf-Token", "#{XSRFToken}")

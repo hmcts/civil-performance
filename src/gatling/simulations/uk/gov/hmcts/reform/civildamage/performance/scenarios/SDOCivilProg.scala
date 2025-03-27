@@ -13,10 +13,10 @@ object SDOCivilProg {
   val MinThinkTime = Environment.minThinkTime
   val MaxThinkTime = Environment.maxThinkTime
 
-  val sdoenhancementsfasttrackfeeder=csv("sdocpftcaseIds.csv").circular
+  //val sdoenhancementsfasttrackfeeder=csv("sdocpftclaimNumbers.csv").circular
  // val sdocpfasttrackcuir2=csv("sdocpfasttrackcuir2Ids.csv").circular
-  val sdoflightdelayfeeder=csv("sdoflightdelaycaseIds.csv").circular
-  val sdodrhfeeder=csv("sdodrhcaseIds.csv").circular
+//  val sdoflightdelayfeeder=csv("sdoflightdelayclaimNumbers.csv").circular
+  //val sdodrhfeeder=csv("sdodrhclaimNumbers.csv").circular
   
 
       //Deepak - Cases that make the final step
@@ -26,15 +26,15 @@ object SDOCivilProg {
              * SDO Fast Track
   ==========================================================================================*/
   val SDOFastTrackForCUIR2 =
-    feed(sdoenhancementsfasttrackfeeder)
-      .group("Civil_CreateClaim_330_BackToCaseDetailsPage") {
+    //feed(sdoenhancementsfasttrackfeeder)
+      group("CUICPSC_CreateClaim_330_BackToCaseDetailsPage") {
         exec(flushHttpCache)
         .exec(_.setAll(
           "Idempotencynumber" -> Common.getIdempotency()
         
         ))
-          .exec(http("Civil_CreateClaim_330_005_CaseDetails")
-            .get(BaseURL + "/data/internal/cases/#{caseId}")
+          .exec(http("CUICPSC_CreateClaim_330_005_CaseDetails")
+            .get(BaseURL + "/data/internal/cases/#{claimNumber}")
             .headers(CivilDamagesHeader.MoneyClaimNav)
             .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-case-view.v2+json")
             .check(substring("Civil"))
@@ -49,7 +49,7 @@ object SDOCivilProg {
       // val returntocasedetailsafternotifydetails =
       .group("XUI_CreateClaim_790_TaskTabs") {
         exec(http("XUI_CreateClaim_790_005_AssignToMe")
-          .post(BaseURL + "/workallocation/case/task/#{caseId}")
+          .post(BaseURL + "/workallocation/case/task/#{claimNumber}")
           .headers(CivilDamagesHeader.MoneyClaimNav)
           .body(ElFileBody("bodies/sdofasttrack/TaskTab.json"))
           .check(jsonPath("$[0].id").saveAs("JudgeId"))
@@ -82,14 +82,14 @@ object SDOCivilProg {
       // val returntocasedetailsafternotifydetails =
       .group("XUI_CreateClaim_810_DirectionsFastTrack") {
         exec(http("XUI_CreateClaim_810_005_DirectionsFastTrack")
-          .get("/cases/case-details/#{caseId}/trigger/CREATE_SDO/CREATE_SDOFastTrack?tid=#{JudgeId}")
+          .get("/cases/case-details/#{claimNumber}/trigger/CREATE_SDO/CREATE_SDOFastTrack?tid=#{JudgeId}")
           .headers(CivilDamagesHeader.headers_notify)
           .header("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7")
           //  .check(substring("assignee"))
         )
           
           .exec(http("XUI_CreateClaim_810_010_DirectionsFastTrack")
-            .get(BaseURL + "/data/internal/cases/#{caseId}/event-triggers/CREATE_SDO?ignore-warning=false")
+            .get(BaseURL + "/data/internal/cases/#{claimNumber}/event-triggers/CREATE_SDO?ignore-warning=false")
             .headers(CivilDamagesHeader.headers_notify)
             .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-start-event-trigger.v2+json;charset=UTF-8")
             .check(substring("CREATE_SDO"))
@@ -101,7 +101,7 @@ object SDOCivilProg {
              */
             .check(jsonPath("$.event_token").saveAs("event_token"))
           )
-          .exec(getCookieValue(CookieKey("XSRF-TOKEN").withDomain(BaseURL.replace("https://", "")).saveAs("XSRFToken")))
+         // .exec(getCookieValue(CookieKey("XSRF-TOKEN").withDomain(BaseURL.replace("https://", "")).saveAs("XSRFToken")))
         
       }
       .pause(MinThinkTime, MaxThinkTime)
@@ -189,7 +189,7 @@ object SDOCivilProg {
       // val returntocasedetailsafternotifydetails =
       .group("XUI_CreateClaim_860_SDOSubmit") {
         exec(http("XUI_CreateClaim_860_005_SDOSubmit")
-          .post("/data/cases/#{caseId}/events")
+          .post("/data/cases/#{claimNumber}/events")
           .headers(CivilDamagesHeader.MoneyClaimDefPostHeader)
           .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.create-event.v2+json;charset=UTF-8")
           .header("X-Xsrf-Token", "#{XSRFToken}")
@@ -197,8 +197,8 @@ object SDOCivilProg {
           .check(substring("Civil"))
         )
           
-          .exec(http("Civil_SDOE_RRByC_060_010_SDOSubmit")
-            .get("/data/internal/cases/#{caseId}")
+          .exec(http("CUICPSC_SDOE_RRByC_060_010_SDOSubmit")
+            .get("/data/internal/cases/#{claimNumber}")
             .headers(CivilDamagesHeader.MoneyClaimPostHeader)
             .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-case-view.v2+json")
             .check(substring("Civil"))
@@ -207,10 +207,67 @@ object SDOCivilProg {
       }
       .pause(MinThinkTime, MaxThinkTime)
   
+  
+  val MediaionUnsuccessfulBeforeSDO =
+      
+      // following code is for the mediation unsuccessful events
+      group("CUICPSC_SDOE_050_MediationUnsuccessful") {
+        exec(http("CUICPSC_SDOE_050_005MediationUnsuccessful")
+          .get("/data/internal/cases/#{claimNumber}/event-triggers/MEDIATION_UNSUCCESSFUL?ignore-warning=false")
+          .headers(CivilDamagesHeader.MoneyClaimNav)
+          .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-start-event-trigger.v2+json;charset=UTF-8")
+          .check(substring("Mediation Unsuccessful"))
+          .check(jsonPath("$.event_token").saveAs("event_token"))
+        )
+        //  .exec(getCookieValue(CookieKey("XSRF-TOKEN").withDomain(BaseURL.replace("https://", "")).saveAs("XSRFToken")))
+        
+      }
+      .pause(MinThinkTime, MaxThinkTime)
+      
+      .group("CUICPSC_SDOE_050_ValidateReason") {
+        exec(http("CivilMT_HearingNotice_040_010_ValidateReason")
+          .post("/data/case-types/CIVIL/validate?pageId=MEDIATION_UNSUCCESSFULmediationUnsuccessful")
+          .headers(CivilDamagesHeader.MoneyClaimNav)
+          .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.case-data-validate.v2+json;charset=UTF-8")
+          .body(ElFileBody("bodies/CaseProg/smallclaims/validateMediationReason.json"))
+          .check(substring("MEDIATION_UNSUCCESSFUL"))
+        )
+        //  .exec(getCookieValue(CookieKey("XSRF-TOKEN").withDomain(BaseURL.replace("https://", "")).saveAs("XSRFToken")))
+        
+      }
+      .pause(MinThinkTime, MaxThinkTime)
+      
+      .group("CUICPSC_SDOE_050_ValidateIntegration") {
+        exec(http("CivilMT_HearingNotice_040_010_ValidateIntegration")
+          .post("/data/case-types/CIVIL/validate?pageId=MEDIATION_UNSUCCESSFULWorkAllocationIntegrationFields")
+          .headers(CivilDamagesHeader.MoneyClaimNav)
+          .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.case-data-validate.v2+json;charset=UTF-8")
+          .body(ElFileBody("bodies/CaseProg/smallclaims/validateIntegration.json"))
+          .check(substring("MEDIATION_UNSUCCESSFUL"))
+        )
+        //  .exec(getCookieValue(CookieKey("XSRF-TOKEN").withDomain(BaseURL.replace("https://", "")).saveAs("XSRFToken")))
+        
+      }
+      .pause(MinThinkTime, MaxThinkTime)
+      
+      .group("CUICPSC_SDOE_050_SubmitMediationUnsuccessful") {
+        exec(http("CivilMT_HearingNotice_040_010_SubmitMediationUnsuccessful")
+          .post("/data/cases/#{claimNumber}/events")
+          .headers(CivilDamagesHeader.MoneyClaimNav)
+          .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.create-event.v2+json;charset=UTF-8")
+          .body(ElFileBody("bodies/CaseProg/smallclaims/MediationUnsuccessfulSubmit.json"))
+          .check(substring("mediationUnsuccessful"))
+        )
+        //  .exec(getCookieValue(CookieKey("XSRF-TOKEN").withDomain(BaseURL.replace("https://", "")).saveAs("XSRFToken")))
+        
+      }
+      .pause(MinThinkTime, MaxThinkTime)
+      .pause(120)
+  
   val SDOSmallClaimsForCUIR2 =
-    feed(sdodrhfeeder)
-      .group("Civil_SDOE_DRH_30_CaseDetails") {
-        exec(http("Civil_SDOE_DRH_30_005_CaseDetails")
+    //feed(sdodrhfeeder)
+      group("CUICPSC_SDOE_DRH_30_CaseDetails") {
+        exec(http("CUICPSC_SDOE_DRH_30_005_CaseDetails")
             .get(BaseURL + "/data/internal/cases/#{claimNumber}")
             .headers(Headers.commonHeader)
             .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-case-view.v2+json")
@@ -220,11 +277,14 @@ object SDOCivilProg {
   
       .pause(MinThinkTime, MaxThinkTime)
       .pause(10)
+      
+      // following code is for the mediation unsuccessful events
+      
       /*======================================================================================
            * Create Civil Claim - Click on Tasks Tab
     ==========================================================================================*/
-      .group("Civil_SDOE_DRH_40_TaskTab") {
-        exec(http("Civil_SDOE_DRH_40_005_TaskTab")
+      .group("CUICPSC_SDOE_DRH_40_TaskTab") {
+        exec(http("CUICPSC_SDOE_DRH_40_005_TaskTab")
           .post(BaseURL + "/workallocation/case/task/#{claimNumber}")
           .headers(CivilDamagesHeader.MoneyClaimNav)
           .body(ElFileBody("bodies/sdodrh/TaskTab.json"))
@@ -239,8 +299,8 @@ object SDOCivilProg {
            * Create Civil Claim - Start Event 'Assign To Me'
     ==========================================================================================*/
       //  val returntocasedetailsafternotifydetails =
-      .group("Civil_SDOE_DRH_50_AssignToMe") {
-        exec(http("Civil_SDOE_DRH_50_005_AssignToMe")
+      .group("CUICPSC_SDOE_DRH_50_AssignToMe") {
+        exec(http("CUICPSC_SDOE_DRH_50_005_AssignToMe")
           .post("/workallocation/task/#{JudgeId}/claim")
           .headers(CivilDamagesHeader.MoneyClaimPostHeader)
           .header("accept", "application/json, text/plain, */*")
@@ -258,15 +318,15 @@ object SDOCivilProg {
      * Create Civil Claim - Start Event 'Directions - Small claims - DRH'
 ==========================================================================================*/
       // val returntocasedetailsafternotifydetails =
-      .group("Civil_SDOE_DRH_60_DirectionsDRH") {
-        exec(http("Civil_SDOE_DRH_60_005_DirectionsDRH")
+      .group("CUICPSC_SDOE_DRH_60_DirectionsDRH") {
+        exec(http("CUICPSC_SDOE_DRH_60_005_DirectionsDRH")
           .get("/cases/case-details/#{claimNumber}/trigger/CREATE_SDO/CREATE_SDOSmallClaims?tid=#{JudgeId}")
           .headers(CivilDamagesHeader.headers_notify)
           .header("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7")
           //  .check(substring("assignee"))
         )
           
-          .exec(http("Civil_SDOE_DRH_60_010_DirectionsDRH")
+          .exec(http("CUICPSC_SDOE_DRH_60_010_DirectionsDRH")
             .get(BaseURL + "/data/internal/cases/#{claimNumber}/event-triggers/CREATE_SDO?ignore-warning=false")
             .headers(CivilDamagesHeader.headers_notify)
             .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-start-event-trigger.v2+json;charset=UTF-8")
@@ -274,7 +334,7 @@ object SDOCivilProg {
            
             .check(jsonPath("$.event_token").saveAs("event_token"))
           )
-          .exec(getCookieValue(CookieKey("XSRF-TOKEN").withDomain(BaseURL.replace("https://", "")).saveAs("XSRFToken")))
+         // .exec(getCookieValue(CookieKey("XSRF-TOKEN").withDomain(BaseURL.replace("https://", "")).saveAs("XSRFToken")))
         
       }
       .pause(MinThinkTime, MaxThinkTime)
@@ -285,8 +345,8 @@ object SDOCivilProg {
      * Create Civil Claim - Do you wish to enter judgment for a sum of damages to be decided ?No
 ==========================================================================================*/
       // val returntocasedetailsafternotifydetails =
-      .group("Civil_SDOE_DRH_70_EnterJudgmentDamages") {
-        exec(http("Civil_SDOE_DRH_70_005_EnterJudgmentDamages")
+      .group("CUICPSC_SDOE_DRH_70_EnterJudgmentDamages") {
+        exec(http("CUICPSC_SDOE_DRH_70_005_EnterJudgmentDamages")
           .post("/data/case-types/CIVIL/validate?pageId=CREATE_SDOSDO")
           .headers(CivilDamagesHeader.MoneyClaimPostHeader)
           .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.case-data-validate.v2+json;charset=UTF-8")
@@ -303,8 +363,8 @@ object SDOCivilProg {
 * Create Civil Claim - What track are you allocating the claim to?
 ==========================================================================================*/
       // val returntocasedetailsafternotifydetails =
-      .group("Civil_SDOE_DRH_80_WhatTrackAllocating") {
-        exec(http("Civil_SDOE_DRH_80_005_WhatTrackAllocating")
+      .group("CUICPSC_SDOE_DRH_80_WhatTrackAllocating") {
+        exec(http("CUICPSC_SDOE_DRH_80_005_WhatTrackAllocating")
           .post("/data/case-types/CIVIL/validate?pageId=CREATE_SDOClaimsTrack")
           .headers(CivilDamagesHeader.MoneyClaimPostHeader)
           .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.case-data-validate.v2+json;charset=UTF-8")
@@ -319,8 +379,8 @@ object SDOCivilProg {
 * Create Civil Claim - Standard Direction Order Details
 ==========================================================================================*/
       // val returntocasedetailsafternotifydetails =
-      .group("Civil_SDOE_DRH_90_SDOdetails") {
-        exec(http("Civil_SDOE_DRH_90_005_SDOdetails")
+      .group("CUICPSC_SDOE_DRH_90_SDOdetails") {
+        exec(http("CUICPSC_SDOE_DRH_90_005_SDOdetails")
           .post("/data/case-types/CIVIL/validate?pageId=CREATE_SDOSdoR2SmallClaims")
           .headers(CivilDamagesHeader.MoneyClaimPostHeader)
           .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.case-data-validate.v2+json;charset=UTF-8")
@@ -342,8 +402,8 @@ object SDOCivilProg {
 * Create Civil Claim - Standard Direction Order Continue
 ==========================================================================================*/
       // val returntocasedetailsafternotifydetails =
-      .group("Civil_SDOE_DRH_100_SDOContinue") {
-        exec(http("Civil_SDOE_DRH_100_005_SDOContinue")
+      .group("CUICPSC_SDOE_DRH_100_SDOContinue") {
+        exec(http("CUICPSC_SDOE_DRH_100_005_SDOContinue")
           .post("/data/case-types/CIVIL/validate?pageId=pageId=CREATE_SDOOrderPreview")
           .headers(CivilDamagesHeader.MoneyClaimPostHeader)
           .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.case-data-validate.v2+json;charset=UTF-8")
@@ -360,17 +420,17 @@ object SDOCivilProg {
 * Create Civil Claim - Standard Direction Order Submit
 ==========================================================================================*/
       // val returntocasedetailsafternotifydetails =
-      .group("Civil_SDOE_DRH_110_SDOSubmit") {
-        exec(http("Civil_SDOE_DRH_110_005_SDOSubmit")
-          .post("/data/cases/#{caseId}/events")
+      .group("CUICPSC_SDOE_DRH_110_SDOSubmit") {
+        exec(http("CUICPSC_SDOE_DRH_110_005_SDOSubmit")
+          .post("/data/cases/#{claimNumber}/events")
           .headers(CivilDamagesHeader.MoneyClaimDefPostHeader)
           .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.create-event.v2+json;charset=UTF-8")
           .header("X-Xsrf-Token", "#{XSRFToken}")
           .body(ElFileBody("bodies/sdodrh/SDODRHSmallClaimsSubmit.json"))
           .check(substring("CASE_PROGRESSION"))
         )
-          .exec(http("Civil_SDOE_DRH_110_010_SDOSubmit")
-            .get("/ data/internal/cases/#{caseId}")
+          .exec(http("CUICPSC_SDOE_DRH_110_010_SDOSubmit")
+            .get("/ data/internal/cases/#{claimNumber}")
             .headers(CivilDamagesHeader.MoneyClaimPostHeader)
             .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-case-view.v2+json")
             .check(status.in(200, 201, 204, 304))
@@ -387,10 +447,10 @@ object SDOCivilProg {
   
   
   val SDORequestForReConsiderByTribunal =
-      group("Civil_SDOE_RFRByTri_30_CaseDetails") {
+      group("CUICPSC_SDOE_RFRByTri_30_CaseDetails") {
        
-          exec(http("Civil_SDOE_RFRByTri_30_005_CaseDetails")
-            .get(BaseURL + "/data/internal/cases/#{caseId}")
+          exec(http("CUICPSC_SDOE_RFRByTri_30_005_CaseDetails")
+            .get(BaseURL + "/data/internal/cases/#{claimNumber}")
             .headers(Headers.commonHeader)
             .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-case-view.v2+json")
             .check(substring("Civil"))
@@ -402,9 +462,9 @@ object SDOCivilProg {
            * Create Civil Claim - Click on Tasks Tab
     ==========================================================================================*/
       // val returntocasedetailsafternotifydetails =
-      .group("Civil_SDOE_RFRByTri_40_TaskTab") {
-        exec(http("Civil_SDOE_RFRByTri_40_005_TaskTab")
-          .post(BaseURL + "/workallocation/case/task/#{caseId}")
+      .group("CUICPSC_SDOE_RFRByTri_40_TaskTab") {
+        exec(http("CUICPSC_SDOE_RFRByTri_40_005_TaskTab")
+          .post(BaseURL + "/workallocation/case/task/#{claimNumber}")
           .headers(CivilDamagesHeader.MoneyClaimNav)
           .body(ElFileBody("bodies/sdorequestforreconsider/TaskTab.json"))
           .check(jsonPath("$[0].id").saveAs("TribunalJudgeId"))
@@ -418,8 +478,8 @@ object SDOCivilProg {
            * Create Civil Claim - Start Event 'Assign To Me'
     ==========================================================================================*/
       //  val returntocasedetailsafternotifydetails =
-      .group("Civil_SDOE_RFRByTri_50_AssignToMe") {
-        exec(http("Civil_SDOE_RFRByTri_50_005_AssignToMe")
+      .group("CUICPSC_SDOE_RFRByTri_50_AssignToMe") {
+        exec(http("CUICPSC_SDOE_RFRByTri_50_005_AssignToMe")
           .post("/workallocation/task/#{TribunalJudgeId}/claim")
           .headers(CivilDamagesHeader.MoneyClaimPostHeader)
           .header("accept", "application/json, text/plain, */*")
@@ -427,8 +487,8 @@ object SDOCivilProg {
           .check(status.in(200, 201, 204, 304))
           // .check(substring("assignee"))
         )
-        .exec(http("Civil_SDOE_RFRByTri_50_010_AssignToMe")
-          .post("/workallocation/case/task/#{caseId}")
+        .exec(http("CUICPSC_SDOE_RFRByTri_50_010_AssignToMe")
+          .post("/workallocation/case/task/#{claimNumber}")
           .headers(CivilDamagesHeader.MoneyClaimPostHeader)
           .header("accept", "application/json, text/plain, */*")
           .body(ElFileBody("bodies/sdorequestforreconsider/CaseTask.json"))
@@ -447,15 +507,15 @@ object SDOCivilProg {
      * Create Civil Claim - Start Event SDO 'Directions - Request For ReConsideration'
 ==========================================================================================*/
       // val returntocasedetailsafternotifydetails =
-      .group("Civil_SDOE_RFRByTri_60_DirectionsRFR") {
-        exec(http("Civil_SDOE_RFRByTri_60_005_DirectionsRFR")
-          .get("/cases/case-details/#{caseId}/trigger/CREATE_SDO/CREATE_SDOSmallClaims?tid=#{TribunalJudgeId}")
+      .group("CUICPSC_SDOE_RFRByTri_60_DirectionsRFR") {
+        exec(http("CUICPSC_SDOE_RFRByTri_60_005_DirectionsRFR")
+          .get("/cases/case-details/#{claimNumber}/trigger/CREATE_SDO/CREATE_SDOSmallClaims?tid=#{TribunalJudgeId}")
           .headers(CivilDamagesHeader.headers_notify)
           .header("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7")
           .check(status.in(200, 201, 204, 304))
         )
-          .exec(http("Civil_SDOE_RFRByTri_60_010_DirectionRFRCase")
-            .get("/data/internal/cases/#{caseId}/event-triggers/CREATE_SDO?ignore-warning=false")
+          .exec(http("CUICPSC_SDOE_RFRByTri_60_010_DirectionRFRCase")
+            .get("/data/internal/cases/#{claimNumber}/event-triggers/CREATE_SDO?ignore-warning=false")
             .headers(CivilDamagesHeader.headers_notify)
             .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-start-event-trigger.v2+json;charset=UTF-8")
             .check(substring("CREATE_SDO"))
@@ -464,11 +524,11 @@ object SDOCivilProg {
           )
           .exec(getCookieValue(CookieKey("XSRF-TOKEN").withDomain(BaseURL.replace("https://", "")).saveAs("XSRFToken")))
   
-          .exec(http("Civil_SDOE_RFRByTri_60_015_DirectionRFRCase")
-            .get("/data/internal/cases/#{caseId}")
+          .exec(http("CUICPSC_SDOE_RFRByTri_60_015_DirectionRFRCase")
+            .get("/data/internal/cases/#{claimNumber}")
             .headers(CivilDamagesHeader.headers_notify)
             .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-case-view.v2+json")
-            .check(substring("#{caseId}"))
+            .check(substring("#{claimNumber}"))
             .check(status.in(200, 201, 204, 304))
           )
         
@@ -483,8 +543,8 @@ object SDOCivilProg {
      * Create Civil Claim - Do you wish to enter judgment for a sum of damages to be decided ?No
 ==========================================================================================*/
       // val returntocasedetailsafternotifydetails =
-      .group("Civil_SDOE_RFRByTri_70_EnterJudgment") {
-        exec(http("Civil_SDOE_RFRByTri_70_005_EnterJudgment")
+      .group("CUICPSC_SDOE_RFRByTri_70_EnterJudgment") {
+        exec(http("CUICPSC_SDOE_RFRByTri_70_005_EnterJudgment")
           .post("/data/case-types/CIVIL/validate?pageId=CREATE_SDOSDO")
           .headers(CivilDamagesHeader.MoneyClaimPostHeader)
           .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.case-data-validate.v2+json;charset=UTF-8")
@@ -499,8 +559,8 @@ object SDOCivilProg {
 * Create Civil Claim - What track are you allocating the claim to?
 ==========================================================================================*/
       // val returntocasedetailsafternotifydetails =
-      .group("Civil_SDOE_RFRByTri_80_WhatTrackAllocating") {
-        exec(http("Civil_SDOE_RFRByTri_80_005_WhatTrackAllocating")
+      .group("CUICPSC_SDOE_RFRByTri_80_WhatTrackAllocating") {
+        exec(http("CUICPSC_SDOE_RFRByTri_80_005_WhatTrackAllocating")
           .post("/data/case-types/CIVIL/validate?pageId=CREATE_SDOClaimsTrack")
           .headers(CivilDamagesHeader.MoneyClaimPostHeader)
           .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.case-data-validate.v2+json;charset=UTF-8")
@@ -515,8 +575,8 @@ object SDOCivilProg {
 * Create Civil Claim - Standard Direction Order Details
 ==========================================================================================*/
       // val returntocasedetailsafternotifydetails =
-      .group("Civil_SDOE_RFRByTri_90_SDOdetails") {
-        exec(http("Civil_SDOE_RFRByTri_90_005_SDOdetails")
+      .group("CUICPSC_SDOE_RFRByTri_90_SDOdetails") {
+        exec(http("CUICPSC_SDOE_RFRByTri_90_005_SDOdetails")
           .post("/data/case-types/CIVIL/validate?pageId=CREATE_SDOSmallClaims")
           .headers(CivilDamagesHeader.MoneyClaimPostHeader)
           .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.case-data-validate.v2+json;charset=UTF-8")
@@ -538,8 +598,8 @@ object SDOCivilProg {
 * Create Civil Claim - Standard Direction Order Continue
 ==========================================================================================*/
       // val returntocasedetailsafternotifydetails =
-      .group("Civil_SDOE_RFRByTri_100_SDOContinue") {
-        exec(http("Civil_SDOE_RFRByTri_100_005_SDOContinue")
+      .group("CUICPSC_SDOE_RFRByTri_100_SDOContinue") {
+        exec(http("CUICPSC_SDOE_RFRByTri_100_005_SDOContinue")
           .post("/data/case-types/CIVIL/validate?pageId=pageId=CREATE_SDOOrderPreview")
           .headers(CivilDamagesHeader.MoneyClaimPostHeader)
           .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.case-data-validate.v2+json;charset=UTF-8")
@@ -555,17 +615,17 @@ object SDOCivilProg {
 * Create Civil Claim - Standard Direction Order Submit
 ==========================================================================================*/
       // val returntocasedetailsafternotifydetails =
-      .group("Civil_SDOE_RFRByTri_110_SDOSubmit") {
-        exec(http("Civil_SDOE_RFRTri_110_005_SDOSubmit")
-          .post("/data/cases/#{caseId}/events")
+      .group("CUICPSC_SDOE_RFRByTri_110_SDOSubmit") {
+        exec(http("CUICPSC_SDOE_RFRTri_110_005_SDOSubmit")
+          .post("/data/cases/#{claimNumber}/events")
           .headers(CivilDamagesHeader.MoneyClaimDefPostHeader)
           .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.create-event.v2+json;charset=UTF-8")
           .header("X-Xsrf-Token", "#{XSRFToken}")
           .body(ElFileBody("bodies/sdorequestforreconsider/SDOEnhancementsSmallClaimsSubmit.json"))
           .check(substring("CASE_PROGRESSION"))
         )
-          .exec(http("Civil_SDOE_RFRByTri_110_010_SDOSubmit")
-            .get("/data/internal/cases/#{caseId}")
+          .exec(http("CUICPSC_SDOE_RFRByTri_110_010_SDOSubmit")
+            .get("/data/internal/cases/#{claimNumber}")
             .headers(CivilDamagesHeader.MoneyClaimPostHeader)
             .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-case-view.v2+json")
             .check(substring("case_id"))
@@ -574,15 +634,15 @@ object SDOCivilProg {
       }
       .pause(MinThinkTime, MaxThinkTime)
   
-        .group("Civil_SDOE_RFRByTri_120_ViewCaseAfterSDOByTri") {
-            exec(http("Civil_SDOE_RFRByTri_120_005_ViewCaseByJudge")
-              .post(BaseURL + "/api/role-access/roles/manageLabellingRoleAssignment/#{caseId}")
+        .group("CUICPSC_SDOE_RFRByTri_120_ViewCaseAfterSDOByTri") {
+            exec(http("CUICPSC_SDOE_RFRByTri_120_005_ViewCaseByJudge")
+              .post(BaseURL + "/api/role-access/roles/manageLabellingRoleAssignment/#{claimNumber}")
               .headers(CivilDamagesHeader.MoneyClaimNav)
               .body(ElFileBody("bodies/sdorequestforreconsider/viewcasebyjudge.json"))
               .header("accept", "application/json, text/plain, */*")
               .check(status.in(200, 201, 204, 304)))
       
-            .exec(http("Civil_SDOE_RFRByTri_120_010_CaseDetails")
+            .exec(http("CUICPSC_SDOE_RFRByTri_120_010_CaseDetails")
               .get(BaseURL + "/api/wa-supported-jurisdiction/get")
               .headers(Headers.commonHeader)
               .header("accept", "application/json, text/plain, */*")

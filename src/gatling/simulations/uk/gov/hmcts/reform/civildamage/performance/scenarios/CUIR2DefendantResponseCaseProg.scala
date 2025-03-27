@@ -19,8 +19,8 @@ object CUIR2DefendantResponseCaseProg {
     /*======================================================================================
                    * Civil UI Claim - Respond to Claim- Click On Claim
         ==========================================================================================*/
-    group("CUIR2_DefResponse_030_ClickOnClaimToRespond") {
-      exec(http("CUIR2_DefResponse_030_005_ClickOnClaimToRespond")
+    group("CUICPSC_DefResponse_030_ClickOnClaimToRespond") {
+      exec(http("CUICPSC_DefResponse_030_005_ClickOnClaimToRespond")
         .get(CivilUiURL + "/dashboard/#{claimNumber}/defendant")
         .headers(CivilDamagesHeader.MoneyClaimNavHeader)
         .check(status.in(200, 304))
@@ -33,8 +33,8 @@ object CUIR2DefendantResponseCaseProg {
     /*======================================================================================
                * Civil UI Claim - click on Respond to Claim
     ==========================================================================================*/
-    .group("CUIR2_DefResponse_040_LanguagePreference") {
-      exec(http("CUIR2_DefResponse_040_005_LanguagePreference")
+    .group("CUICPSC_DefResponse_040_LanguagePreference") {
+      exec(http("CUICPSC_DefResponse_040_005_LanguagePreference")
         .get(CivilUiURL + "/case/#{claimNumber}/response/bilingual-language-preference")
         .headers(CivilDamagesHeader.MoneyClaimNavHeader)
         .check(CsrfCheck.save)
@@ -50,8 +50,8 @@ object CUIR2DefendantResponseCaseProg {
              * Civil UI Claim - Do you want to respond to this claim in Welsh?
   ==========================================================================================*/
 
-    .group("CUIR2_DefResponse_050_InWelshYesNo") {
-      exec(http("CUIR2_DefResponse_050_005_InWelshYesNo")
+    .group("CUICPSC_DefResponse_050_InWelshYesNo") {
+      exec(http("CUICPSC_DefResponse_050_005_InWelshYesNo")
         .post(CivilUiURL + "/case/#{claimNumber}/response/bilingual-language-preference")
         .headers(CivilDamagesHeader.CUIR2Post)
         .formParam("_csrf", "#{csrf}")
@@ -68,8 +68,8 @@ object CUIR2DefendantResponseCaseProg {
            * Civil UI Claim - Confirm Your Details Redirect
 ==========================================================================================*/
 
-    .group("CUIR2_DefResponse_060_ConfirmDefDetails") {
-      exec(http("CUIR2_DefResponse_060_005_ConfirmDefDetails")
+    .group("CUICPSC_DefResponse_060_ConfirmDefDetails") {
+      exec(http("CUICPSC_DefResponse_060_005_ConfirmDefDetails")
         .get(CivilUiURL + "/case/#{claimNumber}/response/your-details")
         .headers(CivilDamagesHeader.CUIR2Get)
         .check(CsrfCheck.save)
@@ -84,8 +84,8 @@ object CUIR2DefendantResponseCaseProg {
          * Civil UI Claim - Confirm Your Details Confirm
 ==========================================================================================*/
 
-    .group("CUIR2_DefResponse_070_ConfirmDetailsConfirm") {
-      exec(http("CUIR2_DefResponse_070_005_ConfirmDetailsConfirm")
+    .group("CUICPSC_DefResponse_070_ConfirmDetailsConfirm") {
+      exec(http("CUICPSC_DefResponse_070_005_ConfirmDetailsConfirm")
         .post(CivilUiURL + "/case/#{claimNumber}/response/your-details")
         .headers(CivilDamagesHeader.CUIR2Post)
         .formParam("_csrf", "#{csrf}")
@@ -117,8 +117,8 @@ object CUIR2DefendantResponseCaseProg {
          * Civil UI Claim - Enter your date of birth
 ==========================================================================================*/
 
-    .group("CUIR2_DefResponse_080_DateOfBirth") {
-      exec(http("CUIR2_DefResponse_080_005_DateOfBirth")
+    .group("CUICPSC_DefResponse_080_DateOfBirth") {
+      exec(http("CUICPSC_DefResponse_080_005_DateOfBirth")
         .post(CivilUiURL + "/case/#{claimNumber}/response/your-dob")
         .headers(CivilDamagesHeader.CUIR2Post)
         .formParam("_csrf", "#{csrf}")
@@ -137,8 +137,8 @@ object CUIR2DefendantResponseCaseProg {
        * Civil UI Claim - Enter a phone number
 ==========================================================================================*/
 
-    .group("CUIR2_DefResponse_090_PhoneNumber") {
-      exec(http("CUIR2_DefResponse_090_005_PhoneNumber")
+    .group("CUICPSC_DefResponse_090_PhoneNumber") {
+      exec(http("CUICPSC_DefResponse_090_005_PhoneNumber")
         .post(CivilUiURL + "/case/#{claimNumber}/response/your-phone")
         .headers(CivilDamagesHeader.CUIR2Post)
         .formParam("_csrf", "#{csrf}")
@@ -153,8 +153,8 @@ object CUIR2DefendantResponseCaseProg {
          * Civil UI Claim - View your options before response deadline -task list
 ==========================================================================================*/
 
-    .group("CUIR2_DefResponse_100_ViewOptions") {
-      exec(http("CUIR2_DefResponse_100_005_ViewOptions")
+    .group("CUICPSC_DefResponse_100_ViewOptions") {
+      exec(http("CUICPSC_DefResponse_100_005_ViewOptions")
         .get(CivilUiURL + "/case/#{claimNumber}/response/understanding-your-options")
         .headers(CivilDamagesHeader.CUIR2Get)
        // .check(CsrfCheck.save)
@@ -169,8 +169,8 @@ object CUIR2DefendantResponseCaseProg {
        * Civil UI Claim - Requesting extra time
 ==========================================================================================*/
 
-    .group("CUIR2_DefResponse_110_ExtraTime") {
-      exec(http("CUIR2_DefResponse_110_005_ExtraTime")
+    .group("CUICPSC_DefResponse_110_ExtraTime") {
+      exec(http("CUICPSC_DefResponse_110_005_ExtraTime")
         .get(CivilUiURL + "/case/#{claimNumber}/response/response-deadline-options")
         .headers(CivilDamagesHeader.CUIR2Get)
         .check(CsrfCheck.save)
@@ -186,8 +186,8 @@ object CUIR2DefendantResponseCaseProg {
      * Civil UI Claim - Response deadline - no
 ==========================================================================================*/
 
-    .group("CUIR2_DefResponse_120_ResponseDeadline") {
-      exec(http("CUIR2_DefResponse_120_005_ResponseDeadline")
+    .group("CUICPSC_DefResponse_120_ResponseDeadline") {
+      exec(http("CUICPSC_DefResponse_120_005_ResponseDeadline")
         .post(CivilUiURL + "/case/#{claimNumber}/response/response-deadline-options")
         .headers(CivilDamagesHeader.CUIR2Post)
         .formParam("_csrf", "#{csrf}")
@@ -203,8 +203,8 @@ object CUIR2DefendantResponseCaseProg {
          * Civil UI Claim - Choose A Response Redirect - task list
 ==========================================================================================*/
 
-    .group("CUIR2_DefResponse_130_ChooseAResponse") {
-      exec(http("CUIR2_DefResponse_130_005_ChooseAResponse")
+    .group("CUICPSC_DefResponse_130_ChooseAResponse") {
+      exec(http("CUICPSC_DefResponse_130_005_ChooseAResponse")
         .get(CivilUiURL + "/case/#{claimNumber}/response/response-type")
         .headers(CivilDamagesHeader.CUIR2Get)
         .check(CsrfCheck.save)
@@ -219,8 +219,8 @@ object CUIR2DefendantResponseCaseProg {
      * Civil UI Claim - How do you respond to the claim? - I admit part of the claim
 ==========================================================================================*/
 
-    .group("CUIR2_DefResponse_140_ResponseType") {
-      exec(http("CUIR2_DefResponse_140_005_ResponseType")
+    .group("CUICPSC_DefResponse_140_ResponseType") {
+      exec(http("CUICPSC_DefResponse_140_005_ResponseType")
         .post(CivilUiURL + "/case/#{claimNumber}/response/response-type")
         .headers(CivilDamagesHeader.CUIR2Post)
         .formParam("_csrf", "#{csrf}")
@@ -236,8 +236,8 @@ object CUIR2DefendantResponseCaseProg {
      * Civil UI Claim - Have you paid the claimant the amount you admit you owe? - no
 ==========================================================================================*/
 
-    .group("CUIR2_DefResponse_150_RejectAll") {
-      exec(http("CUIR2_DefResponse_150_005_RejectAll")
+    .group("CUICPSC_DefResponse_150_RejectAll") {
+      exec(http("CUICPSC_DefResponse_150_005_RejectAll")
         .post(CivilUiURL + "/case/#{claimNumber}/response/reject-all-of-claim")
         .headers(CivilDamagesHeader.CUIR2Post)
         .formParam("_csrf", "#{csrf}")
@@ -254,8 +254,8 @@ object CUIR2DefendantResponseCaseProg {
          * Civil UI Claim - Your Defence
 ==========================================================================================*/
 
-    .group("CUIR2_DefResponse_160_YourDefence") {
-      exec(http("CUIR2_DefResponse_160_005_YourDefence")
+    .group("CUICPSC_DefResponse_160_YourDefence") {
+      exec(http("CUICPSC_DefResponse_160_005_YourDefence")
         .get(CivilUiURL + "/case/#{claimNumber}/response/your-defence")
         .headers(CivilDamagesHeader.CUIR2Get)
         .check(CsrfCheck.save)
@@ -270,8 +270,8 @@ object CUIR2DefendantResponseCaseProg {
        * Civil UI Claim - How much money do you admit you owe?
 ==========================================================================================*/
 
-    .group("CUIR2_DefResponse_170_YourDefencePost") {
-      exec(http("CUIR2_DefResponse_170_005_YourDefencePost")
+    .group("CUICPSC_DefResponse_170_YourDefencePost") {
+      exec(http("CUICPSC_DefResponse_170_005_YourDefencePost")
         .post(CivilUiURL + "/case/#{claimNumber}/response/your-defence")
         .headers(CivilDamagesHeader.CUIR2Post)
         .formParam("_csrf", "#{csrf}")
@@ -287,8 +287,8 @@ object CUIR2DefendantResponseCaseProg {
    * Civil UI Claim - Add your timeline of events
 ==========================================================================================*/
 
-    .group("CUIR2_DefResponse_200_TimelineOfEvents") {
-      exec(http("CUIR2_DefResponse_200_005_TimelineOfEvents")
+    .group("CUICPSC_DefResponse_200_TimelineOfEvents") {
+      exec(http("CUICPSC_DefResponse_200_005_TimelineOfEvents")
         .post(CivilUiURL + "/case/#{claimNumber}/response/timeline")
         .headers(CivilDamagesHeader.CUIR2Post)
         .formParam("_csrf", "#{csrf}")
@@ -320,8 +320,8 @@ object CUIR2DefendantResponseCaseProg {
 ==========================================================================================*/
 
 
-.group("CUIR2_DefResponse_210_ListEvidence") {
-  exec(http("CUIR2_DefResponse_210_005_ListEvidence")
+.group("CUICPSC_DefResponse_210_ListEvidence") {
+  exec(http("CUICPSC_DefResponse_210_005_ListEvidence")
   .post(CivilUiURL + "/case/#{claimNumber}/response/evidence")
   .headers(CivilDamagesHeader.CUIR2Post)
   .formParam("_csrf", "#{csrf}")
@@ -343,8 +343,8 @@ object CUIR2DefendantResponseCaseProg {
        * Civil UI Claim - Free telephone mediation Redirect
 ==========================================================================================*/
 
-    .group("CUIR2_DefResponse_240_FreeTelephone") {
-      exec(http("CUIR2_DefResponse_240_005_FreeTelephone")
+    .group("CUICPSC_DefResponse_240_FreeTelephone") {
+      exec(http("CUICPSC_DefResponse_240_005_FreeTelephone")
         .get(CivilUiURL + "/case/#{claimNumber}/mediation/telephone-mediation")
         .headers(CivilDamagesHeader.CUIR2Get)
         .check(status.in(200, 304))
@@ -358,8 +358,8 @@ object CUIR2DefendantResponseCaseProg {
          * Civil UI Claim - How much money do you admit you owe?
   ==========================================================================================*/
   
-      .group("CUIR2_DefResponse_170_TelephoneMediation") {
-        exec(http("CUIR2_DefResponse_170_005_YourDefencePost")
+      .group("CUICPSC_DefResponse_170_TelephoneMediation") {
+        exec(http("CUICPSC_DefResponse_170_005_YourDefencePost")
           .post(CivilUiURL + "/case/#{claimNumber}/mediation/telephone-mediation")
           .headers(CivilDamagesHeader.CUIR2Post)
           .formParam("_csrf", "#{csrf}")
@@ -375,8 +375,8 @@ object CUIR2DefendantResponseCaseProg {
                * Civil UI Claim - Mediation Confirmation
           ==========================================================================================*/
   
-      .group("CUIR2_DefResponse_250_MediationConfirmation") {
-        exec(http("CUIR2_DefResponse_250_005_MediationConfirmation")
+      .group("CUICPSC_DefResponse_250_MediationConfirmation") {
+        exec(http("CUICPSC_DefResponse_250_005_MediationConfirmation")
           .get(CivilUiURL + "/case/#{claimNumber}/mediation/phone-confirmation")
           .headers(CivilDamagesHeader.CUIR2Get)
           .check(CsrfCheck.save)
@@ -390,8 +390,8 @@ object CUIR2DefendantResponseCaseProg {
     * Civil UI Claim - Confirm your telephone number - yes
     ==========================================================================================*/
   
-      .group("CUIR2_DefResponse_260_ConfirmNumber") {
-        exec(http("CUIR2_DefResponse_260_005_ConfirmNumber")
+      .group("CUICPSC_DefResponse_260_ConfirmNumber") {
+        exec(http("CUICPSC_DefResponse_260_005_ConfirmNumber")
           .post(CivilUiURL + "/case/#{claimNumber}/mediation/phone-confirmation")
           .headers(CivilDamagesHeader.CUIR2Post)
           .formParam("_csrf", "#{csrf}")
@@ -406,8 +406,8 @@ object CUIR2DefendantResponseCaseProg {
     * Civil UI Claim - Confirm your email - yes
     ==========================================================================================*/
   
-      .group("CUIR2_DefResponse_260_ConfirmEmail") {
-        exec(http("CUIR2_DefResponse_260_005_ConfirmEmail")
+      .group("CUICPSC_DefResponse_260_ConfirmEmail") {
+        exec(http("CUICPSC_DefResponse_260_005_ConfirmEmail")
           .post(CivilUiURL + "/case/#{claimNumber}/mediation/email-confirmation")
           .headers(CivilDamagesHeader.CUIR2Post)
           .formParam("_csrf", "#{csrf}")
@@ -422,8 +422,8 @@ object CUIR2DefendantResponseCaseProg {
     * Civil UI Claim - Confirm your dates for the mediation - No
     ==========================================================================================*/
   
-      .group("CUIR2_DefResponse_260_ConfirmMediationDates") {
-        exec(http("CUIR2_DefResponse_260_005_ConfirmMediationDates")
+      .group("CUICPSC_DefResponse_260_ConfirmMediationDates") {
+        exec(http("CUICPSC_DefResponse_260_005_ConfirmMediationDates")
           .post(CivilUiURL + "/case/#{claimNumber}/mediation/next-three-months")
           .headers(CivilDamagesHeader.CUIR2Post)
           .formParam("_csrf", "#{csrf}")
@@ -438,8 +438,8 @@ object CUIR2DefendantResponseCaseProg {
      * Civil UI Claim - Give us details in case there's a hearing Redirect
 ==========================================================================================*/
   
-      .group("CUIR2_DefResponse_270_GiveDetails") {
-        exec(http("CUIR2_DefResponse_270_005_GiveDetails")
+      .group("CUICPSC_DefResponse_270_GiveDetails") {
+        exec(http("CUICPSC_DefResponse_270_005_GiveDetails")
           .get(CivilUiURL + "/case/#{claimNumber}/directions-questionnaire/determination-without-hearing")
           .headers(CivilDamagesHeader.CUIR2Get)
           .check(CsrfCheck.save)
@@ -453,8 +453,8 @@ object CUIR2DefendantResponseCaseProg {
        * Civil UI Claim - Determination without Hearing Questions
   ==========================================================================================*/
   
-      .group("CUIR2_DefResponse_280_Determination") {
-        exec(http("CUIR2_DefResponse_280_005_Determination")
+      .group("CUICPSC_DefResponse_280_Determination") {
+        exec(http("CUICPSC_DefResponse_280_005_Determination")
           .post(CivilUiURL + "/case/#{claimNumber}/directions-questionnaire/determination-without-hearing")
           .headers(CivilDamagesHeader.CUIR2Post)
           .formParam("_csrf", "#{csrf}")
@@ -470,8 +470,8 @@ object CUIR2DefendantResponseCaseProg {
      * Civil UI Claim - Using an expert
   ==========================================================================================*/
   
-      .group("CUIR2_DefResponse_290_UsingExpert") {
-        exec(http("CUIR2_DefResponse_290_005_UsingExpert")
+      .group("CUICPSC_DefResponse_290_UsingExpert") {
+        exec(http("CUICPSC_DefResponse_290_005_UsingExpert")
           .post(CivilUiURL + "/case/#{claimNumber}/directions-questionnaire/expert")
           .headers(CivilDamagesHeader.CUIR2Post)
           .formParam("_csrf", "#{csrf}")
@@ -485,8 +485,8 @@ object CUIR2DefendantResponseCaseProg {
    * Civil UI Claim - Do you want to give evidence yourself? - yes
   ==========================================================================================*/
   
-      .group("CUIR2_DefResponse_300_GiveEvidence") {
-        exec(http("CUIR2_DefResponse_300_005_GiveEvidence")
+      .group("CUICPSC_DefResponse_300_GiveEvidence") {
+        exec(http("CUICPSC_DefResponse_300_005_GiveEvidence")
           .post(CivilUiURL + "/case/#{claimNumber}/directions-questionnaire/give-evidence-yourself")
           .headers(CivilDamagesHeader.CUIR2Post)
           .formParam("_csrf", "#{csrf}")
@@ -501,8 +501,8 @@ object CUIR2DefendantResponseCaseProg {
   * Civil UI Claim - Do you have other witnesses? - no
   ==========================================================================================*/
   
-      .group("CUIR2_DefResponse_310_OtherWitnesses") {
-        exec(http("CUIR2_DefResponse_310_005_OtherWitnesses")
+      .group("CUICPSC_DefResponse_310_OtherWitnesses") {
+        exec(http("CUICPSC_DefResponse_310_005_OtherWitnesses")
           .post(CivilUiURL + "/case/#{claimNumber}/directions-questionnaire/other-witnesses")
           .headers(CivilDamagesHeader.CUIR2Post)
           .formParam("_csrf", "#{csrf}")
@@ -522,8 +522,8 @@ object CUIR2DefendantResponseCaseProg {
   * Civil UI Claim - Are there any dates in the next 12 months when you, your experts or witnesses cannot go to a hearing? - no
   ==========================================================================================*/
   
-      .group("CUIR2_DefResponse_320_AnyDates") {
-        exec(http("CUIR2_DefResponse_320_005_AnyDates")
+      .group("CUICPSC_DefResponse_320_AnyDates") {
+        exec(http("CUICPSC_DefResponse_320_005_AnyDates")
           .post(CivilUiURL + "/case/#{claimNumber}/directions-questionnaire/cant-attend-hearing-in-next-12-months")
           .headers(CivilDamagesHeader.CUIR2Post)
           .formParam("_csrf", "#{csrf}")
@@ -539,8 +539,8 @@ object CUIR2DefendantResponseCaseProg {
   * Civil UI Claim - Do you want to ask for a telephone or video hearing? - yes
   ==========================================================================================*/
   
-      .group("CUIR2_DefResponse_330_AskForTelephone") {
-        exec(http("CUIR2_DefResponse_330_005_AskForTelephone")
+      .group("CUICPSC_DefResponse_330_AskForTelephone") {
+        exec(http("CUICPSC_DefResponse_330_005_AskForTelephone")
           .post(CivilUiURL + "/case/#{claimNumber}/directions-questionnaire/phone-or-video-hearing")
           .headers(CivilDamagesHeader.CUIR2Post)
           .formParam("_csrf", "#{csrf}")
@@ -556,8 +556,8 @@ object CUIR2DefendantResponseCaseProg {
   * Civil UI Claim - Are you, your experts or witnesses vulnerable in a way that the court needs to consider? - no
   ==========================================================================================*/
   
-      .group("CUIR2_DefResponse_340_Vulnerable") {
-        exec(http("CUIR2_DefResponse_340_005_Vulnerable")
+      .group("CUICPSC_DefResponse_340_Vulnerable") {
+        exec(http("CUICPSC_DefResponse_340_005_Vulnerable")
           .post(CivilUiURL + "/case/#{claimNumber}/directions-questionnaire/vulnerability")
           .headers(CivilDamagesHeader.CUIR2Post)
           .formParam("_csrf", "#{csrf}")
@@ -574,8 +574,8 @@ object CUIR2DefendantResponseCaseProg {
   * Civil UI Claim - Do you, your experts or witnesses need support to attend a hearing? - no
   ==========================================================================================*/
   
-      .group("CUIR2_DefResponse_350_NeedSupport") {
-        exec(http("CUIR2_DefResponse_350_005_NeedSupport")
+      .group("CUICPSC_DefResponse_350_NeedSupport") {
+        exec(http("CUICPSC_DefResponse_350_005_NeedSupport")
           .post(CivilUiURL + "/case/#{claimNumber}/directions-questionnaire/support-required")
           .headers(CivilDamagesHeader.CUIR2Post)
           .formParam("_csrf", "#{csrf}")
@@ -594,14 +594,13 @@ object CUIR2DefendantResponseCaseProg {
   * Civil UI Claim - Do you want to ask for the hearing to be held at a specific court? - no
   ==========================================================================================*/
   
-      .group("CUIR2_DefResponse_360_SpecifcCourt") {
-        exec(http("CUIR2_DefResponse_360_005_SpecifcCourt")
+      .group("CUICPSC_DefResponse_360_SpecifcCourt") {
+        exec(http("CUICPSC_DefResponse_360_005_SpecifcCourt")
           .post(CivilUiURL + "/case/#{claimNumber}/directions-questionnaire/court-location")
           .headers(CivilDamagesHeader.CUIR2Post)
           .formParam("_csrf", "#{csrf}")
-          .formParam("courtLocation", "")
-          .formParam("reason", "")
-          .formParam("option", "no")
+          .formParam("courtLocation", "Birmingham Civil and Family Justice Centre - Priory Courts, 33 Bull Street - B4 6DS")
+          .formParam("reason", "asasasasas")
           .check(substring("Welsh language"))
         )
       }
@@ -612,8 +611,8 @@ object CUIR2DefendantResponseCaseProg {
   * Civil UI Claim - Welsh language
   ==========================================================================================*/
   
-      .group("CUIR2_DefResponse_370_WelshLanguage") {
-        exec(http("CUIR2_DefResponse_370_005_WelshLanguage")
+      .group("CUICPSC_DefResponse_370_WelshLanguage") {
+        exec(http("CUICPSC_DefResponse_370_005_WelshLanguage")
           .post(CivilUiURL + "/case/#{claimNumber}/directions-questionnaire/welsh-language")
           .headers(CivilDamagesHeader.CUIR2Post)
           .formParam("_csrf", "#{csrf}")
@@ -627,8 +626,8 @@ object CUIR2DefendantResponseCaseProg {
       /*======================================================================================
                 * Civil Citizen -  2.Prepare your claim - CheckAndSendGet
       ==========================================================================================*/
-      .group("CUIR2_DefResponse_380_CheckYourAnswers") {
-        exec(http("CUIR2_DefResponse_380_CheckYourAnswers")
+      .group("CUICPSC_DefResponse_380_CheckYourAnswers") {
+        exec(http("CUICPSC_DefResponse_380_CheckYourAnswers")
           .get(CivilUiURL + "/case/#{claimNumber}/response/check-and-send")
           .headers(CivilDamagesHeader.CUIR2Get)
           .check(CsrfCheck.save)
@@ -641,8 +640,8 @@ object CUIR2DefendantResponseCaseProg {
       /*======================================================================================
                * Civil Citizen -  PCQ Questionaire Opt out
      ==========================================================================================*/
-      .group("CUIR2_DefResponse_390_PCQQuestionaire") {
-        exec(http("CUIR2_DefResponse_390_005_PCQQuestionaire")
+      .group("CUICPSC_DefResponse_390_PCQQuestionaire") {
+        exec(http("CUICPSC_DefResponse_390_005_PCQQuestionaire")
           .post("https://pcq.perftest.platform.hmcts.net/opt-out")
           .headers(CivilDamagesHeader.CUIR2Post)
           .formParam("_csrf", "#{csrf}")
@@ -656,8 +655,8 @@ object CUIR2DefendantResponseCaseProg {
     * Civil UI Claim - Check and submit your response Redirect
  ==========================================================================================*/
  
-    .group("CUIR2_DefResponse_380_CheckYourAnswers") {
-       exec(http("CUIR2_DefResponse_380_005_CheckYourAnswers")
+    .group("CUICPSC_DefResponse_380_CheckYourAnswers") {
+       exec(http("CUICPSC_DefResponse_380_005_CheckYourAnswers")
          .get(CivilUiURL + "/case/#{claimNumber}/response/check-and-send")
          .headers(CivilDamagesHeader.CUIR2Get)
         // .check(CsrfCheck.save)
@@ -672,8 +671,8 @@ object CUIR2DefendantResponseCaseProg {
   * Civil UI Claim - Check your answers
   ==========================================================================================*/
   
-      .group("CUIR2_DefResponse_390_CheckAndSubmit") {
-        exec(http("CUIR2_DefResponse_390_005_CheckYourAnswers")
+      .group("CUICPSC_DefResponse_390_CheckAndSubmit") {
+        exec(http("CUICPSC_DefResponse_390_005_CheckYourAnswers")
           .post(CivilUiURL + "/case/#{claimNumber}/response/check-and-send")
           .headers(CivilDamagesHeader.CUIR2Post)
           .formParam("_csrf", "#{csrf}")
