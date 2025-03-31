@@ -798,21 +798,21 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 				//Below is for upload claimant evidence
 				/*	.exec(CUIR2HomePage.CUIR2HomePage)
             .exec(CUIR2Login.CUIR2Login)
-       //     .exec(CUIR2DocUploadCaseProg.CaseProgUploadDocsByClaimant)
+           .exec(CUIR2DocUploadCaseProg.CaseProgUploadDocsByClaimant)
             .pause(10)
-        //    .exec(CUIR2DocUploadCaseProg.viewUploadedDocuments)
+           .exec(CUIR2DocUploadCaseProg.viewUploadedDocuments)
             .exec(CUIR2Logout.CUILogout)
             .pause(10)
             
             //below is the defendant upload documents
           .exec(CUIR2HomePage.CUIR2HomePage)
             .exec(CUIR2Login.CUIR2DefLogin)
-          //  .exec(CUIR2DocUploadCaseProg.CaseProgUploadDocsByDefendant)
+           .exec(CUIR2DocUploadCaseProg.CaseProgUploadDocsByDefendant)
             .pause(10)
-        //    .exec(CUIR2DocUploadCaseProg.viewUploadedDocuments)
+           .exec(CUIR2DocUploadCaseProg.viewUploadedDocuments)
             .exec(CUIR2Logout.CUILogout)
-            .pause(10)*/
-						
+            .pause(10)
+						*/
 				//Following is for creating the hearing notice for small claims
 			.exec(Homepage.XUIHomePage)
 				.exec(Login.XUICenterAdminLogin)
@@ -873,7 +873,7 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 				.exec(CUIR2Login.CUIR2ClaimantIntentionLogin)
 				.exec(CUIR2ClaimantIntentionCaseProgFastTrack.run)
 				.exec(CUIR2Logout.CUILogout)
-				.pause(10)
+				.pause(30)
 				// below is the SDO for fast track
 				.exec(Homepage.XUIHomePage)
 				.exec(Login.XUIJudgeLogin)
@@ -1043,8 +1043,8 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 		
 	//	SDOSmallClaimsCUIR2.inject(nothingFor(1),rampUsers(1) during (1)),
 		//SDOFastTrackCUIR2.inject(nothingFor(1),rampUsers(3) during (50)),
-		CUIR2SmallClaimsCaseProgression.inject(nothingFor(1),rampUsers(125) during (3000)),
-		CUIR2FastTrackCaseProgression.inject(nothingFor(50),rampUsers(125) during (3000)),
+		CUIR2SmallClaimsCaseProgression.inject(nothingFor(1),rampUsers(125) during (1800)),
+		CUIR2FastTrackCaseProgression.inject(nothingFor(50),rampUsers(125) during (1800)),
 	//	CivilUIR2ClaimCreationScenario.inject(nothingFor(50),rampUsers(125) during (3000))
 		
 		//Following is the spec claim end to end journey

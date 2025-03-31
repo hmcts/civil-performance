@@ -42,6 +42,7 @@ object SDOCivilProg {
       }
   
       .pause(MinThinkTime, MaxThinkTime)
+        .pause(30)
       
       /*======================================================================================
            * Create Civil Claim - Click on Tasks Tab
