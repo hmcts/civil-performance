@@ -771,7 +771,7 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 						.exec(CUIR2Login.CUIR2Login)
 						.exec(CUIR2ClaimCreation.run)
 						.exec(CUIR2Logout.CUILogout)
-						.pause(30)
+						.pause(20)
 						.exec(CivilAssignCase.cuiassign)
 						.pause(10)
 				}
@@ -1043,8 +1043,8 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 		
 	//	SDOSmallClaimsCUIR2.inject(nothingFor(1),rampUsers(1) during (1)),
 		//SDOFastTrackCUIR2.inject(nothingFor(1),rampUsers(3) during (50)),
-		CUIR2SmallClaimsCaseProgression.inject(nothingFor(1),rampUsers(125) during (1800)),
-		CUIR2FastTrackCaseProgression.inject(nothingFor(50),rampUsers(125) during (1800)),
+		CUIR2SmallClaimsCaseProgression.inject(nothingFor(1),rampUsers(125) during (2000)),
+		CUIR2FastTrackCaseProgression.inject(nothingFor(50),rampUsers(125) during (2000)),
 	//	CivilUIR2ClaimCreationScenario.inject(nothingFor(50),rampUsers(125) during (3000))
 		
 		//Following is the spec claim end to end journey
