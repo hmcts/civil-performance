@@ -173,6 +173,7 @@ object CUIR2ClaimantIntentionCaseProgFastTrack {
         .headers(CivilDamagesHeader.CivilCitizenPost)
         .formParam("_csrf", "#{csrf}")
         .formParam("option", "no")
+        .formParam("details", "")
          .check(CsrfCheck.save)
         .check(substring("Do you want to use expert evidence?")))
     }
@@ -183,8 +184,8 @@ object CUIR2ClaimantIntentionCaseProgFastTrack {
                * Civil Citizen - do you want to proceed with the claim post
     ==========================================================================================*/
     .group("CUICPFT_ClaimantIntention_130_ExpertEvidence") {
-      exec(http("CUICPFT_ClaimantIntention_130_005_DoYouProceedWithClaim")
-        .post(CitizenURL + "/case/#{claimNumber}/directions-questionnaire/ExpertEvidence")
+      exec(http("CUICPFT_ClaimantIntention_130_005_ExpertEvidence")
+        .post(CitizenURL + "/case/#{claimNumber}/directions-questionnaire/expert-evidence")
         .headers(CivilDamagesHeader.CivilCitizenPost)
         .formParam("_csrf", "#{csrf}")
         .formParam("option", "no")
@@ -199,7 +200,7 @@ object CUIR2ClaimantIntentionCaseProgFastTrack {
     ==========================================================================================*/
     .group("CUICPFT_ClaimantIntention_140_Evidence") {
       exec(http("CUICPFT_ClaimantIntention_140_005_DoYouProceedWithClaim")
-        .post(CitizenURL + "/case/#{claimNumber}/directions-questionnaire/Evidence")
+        .post(CitizenURL + "/case/#{claimNumber}/directions-questionnaire/give-evidence-yourself")
         .headers(CivilDamagesHeader.CivilCitizenPost)
         .formParam("_csrf", "#{csrf}")
         .formParam("option", "yes")

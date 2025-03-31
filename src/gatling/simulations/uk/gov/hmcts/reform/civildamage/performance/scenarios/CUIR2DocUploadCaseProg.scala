@@ -114,16 +114,16 @@ object CUIR2DocUploadCaseProg {
           .asMultipartForm
         //  .formParam("classification", "PUBLIC")
           .check(
-            // Extracting values from the JSON response and saving them to session variables
-            jsonPath("$.documentLink.document_url").saveAs("documentUrl"),
-            jsonPath("$.documentLink.document_binary_url").saveAs("documentBinaryUrl"),
-            jsonPath("$.documentLink.document_filename").saveAs("documentFilename"),
-            jsonPath("$.documentLink.document_hash").saveAs("documentHash"),
-            jsonPath("$.documentName").saveAs("documentName"),
-            jsonPath("$.documentSize").saveAs("documentSize"),
-            jsonPath("$.createdDatetime").saveAs("createdDatetime"),
-            jsonPath("$.createdBy").saveAs("createdBy")
+            regex(""""document_url":"(http[^"]+)"""").saveAs("documentUrl"),
+            regex(""""document_binary_url":"(http[^"]+)"""").saveAs("documentBinaryUrl"),
+            regex(""""document_filename":"([^"]+)"""").saveAs("documentFilename"),
+            regex(""""document_hash":"([a-fA-F0-9]+)"""").saveAs("documentHash"),
+            regex(""""documentSize":([0-9]+)""").saveAs("documentSize"),
+            regex(""""documentName":"([^"]+)"""").saveAs("documentName"),
+            regex(""""createdDatetime":"([^"]+)"""").saveAs("createdDatetime"),
+            regex(""""createdBy":"([^"]+)"""").saveAs("createdBy")
           )
+          .check(CsrfCheck.save)
           .check(substring("#{documentName}")))
       }
       .pause(MinThinkTime, MaxThinkTime)
@@ -135,15 +135,15 @@ object CUIR2DocUploadCaseProg {
     ==========================================================================================*/
     .group("CUICPSC_Claimant_UploadDocs_080_UploadDocsContinue") {
       exec(http("CUICPSC_Claimant_UploadDocs_080_005_UploadDocsContinue")
-        .post(CitizenURL+"/case/1742925439614693/case-progression/upload-documents?_csrf=#{csrf}")
+        .post(CitizenURL+"/case/#{claimNumber}/case-progression/upload-documents?_csrf=#{csrf}")
         .headers(Headers.uploadHeader)
        // .header("Content-Type", "application/x-www-form-urlencoded") // Ensure form-encoded data
   
         // Add other form parameters
-        .formParam("_csrf", "#{csrf}")
-       /* .formParam("witnessStatement[0][witnessName]", "asaas")
+      //  .formParam("_csrf", "#{csrf}")
+        .formParam("witnessStatement[0][witnessName]", "aasasasas")
         .formParam("witnessStatement[0][dateInputFields][dateDay]", "01")
-        .formParam("witnessStatement[0][dateInputFields][dateMonth]", "01")
+        .formParam("witnessStatement[0][dateInputFields][dateMonth]", "08")
         .formParam("witnessStatement[0][dateInputFields][dateYear]", "2024")
         .formParam(" witnessStatement[0][fileUpload]", "#{documentName}")
         
@@ -159,9 +159,8 @@ object CUIR2DocUploadCaseProg {
               "documentName": "#{documentName}",
               "documentSize": #{documentSize},
               "createdDatetime": "#{createdDatetime}",
-              "createdBy": "Civil"
+              "createdBy": "createdBy"
             }""".stripMargin.replaceAll("\n", "").replaceAll("  ", "")) // Convert to single-line JSON string
-  */
         // Optionally, check the response
         .check(CsrfCheck.save)
         .check(status.is(200)) // Adjust status code based on expected response
@@ -264,75 +263,77 @@ object CUIR2DocUploadCaseProg {
       }
       .pause(MinThinkTime, MaxThinkTime)
       .pause(10)
-      
-      
+  
+  
       /*======================================================================================
                * Civil Citizen - select doc types -upload witness statement file
     ==========================================================================================*/
       .group("CUICPFT_Claimant_UploadDocs_070_UploadFile") {
         exec(http("CUICPFT_Claimant_UploadDocs_070_005_UploadFile")
-          .post(CitizenURL + "/upload-file")
-          .headers(CivilDamagesHeader.CitizenSTUpload)
-          .header("accept", "*/*")
-          .header("content-type", "multipart/form-data; boundary=----WebKitFormBoundary1cdrHU4TGOqco6W7")
-          .header("sec-fetch-dest", "")
-          .header("sec-fetch-mode", "cors")
-          .header("csrf-token", "#{csrf}")
+          .post(CitizenURL + "/case/#{claimNumber}/case-progression/upload-documents?_csrf=#{csrf}")
+          .headers(Headers.uploadHeader)
+          .header("accept", "application/json, text/plain, */*")
+          .bodyPart(StringBodyPart("_csrf", "#{csrf}")) // CSRF token
+          .bodyPart(StringBodyPart("witnessStatement[0][witnessName]", "aasasasas"))
+          .bodyPart(StringBodyPart("witnessStatement[0][dateInputFields][dateDay]", "01"))
+          .bodyPart(StringBodyPart("witnessStatement[0][dateInputFields][dateMonth]", "08"))
+          .bodyPart(StringBodyPart("witnessStatement[0][dateInputFields][dateYear]", "2024"))
+          .bodyPart(StringBodyPart("action", "witnessStatement[0][uploadButton]"))
           .bodyPart(RawFileBodyPart("file", "3MB.pdf")
             .fileName("3MB.pdf")
             .transferEncoding("binary"))
           .asMultipartForm
+          //  .formParam("classification", "PUBLIC")
           .check(
-            // Extracting values from the JSON response and saving them to session variables
-            jsonPath("$.documentLink.document_url").saveAs("documentUrl"),
-            jsonPath("$.documentLink.document_binary_url").saveAs("documentBinaryUrl"),
-            jsonPath("$.documentLink.document_filename").saveAs("documentFilename"),
-            jsonPath("$.documentLink.document_hash").saveAs("documentHash"),
-            jsonPath("$.documentName").saveAs("documentName"),
-            jsonPath("$.documentSize").saveAs("documentSize"),
-            jsonPath("$.createdDatetime").saveAs("createdDatetime"),
-            jsonPath("$.createdBy").saveAs("createdBy")
+            regex(""""document_url":"(http[^"]+)"""").saveAs("documentUrl"),
+            regex(""""document_binary_url":"(http[^"]+)"""").saveAs("documentBinaryUrl"),
+            regex(""""document_filename":"([^"]+)"""").saveAs("documentFilename"),
+            regex(""""document_hash":"([a-fA-F0-9]+)"""").saveAs("documentHash"),
+            regex(""""documentSize":([0-9]+)""").saveAs("documentSize"),
+            regex(""""documentName":"([^"]+)"""").saveAs("documentName"),
+            regex(""""createdDatetime":"([^"]+)"""").saveAs("createdDatetime"),
+            regex(""""createdBy":"([^"]+)"""").saveAs("createdBy")
           )
+          .check(CsrfCheck.save)
           .check(substring("#{documentName}")))
       }
       .pause(MinThinkTime, MaxThinkTime)
-      
-      
-      
-      
+  
+  
+  
       /*======================================================================================
                * Civil Citizen - do you want to proceed with the claim post
     ==========================================================================================*/
       .group("CUICPFT_Claimant_UploadDocs_080_UploadDocsContinue") {
         exec(http("CUICPFT_Claimant_UploadDocs_080_005_UploadDocsContinue")
-          .post(CitizenURL + "/case/#{claimNumber}/case-progression/upload-documents")
-          .headers(CivilDamagesHeader.CivilCitizenPost)
-          .header("Content-Type", "application/x-www-form-urlencoded") // Ensure form-encoded data
-          
+          .post(CitizenURL + "/case/#[claimNumber}/case-progression/upload-documents?_csrf=#{csrf}")
+          .headers(Headers.uploadHeader)
+          // .header("Content-Type", "application/x-www-form-urlencoded") // Ensure form-encoded data
+      
           // Add other form parameters
-          .formParam("_csrf", "#{csrf}")
-          .formParam("witnessStatement[0][witnessName]", "asaas")
+          //  .formParam("_csrf", "#{csrf}")
+          .formParam("witnessStatement[0][witnessName]", "aasasasas")
           .formParam("witnessStatement[0][dateInputFields][dateDay]", "01")
-          .formParam("witnessStatement[0][dateInputFields][dateMonth]", "01")
+          .formParam("witnessStatement[0][dateInputFields][dateMonth]", "08")
           .formParam("witnessStatement[0][dateInputFields][dateYear]", "2024")
           .formParam(" witnessStatement[0][fileUpload]", "#{documentName}")
-          
+      
           // JSON as a single string form parameter
           .formParam("witnessStatement[0][caseDocument]",
             """{
-              "documentLink": {
-                "document_url": "#{documentUrl}",
-                "document_binary_url": "#{documentBinaryUrl}",
-                "document_filename": "#{documentFilename}",
-                "document_hash": "#{documentHash}"
-              },
-              "documentName": "#{documentName}",
-              "documentSize": #{documentSize},
-              "createdDatetime": "#{createdDatetime}",
-              "createdBy": "Civil"
-            }""".stripMargin.replaceAll("\n", "").replaceAll("  ", "")) // Convert to single-line JSON string
-          
+             "documentLink": {
+               "document_url": "#{documentUrl}",
+               "document_binary_url": "#{documentBinaryUrl}",
+               "document_filename": "#{documentFilename}",
+               "document_hash": "#{documentHash}"
+             },
+             "documentName": "#{documentName}",
+             "documentSize": #{documentSize},
+             "createdDatetime": "#{createdDatetime}",
+             "createdBy": "createdBy"
+           }""".stripMargin.replaceAll("\n", "").replaceAll("  ", "")) // Convert to single-line JSON string
           // Optionally, check the response
+          .check(CsrfCheck.save)
           .check(status.is(200)) // Adjust status code based on expected response
         )
       }
@@ -441,81 +442,78 @@ object CUIR2DocUploadCaseProg {
   
   
   
-    /*======================================================================================
-             * Civil Citizen - select doc types -upload witness statement file
-  ==========================================================================================*/
-    .group("CUICPSC_Def_UploadDocs_070_UploadFile") {
-      exec(http("CUICPSC_Def_UploadDocs_070_005_UploadFile")
-        .post(CitizenURL + "/case/#{claimNumber}/case-progression/upload-documents?_csrf=#{csrf}")
-        .headers(Headers.uploadHeader)
-        // .header("accept", "*/*")
-        // .header("content-type", "multipart/form-data; boundary=----WebKitFormBoundary1cdrHU4TGOqco6W7")
-        //  .header("sec-fetch-dest", "document")
-        //  .header("sec-fetch-mode", "navigate")
-        .formParam("csrf-token", "#{csrf}")
-        .bodyPart(RawFileBodyPart("file", "1MB-C.pdf")
-          .fileName("1MB-C.pdf")
-          .transferEncoding("binary"))
-        .asMultipartForm
-        /*.check(
-          // Extracting values from the JSON response and saving them to session variables
-          jsonPath("$.documentLink.document_url").saveAs("documentUrl"),
-          jsonPath("$.documentLink.document_binary_url").saveAs("documentBinaryUrl"),
-          jsonPath("$.documentLink.document_filename").saveAs("documentFilename"),
-          jsonPath("$.documentLink.document_hash").saveAs("documentHash"),
-          jsonPath("$.documentName").saveAs("documentName"),
-          jsonPath("$.documentSize").saveAs("documentSize"),
-          jsonPath("$.createdDatetime").saveAs("createdDatetime"),
-          jsonPath("$.createdBy").saveAs("createdBy")
+      /*======================================================================================
+               * Civil Citizen - select doc types -upload witness statement file
+    ==========================================================================================*/
+      .group("CUICPSC_Claimant_UploadDocs_070_UploadFile") {
+        exec(http("CUICPFT_Claimant_UploadDocs_070_005_UploadFile")
+          .post(CitizenURL + "/case/#{claimNumber}/case-progression/upload-documents?_csrf=#{csrf}")
+          .headers(Headers.uploadHeader)
+          .header("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7")
+          .formParam("_csrf", "#{csrf}")
+         /* .formParam("witnessStatement[0][witnessName]", "aasasasas")
+          .formParam("witnessStatement[0][dateInputFields][dateDay]", "01")
+          .formParam("witnessStatement[0][dateInputFields][dateMonth]", "08")
+          .formParam("witnessStatement[0][dateInputFields][dateYear]", "2024")*/
+          .bodyPart(RawFileBodyPart("file", "3MB.pdf")
+            .fileName("3MB.pdf")
+            .transferEncoding("binary"))
+          .asMultipartForm
+          //  .formParam("classification", "PUBLIC")
+          .check(
+            regex(""""document_url":"(http[^"]+)"""").saveAs("documentUrl"),
+            regex(""""document_binary_url":"(http[^"]+)"""").saveAs("documentBinaryUrl"),
+            regex(""""document_filename":"([^"]+)"""").saveAs("documentFilename"),
+            regex(""""document_hash":"([a-fA-F0-9]+)"""").saveAs("documentHash"),
+            regex(""""documentSize":([0-9]+)""").saveAs("documentSize"),
+            regex(""""documentName":"([^"]+)"""").saveAs("documentName"),
+            regex(""""createdDatetime":"([^"]+)"""").saveAs("createdDatetime"),
+            regex(""""createdBy":"([^"]+)"""").saveAs("createdBy")
+          )
+          .check(CsrfCheck.save)
+          .check(substring("#{documentName}")))
+      }
+      .pause(MinThinkTime, MaxThinkTime)
+  
+  
+  
+      /*======================================================================================
+               * Civil Citizen - do you want to proceed with the claim post
+    ==========================================================================================*/
+      .group("CUICPSC_Claimant_UploadDocs_080_UploadDocsContinue") {
+        exec(http("CUICPSC_Claimant_UploadDocs_080_005_UploadDocsContinue")
+          .post(CitizenURL + "/case/#{claimNumber}/case-progression/upload-documents?_csrf=#{csrf}")
+          .headers(Headers.uploadHeader)
+          // .header("Content-Type", "application/x-www-form-urlencoded") // Ensure form-encoded data
+      
+          // Add other form parameters
+          //  .formParam("_csrf", "#{csrf}")
+          .formParam("witnessStatement[0][witnessName]", "aasasasas")
+          .formParam("witnessStatement[0][dateInputFields][dateDay]", "01")
+          .formParam("witnessStatement[0][dateInputFields][dateMonth]", "08")
+          .formParam("witnessStatement[0][dateInputFields][dateYear]", "2024")
+          .formParam(" witnessStatement[0][fileUpload]", "#{documentName}")
+      
+          // JSON as a single string form parameter
+          .formParam("witnessStatement[0][caseDocument]",
+            """{
+           "documentLink": {
+             "document_url": "#{documentUrl}",
+             "document_binary_url": "#{documentBinaryUrl}",
+             "document_filename": "#{documentFilename}",
+             "document_hash": "#{documentHash}"
+           },
+           "documentName": "#{documentName}",
+           "documentSize": #{documentSize},
+           "createdDatetime": "#{createdDatetime}",
+           "createdBy": "createdBy"
+         }""".stripMargin.replaceAll("\n", "").replaceAll("  ", "")) // Convert to single-line JSON string
+          // Optionally, check the response
+          .check(CsrfCheck.save)
+          .check(status.is(200)) // Adjust status code based on expected response
         )
-        .check(substring("#{documentName}")))*/
-        .check(CsrfCheck.save)
-      )
-    }
-    .pause(MinThinkTime, MaxThinkTime)
-  
-  
-  
-  
-    /*======================================================================================
-             * Civil Citizen - do you want to proceed with the claim post
-  ==========================================================================================*/
-    .group("CUICPSC_Def_UploadDocs_080_UploadDocsContinue") {
-      exec(http("CUICPSC_Def_UploadDocs_080_005_UploadDocsContinue")
-        .post(CitizenURL + "/case/1742925439614693/case-progression/upload-documents?_csrf=#{csrf}")
-        .headers(Headers.uploadHeader)
-        // .header("Content-Type", "application/x-www-form-urlencoded") // Ensure form-encoded data
-  
-        // Add other form parameters
-        .formParam("_csrf", "#{csrf}")
-        /* .formParam("witnessStatement[0][witnessName]", "asaas")
-         .formParam("witnessStatement[0][dateInputFields][dateDay]", "01")
-         .formParam("witnessStatement[0][dateInputFields][dateMonth]", "01")
-         .formParam("witnessStatement[0][dateInputFields][dateYear]", "2024")
-         .formParam(" witnessStatement[0][fileUpload]", "#{documentName}")
-         
-         // JSON as a single string form parameter
-         .formParam("witnessStatement[0][caseDocument]",
-           """{
-               "documentLink": {
-                 "document_url": "#{documentUrl}",
-                 "document_binary_url": "#{documentBinaryUrl}",
-                 "document_filename": "#{documentFilename}",
-                 "document_hash": "#{documentHash}"
-               },
-               "documentName": "#{documentName}",
-               "documentSize": #{documentSize},
-               "createdDatetime": "#{createdDatetime}",
-               "createdBy": "Civil"
-             }""".stripMargin.replaceAll("\n", "").replaceAll("  ", "")) // Convert to single-line JSON string
-   */
-        // Optionally, check the response
-        .check(CsrfCheck.save)
-        .check(status.is(200)) // Adjust status code based on expected response
-      )
-    }
-    .pause(MinThinkTime, MaxThinkTime)
-  
+      }
+      .pause(MinThinkTime, MaxThinkTime)
   
   
     /*======================================================================================
@@ -616,84 +614,83 @@ object CUIR2DocUploadCaseProg {
             .check(substring("Witness evidence")))
       }
       .pause(MinThinkTime, MaxThinkTime)
-      
-      
-      
-      
-      
+  
+  
+  
+  
       /*======================================================================================
                * Civil Citizen - select doc types -upload witness statement file
     ==========================================================================================*/
-      .group("CUICPFT_Def_UploadDocs_070_UploadFile") {
-        exec(http("CUICPFT_Def_UploadDocs_070_005_UploadFile")
-          .post(CitizenURL + "/upload-file")
-          .headers(CivilDamagesHeader.CitizenSTUpload)
-          .header("accept", "*/*")
-          .header("content-type", "multipart/form-data; boundary=----WebKitFormBoundary1cdrHU4TGOqco6W7")
-          .header("sec-fetch-dest", "")
-          .header("sec-fetch-mode", "cors")
-          .header("csrf-token", "#{csrf}")
-          .bodyPart(RawFileBodyPart("file", "1MB-c.pdf")
-            .fileName("1MB-c.pdf")
+      .group("CUICPSC_Claimant_UploadDocs_070_UploadFile") {
+        exec(http("CUICPFT_Claimant_UploadDocs_070_005_UploadFile")
+          .post(CitizenURL + "/case/#{claimNumber}/case-progression/upload-documents?_csrf=#{csrf}")
+          .headers(Headers.uploadHeader)
+          .header("accept", "application/json, text/plain, */*")
+          .bodyPart(StringBodyPart("_csrf", "#{csrf}")) // CSRF token
+          .bodyPart(StringBodyPart("witnessStatement[0][witnessName]", "aasasasas"))
+          .bodyPart(StringBodyPart("witnessStatement[0][dateInputFields][dateDay]", "01"))
+          .bodyPart(StringBodyPart("witnessStatement[0][dateInputFields][dateMonth]", "08"))
+          .bodyPart(StringBodyPart("witnessStatement[0][dateInputFields][dateYear]", "2024"))
+          .bodyPart(StringBodyPart("action", "witnessStatement[0][uploadButton]"))
+          .bodyPart(RawFileBodyPart("file", "3MB.pdf")
+            .fileName("3MB.pdf")
             .transferEncoding("binary"))
           .asMultipartForm
+          //  .formParam("classification", "PUBLIC")
           .check(
-            // Extracting values from the JSON response and saving them to session variables
-            jsonPath("$.documentLink.document_url").saveAs("documentUrl"),
-            jsonPath("$.documentLink.document_binary_url").saveAs("documentBinaryUrl"),
-            jsonPath("$.documentLink.document_filename").saveAs("documentFilename"),
-            jsonPath("$.documentLink.document_hash").saveAs("documentHash"),
-            jsonPath("$.documentName").saveAs("documentName"),
-            jsonPath("$.documentSize").saveAs("documentSize"),
-            jsonPath("$.createdDatetime").saveAs("createdDatetime"),
-            jsonPath("$.createdBy").saveAs("createdBy")
+            regex(""""document_url":"(http[^"]+)"""").saveAs("documentUrl"),
+            regex(""""document_binary_url":"(http[^"]+)"""").saveAs("documentBinaryUrl"),
+            regex(""""document_filename":"([^"]+)"""").saveAs("documentFilename"),
+            regex(""""document_hash":"([a-fA-F0-9]+)"""").saveAs("documentHash"),
+            regex(""""documentSize":([0-9]+)""").saveAs("documentSize"),
+            regex(""""documentName":"([^"]+)"""").saveAs("documentName"),
+            regex(""""createdDatetime":"([^"]+)"""").saveAs("createdDatetime"),
+            regex(""""createdBy":"([^"]+)"""").saveAs("createdBy")
           )
+          .check(CsrfCheck.save)
           .check(substring("#{documentName}")))
       }
       .pause(MinThinkTime, MaxThinkTime)
-      
-      
-      
-      
+  
+  
+  
       /*======================================================================================
                * Civil Citizen - do you want to proceed with the claim post
     ==========================================================================================*/
-      .group("CUICPFT_Def_UploadDocs_080_UploadDocsContinue") {
-        exec(http("CUICPFT_Def_UploadDocs_080_005_UploadDocsContinue")
-          .post(CitizenURL + "/case/#{claimNumber}/case-progression/upload-documents")
-          .headers(CivilDamagesHeader.CivilCitizenPost)
-          .header("Content-Type", "application/x-www-form-urlencoded") // Ensure form-encoded data
-          
+      .group("CUICPSC_Claimant_UploadDocs_080_UploadDocsContinue") {
+        exec(http("CUICPSC_Claimant_UploadDocs_080_005_UploadDocsContinue")
+          .post(CitizenURL + "/case/#{claimNumber}/case-progression/upload-documents?_csrf=#{csrf}")
+          .headers(Headers.uploadHeader)
+          // .header("Content-Type", "application/x-www-form-urlencoded") // Ensure form-encoded data
+      
           // Add other form parameters
-          .formParam("_csrf", "#{csrf}")
-          .formParam("witnessStatement[0][witnessName]", "asaas")
+          //  .formParam("_csrf", "#{csrf}")
+          .formParam("witnessStatement[0][witnessName]", "aasasasas")
           .formParam("witnessStatement[0][dateInputFields][dateDay]", "01")
-          .formParam("witnessStatement[0][dateInputFields][dateMonth]", "01")
+          .formParam("witnessStatement[0][dateInputFields][dateMonth]", "08")
           .formParam("witnessStatement[0][dateInputFields][dateYear]", "2024")
           .formParam(" witnessStatement[0][fileUpload]", "#{documentName}")
-          
+      
           // JSON as a single string form parameter
           .formParam("witnessStatement[0][caseDocument]",
             """{
-           "documentLink": {
-             "document_url": "#{documentUrl}",
-             "document_binary_url": "#{documentBinaryUrl}",
-             "document_filename": "#{documentFilename}",
-             "document_hash": "#{documentHash}"
-           },
-           "documentName": "#{documentName}",
-           "documentSize": #{documentSize},
-           "createdDatetime": "#{createdDatetime}",
-           "createdBy": "Civil"
-         }""".stripMargin.replaceAll("\n", "").replaceAll("  ", "")) // Convert to single-line JSON string
-          
+          "documentLink": {
+            "document_url": "#{documentUrl}",
+            "document_binary_url": "#{documentBinaryUrl}",
+            "document_filename": "#{documentFilename}",
+            "document_hash": "#{documentHash}"
+          },
+          "documentName": "#{documentName}",
+          "documentSize": #{documentSize},
+          "createdDatetime": "#{createdDatetime}",
+          "createdBy": "createdBy"
+        }""".stripMargin.replaceAll("\n", "").replaceAll("  ", "")) // Convert to single-line JSON string
           // Optionally, check the response
+          .check(CsrfCheck.save)
           .check(status.is(200)) // Adjust status code based on expected response
         )
       }
       .pause(MinThinkTime, MaxThinkTime)
-      
-      
       
       /*======================================================================================
      * Civil UI Claim - Check your answers
