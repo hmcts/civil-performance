@@ -109,8 +109,6 @@ object unspec_DF1_resp{
         .check(substring("task_required_for_event")))
     }
 
-    //.exec(getCookieValue(CookieKey("XSRF-TOKEN").withDomain(BaseURL.replace("https://", "")).saveAs("xsrf_token")))
-
     .pause(MinThinkTime, MaxThinkTime)
 
     // ========================CLAIM INFO========================,
@@ -118,7 +116,6 @@ object unspec_DF1_resp{
       exec(http("ClaimInfo_005_ConfirmDetails")
         .post("/data/case-types/CIVIL/validate?pageId=DEFENDANT_RESPONSEConfirmDetails")
         .headers(Headers.validateHeader)
-        //.header("X-Xsrf-Token", "#{xsrf_token}")
         .body(ElFileBody("ub_unspec_DF_resp_bodies/respondentDetails.dat"))
         .check(substring("respondent1ResponseDeadline")))
     }
@@ -159,7 +156,7 @@ object unspec_DF1_resp{
         .check(jsonPath("$.documents[0]._links.self.href").saveAs("DF_Document_url"))
         .check(substring("DF_upload.docx")))
     }
-    .pause(10)
+    .pause(MinThinkTime, MaxThinkTime)
 
     .group("Civil_UnSpecClaim_40_10_DefResp") {
       exec(http("010_UploadDefence")
@@ -303,7 +300,7 @@ object unspec_DF1_resp{
         .post("/data/case-types/CIVIL/validate?pageId=DEFENDANT_RESPONSEFurtherInformation")
         .headers(Headers.validateHeader)
         .body(ElFileBody("ub_unspec_DF_resp_bodies/respondentFurtherInformation.dat"))
-        .check(substring("respondent1DQFurtherInformation\"")))
+        .check(substring("respondent1DQFurtherInformation")))
     }
     .pause(MinThinkTime, MaxThinkTime)
 

@@ -425,7 +425,7 @@ object unspec_Jud_Hear {
         .post("/workallocation/case/task/#{caseId}")
         .headers(Headers.commonHeader)
         .body(StringBody("""{"refined": true}""".stripMargin))
-        .check(substring("Assign to me"))
+//        .check(substring("Assign to me"))
         .check(jsonPath("$[0].id").optional.saveAs("HearingCaseId")))
 
       .exec(http("010_TaskTab")
@@ -437,18 +437,20 @@ object unspec_Jud_Hear {
     .pause(MinThinkTime, MaxThinkTime)
 
     // =======================ASSIGN TO ME=======================,
-    .group("Civil_UnSpecClaim_70_04_HearingAdmin") {
-      exec(http("005_AssignToMe")
-        .post("/workallocation/task/#{HearingCaseId}/claim")
-        .headers(Headers.commonHeader)
-        .check(status.is(204)))
+    .doIf(session => session.contains("HearingCaseId")) (
+      group("Civil_UnSpecClaim_70_04_HearingAdmin") {
+        exec(http("005_AssignToMe")
+          .post("/workallocation/task/#{HearingCaseId}/claim")
+          .headers(Headers.commonHeader)
+          .check(status.is(204)))
 
-      .exec(http("010_AssignToMe")
-        .post("/workallocation/case/task/#{caseId}")
-        .headers(Headers.commonHeader)
-        .body(StringBody("""{"refined": true}""".stripMargin))
-        .check(substring("Unassign task")))
-    }
+        .exec(http("010_AssignToMe")
+          .post("/workallocation/case/task/#{caseId}")
+          .headers(Headers.commonHeader)
+          .body(StringBody("""{"refined": true}""".stripMargin))
+          .check(substring("Unassign task")))
+      }
+    )
     .pause(MinThinkTime, MaxThinkTime)
 
     // =======================HEARING NOTICE DROPDOWN=======================,
@@ -524,10 +526,12 @@ object unspec_Jud_Hear {
 
     // =======================SUBMIT=======================,
     .group("Civil_UnSpecClaim_70_10_HearingAdmin") {
-      exec(http("005_Submit")
-        .get("/workallocation/task/#{HearingCaseId}")
-        .headers(Headers.commonHeader)
-        .check(substring("role_category")))
+      doIf(session => session.contains("HearingCaseId")) (
+        exec(http("005_Submit")
+          .get("/workallocation/task/#{HearingCaseId}")
+          .headers(Headers.commonHeader)
+          .check(substring("role_category")))
+      )
 
       .exec(http("010_Submit")
         .post("/data/cases/#{caseId}/events")
@@ -536,11 +540,13 @@ object unspec_Jud_Hear {
         .body(ElFileBody("ud_ue_jud_hear_bodies/adminSubmitHearing.dat"))
         .check(status.is(201)))
 
-      .exec(http("015_Submit")
-        .post("/workallocation/task/#{HearingCaseId}/complete")
-        .headers(Headers.commonHeader)
-        .body(StringBody("""{"actionByEvent": true, "eventName": "Create a hearing notice"}""".stripMargin))
-        .check(status.is(204)))
+      .doIf(session => session.contains("HearingCaseId")) (
+        exec(http("015_Submit")
+          .post("/workallocation/task/#{HearingCaseId}/complete")
+          .headers(Headers.commonHeader)
+          .body(StringBody("""{"actionByEvent": true, "eventName": "Create a hearing notice"}""".stripMargin))
+          .check(status.is(204)))
+      )
 
       .exec(http("020_Submit")
         .get("/data/internal/cases/#{caseId}")

@@ -1,5 +1,6 @@
 {
   "data": {
+    "respondent2DQLanguage": null,
     "applicant1DQLanguage": {
       "court": "ENGLISH",
       "documents": "ENGLISH",
@@ -8,8 +9,7 @@
     "respondent1DQLanguage": {
       "court": "ENGLISH",
       "documents": "ENGLISH"
-    },
-    "respondent2DQLanguage": null
+    }
   },
   "event": {
     "id": "CLAIMANT_RESPONSE_SPEC",
@@ -21,24 +21,30 @@
     "claimantResponseScenarioFlag": "ONE_V_ONE",
     "respondToAdmittedClaimOwingAmountPounds": null,
     "featureToggleWA": "Prod",
-    "respondent1PaymentDateToStringSpec": "02 December 2024",
+    "respondent1PaymentDateToStringSpec": "04 April 2025",
     "respondent1ClaimResponseDocumentSpec": {
-      "documentLink": null,
-      "documentName": null,
-      "documentType": null,
-      "documentSize": null,
-      "createdDatetime": null,
-      "createdBy": null,
+      "documentLink": {
+        "document_url": "#{document_url}",
+        "document_binary_url": "#{document_url}/binary",
+        "document_filename": "#{document_filename}",
+        "category_id": "defendant1DefenseDirectionsQuestionnaire",
+        "upload_timestamp": "2025-03-28T15:04:20.025296100"
+      },
+      "documentName": "#{document_filename}",
+      "documentType": "DEFENDANT_DEFENCE",
+      "documentSize": "#{document_size}",
+      "createdDatetime": "#{createDateTime}",
+      "createdBy": "Civil",
       "ownedBy": null
     },
     "applicant1ProceedWithClaim": "Yes",
     "applicantDefenceResponseDocumentAndDQFlag": "Yes",
     "showConditionFlags": [
-      "SOMEONE_DISPUTES",
-      "VULNERABILITY",
       "ONLY_RESPONDENT_1_DISPUTES",
-      "TIMELINE_MANUALLY",
-      "CAN_ANSWER_RESPONDENT_1"
+      "SOMEONE_DISPUTES",
+      "CAN_ANSWER_RESPONDENT_1",
+      "VULNERABILITY",
+      "TIMELINE_MANUALLY"
     ],
     "responseClaimTrack": "SMALL_CLAIM",
     "allocatedTrack": null,
@@ -64,7 +70,8 @@
       "witnessesToAppear": "No",
       "details": []
     },
-    "applicant1ClaimWitnesses": "2",
+    "applicant1ClaimWitnesses": "1",
+    "respondent2DQLanguage": null,
     "applicant1DQLanguage": {
       "court": "ENGLISH",
       "documents": "ENGLISH",
@@ -73,8 +80,7 @@
     "respondent1DQLanguage": {
       "court": "ENGLISH",
       "documents": "ENGLISH"
-    },
-    "respondent2DQLanguage": null
+    }
   },
   "event_token": "#{event_token}",
   "ignore_warning": false,

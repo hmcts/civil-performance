@@ -16,25 +16,31 @@
     "partAdmitPaidValuePounds": null,
     "claimantResponseScenarioFlag": "ONE_V_ONE",
     "respondToAdmittedClaimOwingAmountPounds": null,
-    "respondent1PaymentDateToStringSpec": "02 December 2024",
     "featureToggleWA": "Prod",
+    "respondent1PaymentDateToStringSpec": "04 April 2025",
     "respondent1ClaimResponseDocumentSpec": {
-      "documentLink": null,
-      "documentName": null,
-      "documentType": null,
-      "documentSize": null,
-      "createdDatetime": null,
-      "createdBy": null,
+      "documentLink": {
+        "document_url": "#{document_url}",
+        "document_binary_url": "#{document_url}/binary",
+        "document_filename": "#{document_filename}",
+        "category_id": "defendant1DefenseDirectionsQuestionnaire",
+        "upload_timestamp": "2025-03-28T15:04:20.025296100"
+      },
+      "documentName": "#{document_filename}",
+      "documentType": "DEFENDANT_DEFENCE",
+      "documentSize": "#{document_size}",
+      "createdDatetime": "#{createDateTime}",
+      "createdBy": "Civil",
       "ownedBy": null
     },
     "applicant1ProceedWithClaim": "Yes",
     "applicantDefenceResponseDocumentAndDQFlag": "Yes",
     "showConditionFlags": [
       "ONLY_RESPONDENT_1_DISPUTES",
-      "TIMELINE_MANUALLY",
-      "VULNERABILITY",
       "SOMEONE_DISPUTES",
-      "CAN_ANSWER_RESPONDENT_1"
+      "CAN_ANSWER_RESPONDENT_1",
+      "VULNERABILITY",
+      "TIMELINE_MANUALLY"
     ],
     "responseClaimTrack": "SMALL_CLAIM",
     "allocatedTrack": null,

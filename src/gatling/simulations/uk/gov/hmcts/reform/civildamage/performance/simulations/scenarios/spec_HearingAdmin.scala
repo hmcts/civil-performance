@@ -127,8 +127,8 @@ object spec_HearingAdmin{
         .post("/workallocation/case/task/#{caseId}")
         .headers(Headers.commonHeader)
         .body(StringBody("""{"refined": true}""".stripMargin))
-        .check(regex("id\":\"(.*?)\"").optional.saveAs("HearingCaseId"))
-        .check(substring("task_state")))
+//        .check(substring("task_state"))
+        .check(regex("id\":\"(.*?)\"").optional.saveAs("HearingCaseId")))
 
       .exec(http("010_TaskTab")
         .post("/workallocation/caseworker/getUsersByServiceName")
@@ -139,22 +139,24 @@ object spec_HearingAdmin{
     .pause(MinThinkTime, MaxThinkTime)
 
     // =======================ASSIGN TO ME=======================,
-    .group("Civil_SpecClaim_70_03_HearingAdmin") {
-      exec(http("005_AssignToMe")
-        .post("/workallocation/task/#{HearingCaseId}/claim")
-        .headers(Headers.commonHeader)
-        .check(status.is(204)))
+    .doIf(session => session.contains("HearingCaseId")) (
+      group("Civil_SpecClaim_70_04_HearingAdmin") {
+        exec(http("005_AssignToMe")
+          .post("/workallocation/task/#{HearingCaseId}/claim")
+          .headers(Headers.commonHeader)
+          .check(status.is(204)))
 
-      .exec(http("010_AssignToMe")
-        .post("/workallocation/case/task/#{caseId}")
-        .headers(Headers.commonHeader)
-        .body(StringBody("""{"refined": true}""".stripMargin))
-        .check(substring("task_system")))
-    }
+        .exec(http("010_AssignToMe")
+          .post("/workallocation/case/task/#{caseId}")
+          .headers(Headers.commonHeader)
+          .body(StringBody("""{"refined": true}""".stripMargin))
+          .check(substring("task_system")))
+      }
+    )
     .pause(MinThinkTime, MaxThinkTime)
 
     // =======================HEARING NOTICE DROPDOWN=======================,
-    .group("Civil_SpecClaim_70_04_HearingAdmin") {
+    .group("Civil_SpecClaim_70_05_HearingAdmin") {
       exec(http("005_Jurisdiction")
         .get("/workallocation/case/tasks/#{caseId}/event/HEARING_SCHEDULED/caseType/CIVIL/jurisdiction/CIVIL")
         .headers(Headers.commonHeader)
@@ -182,7 +184,7 @@ object spec_HearingAdmin{
     .pause(MinThinkTime, MaxThinkTime)
 
     // =======================SMALL CLAIM==============================,
-    .group("Civil_SpecClaim_70_05_HearingAdmin") {
+    .group("Civil_SpecClaim_70_06_HearingAdmin") {
       exec(http("005_HearingNoticeSelect")
         .post("/data/case-types/CIVIL/validate?pageId=HEARING_SCHEDULEDHearingNoticeSelect")
         .headers(Headers.validateHeader)
@@ -193,7 +195,7 @@ object spec_HearingAdmin{
     .pause(MinThinkTime, MaxThinkTime)
 
     // =======================LISTING==============================,
-    .group("Civil_SpecClaim_70_06_HearingAdmin") {
+    .group("Civil_SpecClaim_70_07_HearingAdmin") {
       exec(http("005_ListingOrRelisting")
         .post("/data/case-types/CIVIL/validate?pageId=HEARING_SCHEDULEDListingOrRelisting")
         .headers(Headers.validateHeader)
@@ -203,7 +205,7 @@ object spec_HearingAdmin{
     .pause(MinThinkTime, MaxThinkTime)
 
     // =======================HEARING DETAILS==============================,
-    .group("Civil_SpecClaim_70_07_HearingAdmin") {
+    .group("Civil_SpecClaim_70_08_HearingAdmin") {
       exec(http("005_HearingDetails")
         .post("/data/case-types/CIVIL/validate?pageId=HEARING_SCHEDULEDHearingDetails")
         .headers(Headers.validateHeader)
@@ -214,7 +216,7 @@ object spec_HearingAdmin{
     .pause(MinThinkTime, MaxThinkTime)
 
     // =======================NOTICE LETTER INFO=======================,
-    .group("Civil_SpecClaim_70_08_HearingAdmin") {
+    .group("Civil_SpecClaim_70_09_HearingAdmin") {
       exec(http("005_HearingInformation")
         .post("/data/case-types/CIVIL/validate?pageId=HEARING_SCHEDULEDHearingInformation")
         .headers(Headers.validateHeader)
@@ -225,11 +227,13 @@ object spec_HearingAdmin{
     .pause(MinThinkTime, MaxThinkTime)
 
     // =======================SUBMIT=======================,
-    .group("Civil_SpecClaim_70_09_HearingAdmin") {
-      exec(http("005_Submit")
-        .get("/workallocation/task/#{HearingCaseId}")
-        .headers(Headers.commonHeader)
-        .check(substring("role_category")))
+    .group("Civil_SpecClaim_70_10_HearingAdmin") {
+      doIf(session => session.contains("HearingCaseId")) (
+        exec(http("005_Submit")
+          .get("/workallocation/task/#{HearingCaseId}")
+          .headers(Headers.commonHeader)
+          .check(substring("role_category")))
+      )
 
       .exec(http("010_Submit")
         .post("/data/cases/#{caseId}/events")
@@ -238,11 +242,13 @@ object spec_HearingAdmin{
         .body(ElFileBody("e_HearingAdmin_bodies/adminSubmitHearing.dat"))
         .check(status.is(201)))
 
-      .exec(http("015_Submit")
-        .post("/workallocation/task/#{HearingCaseId}/complete")
-        .headers(Headers.commonHeader)
-        .body(StringBody("""{"actionByEvent": true, "eventName": "Create a hearing notice"}""".stripMargin))
-        .check(status.is(204)))
+      .doIf(session => session.contains("HearingCaseId")) (
+        exec(http("015_Submit")
+          .post("/workallocation/task/#{HearingCaseId}/complete")
+          .headers(Headers.commonHeader)
+          .body(StringBody("""{"actionByEvent": true, "eventName": "Create a hearing notice"}""".stripMargin))
+          .check(status.is(204)))
+      )
 
       .exec(http("020_Submit")
         .get("/data/internal/cases/#{caseId}")

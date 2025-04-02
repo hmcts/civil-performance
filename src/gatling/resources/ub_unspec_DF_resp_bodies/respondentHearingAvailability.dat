@@ -6,7 +6,8 @@
       "hearingLengthHours": null,
       "hearingLengthDays": null,
       "unavailableDates": []
-    }
+    },
+    "respondent2DQHearing": null
   },
   "event": {
     "id": "DEFENDANT_RESPONSE",
@@ -14,12 +15,13 @@
     "description": ""
   },
   "event_data": {
+    "respondent2Copy": null,
     "respondent1Copy": {
       "partyID": "#{PartyID}",
       "type": "COMPANY",
       "companyName": "DEFENDANT",
       "primaryAddress": {
-        "AddressLine1": "4",
+        "AddressLine1": "41",
         "AddressLine2": "Flanders Court 12-14",
         "AddressLine3": "St. Albans Road",
         "PostTown": "Watford",
@@ -28,13 +30,11 @@
       },
       "partyName": "DEFENDANT",
       "partyTypeDisplayValue": "Company",
-      "partyEmail": "T@G.CM",
       "flags": {
         "partyName": "DEFENDANT",
         "roleOnCase": "Defendant 1"
       }
     },
-    "respondent2Copy": null,
     "allocatedTrack": "FAST_CLAIM",
     "claimType": "CLINICAL_NEGLIGENCE",
     "addRespondent2": "No",
@@ -52,12 +52,13 @@
       "soleTraderLastName": null,
       "soleTraderTradingAs": null,
       "partyName": "DEFENDANT",
+      "bulkClaimPartyName": null,
       "partyTypeDisplayValue": "Company",
-      "partyEmail": "T@G.CM",
+      "partyEmail": null,
       "partyPhone": null,
       "partyID": "#{PartyID}",
       "primaryAddress": {
-        "AddressLine1": "4",
+        "AddressLine1": "41",
         "AddressLine2": "Flanders Court 12-14",
         "AddressLine3": "St. Albans Road",
         "PostTown": "Watford",
@@ -69,6 +70,7 @@
     },
     "multiPartyResponseTypeFlags": "FULL_DEFENCE",
     "respondent1ClaimResponseType": "FULL_DEFENCE",
+    "respondent2ClaimResponseType": null,
     "isRespondent1": "Yes",
     "solicitorReferences": {
       "respondentSolicitor1Reference": null,
@@ -83,6 +85,10 @@
         "document_hash": "#{DF_HashToken}"
       }
     },
+    "respondent2ClaimResponseDocument": null,
+    "respondent2DQFileDirectionsQuestionnaire": null,
+    "respondent2DQFixedRecoverableCosts": null,
+    "respondent2DQFixedRecoverableCostsIntermediate": null,
     "respondent1DQFileDirectionsQuestionnaire": {
       "oneMonthStayRequested": "No",
       "reactionProtocolCompliedWith": "Yes",
@@ -97,6 +103,7 @@
     "respondent1DQDisclosureOfNonElectronicDocuments": {
       "directionsForDisclosureProposed": "No"
     },
+    "respondent2DQDisclosureOfNonElectronicDocuments": null,
     "respondent1DQExperts": {
       "expertRequired": "No",
       "details": []
@@ -110,13 +117,15 @@
       "documents": "ENGLISH",
       "evidence": null
     },
+    "respondent2DQLanguage": null,
     "respondent1DQHearing": {
       "unavailableDatesRequired": "No",
       "hearingLength": null,
       "hearingLengthHours": null,
       "hearingLengthDays": null,
       "unavailableDates": []
-    }
+    },
+    "respondent2DQHearing": null
   },
   "event_token": "#{event_token}",
   "ignore_warning": false,

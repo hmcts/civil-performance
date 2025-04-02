@@ -2,8 +2,8 @@
   "data": {
     "isRespondent1": "Yes",
     "solicitorReferences": {
-      "applicantSolicitor1Reference": null,
       "respondentSolicitor1Reference": null,
+      "applicantSolicitor1Reference": null,
       "respondentSolicitor2Reference": null
     }
   },
@@ -13,12 +13,13 @@
     "description": ""
   },
   "event_data": {
+    "respondent2Copy": null,
     "respondent1Copy": {
       "partyID": "#{PartyID}",
       "type": "COMPANY",
       "companyName": "DEFENDANT",
       "primaryAddress": {
-        "AddressLine1": "4",
+        "AddressLine1": "41",
         "AddressLine2": "Flanders Court 12-14",
         "AddressLine3": "St. Albans Road",
         "PostTown": "Watford",
@@ -27,13 +28,11 @@
       },
       "partyName": "DEFENDANT",
       "partyTypeDisplayValue": "Company",
-      "partyEmail": "T@G.CM",
       "flags": {
         "partyName": "DEFENDANT",
         "roleOnCase": "Defendant 1"
       }
     },
-    "respondent2Copy": null,
     "allocatedTrack": "FAST_CLAIM",
     "claimType": "CLINICAL_NEGLIGENCE",
     "addRespondent2": "No",
@@ -51,12 +50,13 @@
       "soleTraderLastName": null,
       "soleTraderTradingAs": null,
       "partyName": "DEFENDANT",
+      "bulkClaimPartyName": null,
       "partyTypeDisplayValue": "Company",
-      "partyEmail": "T@G.CM",
+      "partyEmail": null,
       "partyPhone": null,
       "partyID": "#{PartyID}",
       "primaryAddress": {
-        "AddressLine1": "4",
+        "AddressLine1": "41",
         "AddressLine2": "Flanders Court 12-14",
         "AddressLine3": "St. Albans Road",
         "PostTown": "Watford",
@@ -68,6 +68,7 @@
     },
     "multiPartyResponseTypeFlags": "FULL_DEFENCE",
     "respondent1ClaimResponseType": "FULL_DEFENCE",
+    "respondent2ClaimResponseType": null,
     "isRespondent1": "Yes",
     "solicitorReferences": {
       "respondentSolicitor1Reference": null,

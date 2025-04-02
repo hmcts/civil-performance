@@ -207,8 +207,7 @@ object spec_CL1_Resp{
         .headers(Headers.validateHeader)
         //.body(ElFileBody("c_RespToDef/claimantHearingSupport.dat"))
         .body(ElFileBody("c_RespToDef/claimantHearingSupport_Mediation.dat"))
-        .check(status.in(200, 400)))
-        //.check(substring("applicant1DQHearingSupport")))
+        .check(substring("applicant1DQHearingSupport")))
     }
     .pause(MinThinkTime, MaxThinkTime)
 
