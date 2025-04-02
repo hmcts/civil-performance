@@ -5,10 +5,10 @@ object Headers {
   val uploadHeader = Map(
     "accept-encoding" -> "gzip, deflate, br",
     "accept-language" -> "en-GB,en-US;q=0.9,en;q=0.8",
-    "content-type" -> "multipart/form-data",
-    "sec-fetch-dest" -> "document",
+    "Content-Type" -> "multipart/form-data",
     "sec-fetch-mode" -> "navigate",
     "sec-fetch-site" -> "same-origin",
+    "sec-fetch-dest" -> "document",
     "upgrade-insecure-requests" -> "1")
   
   
