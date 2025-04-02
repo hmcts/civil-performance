@@ -761,7 +761,7 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 * Below scenario is for   Small Claims - CUI R2 Civil Case progression -Full Scenario
 ======================================================================================*/
 	val CUIR2SmallClaimsCaseProgression = scenario("SDO For CUIR2 CaseProgression Small Claims")
-		.feed(cpLoginFeeder) //.feed(cpfulltestsmallclaimsFeeder)
+		.feed(cpLoginFeeder) .feed(cpfulltestsmallclaimsFeeder)
 		.exitBlockOnFail {
 			exec(_.set("env", s"${env}"))
 			.exec(CreateUser.CreateDefCitizen)
@@ -796,7 +796,7 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 				.exec(EXUIMCLogin.manageCase_Logout)
 			
 				//Below is for upload claimant evidence
-				/*	.exec(CUIR2HomePage.CUIR2HomePage)
+					.exec(CUIR2HomePage.CUIR2HomePage)
             .exec(CUIR2Login.CUIR2Login)
            .exec(CUIR2DocUploadCaseProg.CaseProgUploadDocsByClaimant)
             .pause(10)
@@ -812,7 +812,6 @@ Step 3: login as defendant user  and complete the defendant journey and logout
            .exec(CUIR2DocUploadCaseProg.viewUploadedDocuments)
             .exec(CUIR2Logout.CUILogout)
             .pause(10)
-						*/
 				//Following is for creating the hearing notice for small claims
 			.exec(Homepage.XUIHomePage)
 				.exec(Login.XUICenterAdminLogin)
@@ -873,7 +872,7 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 				.exec(CUIR2Login.CUIR2ClaimantIntentionLogin)
 				.exec(CUIR2ClaimantIntentionCaseProgFastTrack.run)
 				.exec(CUIR2Logout.CUILogout)
-				.pause(30)
+				.pause(120)
 				// below is the SDO for fast track
 				.exec(Homepage.XUIHomePage)
 				.exec(Login.XUIJudgeLogin)
@@ -882,11 +881,11 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 				.exec(EXUIMCLogin.manageCase_Logout)
 				.pause(30)
 			//Below is for upload claimant evidence
-		/*	.exec(CUIR2HomePage.CUIR2HomePage)
+			.exec(CUIR2HomePage.CUIR2HomePage)
 				.exec(CUIR2Login.CUIR2ClaimantIntentionLogin)
-			//	.exec(CUIR2DocUploadCaseProg.CaseProgUploadDocsByClaimantForFastTrack)
+				.exec(CUIR2DocUploadCaseProg.CaseProgUploadDocsByClaimantForFastTrack)
 				.pause(10)
-		//		.exec(CUIR2DocUploadCaseProg.viewUploadedDocuments)
+				.exec(CUIR2DocUploadCaseProg.viewUploadedDocuments)
 				.exec(CUIR2Logout.CUILogout)
 				.pause(10)
 				
@@ -897,7 +896,7 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 				.pause(10)
 				.exec(CUIR2DocUploadCaseProg.viewUploadedDocuments)
 				.exec(CUIR2Logout.CUILogout)
-				.pause(10)*/
+				.pause(10)
 				
 				//Following is for creating the hearing notice for small claims
 				.exec(Homepage.XUIHomePage)
