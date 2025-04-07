@@ -787,6 +787,16 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 				.exec(CUIR2Login.CUIR2Login)
 				.exec(CUIR2ClaimantIntentionCaseProg.run)
 				.exec(CUIR2Logout.CUILogout)
+				
+				// below is 80% cases are now stopped here
+				
+				// 🎯 **80% Users Exit Here**
+				.randomSwitch(
+					80.0 -> exec { session =>
+						println("✅ Stopping Execution for 80% Users")
+						session.markAsFailed
+					}
+				)
 			// below is for SDO for small claims
 				
 				.exec(Homepage.XUIHomePage)
@@ -874,6 +884,15 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 				.exec(CUIR2Logout.CUILogout)
 				.pause(120)
 				// below is the SDO for fast track
+				
+				// 🎯 **80% Users Exit Here**
+				.randomSwitch(
+					80.0 -> exec { session =>
+						println("✅ Stopping Execution for 80% Users")
+						session.markAsFailed
+					}
+				)
+				
 				.exec(Homepage.XUIHomePage)
 				.exec(Login.XUIJudgeLogin)
 			//	.exec(SDOCivilProg.MediaionUnsuccessfulBeforeSDO)
@@ -1042,8 +1061,8 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 		
 	//	SDOSmallClaimsCUIR2.inject(nothingFor(1),rampUsers(1) during (1)),
 		//SDOFastTrackCUIR2.inject(nothingFor(1),rampUsers(3) during (50)),
-		CUIR2SmallClaimsCaseProgression.inject(nothingFor(1),rampUsers(125) during (2000)),
-		CUIR2FastTrackCaseProgression.inject(nothingFor(50),rampUsers(125) during (2000)),
+		CUIR2SmallClaimsCaseProgression.inject(nothingFor(1),rampUsers(150) during (2200)),
+		CUIR2FastTrackCaseProgression.inject(nothingFor(50),rampUsers(150) during (2200)),
 	//	CivilUIR2ClaimCreationScenario.inject(nothingFor(50),rampUsers(125) during (3000))
 		
 		//Following is the spec claim end to end journey
