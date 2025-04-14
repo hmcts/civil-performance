@@ -2,45 +2,16 @@
   "event": "CREATE_LIP_CLAIM",
   "caseDataUpdate": {
     "applicant1": {
-<<<<<<< HEAD
-      "companyName": "",
-=======
->>>>>>> ddcc694 (Updated script for CUI R2 Back ground load)
       "individualDateOfBirth": "1995-08-28",
       "individualFirstName": "Jane",
       "individualLastName": "Doe",
       "individualTitle": "Miss",
-<<<<<<< HEAD
-      "organisationName": "",
-      "partyEmail": "user@example.com",
-=======
       "partyEmail": "#{claimantEmailAddress}",
->>>>>>> ddcc694 (Updated script for CUI R2 Back ground load)
       "partyPhone": "07446777177",
       "primaryAddress": {
         "AddressLine1": "123",
         "AddressLine2": "Fake Street",
         "AddressLine3": "",
-<<<<<<< HEAD
-        "PostCode": "EC1V 3RE",
-        "PostTown": "Sheffield"
-      },
-      "soleTraderDateOfBirth": null,
-      "soleTraderFirstName": null,
-      "soleTraderLastName": null,
-      "soleTraderTitle": null,
-      "soleTraderTradingAs": null,
-      "type": "INDIVIDUAL"
-    },
-    "respondent1": {
-      "companyName": null,
-      "individualDateOfBirth": null,
-      "individualFirstName": "John",
-      "individualLastName": "Doe",
-      "individualTitle": "Sir",
-      "organisationName": null,
-      "partyEmail": "user@example.com",
-=======
         "PostCode": "S12eu",
         "PostTown": "sheffield"
       },
@@ -50,7 +21,6 @@
     "respondent1": {
       "companyName": "Test Company Defendant",
       "partyEmail": "youonlytestonce1@gmail.com",
->>>>>>> ddcc694 (Updated script for CUI R2 Back ground load)
       "partyPhone": "07800000000",
       "primaryAddress": {
         "AddressLine1": "TestAddressLine1",
@@ -59,93 +29,24 @@
         "PostCode": "IG61JD",
         "PostTown": "TestCity"
       },
-<<<<<<< HEAD
-      "soleTraderDateOfBirth": null,
-      "soleTraderFirstName": null,
-      "soleTraderLastName": null,
-      "soleTraderTitle": null,
-      "soleTraderTradingAs": null,
-      "type": "INDIVIDUAL"
-    },
-    "defenceRouteRequired": null,
-    "respondToClaim": null,
-    "detailsOfWhyDoesYouDisputeTheClaim": null,
-    "applicant1Represented": "No",
-    "totalClaimAmount": 10000,
-=======
       "type": "COMPANY"
     },
     "applicant1Represented": "No",
     "totalClaimAmount": "1500",
->>>>>>> ddcc694 (Updated script for CUI R2 Back ground load)
     "claimAmountBreakup": [
       {
         "id": "0",
         "value": {
-<<<<<<< HEAD
-          "claimAmount": "1000000",
-=======
           "claimAmount": "1500",
->>>>>>> ddcc694 (Updated script for CUI R2 Back ground load)
           "claimReason": "Injury"
         }
       }
     ],
     "detailsOfClaim": "Injury",
-<<<<<<< HEAD
-    "speclistYourEvidenceList": null,
-    "claimInterest": "No",
-    "interestClaimOptions": null,
-    "breakDownInterestTotal": null,
-    "breakDownInterestDescription": null,
-    "sameRateInterestSelection": null,
-    "interestClaimFrom": null,
-    "interestFromSpecificDate": null,
-    "interestFromSpecificDateDescription": null,
-    "interestClaimUntil": null,
-    "claimantUserDetails": {
-      "email": "user@example.com",
-      "id": "userId"
-    },
-    "respondent1LiPResponse": {
-      "timelineComment": null,
-      "evidenceComment": null,
-      "respondent1MediationLiPResponse": null,
-      "respondent1DQExtraDetails": {
-        "wantPhoneOrVideoHearing": null,
-        "whyPhoneOrVideoHearing": "",
-        "whyUnavailableForHearing": null,
-        "giveEvidenceYourSelf": null,
-        "triedToSettle": null,
-        "determinationWithoutHearingRequired": null,
-        "determinationWithoutHearingReason": "",
-        "requestExtra4weeks": null,
-        "considerClaimantDocuments": null,
-        "considerClaimantDocumentsDetails": "",
-        "respondent1DQLiPExpert": {
-          "caseNeedsAnExpert": null,
-          "expertCanStillExamineDetails": "",
-          "expertReportRequired": null,
-          "details": null
-        },
-        "applicant1DQLiPExpert": null
-      },
-      "respondent1DQHearingSupportLip": {
-        "supportRequirementLip": null,
-        "requirementsLip": null
-      },
-      "respondent1LiPContactPerson": null,
-      "respondent1LiPCorrespondenceAddress": null,
-      "respondent1ResponseLanguage": null
-    },
-    "respondent1LiPResponseCarm": null,
-    "specRespondent1Represented": "No",
-    "respondent1ResponseDeadline": null,
-=======
     "claimInterest": "No",
     "claimantUserDetails": {
       "email": "#{claimantEmailAddress}",
-      "id": "#{userId}"
+      "id": "982d9bdc-0441-47f1-94c5-7c2df9f79d0f"
     },
     "respondent1LiPResponse": {
       "respondent1DQExtraDetails": {
@@ -159,24 +60,13 @@
       "respondent1DQHearingSupportLip": {}
     },
     "specRespondent1Represented": "No",
->>>>>>> ddcc694 (Updated script for CUI R2 Back ground load)
     "helpWithFees": {
       "helpWithFee": "No",
       "helpWithFeesReferenceNumber": ""
     },
     "pcqId": "4c10fec5-1278-45f3-89f0-d3d016d47f95",
     "respondent1AdditionalLipPartyDetails": {
-<<<<<<< HEAD
-      "correspondenceAddress": {
-        "AddressLine1": null,
-        "AddressLine2": null,
-        "AddressLine3": null,
-        "PostCode": null,
-        "PostTown": null
-      },
-=======
       "correspondenceAddress": {},
->>>>>>> ddcc694 (Updated script for CUI R2 Back ground load)
       "contactPerson": "Test Company"
     },
     "applicant1AdditionalLipPartyDetails": {
@@ -193,21 +83,11 @@
       {
         "id": "0",
         "value": {
-<<<<<<< HEAD
-          "timelineDate": "2024-01-01",
-=======
-          "timelineDate": "2023-01-01",
->>>>>>> ddcc694 (Updated script for CUI R2 Back ground load)
+          "timelineDate": "2000-01-01",
           "timelineDescription": "test"
         }
       }
     ],
-<<<<<<< HEAD
-    "claimFee": "0",
-    "claimantBilingualLanguagePreference": "English"
-  }
-}
-=======
     "claimFee": {
       "calculatedAmountInPence": "8000",
       "code": "FEE0206",
@@ -215,4 +95,3 @@
     }
   }
 }
->>>>>>> ddcc694 (Updated script for CUI R2 Back ground load)

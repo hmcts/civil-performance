@@ -104,22 +104,7 @@ object CivilAssignCase {
       //following is for retrieving the userId of the user name
   
   
-      val getUserId =
-        group("CIVIL_GetUserId_000_GetUserId") {
-          //	feed(caseFeeder)
-          exec(AuthForClaimCreationAPI)
-            .exec(http("CIVIL_GetUserId_000_GetUserId")
-              .get("https://idam-api.perftest.platform.hmcts.net/o/userInfo")
-              //   .get( "/cases/searchCases?start_date=#{randomStartDate}&end_date=#{randomEndDate}")
-              // .get( "/cases/searchCases?start_date=2022-01-13T00:00:00&end_date=2023-04-16T15:38:00")
-              .header("Authorization", "Bearer ${bearerToken}")
-              .header("Content-Type", "application/json")
-              .header("Accept", "*/*")
-              .check(status.in(200, 201))
-            )
-        }
-          .pause(minThinkTime, maxThinkTime)
-  
+    
       //Deepak - Cases that make the final step
       /* .exec { session =>
         val fw = new BufferedWriter(new FileWriter("CUIDefUserDetails.csv", true))
@@ -158,7 +143,7 @@ object CivilAssignCase {
           }
   
   
-      /* val getUserId =
+       val getUserId =
     group("CUIR2_Claimant_GetUser") {
       exec(http("CUIR2_Claimant_GetUser")
         .get(IdamAPIURL + "/o/userinfo")
@@ -166,6 +151,6 @@ object CivilAssignCase {
         .header("Content-Type", "application/json")
         .check(jsonPath("$.uid").saveAs("userId"))
         .check(status.is(200)))
-    }*/
+    }
   
     }
