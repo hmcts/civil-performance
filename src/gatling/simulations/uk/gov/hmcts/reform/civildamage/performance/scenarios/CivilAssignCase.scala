@@ -134,7 +134,7 @@ object CivilAssignCase {
           .pause(minThinkTime, maxThinkTime)
       
           .exec { session =>
-            val fw = new BufferedWriter(new FileWriter("CUIR2ClaimsWithAPI30K.csv", true))
+            val fw = new BufferedWriter(new FileWriter("CUIR2ClaimsWithAPI60k1.csv", true))
             try {
               fw.write(session("claimantEmailAddress").as[String] + "," + session("claimNumber").as[String] + "," + session("password").as[String] + "\r\n")
             } finally fw.close()

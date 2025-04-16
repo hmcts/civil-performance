@@ -434,7 +434,7 @@ class CivilDamagesSimulation extends Simulation {
 			
 
 				// Below is the claim creation for LIP through API
-					 CivilUIR2ClaimCreationWithAPIScenario.inject(nothingFor(1),rampUsers(1) during (3)),
+					 CivilUIR2ClaimCreationWithAPIScenario.inject(nothingFor(1),rampUsers(2000) during (3600)),
 					 
 		/*		CivilUIR2ClaimCreationScenario.inject(nothingFor(1),rampUsers(115) during (3600)),
 		CivilUIR2DefResponseScenario.inject(nothingFor(30),rampUsers(100) during (3600)),
