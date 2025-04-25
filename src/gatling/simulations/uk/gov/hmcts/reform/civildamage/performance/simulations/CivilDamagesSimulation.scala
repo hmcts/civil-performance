@@ -139,8 +139,9 @@ class CivilDamagesSimulation extends Simulation {
 			.exec(CivilAssignCase.AuthForClaimCreationAPI)
 			.exec(S2S.s2s)
 				.exec(CivilAssignCase.getUserId)
-				.repeat(30) {
+				.repeat(20) {
 					exec(CivilAssignCase.CreateClaimCUIR2WithAPI)
+						.pause(2)
 				}
 			//	}
 		}

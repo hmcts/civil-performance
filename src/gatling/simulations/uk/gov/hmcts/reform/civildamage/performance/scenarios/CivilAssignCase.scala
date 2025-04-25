@@ -121,7 +121,7 @@ object CivilAssignCase {
       val CreateClaimCUIR2WithAPI =
         group("CUIR2_CreateCase_Case_000_CreateCase") {
           //	feed(caseFeeder)
-          exec(http("CIVIL_AssignCase_000_AssignCase")
+          exec(http("CIVIL_CreateCase_000_CreateCase")
             .post("http://civil-service-perftest.service.core-compute-perftest.internal/cases/draft/citizen/#{userId}/event")
             .header("Authorization", "Bearer ${bearerToken}")
             .header("ServiceAuthorization", "#{ServiceToken}")
@@ -134,7 +134,7 @@ object CivilAssignCase {
           .pause(minThinkTime, maxThinkTime)
       
           .exec { session =>
-            val fw = new BufferedWriter(new FileWriter("CUIR2ClaimsWithAPI60k1.csv", true))
+            val fw = new BufferedWriter(new FileWriter("CUIR2ClaimsWithAPI60k4.csv", true))
             try {
               fw.write(session("claimantEmailAddress").as[String] + "," + session("claimNumber").as[String] + "," + session("password").as[String] + "\r\n")
             } finally fw.close()
