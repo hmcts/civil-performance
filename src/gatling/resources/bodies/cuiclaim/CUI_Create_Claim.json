@@ -1,0 +1,97 @@
+{
+  "event": "CREATE_LIP_CLAIM",
+  "caseDataUpdate": {
+    "applicant1": {
+      "individualDateOfBirth": "1995-08-28",
+      "individualFirstName": "Jane",
+      "individualLastName": "Doe",
+      "individualTitle": "Miss",
+      "partyEmail": "#{claimantEmailAddress}",
+      "partyPhone": "07446777177",
+      "primaryAddress": {
+        "AddressLine1": "123",
+        "AddressLine2": "Fake Street",
+        "AddressLine3": "",
+        "PostCode": "S12eu",
+        "PostTown": "sheffield"
+      },
+      "soleTraderDateOfBirth": null,
+      "type": "INDIVIDUAL"
+    },
+    "respondent1": {
+      "companyName": "Test Company Defendant",
+      "partyEmail": "youonlytestonce1@gmail.com",
+      "partyPhone": "07800000000",
+      "primaryAddress": {
+        "AddressLine1": "TestAddressLine1",
+        "AddressLine2": "TestAddressLine2",
+        "AddressLine3": "TestAddressLine3",
+        "PostCode": "IG61JD",
+        "PostTown": "TestCity"
+      },
+      "type": "COMPANY"
+    },
+    "applicant1Represented": "No",
+    "totalClaimAmount": "1500",
+    "claimAmountBreakup": [
+      {
+        "id": "0",
+        "value": {
+          "claimAmount": "1500",
+          "claimReason": "Injury"
+        }
+      }
+    ],
+    "detailsOfClaim": "Injury",
+    "claimInterest": "No",
+    "claimantUserDetails": {
+      "email": "#{claimantEmailAddress}",
+      "id": "982d9bdc-0441-47f1-94c5-7c2df9f79d0f"
+    },
+    "respondent1LiPResponse": {
+      "respondent1DQExtraDetails": {
+        "whyPhoneOrVideoHearing": "",
+        "determinationWithoutHearingReason": "",
+        "considerClaimantDocumentsDetails": "",
+        "respondent1DQLiPExpert": {
+          "expertCanStillExamineDetails": ""
+        }
+      },
+      "respondent1DQHearingSupportLip": {}
+    },
+    "specRespondent1Represented": "No",
+    "helpWithFees": {
+      "helpWithFee": "No",
+      "helpWithFeesReferenceNumber": ""
+    },
+    "pcqId": "4c10fec5-1278-45f3-89f0-d3d016d47f95",
+    "respondent1AdditionalLipPartyDetails": {
+      "correspondenceAddress": {},
+      "contactPerson": "Test Company"
+    },
+    "applicant1AdditionalLipPartyDetails": {
+      "correspondenceAddress": {
+        "AddressLine1": "123",
+        "AddressLine2": "Test Street",
+        "AddressLine3": "",
+        "PostCode": "L7 2pz",
+        "PostTown": "Liverpool"
+      },
+      "contactPerson": "Test Company"
+    },
+    "timelineOfEvents": [
+      {
+        "id": "0",
+        "value": {
+          "timelineDate": "2000-01-01",
+          "timelineDescription": "test"
+        }
+      }
+    ],
+    "claimFee": {
+      "calculatedAmountInPence": "8000",
+      "code": "FEE0206",
+      "version": "6"
+    }
+  }
+}
