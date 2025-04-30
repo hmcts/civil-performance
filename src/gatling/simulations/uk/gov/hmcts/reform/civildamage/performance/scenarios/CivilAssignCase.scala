@@ -127,6 +127,22 @@ object  CivilAssignCase {
 			}*/
 	
 	
+	//userType must be "Caseworker", "Legal" or "Citizen"
+	val AuthForClaimCreationAPI =
+		
+		exec(http("Civil_000_GetBearerToken")
+			.post(idamURL + "/o/token") //change this to idamapiurl if this not works
+			.formParam("grant_type", "password")
+			.formParam("username", "#{claimantEmailAddress}")
+			.formParam("password", "Password12!")
+			.formParam("client_id", "civil_citizen_ui")
+			// .formParam("client_secret", clientSecret)
+			.formParam("client_secret", "47js6e86Wv5718D2O77OL466020731ii")
+			.formParam("scope", "profile roles openid")
+			.header("Content-Type", "application/x-www-form-urlencoded")
+			.check(jsonPath("$.access_token").saveAs("bearerToken")))
+	
+	
 	val cuibundle =
 		group("CIVIL_AssignCase_000_CreateBundle") {
 			//	feed(caseFeeder)

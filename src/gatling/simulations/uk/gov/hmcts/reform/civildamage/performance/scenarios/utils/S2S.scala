@@ -19,4 +19,19 @@ object S2S {
       .exitHereIfFailed
 
   }
+  
+  
+  // Following is the s2s token for claim creation through api
+  
+  def s2s () = {
+    
+    exec(http("GetS2SToken")
+      .post(Environment.s2sUrl + "/testing-support/lease")
+      .header("Content-Type", "application/json")
+      .body(StringBody("""{"microservice":"civil_service"}""")).asJson
+      .check(regex("(.+)").saveAs("ServiceToken")))
+      .exitHereIfFailed
+    
+    
+  }
 }
