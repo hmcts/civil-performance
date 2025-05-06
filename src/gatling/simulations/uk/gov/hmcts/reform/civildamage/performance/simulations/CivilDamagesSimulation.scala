@@ -130,7 +130,7 @@ class CivilDamagesSimulation extends Simulation {
 	val CivilCaseAssignScenario = scenario("Civil Case Assign")
 		.feed(assigncasesFeeder)
 		.exitBlockOnFail {
-			exec(_.set("env", s"${env}"))
+			exec(_.set("env", s"${ env}"))
 				.exec(CivilAssignCase.cuiassign)
 		}
 	
@@ -253,7 +253,7 @@ class CivilDamagesSimulation extends Simulation {
 						.exec(CivilAssignCase.cuibundle)
 						.pause(30)
 						// view the bundle
-						.exec(CUIR2DocUploadCaseProg.viewBundleForSmallClaims)
+						.exec(CUIR2DocUploadCaseProg.viewBundle)
 				.exec(CUIR2Logout.CUILogout)
 				.pause(20)
 				//Following is For creating the Final Order For Smaill Claims
@@ -381,7 +381,7 @@ class CivilDamagesSimulation extends Simulation {
 				.exec(S2S.s2s())
 				
 					.exec(CUIClaimCreationWithAPI.getUserId)
-				.repeat(3) {
+				.repeat(20) {
 					exec(CUIClaimCreationWithAPI.CreateClaimCUIR2WithAPI)
 						.pause(2)
 				}
@@ -391,13 +391,14 @@ class CivilDamagesSimulation extends Simulation {
 
 
 setUp(
-	
+
 	//Following is the case progression scenarios for both small track and fast track for CUI
 //CUIR2SmallClaimsCaseProgression.inject(nothingFor(1),rampUsers(150) during (2200)),
 //CUIR2FastTrackCaseProgression.inject(nothingFor(50),rampUsers(150) during (2200)),
 	
 	// Following is for inserting data into
-CivilUIR2ClaimCreationWithAPIScenario.inject(nothingFor(1),rampUsers(1) during (1))
+	//30,130,900 nothingFor(1),
+CivilUIR2ClaimCreationWithAPIScenario.inject(nothingFor(1),rampUsers(220) during (3600))
 ).protocols(httpProtocol)
 
 
