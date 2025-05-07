@@ -398,7 +398,8 @@ setUp(
 	
 	// Following is for inserting data into
 	//30,130,900 nothingFor(1),
-CivilUIR2ClaimCreationWithAPIScenario.inject(nothingFor(1),rampUsers(200) during (3600))
+CivilUIR2ClaimCreationWithAPIScenario.inject(nothingFor(1),rampUsers(600) during (10800))
+	//CivilUIR2ClaimCreationWithAPIScenario.inject(nothingFor(1),rampUsers(200) during (3600))
 ).protocols(httpProtocol)
 
 
