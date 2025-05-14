@@ -40,7 +40,6 @@ class CivilDamagesSimulation extends Simulation {
 	
 	
 	
-	
   val httpProtocol = Environment.HttpProtocol
     .baseUrl(BaseURL)
    // .doNotTrackHeader("1")
@@ -80,7 +79,9 @@ class CivilDamagesSimulation extends Simulation {
 	val numberOfPipelineUsers = 5
 	val pipelinePausesMillis: Long = 3000 //3 seconds
 
-	
+	val CUIR2SmallClaimsCaseProgressionAmount = "10000"
+	val CUIR2FastTrackCaseProgressionAmount = "20000" //Not implemented into scenario
+
 	//Determine the pause pattern to use:
 	//Performance test = use the pauses defined in the scripts
 	//Pipeline = override pauses in the script with a fixed value (pipelinePauseMillis)
@@ -168,12 +169,111 @@ class CivilDamagesSimulation extends Simulation {
 				.exec(EXUIMCLogin.manageCase_Logout)
 			
 		}
-	
-	
+
 	/*======================================================================================
 * Below scenario is for   Small Claims - CUI R2 Civil Case progression -Full Scenario
 ======================================================================================*/
 	val CUIR2SmallClaimsCaseProgression = scenario(" CUIR2 CaseProgression Small Claims")
+		.feed(cpLoginFeeder) .feed(cpfulltestsmallclaimsFeeder)
+		.exitBlockOnFail {
+			exec(_.set("env", s"${env}"))
+				.exec(CreateUser.CreateDefCitizen)
+				.repeat(1) {
+					exec(CreateUser.CreateClaimantCitizen)
+						.exec(CUIR2HomePage.CUIR2HomePage)
+						.exec(CUIR2Login.CUIR2Login)
+						.exec(CUIR2ClaimCreation.run)
+						.exec(CUIR2Logout.CUILogout)
+						.pause(20)
+						.exec(CivilAssignCase.cuiassign)
+						.pause(10)
+				}
+				// below is for defendant response for case prog small track
+				.exec(CUIR2HomePage.CUIR2HomePage)
+				.exec(CUIR2Login.CUIR2DefLogin)
+				.exec(CUIR2DefendantResponseCaseProg.run)
+				.exec(CUIR2Logout.CUILogout)
+
+				//below is the for claimant intention for case prog for small claims
+
+				.exec(CUIR2HomePage.CUIR2HomePage)
+				.exec(CUIR2Login.CUIR2Login)
+				.exec(CUIR2ClaimantIntentionCaseProg.run)
+				.exec(CUIR2Logout.CUILogout)
+
+				// below is 80% cases are now stopped here
+
+				// 🎯 **80% Users Exit Here**
+				/*.randomSwitch(
+					80.0 -> exec { session =>
+						println("✅ Stopping Execution for 80% Users")
+						session.markAsFailed
+					}
+				)*/
+				// below is for SDO for small claims
+
+				.exec(Homepage.XUIHomePage)
+				.exec(Login.XUIJudgeLogin)
+				.exec(SDOCivilProg.MediaionUnsuccessfulBeforeSDO)
+				//.exec(SDOCivilProg.SDOSmallClaimsForCUIR2)
+				.exec(EXUIMCLogin.manageCase_Logout)
+
+				//YR - 13/05/25 - New code to continue applicaton with LA user
+				.exec(Homepage.XUIHomePage)
+				.exec(Login.XUILALogin)
+				.exec(SDOCivilProg.SDORequestForReConsiderByTribunal)
+				.exec(EXUIMCLogin.manageCase_Logout)
+
+				//Below is for upload claimant evidence
+				.exec(CUIR2HomePage.CUIR2HomePage)
+				.exec(CUIR2Login.CUIR2Login)
+				.exec(CUIR2DocUploadCaseProg.CaseProgUploadDocsByClaimant)
+				.pause(10)
+				.exec(CUIR2DocUploadCaseProg.viewUploadedDocuments)
+				.exec(CUIR2Logout.CUILogout)
+				.pause(10)
+
+				//below is the defendant upload documents
+				.exec(CUIR2HomePage.CUIR2HomePage)
+				.exec(CUIR2Login.CUIR2DefLogin)
+				.exec(CUIR2DocUploadCaseProg.CaseProgUploadDocsByDefendant)
+				.pause(10)
+				.exec(CUIR2DocUploadCaseProg.viewUploadedDocuments)
+				.exec(CUIR2Logout.CUILogout)
+				.pause(10)
+				//Following is for creating the hearing notice for small claims
+				.exec(Homepage.XUIHomePage)
+				.exec(Login.XUICenterAdminLogin)
+				.exec(CUIR2CaseProgression.HearingNotice)
+				.exec(EXUIMCLogin.manageCase_Logout)
+				.pause(10)
+				//Following is for paying Hearing Fee
+				.exec(CUIR2HomePage.CUIR2HomePage)
+				.exec(CUIR2Login.CUIR2ClaimantIntentionLogin)
+				.exec(CUIR2DocUploadCaseProg.viewOrderandNotices)
+				.pause(10)
+				.exec(CUIR2DocUploadCaseProg.viewUploadedDocuments)
+				.pause(10)
+				.exec(CUIR2DocUploadCaseProg.payHearingFee)
+				.pause(20)
+				.exec(CivilAssignCase.cuibundle)
+				.pause(30)
+				// view the bundle
+				.exec(CUIR2DocUploadCaseProg.viewBundle)
+				.exec(CUIR2Logout.CUILogout)
+				.pause(20)
+				//Following is For creating the Final Order For Smaill Claims
+				.exec(Homepage.XUIHomePage)
+				.exec(Login.XUIJudgeLogin)
+				.exec(CUIR2CaseProgression.FinalGeneralOrders)
+				.exec(EXUIMCLogin.manageCase_Logout)
+		}
+
+
+	/*======================================================================================
+* Below scenario is for   Small Claims - CUI R2 Civil Case progression -Full Scenario
+======================================================================================*/
+	val CUIR2SmallClaimsCaseProgressionOld = scenario(" CUIR2 CaseProgression Small Claims")
 		.feed(cpLoginFeeder) .feed(cpfulltestsmallclaimsFeeder)
 		.exitBlockOnFail {
 			exec(_.set("env", s"${env}"))
@@ -204,12 +304,12 @@ class CivilDamagesSimulation extends Simulation {
 				// below is 80% cases are now stopped here
 				
 				// 🎯 **80% Users Exit Here**
-				.randomSwitch(
+				/*.randomSwitch(
 					80.0 -> exec { session =>
 						println("✅ Stopping Execution for 80% Users")
 						session.markAsFailed
 					}
-				)
+				)*/
 			// below is for SDO for small claims
 				
 				.exec(Homepage.XUIHomePage)
@@ -217,7 +317,7 @@ class CivilDamagesSimulation extends Simulation {
 				.exec(SDOCivilProg.MediaionUnsuccessfulBeforeSDO)
 				.exec(SDOCivilProg.SDOSmallClaimsForCUIR2)
 				.exec(EXUIMCLogin.manageCase_Logout)
-			
+
 				//Below is for upload claimant evidence
 					.exec(CUIR2HomePage.CUIR2HomePage)
             .exec(CUIR2Login.CUIR2Login)
@@ -299,12 +399,12 @@ class CivilDamagesSimulation extends Simulation {
 				// below is the SDO for fast track
 				
 				// 🎯 **80% Users Exit Here**
-				.randomSwitch(
+				/*.randomSwitch(
 					80.0 -> exec { session =>
 						println("✅ Stopping Execution for 80% Users")
 						session.markAsFailed
 					}
-				)
+				)*/
 				
 				.exec(Homepage.XUIHomePage)
 				.exec(Login.XUIJudgeLogin)
@@ -391,6 +491,8 @@ class CivilDamagesSimulation extends Simulation {
 
 
 setUp(
+	CUIR2SmallClaimsCaseProgression.inject(nothingFor(1),rampUsers(1) during (1)),
+	//CUIR2FastTrackCaseProgression.inject(nothingFor(1),rampUsers(1) during (10))
 
 	//Following is the case progression scenarios for both small track and fast track for CUI
 //CUIR2SmallClaimsCaseProgression.inject(nothingFor(1),rampUsers(150) during (2200)),
@@ -398,7 +500,7 @@ setUp(
 	
 	// Following is for inserting data into
 	//30,130,900 nothingFor(1),
-CivilUIR2ClaimCreationWithAPIScenario.inject(nothingFor(1),rampUsers(600) during (10800))
+//CivilUIR2ClaimCreationWithAPIScenario.inject(nothingFor(1),rampUsers(50) during (900))
 	//CivilUIR2ClaimCreationWithAPIScenario.inject(nothingFor(1),rampUsers(200) during (3600))
 ).protocols(httpProtocol)
 

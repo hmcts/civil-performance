@@ -258,12 +258,13 @@ object SDOCivilProg {
           .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.create-event.v2+json;charset=UTF-8")
           .body(ElFileBody("bodies/CaseProg/smallclaims/MediationUnsuccessfulSubmit.json"))
           .check(substring("mediationUnsuccessful"))
+
         )
         //  .exec(getCookieValue(CookieKey("XSRF-TOKEN").withDomain(BaseURL.replace("https://", "")).saveAs("XSRFToken")))
         
       }
       .pause(MinThinkTime, MaxThinkTime)
-      .pause(120)
+      .pause(120) //120
   
   val SDOSmallClaimsForCUIR2 =
     //feed(sdodrhfeeder)
@@ -277,7 +278,7 @@ object SDOCivilProg {
       }
   
       .pause(MinThinkTime, MaxThinkTime)
-      .pause(10)
+      .pause(120)
       
       // following code is for the mediation unsuccessful events
       
@@ -294,9 +295,9 @@ object SDOCivilProg {
         
       }
       .pause(MinThinkTime, MaxThinkTime)
-      
-      
-      /*======================================================================================
+
+
+        /*======================================================================================
            * Create Civil Claim - Start Event 'Assign To Me'
     ==========================================================================================*/
       //  val returntocasedetailsafternotifydetails =
@@ -523,7 +524,7 @@ object SDOCivilProg {
             .check(status.in(200, 201, 204, 304))
             .check(jsonPath("$.event_token").saveAs("event_token"))
           )
-          .exec(getCookieValue(CookieKey("XSRF-TOKEN").withDomain(BaseURL.replace("https://", "")).saveAs("XSRFToken")))
+          //.exec(getCookieValue(CookieKey("XSRF-TOKEN").withDomain(BaseURL.replace("https://", "")).saveAs("XSRFToken")))
   
           .exec(http("CUICPSC_SDOE_RFRByTri_60_015_DirectionRFRCase")
             .get("/data/internal/cases/#{claimNumber}")

@@ -475,6 +475,8 @@ object CUIR2ClaimCreation {
           .headers(CivilDamagesHeader.CUIR2Post)
           .formParam("_csrf", "#{csrf}")
           .formParam("claimAmountRows[0][reason]", "Claim Amount Perftest Desc")
+          //YR - 13/05/25 - This amount may need adjusting if threshold changes.
+          //If above 10k then it goes to judge, if below then it goes to LA
           .formParam("claimAmountRows[0][amount]", "9000")
           .formParam("claimAmountRows[1][reason]", "")
           .formParam("claimAmountRows[1][amount]", "")

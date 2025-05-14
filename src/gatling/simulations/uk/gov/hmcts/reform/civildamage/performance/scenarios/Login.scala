@@ -84,7 +84,49 @@ object Login {
       
     }
       .pause(MinThinkTime, MaxThinkTime)
-  
+
+  /**************************************************************************************
+   LA User
+   **************************************************************************************/
+  val XUILALogin =
+
+    group("XUI_020_LALogin") {
+      exec(flushHttpCache)
+        .exec(http("XUI_020_005_Login")
+          .post(IdamUrl + "/login?client_id=xuiwebapp&redirect_uri=" + BaseURL + "/oauth2/callback&state=#{state}&nonce=#{nonce}&response_type=code&scope=profile%20openid%20roles%20manage-user%20create-user%20search-user&prompt=")
+          .formParam("username", "tribunal_legal_caseworker_reg4@justice.gov.uk")
+          .formParam("password", "Password12!")
+          .formParam("azureLoginEnabled", "true")
+          .formParam("mojLoginEnabled", "true")
+          .formParam("selfRegistrationEnabled", "false")
+          .formParam("_csrf", "#{csrf}")
+          .headers(Headers.navigationHeader)
+          .headers(Headers.postHeader)
+          .check(regex("Manage cases")))
+
+        //see xui-webapp cookie capture in the Homepage scenario for details of why this is being used
+        .exec(addCookie(Cookie("xui-webapp", "#{xuiWebAppCookie}")
+          .withMaxAge(28800)
+          .withSecure(true)))
+
+        .exec(Common.configurationui)
+
+        .exec(Common.configJson)
+
+        .exec(Common.TsAndCs)
+
+        .exec(Common.configUI)
+
+        .exec(Common.userDetails)
+
+        .exec(Common.isAuthenticated)
+
+        .exec(Common.monitoringTools)
+
+    }
+
+      .pause(MinThinkTime, MaxThinkTime)
+
   /*====================================================================================
   *Manage Case Judge Login
   *=====================================================================================*/
