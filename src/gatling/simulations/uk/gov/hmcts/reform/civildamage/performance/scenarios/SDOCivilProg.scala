@@ -427,7 +427,7 @@ object SDOCivilProg {
           .post("/data/cases/#{claimNumber}/events")
           .headers(CivilDamagesHeader.MoneyClaimDefPostHeader)
           .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.create-event.v2+json;charset=UTF-8")
-          .header("X-Xsrf-Token", "#{XSRFToken}")
+          //.header("X-Xsrf-Token", "#{XSRFToken}")
           .body(ElFileBody("bodies/sdodrh/SDODRHSmallClaimsSubmit.json"))
           .check(substring("CASE_PROGRESSION"))
         )
@@ -526,13 +526,13 @@ object SDOCivilProg {
           )
           //.exec(getCookieValue(CookieKey("XSRF-TOKEN").withDomain(BaseURL.replace("https://", "")).saveAs("XSRFToken")))
   
-          .exec(http("CUICPSC_SDOE_RFRByTri_60_015_DirectionRFRCase")
+          /*.exec(http("CUICPSC_SDOE_RFRByTri_60_015_DirectionRFRCase")
             .get("/data/internal/cases/#{claimNumber}")
             .headers(CivilDamagesHeader.headers_notify)
             .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-case-view.v2+json")
             .check(substring("#{claimNumber}"))
             .check(status.in(200, 201, 204, 304))
-          )
+          )*/
         
         
         
@@ -567,12 +567,14 @@ object SDOCivilProg {
           .headers(CivilDamagesHeader.MoneyClaimPostHeader)
           .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.case-data-validate.v2+json;charset=UTF-8")
           .body(ElFileBody("bodies/sdorequestforreconsider/WhatTrackAllocating.json"))
-         // .check(substring("documentLink"))
+          .check(substring("documentLink"))
         )
       }
       .pause(MinThinkTime, MaxThinkTime)
-      
-      
+
+
+
+
       /*======================================================================================
 * Create Civil Claim - Standard Direction Order Details
 ==========================================================================================*/
@@ -622,7 +624,7 @@ object SDOCivilProg {
           .post("/data/cases/#{claimNumber}/events")
           .headers(CivilDamagesHeader.MoneyClaimDefPostHeader)
           .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.create-event.v2+json;charset=UTF-8")
-          .header("X-Xsrf-Token", "#{XSRFToken}")
+          //.header("X-Xsrf-Token", "#{XSRFToken}")
           .body(ElFileBody("bodies/sdorequestforreconsider/SDOEnhancementsSmallClaimsSubmit.json"))
           .check(substring("CASE_PROGRESSION"))
         )
@@ -636,22 +638,22 @@ object SDOCivilProg {
       }
       .pause(MinThinkTime, MaxThinkTime)
   
-        .group("CUICPSC_SDOE_RFRByTri_120_ViewCaseAfterSDOByTri") {
-            exec(http("CUICPSC_SDOE_RFRByTri_120_005_ViewCaseByJudge")
-              .post(BaseURL + "/api/role-access/roles/manageLabellingRoleAssignment/#{claimNumber}")
-              .headers(CivilDamagesHeader.MoneyClaimNav)
-              .body(ElFileBody("bodies/sdorequestforreconsider/viewcasebyjudge.json"))
-              .header("accept", "application/json, text/plain, */*")
-              .check(status.in(200, 201, 204, 304)))
+        //group("CUICPSC_SDOE_RFRByTri_120_ViewCaseAfterSDOByTri") {
+        //    exec(http("CUICPSC_SDOE_RFRByTri_120_005_ViewCaseByJudge")
+        //      .post(BaseURL + "/api/role-access/roles/manageLabellingRoleAssignment/#{claimNumber}")
+         //     .headers(CivilDamagesHeader.MoneyClaimNav)
+        //      .body(ElFileBody("bodies/sdorequestforreconsider/viewcasebyjudge.json"))
+              //.header("accept", "application/json, text/plain, */*")
+              //.check(status.in(200, 201, 204, 304)))
       
-            .exec(http("CUICPSC_SDOE_RFRByTri_120_010_CaseDetails")
-              .get(BaseURL + "/api/wa-supported-jurisdiction/get")
-              .headers(Headers.commonHeader)
-              .header("accept", "application/json, text/plain, */*")
-              .check(status.in(200, 201, 204, 304)))
+        //    .exec(http("CUICPSC_SDOE_RFRByTri_120_010_CaseDetails")
+        //      .get(BaseURL + "/api/wa-supported-jurisdiction/get")
+        //      .headers(Headers.commonHeader)
+              //.header("accept", "application/json, text/plain, */*")
+              //.check(status.in(200, 201, 204, 304)))*/
     
-        }
-        .pause(MinThinkTime, MaxThinkTime)
+        //}
+        //.pause(MinThinkTime, MaxThinkTime)
   
   
  

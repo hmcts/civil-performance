@@ -1,8 +1,9 @@
 {
   "data": {
-    "showCarmFields": "No",
-    "drawDirectionsOrderRequired": "No",
-    "featureToggleWA": "Prod"
+    "claimsTrack": "smallClaimsTrack",
+    "smallClaims": [
+      "smallClaimRoadTrafficAccident"
+    ]
   },
   "event": {
     "id": "CREATE_SDO",
@@ -10,11 +11,15 @@
     "description": ""
   },
   "event_data": {
-    "showCarmFields": "No",
     "drawDirectionsOrderRequired": "No",
-    "featureToggleWA": "Prod"
+    "showCarmFields": "No",
+    "featureToggleWA": "Prod",
+    "claimsTrack": "smallClaimsTrack",
+    "smallClaims": [
+      "smallClaimRoadTrafficAccident"
+    ]
   },
   "event_token": "#{event_token}",
   "ignore_warning": false,
-  "case_reference": "#{caseId}"
+  "case_reference": "#{claimNumber}"
 }
