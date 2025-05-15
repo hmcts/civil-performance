@@ -459,9 +459,9 @@ object CUIR2DocUploadCaseProg {
           .header("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7")
           .formParam("_csrf", "#{csrf}") // CSRF token
           .formParam("witnessStatement[0][witnessName]", "aasasasas")
-          .formParam("witnessStatement[0][dateInputFields][dateDay]", "01")
-          .formParam("witnessStatement[0][dateInputFields][dateMonth]", "08")
-          .formParam("witnessStatement[0][dateInputFields][dateYear]", "2024")
+          .formParam("witnessStatement[0][dateInputFields][dateDay]", "15")
+          .formParam("witnessStatement[0][dateInputFields][dateMonth]", "05")
+          .formParam("witnessStatement[0][dateInputFields][dateYear]", "2025")
           .formParam("action", "witnessStatement[0][uploadButton]")
           .bodyPart(RawFileBodyPart("witnessStatement[0][fileUpload]", "3MB.pdf")
             .fileName("3MB.pdf")
@@ -974,7 +974,7 @@ object CUIR2DocUploadCaseProg {
       )
     }
     .pause(MinThinkTime, MaxThinkTime)
-  
+    .pause(60)
     /*======================================================================================
                    * Civil UI Claim - Click Trial Arrangements
         ==========================================================================================*/

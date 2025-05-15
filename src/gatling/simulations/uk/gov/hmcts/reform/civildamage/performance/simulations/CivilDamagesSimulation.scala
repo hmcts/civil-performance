@@ -79,8 +79,8 @@ class CivilDamagesSimulation extends Simulation {
 	val numberOfPipelineUsers = 5
 	val pipelinePausesMillis: Long = 3000 //3 seconds
 
-	val CUIR2SmallClaimsCaseProgressionAmount = "10000"
-	val CUIR2FastTrackCaseProgressionAmount = "20000" //Not implemented into scenario
+	val CUIR2SmallClaimsAmount = "9000"
+	val CUIR2FastTrackAmount = "20000" //Not implemented into scenario
 
 	//Determine the pause pattern to use:
 	//Performance test = use the pauses defined in the scripts
@@ -221,7 +221,7 @@ class CivilDamagesSimulation extends Simulation {
 				//YR - 13/05/25 - New code to continue applicaton with LA user
 				.exec(Homepage.XUIHomePage)
 				.exec(Login.XUILALogin)
-				.exec(SDOCivilProg.SDORequestForReConsiderByTribunal)
+				.exec(SDOCivilProg.SDOSmallClaimsForCUIR2) //SDORequestForReConsiderByTribunal
 				.exec(EXUIMCLogin.manageCase_Logout)
 
 				//Below is for upload claimant evidence
@@ -273,7 +273,7 @@ class CivilDamagesSimulation extends Simulation {
 	/*======================================================================================
 * Below scenario is for   Small Claims - CUI R2 Civil Case progression -Full Scenario
 ======================================================================================*/
-	val CUIR2SmallClaimsCaseProgressionOld = scenario(" CUIR2 CaseProgression Small Claims")
+	val CUIR2SmallClaimsCaseProgressionWithSDOViaJudge = scenario(" CUIR2 CaseProgression Small Claims")
 		.feed(cpLoginFeeder) .feed(cpfulltestsmallclaimsFeeder)
 		.exitBlockOnFail {
 			exec(_.set("env", s"${env}"))
@@ -424,7 +424,7 @@ class CivilDamagesSimulation extends Simulation {
 				//below is the defendant upload documents
 				.exec(CUIR2HomePage.CUIR2HomePage)
 				.exec(CUIR2Login.CUIR2DefLogin)
-				.exec(CUIR2DocUploadCaseProg.CaseProgUploadDocsByDefendant)
+				.exec(CUIR2DocUploadCaseProg.CaseProgUploadDocsByDefendantForFastTrack)
 				.pause(10)
 				.exec(CUIR2DocUploadCaseProg.viewUploadedDocuments)
 				.exec(CUIR2Logout.CUILogout)
@@ -446,6 +446,8 @@ class CivilDamagesSimulation extends Simulation {
 				.exec(CUIR2DocUploadCaseProg.payHearingFee)
 				.pause(20)
 				//Trial Complete
+				//YR: Failing after this point
+				.exitHere
 				.exec(CUIR2DocUploadCaseProg.TrialArrangements)
 				.pause(30)
 				//Following is for creating the bundle
@@ -491,8 +493,8 @@ class CivilDamagesSimulation extends Simulation {
 
 
 setUp(
-	CUIR2SmallClaimsCaseProgression.inject(nothingFor(1),rampUsers(1) during (1)),
-	//CUIR2FastTrackCaseProgression.inject(nothingFor(1),rampUsers(1) during (10))
+	//CUIR2SmallClaimsCaseProgression.inject(nothingFor(1),rampUsers(1) during (1)),
+	CUIR2FastTrackCaseProgression.inject(nothingFor(1),rampUsers(1) during (1))
 
 	//Following is the case progression scenarios for both small track and fast track for CUI
 //CUIR2SmallClaimsCaseProgression.inject(nothingFor(1),rampUsers(150) during (2200)),
