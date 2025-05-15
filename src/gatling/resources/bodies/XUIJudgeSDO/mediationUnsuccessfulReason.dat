@@ -1,0 +1,22 @@
+{
+  "data": {
+    "showCarmFields": "Yes",
+    "mediationUnsuccessfulReasonsMultiSelect": [
+      "APPOINTMENT_NO_AGREEMENT"
+    ]
+  },
+  "event": {
+    "id": "MEDIATION_UNSUCCESSFUL",
+    "summary": "",
+    "description": ""
+  },
+  "event_data": {
+    "showCarmFields": "Yes",
+    "mediationUnsuccessfulReasonsMultiSelect": [
+      "APPOINTMENT_NO_AGREEMENT"
+    ]
+  },
+  "event_token": "#{event_token_mediation}",
+  "ignore_warning": false,
+  "case_reference": "#{claimNumber}"
+}

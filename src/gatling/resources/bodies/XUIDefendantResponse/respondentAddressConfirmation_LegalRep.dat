@@ -1,0 +1,144 @@
+{
+  "case_reference" : "#{claimNumber}" ,
+  "data" : {
+    "addApplicant2" : "No" ,
+    "respondent1" : {
+      "companyName" : "DEFENDANT" ,
+      "individualFirstName" : null ,
+      "individualLastName" : null ,
+      "individualTitle" : null ,
+      "organisationName" : null ,
+      "partyEmail" : "T@G.CM" ,
+      "partyID" : "#{PartyID}" ,
+      "partyName" : "DEFENDANT" ,
+      "partyPhone" : null ,
+      "partyTypeDisplayValue" : "Company" ,
+      "primaryAddress" : {
+        "AddressLine1" : "34" ,
+        "AddressLine2" : "Flanders Court 12-14" ,
+        "AddressLine3" : "St. Albans Road" ,
+        "Country" : "United Kingdom" ,
+        "County" : null ,
+        "PostCode" : "WD17 1BN" ,
+        "PostTown" : "Watford"
+      } ,
+      "soleTraderFirstName" : null ,
+      "soleTraderLastName" : null ,
+      "soleTraderTitle" : null ,
+      "soleTraderTradingAs" : null ,
+      "type" : "COMPANY" ,
+      "unavailableDates" : []
+    } ,
+    "respondent1OrganisationPolicy" : {
+      "OrgPolicyCaseAssignedRole" : "[RESPONDENTSOLICITORONE]" ,
+      "OrgPolicyReference" : "DEFENDANT.REP" ,
+      "Organisation" : {
+        "OrganisationID" : "7H4MGE5"
+      }
+    } ,
+    "respondent2OrganisationPolicy" : {
+      "OrgPolicyCaseAssignedRole" : "[RESPONDENTSOLICITORTWO]"
+    } ,
+    "solicitorReferences" : {
+      "applicantSolicitor1Reference" : null ,
+      "respondentSolicitor1Reference" : null ,
+      "respondentSolicitor2Reference" : null
+    } ,
+    "specAoSRespondentCorrespondenceAddressRequired" : "Yes"
+  } ,
+  "event" : {
+    "description" : "" ,
+    "id" : "DEFENDANT_RESPONSE_SPEC" ,
+    "summary" : ""
+  } ,
+  "event_data" : {
+    "addApplicant2" : "No" ,
+    "addRespondent2" : "No" ,
+    "defenceAdmitPartPaymentTimeRouteGeneric" : null ,
+    "fullAdmissionAndFullAmountPaid" : null ,
+    "isApplicant1" : "No" ,
+    "isRespondent1" : "Yes" ,
+    "isRespondent2" : "No" ,
+    "multiPartyResponseTypeFlags" : null ,
+    "neitherCompanyNorOrganisation" : "No" ,
+    "partAdmittedByEitherRespondents" : null ,
+    "respondToClaimAdmitPartEmploymentTypeLRspecGeneric" : null ,
+    "respondent1" : {
+      "companyName" : "DEFENDANT" ,
+      "individualFirstName" : null ,
+      "individualLastName" : null ,
+      "individualTitle" : null ,
+      "organisationName" : null ,
+      "partyEmail" : "T@G.CM" ,
+      "partyID" : "#{PartyID}" ,
+      "partyName" : "DEFENDANT" ,
+      "partyPhone" : null ,
+      "partyTypeDisplayValue" : "Company" ,
+      "primaryAddress" : {
+        "AddressLine1" : "34" ,
+        "AddressLine2" : "Flanders Court 12-14" ,
+        "AddressLine3" : "St. Albans Road" ,
+        "Country" : "United Kingdom" ,
+        "County" : null ,
+        "PostCode" : "WD17 1BN" ,
+        "PostTown" : "Watford"
+      } ,
+      "soleTraderFirstName" : null ,
+      "soleTraderLastName" : null ,
+      "soleTraderTitle" : null ,
+      "soleTraderTradingAs" : null ,
+      "type" : "COMPANY" ,
+      "unavailableDates" : []
+    } ,
+    "respondent1ClaimResponseTestForSpec" : null ,
+    "respondent1Copy" : {
+      "companyName" : "DEFENDANT" ,
+      "flags" : {
+        "partyName" : "DEFENDANT" ,
+        "roleOnCase" : "Defendant 1"
+      } ,
+      "partyEmail" : "T@G.CM" ,
+      "partyID" : "#{PartyID}" ,
+      "partyName" : "DEFENDANT" ,
+      "partyTypeDisplayValue" : "Company" ,
+      "primaryAddress" : {
+        "AddressLine1" : "34" ,
+        "AddressLine2" : "Flanders Court 12-14" ,
+        "AddressLine3" : "St. Albans Road" ,
+        "Country" : "United Kingdom" ,
+        "PostCode" : "WD17 1BN" ,
+        "PostTown" : "Watford"
+      } ,
+      "type" : "COMPANY"
+    } ,
+    "respondent1OrganisationPolicy" : {
+      "OrgPolicyCaseAssignedRole" : "[RESPONDENTSOLICITORONE]" ,
+      "OrgPolicyReference" : "DEFENDANT.REP" ,
+      "Organisation" : {
+        "OrganisationID" : "7H4MGE5"
+      }
+    } ,
+    "respondent1ResponseDate" : null ,
+    "respondent2ClaimResponseTestForSpec" : null ,
+    "respondent2Copy" : null ,
+    "respondent2OrganisationPolicy" : {
+      "OrgPolicyCaseAssignedRole" : "[RESPONDENTSOLICITORTWO]"
+    } ,
+    "respondent2SameLegalRepresentative" : null ,
+    "respondentClaimResponseTypeForSpecGeneric" : null ,
+    "showConditionFlags" : [
+      "CAN_ANSWER_RESPONDENT_1"
+    ] ,
+    "showHowToAddTimeLinePage" : null ,
+    "solicitorReferences" : {
+      "applicantSolicitor1Reference" : null ,
+      "respondentSolicitor1Reference" : null ,
+      "respondentSolicitor2Reference" : null
+    } ,
+    "specAoSApplicantCorrespondenceAddressRequired" : "Yes" ,
+    "specAoSRespondentCorrespondenceAddressRequired" : "Yes" ,
+    "totalClaimAmount" : "9000"
+  } ,
+  "event_token" : "#{event_token}" ,
+  "ignore_warning" : false
+}

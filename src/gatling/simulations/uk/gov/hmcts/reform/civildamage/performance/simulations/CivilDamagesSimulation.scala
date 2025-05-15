@@ -88,54 +88,31 @@ class CivilDamagesSimulation extends Simulation {
         .pause(20)
     )
 
-  val DefaultJudgment = scenario(" Default Judgment")
+	val LipVsLR = scenario(" LiP vs LR")
 		.feed(loginFeeder)
-		.exec(_.set("loginFlag", "claimant"))
-		.exec(XUILogin.Homepage)
-		.exec(XUILogin.Loginpage)
-		.exec(XUIClaimCreation.CreateSpecClaim)
-		.exec(XUIClaimCreation.ClaimFeePayment)
+		.exec(CreateUser.CreateDefCitizen)
+		.exec(CreateUser.CreateClaimantCitizen)
+		.exec(CUIR2HomePage.CUIR2HomePage)
+		.exec(CUIR2Login.CUIR2Login)
+		.exec(CUIR2ClaimCreation.run)
+		.exec(CUIR2Logout.CUILogout)
 		.exec(CivilAssignCase.cuiassign)
-		.exec(CivilAssignCase.updateDeadlineDefaultJudgment)
-		.exec(XUIDefaultJudgment.DefaultJudgment)
-		.exec(XUILogin.Logout)
-		.exec(CUIR2HomePage.CUIR2HomePage)
-		.exec(CUIR2Login.CUIR2DefLogin)
-		.exec(CUIR2ConfirmYouPaid.CoSC)
-		.exec(CUIR2ConfirmYouPaid.ApplicationFee)
-		.exec(CUIR2Logout.CUILogout)
-		.exec(_.set("loginFlag", "admin"))
+		.pause(120)
+		.exec(_.set("loginFlag", "defendant"))
 		.exec(XUILogin.Homepage)
 		.exec(XUILogin.Loginpage)
-		.exec(HearingAdminJudgment.SetAsideJudgment)
-		.exec(XUILogin.Logout)
-
-
-	val JudgmentByAdmission = scenario(" Judgment by Admission")
-		.feed(loginFeeder)
-		.exec(_.set("loginFlag", "claimant"))
-		.exec(XUILogin.Homepage)
-		.exec(XUILogin.Loginpage)
-		.exec(XUIClaimCreation.CreateSpecClaim)
-		.exec(XUIClaimCreation.ClaimFeePayment)
-		.exec(CivilAssignCase.cuiassign)
+		.exec(XUINoticeOfChange.noticeOfChange)
+		.exec(XUIDefendantResponse.selectRespondToClaim)
 		.exec(XUILogin.Logout)
 		.exec(CUIR2HomePage.CUIR2HomePage)
-		.exec(CUIR2Login.CUIR2DefLogin)
-		.exec(CUIR2DefendantResponse.run)
+		.exec(CUIR2Login.CUIR2Login)
+		.exec(CUIR2ClaimantIntentionCaseProg.run)
 		.exec(CUIR2Logout.CUILogout)
+		.exec(_.set("loginFlag", "judge"))
 		.exec(XUILogin.Homepage)
 		.exec(XUILogin.Loginpage)
-		.exec(XUIRespondToDefence.viewAndRespond)
-		.exec(CivilAssignCase.updatePaymentDateForRespondentJO)
-		.exec(XUIJudgmentByAdmission.requestJudgmentByAdmission)
+		.exec(XUIJudgeSDO.standardDirectionOrder)
 		.exec(XUILogin.Logout)
-		.exec(CUIR2HomePage.CUIR2HomePage)
-		.exec(CUIR2Login.CUIR2DefLogin)
-		.exec(CUIR2ConfirmYouPaid.CoSC)
-		.exec(CUIR2ConfirmYouPaid.ApplicationFee)
-		.exec(CUIR2Logout.CUILogout)
-
 
 
 
@@ -443,9 +420,10 @@ class CivilDamagesSimulation extends Simulation {
 					//CivilUIR2ClaimCreationScenario.inject(nothingFor(1),rampUsers(5) during (100)),
 //				CivilUIR2ClaimCreationScenario.inject(atOnceUsers(1)),
 
-				DefaultJudgment.inject(rampUsers(30).during(2700)),
-				JudgmentByAdmission.inject(rampUsers(10).during(2400))
-				
+
+				LipVsLR.inject(rampUsers(65).during(2500))
+//				tempLiPVsLR.inject(atOnceUsers(1))
+
 		//CivilUIR2DefResponseScenario.inject(nothingFor(30),rampUsers(100) during (3600)),
 	//	CivilUIR2ClaimantIntentionScenario.inject(nothingFor(50),rampUsers(25) during (3600))
 			

@@ -66,6 +66,30 @@ object XUILogin{
           .formParam("azureLoginEnabled", "true")
           .formParam("mojLoginEnabled", "true")
           .formParam("_csrf", "#{csrf}")
+          .check(substring("HMCTS Manage cases"))),
+
+        "judge" -> exec(http("005_clientId")
+          .post(IdamURL + "/login?client_id=xuiwebapp&redirect_uri=" + BaseURL + "/oauth2/callback&state=#{state}&nonce=#{nonce}&" +
+            "response_type=code&scope=profile%20openid%20roles%20manage-user%20create-user%20search-user&prompt=")
+          .headers(Headers.navigationHeader)
+          .formParam("username", "#{judgeuser}")
+          .formParam("password", "#{judgepassword}")
+          .formParam("selfRegistrationEnabled", "false")
+          .formParam("azureLoginEnabled", "true")
+          .formParam("mojLoginEnabled", "true")
+          .formParam("_csrf", "#{csrf}")
+          .check(substring("HMCTS Manage cases"))),
+
+        "defendant" -> exec(http("005_clientId")
+          .post(IdamURL + "/login?client_id=xuiwebapp&redirect_uri=" + BaseURL + "/oauth2/callback&state=#{state}&nonce=#{nonce}&" +
+            "response_type=code&scope=profile%20openid%20roles%20manage-user%20create-user%20search-user&prompt=")
+          .headers(Headers.navigationHeader)
+          .formParam("username", "#{defendantuser_xui}")
+          .formParam("password", "#{password}")
+          .formParam("selfRegistrationEnabled", "false")
+          .formParam("azureLoginEnabled", "true")
+          .formParam("mojLoginEnabled", "true")
+          .formParam("_csrf", "#{csrf}")
           .check(substring("HMCTS Manage cases")))
       )
 

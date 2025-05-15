@@ -1,0 +1,79 @@
+{
+	"data": {
+		"respondent1Copy": {
+			"partyID": "#{PartyID}",
+			"type": "COMPANY",
+			"companyName": "DEFENDANT",
+			"primaryAddress": {
+				"AddressLine1": "34",
+				"AddressLine2": "Flanders Court 12-14",
+				"AddressLine3": "St. Albans Road",
+				"PostTown": "Watford",
+				"Country": "United Kingdom",
+				"PostCode": "WD17 1BN"
+			},
+			"partyName": "DEFENDANT",
+			"partyTypeDisplayValue": "Company",
+			"partyEmail": "T@G.CM",
+			"flags": {
+				"partyName": "DEFENDANT",
+				"roleOnCase": "Defendant 1"
+			}
+		},
+		"respondent2Copy": null,
+		"respondent2SameLegalRepresentative": null,
+		"specAoSApplicantCorrespondenceAddressRequired": "Yes"
+	},
+	"event": {
+		"id": "DEFENDANT_RESPONSE_SPEC",
+		"summary": "",
+		"description": ""
+	},
+	"event_data": {
+		"showConditionFlags": [
+			"CAN_ANSWER_RESPONDENT_1"
+		],
+		"multiPartyResponseTypeFlags": null,
+		"addRespondent2": "No",
+		"respondent1ResponseDate": null,
+		"respondent1ClaimResponseTestForSpec": null,
+		"isRespondent1": "Yes",
+		"respondent2ClaimResponseTestForSpec": null,
+		"isRespondent2": "No",
+		"isApplicant1": "No",
+		"showHowToAddTimeLinePage": null,
+		"fullAdmissionAndFullAmountPaid": null,
+		"partAdmittedByEitherRespondents": null,
+		"neitherCompanyNorOrganisation": "No",
+		"defenceAdmitPartPaymentTimeRouteGeneric": null,
+		"respondentClaimResponseTypeForSpecGeneric": null,
+		"respondToClaimAdmitPartEmploymentTypeLRspecGeneric": null,
+		"totalClaimAmount": "9000",
+		"respondent1Copy": {
+			"partyID": "#{PartyID}",
+			"type": "COMPANY",
+			"companyName": "DEFENDANT",
+			"primaryAddress": {
+				"AddressLine1": "34",
+				"AddressLine2": "Flanders Court 12-14",
+				"AddressLine3": "St. Albans Road",
+				"PostTown": "Watford",
+				"Country": "United Kingdom",
+				"PostCode": "WD17 1BN"
+			},
+			"partyName": "DEFENDANT",
+			"partyTypeDisplayValue": "Company",
+			"partyEmail": "T@G.CM",
+			"flags": {
+				"partyName": "DEFENDANT",
+				"roleOnCase": "Defendant 1"
+			}
+		},
+		"respondent2Copy": null,
+		"respondent2SameLegalRepresentative": null,
+		"specAoSApplicantCorrespondenceAddressRequired": "Yes"
+	},
+	"event_token": "#{event_token}",
+	"ignore_warning": false,
+	"case_reference": "#{claimNumber}"
+}

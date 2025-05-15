@@ -50,7 +50,7 @@ object CivilAssignCase {
     group("CIVIL_AssignCase_000_AssignCase") {
       exec(Auth)
       .exec(http("CIVIL_AssignCase_000_AssignCase")
-        .post("http://civil-service-perftest.service.core-compute-perftest.internal/testing-support/assign-case/#{caseId}/DEFENDANT")
+        .post("http://civil-service-perftest.service.core-compute-perftest.internal/testing-support/assign-case/#{claimNumber}/DEFENDANT")
         .header("Authorization", "Bearer ${bearerToken}")
         .header("Content-Type", "application/json")
         .header("Accept", "*/*")
