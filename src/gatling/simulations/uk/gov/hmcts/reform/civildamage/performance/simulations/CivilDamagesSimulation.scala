@@ -204,12 +204,12 @@ class CivilDamagesSimulation extends Simulation {
 				// below is 80% cases are now stopped here
 
 				// 🎯 **80% Users Exit Here**
-				/*.randomSwitch(
+				.randomSwitch(
 					80.0 -> exec { session =>
 						println("✅ Stopping Execution for 80% Users")
 						session.markAsFailed
 					}
-				)*/
+				)
 				// below is for SDO for small claims
 
 				.exec(Homepage.XUIHomePage)
@@ -399,12 +399,12 @@ class CivilDamagesSimulation extends Simulation {
 				// below is the SDO for fast track
 				
 				// 🎯 **80% Users Exit Here**
-				/*.randomSwitch(
+				.randomSwitch(
 					80.0 -> exec { session =>
 						println("✅ Stopping Execution for 80% Users")
 						session.markAsFailed
 					}
-				)*/
+				)
 				
 				.exec(Homepage.XUIHomePage)
 				.exec(Login.XUIJudgeLogin)
@@ -494,11 +494,11 @@ class CivilDamagesSimulation extends Simulation {
 
 setUp(
 	//CUIR2SmallClaimsCaseProgression.inject(nothingFor(1),rampUsers(1) during (1)),
-	CUIR2FastTrackCaseProgression.inject(nothingFor(1),rampUsers(1) during (1))
+//	CUIR2FastTrackCaseProgression.inject(nothingFor(1),rampUsers(1) during (1))
 
 	//Following is the case progression scenarios for both small track and fast track for CUI
-//CUIR2SmallClaimsCaseProgression.inject(nothingFor(1),rampUsers(150) during (2200)),
-//CUIR2FastTrackCaseProgression.inject(nothingFor(50),rampUsers(150) during (2200)),
+CUIR2SmallClaimsCaseProgression.inject(nothingFor(1),rampUsers(150) during (2200)),
+CUIR2FastTrackCaseProgression.inject(nothingFor(50),rampUsers(150) during (2200)),
 	
 	// Following is for inserting data into
 	//30,130,900 nothingFor(1),
