@@ -18,7 +18,7 @@ object unspec_DF2_CL2_FinalOrder_Not_In_Scope {
   val DF_upload =
 
     // ========================LANDING PAGE=====================,
-    group("Civil_UnSpecClaim_80_01_DefendantDocUpload") {
+    group("Civil_UnSpecClaim_80_010_DefendantDocUpload_Land") {
       exec(http("Land_005_Jurisdictions")
         .get("/aggregated/caseworkers/:uid/jurisdictions?access=read")
         .headers(Headers.commonHeader)
@@ -32,7 +32,7 @@ object unspec_DF2_CL2_FinalOrder_Not_In_Scope {
     .pause(MinThinkTime, MaxThinkTime)
 
     // ========================SEARCH=====================,
-    .group("Civil_UnSpecClaim_80_02_DefendantDocUpload") {
+    .group("Civil_UnSpecClaim_80_020_DefendantDocUpload_Search") {
       exec(http("Search_005_WorkBasket")
         .get("/data/internal/case-types/CIVIL/work-basket-inputs")
         .headers(Headers.validateHeader)
@@ -48,19 +48,23 @@ object unspec_DF2_CL2_FinalOrder_Not_In_Scope {
     .pause(MinThinkTime, MaxThinkTime)
 
     // =======================OPEN CASE=======================,
-    .group("Civil_UnSpecClaim_80_03_DefendantDocUpload") {
+    .group("Civil_UnSpecClaim_80_030_DefendantDocUpload_GetCase") {
       exec(http("OpenCase_005_InternalCases")
         .get("/data/internal/cases/#{caseId}")
         .headers(Headers.validateHeader)
         .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-case-view.v2+json")
         .check(substring("Hearing Readiness")))
+    }
 
-      .exec(http("OpenCase_010_RoleAssignment")
+    .group("Civil_UnSpecClaim_80_030_DefendantDocUpload_API_RoleAssignment") {
+      exec(http("OpenCase_010_RoleAssignment")
         .post("/api/role-access/roles/manageLabellingRoleAssignment/#{caseId}")
         .headers(Headers.commonHeader)
         .check(status.is(204)))
+    }
 
-      .exec(http("OpenCase_015_Jurisdiction")
+    .group("Civil_UnSpecClaim_80_030_DefendantDocUpload_API_SupportedJurisdiction") {
+      exec(http("OpenCase_015_Jurisdiction")
         .get("/api/wa-supported-jurisdiction/get")
         .headers(Headers.commonHeader)
         .check(substring("CIVIL")))
@@ -68,7 +72,7 @@ object unspec_DF2_CL2_FinalOrder_Not_In_Scope {
     .pause(MinThinkTime, MaxThinkTime)
 
     // =======================DF UPLOAD DOC=======================,
-    .group("Civil_UnSpecClaim_80_04_DefendantDocUpload") {
+    .group("Civil_UnSpecClaim_80_040_DefendantDocUpload_StartEvent") {
       exec(http("DF_005_UploadDoc")
         .get("/workallocation/case/tasks/#{caseId}/event/EVIDENCE_UPLOAD_RESPONDENT/caseType/CIVIL/jurisdiction/CIVIL")
         .headers(Headers.commonHeader)
@@ -98,7 +102,7 @@ object unspec_DF2_CL2_FinalOrder_Not_In_Scope {
     .exec(getCookieValue(CookieKey("XSRF-TOKEN").withDomain(BaseURL.replace("https://", "")).saveAs("xsrf_token")))
 
     // =======================HOW TO UPLOAD=======================,
-    .group("Civil_UnSpecClaim_80_05_DefendantDocUpload") {
+    .group("Civil_UnSpecClaim_80_050_DefendantDocUpload_HowToUpload") {
       exec(http("DF_005_UploadChoice")
         .post("/data/case-types/CIVIL/validate?pageId=EVIDENCE_UPLOAD_RESPONDENTEvidenceUpload")
         .headers(Headers.validateHeader)
@@ -108,7 +112,7 @@ object unspec_DF2_CL2_FinalOrder_Not_In_Scope {
     .pause(MinThinkTime, MaxThinkTime)
 
     // =======================DF WITNESS STATEMENT=======================,
-    .group("Civil_UnSpecClaim_80_06_DefendantDocUpload") {
+    .group("Civil_UnSpecClaim_80_060_DefendantDocUpload_DocumentSelection") {
       exec(http("DF_005_WitnessStatement")
         .post("/data/case-types/CIVIL/validate?pageId=EVIDENCE_UPLOAD_RESPONDENTDocumentSelectionFastTrack")
         .headers(Headers.validateHeader)
@@ -118,7 +122,7 @@ object unspec_DF2_CL2_FinalOrder_Not_In_Scope {
     .pause(MinThinkTime, MaxThinkTime)
 
     // =======================DF UPLOAD WITNESS STATEMENT=======================,
-    .group("Civil_UnSpecClaim_80_07_DefendantDocUpload") {
+    .group("Civil_UnSpecClaim_80_070_DefendantDocUpload_DocumentUpload") {
       exec(http("DF_005_UploadWitnessStatement")
         .post("/documentsv2")
         .headers(Headers.commonHeader)
@@ -134,7 +138,7 @@ object unspec_DF2_CL2_FinalOrder_Not_In_Scope {
     }
     .pause(MinThinkTime, MaxThinkTime)
 
-    .group("Civil_UnSpecClaim_80_08_DefendantDocUpload") {
+    .group("Civil_UnSpecClaim_80_080_DefendantDocUpload_WitnessStatement") {
       exec(http("DF_010_UploadWitnessStatement")
         .post("/data/case-types/CIVIL/validate?pageId=EVIDENCE_UPLOAD_RESPONDENTDocumentUpload")
         .headers(Headers.validateHeader)
@@ -144,7 +148,7 @@ object unspec_DF2_CL2_FinalOrder_Not_In_Scope {
     .pause(MinThinkTime, MaxThinkTime)
 
     // =======================DF SUBMIT=======================,
-    .group("Civil_UnSpecClaim_80_09_DefendantDocUpload") {
+    .group("Civil_UnSpecClaim_80_090_DefendantDocUpload_Submit") {
       exec(http("DF_005_Submit")
         .post("/data/cases/#{caseId}/events")
         .headers(Headers.validateHeader)
@@ -165,7 +169,7 @@ object unspec_DF2_CL2_FinalOrder_Not_In_Scope {
   val CL_upload =
 
     // ========================LANDING PAGE=====================,
-    group("Civil_UnSpecClaim_85_01_ClaimantDocUpload") {
+    group("Civil_UnSpecClaim_85_010_ClaimantDocUpload_Land") {
       exec(http("005_SearchCase")
         .get("/aggregated/caseworkers/:uid/jurisdictions?access=read")
         .headers(Headers.commonHeader)
@@ -179,7 +183,7 @@ object unspec_DF2_CL2_FinalOrder_Not_In_Scope {
     .pause(MinThinkTime, MaxThinkTime)
 
     // ========================SEARCH=====================,
-    .group("Civil_UnSpecClaim_85_02_ClaimantDocUpload") {
+    .group("Civil_UnSpecClaim_85_020_ClaimantDocUpload_Search") {
       exec(http("Search_005_WorkBasket")
         .get("/data/internal/case-types/CIVIL/work-basket-inputs")
         .headers(Headers.validateHeader)
@@ -195,19 +199,23 @@ object unspec_DF2_CL2_FinalOrder_Not_In_Scope {
     .pause(MinThinkTime, MaxThinkTime)
 
     // =======================OPEN CASE=======================,
-    .group("Civil_UnSpecClaim_85_03_ClaimantDocUpload") {
+    .group("Civil_UnSpecClaim_85_030_ClaimantDocUpload_GetCase") {
       exec(http("OpenCase_005_InternalCases")
         .get("/data/internal/cases/#{caseId}")
         .headers(Headers.validateHeader)
         .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-case-view.v2+json")
         .check(substring("Hearing Readiness")))
+    }
 
-      .exec(http("OpenCase_010_RoleAssignment")
+    .group("Civil_UnSpecClaim_85_030_ClaimantDocUpload_API_RoleAssignment") {
+      exec(http("OpenCase_010_RoleAssignment")
         .post("/api/role-access/roles/manageLabellingRoleAssignment/#{caseId}")
         .headers(Headers.commonHeader)
         .check(status.is(204)))
+    }
 
-      .exec(http("OpenCase_015_Jurisdiction")
+    .group("Civil_UnSpecClaim_85_030_ClaimantDocUpload_API_SupportedJurisdiction") {
+      exec(http("OpenCase_015_Jurisdiction")
         .get("/api/wa-supported-jurisdiction/get")
         .headers(Headers.commonHeader)
         .check(substring("CIVIL")))
@@ -215,7 +223,7 @@ object unspec_DF2_CL2_FinalOrder_Not_In_Scope {
     .pause(MinThinkTime, MaxThinkTime)
 
     // =======================CLAIMANT UPLOAD DOC=======================,
-    .group("Civil_UnSpecClaim_85_04_ClaimantDocUpload") {
+    .group("Civil_UnSpecClaim_85_040_ClaimantDocUpload_StartEvent") {
       exec(http("CL_005_UploadDoc")
         .get("/workallocation/case/tasks/#{caseId}/event/EVIDENCE_UPLOAD_APPLICANT/caseType/CIVIL/jurisdiction/CIVIL")
         .headers(Headers.commonHeader)
@@ -244,7 +252,7 @@ object unspec_DF2_CL2_FinalOrder_Not_In_Scope {
     .exec(getCookieValue(CookieKey("XSRF-TOKEN").withDomain(BaseURL.replace("https://", "")).saveAs("xsrf_token")))
 
     // =======================HOW TO UPLOAD=======================,
-    .group("Civil_UnSpecClaim_85_05_ClaimantDocUpload") {
+    .group("Civil_UnSpecClaim_85_050_ClaimantDocUpload_HowToUpload") {
       exec(http("CL_005_UploadChoice")
         .post("/data/case-types/CIVIL/validate?pageId=EVIDENCE_UPLOAD_APPLICANTEvidenceUpload")
         .headers(Headers.validateHeader)
@@ -254,7 +262,7 @@ object unspec_DF2_CL2_FinalOrder_Not_In_Scope {
     .pause(MinThinkTime, MaxThinkTime)
 
     // =======================CL WITNESS STATEMENT=======================,
-    .group("Civil_UnSpecClaim_85_06_ClaimantDocUpload") {
+    .group("Civil_UnSpecClaim_85_060_ClaimantDocUpload_DocumentSelection") {
       exec(http("CL_005_WitnessStatement")
         .post("/data/case-types/CIVIL/validate?pageId=EVIDENCE_UPLOAD_APPLICANTDocumentSelectionFastTrack")
         .headers(Headers.validateHeader)
@@ -264,7 +272,7 @@ object unspec_DF2_CL2_FinalOrder_Not_In_Scope {
     .pause(MinThinkTime, MaxThinkTime)
 
     // =======================CL UPLOAD WITNESS STATEMENT=======================,
-    .group("Civil_UnSpecClaim_85_07_ClaimantDocUpload") {
+    .group("Civil_UnSpecClaim_85_070_ClaimantDocUpload_DocumentUpload") {
       exec(http("CL_005_UploadWitnessStatement")
         .post("/documentsv2")
         .headers(Headers.commonHeader)
@@ -280,7 +288,7 @@ object unspec_DF2_CL2_FinalOrder_Not_In_Scope {
     }
     .pause(MinThinkTime, MaxThinkTime)
 
-    .group("Civil_UnSpecClaim_85_08_ClaimantDocUpload") {
+    .group("Civil_UnSpecClaim_85_080_ClaimantDocUpload_WitnessStatement") {
       exec(http("CL_010_UploadWitnessStatement")
         .post("/data/case-types/CIVIL/validate?pageId=EVIDENCE_UPLOAD_APPLICANTDocumentUpload")
         .headers(Headers.validateHeader)
@@ -290,7 +298,7 @@ object unspec_DF2_CL2_FinalOrder_Not_In_Scope {
     .pause(MinThinkTime, MaxThinkTime)
 
     // =======================CL SUBMIT=======================,
-    .group("Civil_UnSpecClaim_85_09_ClaimantDocUpload") {
+    .group("Civil_UnSpecClaim_85_090_ClaimantDocUpload_Submit") {
       exec(http("CL_005_Submit")
         .post("/data/cases/#{caseId}/events")
         .headers(Headers.validateHeader)
@@ -311,7 +319,7 @@ object unspec_DF2_CL2_FinalOrder_Not_In_Scope {
   val FinalOrder =
 
     // ========================LANDING PAGE=====================,
-    group("Civil_UnSpecClaim_89_01_FinalOrder") {
+    group("Civil_UnSpecClaim_89_010_FinalOrder_Land") {
       exec(http("005_HealthCheck")
         .get("/api/healthCheck?path=%2Fwork%2Fmy-work%2Flist")
         .headers(Headers.commonHeader)
@@ -382,23 +390,23 @@ object unspec_DF2_CL2_FinalOrder_Not_In_Scope {
                            |"services": ["CIVIL", "PRIVATELAW"]}""".stripMargin))
         .headers(Headers.commonHeader)
         .check(status.in(200, 406)))
+
+      .exec(http("015_Jurisdiction")
+        .get("/aggregated/caseworkers/:uid/jurisdictions?access=read")
+        .headers(Headers.commonHeader)
+        .check(substring("callback_get_case_url")))
     }
     .pause(MinThinkTime, MaxThinkTime)
 
     // =======================SEARCH CASE=======================,
-    .group("Civil_UnSpecClaim_89_02_FinalOrder") {
+    .group("Civil_UnSpecClaim_89_020_FinalOrder_Search") {
       exec(http("005_SearchCase")
-        .get("/aggregated/caseworkers/:uid/jurisdictions?access=read")
-        .headers(Headers.commonHeader)
-        .check(substring("callback_get_case_url")))
-
-      .exec(http("010_SearchCase")
         .get("/data/internal/case-types/CIVIL/work-basket-inputs")
         .headers(Headers.validateHeader)
         .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-workbasket-input-details.v2+json;charset=UTF-8")
         .check(substring("workbasketInputs")))
 
-      .exec(http("015_SearchCase")
+      .exec(http("010_SearchCase")
         .post("/data/internal/searchCases?ctid=CIVIL&use_case=WORKBASKET&view=WORKBASKET&page=1&case_reference=#{caseId}")
         .headers(Headers.commonHeader)
         .body(StringBody("""{"size": 25}""".stripMargin))
@@ -407,7 +415,7 @@ object unspec_DF2_CL2_FinalOrder_Not_In_Scope {
     .pause(MinThinkTime, MaxThinkTime)
 
     // =======================OPEN CASE=======================,
-    .group("Civil_UnSpecClaim_89_03_FinalOrder") {
+    .group("Civil_UnSpecClaim_89_030_FinalOrder_GetCase") {
       exec(http("005_OpenCase")
         .get("/data/internal/cases/#{caseId}")
         .headers(Headers.validateHeader)
@@ -415,14 +423,14 @@ object unspec_DF2_CL2_FinalOrder_Not_In_Scope {
         .check(substring("http://gateway-ccd.perftest.platform.hmcts.net/internal/cases/#{caseId}")))
     }
 
-    .group("Civil_UnSpecClaim_89_03_FinalOrder") {
+    .group("Civil_UnSpecClaim_89_030_FinalOrder_API_RoleAssignment") {
       exec(http("010_OpenCase")
         .post("/api/role-access/roles/manageLabellingRoleAssignment/#{caseId}")
         .headers(Headers.commonHeader)
         .check(status.is(204)))
     }
 
-    .group("Civil_UnSpecClaim_89_03_FinalOrder") {
+    .group("Civil_UnSpecClaim_89_030_FinalOrder_API_SupportedJurisdiction") {
       exec(http("015_OpenCase")
         .get("/api/wa-supported-jurisdiction/get")
         .headers(Headers.commonHeader)
@@ -431,7 +439,7 @@ object unspec_DF2_CL2_FinalOrder_Not_In_Scope {
     .pause(MinThinkTime, MaxThinkTime)
 
     // =======================SELECT MAKE AN ORDER=======================,
-    .group("Civil_UnSpecClaim_89_04_FinalOrder") {
+    .group("Civil_UnSpecClaim_89_040_FinalOrder_StartEvent") {
       exec(http("005_MakeAnOrder")
         .get("/workallocation/case/tasks/#{caseId}/event/GENERATE_DIRECTIONS_ORDER/caseType/CIVIL/jurisdiction/CIVIL")
         .headers(Headers.commonHeader)
@@ -458,7 +466,7 @@ object unspec_DF2_CL2_FinalOrder_Not_In_Scope {
     .pause(MinThinkTime, MaxThinkTime)
 
     // =======================ALLOCATE TRACK=======================,
-    .group("Civil_UnSpecClaim_89_05_FinalOrder") {
+    .group("Civil_UnSpecClaim_89_050_FinalOrder_TrackAllocation") {
       exec(http("005_AllocateToTrack")
         .post("/data/case-types/CIVIL/validate?pageId=GENERATE_DIRECTIONS_ORDERTrackAllocation")
         .headers(Headers.validateHeader)
@@ -479,7 +487,7 @@ object unspec_DF2_CL2_FinalOrder_Not_In_Scope {
 //    .pause(MinThinkTime, MaxThinkTime)
 
     // =======================ORDER SELECT=======================,
-    .group("Civil_UnSpecClaim_89_06_FinalOrder") {
+    .group("Civil_UnSpecClaim_89_060_FinalOrder_OrderSelect") {
       exec(http("005_OrderSelect")
         .post("/data/case-types/CIVIL/validate?pageId=GENERATE_DIRECTIONS_ORDERFinalOrderSelect")
         .headers(Headers.validateHeader)
@@ -489,7 +497,7 @@ object unspec_DF2_CL2_FinalOrder_Not_In_Scope {
     .pause(MinThinkTime, MaxThinkTime)
 
     // =======================FREE FORM ORDER=======================,
-    .group("Civil_UnSpecClaim_89_07_FinalOrder") {
+    .group("Civil_UnSpecClaim_89_070_FinalOrder_FreeFormOrder") {
       exec(http("005_FreeFormOrder")
         .post("/data/case-types/CIVIL/validate?pageId=GENERATE_DIRECTIONS_ORDERFreeFormOrder")
         .headers(Headers.validateHeader)
@@ -504,7 +512,7 @@ object unspec_DF2_CL2_FinalOrder_Not_In_Scope {
     .pause(MinThinkTime, MaxThinkTime)
 
     // =======================FINAL ORDER PREVIEW=======================,
-    .group("Civil_UnSpecClaim_89_08_FinalOrder") {
+    .group("Civil_UnSpecClaim_89_080_FinalOrder_OrderPreview") {
       exec(http("005_FinalOrderPreview")
         .post("/data/case-types/CIVIL/validate?pageId=GENERATE_DIRECTIONS_ORDERFinalOrderPreview")
         .headers(Headers.validateHeader)
@@ -514,7 +522,7 @@ object unspec_DF2_CL2_FinalOrder_Not_In_Scope {
     .pause(MinThinkTime, MaxThinkTime)
 
     // =======================ORDER SUBMIT=======================,
-    .group("Civil_UnSpecClaim_89_09_FinalOrder") {
+    .group("Civil_UnSpecClaim_89_090_FinalOrder_Submit") {
       exec(http("005_SubmitOrder")
         .post("/data/cases/#{caseId}/events")
         .headers(Headers.validateHeader)

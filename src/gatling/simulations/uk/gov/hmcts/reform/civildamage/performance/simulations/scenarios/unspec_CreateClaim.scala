@@ -14,7 +14,7 @@ object unspec_CreateClaim {
   val CreateUnSpecClaim =
 
     // ========================LANDING PAGE=====================,
-    group("Civil_UnSpecClaim_10_01_LandingPage") {
+    group("Civil_UnSpecClaim_10_010_CreateCase_Land") {
       exec(http("Jurisdictions")
         .get("/aggregated/caseworkers/:uid/jurisdictions?access=read")
         .headers(Headers.commonHeader)
@@ -28,15 +28,15 @@ object unspec_CreateClaim {
     .pause(MinThinkTime, MaxThinkTime)
 
     // =====================CREATE CASE==================,
-    .group("Civil_UnSpecClaim_10_02_CreateCase") {
-      exec(http("create")
+    .group("Civil_UnSpecClaim_10_020_CreateCase_Start") {
+      exec(http("Create")
         .get("/aggregated/caseworkers/:uid/jurisdictions?access=create")
         .headers(Headers.commonHeader)
         .check(substring("Create claim - Unspecified")))
     }
     .pause(MinThinkTime, MaxThinkTime)
 
-    .group("Civil_UnSpecClaim_10_03_CreateCase") {
+    .group("Civil_UnSpecClaim_10_030_CreateCase_CreateCase") {
       exec(http("IgnoreWarning")
         .get("/data/internal/case-types/CIVIL/event-triggers/CREATE_CLAIM?ignore-warning=false")
         .headers(Headers.validateHeader)
@@ -48,7 +48,7 @@ object unspec_CreateClaim {
     .pause(MinThinkTime, MaxThinkTime)
 
     // ==================COURT PROCEEDINGS==================,
-    .group("Civil_UnSpecClaim_10_04_CreateCase") {
+    .group("Civil_UnSpecClaim_10_040_CreateCase_Eligibility") {
       exec(http("CLAIMEligibility")
         .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIMEligibility")
         .headers(Headers.validateHeader)
@@ -60,7 +60,7 @@ object unspec_CreateClaim {
     .pause(MinThinkTime, MaxThinkTime)
 
     // ==================FLE REF==================,
-    .group("Civil_UnSpecClaim_10_05_CreateCase") {
+    .group("Civil_UnSpecClaim_10_050_CreateCase_References") {
       exec(http("CLAIMReferences")
         .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIMReferences")
         .headers(Headers.validateHeader)
@@ -73,7 +73,7 @@ object unspec_CreateClaim {
     .pause(MinThinkTime, MaxThinkTime)
 
     // ==================COURT LOC==================,
-    .group("Civil_UnSpecClaim_10_06_CreateCase") {
+    .group("Civil_UnSpecClaim_10_060_CreateCase_CourtLocation") {
       exec(http("CLAIMCourt")
         .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIMCourt")
         .headers(Headers.validateHeader)
@@ -83,7 +83,7 @@ object unspec_CreateClaim {
     .pause(MinThinkTime, MaxThinkTime)
 
     // ==================CL ADDR==================,
-    .group("Civil_UnSpecClaim_10_07_CreateCase") {
+    .group("Civil_UnSpecClaim_10_070_CreateCase_API_PostcodeSearch") {
       exec(http("postcode")
         .get("/api/addresses?postcode=HA11GP")
         .headers(Headers.commonHeader)
@@ -92,7 +92,7 @@ object unspec_CreateClaim {
     .pause(MinThinkTime, MaxThinkTime)
 
     // ==================CL DETAILS==================,
-    .group("Civil_UnSpecClaim_10_08_CreateCase") {
+    .group("Civil_UnSpecClaim_10_080_CreateCase_Claimant") {
       exec(http("CLAIMClaimant")
         .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIMClaimant")
         .headers(Headers.validateHeader)
@@ -102,7 +102,7 @@ object unspec_CreateClaim {
     .pause(MinThinkTime, MaxThinkTime)
 
     // ==================UNDER AGE==================,
-    .group("Civil_UnSpecClaim_10_09_CreateCase") {
+    .group("Civil_UnSpecClaim_10_090_CreateCase_OverEighteen") {
       exec(http("CREATE_CLAIMClaimantLitigationFriend")
         .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIMClaimantLitigationFriend")
         .headers(Headers.validateHeader)
@@ -112,7 +112,7 @@ object unspec_CreateClaim {
     .pause(MinThinkTime, MaxThinkTime)
 
     // ==================CL REP EMAIL==================,
-    .group("Civil_UnSpecClaim_10_10_CreateCase") {
+    .group("Civil_UnSpecClaim_10_100_CreateCase_Notifications") {
       exec(http("CREATE_CLAIMNotifications")
         .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIMNotifications")
         .headers(Headers.validateHeader)
@@ -122,7 +122,7 @@ object unspec_CreateClaim {
     .pause(MinThinkTime, MaxThinkTime)
 
     // ==================CL REP ADDR==================,
-    .group("Civil_UnSpecClaim_10_11_CreateCase") {
+    .group("Civil_UnSpecClaim_10_110_CreateCase_SolicitorOrganisation") {
       exec(http("ClaimantSolicitorOrganisation")
         .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIMClaimantSolicitorOrganisation")
         .headers(Headers.validateHeader)
@@ -132,7 +132,7 @@ object unspec_CreateClaim {
     .pause(MinThinkTime, MaxThinkTime)
 
     // ==================CL REP CORRESPONDENCE ADDR==================,
-    .group("Civil_UnSpecClaim_10_12_CreateCase") {
+    .group("Civil_UnSpecClaim_10_120_CreateCase_CorrespondenceAddress") {
       exec(http("ClaimantSolicitorAddres")
         .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIMClaimantSolicitorServiceAddress")
         .headers(Headers.validateHeader)
@@ -142,7 +142,7 @@ object unspec_CreateClaim {
     .pause(MinThinkTime, MaxThinkTime)
 
     // ==================ANOTHER CL==================,
-    .group("Civil_UnSpecClaim_10_13_CreateCase") {
+    .group("Civil_UnSpecClaim_10_130_CreateCase_AddAnotherClaimant") {
       exec(http("AddAnotherClaimant")
         .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIMAddAnotherClaimant")
         .headers(Headers.validateHeader)
@@ -152,7 +152,7 @@ object unspec_CreateClaim {
     .pause(MinThinkTime, MaxThinkTime)
 
     // ==================DF ADDR==================,
-    .group("Civil_UnSpecClaim_10_14_CreateCase") {
+    .group("Civil_UnSpecClaim_10_140_CreateCase_API_PostcodeSearch") {
       exec(http("postcode")
         .get("/api/addresses?postcode=WD171BN")
         .headers(Headers.commonHeader)
@@ -161,7 +161,7 @@ object unspec_CreateClaim {
     .pause(MinThinkTime, MaxThinkTime)
 
     // ==================DF DETAILS==================,
-    .group("Civil_UnSpecClaim_10_15_CreateCase") {
+    .group("Civil_UnSpecClaim_10_150_CreateCase_Defendant") {
       exec(http("CLAIMDefendant")
         .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIMDefendant")
         .headers(Headers.validateHeader)
@@ -171,7 +171,7 @@ object unspec_CreateClaim {
     .pause(MinThinkTime, MaxThinkTime)
 
     // ==================DF REP YES==================,
-    .group("Civil_UnSpecClaim_10_16_CreateCase") {
+    .group("Civil_UnSpecClaim_10_160_CreateCase_LegalRepresentation") {
       exec(http("LegalRepresentation")
         .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIMLegalRepresentation")
         .headers(Headers.validateHeader)
@@ -181,7 +181,7 @@ object unspec_CreateClaim {
     .pause(MinThinkTime, MaxThinkTime)
 
     // ==================DF REP ADDR==================,
-    .group("Civil_UnSpecClaim_10_17_CreateCase") {
+    .group("Civil_UnSpecClaim_10_170_CreateCase_SolicitorOrganisation") {
       exec(http("DefendantSolicitorOrganisation")
         .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIMDefendantSolicitorOrganisation")
         .headers(Headers.validateHeader)
@@ -191,7 +191,7 @@ object unspec_CreateClaim {
     .pause(MinThinkTime, MaxThinkTime)
 
     // ==================DF REP ADDR==================,
-    .group("Civil_UnSpecClaim_10_18_CreateCase") {
+    .group("Civil_UnSpecClaim_10_180_CreateCase_DefendantAddress") {
       exec(http("DefendantSolicitorServiceAddress")
         .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIMDefendantSolicitorServiceAddress")
         .headers(Headers.validateHeader)
@@ -201,7 +201,7 @@ object unspec_CreateClaim {
     .pause(MinThinkTime, MaxThinkTime)
 
     // ==================DF REP EMAIL==================,
-    .group("Civil_UnSpecClaim_10_19_CreateCase") {
+    .group("Civil_UnSpecClaim_10_190_CreateCase_DefendantEmail") {
       exec(http("CLAIMAddAnotherDefendant")
         .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIMDefendantSolicitorEmail")
         .headers(Headers.validateHeader)
@@ -211,7 +211,7 @@ object unspec_CreateClaim {
     .pause(MinThinkTime, MaxThinkTime)
 
     // ==================ANOTHER DF==================,
-    .group("Civil_UnSpecClaim_10_20_CreateCase") {
+    .group("Civil_UnSpecClaim_10_200_CreateCase_AddAnotherDefendant") {
       exec(http("AddAnotherDefendant")
         .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIMAddAnotherDefendant")
         .headers(Headers.validateHeader)
@@ -221,7 +221,7 @@ object unspec_CreateClaim {
     .pause(MinThinkTime, MaxThinkTime)
 
     // ==================CLAIM TYPE==================,
-    .group("Civil_UnSpecClaim_10_21_CreateCase") {
+    .group("Civil_UnSpecClaim_10_210_CreateCase_FlightDelayClaim") {
       exec(http("CLAIMClaimType")
         .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIMClaimType")
         .headers(Headers.validateHeader)
@@ -231,7 +231,7 @@ object unspec_CreateClaim {
     .pause(MinThinkTime, MaxThinkTime)
 
     // ==================CLAIM DESC==================,
-    .group("Civil_UnSpecClaim_10_22_CreateCase") {
+    .group("Civil_UnSpecClaim_10_220_CreateCase_CaseDetails") {
       exec(http("CLAIMDetails")
         .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIMDetails")
         .headers(Headers.validateHeader)
@@ -241,7 +241,7 @@ object unspec_CreateClaim {
     .pause(MinThinkTime, MaxThinkTime)
 
     // ==================UPLOAD PARTICULARS==================,
-    .group("Civil_UnSpecClaim_10_23_CreateCase") {
+    .group("Civil_UnSpecClaim_10_230_CreateCase_UploadClaimDocument") {
       exec(http("CLAIMUploadParticularsOfClaim")
         .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIMUploadParticularsOfClaim")
         .headers(Headers.validateHeader)
@@ -251,7 +251,7 @@ object unspec_CreateClaim {
     .pause(MinThinkTime, MaxThinkTime)
 
     // ==================CLAIM AMT==================,
-    .group("Civil_UnSpecClaim_10_24_CreateCase") {
+    .group("Civil_UnSpecClaim_10_240_CreateCase_ClaimValue") {
       exec(http("CLAIMClaimValue")
         .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIMClaimValue")
         .headers(Headers.validateHeader)
@@ -260,8 +260,9 @@ object unspec_CreateClaim {
         .check(regex("statementOfValueInPennies\":\"(.*?)\"").saveAs("statementOfValueInPennies")))
     }
     .pause(MinThinkTime, MaxThinkTime)
+
     // ==================CLAIM FEE==================,
-    .group("Civil_UnSpecClaim_10_25_CreateCase") {
+    .group("Civil_UnSpecClaim_10_250_CreateCase_ClaimFee") {
       exec(http("CLAIMPbaNumber")
         .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIMPbaNumber")
         .headers(Headers.validateHeader)
@@ -269,8 +270,9 @@ object unspec_CreateClaim {
         .check(substring("calculatedAmountInPence")))
     }
     .pause(MinThinkTime, MaxThinkTime)
+
     // ==================SOT==================,
-    .group("Civil_UnSpecClaim_10_26_CreateCase") {
+    .group("Civil_UnSpecClaim_10_260_CreateCase_StatementOfTruth") {
       exec(http("StatementOfTruth")
         .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIMStatementOfTruth")
         .headers(Headers.validateHeader)
@@ -280,7 +282,7 @@ object unspec_CreateClaim {
     .pause(MinThinkTime, MaxThinkTime)
 
     // ==================SUBMIT SOT==================,
-    .group("Civil_UnSpecClaim_10_27_CreateCase") {
+    .group("Civil_UnSpecClaim_10_270_CreateCase_Submit") {
       exec(http("Submit_Claim")
         .post("/data/case-types/CIVIL/cases?ignore-warning=false")
         .headers(Headers.validateHeader)
@@ -292,7 +294,8 @@ object unspec_CreateClaim {
     }
     .pause(MinThinkTime, MaxThinkTime)
 
-    .group("Civil_UnSpecClaim_10_28_CaseCreated") {
+    // ==================API ROLE ASSIGNMENT==================,
+    .group("Civil_UnSpecClaim_10_280_CreateCase_GetCase") {
       exec(http("CaseCreated")
         .get("/data/internal/cases/#{caseId}")
         .headers(Headers.validateHeader)
@@ -300,15 +303,14 @@ object unspec_CreateClaim {
         .check(substring("http://gateway-ccd.perftest.platform.hmcts.net/internal/cases/#{caseId}")))
     }
 
-    // ==================API ROLE ASSIGNMENT==================,
-    .group("Civil_UnSpecClaim_10_29_APIRoleAssignment") {
+    .group("Civil_UnSpecClaim_10_280_CreateCase_API_RoleAssignment") {
       exec(http("APIRoleAssignment")
         .post("/api/role-access/roles/manageLabellingRoleAssignment/#{caseId}")
         .headers(Headers.commonHeader)
         .check(status.is(204)))
     }
 
-    .group("Civil_UnspecClaim_10_29_SupportedJurisdiction") {
+    .group("Civil_UnSpecClaim_10_280_CreateCase_API_SupportedJurisdiction") {
       exec(http("SupportedJurisdiction")
         .get("/api/wa-supported-jurisdiction/get")
         .headers(Headers.commonHeader)

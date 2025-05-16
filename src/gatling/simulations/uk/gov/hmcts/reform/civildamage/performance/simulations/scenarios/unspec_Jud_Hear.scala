@@ -8,6 +8,7 @@ import utils._
 import scala.concurrent.duration.DurationInt
 
 object unspec_Jud_Hear {
+
 	val BaseURL = Environment.baseURL
 	val IdamURL = Environment.idamURL
 	val MinThinkTime = Environment.minThinkTime
@@ -39,7 +40,7 @@ object unspec_Jud_Hear {
     ))
 
     // =======================LANDING PAGE==================,
-    .group("Civil_UnSpecClaim_60_01_SDO") {
+    .group("Civil_UnSpecClaim_60_010_SDO_Land") {
       exec(http("005_HealthCheck")
         .get("/api/healthCheck?path=%2Fwork%2Fmy-work%2Flist")
         .headers(Headers.commonHeader)
@@ -110,23 +111,23 @@ object unspec_Jud_Hear {
                            |"services": ["CIVIL", "PRIVATELAW"]}""".stripMargin))
         .headers(Headers.commonHeader)
         .check(status.in(200, 406)))
+
+      .exec(http("015_Jurisdiction")
+        .get("/aggregated/caseworkers/:uid/jurisdictions?access=read")
+        .headers(Headers.commonHeader)
+        .check(substring("callback_get_case_url")))
     }
     .pause(MinThinkTime, MaxThinkTime)
 
     // =======================SEARCH CASE=======================,
-    .group("Civil_UnSpecClaim_60_02_SDO") {
+    .group("Civil_UnSpecClaim_60_020_SDO_Search") {
       exec(http("005_SearchCase")
-        .get("/aggregated/caseworkers/:uid/jurisdictions?access=read")
-        .headers(Headers.commonHeader)
-        .check(substring("callback_get_case_url")))
-
-      .exec(http("010_SearchCase")
         .get("/data/internal/case-types/CIVIL/work-basket-inputs")
         .headers(Headers.validateHeader)
         .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-workbasket-input-details.v2+json;charset=UTF-8")
         .check(substring("workbasketInputs")))
 
-      .exec(http("015_SearchCase")
+      .exec(http("010_SearchCase")
         .post("/data/internal/searchCases?ctid=CIVIL&use_case=WORKBASKET&view=WORKBASKET&page=1&case_reference=#{caseId}")
         .headers(Headers.commonHeader)
         .body(StringBody("""{"size": 25}""".stripMargin))
@@ -135,7 +136,7 @@ object unspec_Jud_Hear {
     .pause(MinThinkTime, MaxThinkTime)
 
     // =======================OPEN CASE=======================,
-    .group("Civil_UnSpecClaim_60_03_SDO") {
+    .group("Civil_UnSpecClaim_60_030_SDO_GetCase") {
       exec(http("005_OpenCase")
         .get("/data/internal/cases/#{caseId}")
         .headers(Headers.validateHeader)
@@ -143,14 +144,14 @@ object unspec_Jud_Hear {
         .check(substring("http://gateway-ccd.perftest.platform.hmcts.net/internal/cases/#{caseId}")))
     }
 
-    .group("Civil_UnSpecClaim_60_03_SDO") {
+    .group("Civil_UnSpecClaim_60_030_SDO_API_RoleAssignment") {
       exec(http("010_OpenCase")
         .post("/api/role-access/roles/manageLabellingRoleAssignment/#{caseId}")
         .headers(Headers.commonHeader)
         .check(status.is(204)))
     }
 
-    .group("Civil_UnSpecClaim_60_03_SDO") {
+    .group("Civil_UnSpecClaim_60_030_SDO_API_SupportedJurisdiction") {
       exec(http("015_OpenCase")
         .get("/api/wa-supported-jurisdiction/get")
         .headers(Headers.commonHeader)
@@ -159,7 +160,7 @@ object unspec_Jud_Hear {
     .pause(150)
 
     // =======================TASK TAB=======================,
-    .group("Civil_UnSpecClaim_60_04_SDO") {
+    .group("Civil_UnSpecClaim_60_040_SDO_TaskTab") {
       exec(http("005_TaskTab")
         .post("/workallocation/case/task/#{caseId}")
         .headers(Headers.commonHeader)
@@ -176,7 +177,7 @@ object unspec_Jud_Hear {
     .pause(MinThinkTime, MaxThinkTime)
 
     // =======================ASSIGN TO ME=======================,
-    .group("Civil_UnSpecClaim_60_05_SDO") {
+    .group("Civil_UnSpecClaim_60_050_SDO_AssignToMe") {
       exec(http("005_AssignToMe")
         .post("/workallocation/task/#{judgeId}/claim")
         .headers(Headers.commonHeader)
@@ -197,7 +198,7 @@ object unspec_Jud_Hear {
     .pause(MinThinkTime, MaxThinkTime)
 
     // =======================FAST TRACK=======================,
-    .group("Civil_UnSpecClaim_60_06_SDO") {
+    .group("Civil_UnSpecClaim_60_060_SDO_StartEvent") {
       exec(http("005_FastTrack")
         .get("/cases/case-details/#{caseId}/trigger/CREATE_SDO/CREATE_SDOFastTrack?tid=#{judgeId}")
         .headers(Headers.navigationHeader)
@@ -240,7 +241,7 @@ object unspec_Jud_Hear {
     .pause(MinThinkTime, MaxThinkTime)
 
     // ===========================SDO AMOUNT===========================,
-    .group("Civil_UnSpecClaim_60_07_SDO") {
+    .group("Civil_UnSpecClaim_60_070_SDO_Amount") {
       exec(http("005_SDO_Amount")
         .post("/data/case-types/CIVIL/validate?pageId=CREATE_SDOSDO")
         .headers(Headers.validateHeader)
@@ -250,7 +251,7 @@ object unspec_Jud_Hear {
     .pause(MinThinkTime, MaxThinkTime)
 
     // =======================ALLOCATE FAST TRACK=======================,
-    .group("Civil_UnSpecClaim_60_08_SDO") {
+    .group("Civil_UnSpecClaim_60_080_SDO_ClaimsTrack") {
       exec(http("005_ClaimsTrack")
         .post("/data/case-types/CIVIL/validate?pageId=CREATE_SDOClaimsTrack")
         .headers(Headers.validateHeader)
@@ -261,7 +262,7 @@ object unspec_Jud_Hear {
     .pause(MinThinkTime, MaxThinkTime)
 
     // =======================ORDER DETAILS=======================,
-    .group("Civil_UnSpecClaim_60_09_SDO") {
+    .group("Civil_UnSpecClaim_60_090_SDO_OrderDetails") {
       exec(http("005_OrderDetails")
         .post("/data/case-types/CIVIL/validate?pageId=CREATE_SDOFastTrack")
         .headers(Headers.validateHeader)
@@ -275,7 +276,7 @@ object unspec_Jud_Hear {
     .pause(MinThinkTime, MaxThinkTime)
 
     // =======================VIEW DIRECTIONAL ORDER=======================,
-    .group("Civil_UnSpecClaim_60_10_SDO") {
+    .group("Civil_UnSpecClaim_60_100_SDO_View") {
       exec(http("005_OrderPreview")
         .post("/data/case-types/CIVIL/validate?pageId=CREATE_SDOOrderPreview")
         .headers(Headers.validateHeader)
@@ -285,7 +286,7 @@ object unspec_Jud_Hear {
     .pause(MinThinkTime, MaxThinkTime)
 
     // =======================SUBMIT SDO=======================,
-    .group("Civil_UnSpecClaim_60_11_SDO") {
+    .group("Civil_UnSpecClaim_60_110_SDO_Submit") {
       exec(http("005_SubmitSDO")
         .get("/workallocation/task/#{judgeId}")
         .headers(Headers.commonHeader)
@@ -329,7 +330,7 @@ object unspec_Jud_Hear {
     ))
 
     // =======================LANDING PAGE==================,
-    .group("Civil_UnSpecClaim_70_01_HearingAdmin") {
+    .group("Civil_UnSpecClaim_70_010_HearingAdmin_Land") {
       exec(http("005_HealthCheck")
         .get("/api/healthCheck?path=%2Fwork%2Fmy-work%2Flist")
         .headers(Headers.commonHeader)
@@ -396,7 +397,7 @@ object unspec_Jud_Hear {
     .pause(MinThinkTime, MaxThinkTime)
 
     // =======================OPEN CASE=======================,
-    .group("Civil_UnSpecClaim_70_02_HearingAdmin") {
+    .group("Civil_UnSpecClaim_70_020_HearingAdmin_GetCase") {
       exec(http("005_OpenCase")
         .get("/data/internal/cases/#{caseId}")
         .headers(Headers.validateHeader)
@@ -404,14 +405,14 @@ object unspec_Jud_Hear {
         .check(substring("http://gateway-ccd.perftest.platform.hmcts.net/internal/cases/#{caseId}")))
     }
 
-    .group("Civil_UnSpecClaim_70_02_HearingAdmin") {
+    .group("Civil_UnSpecClaim_70_020_HearingAdmin_API_RoleAssignment") {
       exec(http("010_OpenCase")
         .post("/api/role-access/roles/manageLabellingRoleAssignment/#{caseId}")
         .headers(Headers.commonHeader)
         .check(status.is(204)))
     }
 
-    .group("Civil_UnSpecClaim_70_02_HearingAdmin") {
+    .group("Civil_UnSpecClaim_70_020_HearingAdmin_API_SupportedJurisdiction") {
       exec(http("015_OpenCase")
         .get("/api/wa-supported-jurisdiction/get")
         .headers(Headers.commonHeader)
@@ -420,7 +421,7 @@ object unspec_Jud_Hear {
     .pause(90)
 
     // =======================TASK TAB=======================,
-    .group("Civil_UnSpecClaim_70_03_HearingAdmin") {
+    .group("Civil_UnSpecClaim_70_030_HearingAdmin_TaskTab") {
       exec(http("005_TaskTab")
         .post("/workallocation/case/task/#{caseId}")
         .headers(Headers.commonHeader)
@@ -438,7 +439,7 @@ object unspec_Jud_Hear {
 
     // =======================ASSIGN TO ME=======================,
     .doIf(session => session.contains("HearingCaseId")) (
-      group("Civil_UnSpecClaim_70_04_HearingAdmin") {
+      group("Civil_UnSpecClaim_70_040_HearingAdmin_AssignToMe") {
         exec(http("005_AssignToMe")
           .post("/workallocation/task/#{HearingCaseId}/claim")
           .headers(Headers.commonHeader)
@@ -454,7 +455,7 @@ object unspec_Jud_Hear {
     .pause(MinThinkTime, MaxThinkTime)
 
     // =======================HEARING NOTICE DROPDOWN=======================,
-    .group("Civil_UnSpecClaim_70_05_HearingAdmin") {
+    .group("Civil_UnSpecClaim_70_050_HearingAdmin_StartEvent") {
       exec(http("005_Jurisdiction")
         .get("/workallocation/case/tasks/#{caseId}/event/HEARING_SCHEDULED/caseType/CIVIL/jurisdiction/CIVIL")
         .headers(Headers.commonHeader)
@@ -482,7 +483,7 @@ object unspec_Jud_Hear {
     .pause(MinThinkTime, MaxThinkTime)
 
     // =======================SMALL CLAIM=======================,
-    .group("Civil_UnSpecClaim_70_06_HearingAdmin") {
+    .group("Civil_UnSpecClaim_70_060_HearingAdmin_HearingNotice") {
       exec(http("005_HearingNoticeSelect")
         .post("/data/case-types/CIVIL/validate?pageId=HEARING_SCHEDULEDHearingNoticeSelect")
         .headers(Headers.validateHeader)
@@ -493,7 +494,7 @@ object unspec_Jud_Hear {
     .pause(MinThinkTime, MaxThinkTime)
 
     // =======================LISTING=======================,
-    .group("Civil_UnSpecClaim_70_07_HearingAdmin") {
+    .group("Civil_UnSpecClaim_70_070_HearingAdmin_Listing") {
       exec(http("005_ListingOrRelisting")
         .post("/data/case-types/CIVIL/validate?pageId=HEARING_SCHEDULEDListingOrRelisting")
         .headers(Headers.validateHeader)
@@ -503,7 +504,7 @@ object unspec_Jud_Hear {
     .pause(MinThinkTime, MaxThinkTime)
 
     // =======================HEARING DETAILS=======================,
-    .group("Civil_UnSpecClaim_70_08_HearingAdmin") {
+    .group("Civil_UnSpecClaim_70_080_HearingAdmin_HearingDetails") {
       exec(http("005_HearingDetails")
         .post("/data/case-types/CIVIL/validate?pageId=HEARING_SCHEDULEDHearingDetails")
         .headers(Headers.validateHeader)
@@ -514,7 +515,7 @@ object unspec_Jud_Hear {
     .pause(MinThinkTime, MaxThinkTime)
 
     // =======================NOTICE LETTER INFO=======================,
-    .group("Civil_UnSpecClaim_70_09_HearingAdmin") {
+    .group("Civil_UnSpecClaim_70_090_HearingAdmin_HearingInformation") {
       exec(http("005_HearingInformation")
         .post("/data/case-types/CIVIL/validate?pageId=HEARING_SCHEDULEDHearingInformation")
         .headers(Headers.validateHeader)
@@ -525,7 +526,7 @@ object unspec_Jud_Hear {
     .pause(MinThinkTime, MaxThinkTime)
 
     // =======================SUBMIT=======================,
-    .group("Civil_UnSpecClaim_70_10_HearingAdmin") {
+    .group("Civil_UnSpecClaim_70_100_HearingAdmin_Submit") {
       doIf(session => session.contains("HearingCaseId")) (
         exec(http("005_Submit")
           .get("/workallocation/task/#{HearingCaseId}")

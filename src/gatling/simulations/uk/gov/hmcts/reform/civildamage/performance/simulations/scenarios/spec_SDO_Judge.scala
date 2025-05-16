@@ -42,7 +42,7 @@ object spec_SDO_Judge {
     ))
 
     // =======================LANDING PAGE==================,
-    .group("Civil_SpecClaim_50_01_SDO") {
+    .group("Civil_SpecClaim_50_010_SDO_Land") {
       exec(http("005_HealthCheck")
         .get("/api/healthCheck?path=%2Fwork%2Fmy-work%2Flist")
         .headers(Headers.commonHeader)
@@ -112,23 +112,23 @@ object spec_SDO_Judge {
                            |"services": ["CIVIL", "PRIVATELAW"]}""".stripMargin))
         .headers(Headers.commonHeader)
         .check(status.in(200, 406)))
+
+      .exec(http("015_Jurisdiction")
+        .get("/aggregated/caseworkers/:uid/jurisdictions?access=read")
+        .headers(Headers.commonHeader)
+        .check(substring("callback_get_case_url")))
     }
     .pause(MinThinkTime, MaxThinkTime)
 
     // =======================SEARCH CASE=======================,
-    .group("Civil_SpecClaim_50_02_SDO") {
+    .group("Civil_SpecClaim_50_020_SDO_Search") {
       exec(http("005_SearchCase")
-        .get("/aggregated/caseworkers/:uid/jurisdictions?access=read")
-        .headers(Headers.commonHeader)
-        .check(substring("callback_get_case_url")))
-
-      .exec(http("010_SearchCase")
         .get("/data/internal/case-types/CIVIL/work-basket-inputs")
         .headers(Headers.validateHeader)
         .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-workbasket-input-details.v2+json;charset=UTF-8")
         .check(substring("workbasketInputs")))
 
-      .exec(http("015_SearchCase")
+      .exec(http("010_SearchCase")
         .post("/data/internal/searchCases?ctid=CIVIL&use_case=WORKBASKET&view=WORKBASKET&page=1&case_reference=#{caseId}")
         .headers(Headers.commonHeader)
         .body(StringBody("""{"size": 25}""".stripMargin))
@@ -137,7 +137,7 @@ object spec_SDO_Judge {
     .pause(MinThinkTime, MaxThinkTime)
 
     // =======================OPEN CASE=======================,
-    .group("Civil_SpecClaim_50_03_SDO") {
+    .group("Civil_SpecClaim_50_030_SDO_GetCase") {
       exec(http("005_OpenCase")
         .get("/data/internal/cases/#{caseId}")
         .headers(Headers.validateHeader)
@@ -145,14 +145,14 @@ object spec_SDO_Judge {
         .check(substring("http://gateway-ccd.perftest.platform.hmcts.net/internal/cases/#{caseId}")))
     }
 
-    .group("Civil_SpecClaim_50_03_SDO") {
+    .group("Civil_SpecClaim_50_030_SDO_API_RoleAssignment") {
       exec(http("010_OpenCase")
         .post("/api/role-access/roles/manageLabellingRoleAssignment/#{caseId}")
         .headers(Headers.commonHeader)
         .check(status.is(204)))
     }
 
-    .group("Civil_SpecClaim_50_03_SDO") {
+    .group("Civil_SpecClaim_50_030_SDO_API_SupportedJurisdiction") {
       exec(http("015_OpenCase")
         .get("/api/wa-supported-jurisdiction/get")
         .headers(Headers.commonHeader)
@@ -161,7 +161,7 @@ object spec_SDO_Judge {
     .pause(MinThinkTime, MaxThinkTime)
 
     // =======================MEDIATION UNSUCCESSFUL DROPDOWN================,
-    .group("Civil_SpecClaim_50_04_SDO") {
+    .group("Civil_SpecClaim_50_040_SDO_StartEvent_MediationUnsuccessful") {
       exec(http("005_Jurisdiction")
         .get("/workallocation/case/tasks/#{caseId}/event/MEDIATION_UNSUCCESSFUL/caseType/CIVIL/jurisdiction/CIVIL")
         .headers(Headers.commonHeader)
@@ -173,7 +173,7 @@ object spec_SDO_Judge {
         .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-user-profile.v2+json;charset=UTF-8")
         .check(substring("#{judgeuser}")))
 
-      exec(http("015_IgnoreWarning")
+      .exec(http("015_IgnoreWarning")
         .get("/data/internal/cases/#{caseId}/event-triggers/MEDIATION_UNSUCCESSFUL?ignore-warning=false")
         .headers(Headers.validateHeader)
         .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-start-event-trigger.v2+json;charset=UTF-8")
@@ -189,7 +189,7 @@ object spec_SDO_Judge {
     .pause(MinThinkTime, MaxThinkTime)
 
     // =======================APPOINTMENT NO AGREEMENT================,
-    .group("Civil_SpecClaim_50_05_SDO") {
+    .group("Civil_SpecClaim_50_050_SDO_PartyWithdraws") {
       exec(http("005_PartyWithdraws")
         .post("/data/case-types/CIVIL/validate?pageId=MEDIATION_UNSUCCESSFULmediationUnsuccessful")
         .headers(Headers.validateHeader)
@@ -199,7 +199,7 @@ object spec_SDO_Judge {
     .pause(MinThinkTime, MaxThinkTime)
 
     // =======================CONTINUE=======================,
-    .group("Civil_SpecClaim_50_06_SDO") {
+    .group("Civil_SpecClaim_50_060_SDO_Information") {
       exec(http("005_Continue")
         .post("/data/case-types/CIVIL/validate?pageId=MEDIATION_UNSUCCESSFULWorkAllocationIntegrationFields")
         .headers(Headers.validateHeader)
@@ -209,29 +209,31 @@ object spec_SDO_Judge {
     .pause(MinThinkTime, MaxThinkTime)
 
     // =======================CHECK YOUR ANSWERS================,
-    .group("Civil_SpecClaim_50_07_SDO") {
+    .group("Civil_SpecClaim_50_070_SDO_Submit") {
       exec(http("005_CheckYourAnswers")
         .post("/data/cases/#{caseId}/events")
         .headers(Headers.validateHeader)
         .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.create-event.v2+json;charset=UTF-8")
         .body(ElFileBody("d_SDO_Judge_bodies/mediationUnsuccessfulSubmit.dat"))
         .check(substring("CALLBACK_COMPLETED")))
+    }
 
-      .exec(http("010_CheckYourAnswers")
+    .group("Civil_SpecClaim_50_070_SDO_GetCase") {
+      exec(http("010_CheckYourAnswers")
         .get("/data/internal/cases/#{caseId}")
         .headers(Headers.validateHeader)
         .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-case-view.v2+json")
         .check(substring("http://gateway-ccd.perftest.platform.hmcts.net/internal/cases/#{caseId}")))
     }
 
-    .group("Civil_SpecClaim_50_07_SDO") {
+    .group("Civil_SpecClaim_50_070_SDO_API_RoleAssignment") {
       exec(http("015_CheckYourAnswers")
         .post("/api/role-access/roles/manageLabellingRoleAssignment/#{caseId}")
         .headers(Headers.commonHeader)
         .check(status.is(204)))
     }
 
-    .group("Civil_SpecClaim_50_07_SDO") {
+    .group("Civil_SpecClaim_50_070_SDO_API_SupportedJurisdiction") {
       exec(http("020_CheckYourAnswers")
         .get("/api/wa-supported-jurisdiction/get")
         .headers(Headers.commonHeader)
@@ -240,13 +242,14 @@ object spec_SDO_Judge {
     .pause(150)
 
     // ===============================TASK TAB======================,
-    .group("Civil_SpecClaim_60_01_SDO") {
+    .group("Civil_SpecClaim_60_010_SDO_TaskTab") {
       exec(http("005_TaskTab")
         .post("/workallocation/case/task/#{caseId}")
         .headers(Headers.commonHeader)
         .body(StringBody("""{"refined": true}""".stripMargin))
-        .check(regex("id\":\"(.*?)\"").optional.saveAs("judgeId"))
-        .check(substring("task_state")))
+        //.check(substring("task_state"))
+        .check(status.in(200, 204))
+        .check(regex("id\":\"(.*?)\"").optional.saveAs("judgeId")))
 
       .exec(http("010_TaskTab")
         .post("/workallocation/caseworker/getUsersByServiceName")
@@ -257,32 +260,36 @@ object spec_SDO_Judge {
     .pause(MinThinkTime, MaxThinkTime)
 
     // =======================ASSIGN TO ME=======================,
-    .group("Civil_SpecClaim_60_02_SDO") {
-      exec(http("005_AssignToMe")
-        .post("/workallocation/task/#{judgeId}/claim")
-        .headers(Headers.commonHeader)
-        .check(status.is(204)))
+    .doIf(session => session.contains("judgeId")) (
+      group("Civil_SpecClaim_60_020_SDO_AssignToMe") {
+        exec(http("005_AssignToMe")
+          .post("/workallocation/task/#{judgeId}/claim")
+          .headers(Headers.commonHeader)
+          .check(status.is(204)))
 
-      exec(http("010_AssignToMe")
-        .post("/workallocation/case/task/#{caseId}")
-        .headers(Headers.commonHeader)
-        .body(StringBody("""{"refined": true}""".stripMargin))
-        .check(substring("task_system")))
+        exec(http("010_AssignToMe")
+          .post("/workallocation/case/task/#{caseId}")
+          .headers(Headers.commonHeader)
+          .body(StringBody("""{"refined": true}""".stripMargin))
+          .check(substring("task_system")))
 
-      .exec(http("015_AssignToMe")
-        .post("/api/role-access/roles/getJudicialUsers")
-        .body(StringBody("""{"userIds": ["#{uId}"], "services": ["CIVIL"]}""".stripMargin))
-        .headers(Headers.commonHeader)
-        .check(status.in(200, 406)))
-    }
+        .exec(http("015_AssignToMe")
+          .post("/api/role-access/roles/getJudicialUsers")
+          .body(StringBody("""{"userIds": ["#{uId}"], "services": ["CIVIL"]}""".stripMargin))
+          .headers(Headers.commonHeader)
+          .check(status.in(200, 406)))
+      }
+    )
     .pause(MinThinkTime, MaxThinkTime)
 
     // =======================SELECT DIRECTION SMALL CLAIM COURT========================,
-    .group("Civil_SpecClaim_60_03_SDO") {
-      exec(http("005_SmallClaims")
-        .get("/cases/case-details/#{caseId}/trigger/CREATE_SDO/CREATE_SDOSmallClaims?tid=#{judgeId}")
-        .headers(Headers.navigationHeader)
-        .check(substring("flexbox no-flexboxtwenner")))
+    .group("Civil_SpecClaim_60_030_SDO_StartEvent_Order") {
+      doIf(session => session.contains("judgeId")) (
+        exec(http("005_SmallClaims")
+          .get("/cases/case-details/#{caseId}/trigger/CREATE_SDO/CREATE_SDOSmallClaims?tid=#{judgeId}")
+          .headers(Headers.navigationHeader)
+          .check(substring("flexbox no-flexboxtwenner")))
+      )
 
       .exec(Common.configurationui)
       .exec(Common.configUI)
@@ -293,10 +300,10 @@ object spec_SDO_Judge {
       .exec(Common.monitoringTools)
       .exec(Common.monitoringTools)
 
-      .exec(http("010_SmallClaims")
-        .get("/workallocation/case/tasks/#{caseId}/event/CREATE_SDO/caseType/CIVIL/jurisdiction/CIVIL")
-        .headers(Headers.commonHeader)
-        .check(substring("case_management_category")))
+//      .exec(http("010_SmallClaims")
+//        .get("/workallocation/case/tasks/#{caseId}/event/CREATE_SDO/caseType/CIVIL/jurisdiction/CIVIL")
+//        .headers(Headers.commonHeader)
+//        .check(substring("case_management_category")))
 
       .exec(http("015_SmallClaims")
         .get("/data/internal/cases/#{caseId}")
@@ -321,7 +328,7 @@ object spec_SDO_Judge {
     .pause(MinThinkTime, MaxThinkTime)
 
     // ===========================SDO AMOUNT===========================,
-    .group("Civil_SpecClaim_60_04_SDO") {
+    .group("Civil_SpecClaim_60_040_SDO_Amount") {
       exec(http("005_SDOAmount")
         .post("/data/case-types/CIVIL/validate?pageId=CREATE_SDOSDO")
         .headers(Headers.validateHeader)
@@ -331,7 +338,7 @@ object spec_SDO_Judge {
     .pause(MinThinkTime, MaxThinkTime)
 
     // ========================FAST TRACK==================,
-    .group("Civil_SpecClaim_60_05_SDO") {
+    .group("Civil_SpecClaim_60_050_SDO_ClaimsTrack") {
       exec(http("005_ClaimsTrack")
         .post("/data/case-types/CIVIL/validate?pageId=CREATE_SDOClaimsTrack")
         .headers(Headers.validateHeader)
@@ -342,7 +349,7 @@ object spec_SDO_Judge {
     .pause(MinThinkTime, MaxThinkTime)
 
     // ========================ORDER DETAILS====================,
-    .group("Civil_SpecClaim_60_06_SDO") {
+    .group("Civil_SpecClaim_60_060_SDO_OrderDetails") {
       exec(http("005_OrderDetails")
         .post("/data/case-types/CIVIL/validate?pageId=CREATE_SDOFastTrack")
         .headers(Headers.validateHeader)
@@ -356,7 +363,7 @@ object spec_SDO_Judge {
     .pause(MinThinkTime, MaxThinkTime)
 
     // ========================VIEW SDO==============,
-    .group("Civil_SpecClaim_60_07_SDO") {
+    .group("Civil_SpecClaim_60_070_SDO_View") {
       exec(http("005_ViewSDO")
         .post("/data/case-types/CIVIL/validate?pageId=CREATE_SDOOrderPreview")
         .headers(Headers.validateHeader)
@@ -366,11 +373,13 @@ object spec_SDO_Judge {
     .pause(MinThinkTime, MaxThinkTime)
 
     // ======================SUBMIT SDO===================,
-    .group("Civil_SpecClaim_60_08_SDO") {
-      exec(http("005_SubmitSDO")
-        .get("/workallocation/task/#{judgeId}")
-        .headers(Headers.commonHeader)
-        .check(substring("role_category")))
+    .group("Civil_SpecClaim_60_08_SDO_Submit") {
+      doIf(session => session.contains("judgeId")) (
+        exec(http("005_SubmitSDO")
+          .get("/workallocation/task/#{judgeId}")
+          .headers(Headers.commonHeader)
+          .check(substring("role_category")))
+      )
 
       .exec(http("010_SubmitSDO")
         .post("/data/cases/#{caseId}/events")

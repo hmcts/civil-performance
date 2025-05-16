@@ -8,13 +8,11 @@ import uk.gov.hmcts.reform.civildamage.performance.simulations.scenarios.utils.H
 
 object Logout{
   val Signout =
-    // ========================SIGNOUT==================,
-    exec(http("XUI_020_Signout")
-      .get("/auth/logout")
-      .headers(Headers.navigationHeader)
-      .check(substring("Sign in")))
-
-//      .exec(session => {
-//        session.removeAll()
-//      })
+    // ========================SIGN OUT==================,
+    group("XUI_030_SignOut") {
+      exec(http("005_SignOut")
+        .get("/auth/logout")
+        .headers(Headers.navigationHeader)
+        .check(substring("Sign in")))
+    }
 }

@@ -17,7 +17,7 @@ object unspec_CL1_Resp {
 	val RespToDF =
 		
 		// ========================LANDING PAGE=====================,
-		group("Civil_UnSpecClaim_50_01_ClaimantResp") {
+		group("Civil_UnSpecClaim_50_010_ClaimantResponse_Land") {
 			exec(http("Land_005_Jurisdictions")
 				.get("/aggregated/caseworkers/:uid/jurisdictions?access=read")
 				.headers(Headers.commonHeader)
@@ -31,7 +31,7 @@ object unspec_CL1_Resp {
 		.pause(MinThinkTime, MaxThinkTime)
 
 		// ========================SEARCH=====================,
-		.group("Civil_UnSpecClaim_50_02_ClaimantResp") {
+		.group("Civil_UnSpecClaim_50_020_ClaimantResponse_Search") {
 			exec(http("Search_005_WorkBasket")
 				.get("/data/internal/case-types/CIVIL/work-basket-inputs")
 				.headers(Headers.validateHeader)
@@ -47,7 +47,7 @@ object unspec_CL1_Resp {
 		.pause(MinThinkTime, MaxThinkTime)
 
 		// =======================OPEN CASE=======================,
-		.group("Civil_UnSpecClaim_50_03_ClaimantResp") {
+		.group("Civil_UnSpecClaim_50_030_ClaimantResponse_GetCase") {
 //			exec(http("SearchCase_005_CaseReference")
 //				.post("/data/internal/searchCases?ctid=CIVIL&use_case=WORKBASKET&view=WORKBASKET&page=1&case_reference=#{caseId}")
 //				.headers(Headers.commonHeader)
@@ -62,14 +62,14 @@ object unspec_CL1_Resp {
 				.check(substring("Awaiting Defendant Response")))
 		}
 
-		.group("Civil_UnSpecClaim_50_03_ClaimantResp") {
+		.group("Civil_UnSpecClaim_50_030_ClaimantResponse_API_RoleAssignment") {
 			exec(http("OpenCase_010_RoleAssignment")
 				.post("/api/role-access/roles/manageLabellingRoleAssignment/#{caseId}")
 				.headers(Headers.commonHeader)
 				.check(status.is(204)))
 		}
 
-		.group("Civil_UnSpecClaim_50_03_ClaimantResp") {
+		.group("Civil_UnSpecClaim_50_030_ClaimantResponse_API_SupportedJurisdiction") {
 			exec(http("OpenCase_015_Jurisdiction")
 				.get("/api/wa-supported-jurisdiction/get")
 				.headers(Headers.commonHeader)
@@ -78,13 +78,13 @@ object unspec_CL1_Resp {
 		.pause(MinThinkTime, MaxThinkTime)
 
 		// =======================RESPOND TO DEF=======================,
-		.group("Civil_UnSpecClaim_50_04_ClaimantResp") {
+		.group("Civil_UnSpecClaim_50_040_ClaimantResponse_StartEvent") {
 			exec(http("RespToDef_005_Jurisdiction")
 				.get("/workallocation/case/tasks/#{caseId}/event/CLAIMANT_RESPONSE/caseType/CIVIL/jurisdiction/CIVIL")
 				.headers(Headers.commonHeader)
 				.check(substring("task_required_for_event")))
 
-			.exec(http("RespToDef_010_profile")
+			.exec(http("RespToDef_010_Profile")
 				.get("/data/internal/profile")
 				.headers(Headers.validateHeader)
 				.header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-user-profile.v2+json;charset=UTF-8")
@@ -101,7 +101,7 @@ object unspec_CL1_Resp {
 				.check(regex("partyID\":\"(.*?)\"").saveAs("partyID")))
 			.exitHereIf(session => !session.contains("upload_timestamp"))
 
-			.exec(http("RespToDef_020_jurisdiction")
+			.exec(http("RespToDef_020_Jurisdiction")
 				.get("/workallocation/case/tasks/#{caseId}/event/CLAIMANT_RESPONSE/caseType/CIVIL/jurisdiction/CIVIL")
 				.headers(Headers.commonHeader)
 				.check(substring("task_required_for_event")))
@@ -109,7 +109,7 @@ object unspec_CL1_Resp {
 		.pause(MinThinkTime, MaxThinkTime)
 
 		// =======================DOC URL=DO YOU WANT TO PROCEED WITH CLAIM=======================,
-		.group("Civil_UnSpecClaim_50_05_ClaimantResp") {
+		.group("Civil_UnSpecClaim_50_050_ClaimantResponse_RespondentResponse") {
 			exec(http("005_RespondentResponse")
 				.post("/data/case-types/CIVIL/validate?pageId=CLAIMANT_RESPONSERespondentResponse")
 				.headers(Headers.validateHeader)
@@ -119,7 +119,7 @@ object unspec_CL1_Resp {
 		.pause(MinThinkTime, MaxThinkTime)
 
 		// =======================CONTINUE========================,
-		.group("Civil_UnSpecClaim_50_06_ClaimantResp") {
+		.group("Civil_UnSpecClaim_50_060_ClaimantResponse_ResponseDocument") {
 			exec(http("005_DefenceResponseDocument")
 				.post("/data/case-types/CIVIL/validate?pageId=CLAIMANT_RESPONSEApplicantDefenceResponseDocument")
 				.headers(Headers.validateHeader)
@@ -129,7 +129,7 @@ object unspec_CL1_Resp {
 		.pause(MinThinkTime, MaxThinkTime)
 
 		// =======================FILE DIRECTION QUESTIONAIE=======================,
-		.group("Civil_UnSpecClaim_50_07_ClaimantResp") {
+		.group("Civil_UnSpecClaim_50_070_ClaimantResponse_Questionnaire") {
 			exec(http("005_FileDirectionsQuestionnaire")
 				.post("/data/case-types/CIVIL/validate?pageId=CLAIMANT_RESPONSEFileDirectionsQuestionnaire")
 				.headers(Headers.validateHeader)
@@ -139,7 +139,7 @@ object unspec_CL1_Resp {
 		.pause(MinThinkTime, MaxThinkTime)
 
 		// =======================FIXED RECOVERABLE COST=======================,
-		.group("Civil_UnSpecClaim_50_08_ClaimantResp") {
+		.group("Civil_UnSpecClaim_50_080_ClaimantResponse_FixedRecoverableCosts") {
 			exec(http("005_FixedRecoverableCosts")
 				.post("/data/case-types/CIVIL/validate?pageId=CLAIMANT_RESPONSEFixedRecoverableCosts")
 				.headers(Headers.validateHeader)
@@ -149,7 +149,7 @@ object unspec_CL1_Resp {
 		.pause(MinThinkTime, MaxThinkTime)
 
 		// =======================ELECTRONIC DISCLOSURE=======================,
-		.group("Civil_UnSpecClaim_50_09_ClaimantResp") {
+		.group("Civil_UnSpecClaim_50_090_ClaimantResponse_NonElectronicDocuments") {
 			exec(http("005_DisclosureOfNonElectronicDocuments")
 				.post("/data/case-types/CIVIL/validate?pageId=CLAIMANT_RESPONSEDisclosureOfNonElectronicDocuments")
 				.headers(Headers.validateHeader)
@@ -159,7 +159,7 @@ object unspec_CL1_Resp {
 		.pause(MinThinkTime, MaxThinkTime)
 
 		// =======================EXPERT=======================,
-		.group("Civil_UnSpecClaim_50_10_ClaimantResp") {
+		.group("Civil_UnSpecClaim_50_100_ClaimantResponse_Experts") {
 			exec(http("005_Experts")
 				.post("/data/case-types/CIVIL/validate?pageId=CLAIMANT_RESPONSEExperts")
 				.headers(Headers.validateHeader)
@@ -169,7 +169,7 @@ object unspec_CL1_Resp {
 		.pause(MinThinkTime, MaxThinkTime)
 
 		// =======================WITNESS=======================,
-		.group("Civil_UnSpecClaim_50_11_ClaimantResp") {
+		.group("Civil_UnSpecClaim_50_110_ClaimantResponse_Witnesses") {
 			exec(http("005_Witnesses")
 				.post("/data/case-types/CIVIL/validate?pageId=CLAIMANT_RESPONSEWitnesses")
 				.headers(Headers.validateHeader)
@@ -179,7 +179,7 @@ object unspec_CL1_Resp {
 		.pause(MinThinkTime, MaxThinkTime)
 
 		// =======================LANGUAGE=======================,
-		.group("Civil_UnSpecClaim_50_12_ClaimantResp") {
+		.group("Civil_UnSpecClaim_50_120_ClaimantResponse_Language") {
 			exec(http("005_Language")
 				.post("/data/case-types/CIVIL/validate?pageId=CLAIMANT_RESPONSELanguage")
 				.headers(Headers.validateHeader)
@@ -189,7 +189,7 @@ object unspec_CL1_Resp {
 		.pause(MinThinkTime, MaxThinkTime)
 
 		// =======================HEARING=======================,
-		.group("Civil_UnSpecClaim_50_13_ClaimantResp") {
+		.group("Civil_UnSpecClaim_50_130_ClaimantResponse_Hearing") {
 			exec(http("005_Hearing")
 				.post("/data/case-types/CIVIL/validate?pageId=CLAIMANT_RESPONSEHearing")
 				.headers(Headers.validateHeader)
@@ -199,7 +199,7 @@ object unspec_CL1_Resp {
 		.pause(MinThinkTime, MaxThinkTime)
 
 		// =======================UPLOAD DRAFT DIRECTION=======================,
-		.group("Civil_UnSpecClaim_50_14_ClaimantResp") {
+		.group("Civil_UnSpecClaim_50_140_ClaimantResponse_UploadDraft") {
 			exec(http("005_UploadDraftDirection")
 				.post("/documentsv2")
 				.headers(Headers.commonHeader)
@@ -215,7 +215,7 @@ object unspec_CL1_Resp {
 		}
 		.pause(MinThinkTime, MaxThinkTime)
 
-		.group("Civil_UnSpecClaim_50_15_ClaimantResp") {
+		.group("Civil_UnSpecClaim_50_150_ClaimantResponse_DraftDirections") {
 			exec(http("010_DraftDirections")
 				.post("/data/case-types/CIVIL/validate?pageId=CLAIMANT_RESPONSEDraftDirections")
 				.headers(Headers.validateHeader)
@@ -225,7 +225,7 @@ object unspec_CL1_Resp {
 		.pause(MinThinkTime, MaxThinkTime)
 
 		// =======================SUPPORT WITH ACCESS NEEDS=======================,
-		.group("Civil_UnSpecClaim_50_16_ClaimantResp") {
+		.group("Civil_UnSpecClaim_50_160_ClaimantResponse_AccessNeeds") {
 			exec(http("005_HearingSupport")
 				.post("/data/case-types/CIVIL/validate?pageId=CLAIMANT_RESPONSEHearingSupport")
 				.headers(Headers.validateHeader)
@@ -235,7 +235,7 @@ object unspec_CL1_Resp {
 		.pause(MinThinkTime, MaxThinkTime)
 
 		// =======================VULNERABILITY=======================,
-		.group("Civil_UnSpecClaim_50_17_ClaimantResp") {
+		.group("Civil_UnSpecClaim_50_170_ClaimantResponse_Vulnerability") {
 			exec(http("005_VulnerabilityQuestions")
 				.post("/data/case-types/CIVIL/validate?pageId=CLAIMANT_RESPONSEVulnerabilityQuestions")
 				.headers(Headers.validateHeader)
@@ -245,7 +245,7 @@ object unspec_CL1_Resp {
 		.pause(MinThinkTime, MaxThinkTime)
 
 		// =======================FUTURE APPLICATION=======================,
-		.group("Civil_UnSpecClaim_50_18_ClaimantResp") {
+		.group("Civil_UnSpecClaim_50_180_ClaimantResponse_FurtherInformation") {
 			exec(http("005_FurtherInformation")
 				.post("/data/case-types/CIVIL/validate?pageId=CLAIMANT_RESPONSEFurtherInformation")
 				.headers(Headers.validateHeader)
@@ -255,7 +255,7 @@ object unspec_CL1_Resp {
 		.pause(MinThinkTime, MaxThinkTime)
 
 		// =======================NAME=======================,
-		.group("Civil_UnSpecClaim_50_19_ClaimantResp") {
+		.group("Civil_UnSpecClaim_50_190_ClaimantResponse_StatementOfTruth") {
 			exec(http("005_StatementOfTruth")
 			.post("/data/case-types/CIVIL/validate?pageId=CLAIMANT_RESPONSEStatementOfTruth")
 			.headers(Headers.validateHeader)
@@ -266,7 +266,7 @@ object unspec_CL1_Resp {
 		.pause(MinThinkTime, MaxThinkTime)
 
 		// =======================SUBMIT=======================,
-		.group("Civil_UnSpecClaim_50_20_ClaimantResp") {
+		.group("Civil_UnSpecClaim_50_200_ClaimantResponse_Submit") {
 			exec(http("005_Submit")
 				.post("/data/cases/#{caseId}/events")
 				.headers(Headers.validateHeader)
@@ -274,7 +274,7 @@ object unspec_CL1_Resp {
 				.body(ElFileBody("uc_unspec_CL_resp_bodies/claimantProceedWithClaim.dat"))
 				.check(substring("You have chosen to proceed with the claim")))
 
-			.exec(http("010_Submit")
+			.exec(http("010_InternalCases")
 				.get("/data/internal/cases/#{caseId}")
 				.headers(Headers.validateHeader)
 				.header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-case-view.v2+json")

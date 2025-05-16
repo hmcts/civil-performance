@@ -31,7 +31,7 @@ object spec_HearingAdmin{
     ))
 
     // =======================LANDING PAGE==================,
-    .group("Civil_SpecClaim_70_01_HearingAdmin") {
+    .group("Civil_SpecClaim_70_010_HearingAdmin_Land") {
       exec(http("005_HealthCheck")
         .get("/api/healthCheck?path=%2Fwork%2Fmy-work%2Flist")
         .headers(Headers.commonHeader)
@@ -98,7 +98,7 @@ object spec_HearingAdmin{
     .pause(MinThinkTime, MaxThinkTime)
 
     // =======================OPEN CASE=======================,
-    .group("Civil_SpecClaim_70_02_HearingAdmin") {
+    .group("Civil_SpecClaim_70_020_HearingAdmin_GetCase") {
       exec(http("005_OpenCase")
         .get("/data/internal/cases/#{caseId}")
         .headers(Headers.validateHeader)
@@ -106,14 +106,14 @@ object spec_HearingAdmin{
         .check(substring("http://gateway-ccd.perftest.platform.hmcts.net/internal/cases/#{caseId}")))
     }
 
-    .group("Civil_SpecClaim_70_02_HearingAdmin") {
+    .group("Civil_SpecClaim_70_020_HearingAdmin_API_RoleAssignment") {
       exec(http("010_OpenCase")
         .post("/api/role-access/roles/manageLabellingRoleAssignment/#{caseId}")
         .headers(Headers.commonHeader)
         .check(status.is(204)))
     }
 
-    .group("Civil_SpecClaim_70_02_HearingAdmin") {
+    .group("Civil_SpecClaim_70_020_HearingAdmin_API_SupportedJurisdiction") {
       exec(http("015_OpenCase")
         .get("/api/wa-supported-jurisdiction/get")
         .headers(Headers.commonHeader)
@@ -122,7 +122,7 @@ object spec_HearingAdmin{
     .pause(90)
 
     // =======================TASK TAB=======================,
-    .group("Civil_SpecClaim_70_03_HearingAdmin") {
+    .group("Civil_SpecClaim_70_030_HearingAdmin_TaskTab") {
       exec(http("005_TaskTab")
         .post("/workallocation/case/task/#{caseId}")
         .headers(Headers.commonHeader)
@@ -140,7 +140,7 @@ object spec_HearingAdmin{
 
     // =======================ASSIGN TO ME=======================,
     .doIf(session => session.contains("HearingCaseId")) (
-      group("Civil_SpecClaim_70_04_HearingAdmin") {
+      group("Civil_SpecClaim_70_040_HearingAdmin_AssignToMe") {
         exec(http("005_AssignToMe")
           .post("/workallocation/task/#{HearingCaseId}/claim")
           .headers(Headers.commonHeader)
@@ -156,7 +156,7 @@ object spec_HearingAdmin{
     .pause(MinThinkTime, MaxThinkTime)
 
     // =======================HEARING NOTICE DROPDOWN=======================,
-    .group("Civil_SpecClaim_70_05_HearingAdmin") {
+    .group("Civil_SpecClaim_70_050_HearingAdmin_StartEvent") {
       exec(http("005_Jurisdiction")
         .get("/workallocation/case/tasks/#{caseId}/event/HEARING_SCHEDULED/caseType/CIVIL/jurisdiction/CIVIL")
         .headers(Headers.commonHeader)
@@ -176,7 +176,7 @@ object spec_HearingAdmin{
         .check(jsonPath("$.event_token").saveAs("event_token_admin")))
       .exitHereIf(session => !session.contains("event_token_admin"))
 
-      .exec(http("020_HearingScheduled")
+      .exec(http("020_Jurisdiction")
         .get("/workallocation/case/tasks/#{caseId}/event/HEARING_SCHEDULED/caseType/CIVIL/jurisdiction/CIVIL")
         .headers(Headers.commonHeader)
         .check(substring("Schedule a hearing using the Hearings tab")))
@@ -184,7 +184,7 @@ object spec_HearingAdmin{
     .pause(MinThinkTime, MaxThinkTime)
 
     // =======================SMALL CLAIM==============================,
-    .group("Civil_SpecClaim_70_06_HearingAdmin") {
+    .group("Civil_SpecClaim_70_060_HearingAdmin_HearingNotice") {
       exec(http("005_HearingNoticeSelect")
         .post("/data/case-types/CIVIL/validate?pageId=HEARING_SCHEDULEDHearingNoticeSelect")
         .headers(Headers.validateHeader)
@@ -195,7 +195,7 @@ object spec_HearingAdmin{
     .pause(MinThinkTime, MaxThinkTime)
 
     // =======================LISTING==============================,
-    .group("Civil_SpecClaim_70_07_HearingAdmin") {
+    .group("Civil_SpecClaim_70_070_HearingAdmin_Listing") {
       exec(http("005_ListingOrRelisting")
         .post("/data/case-types/CIVIL/validate?pageId=HEARING_SCHEDULEDListingOrRelisting")
         .headers(Headers.validateHeader)
@@ -205,7 +205,7 @@ object spec_HearingAdmin{
     .pause(MinThinkTime, MaxThinkTime)
 
     // =======================HEARING DETAILS==============================,
-    .group("Civil_SpecClaim_70_08_HearingAdmin") {
+    .group("Civil_SpecClaim_70_080_HearingAdmin_HearingDetails") {
       exec(http("005_HearingDetails")
         .post("/data/case-types/CIVIL/validate?pageId=HEARING_SCHEDULEDHearingDetails")
         .headers(Headers.validateHeader)
@@ -216,7 +216,7 @@ object spec_HearingAdmin{
     .pause(MinThinkTime, MaxThinkTime)
 
     // =======================NOTICE LETTER INFO=======================,
-    .group("Civil_SpecClaim_70_09_HearingAdmin") {
+    .group("Civil_SpecClaim_70_090_HearingAdmin_HearingInformation") {
       exec(http("005_HearingInformation")
         .post("/data/case-types/CIVIL/validate?pageId=HEARING_SCHEDULEDHearingInformation")
         .headers(Headers.validateHeader)
@@ -227,7 +227,7 @@ object spec_HearingAdmin{
     .pause(MinThinkTime, MaxThinkTime)
 
     // =======================SUBMIT=======================,
-    .group("Civil_SpecClaim_70_10_HearingAdmin") {
+    .group("Civil_SpecClaim_70_100_HearingAdmin_Submit") {
       doIf(session => session.contains("HearingCaseId")) (
         exec(http("005_Submit")
           .get("/workallocation/task/#{HearingCaseId}")
