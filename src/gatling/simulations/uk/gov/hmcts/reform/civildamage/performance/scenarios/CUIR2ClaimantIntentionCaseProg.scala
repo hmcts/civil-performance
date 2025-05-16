@@ -173,7 +173,7 @@ object CUIR2ClaimantIntentionCaseProg {
           .post("/case/#{claimNumber}/mediation/next-three-months")
           .headers(CivilDamagesHeader.CivilCitizenPost)
           .formParam("_csrf", "#{csrf}")
-          .formParam("options", "no")
+          .formParam("option", "no")
           .check(substring("You have completed 4")))
       }
       .pause(MinThinkTime, MaxThinkTime)
@@ -271,7 +271,7 @@ object CUIR2ClaimantIntentionCaseProg {
 
       .group("CUIR2_ClaimantIntention_190_OtherWitnesses") {
         exec(http("CUIR2_ClaimantIntention_190_005_OtherWitnesses")
-          .post(CitizenURL + "/case/#{claimNumber}/directions-questonnaire/other-witnesses")
+          .post(CitizenURL + "/case/#{claimNumber}/directions-questionnaire/other-witnesses")
           .headers(CivilDamagesHeader.CUIR2Post)
           .formParam("_csrf", "#{csrf}")
           .formParam("witnessItems%5B0%5D%5BfirstName%5D", "")
@@ -404,7 +404,7 @@ object CUIR2ClaimantIntentionCaseProg {
       .group("CUIR2_ClaimantIntention_260_CheckYourAnswers") {
         exec(http("CUIR2_ClaimantIntention_260_005_CheckYourAnswers")
           .get(CitizenURL + "/case/#{claimNumber}/claimant-response/check-and-send")
-          .headers(CivilDamagesHeader.MoneyClaimNavHeader)
+          .headers(CivilDamagesHeader.CUIR2Get)
           .check(CsrfCheck.save)
           .check(substring("Do you want to proceed with the claim?"))
         )

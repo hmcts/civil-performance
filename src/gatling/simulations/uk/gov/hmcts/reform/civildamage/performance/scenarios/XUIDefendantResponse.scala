@@ -129,7 +129,6 @@ object XUIDefendantResponse {
 				.body(ElFileBody("bodies/XUIDefendantResponse/respondentAddressConfirmation.dat"))
 				.check(substring("http://gateway-ccd.perftest.platform.hmcts.net/case-types/CIVIL/validate?" +
 					"pageId=DEFENDANT_RESPONSE_SPECResponseConfirmNameAddress")))
-
 		}
 		.pause(MinThinkTime, MaxThinkTime)
 
