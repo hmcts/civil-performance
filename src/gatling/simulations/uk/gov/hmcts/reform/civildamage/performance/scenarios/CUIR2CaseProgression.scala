@@ -178,6 +178,9 @@ object CUIR2CaseProgression {
       "Plus2WeeksDay" -> Common.getPlus2WeeksDay(),
       "Plus2WeeksMonth" -> Common.getPlus2WeeksMonth(),
       "Plus2WeeksYear" -> Common.getPlus2WeeksYear(),
+      "Plus4WeeksDay" -> Common.getPlus4WeeksDay(),
+      "Plus4WeeksMonth" -> Common.getPlus4WeeksMonth(),
+      "Plus4WeeksYear" -> Common.getPlus4WeeksYear(),
       "EvidenceYear" -> Common.getYear(),
       "EvidenceDay" -> Common.getDay(),
       "EvidenceMonth" -> Common.getMonth())

@@ -43,7 +43,6 @@ object SDOCivilProg {
   
       .pause(MinThinkTime, MaxThinkTime)
         .pause(30)
-      
       /*======================================================================================
            * Create Civil Claim - Click on Tasks Tab
     ==========================================================================================*/
@@ -94,12 +93,12 @@ object SDOCivilProg {
             .headers(CivilDamagesHeader.headers_notify)
             .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-start-event-trigger.v2+json;charset=UTF-8")
             .check(substring("CREATE_SDO"))
-            /*   .check(jsonPath("$.case_fields[62].formatted_value.partyID").saveAs("repPartyID"))
-               .check(jsonPath("$.case_fields[62].formatted_value.partyName").saveAs("partyName"))
-               .check(jsonPath("$.case_fields[62].value.flags.partyName").saveAs("defPartyName"))
-               .check(jsonPath("$.case_fields[58].formatted_value.file.document_url").saveAs("document_url"))
+              //.check(jsonPath("$.case_fields[62].formatted_value.partyID").saveAs("repPartyID"))
+              // .check(jsonPath("$.case_fields[62].formatted_value.partyName").saveAs("partyName"))
+              // .check(jsonPath("$.case_fields[62].value.flags.partyName").saveAs("defPartyName"))
+              // .check(jsonPath("$.case_fields[58].formatted_value.file.document_url").saveAs("document_url"))
   
-             */
+
             .check(jsonPath("$.event_token").saveAs("event_token"))
           )
          // .exec(getCookieValue(CookieKey("XSRF-TOKEN").withDomain(BaseURL.replace("https://", "")).saveAs("XSRFToken")))
@@ -158,6 +157,11 @@ object SDOCivilProg {
           .check(jsonPath("$.data.sdoOrderDocument.documentLink.document_hash").saveAs("sdoDocument_hash"))
           .check(jsonPath("$.data.sdoOrderDocument.documentName").saveAs("sdoDocumentName"))
           .check(jsonPath("$.data.sdoOrderDocument.documentSize").saveAs("documentSize"))
+          //.check(jsonPath("$.data.sdoOrderDocument.createdDatetime").saveAs("createdDatetime"))
+          //.check(jsonPath("$.data.sdoOrderDocument.documentLink.document_url").saveAs("sdoDocument_url"))
+          //.check(jsonPath("$.data.sdoOrderDocument.documentLink.document_hash").saveAs("sdoDocument_hash"))
+          //.check(jsonPath("$.data.sdoOrderDocument.documentName").saveAs("sdoDocumentName"))
+          //.check(jsonPath("$.data.sdoOrderDocument.documentSize").saveAs("documentSize"))
           .check(substring("FULL_DEFENCE"))
         )
         
@@ -193,7 +197,7 @@ object SDOCivilProg {
           .post("/data/cases/#{claimNumber}/events")
           .headers(CivilDamagesHeader.MoneyClaimDefPostHeader)
           .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.create-event.v2+json;charset=UTF-8")
-          .header("X-Xsrf-Token", "#{XSRFToken}")
+          //.header("X-Xsrf-Token", "#{XSRFToken}")
           .body(ElFileBody("bodies/sdocpfasttrack/SDOSubmit.json"))
           .check(substring("Civil"))
         )

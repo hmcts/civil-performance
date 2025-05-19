@@ -79,9 +79,6 @@ class CivilDamagesSimulation extends Simulation {
 	val numberOfPipelineUsers = 5
 	val pipelinePausesMillis: Long = 3000 //3 seconds
 
-	val CUIR2SmallClaimsAmount = "9000"
-	val CUIR2FastTrackAmount = "20000" //Not implemented into scenario
-
 	//Determine the pause pattern to use:
 	//Performance test = use the pauses defined in the scripts
 	//Pipeline = override pauses in the script with a fixed value (pipelinePauseMillis)
@@ -176,7 +173,8 @@ class CivilDamagesSimulation extends Simulation {
 	val CUIR2SmallClaimsCaseProgression = scenario(" CUIR2 CaseProgression Small Claims")
 		.feed(cpLoginFeeder) .feed(cpfulltestsmallclaimsFeeder)
 		.exitBlockOnFail {
-			exec(_.set("env", s"${env}"))
+		exec(_.set("CUIR2SmallClaimsAmount", "9000"))
+			.exec(_.set("env", s"${env}"))
 				.exec(CreateUser.CreateDefCitizen)
 				.repeat(1) {
 					exec(CreateUser.CreateClaimantCitizen)
@@ -204,12 +202,12 @@ class CivilDamagesSimulation extends Simulation {
 				// below is 80% cases are now stopped here
 
 				// 🎯 **80% Users Exit Here**
-				/*.randomSwitch(
+				.randomSwitch(
 					80.0 -> exec { session =>
 						println("✅ Stopping Execution for 80% Users")
 						session.markAsFailed
 					}
-				)*/
+				)
 				// below is for SDO for small claims
 
 				.exec(Homepage.XUIHomePage)
@@ -218,10 +216,10 @@ class CivilDamagesSimulation extends Simulation {
 				//.exec(SDOCivilProg.SDOSmallClaimsForCUIR2)
 				.exec(EXUIMCLogin.manageCase_Logout)
 
-				//YR - 13/05/25 - New code to continue applicaton with LA user
+				//YR - 13/05/2025 - New code to continue applicaton with LA user after judge completes the mediation
 				.exec(Homepage.XUIHomePage)
 				.exec(Login.XUILALogin)
-				.exec(SDOCivilProg.SDOSmallClaimsForCUIR2) //SDORequestForReConsiderByTribunal
+				.exec(SDOCivilProg.SDOSmallClaimsForCUIR2)
 				.exec(EXUIMCLogin.manageCase_Logout)
 
 				//Below is for upload claimant evidence
@@ -304,12 +302,12 @@ class CivilDamagesSimulation extends Simulation {
 				// below is 80% cases are now stopped here
 				
 				// 🎯 **80% Users Exit Here**
-				/*.randomSwitch(
+				.randomSwitch(
 					80.0 -> exec { session =>
 						println("✅ Stopping Execution for 80% Users")
 						session.markAsFailed
 					}
-				)*/
+				)
 			// below is for SDO for small claims
 				
 				.exec(Homepage.XUIHomePage)
@@ -369,8 +367,8 @@ class CivilDamagesSimulation extends Simulation {
 	val CUIR2FastTrackCaseProgression = scenario("SDO For CUIR2 CaseProgression Fast Track")
 		.feed(cpLoginFeeder)//.feed(cpfulltestfasttrackFeeder)
 		.exitBlockOnFail {
-			exec(_.set("env", s"${env}"))
-				
+			exec(_.set("CUIR2FastClaimsAmount", "20000"))
+			.exec(_.set("env", s"${env}"))
 				.exec(CreateUser.CreateDefCitizen)
 				.repeat(1) {
 					exec(CreateUser.CreateClaimantCitizen)
@@ -399,12 +397,12 @@ class CivilDamagesSimulation extends Simulation {
 				// below is the SDO for fast track
 				
 				// 🎯 **80% Users Exit Here**
-				/*.randomSwitch(
+				.randomSwitch(
 					80.0 -> exec { session =>
 						println("✅ Stopping Execution for 80% Users")
 						session.markAsFailed
 					}
-				)*/
+				)
 				
 				.exec(Homepage.XUIHomePage)
 				.exec(Login.XUIJudgeLogin)
@@ -433,6 +431,7 @@ class CivilDamagesSimulation extends Simulation {
 				//Following is for creating the hearing notice for small claims
 				.exec(Homepage.XUIHomePage)
 				.exec(Login.XUICenterAdminLogin)
+				//YR - 19/05/2025 - Hearing data changed for it to be 4 weeks into future
 				.exec(CUIR2CaseProgression.HearingNoticeFastTrack)
 				.exec(EXUIMCLogin.manageCase_Logout)
 				.pause(10)
@@ -441,13 +440,11 @@ class CivilDamagesSimulation extends Simulation {
 				.exec(CUIR2Login.CUIR2ClaimantIntentionLogin)
 				.exec(CUIR2DocUploadCaseProg.viewOrderandNoticesForFastTrack)
 				.pause(10)
-			//	.exec(CUIR2DocUploadCaseProg.viewUploadedDocumentsForFastTrack)
+				.exec(CUIR2DocUploadCaseProg.viewUploadedDocumentsForFastTrack)
 				.pause(10)
 				.exec(CUIR2DocUploadCaseProg.payHearingFee)
 				.pause(20)
 				//Trial Complete
-				//YR: Failing after this point
-				.exitHere
 				.exec(CUIR2DocUploadCaseProg.TrialArrangements)
 				.pause(30)
 				//Following is for creating the bundle
@@ -494,11 +491,11 @@ class CivilDamagesSimulation extends Simulation {
 
 setUp(
 	//CUIR2SmallClaimsCaseProgression.inject(nothingFor(1),rampUsers(1) during (1)),
-	CUIR2FastTrackCaseProgression.inject(nothingFor(1),rampUsers(1) during (1))
+	//CUIR2FastTrackCaseProgression.inject(nothingFor(1),rampUsers(1) during (1))
 
 	//Following is the case progression scenarios for both small track and fast track for CUI
-//CUIR2SmallClaimsCaseProgression.inject(nothingFor(1),rampUsers(150) during (2200)),
-//CUIR2FastTrackCaseProgression.inject(nothingFor(50),rampUsers(150) during (2200)),
+	CUIR2SmallClaimsCaseProgression.inject(nothingFor(1),rampUsers(150) during (2200)),
+	CUIR2FastTrackCaseProgression.inject(nothingFor(50),rampUsers(150) during (2200)),
 	
 	// Following is for inserting data into
 	//30,130,900 nothingFor(1),

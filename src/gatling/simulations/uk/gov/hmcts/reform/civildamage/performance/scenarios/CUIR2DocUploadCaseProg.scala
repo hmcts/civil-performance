@@ -974,7 +974,6 @@ object CUIR2DocUploadCaseProg {
       )
     }
     .pause(MinThinkTime, MaxThinkTime)
-    .pause(60)
     /*======================================================================================
                    * Civil UI Claim - Click Trial Arrangements
         ==========================================================================================*/

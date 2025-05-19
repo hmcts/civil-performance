@@ -2,7 +2,7 @@
   "data": {
     "claimType": null,
     "responseClaimTrack": "SMALL_CLAIM",
-    "totalClaimAmount": "9000"
+    "totalClaimAmount": "#{CUIR2SmallClaimsAmount}"
   },
   "event": {
     "id": "MEDIATION_UNSUCCESSFUL",
@@ -13,7 +13,7 @@
     "showCarmFields": "Yes",
     "claimType": null,
     "responseClaimTrack": "SMALL_CLAIM",
-    "totalClaimAmount": "9000",
+    "totalClaimAmount": "#{CUIR2SmallClaimsAmount}",
     "mediationUnsuccessfulReasonsMultiSelect": [
       "APPOINTMENT_NO_AGREEMENT"
     ]

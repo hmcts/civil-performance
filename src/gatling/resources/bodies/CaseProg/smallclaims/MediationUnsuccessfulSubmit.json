@@ -6,7 +6,7 @@
     ],
     "claimType": null,
     "responseClaimTrack": "SMALL_CLAIM",
-    "totalClaimAmount": "9000"
+    "totalClaimAmount": "#{CUIR2SmallClaimsAmount}"
   },
   "event": {
     "id": "MEDIATION_UNSUCCESSFUL",

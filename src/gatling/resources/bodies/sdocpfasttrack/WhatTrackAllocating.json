@@ -9,8 +9,9 @@
     "description": ""
   },
   "event_data": {
-    "showCarmFields": "No",
+    "showCarmFields": "Yes",
     "drawDirectionsOrderRequired": "No",
+    "CaseAccessCategory": "SPEC_CLAIM",
     "featureToggleWA": "Prod",
     "claimsTrack": "fastTrack",
     "fastClaims": []
