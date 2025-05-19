@@ -1,7 +1,8 @@
 {
   "data": {
-    "showCarmFields": "No",
+    "showCarmFields": "Yes",
     "drawDirectionsOrderRequired": "No",
+    "CaseAccessCategory": "SPEC_CLAIM",
     "featureToggleWA": "Prod"
   },
   "event": {
@@ -10,8 +11,9 @@
     "description": ""
   },
   "event_data": {
-    "showCarmFields": "No",
+    "showCarmFields": "Yes",
     "drawDirectionsOrderRequired": "No",
+    "CaseAccessCategory": "SPEC_CLAIM",
     "featureToggleWA": "Prod"
   },
   "event_token": "#{event_token}",

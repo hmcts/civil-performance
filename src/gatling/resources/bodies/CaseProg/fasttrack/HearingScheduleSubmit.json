@@ -799,7 +799,7 @@
       ]
     },
     "channel": "IN_PERSON",
-    "hearingDate": "2025-05-17",
+    "hearingDate": "#{Plus4WeeksYear}-#{Plus4WeeksMonth}-#{Plus4WeeksDay}",
     "hearingTimeHourMinute": "0825",
     "hearingDuration": "MINUTES_55",
     "information": "asasasasasasasasas"

@@ -477,14 +477,14 @@ object CUIR2ClaimCreation {
           .formParam("claimAmountRows[0][reason]", "Claim Amount Perftest Desc")
           //YR - 13/05/25 - This amount may need adjusting if threshold changes.
           //If above 10k then it goes to judge, if below then it goes to LA
-          .formParam("claimAmountRows[0][amount]", "9000")
+          .formParam("claimAmountRows[0][amount]", "#{CUIR2SmallClaimsAmount}")
           .formParam("claimAmountRows[1][reason]", "")
           .formParam("claimAmountRows[1][amount]", "")
           .formParam("claimAmountRows[2][reason]", "")
           .formParam("claimAmountRows[2][amount]", "")
           .formParam("claimAmountRows[3][reason]", "")
           .formParam("claimAmountRows[3][amount]", "")
-          .formParam("totalAmount", "9000")
+          .formParam("totalAmount", "#{CUIR2SmallClaimsAmount}")
           .formParam("saveAndContinue", "true")
           .check(CsrfCheck.save)
           .check(substring("Do you want to claim interest?")))
