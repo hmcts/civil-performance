@@ -56,6 +56,6 @@ object XUINoticeOfChange {
 
 			.exec(Common.isAuthenticatedXUI)
 		}
-		.exitHereIf("#{statusCheck}" != 201)
+//		.exitHereIf("#{statusCheck}" != "201")
 		.pause(MinThinkTime, MaxThinkTime)
 }
