@@ -91,6 +91,8 @@ class CivilDamagesSimulation extends Simulation {
 	val LipVsLR = scenario(" LiP vs LR")
 		.feed(loginFeeder)
 		.exec(CreateUser.CreateClaimantCitizen)
+//		.exec(CreateUser.CreateXUICitizen)
+//		.exitHere
 		.exec(CUIR2HomePage.CUIR2HomePage)
 		.exec(CUIR2Login.CUIR2Login)
 		.exec(CUIR2ClaimCreation.run)
@@ -107,6 +109,7 @@ class CivilDamagesSimulation extends Simulation {
 		.exec(CUIR2Login.CUIR2Login)
 		.exec(CUIR2ClaimantIntentionCaseProg.run)
 		.exec(CUIR2Logout.CUILogout)
+		.exitHere
 		.exec(_.set("loginFlag", "judge"))
 		.exec(XUILogin.Homepage)
 		.exec(XUILogin.Loginpage)

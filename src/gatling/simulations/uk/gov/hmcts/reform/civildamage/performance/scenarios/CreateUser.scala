@@ -22,6 +22,12 @@ object CreateUser {
     "role" -> "citizen"
   ))
 
+  val newUserXUI = Iterator.continually(Map(
+    "claimantEmailAddress" -> ("civil.damages.claims+organisation.1.solicitor." + Common.randomString(5) + "@gmail.com"),
+    "password" -> "Password12!",
+    "role" -> "caseworker"
+  ))
+
   //takes an userType e.g. petitioner/respondent, to create unique users for each user
   val CreateClaimantCitizen =
     feed(newUserFeeder)
@@ -51,6 +57,22 @@ object CreateUser {
         val fw = new BufferedWriter(new FileWriter("CUIDefUsers.csv", true))
         try {
           fw.write(session("defEmailAddress").as[String]  + "\r\n")
+        } finally fw.close()
+        session
+      }
+
+  val CreateXUICitizen =
+    feed(newUserXUI)
+      .group("CUIR2_Claimant_CreateCitizen") {
+        exec(http("CUIR2_Claimant_CreateCitizen")
+          .post(IdamAPIURL + "/testing-support/accounts")
+          .body(ElFileBody("CreateUserTemplate.json")).asJson
+          .check(status.is(201)))
+      }
+      .exec { session =>
+        val fw = new BufferedWriter(new FileWriter("CUIClaimUsers.csv", true))
+        try {
+          fw.write(session("claimantEmailAddress").as[String] + "\r\n")
         } finally fw.close()
         session
       }

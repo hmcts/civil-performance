@@ -638,7 +638,7 @@ object CUIR2ClaimCreation {
     ==========================================================================================*/
       .group("CUIR2_Claimant_420_PCQQuestionaire") {
         exec(http("CUIR2_Claimant_420_005_PCQQuestionaire")
-          .post("https://pcq.perftest.platform.hmcts.net/opt-out")
+          .post("https://pcq.demo.platform.hmcts.net/opt-out")
           .headers(CivilDamagesHeader.CUIR2Post)
           .formParam("_csrf", "#{csrf}")
           .formParam("opt-out-button", "")
