@@ -90,7 +90,6 @@ class CivilDamagesSimulation extends Simulation {
 
 	val LipVsLR = scenario(" LiP vs LR")
 		.feed(loginFeeder)
-		.exec(CreateUser.CreateDefCitizen)
 		.exec(CreateUser.CreateClaimantCitizen)
 		.exec(CUIR2HomePage.CUIR2HomePage)
 		.exec(CUIR2Login.CUIR2Login)

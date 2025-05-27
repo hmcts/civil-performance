@@ -41,21 +41,21 @@ object XUINoticeOfChange {
 						|"clientName", "value": "Mr Def First Def Last"}]}""".stripMargin))
 				.check(substring("Notice of Change answers verified successfully")))
 		}
+		.pause(MinThinkTime, MaxThinkTime)
 
 		.group("XUI_NoticeOfChange_040_Submit") {
-//			tryMax(20) {
-				pause(MinThinkTime, MaxThinkTime)
-				.exec(http("Submit")
-					.post(BaseURL + "/api/noc/submitNoCEvents")
-					.headers(Headers.commonHeader)
-					.body(StringBody("""{"case_id": "#{claimNumber}", "answers": [{"question_id":
-						|"clientName", "value": "Mr Def First Def Last"}]}""".stripMargin))
-					.check(substring("The Notice of Change request has been successfully submitted."))
-					.check(status.saveAs("statusCheck")))
-//			}
+			exec(http("Submit")
+				.post(BaseURL + "/api/noc/submitNoCEvents")
+				.headers(Headers.commonHeader)
+				.body(StringBody("""{"case_id": "#{claimNumber}", "answers": [{"question_id":
+					|"clientName", "value": "Mr Def First Def Last"}]}""".stripMargin))
+				.check(bodyString.saveAs("nocResponse"))
+				.check(substring("The Notice of Change request has been successfully submitted.")))
+
+			.exitHereIf(session =>
+				!session("nocResponse").as[String].contains("The Notice of Change request has been successfully submitted."))
 
 			.exec(Common.isAuthenticatedXUI)
 		}
-//		.exitHereIf("#{statusCheck}" != "201")
 		.pause(MinThinkTime, MaxThinkTime)
 }

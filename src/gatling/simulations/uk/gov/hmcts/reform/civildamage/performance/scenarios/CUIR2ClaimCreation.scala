@@ -665,6 +665,8 @@ object CUIR2ClaimCreation {
          // .check (css (".reference-number>h1.bold-large").saveAs ("claimNumber"))
         )
       }
+
+      .exitHereIf(session => !session.contains("claimNumber"))
       .pause(MinThinkTime, MaxThinkTime)
       .pause(30)
   
@@ -741,7 +743,7 @@ object CUIR2ClaimCreation {
    .exec { session =>
          val fw = new BufferedWriter(new FileWriter("CUIR2Claims.csv", true))
          try {
-           fw.write(session("claimantEmailAddress").as[String] + "," + session("defEmailAddress").as[String] + "," + session("password").as[String] + "," + session("claimNumber").as[String] + "\r\n")
+           fw.write(session("claimantEmailAddress").as[String] + "," + session("defendantuser").as[String] + "," + session("password").as[String] + "," + session("claimNumber").as[String] + "\r\n")
          } finally fw.close()
          
          session
