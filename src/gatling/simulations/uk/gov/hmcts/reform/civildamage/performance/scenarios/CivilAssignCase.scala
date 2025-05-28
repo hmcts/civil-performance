@@ -50,10 +50,34 @@ object CivilAssignCase {
     group("CIVIL_AssignCase_000_AssignCase") {
       exec(Auth)
       .exec(http("CIVIL_AssignCase_000_AssignCase")
-        .post("http://civil-service-demo.service.core-compute-demo.internal/testing-support/assign-case/#{claimNumber}/DEFENDANT")
+        .post("http://civil-service-perftest.service.core-compute-perftest.internal/testing-support/assign-case/#{claimNumber}/DEFENDANT")
         .header("Authorization", "Bearer ${bearerToken}")
         .header("Content-Type", "application/json")
         .header("Accept", "*/*")
         .check(status.in(200, 201)))
     }
+
+  //Updating the respondent deadline so that the default judgment journey becomes available
+  val updateDeadlineDefaultJudgment =
+    exec(S2S.s2s("civil_service"))
+    .exec(AuthClaimant)
+    .exec(http("API_Civil_UpdateDeadline")
+      .put("http://civil-service-perftest.service.core-compute-perftest.internal/testing-support/case/#{caseId}")
+      .header("Authorization", "Bearer #{claimToken}")
+      .header("ServiceAuthorization", "#{civil_serviceBearerToken}")
+      .header("Content-type", "application/json")
+      .body(StringBody("""{"respondent1ResponseDeadline":"2024-02-13T15:59:50"}""")))
+    .pause(15)
+
+  //Updating the respondent payment date so that the judgment by admission journey becomes available
+  val updatePaymentDateForRespondentJO =
+    exec(S2S.s2s("civil_service"))
+    .exec(AuthClaimant)
+    .exec(http("API_Civil_UpdateSubmittedDate")
+      .put("http://civil-service-perftest.service.core-compute-perftest.internal/testing-support/case/#{caseId}")
+      .header("Authorization", "Bearer #{claimToken}")
+      .header("ServiceAuthorization", "#{civil_serviceBearerToken}")
+      .header("Content-type", "application/json")
+      .body(StringBody("""{"respondToClaimAdmitPartLRspec":{"whenWillThisAmountBePaid":"2025-02-13"}}""")))
+    .pause(15)
 }

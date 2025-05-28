@@ -6,17 +6,17 @@ import io.gatling.http.Predef._
 object Environment {
 
   val httpConfig = scala.util.Properties.envOrElse("httpConfig", "http")
-  val baseURL = "https://manage-case.demo.platform.hmcts.net"
-  val citizenURL = "https://moneyclaims.demo.platform.hmcts.net"
+  val baseURL = "https://manage-case.perftest.platform.hmcts.net"
+  val citizenURL = "https://civil-citizen-ui.perftest.platform.hmcts.net"
   val baseDomain = scala.util.Properties.envOrElse("baseDomain", "manage-case.perftest.platform.hmcts.net")
   val PaymentURL = scala.util.Properties.envOrElse("paymentURL", "https://card.payments.service.gov.uk")
-  val idamURL = "https://idam-web-public.demo.platform.hmcts.net"
-  val idamAPIURL = "https://idam-api.demo.platform.hmcts.net"
+  val idamURL = "https://idam-web-public.perftest.platform.hmcts.net"
+  val idamAPIURL = "https://idam-api.perftest.platform.hmcts.net"
 
-  val manageOrgURL = "https://manage-org.demo.platform.hmcts.net"
+  val manageOrgURL = "https://manage-org.perftest.platform.hmcts.net"
  
-  val refDataApiURL = "https://rd-professional-api-demo.service.core-compute-demo.internal"
-  val s2sUrl = "http://rpe-service-auth-provider-demo.service.core-compute-demo.internal"
+  val refDataApiURL = "https://rd-professional-api-perftest.service.core-compute-perftest.internal"
+  val s2sUrl = "http://rpe-service-auth-provider-perftest.service.core-compute-perftest.internal"
   val idamCookieName="SESSION_ID"
   val HttpProtocol = http
 

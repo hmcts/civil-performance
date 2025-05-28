@@ -2,5 +2,5 @@
   "amount": 545,
   "currency": "GBP",
   "language": "string",
-  "return-url": "https://paymentoutcome-web.demo.platform.hmcts.net/payment"
+  "return-url": "https://paymentoutcome-web.perftest.platform.hmcts.net/payment"
 }
