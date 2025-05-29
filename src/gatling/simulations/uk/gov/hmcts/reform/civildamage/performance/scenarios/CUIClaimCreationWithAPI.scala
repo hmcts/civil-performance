@@ -74,9 +74,21 @@ object  CUIClaimCreationWithAPI {
 				.check(status.is(200)))
 		}
 
-	
-	
-	
-	
+
+	val deleteClaimantUser =
+		group("CUIR2_Delete_User") {
+			exec(http("CUIR2_Delete_User")
+				.delete(IdamAPIURL + "/testing-support/accounts/#{claimantEmailAddress}")
+				.header("Content-Type", "application/json")
+				.check(status.is(204)))
+		}
+
+	val deleteDefendantUser =
+		group("CUIR2_Delete_User") {
+			exec(http("CUIR2_Delete_User")
+				.delete(IdamAPIURL + "/testing-support/accounts/#{defEmailAddress}")
+				.header("Content-Type", "application/json")
+				.check(status.is(204)))
+		}
 	
 }
