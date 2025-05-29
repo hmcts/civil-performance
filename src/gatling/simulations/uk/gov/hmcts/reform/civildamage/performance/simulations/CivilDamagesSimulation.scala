@@ -207,6 +207,9 @@ class CivilDamagesSimulation extends Simulation {
 						println("✅ Stopping Execution for 80% Users")
 						session.markAsFailed
 					}
+					//YR: Added below code to delete user after use
+					//.exec(CUIClaimCreationWithAPI.deleteClaimantUser)
+					//.exec(CUIClaimCreationWithAPI.deleteDefendantUser)
 				)
 				// below is for SDO for small claims
 
@@ -265,6 +268,9 @@ class CivilDamagesSimulation extends Simulation {
 				.exec(Login.XUIJudgeLogin)
 				.exec(CUIR2CaseProgression.FinalGeneralOrders)
 				.exec(EXUIMCLogin.manageCase_Logout)
+				//YR: Added below code to delete user after use
+				//.exec(CUIClaimCreationWithAPI.deleteClaimantUser)
+				//.exec(CUIClaimCreationWithAPI.deleteDefendantUser)
 		}
 
 
@@ -484,23 +490,40 @@ class CivilDamagesSimulation extends Simulation {
 					exec(CUIClaimCreationWithAPI.CreateClaimCUIR2WithAPI)
 						.pause(2)
 				}
+				//YR: Added below code to delete user after use
+				//.exec(CUIClaimCreationWithAPI.deleteClaimantUser)
 				}
-		
 
 
 
 setUp(
+
+	//*** Regression - Single User - 1 Iteration ***
+	//********************************************************************************
 	//CUIR2SmallClaimsCaseProgression.inject(nothingFor(1),rampUsers(1) during (1)),
 	//CUIR2FastTrackCaseProgression.inject(nothingFor(1),rampUsers(1) during (1))
+	//********************************************************************************
 
-	//Following is the case progression scenarios for both small track and fast track for CUI
-	CUIR2SmallClaimsCaseProgression.inject(nothingFor(1),rampUsers(150) during (2200)),
-	CUIR2FastTrackCaseProgression.inject(nothingFor(50),rampUsers(150) during (2200)),
-	
-	// Following is for inserting data into
-	//30,130,900 nothingFor(1),
-//CivilUIR2ClaimCreationWithAPIScenario.inject(nothingFor(1),rampUsers(50) during (900))
-	//CivilUIR2ClaimCreationWithAPIScenario.inject(nothingFor(1),rampUsers(200) during (3600))
+
+	//*** Regression - Full Load ***
+	//********************************************************************************
+	//CUIR2SmallClaimsCaseProgression.inject(nothingFor(1),rampUsers(150) during (2200)),
+	//CUIR2FastTrackCaseProgression.inject(nothingFor(50),rampUsers(150) during (2200)),
+	//********************************************************************************
+
+
+	//*** Data Inserts - Single User - 1 Iteration ***
+	//********************************************************************************
+	//CivilUIR2ClaimCreationWithAPIScenario.inject(nothingFor(1),rampUsers(1) during (1))
+	// ********************************************************************************
+
+
+	//*** Data Inserts - Full Load ***
+	//********************************************************************************
+	CivilUIR2ClaimCreationWithAPIScenario.inject(nothingFor(1),rampUsers(3600) during (64800))
+	//********************************************************************************
+
+
 ).protocols(httpProtocol)
 
 
