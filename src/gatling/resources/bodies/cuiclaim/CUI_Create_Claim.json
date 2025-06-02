@@ -46,7 +46,7 @@
     "claimInterest": "No",
     "claimantUserDetails": {
       "email": "#{claimantEmailAddress}",
-      "id": "982d9bdc-0441-47f1-94c5-7c2df9f79d0f"
+      "id": "#{userId}"
     },
     "respondent1LiPResponse": {
       "respondent1DQExtraDetails": {

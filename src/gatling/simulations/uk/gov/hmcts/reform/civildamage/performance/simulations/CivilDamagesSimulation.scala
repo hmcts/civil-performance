@@ -79,6 +79,9 @@ class CivilDamagesSimulation extends Simulation {
 	val numberOfPipelineUsers = 5
 	val pipelinePausesMillis: Long = 3000 //3 seconds
 
+	val smallClaimsAmount = "9000"
+	val fastClaimsAmount = "20000"
+
 	//Determine the pause pattern to use:
 	//Performance test = use the pauses defined in the scripts
 	//Pipeline = override pauses in the script with a fixed value (pipelinePauseMillis)
@@ -173,7 +176,8 @@ class CivilDamagesSimulation extends Simulation {
 	val CUIR2SmallClaimsCaseProgression = scenario(" CUIR2 CaseProgression Small Claims")
 		.feed(cpLoginFeeder) .feed(cpfulltestsmallclaimsFeeder)
 		.exitBlockOnFail {
-		exec(_.set("CUIR2SmallClaimsAmount", "9000"))
+		exec(_.set("CUIR2SmallClaimsAmount", s"${smallClaimsAmount}"))
+			//.exec(_.set("CourtLocation", "9000")) - WIP
 			.exec(_.set("env", s"${env}"))
 				.exec(CreateUser.CreateDefCitizen)
 				.repeat(1) {
@@ -373,7 +377,7 @@ class CivilDamagesSimulation extends Simulation {
 	val CUIR2FastTrackCaseProgression = scenario("SDO For CUIR2 CaseProgression Fast Track")
 		.feed(cpLoginFeeder)//.feed(cpfulltestfasttrackFeeder)
 		.exitBlockOnFail {
-			exec(_.set("CUIR2FastClaimsAmount", "20000"))
+			exec(_.set("CUIR2FastClaimsAmount", s"${fastClaimsAmount}"))
 			.exec(_.set("env", s"${env}"))
 				.exec(CreateUser.CreateDefCitizen)
 				.repeat(1) {
@@ -403,12 +407,12 @@ class CivilDamagesSimulation extends Simulation {
 				// below is the SDO for fast track
 				
 				// 🎯 **80% Users Exit Here**
-				.randomSwitch(
+				/*.randomSwitch(
 					80.0 -> exec { session =>
 						println("✅ Stopping Execution for 80% Users")
 						session.markAsFailed
 					}
-				)
+				)*/
 				
 				.exec(Homepage.XUIHomePage)
 				.exec(Login.XUIJudgeLogin)
