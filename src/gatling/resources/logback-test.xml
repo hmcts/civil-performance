@@ -15,7 +15,7 @@
   <logger name="io.gatling.http.engine.response" level="WARN" />
 
 <!--	<root level="WARN">-->
-	<root level="WARN">
+	<root level="ERROR">
 		<appender-ref ref="CONSOLE" />
 	</root>
 

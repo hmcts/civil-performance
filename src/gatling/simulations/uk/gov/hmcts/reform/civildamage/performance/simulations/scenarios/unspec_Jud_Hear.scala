@@ -177,32 +177,36 @@ object unspec_Jud_Hear {
     .pause(MinThinkTime, MaxThinkTime)
 
     // =======================ASSIGN TO ME=======================,
-    .group("Civil_UnSpecClaim_60_050_SDO_AssignToMe") {
-      exec(http("005_AssignToMe")
-        .post("/workallocation/task/#{judgeId}/claim")
-        .headers(Headers.commonHeader)
-        .check(status.is(204)))
+    .doIf(session => session.contains("judgeId")) (
+      group("Civil_UnSpecClaim_60_050_SDO_AssignToMe") {
+        exec(http("005_AssignToMe")
+          .post("/workallocation/task/#{judgeId}/claim")
+          .headers(Headers.commonHeader)
+          .check(status.is(204)))
 
-      exec(http("010_AssignToMe")
-        .post("/workallocation/case/task/#{caseId}")
-        .headers(Headers.commonHeader)
-        .body(StringBody("""{"refined": true}""".stripMargin))
-        .check(substring("task_system")))
+        .exec(http("010_AssignToMe")
+          .post("/workallocation/case/task/#{caseId}")
+          .headers(Headers.commonHeader)
+          .body(StringBody("""{"refined": true}""".stripMargin))
+          .check(substring("task_system")))
 
-      .exec(http("015_AssignToMe")
-        .post("/api/role-access/roles/getJudicialUsers")
-        .body(StringBody("""{"userIds": ["#{uId}"], "services": ["CIVIL"]}""".stripMargin))
-        .headers(Headers.commonHeader)
-        .check(status.in(200, 406)))
-    }
+        .exec(http("015_AssignToMe")
+          .post("/api/role-access/roles/getJudicialUsers")
+          .body(StringBody("""{"userIds": ["#{uId}"], "services": ["CIVIL"]}""".stripMargin))
+          .headers(Headers.commonHeader)
+          .check(status.in(200, 406)))
+      }
+    )
     .pause(MinThinkTime, MaxThinkTime)
 
     // =======================FAST TRACK=======================,
     .group("Civil_UnSpecClaim_60_060_SDO_StartEvent") {
-      exec(http("005_FastTrack")
-        .get("/cases/case-details/#{caseId}/trigger/CREATE_SDO/CREATE_SDOFastTrack?tid=#{judgeId}")
-        .headers(Headers.navigationHeader)
-        .check(substring("flexbox no-flexboxtwenner")))
+      doIf(session => session.contains("judgeId")) (
+        exec(http("005_FastTrack")
+          .get("/cases/case-details/#{caseId}/trigger/CREATE_SDO/CREATE_SDOFastTrack?tid=#{judgeId}")
+          .headers(Headers.navigationHeader)
+          .check(substring("flexbox no-flexboxtwenner")))
+      )
 
       .exec(Common.configurationui)
       .exec(Common.configUI)
@@ -213,10 +217,12 @@ object unspec_Jud_Hear {
       .exec(Common.monitoringTools)
       .exec(Common.monitoringTools)
 
-      .exec(http("010_FastTrack")
-        .get("/workallocation/case/tasks/#{caseId}/event/CREATE_SDO/caseType/CIVIL/jurisdiction/CIVIL")
-        .headers(Headers.commonHeader)
-        .check(substring("case_management_category")))
+      .doIf(session => session.contains("judgeId")) (
+        exec(http("010_FastTrack")
+          .get("/workallocation/case/tasks/#{caseId}/event/CREATE_SDO/caseType/CIVIL/jurisdiction/CIVIL")
+          .headers(Headers.commonHeader)
+          .check(substring("case_management_category")))
+      )
 
       .exec(http("015_FastTrack")
         .get("/data/internal/cases/#{caseId}")
@@ -287,10 +293,12 @@ object unspec_Jud_Hear {
 
     // =======================SUBMIT SDO=======================,
     .group("Civil_UnSpecClaim_60_110_SDO_Submit") {
-      exec(http("005_SubmitSDO")
-        .get("/workallocation/task/#{judgeId}")
-        .headers(Headers.commonHeader)
-        .check(substring("role_category")))
+      doIf(session => session.contains("judgeId")) (
+        exec(http("005_SubmitSDO")
+          .get("/workallocation/task/#{judgeId}")
+          .headers(Headers.commonHeader)
+          .check(substring("role_category")))
+      )
 
       .exec(http("010_SubmitSDO")
         .post("/data/cases/#{caseId}/events")
@@ -556,155 +564,4 @@ object unspec_Jud_Hear {
         .check(substring("http://gateway-ccd.perftest.platform.hmcts.net/internal/cases/#{caseId}")))
     }
     .pause(MinThinkTime, MaxThinkTime)
-
-
-
-
-  //  Wrong path through the Task Tab (after Assign to Me), not part of the journey
-  //    // =======================HEARINGS TAB=======================,
-  //    .group("Civil_UnSpecClaim_50_HearingAdmin") {
-  //      exec(http("005_HEARING REQUEST")
-  //        .get("/cases/case-details/#{caseId}/hearings?tid=#{HearingCaseId}")
-  //        .headers(Headers.navigationHeader)
-  //        .check(substring("flexbox no-flexboxtwenner")))
-  //
-  //      .exec(Common.configurationui)
-  //      .exec(Common.configUI)
-  //      .exec(Common.TsAndCs)
-  //      .exec(Common.monitoringTools)
-  //      .exec(Common.isAuthenticated)
-  //
-  //      .exec(http("010_HEARING REQUEST")
-  //        .get("/data/internal/cases/#{caseId}")
-  //        .headers(Headers.validateHeader)
-  //        .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-case-view.v2+json")
-  //        .check(substring("http://gateway-ccd.perftest.platform.hmcts.net/internal/cases/#{caseId}")))
-  //
-  //      .exec(http("015_HEARING REQUEST")
-  //        .post("/api/role-access/roles/manageLabellingRoleAssignment/#{caseId}")
-  //        .headers(Headers.commonHeader)
-  //        .check(status.is(204)))
-  //
-  //      .exec(http("020_HEARING REQUEST")
-  //        .get("/api/wa-supported-jurisdiction/get")
-  //        .headers(Headers.commonHeader)
-  //        .check(substring("CIVIL")))
-  //
-  //      .exec(http("025_HEARING REQUEST")
-  //        .get("/api/hearings/getHearings?caseId=#{caseId}")
-  //        .headers(Headers.commonHeader)
-  //        .check(substring("caseHearings")))
-  //
-  //      .exec(http("030_HEARING REQUEST")
-  //        .post("/api/hearings/loadServiceHearingValues?jurisdictionId=CIVIL")
-  //        .body(StringBody("""{"caseReference": "#{caseId}"}""".stripMargin))
-  //        .headers(Headers.commonHeader)
-  //        .check(substring("caserestrictedFlag")))
-  //    }
-  //    .pause(MinThinkTime, MaxThinkTime)
-  //    //.exec(getCookieValue(CookieKey("XSRF-TOKEN").withDomain(BaseURL.replace("https://", "")).saveAs("xsrf_token")))
-  //
-  //    // =======================REQUEST A HEARING=======================,
-  //    .group("Civil_UnSpecClaim_50_HearingAdmin") {
-  //      exec(http("005_RequestHearing")
-  //        .get("/api/prd/lov/getLovRefData?categoryId=caseType&serviceId=AAA7&isChildRequired=Y")
-  //        .headers(Headers.commonHeader)
-  //        .check(substring("category_key")))
-  //
-  //      .exec(http("010_RequestHearing")
-  //        .get("/api/prd/caseFlag/getCaseFlagRefData?serviceId=AAA7")
-  //        .headers(Headers.commonHeader)
-  //        .check(substring("FlagDetails")))
-  //
-  //      .exec(http("015_RequestHearing")
-  //        .get("/api/prd/location/getLocationById?epimms_id=231596")
-  //        .headers(Headers.commonHeader)
-  //        .check(substring("Birmingham Civil and Family Justice Centre")))
-  //    }
-  //    .pause(MinThinkTime, MaxThinkTime)
-  //
-  //    // =======================HEARING REQUIREMENTS=======================,
-  //    .group("Civil_UnSpecClaim_50_HearingAdmin") {
-  //      exec(http("005_HearingRequirements")
-  //        .post("/api/hearings/loadServiceHearingValues?jurisdictionId=CIVIL")
-  //        .body(StringBody("""{"caseReference": "#{caseId}"}""".stripMargin))
-  //        .headers(Headers.commonHeader)
-  //        .check(substring("caserestrictedFlag")))
-  //
-  //      .exec(http("010_HearingRequirements")
-  //        .get("/api/prd/caseFlag/getCaseFlagRefData?serviceId=AAA7")
-  //        .headers(Headers.commonHeader)
-  //        .check(substring("FlagDetails")))
-  //
-  //      .exec(http("015_HearingRequirements")
-  //        .get("/api/prd/lov/getLovRefData?categoryId=Facilities&serviceId=AAA7&isChildRequired=N")
-  //        .headers(Headers.commonHeader)
-  //        .check(substring("category_key")))
-  //    }
-  //    .pause(MinThinkTime, MaxThinkTime)
-  //
-  //    // =======================HEARING SECURITY=======================,
-  //    .group("Civil_UnSpecClaim_50_HearingAdmin") {
-  //      exec(http("005_HearingSecurity")
-  //        .get("/api/prd/lov/getLovRefData?categoryId=HearingType&serviceId=AAA7&isChildRequired=N")
-  //        .headers(Headers.commonHeader)
-  //        .check(substring("category_key")))
-  //    }
-  //    .pause(MinThinkTime, MaxThinkTime)
-  //
-  //    // =======================HEARING TYPE=======================,
-  //    .group("Civil_UnSpecClaim_50_HearingAdmin") {
-  //      exec(http("005_HearingType")
-  //        .get("/api/prd/lov/getLovRefData?categoryId=HearingChannel&serviceId=AAA7&isChildRequired=N")
-  //        .headers(Headers.commonHeader)
-  //        .check(substring("category_key")))
-  //    }
-  //    .pause(MinThinkTime, MaxThinkTime)
-  //
-  //    // =======================HEARING CHANNEL=======================,
-  //    .group("Civil_UnSpecClaim_50_HearingAdmin") {
-  //      exec(http("005_HearingChannel")
-  //        .get("/api/prd/location/getLocationById?epimms_id=231596")
-  //        .headers(Headers.commonHeader)
-  //        .check(substring("Birmingham Civil and Family Justice Centre")))
-  //    }
-  //    .pause(MinThinkTime, MaxThinkTime)
-  //
-  //    // =======================HEARING LOCATION=======================,
-  //    .group("Civil_UnSpecClaim_50_HearingAdmin") {
-  //      exec(http("005_HearingLocation")
-  //        .get("/api/prd/lov/getLovRefData?categoryId=JudgeType&serviceId=AAA7&isChildRequired=N")
-  //        .headers(Headers.commonHeader)
-  //        .check(substring("category_key")))
-  //    }
-  //    .pause(MinThinkTime, MaxThinkTime)
-  //
-  //    // =======================HEARING JUDGE=======================,
-  //    .group("Civil_UnSpecClaim_50_HearingAdmin") {
-  //      exec(http("005_HearingJudge")
-  //        .get("/api/prd/lov/getLovRefData?categoryId=HearingPriority&serviceId=AAA7&isChildRequired=N")
-  //        .headers(Headers.commonHeader)
-  //        .check(substring("category_key")))
-  //    }
-  //    .pause(MinThinkTime, MaxThinkTime)
-  //
-  //    // =======================HEARING PRIORITY=======================,
-  //    .group("Civil_UnSpecClaim_50_HearingAdmin") {
-  //      exec(http("005_HearingPriority")
-  //        .get("/api/prd/lov/getLovRefData?categoryId=HearingDuration&serviceId=AAA7&isChildRequired=N")
-  //        .headers(Headers.commonHeader)
-  //        .check(substring("category_key")))
-  //    }
-  //    .pause(MinThinkTime, MaxThinkTime)
-  //
-  //    // =======================SUBMIT HEARING=======================,
-  //    .group("Civil_UnSpecClaim_50_HearingAdmin") {
-  //      exec(http("005_SubmitHearing")
-  //        .post("/api/hearings/submitHearingRequest")
-  //        .headers(Headers.commonHeader)
-  //        //.body(ElFileBody("ud_ue_jud_hear_bodies/judgeSubmitHearing.dat"))
-  //        .check(substring("HEARING_REQUESTED")))
-  //    }
-
-
 }

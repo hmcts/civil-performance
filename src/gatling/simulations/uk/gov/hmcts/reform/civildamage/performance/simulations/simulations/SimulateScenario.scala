@@ -1,11 +1,9 @@
 package uk.gov.hmcts.reform.civildamage.performance.simulations
 import io.gatling.core.Predef._
-import io.gatling.http.Predef._
 import io.gatling.core.scenario.Simulation
 import scenarios.utils.Environment._
 import scenarios.utils._
 import scenarios._
-import io.gatling.core.controller.inject.open.OpenInjectionStep
 
 
 class SimulateScenario extends Simulation {
@@ -92,13 +90,6 @@ class SimulateScenario extends Simulation {
     .exec(unspec_DF2_CL2_FinalOrder_Not_In_Scope.FinalOrder)
     .exec(Logout.Signout)
 
-  val tempScn = scenario("Assign")
-    .feed(loginFeeder)
-    .exec(_.set("loginFlag", "defendant"))
-    .exec(_.set("caseId", "1744793300217345"))
-    .exec(Home.Homepage)
-    .exec(Login.Loginpage)
-    .exec(spec_DF1_Resp.selectRespondToClaim)
 
 
   //==================Specified=============================
@@ -172,9 +163,5 @@ class SimulateScenario extends Simulation {
   setUp(
     CreateUnSpecClaimSCN.inject(nothingFor(120),rampUsers(40).during(2500)),
     CreateSpecClaimSCN.inject(rampUsers(40).during(2650))
-
-//    CreateUnSpecClaimSCN.inject(rampUsers(5).during(100)),
-//    CreateSpecClaimSCN.inject(nothingFor(300),rampUsers(5).during(100))
-//    tempScn.inject(atOnceUsers(1))
   ).protocols(httpProtocol)
 }

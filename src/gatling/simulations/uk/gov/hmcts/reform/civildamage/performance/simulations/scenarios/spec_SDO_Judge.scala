@@ -300,10 +300,12 @@ object spec_SDO_Judge {
       .exec(Common.monitoringTools)
       .exec(Common.monitoringTools)
 
-//      .exec(http("010_SmallClaims")
-//        .get("/workallocation/case/tasks/#{caseId}/event/CREATE_SDO/caseType/CIVIL/jurisdiction/CIVIL")
-//        .headers(Headers.commonHeader)
-//        .check(substring("case_management_category")))
+      .doIf(session => session.contains("judgeId")) (
+        exec(http("010_SmallClaims")
+          .get("/workallocation/case/tasks/#{caseId}/event/CREATE_SDO/caseType/CIVIL/jurisdiction/CIVIL")
+          .headers(Headers.commonHeader)
+          .check(substring("case_management_category")))
+      )
 
       .exec(http("015_SmallClaims")
         .get("/data/internal/cases/#{caseId}")
