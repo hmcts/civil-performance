@@ -45,6 +45,6 @@ withNightlyPipeline("java", product, component) {
     }
 }
 
-afterAlways() {
+afterAlways('performanceTest') {
     echo "YR: Start Archive part"
 }
