@@ -9,12 +9,43 @@ properties([
 def product = "civil"
 def component = "ucmc-performance"
 
+def rerunOnFirstFail() {
+    //def fails = 0
+    //def stop = 0
+    //def b = currentBuild.previousBuild
+
+    //while (b != null && stop == 0) {
+    //    if (b.result == 'FAILURE') {
+    //        fails = fails + 1
+    //    } else {
+    //        stop = 1
+    //    }
+    //    b = b.previousBuild
+    //}
+
+    //fails = fails + 1
+    mail(
+            to: 'yogesh.ruperai@hmcts.net',
+            subject: "performanceTest Failed",
+            body: "This is a test message"
+            //body: "This test has failed ${fails} times this week"
+    )
+    slackSend(
+            channel: 'yogesh.ruperai@hmcts.net',
+            message: "This is a test message"
+    )
+}
+
 withNightlyPipeline("java", product, component) {
 
     enablePerformanceTest(40)
 
     after('performanceTest') {
         steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
+    }
+
+    afterFail('performanceTest') {
+        rerunOnFirstFail()
     }
 
 }
