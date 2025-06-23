@@ -47,6 +47,14 @@ withNightlyPipeline("java", product, component) {
             echo 'YR: Start Archive part'
         }
     }
+
+
+    afterFail('performanceTest') {
+        script {
+            echo 'YR: Start Archive part'
+        }
+    }
+
 }
 
 //echo "YR: Start Archive part 2"
