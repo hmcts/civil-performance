@@ -48,19 +48,13 @@ withNightlyPipeline("java", product, component) {
     }
 
     afterFailure('performanceTest') {
+        echo "Starting After Step"
         steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
-        fail = 1
-    }
-
-}
-
-if (fail == 1) {
-    withNightlyPipeline("java", product, component) {
-        enablePerformanceTest()
-        after('performanceTest') {
-            steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
+        withNightlyPipeline("java", product, component) {
+            enablePerformanceTest()
+            after('performanceTest') {
+                steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
+            }
         }
     }
 }
-
-
