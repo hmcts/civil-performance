@@ -41,10 +41,11 @@ withNightlyPipeline("java", product, component) {
     enablePerformanceTest(40)
 
     after('performanceTest') {
+        echo "YR: add artifacts"
         steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
-        echo "starting new code"
+        echo "YR: starting new code"
         rerunOnFirstFail()
-        echo "finishing new code"
+        echo "YR: finishing new code"
     }
 
 }
