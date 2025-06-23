@@ -38,14 +38,12 @@ def rerunOnFirstFail() {
 
 withNightlyPipeline("java", product, component) {
 
+    echo "YR: start test"
     enablePerformanceTest(40)
+    echo "YR: finish test"
 
     after('performanceTest') {
-        echo "YR: add artifacts"
         steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
-        echo "YR: starting new code"
-        rerunOnFirstFail()
-        echo "YR: finishing new code"
     }
 
 }
