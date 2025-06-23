@@ -45,3 +45,6 @@ withNightlyPipeline("java", product, component) {
     }
 }
 
+afterAlways() {
+    echo "YR: Start Archive part"
+}
