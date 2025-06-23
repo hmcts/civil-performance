@@ -40,12 +40,11 @@ withNightlyPipeline("java", product, component) {
 
     enablePerformanceTest(40)
 
-    afterAlways('performanceTest') {
+    after('performanceTest') {
         script {
             echo "YR: Start Archive part"
+            steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
         }
-        steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
-        //steps.echo "YR: After Archive part"
     }
 }
 
