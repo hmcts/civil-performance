@@ -38,23 +38,24 @@ def rerunOnFirstFail() {
 }
 
 //echo "YR: Start Archive part 1"
+retry(2) {
+    withNightlyPipeline("java", product, component) {
 
-withNightlyPipeline("java", product, component) {
+        enablePerformanceTest(40)
 
-    enablePerformanceTest()
-
-    after('performanceTest') {
-        steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
-    }
-
-    afterFailure('performanceTest') {
-        echo "Starting After Step"
-        steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
-        withNightlyPipeline("java", product, component) {
-            enablePerformanceTest()
-            after('performanceTest') {
-                steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
-            }
+        after('performanceTest') {
+            steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
         }
+
+        //afterFailure('performanceTest') {
+        //    echo "Starting After Step"
+        //    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
+        //    withNightlyPipeline("java", product, component) {
+        //        enablePerformanceTest()
+        //        after('performanceTest') {
+        //            steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
+        //        }
+        //    }
+        //}
     }
 }
