@@ -44,7 +44,7 @@ withNightlyPipeline("java", product, component) {
         steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
     }
 
-    afterFail('performanceTest') {
+    after('performanceTest') {
         rerunOnFirstFail()
     }
 
