@@ -38,13 +38,10 @@ def rerunOnFirstFail() {
 
 withNightlyPipeline("java", product, component) {
 
-    enablePerformanceTest(40)
+    enablePerformanceTest()
 
-    //after('performanceTest') {
-    //    script {
-    //        echo "YR: Start Archive part"
-    //        //steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
-    //    }
-    //}
+    afterAlways('performanceTest') {
+        echo "YR: Start Archive part"
+    }
 }
 
