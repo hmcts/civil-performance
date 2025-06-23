@@ -36,14 +36,16 @@ def rerunOnFirstFail() {
     //)
 }
 
-echo "YR: Start Archive part 1"
+//echo "YR: Start Archive part 1"
 
 withNightlyPipeline("java", product, component) {
 
     enablePerformanceTest()
 
-    afterAlways('performanceTest') {
-        echo 'YR: Start Archive part'
+    after('performanceTest') {
+        script {
+            echo 'YR: Start Archive part'
+        }
     }
 }
 
