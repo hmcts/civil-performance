@@ -42,10 +42,16 @@ withNightlyPipeline("java", product, component) {
 
     enablePerformanceTest()
 
+    after('performanceTest') {
+        steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
+    }
+
     afterFailure('performanceTest') {
         withNightlyPipeline("java", product, component) {
-
             enablePerformanceTest()
+            after('performanceTest') {
+                steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
+            }
         }
     }
 
