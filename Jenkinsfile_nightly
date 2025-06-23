@@ -48,6 +48,7 @@ withNightlyPipeline("java", product, component) {
     }
 
     afterFailure('performanceTest') {
+        steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
         fail = 1
     }
 
