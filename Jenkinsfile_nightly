@@ -42,17 +42,17 @@ withNightlyPipeline("java", product, component) {
 
     enablePerformanceTest()
 
-    afterAlways('performanceTest') {
-        echo "YR: Start Archive part"
+    after('performanceTest') {
+        echo 'YR: Start Archive part'
     }
 }
 
-echo "YR: Start Archive part 2"
+//echo "YR: Start Archive part 2"
 
-withNightlyPipeline("java", product, component) {
+//withNightlyPipeline("java", product, component) {
 
-    enablePerformanceTest()
+//    enablePerformanceTest()
 
 
-}
+//}
 
