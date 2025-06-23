@@ -24,16 +24,16 @@ def rerunOnFirstFail() {
     //}
 
     //fails = fails + 1
-    mail(
-            to: 'yogesh.ruperai@hmcts.net',
-            subject: "performanceTest Failed",
-            body: "This is a test message"
+    //mail(
+    //        to: 'yogesh.ruperai@hmcts.net',
+    //        subject: "performanceTest Failed",
+    //        body: "This is a test message"
             //body: "This test has failed ${fails} times this week"
-    )
-    slackSend(
-            channel: 'yogesh.ruperai@hmcts.net',
-            message: "This is a test message"
-    )
+    //)
+    //slackSend(
+    //        channel: 'yogesh.ruperai@hmcts.net',
+    //        message: "This is a test message"
+    //)
 }
 
 withNightlyPipeline("java", product, component) {
@@ -43,7 +43,7 @@ withNightlyPipeline("java", product, component) {
     after('performanceTest') {
         script {
             echo "YR: Start Archive part"
-            steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
+            //steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
         }
     }
 }
