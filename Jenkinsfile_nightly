@@ -43,16 +43,10 @@ withNightlyPipeline("java", product, component) {
     enablePerformanceTest()
 
     after('performanceTest') {
-        script {
-            echo 'YR: Start Archive part'
-        }
     }
 
-
     afterFailure('performanceTest') {
-        script {
-            echo 'YR: Start Archive part'
-        }
+        enablePerformanceTest()
     }
 
 }
