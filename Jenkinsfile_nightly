@@ -42,7 +42,7 @@ withNightlyPipeline("java", product, component) {
 
     enablePerformanceTest()
 
-    after('performanceTest') {
+    afterAlways('performanceTest') {
         echo 'YR: Start Archive part'
     }
 }
