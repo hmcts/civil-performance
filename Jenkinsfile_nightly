@@ -42,11 +42,11 @@ withNightlyPipeline("java", product, component) {
 
     enablePerformanceTest()
 
-    after('performanceTest') {
-    }
-
     afterFailure('performanceTest') {
-        enablePerformanceTest()
+        withNightlyPipeline("java", product, component) {
+
+            enablePerformanceTest()
+        }
     }
 
 }
