@@ -61,9 +61,12 @@ pipeline {
         always {
             script {
                 echo "YR: This is from outside the block"
-                mail to: 'yogesh.ruperai@hmcts.net',
-                        subject: 'Failed Test',
-                        body: 'Fix the test'
+                slackSend(
+                        channel: 'yogesh.ruperai@hmcts.net',
+                        color: 'warning',
+                        message: "Hello"
+                )
+                //mail to: 'yogesh.ruperai@hmcts.net', subject: 'Failed Test', body: 'Fix the test'
             }
         }
     }
