@@ -18,6 +18,12 @@ def slack_message(String user, String colour, String message) {
     )
 }
 
+def check_if_test_failed_then_report(String user) {
+    if (currentBuild.result == 'FAILURE') {
+        slack_message('${user}', 'warning', 'Hello')
+    }
+}
+
 //WORKS - retry(){ }
 
 pipeline {
@@ -41,11 +47,7 @@ pipeline {
     post {
         always {
             script {
-                echo "YR: This is from outside the block"
-                echo currentBuild.result
-                if (currentBuild.result == 'FAILURE') {
-                    slack_message('U08Q19ZJS8G', 'warning', 'Hello')
-                }
+                check_if_test_failed_then_report("U08Q19ZJS8G")
             }
         }
     }
