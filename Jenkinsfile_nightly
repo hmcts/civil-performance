@@ -62,7 +62,7 @@ pipeline {
             script {
                 echo "YR: This is from outside the block"
                 slackSend(
-                        channel: 'yogesh.ruperai@hmcts.net',
+                        channel: 'U08Q19ZJS8G',
                         color: 'warning',
                         message: "Hello"
                 )
