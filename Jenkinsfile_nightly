@@ -42,6 +42,7 @@ pipeline {
         always {
             script {
                 echo "YR: This is from outside the block"
+                echo currentBuild.previousBuild.result
                 //slack_message('U08Q19ZJS8G', 'warning', 'Hello')
                 if (currentBuild.previousBuild.result == 'FAILURE') {
                     slack_message('U08Q19ZJS8G', 'warning', 'Hello')
