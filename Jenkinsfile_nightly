@@ -40,6 +40,7 @@ def rerunOnFirstFail() {
 }
 
 pipeline {
+    agent none
     stages {
         stage('Gatling') {
             steps {
