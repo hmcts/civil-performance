@@ -42,7 +42,9 @@ pipeline {
         always {
             script {
                 echo "YR: This is from outside the block"
-                slack_message('U08Q19ZJS8G', 'warning', 'Hello')
+                if (currentBuild.previousBuild == 'FAILURE') {
+                    slack_message('U08Q19ZJS8G', 'warning', 'Hello')
+                }
             }
         }
     }
