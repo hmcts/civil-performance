@@ -40,7 +40,6 @@ def rerunOnFirstFail() {
 }
 
 pipeline {
-    stages {
         steps('Gatling Test') {
             script {
                 retry(2) {
@@ -59,7 +58,7 @@ pipeline {
             }
         }
     }
-}
+
 
 
 
