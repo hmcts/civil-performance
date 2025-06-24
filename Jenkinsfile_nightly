@@ -10,6 +10,8 @@ def product = "civil"
 def component = "ucmc-performance"
 def fail = 0
 
+//WORKS - retry(){ }
+
 def rerunOnFirstFail() {
     //def fails = 0
     //def stop = 0
@@ -37,15 +39,38 @@ def rerunOnFirstFail() {
     //)
 }
 
-//echo "YR: Start Archive part 1"
-retry(2) {
-    withNightlyPipeline("java", product, component) {
-
-        enablePerformanceTest(40)
-
-        after('performanceTest') {
-            steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
+pipeline {
+    stages {
+        stage('Gatling Test') {
+            script {
+                retry(2) {
+                    withNightlyPipeline("java", product, component) {
+                        enablePerformanceTest()
+                        after('performanceTest') {
+                            steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
+                        }
+                    }
+                }
+            }
         }
+        post {
+            always {
+                echo "YR: This is from outside the block"
+            }
+        }
+    }
+}
+
+
+
+//retry(2) {
+//    withNightlyPipeline("java", product, component) {
+//
+//        enablePerformanceTest(40)
+
+//        after('performanceTest') {
+//            steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
+//        }
 
         //afterFailure('performanceTest') {
         //    echo "Starting After Step"
@@ -57,5 +82,5 @@ retry(2) {
         //        }
         //    }
         //}
-    }
-}
+//    }
+//}
