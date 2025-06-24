@@ -41,7 +41,7 @@ def rerunOnFirstFail() {
 
 pipeline {
     stages {
-        stage('Gatling Test') {
+        steps('Gatling Test') {
             script {
                 retry(2) {
                     withNightlyPipeline("java", product, component) {
