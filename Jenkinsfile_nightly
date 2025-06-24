@@ -20,7 +20,7 @@ def slack_message(String user, String colour, String message) {
 
 def check_if_test_failed_then_report(String user) {
     if (currentBuild.result == 'FAILURE') {
-        slack_message('${user}', 'warning', 'Hello')
+        slack_message("${user}", "warning", "Hello")
     }
 }
 
