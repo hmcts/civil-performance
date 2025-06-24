@@ -10,11 +10,11 @@ def product = "civil"
 def component = "ucmc-performance"
 def fail = 0
 
-def slack_message(user, colour, message) {
+def slack_message(String user, String colour, String message) {
     slackSend(
-            channel: '#{user}',
-            color: '#{colour}',
-            message: "#{message}"
+            channel: "${user}",
+            color: "${colour}",
+            message: "${message}"
     )
 }
 
