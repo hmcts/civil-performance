@@ -21,10 +21,17 @@ def slack_message(String user, String colour, String message) {
 def check_if_test_failed_then_report(String user) {
     if (currentBuild.result == 'FAILURE') {
         def body= """ 
-            Test has Failed twice today. Please fix within 3 days.
-            Job name: ${env.JOB_NAME}
-            Build Number: ${env.BUILD_NUMBER}
-            Build URL: ${env.BUILD_URL}
+Test has Failed twice today. 
+Please fix within 3 days.
+            
+-----------------------------            
+* Job name: ${env.JOB_NAME}
+
+* Build Number: ${env.BUILD_NUMBER}
+
+* Build URL: ${env.BUILD_URL}
+----------------------------- 
+
         """
         slack_message("${user}", "warning", "${body}")
     }
