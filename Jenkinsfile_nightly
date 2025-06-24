@@ -40,24 +40,28 @@ def rerunOnFirstFail() {
 }
 
 pipeline {
-        steps('Gatling Test') {
-            script {
-                retry(2) {
-                    withNightlyPipeline("java", product, component) {
-                        enablePerformanceTest()
-                        after('performanceTest') {
-                            steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
+    stages {
+        stage('Gatling') {
+            steps {
+                script {
+                    retry(2) {
+                        withNightlyPipeline("java", product, component) {
+                            enablePerformanceTest()
+                            after('performanceTest') {
+                                steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
+                            }
                         }
                     }
                 }
             }
         }
-        post {
-            always {
-                echo "YR: This is from outside the block"
-            }
+    }
+    post {
+        always {
+            echo "YR: This is from outside the block"
         }
     }
+}
 
 
 
