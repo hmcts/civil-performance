@@ -12,7 +12,7 @@ def fail = 0
 
 //WORKS - retry(){ }
 
-def rerunOnFirstFail() {
+//def rerunOnFirstFail() {
     //def fails = 0
     //def stop = 0
     //def b = currentBuild.previousBuild
@@ -37,15 +37,15 @@ def rerunOnFirstFail() {
     //        channel: 'yogesh.ruperai@hmcts.net',
     //        message: "This is a test message"
     //)
-}
+//}
 
 pipeline {
     agent none
     stages {
-        stage('Gatling') {
+        stage('Gatling Test') {
             steps {
                 script {
-                    retry(2) {
+                    retry(1) {
                         withNightlyPipeline("java", product, component) {
                             enablePerformanceTest()
                             after('performanceTest') {
@@ -59,7 +59,12 @@ pipeline {
     }
     post {
         always {
-            echo "YR: This is from outside the block"
+            script {
+                echo "YR: This is from outside the block"
+                mail to: 'yogesh.ruperai@hmcts.net',
+                        subject: 'Failed Test',
+                        body: 'Fix the test'
+            }
         }
     }
 }
