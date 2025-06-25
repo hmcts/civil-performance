@@ -34,9 +34,9 @@ def check_if_test_failed_then_report(String user) {
 }
 
 def check_if_test_failed_intermitently_then_report (String user) {
-    int loopMax = 10
-    int LoopCount = 1
-    int failureCount = 0
+    def loopMax   = 10
+    def LoopCount = 1
+    def failureCount = 0
     def currentBuild = previousBuild
     while (LoopCount < loopMax+1) {
         if ((currentBuild.result == 'FAILURE')) {
@@ -81,8 +81,8 @@ pipeline {
     post {
         always {
             script {
-                //check_if_test_failed_intermitently_then_report("${slackUserID}")
-                check_if_test_failed_then_report("${slackUserID}")
+                check_if_test_failed_intermitently_then_report("${slackUserID}")
+                //check_if_test_failed_then_report("${slackUserID}")
             }
         }
     }
