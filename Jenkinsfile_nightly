@@ -34,7 +34,7 @@ def check_if_test_failed_then_report(String user) {
 }
 
 def check_if_test_failed_intermitently_then_report (String user) {
-    def loopMax   = 10
+    def loopMax   = 20
     def LoopCount = 1
     def failureCount = 0
     def previousBuild = currentBuild
@@ -53,7 +53,7 @@ def check_if_test_failed_intermitently_then_report (String user) {
             * Job name: ${env.JOB_NAME}
             -----------------------------"""
 
-    if (failureCount > 2) {
+    if (failureCount > 5) {
         slack_message("${user}", "warning", "${body}")
     }
 }
@@ -82,7 +82,7 @@ pipeline {
         always {
             script {
                 check_if_test_failed_intermitently_then_report("${slackUserID}")
-                //check_if_test_failed_then_report("${slackUserID}")
+                check_if_test_failed_then_report("${slackUserID}")
             }
         }
     }
