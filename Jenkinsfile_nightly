@@ -37,12 +37,12 @@ def check_if_test_failed_intermitently_then_report (String user) {
     def loopMax   = 10
     def LoopCount = 1
     def failureCount = 0
-    def currentBuild = previousBuild
+    def previousBuild = currentBuild
     while (LoopCount < loopMax+1) {
-        if ((currentBuild.result == 'FAILURE')) {
+        if ((previousBuild.result == 'FAILURE')) {
             failureCount = failureCount + 1
         }
-        currentBuild = currentBuild.previousBuild
+        previousBuild = previousBuild.previousBuild
         LoopCount = LoopCount + 1
     }
 
