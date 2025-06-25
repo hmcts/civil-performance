@@ -8,7 +8,7 @@ properties([
 
 def product = "civil"
 def component = "ucmc-performance"
-def fail = 0
+def slackUserID = "U08Q19ZJS8G"
 
 def slack_message(String user, String colour, String message) {
     slackSend(
@@ -19,20 +19,41 @@ def slack_message(String user, String colour, String message) {
 }
 
 def check_if_test_failed_then_report(String user) {
+    def body=
+            """The following test has failed twice today. 
+            Please fix within 3 days.          
+            -----------------------------            
+            * Job name: ${env.JOB_NAME}
+            * Build Number: ${env.BUILD_NUMBER}
+            * Build URL: ${env.BUILD_URL}
+            -----------------------------"""
+
     if (currentBuild.result == 'FAILURE') {
-        def body= """ 
-Test has Failed twice today. 
-Please fix within 3 days.
-            
------------------------------            
-* Job name: ${env.JOB_NAME}
+        slack_message("${user}", "warning", "${body}")
+    }
+}
 
-* Build Number: ${env.BUILD_NUMBER}
+def check_if_test_failed_intermitently_then_report (String user) {
+    int loopMax = 10
+    int LoopCount = 1
+    int failureCount = 0
+    def currentBuild = previousBuild
+    while (LoopCount < loopMax+1) {
+        if ((currentBuild.result == 'FAILURE')) {
+            failureCount = failureCount + 1
+        }
+        currentBuild = currentBuild.previousBuild
+        LoopCount = LoopCount + 1
+    }
 
-* Build URL: ${env.BUILD_URL}
------------------------------ 
+    def body=
+            """The following test has failed ${failureCount} times in 10 executions. 
+            Please fix within 3 days.
+            -----------------------------            
+            * Job name: ${env.JOB_NAME}
+            -----------------------------"""
 
-        """
+    if (failureCount > 2) {
         slack_message("${user}", "warning", "${body}")
     }
 }
@@ -60,7 +81,8 @@ pipeline {
     post {
         always {
             script {
-                check_if_test_failed_then_report("U08Q19ZJS8G")
+                check_if_test_failed_intermitently_then_report("${slackUserID}")
+                check_if_test_failed_then_report("${slackUserID}")
             }
         }
     }
