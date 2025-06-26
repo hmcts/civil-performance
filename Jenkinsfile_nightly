@@ -83,8 +83,11 @@ pipeline {
     post {
         always {
             script {
-                check_if_test_failed_intermitently_then_report("${slackUserID}")
-                check_if_test_failed_then_report("${slackUserID}")
+                def testFailed = checkIfGatlingTestFailedThenReport("${slackUserID}")
+                if (testFailed == false) {
+                    checkIfGatlingTestFailedIntermitentlyThenReport("${slackUserID}", 10)
+                }
+
             }
         }
     }
