@@ -8,23 +8,15 @@ properties([
 
 def product = "civil"
 def component = "ucmc-performance"
-def slackUserID = "U08Q19ZJS8G"
 
+withNightlyPipeline("java", product, component) {
 
+    enablePerformanceTest(40, true, false)
 
-//1) check first stage whats it doing name it init
-//2) try to be clever with retry - do we want it?
-//3) have a play with enablePerformanceTest
-    withNightlyPipeline("java", product, component) {
-
-        script {
-            enablePerformanceTest(40, true, false)
-        }
-        after('performanceTest') {
-            steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
-        }
-
+    after('performanceTest') {
+        steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
     }
+}
 
 
 //pipeline {
