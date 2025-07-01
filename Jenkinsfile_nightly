@@ -18,7 +18,7 @@ def slackUserID = "U08Q19ZJS8G"
     withNightlyPipeline("java", product, component) {
 
         script {
-            enablePerformanceTest(40, this, true, false)
+            enablePerformanceTest(40, true, false)
         }
         after('performanceTest') {
             steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
