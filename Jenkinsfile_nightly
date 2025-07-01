@@ -15,17 +15,18 @@ def slackUserID = "U08Q19ZJS8G"
 //1) check first stage whats it doing name it init
 //2) try to be clever with retry - do we want it?
 //3) have a play with enablePerformanceTest
+script {
+    withNightlyPipeline("java", product, component) {
 
-withNightlyPipeline("java", product, component) {
 
-    enablePerformanceTest(script, 40, true, false)
+        enablePerformanceTest(script, 40, true, false)
 
-    after('performanceTest') {
-        steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
+        after('performanceTest') {
+            steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
+        }
+
     }
-
 }
-
 
 //pipeline {
 //    agent none
