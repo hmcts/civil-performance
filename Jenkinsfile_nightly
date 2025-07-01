@@ -15,6 +15,7 @@ def slackUserID = "U08Q19ZJS8G"
 //1) check first stage whats it doing name it init
 //2) try to be clever with retry - do we want it?
 //3) have a play with enablePerformanceTest
+script {
     withNightlyPipeline("java", product, component) {
 
         script.enablePerformanceTest(40)
@@ -24,7 +25,7 @@ def slackUserID = "U08Q19ZJS8G"
         }
 
     }
-
+}
 
 //pipeline {
 //    agent none
