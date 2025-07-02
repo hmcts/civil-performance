@@ -19,32 +19,3 @@ withNightlyPipeline("java", product, component) {
 }
 
 
-//pipeline {
-//    agent none
-//    stages {
-//        stage('Gatling Test') {
-//            steps {
-//                script {
-//                    retry(2) {
-//                        withNightlyPipeline("java", product, component) {
-//                            enablePerformanceTest(40)
-//                            after('performanceTest') {
-//                                steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//    }
-//    post {
-//        always {
-//            script {
-//                def testFailed = checkIfGatlingTestFailedThenReport("${slackUserID}")
-//                if (testFailed == false) {
-//                    checkIfGatlingTestFailedIntermitentlyThenReport("${slackUserID}", 10)
-//                }
-//            }
-//        }
-//    }
-//}
