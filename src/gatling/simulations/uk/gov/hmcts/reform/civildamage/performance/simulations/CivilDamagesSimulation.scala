@@ -201,8 +201,8 @@ Step 3: login as defendant user  and complete the defendant journey and logout
 		//CivilClaimsScenario.inject(nothingFor(1),rampUsers(300) during (3600))
 		//	CivilUIScenario.inject(nothingFor(1),rampUsers(1) during (1))
 				CivilDamageScenario.inject(nothingFor(1.minutes),rampUsers(1) during (12.minutes))
-).protocols(httpProtocol).//assertions(
-		//global.successfulRequests.percent.gte(100)) //YR: Remove this code
+).protocols(httpProtocol).assertions(
+		global.successfulRequests.percent.gte(100)) //YR: Remove this code
 
 
 }
