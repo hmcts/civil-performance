@@ -490,7 +490,7 @@ class CivilDamagesSimulation extends Simulation {
 				.exec(S2S.s2s())
 				
 					.exec(CUIClaimCreationWithAPI.getUserId)
-				.repeat(20) {
+				.repeat(1) {
 					exec(CUIClaimCreationWithAPI.CreateClaimCUIR2WithAPI)
 						.pause(2)
 				}
@@ -518,13 +518,13 @@ setUp(
 
 	//*** Data Inserts - Single User - 1 Iteration ***
 	//********************************************************************************
-	//CivilUIR2ClaimCreationWithAPIScenario.inject(nothingFor(1),rampUsers(1) during (1))
+	CivilUIR2ClaimCreationWithAPIScenario.inject(nothingFor(1),rampUsers(1) during (1))
 	// ********************************************************************************
 
 
 	//*** Data Inserts - Full Load ***
 	//********************************************************************************
-	CivilUIR2ClaimCreationWithAPIScenario.inject(nothingFor(1),rampUsers(3600) during (64800))
+	//CivilUIR2ClaimCreationWithAPIScenario.inject(nothingFor(1),rampUsers(3600) during (64800))
 	//********************************************************************************
 
 
