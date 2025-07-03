@@ -13,8 +13,9 @@ withNightlyPipeline("java", product, component) {
 
     enablePerformanceTest(timeout=40, gatlingAlerts=true, reRunOnFail=true)
 
-    after('performanceTest')
+    after('performanceTest') {
         steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
+    }
 
 }
 
