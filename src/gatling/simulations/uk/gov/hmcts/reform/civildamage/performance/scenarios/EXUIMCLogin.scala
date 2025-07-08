@@ -29,6 +29,7 @@ object EXUIMCLogin {
     exec(http("CivilDamages_010_005_Homepage")
          .get("/")
          .headers(LoginHeader.headers_0)
+         .header("x-dynatrace", "FW4;TSN=CivilOnDynatrace;PSL=CitizenHomepageOnDynatrace")
          .check(status.in(200, 304)))//.exitHereIfFailed
     .exec(http("CivilDamages_010_010_HomepageConfigUI")
           .get("/external/configuration-ui")
