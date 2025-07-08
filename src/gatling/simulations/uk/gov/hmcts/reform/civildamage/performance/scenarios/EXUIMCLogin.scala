@@ -165,6 +165,7 @@ object EXUIMCLogin {
                                 .formParam("selfRegistrationEnabled", "false")
                                 .formParam("_csrf", "#{csrfToken}")
                                 .headers(LoginHeader.headers_login_submit)
+                                .header("x-dynatrace", "FW4;TSN=CivilOnDynatrace;PSL=CitizenLoginOnDynatrace")
                                 .check(status.in(200, 304, 302))).exitHereIfFailed
                                 //.check(regex("Manage Cases"))).exitHereIfFailed
       
