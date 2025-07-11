@@ -511,14 +511,14 @@ setUp(
 
 	//*** Regression - Full Load ***
 	//********************************************************************************
-	//CUIR2SmallClaimsCaseProgression.inject(nothingFor(1),rampUsers(150) during (2200)),
-	//CUIR2FastTrackCaseProgression.inject(nothingFor(50),rampUsers(150) during (2200)),
+	CUIR2SmallClaimsCaseProgression.inject(nothingFor(1),rampUsers(125) during (1100)),
+	CUIR2FastTrackCaseProgression.inject(nothingFor(50),rampUsers(125) during (1100)),
 	//********************************************************************************
 
 
 	//*** Data Inserts - Single User - 1 Iteration ***
 	//********************************************************************************
-	CivilUIR2ClaimCreationWithAPIScenario.inject(nothingFor(1),rampUsers(1) during (1))
+//	CivilUIR2ClaimCreationWithAPIScenario.inject(nothingFor(1),rampUsers(1) during (1))
 	// ********************************************************************************
 
 
