@@ -281,6 +281,8 @@ object unspec_CreateClaim {
     }
     .pause(MinThinkTime, MaxThinkTime)
 
+      .exitHere
+
     // ==================SUBMIT SOT==================,
     .group("Civil_UnSpecClaim_10_270_CreateCase_Submit") {
       exec(http("Submit_Claim")
