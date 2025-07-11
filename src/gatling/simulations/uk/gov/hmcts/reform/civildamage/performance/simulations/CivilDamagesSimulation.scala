@@ -88,7 +88,7 @@ class CivilDamagesSimulation extends Simulation {
         .pause(20)
     )
 
-	val LipVsLR = scenario(" LiP vs LR")
+	val LiPVsLR = scenario(" LiP vs LR")
 		.feed(loginFeeder)
 		.exec(CreateUser.CreateClaimantCitizen)
 		.exec(CUIR2HomePage.CUIR2HomePage)
@@ -420,8 +420,7 @@ class CivilDamagesSimulation extends Simulation {
 //				CivilUIR2ClaimCreationScenario.inject(atOnceUsers(1)),
 
 
-				LipVsLR.inject(rampUsers(65).during(2500))
-//				tempLiPVsLR.inject(atOnceUsers(1))
+				LiPVsLR.inject(rampUsers(65).during(2500))
 
 		//CivilUIR2DefResponseScenario.inject(nothingFor(30),rampUsers(100) during (3600)),
 	//	CivilUIR2ClaimantIntentionScenario.inject(nothingFor(50),rampUsers(25) during (3600))

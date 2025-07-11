@@ -16,7 +16,7 @@ object XUINoticeOfChange {
 
 		group("XUI_NoticeOfChange_010_Start") {
 			exec(http("Start")
-				.get(BaseURL + "/206.7229c22bd59dc9a1.js")
+				.get(BaseURL + "/206.7b51106224cafd5c.js")
 				.headers(Headers.commonHeader)
 				.header("sec-fetch-dest", "script")
 				.check(substring("You can use this notice of change (sometimes called a 'notice of acting')")))
