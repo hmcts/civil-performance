@@ -28,6 +28,7 @@ object ClaimCreation {
       exec(http("Civil_CreateClaim_030_CreateCase")
         .get("/aggregated/caseworkers/:uid/jurisdictions?access=create")
         .headers(CivilDamagesHeader.headers_104)
+        .header("x-dynatrace-test", "FW4;TSN=CivilOnDynatrace;PSL=CitizenCreateClaimOnDynatrace")
         .check(status.in(200, 304))
       ).exitHereIfFailed
     }
@@ -40,6 +41,7 @@ object ClaimCreation {
       exec(http("Civil_CreateClaim_040_StartCreateCase1")
         .get("/data/internal/case-types/CIVIL/event-triggers/CREATE_CLAIM?ignore-warning=false")
         .headers(CivilDamagesHeader.headers_140)
+        .header("x-dynatrace", "FW4;TSN=CivilOnDynatrace;PSL=CitizenCreateClaimOnDynatrace")
         .check(status.is(200))
         .check(jsonPath("#.event_token").optional.saveAs("event_token"))
       )
@@ -54,6 +56,7 @@ object ClaimCreation {
       exec(http("Civil_CreateClaim_050_Eligibility")
         .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIMEligibility")
         .headers(CivilDamagesHeader.headers_163)
+        .header("x-dynatrace", "FW4;TSN=CivilOnDynatrace;PSL=CitizenCreateClaimOnDynatrace")
         .body(ElFileBody("bodies/0013_request.json"))
         .check(status.in(200, 304))
       )
