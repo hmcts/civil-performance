@@ -323,8 +323,6 @@ object spec_CreateClaim {
         .check(substring("StatementOfTruth")))
     }
 
-      .exitHere
-
     .exec(getCookieValue(CookieKey("XSRF-TOKEN").withDomain(BaseURL.replace("https://", "")).saveAs("xsrf_token")))
 
     .pause(MinThinkTime, MaxThinkTime)
