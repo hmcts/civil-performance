@@ -511,8 +511,8 @@ setUp(
 
 	//*** Regression - Full Load ***
 	//********************************************************************************
-	CUIR2SmallClaimsCaseProgression.inject(nothingFor(1),rampUsers(125) during (1100)),
-	CUIR2FastTrackCaseProgression.inject(nothingFor(50),rampUsers(125) during (1100)),
+	CUIR2SmallClaimsCaseProgression.inject(nothingFor(1),rampUsers(150) during (2200)),
+	CUIR2FastTrackCaseProgression.inject(nothingFor(50),rampUsers(150) during (2200)),
 	//********************************************************************************
 
 

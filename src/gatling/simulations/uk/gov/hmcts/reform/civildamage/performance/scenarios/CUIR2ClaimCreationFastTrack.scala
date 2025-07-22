@@ -644,8 +644,6 @@ object CUIR2ClaimCreationFastTrack {
           .check(substring("Check your answers")))
       }
       .pause(MinThinkTime, MaxThinkTime)
-
-      .exitHere
   
       /*======================================================================================
                * Civil Citizen -  2.Prepare your claim - Check And Send Post
