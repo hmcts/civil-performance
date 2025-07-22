@@ -22,7 +22,6 @@ class CivilDamagesSimulation extends Simulation {
 	val defresponsecasesFeeder=csv("defResponseDetails.csv").circular
 	val claimantIntentioncasesFeeder=csv("claimantIntentionDetails.csv").circular
 	val assigncasesFeeder=csv("caseIds.csv").circular
-	val alreadySetUpCases=csv("alreadySetUpCases.csv").circular
 	//val viewAndResponseFeeder=csv("claimantcaseIds.csv").circular
 	val defRequestChange=csv("defRequestChange.csv").circular
 	
@@ -91,29 +90,28 @@ class CivilDamagesSimulation extends Simulation {
 
 	val LiPVsLR = scenario(" LiP vs LR")
 		.feed(loginFeeder)
-		.feed(alreadySetUpCases)
-//		.exec(CreateUser.CreateClaimantCitizen)
-//		.exec(CUIR2HomePage.CUIR2HomePage)
-//		.exec(CUIR2Login.CUIR2Login)
-//		.exec(CUIR2ClaimCreation.run)
-//		.exec(CUIR2Logout.CUILogout)
-//		.exec(CivilAssignCase.cuiassign)
-//		.pause(120)
+		.exec(CreateUser.CreateClaimantCitizen)
+		.exec(CUIR2HomePage.CUIR2HomePage)
+		.exec(CUIR2Login.CUIR2Login)
+		.exec(CUIR2ClaimCreation.run)
+		.exec(CUIR2Logout.CUILogout)
+		.exec(CivilAssignCase.cuiassign)
+		.pause(120)
 		.exec(_.set("loginFlag", "defendant"))
 		.exec(XUILogin.Homepage)
 		.exec(XUILogin.Loginpage)
 		.exec(XUINoticeOfChange.noticeOfChange)
 		.exec(XUIDefendantResponse.selectRespondToClaim)
 		.exec(XUILogin.Logout)
-//		.exec(CUIR2HomePage.CUIR2HomePage)
-//		.exec(CUIR2Login.CUIR2Login)
-//		.exec(CUIR2ClaimantIntentionCaseProg.run)
-//		.exec(CUIR2Logout.CUILogout)
-//		.exec(_.set("loginFlag", "judge"))
-//		.exec(XUILogin.Homepage)
-//		.exec(XUILogin.Loginpage)
-//		.exec(XUIJudgeSDO.standardDirectionOrder)
-//		.exec(XUILogin.Logout)
+		.exec(CUIR2HomePage.CUIR2HomePage)
+		.exec(CUIR2Login.CUIR2Login)
+		.exec(CUIR2ClaimantIntentionCaseProg.run)
+		.exec(CUIR2Logout.CUILogout)
+		.exec(_.set("loginFlag", "judge"))
+		.exec(XUILogin.Homepage)
+		.exec(XUILogin.Loginpage)
+		.exec(XUIJudgeSDO.standardDirectionOrder)
+		.exec(XUILogin.Logout)
 
 
 
@@ -422,7 +420,7 @@ class CivilDamagesSimulation extends Simulation {
 //				CivilUIR2ClaimCreationScenario.inject(atOnceUsers(1)),
 
 
-				LiPVsLR.inject(rampUsers(65).during(1250))
+				LiPVsLR.inject(rampUsers(65).during(2500))
 
 		//CivilUIR2DefResponseScenario.inject(nothingFor(30),rampUsers(100) during (3600)),
 	//	CivilUIR2ClaimantIntentionScenario.inject(nothingFor(50),rampUsers(25) during (3600))
