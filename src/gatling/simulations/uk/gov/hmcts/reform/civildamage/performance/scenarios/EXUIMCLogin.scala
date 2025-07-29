@@ -29,7 +29,7 @@ object EXUIMCLogin {
     exec(http("CivilDamages_010_005_Homepage")
          .get("/")
          .headers(LoginHeader.headers_0)
-         .header("x-dynatrace", "FW4;LTN=Pipeline;LSN=Civil;TSN=01_Homepage")
+         .header("x-dynatrace-test", "LTN=Pipeline;LSN=Civil;TSN=01_Homepage")
          .check(status.in(200, 304)))//.exitHereIfFailed
     .exec(http("CivilDamages_010_010_HomepageConfigUI")
           .get("/external/configuration-ui")
@@ -44,7 +44,7 @@ object EXUIMCLogin {
           .headers(LoginHeader.headers_1))
     .exec(http("CivilDamages_010_030_AuthLogin")
           .get("/auth/login")
-          .header("x-dynatrace", "FW4;LTN=Pipeline;LSN=Civil;TSN=02_Login")
+          .header("x-dynatrace-test", "LTN=Pipeline;LSN=Civil;TSN=02_Login")
           .headers(LoginHeader.headers_4)
           .check(css("input[name='_csrf']", "value").saveAs("csrfToken"))
      // .check(regex("manage-user%20create-user&state=(.*)&client").saveAs("state")))
