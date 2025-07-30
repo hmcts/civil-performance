@@ -44,7 +44,7 @@ object EXUIMCLogin {
           .headers(LoginHeader.headers_1))
     .exec(http("CivilDamages_010_030_AuthLogin")
           .get("/auth/login")
-          .header("x-dynatrace-test", "TSN=01Homepage;LSN=Civil;LTN=Pipeline")
+          .header("x-dynatrace-test", "TSN=02Login;LSN=Civil;LTN=Pipeline")
           .headers(LoginHeader.headers_4)
           .check(css("input[name='_csrf']", "value").saveAs("csrfToken"))
      // .check(regex("manage-user%20create-user&state=(.*)&client").saveAs("state")))
