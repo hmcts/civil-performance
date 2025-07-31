@@ -28,8 +28,7 @@ object ClaimCreation {
       exec(http("Civil_CreateClaim_030_CreateCase")
         .get("/aggregated/caseworkers/:uid/jurisdictions?access=create")
         .headers(CivilDamagesHeader.headers_104)
-        .header("x-dynatrace-test", "LTN=Pipeline;LSN=Civil;TSN=02_CreateCase")
-        .header("x-dynatrace-test", "TSN=02CreateCase")
+        .header("x-dynatrace-test", "TSN=03CreateCase;LSN=Civil;LTN=Pipeline")
         //.header("x-dynatrace-test", "FW4;TSN=CivilOnDynatrace;PSL=CitizenCreateClaimOnDynatrace")
         .check(status.in(200, 304))
       ).exitHereIfFailed
