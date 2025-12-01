@@ -593,11 +593,11 @@
     "applicant1": {
       "type": "COMPANY",
       "individualTitle": null,
-      "companyName": "${LRrandomString} companyName",
+      "companyName": "#{LRrandomString} companyName",
       "soleTraderTitle": null,
       "partyEmail": null,
       "partyPhone": null,
-      "partyName": "${LRrandomString} companyName",
+      "partyName": "#{LRrandomString} companyName",
       "bulkClaimPartyName": null,
       "partyTypeDisplayValue": "Company",
       "partyID": null,
@@ -613,7 +613,7 @@
     },
     "applicant1LitigationFriendRequired": "No",
     "applicantSolicitor1CheckEmail": {
-      "email": "${claimantuser}",
+      "email": "#{claimantuser}",
       "correct": "No"
     },
     "applicantSolicitor1UserDetails": {
@@ -634,7 +634,7 @@
     "respondent1": {
       "type": "COMPANY",
       "individualTitle": null,
-      "companyName": "${LRrandomString} DefcompanyName",
+      "companyName": "#{LRrandomString} DefcompanyName",
       "soleTraderTitle": null,
       "soleTraderTradingAs": null,
       "partyEmail": null,
@@ -665,6 +665,6 @@
       }
     }
   },
-  "event_token": "${event_token}",
+  "event_token": "#{event_token}",
   "ignore_warning": false
 }

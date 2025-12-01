@@ -1,7 +1,7 @@
 {
   "data": {
     "applicantSolicitor1CheckEmail": {
-      "email": "${claimantuser}",
+      "email": "#{claimantuser}",
       "correct": "No"
     },
     "applicantSolicitor1UserDetails": {
@@ -593,11 +593,11 @@
     "applicant1": {
       "type": "COMPANY",
       "individualTitle": null,
-      "companyName": "${LRrandomString} companyName",
+      "companyName": "#{LRrandomString} companyName",
       "soleTraderTitle": null,
       "partyEmail": null,
       "partyPhone": null,
-      "partyName": "${LRrandomString} companyName",
+      "partyName": "#{LRrandomString} companyName",
       "bulkClaimPartyName": null,
       "partyTypeDisplayValue": "Company",
       "partyID": null,
@@ -613,7 +613,7 @@
     },
     "applicant1LitigationFriendRequired": "No",
     "applicantSolicitor1CheckEmail": {
-      "email": "${claimantuser}",
+      "email": "#{claimantuser}",
       "correct": "No"
     },
     "applicantSolicitor1UserDetails": {
@@ -621,6 +621,6 @@
       "id": null
     }
   },
-  "event_token": "${event_token}",
+  "event_token": "#{event_token}",
   "ignore_warning": false
 }

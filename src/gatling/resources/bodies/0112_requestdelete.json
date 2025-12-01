@@ -17212,7 +17212,7 @@
     },
     {
       "id": "defendant1ResponseToDefendantLabel",
-      "label": "<br/>**Defendant: ${respondent1.partyName}**",
+      "label": "<br/>**Defendant: #{respondent1.partyName}**",
       "hidden": null,
       "value": null,
       "metadata": false,
@@ -17547,7 +17547,7 @@
     },
     {
       "id": "applicant1ProceedWithClaimMultiParty2v1",
-      "label": "Does Claimant 1 want to proceed with the claim against ${respondent1.partyName}",
+      "label": "Does Claimant 1 want to proceed with the claim against #{respondent1.partyName}",
       "hidden": null,
       "value": null,
       "metadata": false,
@@ -17614,7 +17614,7 @@
     },
     {
       "id": "applicant1ProceedWithClaimAgainstRespondent1MultiParty1v2",
-      "label": "Do you want to proceed with the claim against ${respondent1.partyName}",
+      "label": "Do you want to proceed with the claim against #{respondent1.partyName}",
       "hidden": null,
       "value": null,
       "metadata": false,
@@ -17817,7 +17817,7 @@
     },
     {
       "id": "defendant2ResponseToDefendantLabel",
-      "label": "<br/>**Defendant: ${respondent2.partyName}**",
+      "label": "<br/>**Defendant: #{respondent2.partyName}**",
       "hidden": null,
       "value": null,
       "metadata": false,
@@ -17962,7 +17962,7 @@
     },
     {
       "id": "applicant2ProceedWithClaimMultiParty2v1",
-      "label": "Does Claimant 2 want to proceed with the claim against ${respondent1.partyName}",
+      "label": "Does Claimant 2 want to proceed with the claim against #{respondent1.partyName}",
       "hidden": null,
       "value": null,
       "metadata": false,
@@ -18029,7 +18029,7 @@
     },
     {
       "id": "applicant1ProceedWithClaimAgainstRespondent2MultiParty1v2",
-      "label": "Do you want to proceed with the claim against ${respondent2.partyName}",
+      "label": "Do you want to proceed with the claim against #{respondent2.partyName}",
       "hidden": null,
       "value": null,
       "metadata": false,

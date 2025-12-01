@@ -44,7 +44,7 @@ object  CUIClaimCreationWithAPI {
 			//	feed(caseFeeder)
 			exec(http("CIVIL_AssignCase_000_AssignCase")
 				.post("http://civil-service-perftest.service.core-compute-perftest.internal/cases/draft/citizen/#{userId}/event")
-				.header("Authorization", "Bearer ${bearerToken}")
+				.header("Authorization", "Bearer #{bearerToken}")
 				.header("ServiceAuthorization", "#{ServiceToken}")
 				.header("Content-Type", "application/json")
 				.body(ElFileBody("bodies/cuiclaim/CUI_Create_Claim.json"))
@@ -68,7 +68,7 @@ object  CUIClaimCreationWithAPI {
 		group("CUIR2_Claimant_GetUser") {
 			exec(http("CUIR2_Claimant_GetUser")
 				.get(IdamAPIURL + "/o/userinfo")
-				.header("Authorization", "Bearer ${bearerToken}")
+				.header("Authorization", "Bearer #{bearerToken}")
 				.header("Content-Type", "application/json")
 				.check(jsonPath("$.uid").saveAs("userId"))
 				.check(status.is(200)))

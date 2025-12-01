@@ -280,7 +280,7 @@ object CivilDamagesHeader {
   "sec-fetch-dest" -> "empty",
   "sec-fetch-mode" -> "cors",
   "sec-fetch-site" -> "same-origin",
- "x-xsrf-token" -> "${XSRFToken}")
+ "x-xsrf-token" -> "#{XSRFToken}")
  
   
  val headers_163 = Map (
@@ -295,7 +295,7 @@ object CivilDamagesHeader {
   "sec-fetch-dest" -> "empty",
   "sec-fetch-mode" -> "cors",
   "sec-fetch-site" -> "same-origin",
-  "x-xsrf-token" -> "${XSRFToken}")
+  "x-xsrf-token" -> "#{XSRFToken}")
  
  
  
@@ -311,7 +311,7 @@ object CivilDamagesHeader {
   "sec-fetch-dest" -> "empty",
   "sec-fetch-mode" -> "cors",
   "sec-fetch-site" -> "same-origin",
-  "x-xsrf-token" -> "${XSRFToken}")
+  "x-xsrf-token" -> "#{XSRFToken}")
  
  
  
@@ -327,7 +327,7 @@ object CivilDamagesHeader {
   "sec-fetch-dest" -> "empty",
   "sec-fetch-mode" -> "cors",
   "sec-fetch-site" -> "same-origin",
-  "x-xsrf-token" -> "${XSRFToken}")
+  "x-xsrf-token" -> "#{XSRFToken}")
  
  
  
@@ -343,7 +343,7 @@ object CivilDamagesHeader {
   "sec-fetch-dest" -> "empty",
   "sec-fetch-mode" -> "cors",
   "sec-fetch-site" -> "same-origin",
-  "x-xsrf-token" -> "${XSRFToken}")
+  "x-xsrf-token" -> "#{XSRFToken}")
  
  
  
@@ -359,7 +359,7 @@ object CivilDamagesHeader {
   "sec-fetch-dest" -> "empty",
   "sec-fetch-mode" -> "cors",
   "sec-fetch-site" -> "same-origin",
-  "x-xsrf-token" -> "${XSRFToken}")
+  "x-xsrf-token" -> "#{XSRFToken}")
  
 
  
@@ -375,7 +375,7 @@ object CivilDamagesHeader {
   "sec-fetch-dest" -> "empty",
   "sec-fetch-mode" -> "cors",
   "sec-fetch-site" -> "same-origin",
-  "x-xsrf-token" -> "${XSRFToken}")
+  "x-xsrf-token" -> "#{XSRFToken}")
  
  val headers_300 = Map (
   "accept" -> "application/json, text/plain, */*",
@@ -404,7 +404,7 @@ object CivilDamagesHeader {
   "sec-fetch-dest" -> "empty",
   "sec-fetch-mode" -> "cors",
   "sec-fetch-site" -> "same-origin",
-  "x-xsrf-token" -> "${XSRFToken}")
+  "x-xsrf-token" -> "#{XSRFToken}")
  
 
  
@@ -420,7 +420,7 @@ object CivilDamagesHeader {
   "sec-fetch-dest" -> "empty",
   "sec-fetch-mode" -> "cors",
   "sec-fetch-site" -> "same-origin",
-  "x-xsrf-token" -> "${XSRFToken}")
+  "x-xsrf-token" -> "#{XSRFToken}")
  
  val headers_396 = Map (
   "accept" -> "*/*",
@@ -451,7 +451,7 @@ object CivilDamagesHeader {
   "sec-fetch-dest" -> "empty",
   "sec-fetch-mode" -> "cors",
   "sec-fetch-site" -> "same-origin",
-  "x-xsrf-token" -> "${XSRFToken}")
+  "x-xsrf-token" -> "#{XSRFToken}")
  
  val headers_418 = Map (
   "accept" -> "application/json, text/plain, */*",
@@ -479,7 +479,7 @@ object CivilDamagesHeader {
   "sec-fetch-dest" -> "empty",
   "sec-fetch-mode" -> "cors",
   "sec-fetch-site" -> "same-origin",
-  "x-xsrf-token" -> "${XSRFToken}")
+  "x-xsrf-token" -> "#{XSRFToken}")
  
  
  
@@ -495,7 +495,7 @@ object CivilDamagesHeader {
   "sec-fetch-dest" -> "empty",
   "sec-fetch-mode" -> "cors",
   "sec-fetch-site" -> "same-origin",
-  "x-xsrf-token" -> "${XSRFToken}")
+  "x-xsrf-token" -> "#{XSRFToken}")
  
  
  
@@ -511,7 +511,7 @@ object CivilDamagesHeader {
   "sec-fetch-dest" -> "empty",
   "sec-fetch-mode" -> "cors",
   "sec-fetch-site" -> "same-origin",
-  "x-xsrf-token" -> "${XSRFToken}")
+  "x-xsrf-token" -> "#{XSRFToken}")
  
  
  
@@ -527,7 +527,7 @@ object CivilDamagesHeader {
   "sec-fetch-dest" -> "empty",
   "sec-fetch-mode" -> "cors",
   "sec-fetch-site" -> "same-origin",
-  "x-xsrf-token" -> "${XSRFToken}")
+  "x-xsrf-token" -> "#{XSRFToken}")
  
   
  val headers_554 = Map (
@@ -541,7 +541,7 @@ object CivilDamagesHeader {
   "sec-fetch-dest" -> "empty",
   "sec-fetch-mode" -> "cors",
   "sec-fetch-site" -> "same-origin",
-  "x-xsrf-token" -> "${XSRFToken}")
+  "x-xsrf-token" -> "#{XSRFToken}")
  
  val headers_572 = Map (
   "accept" -> "application/vnd.uk.gov.hmcts.ccd-data-store-api.case-data-validate.v2+json;charset=UTF-8",
@@ -555,7 +555,7 @@ object CivilDamagesHeader {
   "sec-fetch-dest" -> "empty",
   "sec-fetch-mode" -> "cors",
   "sec-fetch-site" -> "same-origin",
-  "x-xsrf-token" -> "${XSRFToken}")
+  "x-xsrf-token" -> "#{XSRFToken}")
  
  val headers_574 = Map (
   "accept" -> "*/*",
@@ -582,7 +582,7 @@ object CivilDamagesHeader {
   "sec-fetch-dest" -> "empty",
   "sec-fetch-mode" -> "cors",
   "sec-fetch-site" -> "same-origin",
-  "x-xsrf-token" -> "${XSRFToken}")
+  "x-xsrf-token" -> "#{XSRFToken}")
  
  
  val headers_610 = Map (
@@ -597,7 +597,7 @@ object CivilDamagesHeader {
   "sec-fetch-dest" -> "empty",
   "sec-fetch-mode" -> "cors",
   "sec-fetch-site" -> "same-origin",
-  "x-xsrf-token" -> "${XSRFToken}")
+  "x-xsrf-token" -> "#{XSRFToken}")
  
  
  
@@ -613,7 +613,7 @@ object CivilDamagesHeader {
   "sec-fetch-dest" -> "empty",
   "sec-fetch-mode" -> "cors",
   "sec-fetch-site" -> "same-origin",
-  "x-xsrf-token" -> "${XSRFToken}")
+  "x-xsrf-token" -> "#{XSRFToken}")
  
   
  val headers_650 = Map (
@@ -628,7 +628,7 @@ object CivilDamagesHeader {
   "sec-fetch-dest" -> "empty",
   "sec-fetch-mode" -> "cors",
   "sec-fetch-site" -> "same-origin",
-  "x-xsrf-token" -> "${XSRFToken}")
+  "x-xsrf-token" -> "#{XSRFToken}")
  
  
  
@@ -659,7 +659,7 @@ object CivilDamagesHeader {
   "sec-fetch-dest" -> "empty",
   "sec-fetch-mode" -> "cors",
   "sec-fetch-site" -> "same-origin",
-  "x-xsrf-token" -> "${XSRFToken}")
+  "x-xsrf-token" -> "#{XSRFToken}")
  
  val CUI_Submit = Map(
   "accept" -> "application/vnd.uk.gov.hmcts.ccd-data-store-api.create-case.v2+json;charset=UTF-8",
@@ -674,8 +674,8 @@ object CivilDamagesHeader {
   "sec-fetch-mode" -> "cors",
   "sec-fetch-site" -> "same-origin",
   "Request-Context" -> "appId=cid-v1:7922b140-fa5f-482d-89b4-e66e9e6d675a",
-  "Request-Id"   -> "|${requestId}.\"+Common.getRequestId()",
-  "X-Xsrf-Token" -> "${XSRFToken}")
+  "Request-Id"   -> "|#{requestId}.\"+Common.getRequestId()",
+  "X-Xsrf-Token" -> "#{XSRFToken}")
  
  
  val headers_674 = Map (
@@ -704,7 +704,7 @@ object CivilDamagesHeader {
   "sec-fetch-dest" -> "empty",
   "sec-fetch-mode" -> "cors",
   "sec-fetch-site" -> "same-origin",
-  "x-xsrf-token" -> "${XSRFToken}")
+  "x-xsrf-token" -> "#{XSRFToken}")
  
  val headers_690 = Map (
   "accept" -> "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
@@ -800,7 +800,7 @@ object CivilDamagesHeader {
   "sec-fetch-dest" -> "empty",
   "sec-fetch-mode" -> "cors",
   "sec-fetch-site" -> "same-origin",
-  "x-xsrf-token" -> "${XSRFToken}")
+  "x-xsrf-token" -> "#{XSRFToken}")
  
  
  
@@ -816,7 +816,7 @@ object CivilDamagesHeader {
   "sec-fetch-dest" -> "empty",
   "sec-fetch-mode" -> "cors",
   "sec-fetch-site" -> "same-origin",
-  "x-xsrf-token" -> "${XSRFToken}")
+  "x-xsrf-token" -> "#{XSRFToken}")
  
  val headers_810 = Map (
   "accept" -> "application/json",
@@ -829,7 +829,7 @@ object CivilDamagesHeader {
   "sec-fetch-dest" -> "empty",
   "sec-fetch-mode" -> "cors",
   "sec-fetch-site" -> "same-origin",
-  "x-xsrf-token" -> "${XSRFToken}")
+  "x-xsrf-token" -> "#{XSRFToken}")
  
  
  
@@ -849,7 +849,7 @@ object CivilDamagesHeader {
   "sec-fetch-dest" -> "empty",
   "sec-fetch-mode" -> "cors",
   "sec-fetch-site" -> "same-origin",
-  "x-xsrf-token" -> "${XSRFToken}")
+  "x-xsrf-token" -> "#{XSRFToken}")
  
  
  
@@ -865,7 +865,7 @@ object CivilDamagesHeader {
   "sec-fetch-dest" -> "empty",
   "sec-fetch-mode" -> "cors",
   "sec-fetch-site" -> "same-origin",
-  "x-xsrf-token" -> "${XSRFToken}")
+  "x-xsrf-token" -> "#{XSRFToken}")
  
  val headers_894 = Map (
   "accept" -> "application/json",
@@ -878,7 +878,7 @@ object CivilDamagesHeader {
   "sec-fetch-dest" -> "empty",
   "sec-fetch-mode" -> "cors",
   "sec-fetch-site" -> "same-origin",
-  "x-xsrf-token" -> "${XSRFToken}")
+  "x-xsrf-token" -> "#{XSRFToken}")
  
  
  
@@ -896,7 +896,7 @@ object CivilDamagesHeader {
   "sec-fetch-dest" -> "empty",
   "sec-fetch-mode" -> "cors",
   "sec-fetch-site" -> "same-origin",
-  "x-xsrf-token" -> "${XSRFToken}")
+  "x-xsrf-token" -> "#{XSRFToken}")
  
  
  
@@ -912,7 +912,7 @@ object CivilDamagesHeader {
   "sec-fetch-dest" -> "empty",
   "sec-fetch-mode" -> "cors",
   "sec-fetch-site" -> "same-origin",
-  "x-xsrf-token" -> "${XSRFToken}")
+  "x-xsrf-token" -> "#{XSRFToken}")
  
   
  val headers_988 = Map (
@@ -927,7 +927,7 @@ object CivilDamagesHeader {
   "sec-fetch-dest" -> "empty",
   "sec-fetch-mode" -> "cors",
   "sec-fetch-site" -> "same-origin",
-  "x-xsrf-token" -> "${XSRFToken}")
+  "x-xsrf-token" -> "#{XSRFToken}")
  
  
  
@@ -943,7 +943,7 @@ object CivilDamagesHeader {
   "sec-fetch-dest" -> "empty",
   "sec-fetch-mode" -> "cors",
   "sec-fetch-site" -> "same-origin",
-  "x-xsrf-token" -> "${XSRFToken}")
+  "x-xsrf-token" -> "#{XSRFToken}")
  
  val headers_1015 = Map (
   "accept" -> "application/json",
@@ -956,7 +956,7 @@ object CivilDamagesHeader {
   "sec-fetch-dest" -> "empty",
   "sec-fetch-mode" -> "cors",
   "sec-fetch-site" -> "same-origin",
-  "x-xsrf-token" -> "${XSRFToken}")
+  "x-xsrf-token" -> "#{XSRFToken}")
  
   
  val headers_1066 = Map (
@@ -971,7 +971,7 @@ object CivilDamagesHeader {
   "sec-fetch-dest" -> "empty",
   "sec-fetch-mode" -> "cors",
   "sec-fetch-site" -> "same-origin",
-  "x-xsrf-token" -> "${XSRFToken}")
+  "x-xsrf-token" -> "#{XSRFToken}")
  
  
  
@@ -986,7 +986,7 @@ object CivilDamagesHeader {
   "sec-fetch-dest" -> "empty",
   "sec-fetch-mode" -> "cors",
   "sec-fetch-site" -> "same-origin",
-  "x-xsrf-token" -> "${XSRFToken}")
+  "x-xsrf-token" -> "#{XSRFToken}")
  
  val headers_1092 = Map (
   "accept" -> "application/vnd.uk.gov.hmcts.ccd-data-store-api.case-data-validate.v2+json;charset=UTF-8",
@@ -1000,7 +1000,7 @@ object CivilDamagesHeader {
   "sec-fetch-dest" -> "empty",
   "sec-fetch-mode" -> "cors",
   "sec-fetch-site" -> "same-origin",
-  "x-xsrf-token" -> "${XSRFToken}")
+  "x-xsrf-token" -> "#{XSRFToken}")
  
  
  
@@ -1016,7 +1016,7 @@ object CivilDamagesHeader {
   "sec-fetch-dest" -> "empty",
   "sec-fetch-mode" -> "cors",
   "sec-fetch-site" -> "same-origin",
-  "x-xsrf-token" -> "${XSRFToken}")
+  "x-xsrf-token" -> "#{XSRFToken}")
  
  
  
@@ -1032,7 +1032,7 @@ object CivilDamagesHeader {
   "sec-fetch-dest" -> "empty",
   "sec-fetch-mode" -> "cors",
   "sec-fetch-site" -> "same-origin",
-  "x-xsrf-token" -> "${XSRFToken}")
+  "x-xsrf-token" -> "#{XSRFToken}")
  
  
  
@@ -1048,7 +1048,7 @@ object CivilDamagesHeader {
   "sec-fetch-dest" -> "empty",
   "sec-fetch-mode" -> "cors",
   "sec-fetch-site" -> "same-origin",
-  "x-xsrf-token" -> "${XSRFToken}")
+  "x-xsrf-token" -> "#{XSRFToken}")
  
  
  
@@ -1064,7 +1064,7 @@ object CivilDamagesHeader {
   "sec-fetch-dest" -> "empty",
   "sec-fetch-mode" -> "cors",
   "sec-fetch-site" -> "same-origin",
-  "x-xsrf-token" -> "${XSRFToken}")
+  "x-xsrf-token" -> "#{XSRFToken}")
  
  
  
@@ -1080,7 +1080,7 @@ object CivilDamagesHeader {
   "sec-fetch-dest" -> "empty",
   "sec-fetch-mode" -> "cors",
   "sec-fetch-site" -> "same-origin",
-  "x-xsrf-token" -> "${XSRFToken}")
+  "x-xsrf-token" -> "#{XSRFToken}")
  
  
  
@@ -1096,7 +1096,7 @@ object CivilDamagesHeader {
   "sec-fetch-dest" -> "empty",
   "sec-fetch-mode" -> "cors",
   "sec-fetch-site" -> "same-origin",
-  "x-xsrf-token" -> "${XSRFToken}")
+  "x-xsrf-token" -> "#{XSRFToken}")
  
  
  
@@ -1113,7 +1113,7 @@ object CivilDamagesHeader {
   "sec-fetch-dest" -> "empty",
   "sec-fetch-mode" -> "cors",
   "sec-fetch-site" -> "same-origin",
-  "x-xsrf-token" -> "${XSRFToken}")
+  "x-xsrf-token" -> "#{XSRFToken}")
  
  
  
@@ -1129,7 +1129,7 @@ object CivilDamagesHeader {
   "sec-fetch-dest" -> "empty",
   "sec-fetch-mode" -> "cors",
   "sec-fetch-site" -> "same-origin",
-  "x-xsrf-token" -> "${XSRFToken}")
+  "x-xsrf-token" -> "#{XSRFToken}")
  
 
  
@@ -1145,7 +1145,7 @@ object CivilDamagesHeader {
   "sec-fetch-dest" -> "empty",
   "sec-fetch-mode" -> "cors",
   "sec-fetch-site" -> "same-origin",
-  "x-xsrf-token" -> "${XSRFToken}")
+  "x-xsrf-token" -> "#{XSRFToken}")
  
 
  
@@ -1161,7 +1161,7 @@ object CivilDamagesHeader {
   "sec-fetch-dest" -> "empty",
   "sec-fetch-mode" -> "cors",
   "sec-fetch-site" -> "same-origin",
-  "x-xsrf-token" -> "${XSRFToken}")
+  "x-xsrf-token" -> "#{XSRFToken}")
  
  
  
@@ -1177,7 +1177,7 @@ object CivilDamagesHeader {
   "sec-fetch-dest" -> "empty",
   "sec-fetch-mode" -> "cors",
   "sec-fetch-site" -> "same-origin",
-  "x-xsrf-token" -> "${XSRFToken}")
+  "x-xsrf-token" -> "#{XSRFToken}")
  
  
  
@@ -1193,7 +1193,7 @@ object CivilDamagesHeader {
   "sec-fetch-dest" -> "empty",
   "sec-fetch-mode" -> "cors",
   "sec-fetch-site" -> "same-origin",
-  "x-xsrf-token" -> "${XSRFToken}")
+  "x-xsrf-token" -> "#{XSRFToken}")
  
  
  
@@ -1209,7 +1209,7 @@ object CivilDamagesHeader {
   "sec-fetch-dest" -> "empty",
   "sec-fetch-mode" -> "cors",
   "sec-fetch-site" -> "same-origin",
-  "x-xsrf-token" -> "${XSRFToken}")
+  "x-xsrf-token" -> "#{XSRFToken}")
  
  
  
@@ -1225,7 +1225,7 @@ object CivilDamagesHeader {
   "sec-fetch-dest" -> "empty",
   "sec-fetch-mode" -> "cors",
   "sec-fetch-site" -> "same-origin",
-  "x-xsrf-token" -> "${XSRFToken}")
+  "x-xsrf-token" -> "#{XSRFToken}")
  
  
  
@@ -1241,7 +1241,7 @@ object CivilDamagesHeader {
   "sec-fetch-dest" -> "empty",
   "sec-fetch-mode" -> "cors",
   "sec-fetch-site" -> "same-origin",
-  "x-xsrf-token" -> "${XSRFToken}")
+  "x-xsrf-token" -> "#{XSRFToken}")
  
  
  
@@ -1257,7 +1257,7 @@ object CivilDamagesHeader {
   "sec-fetch-dest" -> "empty",
   "sec-fetch-mode" -> "cors",
   "sec-fetch-site" -> "same-origin",
-  "x-xsrf-token" -> "${XSRFToken}")
+  "x-xsrf-token" -> "#{XSRFToken}")
  
  val headers_1556 = Map (
   "accept" -> "application/json",
@@ -1270,7 +1270,7 @@ object CivilDamagesHeader {
   "sec-fetch-dest" -> "empty",
   "sec-fetch-mode" -> "cors",
   "sec-fetch-site" -> "same-origin",
-  "x-xsrf-token" -> "${XSRFToken}")
+  "x-xsrf-token" -> "#{XSRFToken}")
  
   
  val headers_1604 = Map (
@@ -1285,7 +1285,7 @@ object CivilDamagesHeader {
   "sec-fetch-dest" -> "empty",
   "sec-fetch-mode" -> "cors",
   "sec-fetch-site" -> "same-origin",
-  "x-xsrf-token" -> "${XSRFToken}")
+  "x-xsrf-token" -> "#{XSRFToken}")
  
  
  
@@ -1301,7 +1301,7 @@ object CivilDamagesHeader {
   "sec-fetch-dest" -> "empty",
   "sec-fetch-mode" -> "cors",
   "sec-fetch-site" -> "same-origin",
-  "x-xsrf-token" -> "${XSRFToken}")
+  "x-xsrf-token" -> "#{XSRFToken}")
  
  
  
@@ -1317,7 +1317,7 @@ object CivilDamagesHeader {
   "sec-fetch-dest" -> "empty",
   "sec-fetch-mode" -> "cors",
   "sec-fetch-site" -> "same-origin",
-  "x-xsrf-token" -> "${XSRFToken}")
+  "x-xsrf-token" -> "#{XSRFToken}")
  
  
  
@@ -1333,7 +1333,7 @@ object CivilDamagesHeader {
   "sec-fetch-dest" -> "empty",
   "sec-fetch-mode" -> "cors",
   "sec-fetch-site" -> "same-origin",
-  "x-xsrf-token" -> "${XSRFToken}")
+  "x-xsrf-token" -> "#{XSRFToken}")
  
  
  
@@ -1349,7 +1349,7 @@ object CivilDamagesHeader {
   "sec-fetch-dest" -> "empty",
   "sec-fetch-mode" -> "cors",
   "sec-fetch-site" -> "same-origin",
-  "x-xsrf-token" -> "${XSRFToken}")
+  "x-xsrf-token" -> "#{XSRFToken}")
  
  
  
@@ -1365,7 +1365,7 @@ object CivilDamagesHeader {
   "sec-fetch-dest" -> "empty",
   "sec-fetch-mode" -> "cors",
   "sec-fetch-site" -> "same-origin",
-  "x-xsrf-token" -> "${XSRFToken}")
+  "x-xsrf-token" -> "#{XSRFToken}")
  
 
  
@@ -1382,7 +1382,7 @@ object CivilDamagesHeader {
   "sec-fetch-dest" -> "empty",
   "sec-fetch-mode" -> "cors",
   "sec-fetch-site" -> "same-origin",
-  "x-xsrf-token" -> "${XSRFToken}")
+  "x-xsrf-token" -> "#{XSRFToken}")
  
  
  
@@ -1398,7 +1398,7 @@ object CivilDamagesHeader {
   "sec-fetch-dest" -> "empty",
   "sec-fetch-mode" -> "cors",
   "sec-fetch-site" -> "same-origin",
-  "x-xsrf-token" -> "${XSRFToken}")
+  "x-xsrf-token" -> "#{XSRFToken}")
  
  
  
@@ -1414,7 +1414,7 @@ object CivilDamagesHeader {
   "sec-fetch-dest" -> "empty",
   "sec-fetch-mode" -> "cors",
   "sec-fetch-site" -> "same-origin",
-  "x-xsrf-token" -> "${XSRFToken}")
+  "x-xsrf-token" -> "#{XSRFToken}")
  
 
  
@@ -1430,7 +1430,7 @@ object CivilDamagesHeader {
   "sec-fetch-dest" -> "empty",
   "sec-fetch-mode" -> "cors",
   "sec-fetch-site" -> "same-origin",
-  "x-xsrf-token" -> "${XSRFToken}")
+  "x-xsrf-token" -> "#{XSRFToken}")
  
  
  
@@ -1446,7 +1446,7 @@ object CivilDamagesHeader {
   "sec-fetch-dest" -> "empty",
   "sec-fetch-mode" -> "cors",
   "sec-fetch-site" -> "same-origin",
-  "x-xsrf-token" -> "${XSRFToken}")
+  "x-xsrf-token" -> "#{XSRFToken}")
  
  
  
@@ -1462,7 +1462,7 @@ object CivilDamagesHeader {
   "sec-fetch-dest" -> "empty",
   "sec-fetch-mode" -> "cors",
   "sec-fetch-site" -> "same-origin",
-  "x-xsrf-token" -> "${XSRFToken}")
+  "x-xsrf-token" -> "#{XSRFToken}")
  
  
  
@@ -1478,7 +1478,7 @@ object CivilDamagesHeader {
   "sec-fetch-dest" -> "empty",
   "sec-fetch-mode" -> "cors",
   "sec-fetch-site" -> "same-origin",
-  "x-xsrf-token" -> "${XSRFToken}")
+  "x-xsrf-token" -> "#{XSRFToken}")
  
  
  
@@ -1494,7 +1494,7 @@ object CivilDamagesHeader {
   "sec-fetch-dest" -> "empty",
   "sec-fetch-mode" -> "cors",
   "sec-fetch-site" -> "same-origin",
-  "x-xsrf-token" -> "${XSRFToken}")
+  "x-xsrf-token" -> "#{XSRFToken}")
  
  
  
@@ -1510,7 +1510,7 @@ object CivilDamagesHeader {
   "sec-fetch-dest" -> "empty",
   "sec-fetch-mode" -> "cors",
   "sec-fetch-site" -> "same-origin",
-  "x-xsrf-token" -> "${XSRFToken}")
+  "x-xsrf-token" -> "#{XSRFToken}")
  
  val headers_1970 = Map (
   "accept" -> "application/json",
@@ -1523,7 +1523,7 @@ object CivilDamagesHeader {
   "sec-fetch-dest" -> "empty",
   "sec-fetch-mode" -> "cors",
   "sec-fetch-site" -> "same-origin",
-  "x-xsrf-token" -> "${XSRFToken}")
+  "x-xsrf-token" -> "#{XSRFToken}")
  
  
  val headers_2008 = Map (

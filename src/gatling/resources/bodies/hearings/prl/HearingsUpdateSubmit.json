@@ -1,9 +1,9 @@
 {
   "requestDetails": {
     "status": "HEARING_REQUESTED",
-      "timestamp": "${timestamp}",
-    "versionNumber": "${versionNumber}",
-    "hearingRequestID": "${hearingRequest}"
+      "timestamp": "#{timestamp}",
+    "versionNumber": "#{versionNumber}",
+    "hearingRequestID": "#{hearingRequest}"
   },
   "hearingDetails": {
     "hearingType": "ABA5-FOF",
@@ -42,9 +42,9 @@
   },
   "caseDetails": {
     "hmctsServiceCode": "ABA5",
-    "caseRef": "${caseId}",
-    "caseDeepLink": "https://manage-case-hearings-int.perftest.platform.hmcts.net/cases/case-details/${caseId}",
-    "hmctsInternalCaseName": "${caseId}_PerfTest C100 Case",
+    "caseRef": "#{caseId}",
+    "caseDeepLink": "https://manage-case-hearings-int.perftest.platform.hmcts.net/cases/case-details/#{caseId}",
+    "hmctsInternalCaseName": "#{caseId}_PerfTest C100 Case",
     "publicCaseName": "Re-Minor",
     "caseAdditionalSecurityFlag": false,
     "caseInterpreterRequiredFlag": false,
@@ -65,13 +65,13 @@
   },
   "partyDetails": [
     {
-      "partyID": "${partyId}",
+      "partyID": "#{partyId}",
       "partyType": "IND",
       "partyRole": "APPL",
       "individualDetails": {
         "title": null,
-        "firstName": "${partyFirstName}",
-        "lastName": "${partyLastName}",
+        "firstName": "#{partyFirstName}",
+        "lastName": "#{partyLastName}",
         "preferredHearingChannel": "INTER",
         "interpreterLanguage": "",
         "reasonableAdjustments": [],
@@ -85,13 +85,13 @@
       }
     },
     {
-      "partyID": "${partyIdApp}",
+      "partyID": "#{partyIdApp}",
       "partyType": "IND",
       "partyRole": "LGRP",
       "individualDetails": {
         "title": null,
-        "firstName": "${appFirstName}",
-        "lastName": "${appLastName}",
+        "firstName": "#{appFirstName}",
+        "lastName": "#{appLastName}",
         "preferredHearingChannel": "INTER",
         "interpreterLanguage": null,
         "reasonableAdjustments": [],
@@ -105,13 +105,13 @@
       }
     },
     {
-      "partyID": "${partyIdResp}",
+      "partyID": "#{partyIdResp}",
       "partyType": "IND",
       "partyRole": "RESP",
       "individualDetails": {
         "title": null,
-        "firstName": "${respFirstName}",
-        "lastName": "${respLastName}",
+        "firstName": "#{respFirstName}",
+        "lastName": "#{respLastName}",
         "preferredHearingChannel": "INTER",
         "interpreterLanguage": "",
         "reasonableAdjustments": [],

@@ -133,27 +133,27 @@
     },
     "dwpResponseDocument": {
       "documentLink": {
-        "document_url": "${DocumentURLFTAResponse}",
-        "document_binary_url": "${DocumentURLFTAResponse}/binary",
+        "document_url": "#{DocumentURLFTAResponse}",
+        "document_binary_url": "#{DocumentURLFTAResponse}/binary",
         "document_filename": "120KB.pdf",
-        "document_hash": "${DocumentHashFTAResponse}"
+        "document_hash": "#{DocumentHashFTAResponse}"
       }
     },
     "dwpAT38Document": {
       "documentFileName": null,
       "documentLink": {
-        "document_url": "${DocumentURLAT38}",
-        "document_binary_url": "${DocumentURLAT38}/binary",
+        "document_url": "#{DocumentURLAT38}",
+        "document_binary_url": "#{DocumentURLAT38}/binary",
         "document_filename": "120KB.pdf",
-        "document_hash": "${DocumentHashAT38}"
+        "document_hash": "#{DocumentHashAT38}"
       }
     },
     "dwpEvidenceBundleDocument": {
       "documentLink": {
-        "document_url": "${DocumentURLFTAEvidence}",
-        "document_binary_url": "${DocumentURLFTAEvidence}/binary",
+        "document_url": "#{DocumentURLFTAEvidence}",
+        "document_binary_url": "#{DocumentURLFTAEvidence}/binary",
         "document_filename": "120KB.pdf",
-        "document_hash": "${DocumentHashFTA}"
+        "document_hash": "#{DocumentHashFTA}"
       }
     },
     "dwpEditedEvidenceReason": null,
@@ -175,6 +175,6 @@
     "summary": "",
     "description": ""
   },
-  "event_token": "${event_token}",
+  "event_token": "#{event_token}",
   "ignore_warning": false
 }

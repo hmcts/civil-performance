@@ -26,5 +26,5 @@
   },
   "event_token": "#{event_token_notifyclaimdetail}",
   "ignore_warning": false,
-  "case_reference": "${caseId}"
+  "case_reference": "#{caseId}"
 }

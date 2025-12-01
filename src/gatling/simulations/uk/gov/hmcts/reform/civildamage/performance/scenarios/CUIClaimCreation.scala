@@ -424,12 +424,12 @@ object CUIClaimCreation {
         ==========================================================================================*/
       .group("CUI_CreateClaim_270_BackToCaseDetailsPage") {
         exec(http("CUI_CreateClaim_270_005_CaseDetails")
-          .get("/data/internal/cases/${caseId}")
+          .get("/data/internal/cases/#{caseId}")
           .headers(CivilDamagesHeader.headers_717)
           .check(status.in(200, 201,204,304))
         )
           .exec(http("CUI_CreateClaim_270_010_CaseDetails2")
-            .post("/api/role-access/roles/manageLabellingRoleAssignment/${caseId}")
+            .post("/api/role-access/roles/manageLabellingRoleAssignment/#{caseId}")
             .headers(CivilDamagesHeader.headers_717)
             .body(ElFileBody("bodies/cuiclaim/CivilAccessClaim-RollAccess.json"))
             .check(status.in(200, 201,204, 304))
@@ -454,7 +454,7 @@ object CUIClaimCreation {
   // payment pba fee payment
     .group("CUI_CreateClaim_280_ServiceRequestForPay") {
       exec(http("CUI_CreateClaim_280_005_ServiceRequestToPay")
-        .get("/pay-bulkscan/cases/${caseId}")
+        .get("/pay-bulkscan/cases/#{caseId}")
         .headers(Headers.commonHeader)
         .check(status.in(200, 304))
       )
@@ -467,14 +467,14 @@ object CUIClaimCreation {
       
       .group("CUI_CreateClaim_290_ClickOnPay") {
         exec(http("CUI_CreateClaim_290_005_ClickOnPay")
-          .get("/payments/cases/${caseId}/paymentgroups")
+          .get("/payments/cases/#{caseId}/paymentgroups")
           .headers(Headers.commonHeader)
           .check(jsonPath("$..payment_group_reference").optional.saveAs("serviceRef"))
           .check(status.in(200, 201, 304))
         )
           
         /*  .exec(http("CUI_CreateClaim_290_010_Paycases")
-            .get("/payments/case-payment-orders?case_ids=${caseId}")
+            .get("/payments/case-payment-orders?case_ids=#{caseId}")
             .headers(Headers.commonHeader)
             .check(jsonPath("$.content[0].orderReference").optional.saveAs("serviceRef"))
             .check(status.in(200, 201, 304))

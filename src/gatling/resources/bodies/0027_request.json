@@ -3,7 +3,7 @@
     "applicant1": {
       "type": "COMPANY",
       "individualTitle": null,
-      "companyName": "${lrRandomString} companyName",
+      "companyName": "#{lrRandomString} companyName",
       "soleTraderTitle": null,
       "partyEmail": null,
       "partyPhone": null,
@@ -606,7 +606,7 @@
     "applicant1": {
       "type": "COMPANY",
       "individualTitle": null,
-      "companyName": "${lrRandomString} companyName",
+      "companyName": "#{lrRandomString} companyName",
       "soleTraderTitle": null,
       "partyEmail": null,
       "partyPhone": null,

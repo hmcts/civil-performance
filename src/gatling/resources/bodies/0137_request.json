@@ -2,7 +2,7 @@
   "account_number": "PBA0077597",
   "amount": 550,
   "currency": "GBP",
-  "customer_reference": "${LRrandomString} customer_ref",
+  "customer_reference": "#{LRrandomString} customer_ref",
   "organisation_name": "Civil Damages Claims - Organisation 1",
   "idempotency_key": "idam-key-#{Idempotencynumber}"
 }

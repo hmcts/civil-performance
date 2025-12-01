@@ -219,7 +219,7 @@
       "input": "This order has been made without hearing. Each party has the right to apply to have this Order set aside or varied. Any such application must be received by the Court (together with the appropriate fee) by 4pm on 27 September 2023."
     }
   },
-  "event_token": "${event_token}",
+  "event_token": "#{event_token}",
   "ignore_warning": false,
   "case_reference": "#{caseId}"
 }

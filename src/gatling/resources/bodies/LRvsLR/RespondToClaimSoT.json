@@ -703,7 +703,7 @@
       "role": "#{LRrandomString}RespondRole"
     }
   },
-  "event_token": "${event_token}",
+  "event_token": "#{event_token}",
   "ignore_warning": false,
   "case_reference": "#{caseId}"
 }

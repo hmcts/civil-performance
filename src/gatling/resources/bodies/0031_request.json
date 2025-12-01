@@ -586,7 +586,7 @@
     "applicant1": {
       "type": "COMPANY",
       "individualTitle": null,
-      "companyName": "${LRrandomString} companyName",
+      "companyName": "#{LRrandomString} companyName",
       "soleTraderTitle": null,
       "partyEmail": null,
       "partyPhone": null,
@@ -606,6 +606,6 @@
     },
     "applicant1LitigationFriendRequired": "No"
   },
-  "event_token": "${event_token}",
+  "event_token": "#{event_token}",
   "ignore_warning": false
 }

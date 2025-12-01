@@ -3,31 +3,31 @@
     "caseLinks": [
       {
         "value": {
-          "CaseReference": "${linkCase1}"
+          "CaseReference": "#{linkCase1}"
         },
         "id": null
       },
       {
         "value": {
-          "CaseReference": "${linkCase2}"
+          "CaseReference": "#{linkCase2}"
         },
         "id": null
       },
       {
         "value": {
-          "CaseReference": "${linkCase3}"
+          "CaseReference": "#{linkCase3}"
         },
         "id": null
       },
       {
         "value": {
-          "CaseReference": "${linkCase4}"
+          "CaseReference": "#{linkCase4}"
         },
         "id": null
       },
       {
         "value": {
-          "CaseReference": "${linkCase5}"
+          "CaseReference": "#{linkCase5}"
         },
         "id": null
       }
@@ -40,6 +40,6 @@
     "summary": "",
     "description": ""
   },
-  "event_token": "${event_token}",
+  "event_token": "#{event_token}",
   "ignore_warning": false
 }

@@ -40,10 +40,10 @@
   },
   "caseDetails": {
     "hmctsServiceCode": "BBA3",
-    "caseRef": "${caseId}",
+    "caseRef": "#{caseId}",
     "requestTimeStamp": null,
     "hearingID": null,
-    "caseDeepLink": "https://manage-case.perftest.platform.hmcts.net/cases/case-details/${caseId}",
+    "caseDeepLink": "https://manage-case.perftest.platform.hmcts.net/cases/case-details/#{caseId}",
     "hmctsInternalCaseName": "HMCPerformance Tester",
     "publicCaseName": "HMCPerformance Tester",
     "caseAdditionalSecurityFlag": false,
