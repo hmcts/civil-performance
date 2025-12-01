@@ -1,7 +1,7 @@
 {
   "data": {
     "servedDocumentFiles": {
-      "particularsOfClaimText": "${LRrandomString} particularsOfClaim",
+      "particularsOfClaimText": "#{LRrandomString} particularsOfClaim",
       "particularsOfClaimDocument": [],
       "medicalReport": [],
       "scheduleOfLoss": [],
@@ -16,7 +16,7 @@
   },
   "event_data": {
     "servedDocumentFiles": {
-      "particularsOfClaimText": "${LRrandomString} particularsOfClaim",
+      "particularsOfClaimText": "#{LRrandomString} particularsOfClaim",
       "particularsOfClaimDocument": [],
       "medicalReport": [],
       "scheduleOfLoss": [],
@@ -24,7 +24,7 @@
       "timelineEventUpload": []
     }
   },
-  "event_token": "${event_token_notifyclaimdetail}",
+  "event_token": "#{event_token_notifyclaimdetail}",
   "ignore_warning": false,
-  "case_reference": "${caseId}"
+  "case_reference": "#{caseId}"
 }

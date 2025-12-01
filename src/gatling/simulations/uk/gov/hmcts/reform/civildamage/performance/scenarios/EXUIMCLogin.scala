@@ -157,7 +157,7 @@ object EXUIMCLogin {
   val manageCasesloginold =
     group("CivilDamages_020_005_SignIn") {
       exec(flushHttpCache).exec(http("CivilDamages_020_005_SignIn")
-        /*.post(IdAMURL + "/login?response_type=code&redirect_uri=" + baseURL + "%2Foauth2%2Fcallback&scope=profile%20openid%20roles%20manage-user%20create-user&state=${state}&client_id=xuiwebapp")*/
+        /*.post(IdAMURL + "/login?response_type=code&redirect_uri=" + baseURL + "%2Foauth2%2Fcallback&scope=profile%20openid%20roles%20manage-user%20create-user&state=#{state}&client_id=xuiwebapp")*/
         .post(IdAMURL + "/login?client_id=xuiwebapp&redirect_uri=" + baseURL + "/oauth2/callback&state=#{state}&nonce=#{nonce}&response_type=code&scope=profile%20openid%20roles%20manage-user%20create-user&prompt=")
                                 .formParam("username", "#{claimantuser}")
                                 .formParam("password", "#{password}")
@@ -296,7 +296,7 @@ object EXUIMCLogin {
   val manageCasesloginToDefendantJourney =
     group("CivilDamages_020_005_SignInDef") {
       exec(flushHttpCache).exec(http("CivilDamages_020_005_SignInDef")
-        /*.post(IdAMURL + "/login?response_type=code&redirect_uri=" + baseURL + "%2Foauth2%2Fcallback&scope=profile%20openid%20roles%20manage-user%20create-user&state=${state}&client_id=xuiwebapp")*/
+        /*.post(IdAMURL + "/login?response_type=code&redirect_uri=" + baseURL + "%2Foauth2%2Fcallback&scope=profile%20openid%20roles%20manage-user%20create-user&state=#{state}&client_id=xuiwebapp")*/
         .post(IdAMURL + "/login?client_id=xuiwebapp&redirect_uri=" + baseURL + "/oauth2/callback&state=#{state}&nonce=#{nonce}&response_type=code&scope=profile%20openid%20roles%20manage-user%20create-user&prompt=")
         .formParam("username", "#{defendantuser}")
         .formParam("password", "#{password}")
@@ -355,7 +355,7 @@ object EXUIMCLogin {
   val manageCasesloginToCentreAdminJourney =
     group("CivilDamages_020_005_SignInCentreAdmin") {
       exec(flushHttpCache).exec(http("CivilDamages_020_005_SignIn")
-        /*.post(IdAMURL + "/login?response_type=code&redirect_uri=" + baseURL + "%2Foauth2%2Fcallback&scope=profile%20openid%20roles%20manage-user%20create-user&state=${state}&client_id=xuiwebapp")*/
+        /*.post(IdAMURL + "/login?response_type=code&redirect_uri=" + baseURL + "%2Foauth2%2Fcallback&scope=profile%20openid%20roles%20manage-user%20create-user&state=#{state}&client_id=xuiwebapp")*/
         .post(IdAMURL + "/login?client_id=xuiwebapp&redirect_uri=" + baseURL + "/oauth2/callback&state=#{state}&nonce=#{nonce}&response_type=code&scope=profile%20openid%20roles%20manage-user%20create-user&prompt=")
         .formParam("username", "#{centreadminuser}")
         .formParam("password", "#{password}")
@@ -414,7 +414,7 @@ object EXUIMCLogin {
   val manageCasesloginToJudgeJourney =
     group("CivilDamages_020_005_SignInJudge") {
       exec(flushHttpCache).exec(http("CivilDamages_020_005_SignIn")
-        /*.post(IdAMURL + "/login?response_type=code&redirect_uri=" + baseURL + "%2Foauth2%2Fcallback&scope=profile%20openid%20roles%20manage-user%20create-user&state=${state}&client_id=xuiwebapp")*/
+        /*.post(IdAMURL + "/login?response_type=code&redirect_uri=" + baseURL + "%2Foauth2%2Fcallback&scope=profile%20openid%20roles%20manage-user%20create-user&state=#{state}&client_id=xuiwebapp")*/
         .post(IdAMURL + "/login?client_id=xuiwebapp&redirect_uri=" + baseURL + "/oauth2/callback&state=#{state}&nonce=#{nonce}&response_type=code&scope=profile%20openid%20roles%20manage-user%20create-user&prompt=")
         .formParam("username", "#{judgeuser}")
         .formParam("password", "#{judgepassword}")

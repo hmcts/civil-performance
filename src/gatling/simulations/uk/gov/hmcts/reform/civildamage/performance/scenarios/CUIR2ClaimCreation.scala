@@ -705,6 +705,7 @@ object CUIR2ClaimCreation {
       .group("CUICPSC_Claimant_460_CardDetail_SubmitCardDetail") {
         exec(http("CUICPSC_Claimant_460_005_CardDetail_SubmitCardDetail")
           .post(paymentURL + "/card_details/#{CardDetailPageChargeId}")
+          .headers(CivilDamagesHeader.CUIR2Post)
           .formParam("chargeId", "#{CardDetailPageChargeId}")
           .formParam("csrfToken", "#{_csrfTokenCardDetailPage}")
           .formParam("cardNo", "4444333322221111")
@@ -730,7 +731,8 @@ object CUIR2ClaimCreation {
       // confirm the card details and submit
       .group("CUICPSC_Claimant_470_CardDetail_ConfirmCardDetail") {
         exec(http("CUICPSC_Claimant_470_005_CardDetail_ConfirmCardDetail")
-          .post(paymentURL + "/card_details/${CardDetailPageChargeId}/confirm")
+          .post(paymentURL + "/card_details/#{CardDetailPageChargeId}/confirm")
+          .headers(CivilDamagesHeader.CUIR2Post)
           .formParam("csrfToken", "#{_csrfTokenCardDetailConfirm}")
           .formParam("chargeId", "#{CardDetailPageChargeId}")
           .check(regex("Your payment was"))

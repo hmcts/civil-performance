@@ -22,7 +22,7 @@ object ClaimResponseToDefendant {
         .get("/data/internal/cases/#{caseId}/event-triggers/CLAIMANT_RESPONSE?ignore-warning=false")
         .headers(CivilDamagesHeader.headers_769)
         .check(status.in(200, 304))
-        .check(jsonPath("#.event_token").optional.saveAs("event_token_claimantresponse"))
+        .check(jsonPath("$.event_token").optional.saveAs("event_token_claimantresponse"))
       )
         .exec(http("CD_ClaimantResponse_30_010_Profile")
           .get("/data/internal/profile")

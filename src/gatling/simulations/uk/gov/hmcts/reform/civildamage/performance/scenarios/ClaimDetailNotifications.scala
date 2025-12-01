@@ -31,7 +31,7 @@ object ClaimDetailNotifications {
         .headers(CivilDamagesHeader.headers_769)
         //.header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.ui-start-event-trigger.v2+json;charset=UTF-8")
         .check(status.in(200, 304))
-        .check(jsonPath("#.event_token").optional.saveAs("event_token_notifyclaimdetail"))
+        .check(jsonPath("$.event_token").optional.saveAs("event_token_notifyclaimdetail"))
       )
   
         .exec(http("CD_CreateClaim_350_010_profile")

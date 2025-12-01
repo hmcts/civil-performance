@@ -208,10 +208,10 @@ object Common {
   val postcodeLookup =
     feed(postcodeFeeder)
       .exec(http("XUI_Common_000_PostcodeLookup")
-        .get("/api/addresses?postcode=${postcode}")
+        .get("/api/addresses?postcode=#{postcode}")
         .headers(Headers.commonHeader)
         .header("accept", "application/json")
-        .check(jsonPath("#.header.totalresults").ofType[Int].gt(0))
+        .check(jsonPath("$.header.totalresults").ofType[Int].gt(0))
         .check(regex(""""(?:BUILDING|ORGANISATION)_.+" : "(.+?)",(?s).*?"(?:DEPENDENT_LOCALITY|THOROUGHFARE_NAME)" : "(.+?)",.*?"POST_TOWN" : "(.+?)",.*?"POSTCODE" : "(.+?)"""")
           .ofType[(String, String, String, String)].findRandom.saveAs("addressLines")))
   
@@ -224,7 +224,7 @@ object Common {
   
   val activity =
     exec(http("XUI_Common_000_ActivityOptions")
-      .options("/activity/cases/${caseId}/activity")
+      .options("/activity/cases/#{caseId}/activity")
       .headers(Headers.commonHeader)
       .header("accept", "application/json, text/plain, */*")
       .header("sec-fetch-site", "same-site")
@@ -232,14 +232,14 @@ object Common {
   
   val caseActivityGet =
     exec(http("XUI_Common_000_ActivityOptions")
-      .options("/activity/cases/${caseId}/activity")
+      .options("/activity/cases/#{caseId}/activity")
       .headers(Headers.commonHeader)
       .header("accept", "application/json, text/plain, */*")
       .header("sec-fetch-site", "same-site")
       .check(status.in(200, 304, 403)))
       
       .exec(http("XUI_Common_000_ActivityGet")
-        .get("/activity/cases/${caseId}/activity")
+        .get("/activity/cases/#{caseId}/activity")
         .headers(Headers.commonHeader)
         .header("accept", "application/json, text/plain, */*")
         .header("sec-fetch-site", "same-site")
@@ -247,14 +247,14 @@ object Common {
   
   val caseActivityPost =
     exec(http("XUI_Common_000_ActivityOptions")
-      .options("/activity/cases/${caseId}/activity")
+      .options("/activity/cases/#{caseId}/activity")
       .headers(Headers.commonHeader)
       .header("accept", "application/json, text/plain, */*")
       .header("sec-fetch-site", "same-site")
       .check(status.in(200, 304, 403)))
       
       .exec(http("XUI_Common_000_ActivityPost")
-        .post("/activity/cases/${caseId}/activity")
+        .post("/activity/cases/#{caseId}/activity")
         .headers(Headers.commonHeader)
         .header("accept", "application/json, text/plain, */*")
         .header("sec-fetch-site", "same-site")

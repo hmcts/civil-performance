@@ -131,7 +131,7 @@ class CivilDamagesSimulation extends Simulation {
 	val CivilCaseAssignScenario = scenario("Civil Case Assign")
 		.feed(assigncasesFeeder)
 		.exitBlockOnFail {
-			exec(_.set("env", s"${ env}"))
+			exec(_.set("env", s"${env}"))
 				.exec(CivilAssignCase.cuiassign)
 		}
 	
@@ -407,12 +407,12 @@ class CivilDamagesSimulation extends Simulation {
 				// below is the SDO for fast track
 				
 				// 🎯 **80% Users Exit Here**
-				/*.randomSwitch(
+				.randomSwitch(
 					80.0 -> exec { session =>
 						println("✅ Stopping Execution for 80% Users")
 						session.markAsFailed
 					}
-				)*/
+				)
 				
 				.exec(Homepage.XUIHomePage)
 				.exec(Login.XUIJudgeLogin)
@@ -511,8 +511,8 @@ setUp(
 
 	//*** Regression - Full Load ***
 	//********************************************************************************
-	CUIR2SmallClaimsCaseProgression.inject(nothingFor(1),rampUsers(150) during (2200)),
-	CUIR2FastTrackCaseProgression.inject(nothingFor(50),rampUsers(150) during (2200)),
+	CUIR2SmallClaimsCaseProgression.inject(nothingFor(1),rampUsers(150) during (1100)),
+	CUIR2FastTrackCaseProgression.inject(nothingFor(50),rampUsers(150) during (1100)),
 	//********************************************************************************
 
 

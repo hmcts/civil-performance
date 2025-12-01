@@ -26,7 +26,7 @@
     "facilitiesRequired": [
       "1"
     ],
-    "listingComments": "${PRLRandomString}",
+    "listingComments": "#{PRLRandomString}",
     "hearingRequester": "",
     "leadJudgeContractType": "",
     "amendReasonCodes": null,
@@ -37,11 +37,11 @@
   },
   "caseDetails": {
     "hmctsServiceCode": "ABA5",
-    "caseRef": "${caseId}",
+    "caseRef": "#{caseId}",
     "requestTimeStamp": null,
     "hearingID": null,
-    "caseDeepLink": "https://manage-case-hearings-int.demo.platform.hmcts.net/cases/case-details/${caseId}",
-    "hmctsInternalCaseName": "${caseId}_PerfTest2",
+    "caseDeepLink": "https://manage-case-hearings-int.demo.platform.hmcts.net/cases/case-details/#{caseId}",
+    "hmctsInternalCaseName": "#{caseId}_PerfTest2",
     "publicCaseName": "Re-Minor",
     "caseAdditionalSecurityFlag": false,
     "caseInterpreterRequiredFlag": false,
@@ -59,11 +59,11 @@
     ],
     "caseManagementLocationCode": "20262",
     "caserestrictedFlag": false,
-    "caseSLAStartDate": "2023-${PRLHearingMonth}-${PRLHearingDay}"
+    "caseSLAStartDate": "2023-#{PRLHearingMonth}-#{PRLHearingDay}"
   },
   "partyDetails": [
     {
-      "partyID": "${partyIdApp}",
+      "partyID": "#{partyIdApp}",
       "partyType": "IND",
       "partyRole": "APPL",
       "partyName": "Perf Test",
@@ -81,7 +81,7 @@
       "unavailabilityRanges": null
     },
     {
-      "partyID": "${partyIdRes}",
+      "partyID": "#{partyIdRes}",
       "partyType": "IND",
       "partyRole": "RESP",
       "partyName": "Perf Test",
@@ -99,7 +99,7 @@
       "unavailabilityRanges": null
     },
     {
-      "partyID": "${partyIdApp}",
+      "partyID": "#{partyIdApp}",
       "partyType": "IND",
       "partyRole": "APPL",
       "partyName": "Perf Test",
@@ -117,7 +117,7 @@
       "unavailabilityRanges": null
     },
     {
-      "partyID": "${partyIdRes}",
+      "partyID": "#{partyIdRes}",
       "partyType": "IND",
       "partyRole": "RESP",
       "partyName": "Perf Test",

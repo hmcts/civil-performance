@@ -54,7 +54,7 @@
     "multiPartyResponseTypeFlags": null,
     "respondent1ClaimResponseType": "FULL_DEFENCE"
   },
-  "event_token": "${event_token}",
+  "event_token": "#{event_token}",
   "ignore_warning": false,
   "case_reference": "#{caseId}"
 }

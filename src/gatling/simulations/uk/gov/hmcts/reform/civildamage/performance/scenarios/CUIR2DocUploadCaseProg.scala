@@ -388,7 +388,7 @@ object CUIR2DocUploadCaseProg {
       .get(CitizenURL + "/dashboard/#{claimNumber}/defendant")
       .headers(CivilDamagesHeader.MoneyClaimNavHeader)
       .check(status.in(200, 304))
-      .check(substring("Upload documents"))
+      .check(substring("Upload hearing documents"))
     
     )
     //another request to be added
@@ -563,7 +563,7 @@ object CUIR2DocUploadCaseProg {
           .get(CitizenURL + "/dashboard/#{claimNumber}/defendant")
           .headers(CivilDamagesHeader.MoneyClaimNavHeader)
           .check(status.in(200, 304))
-          .check(substring("Upload documents"))
+          .check(substring("Upload hearing documents"))
         
         )
         //another request to be added
@@ -794,7 +794,7 @@ object CUIR2DocUploadCaseProg {
     // confirm the card details and submit
     .group("CUICPFT_Claimant_HearingPay_140_CardDetail_SubmitConfirmCardDetail") {
       exec(http("CUICPFT_Claimant_HearingPay_140_005_SubmitCardDetail_ConfirmCardDetail")
-        .post(paymentURL + "/card_details/${CardDetailPageChargeId}/confirm")
+        .post(paymentURL + "/card_details/#{CardDetailPageChargeId}/confirm")
         .formParam("csrfToken", "#{_csrfTokenCardDetailConfirm}")
         .formParam("chargeId", "#{CardDetailPageChargeId}")
         .check(regex("Your payment was"))

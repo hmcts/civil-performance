@@ -1,7 +1,7 @@
 {
   "data": {
     "servedDocumentFiles": {
-      "particularsOfClaimText": "${LRrandomString} particularsOfClaim",
+      "particularsOfClaimText": "#{LRrandomString} particularsOfClaim",
       "particularsOfClaimDocument": [],
       "medicalReport": [],
       "scheduleOfLoss": [],
@@ -15,6 +15,6 @@
     "summary": "",
     "description": ""
   },
-  "event_token": "${event_token_notifyclaimdetail}",
+  "event_token": "#{event_token_notifyclaimdetail}",
   "ignore_warning": false
 }
