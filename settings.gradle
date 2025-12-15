@@ -1,0 +1,5 @@
+rootProject.name = 'civil-perfromance'
+
+include ':common-performance'
+
+project(':common-performance').projectDir = file('common/common-performance')
