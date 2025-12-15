@@ -112,7 +112,19 @@ object CUIR2ClaimantRespondToRequest {
       .fileName("3MB.pdf")
       .transferEncoding("binary")))
 
-  .pause(MinThinkTime, MaxThinkTime)
+    .pause(MinThinkTime, MaxThinkTime)
+
+    /*======================================================================================
+      * Civil UI Claim - Application hearing preferences, click Continue
+    ======================================================================================*/
+
+    .exec(http("CUIR2_ClaimantChangeRespond_085_ApplicationHearingPreferences")
+      .get("/case/#{claimNumber}/response/general-application/#{newClaimNumber}/hearing-arrangement")
+      .headers(CivilDamagesHeader.CUIR2Get)
+      .check(CsrfCheck.save)
+      .check(substring("Application hearing arrangements")))
+
+    .pause(MinThinkTime, MaxThinkTime)
 
     /*======================================================================================
       * Civil UI Claim - Select preferred hearing type and click Continue
@@ -148,19 +160,11 @@ object CUIR2ClaimantRespondToRequest {
     ======================================================================================*/
 
     .exec(http("CUIR2_ClaimantChangeRespond_110_EnterUnavailableDates")
-      .post("/case/#{claimNumber}/response/general-application/#{newClaimNumber}/unavailable-dates")
+      .post("/case/#{claimNumber}/response/general-application/#{newClaimNumber}/unavailability-confirmation")
       .headers(CivilDamagesHeader.CUIR2Post)
       .check(CsrfCheck.save)
       .formParam("_csrf", "#{csrf}")
-      .formParam("items[0][single][start][day]", "")
-      .formParam("items[0][single][start][month]", "")
-      .formParam("items[0][single][start][year]", "")
-      .formParam("items[0][period][start][day]", "")
-      .formParam("items[0][period][start][month]", "")
-      .formParam("items[0][period][start][year]", "")
-      .formParam("items[0][period][end][day]", "")
-      .formParam("items[0][period][end][month]", "")
-      .formParam("items[0][period][end][year]", ""))
+      .formParam("option", "no"))
 
     .pause(MinThinkTime, MaxThinkTime)
 

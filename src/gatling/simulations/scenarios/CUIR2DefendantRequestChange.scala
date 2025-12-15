@@ -216,6 +216,22 @@ object CUIR2DefendantRequestChange {
   .pause(MinThinkTime, MaxThinkTime)
 
   /*======================================================================================
+     * Civil UI Claim - Confirm that there is an unavailable date in the next 3 months
+  ======================================================================================*/
+
+  .group("CUIR2_DefRaiseChange_135_UnavailabilityConfirmation") {
+    exec(http("CUIR2_DefRaiseChange_135_005_UnavailabilityConfirmation")
+      .post("/case/#{claimNumber}/general-application/unavailability-confirmation?index=0")
+      .headers(CivilDamagesHeader.CUIR2Post)
+      .check(CsrfCheck.save)
+      .formParam("_csrf", "#{csrf}")
+      .formParam("option", "yes")
+      .check(substring("Are there any dates when you cannot attend a hearing within the next 3 months")))
+  }
+
+    .pause(MinThinkTime, MaxThinkTime)
+
+  /*======================================================================================
    * Civil UI Claim - Add a date within the next 3 months and click Continue
   ======================================================================================*/
 
@@ -228,7 +244,7 @@ object CUIR2DefendantRequestChange {
       .formParam("items[0][type]", "SINGLE_DATE")
       .formParam("items[0][single][start][day]", "05")
       .formParam("items[0][single][start][month]", "02")
-      .formParam("items[0][single][start][year]", "2025")
+      .formParam("items[0][single][start][year]", "2026")
       .formParam("items[0][period][start][day]", "")
       .formParam("items[0][period][start][month]", "")
       .formParam("items[0][period][start][year]", "")
@@ -283,7 +299,7 @@ object CUIR2DefendantRequestChange {
       .formParam("_csrf", "#{csrf}")
       .formParam("signed", "true")
       .formParam("name", "perf test")
-      .check(regex("""/case/#{claimNumber}/general-application/apply-help-fee-selection.id=(.+?)&amp;appFee=119" role="button" draggable=""").saveAs("feeSelectionId"))
+      .check(regex("""/case/#{claimNumber}/general-application/apply-help-fee-selection.id=(.+?)&amp;appFee=""").saveAs("feeSelectionId"))
       .check(substring("Until you pay the application fee")))
   }
 

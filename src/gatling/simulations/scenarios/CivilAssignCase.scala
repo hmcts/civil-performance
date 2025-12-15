@@ -4,6 +4,7 @@ import com.typesafe.config.{Config, ConfigFactory}
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import utils.Environment
+import ccd.CcdHelper
 
 object CivilAssignCase {
 
@@ -15,17 +16,20 @@ object CivilAssignCase {
 
   //userType must be "Caseworker", "Legal" or "Citizen"
   val Auth =
-  
-    exec(http("Civil_000_GetBearerToken")
-      .post(idamURL + "/o/token") //change this to idamapiurl if this not works
-      .formParam("grant_type", "password")
-      .formParam("username", "#{defEmailAddress}")
-      .formParam("password", "Password12!")
-      .formParam("client_id", "civil_citizen_ui")
-      .formParam("client_secret", civilSecret)
-      .formParam("scope", "profile roles openid")
-      .header("Content-Type", "application/x-www-form-urlencoded")
-      .check(jsonPath("$.access_token").saveAs("bearerToken")))
+
+    exec(CcdHelper.authenticate("#{defEmailAddress}", "Password12!", "civil_service"))
+//    exec(http("Civil_000_GetBearerToken")
+//      .post(idamURL + "/o/token") //change this to idamapiurl if this not works
+//      .formParam("grant_type", "password")
+//      .formParam("username", "#{defEmailAddress}")
+//      .formParam("password", "Password12!")
+//      .formParam("client_id", "civil_citizen_ui")
+//      .formParam("client_secret", civilSecret)
+//      .formParam("scope", "profile roles openid")
+//      .header("Content-Type", "application/x-www-form-urlencoded")
+//      .check(jsonPath("$.access_token").saveAs("bearerToken")))
+
+
 
     .pause(minThinkTime, maxThinkTime)
 

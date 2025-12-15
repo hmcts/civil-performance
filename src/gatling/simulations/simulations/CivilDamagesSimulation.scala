@@ -38,7 +38,7 @@ class CivilDamagesSimulation extends Simulation {
 	}
 
 	/* PERFORMANCE TEST CONFIGURATION */
-	val lipsTargetPerHour: Double = 110 //110
+	val lipsTargetPerHour: Double = 130 //110
 
 	/* ADDITIONAL COMMAND LINE ARGUMENT OPTIONS */
 	val debugMode = System.getProperty("debug", "off") //runs a single user e.g. ./gradle gatlingRun -Ddebug=on (default: off)
@@ -115,13 +115,13 @@ class CivilDamagesSimulation extends Simulation {
 			.exec(CUIR2Logout.CUILogout)
 
 			//Login as Judge & Make an Order
-			.feed(judicialUsersFeeder)
-//			.feed(judicialCaseFeeder)
-			.exec(CUIR2HomePage.XUIHomePage)
-			.exec(CUIR2Login.XUIJudicialLogin)
-			.exec(CUIR2JudicialMakeDecision.run)
-			.exec(CUIR2JudicialMakeDecision.judicialMakeDecisionEvent)
-			.exec(CUIR2Logout.XUILogout)
+//			.feed(judicialUsersFeeder)
+////			.feed(judicialCaseFeeder)
+//			.exec(CUIR2HomePage.XUIHomePage)
+//			.exec(CUIR2Login.XUIJudicialLogin)
+//			.exec(CUIR2JudicialMakeDecision.run)
+//			.exec(CUIR2JudicialMakeDecision.judicialMakeDecisionEvent)
+//			.exec(CUIR2Logout.XUILogout)
 		}
 
 	val CivilJudicialMakeOrder = scenario("Civil LIPS Claim - Judicial Make Order")

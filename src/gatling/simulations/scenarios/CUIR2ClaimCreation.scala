@@ -23,8 +23,8 @@ object CUIR2ClaimCreation {
       "EvidenceYear" -> Common.getYear(),
       "EvidenceDay" -> Common.getDay(),
       "EvidenceMonth" -> Common.getMonth(),
-      "CitizenRandomString" -> Common.randomString(5),
-      "representativeFullName" -> (Common.randomString(5) + "representativeFullName")))
+      "CitizenRandomString" -> Common.randomString(7),
+      "representativeFullName" -> (Common.randomString(7) + "representativeFullName")))
 
     /*======================================================================================
                * Civil Citizen - Click on make a new claim

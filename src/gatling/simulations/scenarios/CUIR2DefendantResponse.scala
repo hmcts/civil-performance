@@ -276,7 +276,7 @@ object CUIR2DefendantResponse {
         .headers(CivilDamagesHeader.CUIR2Get)
         .check(CsrfCheck.save)
         .check(status.in(200, 304))
-        .check(substring("This includes the claim fee and any interest.")))
+        .check(substring("The total amount, including any interest claimed to date")))
     }
 
     .pause(MinThinkTime, MaxThinkTime)

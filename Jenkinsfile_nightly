@@ -11,6 +11,9 @@ def component = "ucmc-performance"
 
 withNightlyPipeline("java", product, component) {
 
+    afterAlways('checkout') {
+        sh """ git submodule update --init --recursive"""
+    }
     enablePerformanceTest(40)
 
     after('performanceTest') {
