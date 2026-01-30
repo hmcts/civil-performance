@@ -1,5 +1,6 @@
 package uk.gov.hmcts.reform.civildamage.performance.simulations
 
+import io.gatling.commons.stats.assertion.Assertion
 import io.gatling.core.Predef._
 import io.gatling.core.scenario.Simulation
 import uk.gov.hmcts.reform.civildamage.performance.scenarios._
@@ -59,7 +60,7 @@ class CivilDamagesSimulation extends Simulation {
 	//set the environment based on the test type
 	val environment = testType match {
 		case "perftest" => "perftest"
-		case "pipeline" => "aat"
+		case "pipeline" => "perftest"
 		case _ => "**INVALID**"
 	}
 
@@ -179,6 +180,7 @@ class CivilDamagesSimulation extends Simulation {
 		exec(_.set("CUIR2SmallClaimsAmount", s"${smallClaimsAmount}"))
 			//.exec(_.set("CourtLocation", "9000")) - WIP
 			.exec(_.set("env", s"${env}"))
+      .exec(_.set("testType", s"${testType}"))
 				.exec(CreateUser.CreateDefCitizen)
 				.repeat(1) {
 					exec(CreateUser.CreateClaimantCitizen)
@@ -202,6 +204,7 @@ class CivilDamagesSimulation extends Simulation {
 				.exec(CUIR2Login.CUIR2Login)
 				.exec(CUIR2ClaimantIntentionCaseProg.run)
 				.exec(CUIR2Logout.CUILogout)
+        .doIfEquals("#{testType}", "pipeline") (exitHere)
 
 				// below is 80% cases are now stopped here
 
@@ -379,6 +382,7 @@ class CivilDamagesSimulation extends Simulation {
 		.exitBlockOnFail {
 			exec(_.set("CUIR2FastClaimsAmount", s"${fastClaimsAmount}"))
 			.exec(_.set("env", s"${env}"))
+      .exec(_.set("testType", s"${testType}"))
 				.exec(CreateUser.CreateDefCitizen)
 				.repeat(1) {
 					exec(CreateUser.CreateClaimantCitizen)
@@ -403,6 +407,7 @@ class CivilDamagesSimulation extends Simulation {
 				.exec(CUIR2Login.CUIR2ClaimantIntentionLogin)
 				.exec(CUIR2ClaimantIntentionCaseProgFastTrack.run)
 				.exec(CUIR2Logout.CUILogout)
+        .doIfEquals("#{testType}", "pipeline") (exitHere)
 				.pause(120)
 				// below is the SDO for fast track
 				
@@ -499,38 +504,79 @@ class CivilDamagesSimulation extends Simulation {
 				}
 
 
+  //defines the test assertions, based on the test type
+  def assertions(simulationType: String): Seq[Assertion] = {
+    simulationType match {
+      case "perftest" =>
+        if (debugMode == "off") {
+          Seq(global.successfulRequests.percent.gte(95),
+            details("CivilCP_FinalOrders_160_FinalOrdersSubmit").successfulRequests.percent.gte(80),
+            details("CUICPFT_Claimant_UploadDocs_040_TrialArrangementsSubmit").successfulRequests.percent.gte(80),
+            details("CUICPFT_Claimant_ViewDocs_160_ViewBundles").successfulRequests.percent.gte(80)
+          )
+        }
+        else {
+          Seq(global.successfulRequests.percent.is(100))
+        }
+      case "pipeline" =>
+        if (debugMode == "off") {
+          Seq(global.successfulRequests.percent.gte(95),
+            details("CUICPSC_ClaimantIntention_100_CheckAndSubmit").successfulRequests.percent.gte(80),
+          )
+        }
+        else {
+          Seq(global.successfulRequests.percent.is(100))
+        }
+      case _ =>
+        Seq()
+    }
+  }
 
-setUp(
+testType match {
+  case "perftest" =>
+    setUp(
+      CUIR2SmallClaimsCaseProgression.inject(nothingFor(1),rampUsers(150) during (1100)),
+      CUIR2FastTrackCaseProgression.inject(nothingFor(50),rampUsers(150) during (1100)),
+    ).protocols(httpProtocol)
+      .assertions(assertions(testType))
+  case "pipeline" =>
+    setUp(
+      CUIR2SmallClaimsCaseProgression.inject(rampUsers(5) during(15)).pauses(constantPauses)
+    ).protocols(httpProtocol)
+      .assertions(assertions(testType))
+  case _ =>
+    exitHere
+}
 
-	//*** Regression - Single User - 1 Iteration ***
-	//********************************************************************************
-	//CUIR2SmallClaimsCaseProgression.inject(nothingFor(1),rampUsers(1) during (1)),
-	//CUIR2FastTrackCaseProgression.inject(nothingFor(1),rampUsers(1) during (1))
-	//********************************************************************************
-
-
-	//*** Regression - Full Load ***
-	//********************************************************************************
-	CUIR2SmallClaimsCaseProgression.inject(nothingFor(1),rampUsers(150) during (1100)),
-	CUIR2FastTrackCaseProgression.inject(nothingFor(50),rampUsers(150) during (1100)),
-	//********************************************************************************
-
-
-	//*** Data Inserts - Single User - 1 Iteration ***
-	//********************************************************************************
-//	CivilUIR2ClaimCreationWithAPIScenario.inject(nothingFor(1),rampUsers(1) during (1))
-	// ********************************************************************************
-
-
-	//*** Data Inserts - Full Load ***
-	//********************************************************************************
-	//CivilUIR2ClaimCreationWithAPIScenario.inject(nothingFor(1),rampUsers(3600) during (64800))
-	//********************************************************************************
-
-
-).protocols(httpProtocol)
-
-
-
+//setUp(
+//
+//	//*** Regression - Single User - 1 Iteration ***
+//	//********************************************************************************
+//	//CUIR2SmallClaimsCaseProgression.inject(nothingFor(1),rampUsers(1) during (1)),
+//	//CUIR2FastTrackCaseProgression.inject(nothingFor(1),rampUsers(1) during (1))
+//	//********************************************************************************
+//
+//
+//	//*** Regression - Full Load ***
+//	//********************************************************************************
+//	CUIR2SmallClaimsCaseProgression.inject(nothingFor(1),rampUsers(150) during (1100)),
+//	CUIR2FastTrackCaseProgression.inject(nothingFor(50),rampUsers(150) during (1100)),
+//	//********************************************************************************
+//
+//
+//	//*** Data Inserts - Single User - 1 Iteration ***
+//	//********************************************************************************
+////	CivilUIR2ClaimCreationWithAPIScenario.inject(nothingFor(1),rampUsers(1) during (1))
+//	// ********************************************************************************
+//
+//
+//	//*** Data Inserts - Full Load ***
+//	//********************************************************************************
+//	//CivilUIR2ClaimCreationWithAPIScenario.inject(nothingFor(1),rampUsers(3600) during (64800))
+//	//********************************************************************************
+//
+//
+//).protocols(httpProtocol)
+//  .assertions(assertions(testType))
 
 }
