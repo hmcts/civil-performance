@@ -8,14 +8,14 @@ properties([
         ])
 ])
 
-@Library("Infrastructure") _
+@Library("Infrastructure")
 
 def product = "civil"
 def component = "ucmc-performance"
 
 withNightlyPipeline("java", product, component) {
 
-    enablePerformanceTest(40)
+    enablePerformanceTest(timeout=40, perfGatlingAlerts=true, perfRerunOnFail=true)
 
     afterAlways('checkout') {
         sh """ git submodule update --init --recursive"""
@@ -26,3 +26,5 @@ withNightlyPipeline("java", product, component) {
     }
 
 }
+
+

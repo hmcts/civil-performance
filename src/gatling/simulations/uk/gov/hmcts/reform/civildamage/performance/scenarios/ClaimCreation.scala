@@ -56,6 +56,7 @@ object ClaimCreation {
       exec(http("Civil_CreateClaim_050_Eligibility")
         .post("/data/case-types/CIVIL/validate?pageId=CREATE_CLAIMEligibility")
         .headers(CivilDamagesHeader.headers_163)
+        .header("x-dynatrace", "FW4;TSN=CivilOnDynatrace;PSL=CitizenCreateClaimOnDynatrace")
         .body(ElFileBody("bodies/0013_request.json"))
         .check(substring("courtLocation"))
         .check(status.in(200, 304))
