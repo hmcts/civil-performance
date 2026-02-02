@@ -23,8 +23,7 @@ object Homepage {
       exec(http("XUI_010_005_Homepage")
         .get("/")
         .headers(Headers.navigationHeader)
-        .header("sec-fetch-site", "none")
-        .header("x-dynatrace", "FW4;TSN=Civil;PSL=Homepage"))
+        .header("sec-fetch-site", "none"))
 
       .exec(Common.configurationui)
 
@@ -41,7 +40,6 @@ object Homepage {
       .exec(http("XUI_010_010_AuthLogin")
         .get("/auth/login")
         .headers(Headers.navigationHeader)
-        .header("x-dynatrace", "FW4;TSN=Civil;PSL=Login")
         .check(CsrfCheck.save)
         .check(regex("/oauth2/callback&amp;state=(.*)&amp;nonce=").saveAs("state"))
         .check(regex("&amp;nonce=(.*)&amp;response_type").saveAs("nonce")))
