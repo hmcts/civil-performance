@@ -21,23 +21,9 @@ class CivilDamagesSimulation extends Simulation {
 	val citizenURL= Environment.citizenURL
   val loginFeeder = csv("login.csv").circular
 	val cpLoginFeeder = csv("cuir2cplogin.csv").circular
-	val stFeeder = csv("loginSt.csv").circular
-	val defresponsecasesFeeder=csv("caseIds.csv").circular
-	val sol7casesFeeder=csv("caseIdsSol7.csv").circular
-	val sol8casesFeeder=csv("caseIdsSol8.csv").circular
-	val defresponsecasesTrialFeeder=csv("caseIdsTrial.csv").circular
-	val casesfordefresponseFeeder=csv("CivilCreatedCaseIds.csv").circular
-	val sol7casesTrialFeeder=csv("caseIdsSol7Trial.csv").circular
-	val sol8casesTrialFeeder=csv("caseIdsSol8Trial.csv").circular
-	val pbacasesfeeder=csv("pbacases.csv").circular
 	val assigncasesFeeder=csv("assigncasesfeeder.csv").circular
-	val sdoRFRFeeder=csv("sdorfrcases.csv").circular
-	val viewandresponsefeeder = csv("viewandresponsecases.csv").circular
 	val cpfulltestsmallclaimsFeeder=csv("cuir2cpsmallclaims.csv").circular
-	val cpfulltestfasttrackFeeder=csv("cuir2cpfasttrack.csv").circular
-	val updateSubmitDateForIntermediateMulti=csv("updatesubmitdateimi.csv").circular
-	val updateRespondantDateJO=csv("updaterespondantDateJO.csv").circular
-	
+
 	
 	
 	

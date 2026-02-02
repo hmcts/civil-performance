@@ -49,7 +49,7 @@ object ClaimDetailNotifications {
         .post("/data/case-types/CIVIL/validate?pageId=NOTIFY_DEFENDANT_OF_CLAIM_DETAILSUpload")
         .headers(CivilDamagesHeader.headers_868)
        // .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.case-data-validate.v2+json;charset=UTF-8")
-        .body(ElFileBody("bodies/0210_request.json"))
+        .body(ElFileBody("bodies/ClaimUploadDetails.json"))
         .check(status.in(200, 304))
         
       )
@@ -66,7 +66,7 @@ object ClaimDetailNotifications {
         .post("/data/cases/#{caseId}/events")
         .headers(CivilDamagesHeader.headers_886)
        // .header("accept", "application/vnd.uk.gov.hmcts.ccd-data-store-api.create-event.v2+json;charset=UTF-8")
-        .body(ElFileBody("bodies/0214_request.json"))
+        .body(ElFileBody("bodies/NotifyDetailsSubmit.json"))
         .check(status.in(200, 201))
       )
         .exec(http("CD_CreateClaim_380_010_case")
