@@ -1,0 +1,22 @@
+{
+  "data": {
+    "showCarmFields": "Yes",
+    "drawDirectionsOrderRequired": "No",
+    "CaseAccessCategory": "SPEC_CLAIM",
+    "featureToggleWA": "Prod"
+  },
+  "event": {
+    "id": "CREATE_SDO",
+    "summary": "",
+    "description": ""
+  },
+  "event_data": {
+    "showCarmFields": "Yes",
+    "drawDirectionsOrderRequired": "No",
+    "CaseAccessCategory": "SPEC_CLAIM",
+    "featureToggleWA": "Prod"
+  },
+  "event_token": "#{event_token}",
+  "ignore_warning": false,
+  "case_reference": "#{claimNumber}"
+}

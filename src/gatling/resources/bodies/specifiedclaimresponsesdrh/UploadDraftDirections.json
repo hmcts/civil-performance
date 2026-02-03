@@ -1,0 +1,119 @@
+{
+  "data": {
+    "respondent1DQDraftDirections": {
+      "document_url": "#{draftDocument_url}",
+      "document_binary_url": "#{draftDocument_url}/binary",
+      "document_filename": "casesummary.docx",
+      "document_hash": "#{hashTokenDraft}"
+    }
+  },
+  "event": {
+    "id": "DEFENDANT_RESPONSE",
+    "summary": "",
+    "description": ""
+  },
+  "event_data": {
+    "respondent1Copy": {
+      "partyID": "#{repPartyID}",
+      "type": "COMPANY",
+      "companyName": "#{LRrandomString} DefcompanyName",
+      "primaryAddress": {
+        "AddressLine1": "T Mobile Retail",
+        "AddressLine2": "3 The Stratford Centre",
+        "AddressLine3": "The Mall",
+        "PostTown": "London",
+        "Country": "United Kingdom",
+        "PostCode": "E15 1XA"
+      },
+      "partyName": "#{LRrandomString} DefcompanyName",
+      "partyTypeDisplayValue": "Company",
+      "flags": {
+        "partyName": "#{LRrandomString} DefcompanyName",
+        "roleOnCase": "Respondent 1"
+      }
+    },
+    "respondent2Copy": null,
+    "allocatedTrack": "FAST_CLAIM",
+    "claimType": "PERSONAL_INJURY",
+    "addRespondent2": "No",
+    "addApplicant2": "No",
+    "respondent2SameLegalRepresentative": null,
+    "respondent1": {
+      "type": "COMPANY",
+      "individualTitle": null,
+      "individualFirstName": null,
+      "individualLastName": null,
+      "companyName": "#{LRrandomString} DefcompanyName",
+      "organisationName": null,
+      "soleTraderTitle": null,
+      "soleTraderFirstName": null,
+      "soleTraderLastName": null,
+      "soleTraderTradingAs": null,
+      "partyName": "#{LRrandomString} DefcompanyName",
+      "bulkClaimPartyName": null,
+      "partyTypeDisplayValue": "Company",
+      "partyEmail": null,
+      "partyPhone": null,
+      "partyID": "#{repPartyID}"
+    },
+    "multiPartyResponseTypeFlags": "FULL_DEFENCE",
+    "respondent1ClaimResponseType": "FULL_DEFENCE",
+    "solicitorReferences": {
+      "respondentSolicitor1Reference": "#{LRrandomString} Ref",
+      "applicantSolicitor1Reference": null,
+      "respondentSolicitor2Reference": null
+    },
+    "respondent1ClaimResponseDocument": {
+      "file": {
+        "document_url": "#{document_url}",
+        "document_binary_url": "#{document_url}/binary",
+        "document_filename": "casesummary.docx",
+        "document_hash": "#{hashToken}"
+      }
+    },
+    "respondent1DQFileDirectionsQuestionnaire": {
+      "oneMonthStayRequested": "No",
+      "reactionProtocolCompliedWith": "No",
+      "reactionProtocolNotCompliedWithReason": "#{LRrandomString} reactionProtocolNotCompliedWithReason",
+      "explainedToClient": [
+        "CONFIRM"
+      ]
+    },
+    "respondent1DQFixedRecoverableCosts": {
+      "isSubjectToFixedRecoverableCostRegime": "No",
+      "reasons": "#{LRrandomString} isSubjectToFixedRecoverableCostRegime"
+    },
+    "respondent1DQDisclosureOfNonElectronicDocuments": {
+      "directionsForDisclosureProposed": "No"
+    },
+    "respondent1DQExperts": {
+      "expertRequired": "No",
+      "details": []
+    },
+    "respondent1DQWitnesses": {
+      "witnessesToAppear": "No",
+      "details": []
+    },
+    "respondent1DQLanguage": {
+      "court": "ENGLISH",
+      "documents": "ENGLISH",
+      "evidence": null
+    },
+    "respondent1DQHearing": {
+      "unavailableDatesRequired": "No",
+      "hearingLength": null,
+      "hearingLengthHours": null,
+      "hearingLengthDays": null,
+      "unavailableDates": []
+    },
+    "respondent1DQDraftDirections": {
+      "document_url": "#{draftDocument_url}",
+      "document_binary_url": "#{draftDocument_url}/binary",
+      "document_filename": "casesummary.docx",
+      "document_hash": "#{hashTokenDraft}"
+    }
+  },
+  "event_token": "#{event_token}",
+  "ignore_warning": false,
+  "case_reference": "#{caseId}"
+}

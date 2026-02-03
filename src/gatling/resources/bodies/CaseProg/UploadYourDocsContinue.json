@@ -1,0 +1,18 @@
+{
+  "data": {
+    "caseProgAllocatedTrack": "FAST_CLAIM",
+    "caseTypeFlag": null
+  },
+  "event": {
+    "id": "EVIDENCE_UPLOAD_APPLICANT",
+    "summary": "",
+    "description": ""
+  },
+  "event_data": {
+    "caseProgAllocatedTrack": "FAST_CLAIM",
+    "caseTypeFlag": null
+  },
+  "event_token": "#{event_token}",
+  "ignore_warning": false,
+  "case_reference": "#{caseId}"
+}

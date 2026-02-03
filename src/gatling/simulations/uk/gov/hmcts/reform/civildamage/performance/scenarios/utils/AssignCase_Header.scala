@@ -11,7 +11,7 @@ object AssignCase_Header {
     "Sec-Fetch-Dest" -> "empty",
     "Sec-Fetch-Mode" -> "cors",
     "Sec-Fetch-Site" -> "same-origin",
-    "authorization" -> "${authTokenResp}",
+    "authorization" -> "#{authTokenResp}",
     "sec-ch-ua" -> """Chromium";v="86", "\"Not\\A;Brand";v="99", "Google Chrome";v="86""",
     "sec-ch-ua-mobile" -> "?0")
 
@@ -23,8 +23,8 @@ object AssignCase_Header {
     "Sec-Fetch-Dest" -> "empty",
     "Sec-Fetch-Mode" -> "cors",
     "Sec-Fetch-Site" -> "same-origin",
-    "X-XSRF-TOKEN" -> "${XSRFToken}",
-    "authorization" -> "${authTokenResp}",
+    "X-XSRF-TOKEN" -> "#{XSRFToken}",
+    "authorization" -> "#{authTokenResp}",
     "sec-ch-ua" -> """Chromium";v="86", "\"Not\\A;Brand";v="99", "Google Chrome";v="86""",
     "sec-ch-ua-mobile" -> "?0")
 
@@ -36,8 +36,8 @@ object AssignCase_Header {
     "Sec-Fetch-Dest" -> "empty",
     "Sec-Fetch-Mode" -> "cors",
     "Sec-Fetch-Site" -> "same-origin",
-    "X-XSRF-TOKEN" -> "${XSRFToken}",
-    "authorization" -> "${authTokenResp}",
+    "X-XSRF-TOKEN" -> "#{XSRFToken}",
+    "authorization" -> "#{authTokenResp}",
     "sec-ch-ua" -> """Chromium";v="86", "\"Not\\A;Brand";v="99", "Google Chrome";v="86""",
     "sec-ch-ua-mobile" -> "?0")
 
@@ -50,8 +50,8 @@ object AssignCase_Header {
     "Sec-Fetch-Dest" -> "empty",
     "Sec-Fetch-Mode" -> "cors",
     "Sec-Fetch-Site" -> "same-origin",
-    "X-XSRF-TOKEN" -> "${XSRFToken}",
-    "authorization" -> "${authTokenResp}",
+    "X-XSRF-TOKEN" -> "#{XSRFToken}",
+    "authorization" -> "#{authTokenResp}",
     "sec-ch-ua" -> """Chromium";v="86", "\"Not\\A;Brand";v="99", "Google Chrome";v="86""",
     "sec-ch-ua-mobile" -> "?0")
 

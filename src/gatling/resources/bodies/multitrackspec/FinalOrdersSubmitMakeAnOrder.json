@@ -1,0 +1,57 @@
+{
+  "data": {
+    "finalOrderAllocateToTrack": "Yes",
+    "finalOrderTrackAllocation": "MULTI_CLAIM",
+    "finalOrderDownloadTemplateOptions": {
+      "value": {
+        "code": "8789a68c-0f81-4e5d-a5ba-446cfc0cd21e",
+        "label": "Fix a date for CCMC"
+      },
+      "list_items": [
+        {
+          "code": "14cacdf9-5a64-4127-831f-4f5e9c8d0fd7",
+          "label": "Blank template to be used after a hearing"
+        },
+        {
+          "code": "1b3cfcc3-aeb9-4ddb-9b2d-91770f2c72ac",
+          "label": "Blank template to be used before a hearing/box work"
+        },
+        {
+          "code": "8789a68c-0f81-4e5d-a5ba-446cfc0cd21e",
+          "label": "Fix a date for CCMC"
+        },
+        {
+          "code": "4e84bbcf-fd8c-4ce7-b288-cb2ab6e3c4bc",
+          "label": "Fix a date for CMC"
+        }
+      ]
+    },
+    "finalOrderDownloadTemplateDocument": {
+      "documentLink": {
+        "document_url": "#{document_url}",
+        "document_binary_url": "#{document_url}/binary",
+        "document_filename": "#{document_filename}",
+        "document_hash": "#{hash_token}"
+      },
+      "documentName": "#{document_filename}",
+      "documentType": "JUDGE_FINAL_ORDER",
+      "documentSize": "#{MakeAnOrderdocumentSize}",
+      "createdDatetime": "#{MakeAnOrderCreateDateTime}",
+      "createdBy": "Civil",
+      "ownedBy": null
+    },
+    "uploadOrderDocumentFromTemplate": {
+      "document_url": "#{specmultitrackmakeanorderdocurl}",
+      "document_binary_url": "#{specmultitrackmakeanorderdocurl}/binary",
+      "document_filename": "casesummary.docx",
+      "document_hash": "#{specmultitrackmakeanorderhashtoken}"
+    }
+  },
+  "event": {
+    "id": "GENERATE_DIRECTIONS_ORDER",
+    "summary": "",
+    "description": ""
+  },
+  "event_token": "#{event_token}",
+  "ignore_warning": false
+}

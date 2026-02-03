@@ -127,7 +127,7 @@ object LoginHeader {
   "accept" -> "application/json, text/plain, */*",
   "accept-encoding" -> "gzip, deflate, br",
   "accept-language" -> "en-US,en;q=0.9",
-  "authorization" -> "${authTokenResp}",
+  "authorization" -> "#{authTokenResp}",
   "sec-ch-ua" -> """Google Chrome";v="87", " Not;A Brand";v="99", "Chromium";v="87""",
   "sec-ch-ua-mobile" -> "?0",
   "sec-fetch-dest" -> "empty",

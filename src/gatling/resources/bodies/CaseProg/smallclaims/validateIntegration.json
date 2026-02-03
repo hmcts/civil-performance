@@ -1,0 +1,24 @@
+{
+  "data": {
+    "claimType": null,
+    "responseClaimTrack": "SMALL_CLAIM",
+    "totalClaimAmount": "#{CUIR2SmallClaimsAmount}"
+  },
+  "event": {
+    "id": "MEDIATION_UNSUCCESSFUL",
+    "summary": "",
+    "description": ""
+  },
+  "event_data": {
+    "showCarmFields": "Yes",
+    "claimType": null,
+    "responseClaimTrack": "SMALL_CLAIM",
+    "totalClaimAmount": "#{CUIR2SmallClaimsAmount}",
+    "mediationUnsuccessfulReasonsMultiSelect": [
+      "APPOINTMENT_NO_AGREEMENT"
+    ]
+  },
+  "event_token": "#{event_token}",
+  "ignore_warning": false,
+  "case_reference": "#{claimNumber}"
+}

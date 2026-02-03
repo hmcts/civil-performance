@@ -1,0 +1,26 @@
+{
+  "data": {
+    "claimsTrack": "smallClaimsTrack",
+    "smallClaims": [
+      "smallClaimRoadTrafficAccident"
+    ]
+  },
+  "event": {
+    "id": "CREATE_SDO",
+    "summary": "",
+    "description": ""
+  },
+  "event_data": {
+    "drawDirectionsOrderRequired": "No",
+    "showCarmFields": "No",
+    "featureToggleWA": "Prod",
+    "claimsTrack": "smallClaimsTrack",
+    "smallClaims": [
+      "smallClaimRoadTrafficAccident"
+    ]
+  },
+  "event_token": "#{event_token}",
+  "ignore_warning": false,
+  "case_reference": "#{claimNumber}"
+}
+

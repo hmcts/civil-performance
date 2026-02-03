@@ -1,0 +1,68 @@
+{
+  "data": {
+    "finalOrderDownloadTemplateDocument": {
+      "documentLink": {
+        "document_url": "#{document_url}",
+        "document_binary_url": "#{document_url}/binary",
+        "document_filename": "#{document_filename}",
+        "document_hash": "#{hash_token}"
+      },
+      "documentName": "#{document_filename}",
+      "documentType": "JUDGE_FINAL_ORDER",
+      "documentSize": "#{MakeAnOrderdocumentSize}",
+      "createdDatetime": "#{MakeAnOrderCreateDateTime}",
+      "createdBy": "Civil",
+      "ownedBy": null
+    }
+  },
+  "event": {
+    "id": "GENERATE_DIRECTIONS_ORDER",
+    "summary": "",
+    "description": ""
+  },
+  "event_data": {
+    "finalOrderAllocateToTrack": "Yes",
+    "finalOrderTrackAllocation": "MULTI_CLAIM",
+    "finalOrderDownloadTemplateOptions": {
+      "value": {
+        "code": "fb53fdc5-7d44-4d0f-b368-736a0500b054",
+        "label": "Fix a date for CCMC"
+      },
+      "list_items": [
+        {
+          "code": "1bdc514b-2398-4ff2-a573-79047fdde01e",
+          "label": "Blank template to be used after a hearing"
+        },
+        {
+          "code": "48db0eb7-29c2-4b31-96c3-37e5c9ab1186",
+          "label": "Blank template to be used before a hearing/box work"
+        },
+        {
+          "code": "fb53fdc5-7d44-4d0f-b368-736a0500b054",
+          "label": "Fix a date for CCMC"
+        },
+        {
+          "code": "4ca33534-f006-41f9-8cf9-44d4f496c7d5",
+          "label": "Fix a date for CMC"
+        }
+      ]
+    },
+    "finalOrderDownloadTemplateDocument": {
+      "documentLink": {
+        "document_url": "#{document_url}",
+        "document_binary_url": "#{document_url}/binary",
+        "document_filename": "#{document_filename}",
+        "document_hash": "#{hash_token}"
+      },
+      "documentName": "#{document_filename}",
+      "documentType": "JUDGE_FINAL_ORDER",
+      "documentSize": "#{MakeAnOrderdocumentSize}",
+      "createdDatetime": "#{MakeAnOrderCreateDateTime}",
+      "createdBy": "Civil",
+      "ownedBy": null
+    }
+  },
+  "event_token": "#{event_token}",
+  "ignore_warning": false,
+  "case_reference": "#{caseId}"
+}

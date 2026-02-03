@@ -1,12 +1,11 @@
 {
-  "email":"#{emailAddress}",
-  "forename":"SSCSPerfTest",
-  "id":"SSCS SYA Citizen",
+  "email":"#{claimantEmailAddress}",
+  "forename":"PerfTest",
   "password":"#{password}",
   "roles":[
     {
       "code":"#{role}"
     }
   ],
-  "surname":"Citizen"
+  "surname":"CUI"
 }

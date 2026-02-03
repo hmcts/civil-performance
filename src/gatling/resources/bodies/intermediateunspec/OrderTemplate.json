@@ -1,0 +1,61 @@
+{
+  "data": {
+    "finalOrderDownloadTemplateOptions": {
+      "value": {
+        "code": "0919854a-8519-4e76-8900-6799c96351ce",
+        "label": "Fix a date for CMC"
+      },
+      "list_items": [
+        {
+          "code": "ac340f94-8152-4653-aafa-0ca0ca87c2be",
+          "label": "Blank template to be used after a hearing"
+        },
+        {
+          "code": "40387bba-59d6-43f4-8df5-222d7703e7fd",
+          "label": "Blank template to be used before a hearing/box work"
+        },
+        {
+          "code": "0919854a-8519-4e76-8900-6799c96351ce",
+          "label": "Fix a date for CMC"
+        }
+      ]
+    }
+  },
+  "event": {
+    "id": "GENERATE_DIRECTIONS_ORDER",
+    "summary": "",
+    "description": ""
+  },
+  "event_data": {
+    "finalOrderAllocateToTrack": "Yes",
+    "finalOrderTrackAllocation": "INTERMEDIATE_CLAIM",
+    "finalOrderIntermediateTrackComplexityBand": {
+      "assignComplexityBand": "Yes",
+      "band": "BAND_2",
+      "reasons": "asasasas"
+    },
+    "finalOrderDownloadTemplateOptions": {
+      "value": {
+        "code": "0919854a-8519-4e76-8900-6799c96351ce",
+        "label": "Fix a date for CMC"
+      },
+      "list_items": [
+        {
+          "code": "ac340f94-8152-4653-aafa-0ca0ca87c2be",
+          "label": "Blank template to be used after a hearing"
+        },
+        {
+          "code": "40387bba-59d6-43f4-8df5-222d7703e7fd",
+          "label": "Blank template to be used before a hearing/box work"
+        },
+        {
+          "code": "0919854a-8519-4e76-8900-6799c96351ce",
+          "label": "Fix a date for CMC"
+        }
+      ]
+    }
+  },
+  "event_token": "#{event_token}",
+  "ignore_warning": false,
+  "case_reference": "#{caseId}"
+}

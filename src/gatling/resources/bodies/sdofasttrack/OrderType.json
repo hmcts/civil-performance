@@ -1,0 +1,23 @@
+{
+  "data": {
+    "orderType": "DISPOSAL"
+  },
+  "event": {
+    "id": "CREATE_SDO",
+    "summary": "",
+    "description": ""
+  },
+  "event_data": {
+    "drawDirectionsOrderRequired": "Yes",
+    "showCarmFields": "No",
+    "drawDirectionsOrder": {
+      "judgementSum": null
+    },
+    "featureToggleWA": "Prod",
+    "drawDirectionsOrderSmallClaims": "No",
+    "orderType": "DISPOSAL"
+  },
+  "event_token": "#{event_token}",
+  "ignore_warning": false,
+  "case_reference": "#{caseId}"
+}

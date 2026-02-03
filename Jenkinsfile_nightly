@@ -1,7 +1,11 @@
 #!groovy
 
 properties([
-        pipelineTriggers([cron('H 08 * * 1-5')])
+        pipelineTriggers([cron('H 08 * * 1-5')]),
+
+        parameters([
+                choice(name: 'TEST_TYPE', choices: 'pipeline', description: 'Test type (must be \'pipeline\' for Jenkins use)')
+        ])
 ])
 
 @Library("Infrastructure")
@@ -11,12 +15,14 @@ def component = "ucmc-performance"
 
 withNightlyPipeline("java", product, component) {
 
-    enablePerformanceTest(timeout=40, perfGatlingAlerts=true, perfRerunOnFail=true)
+    enablePerformanceTest(timeout=30, perfGatlingAlerts=true, perfRerunOnFail=true)
+
+    afterAlways('checkout') {
+        sh """ git submodule update --init --recursive"""
+    }
 
     after('performanceTest') {
         steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**/*'
     }
 
 }
-
-

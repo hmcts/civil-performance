@@ -1,0 +1,111 @@
+{
+  "data": {
+    "respondent1ClaimResponseTypeForSpec": "FULL_DEFENCE",
+    "specPaidLessAmountOrDisputesOrPartAdmission": null,
+    "specFullDefenceOrPartAdmission1V1": null,
+    "responseClaimTrack": null,
+    "specFullAdmissionOrPartAdmission": null,
+    "sameSolicitorSameResponse": null,
+    "specFullDefenceOrPartAdmission": null
+  },
+  "event": {
+    "id": "DEFENDANT_RESPONSE_SPEC",
+    "summary": "",
+    "description": ""
+  },
+  "event_data": {
+    "multiPartyResponseTypeFlags": null,
+    "showConditionFlags": [
+      "CAN_ANSWER_RESPONDENT_1"
+    ],
+    "respondent1ResponseDate": null,
+    "addRespondent2": "No",
+    "isRespondent1": "Yes",
+    "respondent1ClaimResponseTestForSpec": null,
+    "respondent2ClaimResponseTestForSpec": null,
+    "isRespondent2": "No",
+    "isApplicant1": "No",
+    "showHowToAddTimeLinePage": null,
+    "fullAdmissionAndFullAmountPaid": null,
+    "partAdmittedByEitherRespondents": null,
+    "neitherCompanyNorOrganisation": "No",
+    "defenceAdmitPartPaymentTimeRouteGeneric": null,
+    "respondentClaimResponseTypeForSpecGeneric": null,
+    "respondToClaimAdmitPartEmploymentTypeLRspecGeneric": null,
+    "totalClaimAmount": "3000",
+    "respondent2Copy": null,
+    "respondent2SameLegalRepresentative": null,
+    "respondent1Copy": {
+      "partyID": "72a373d2-237d-49",
+      "type": "COMPANY",
+      "companyName": "def ltd",
+      "primaryAddress": {
+        "AddressLine1": "22 Hibernia Gardens",
+        "PostTown": "Hounslow",
+        "Country": "United Kingdom",
+        "PostCode": "TW3 3SD"
+      },
+      "partyName": "def ltd",
+      "partyTypeDisplayValue": "Company",
+      "flags": {
+        "partyName": "def ltd",
+        "roleOnCase": "Defendant 1"
+      }
+    },
+    "specAoSApplicantCorrespondenceAddressRequired": "Yes",
+    "solicitorReferences": {
+      "respondentSolicitor1Reference": null,
+      "applicantSolicitor1Reference": null,
+      "respondentSolicitor2Reference": null
+    },
+    "respondent2OrganisationPolicy": {
+      "OrgPolicyCaseAssignedRole": "[RESPONDENTSOLICITORTWO]"
+    },
+    "respondent1OrganisationPolicy": {
+      "Organisation": {
+        "OrganisationID": "MEVCCQF"
+      },
+      "OrgPolicyReference": "testing",
+      "OrgPolicyCaseAssignedRole": "[RESPONDENTSOLICITORONE]"
+    },
+    "respondent1": {
+      "type": "COMPANY",
+      "individualTitle": null,
+      "individualFirstName": null,
+      "individualLastName": null,
+      "companyName": "def ltd",
+      "organisationName": null,
+      "soleTraderTitle": null,
+      "soleTraderFirstName": null,
+      "soleTraderLastName": null,
+      "soleTraderTradingAs": null,
+      "partyName": "def ltd",
+      "partyTypeDisplayValue": "Company",
+      "partyEmail": null,
+      "partyPhone": null,
+      "partyID": "72a373d2-237d-49",
+      "primaryAddress": {
+        "AddressLine1": "22 Hibernia Gardens",
+        "AddressLine2": null,
+        "AddressLine3": null,
+        "PostTown": "Hounslow",
+        "County": null,
+        "PostCode": "TW3 3SD",
+        "Country": "United Kingdom"
+      },
+      "unavailableDates": []
+    },
+    "addApplicant2": "No",
+    "specAoSRespondentCorrespondenceAddressRequired": "Yes",
+    "respondent1ClaimResponseTypeForSpec": "FULL_DEFENCE",
+    "specPaidLessAmountOrDisputesOrPartAdmission": null,
+    "specFullDefenceOrPartAdmission1V1": null,
+    "responseClaimTrack": null,
+    "specFullAdmissionOrPartAdmission": null,
+    "sameSolicitorSameResponse": null,
+    "specFullDefenceOrPartAdmission": null
+  },
+"event_token": "#{event_token}",
+"ignore_warning": false,
+"case_reference": "#{caseId}"
+}

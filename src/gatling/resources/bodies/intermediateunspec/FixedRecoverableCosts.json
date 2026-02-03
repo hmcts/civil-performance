@@ -1,0 +1,101 @@
+{
+  "data": {
+    "respondent1DQFixedRecoverableCostsIntermediate": {
+      "isSubjectToFixedRecoverableCostRegime": "Yes",
+      "complexityBandingAgreed": "Yes",
+      "band": "BAND_2",
+      "reasons": "asasasasas"
+    }
+  },
+  "event": {
+    "id": "DEFENDANT_RESPONSE",
+    "summary": "",
+    "description": ""
+  },
+  "event_data": {
+    "respondent1Copy": {
+      "partyID": "#{repPartyID}",
+      "type": "COMPANY",
+      "companyName": "def company",
+      "primaryAddress": {
+        "AddressLine1": "24 Hibernia Gardens",
+        "PostTown": "Hounslow",
+        "Country": "United Kingdom",
+        "PostCode": "TW3 3SD"
+      },
+      "partyName": "def company",
+      "partyTypeDisplayValue": "Company",
+      "partyEmail": "vijaykanth6@gmail.com",
+      "flags": {
+        "partyName": "def company",
+        "roleOnCase": "Defendant 1"
+      }
+    },
+    "respondent2Copy": null,
+    "allocatedTrack": "INTERMEDIATE_CLAIM",
+    "claimType": "PERSONAL_INJURY",
+    "addRespondent2": "No",
+    "addApplicant2": "No",
+    "respondent2SameLegalRepresentative": null,
+    "respondent1": {
+      "type": "COMPANY",
+      "individualTitle": null,
+      "individualFirstName": null,
+      "individualLastName": null,
+      "companyName": "def company",
+      "organisationName": null,
+      "soleTraderTitle": null,
+      "soleTraderFirstName": null,
+      "soleTraderLastName": null,
+      "soleTraderTradingAs": null,
+      "partyName": "def company",
+      "partyTypeDisplayValue": "Company",
+      "partyEmail": "vijaykanth6@gmail.com",
+      "partyPhone": null,
+      "partyID": "#{repPartyID}",
+      "primaryAddress": {
+        "AddressLine1": "24 Hibernia Gardens",
+        "AddressLine2": null,
+        "AddressLine3": null,
+        "PostTown": "Hounslow",
+        "County": null,
+        "PostCode": "TW3 3SD",
+        "Country": "United Kingdom"
+      },
+      "unavailableDates": []
+    },
+    "multiPartyResponseTypeFlags": "FULL_DEFENCE",
+    "respondent1ClaimResponseType": "FULL_DEFENCE",
+    "isRespondent1": "Yes",
+    "solicitorReferences": {
+      "respondentSolicitor1Reference": null,
+      "applicantSolicitor1Reference": null,
+      "respondentSolicitor2Reference": null
+    },
+    "respondent1ClaimResponseDocument": {
+      "file": {
+        "document_url": "#{document_url}",
+        "document_binary_url": "#{document_url}/binary",
+        "document_filename": "casesummary.docx",
+        "document_hash": "#{hashToken}"
+      }
+    },
+    "respondent1DQFileDirectionsQuestionnaire": {
+      "oneMonthStayRequested": "No",
+      "reactionProtocolCompliedWith": "No",
+      "reactionProtocolNotCompliedWithReason": "asasasasas",
+      "explainedToClient": [
+        "CONFIRM"
+      ]
+    },
+    "respondent1DQFixedRecoverableCostsIntermediate": {
+      "isSubjectToFixedRecoverableCostRegime": "Yes",
+      "complexityBandingAgreed": "Yes",
+      "band": "BAND_2",
+      "reasons": "asasasasas"
+    }
+  },
+  "event_token": "#{event_token}",
+  "ignore_warning": false,
+  "case_reference": "#{caseId}"
+}

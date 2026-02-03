@@ -1,0 +1,77 @@
+{
+  "data": {
+    "applicant1DQFixedRecoverableCosts": {
+      "isSubjectToFixedRecoverableCostRegime": "No",
+      "reasons": "#{LRrandomString} defReasons"
+    }
+  },
+  "event": {
+    "id": "CLAIMANT_RESPONSE",
+    "summary": "",
+    "description": ""
+  },
+  "event_data": {
+    "respondent1": {
+      "partyID": "#{repPartyID}",
+      "type": "COMPANY",
+      "companyName": "#{LRrandomString} DefcompanyName",
+      "primaryAddress": {
+        "AddressLine1": "T Mobile Retail",
+        "AddressLine2": "3 The Stratford Centre",
+        "AddressLine3": "The Mall",
+        "PostTown": "London",
+        "Country": "United Kingdom",
+        "PostCode": "E15 1XA"
+      },
+      "partyName": "#{LRrandomString} DefcompanyName",
+      "partyTypeDisplayValue": "Company",
+      "flags": {
+        "partyName": "#{LRrandomString} DefcompanyName",
+        "roleOnCase": "Respondent 1"
+      }
+    },
+    "respondent2SameLegalRepresentative": null,
+    "respondent2": null,
+    "respondent1ClaimResponseType": "FULL_DEFENCE",
+    "respondent1ClaimResponseDocument": {
+      "file": {
+        "document_url": "#{document_url}",
+        "document_binary_url": "#{document_url}/binary",
+        "document_filename": "casesummary.docx",
+        "category_id": "defendant1DefenseDirectionsQuestionnaire"
+      }
+    },
+    "applicant1ProceedWithClaim": "Yes",
+    "allocatedTrack": "FAST_CLAIM",
+    "claimType": "PERSONAL_INJURY",
+    "respondent2ClaimResponseType": null,
+    "applicantsProceedIntention": "Yes",
+    "addApplicant2": "No",
+    "respondentResponseIsSame": null,
+    "claimantResponseScenarioFlag": "ONE_V_ONE",
+    "claimantResponseDocumentToDefendant2Flag": "No",
+    "claimant2ResponseFlag": "No",
+    "applicant1DefenceResponseDocument": {
+      "file": {
+        "document_url": "#{defenceDocument_url}",
+        "document_binary_url": "#{defenceDocument_url}/binary",
+        "document_filename": "casesummary.docx",
+        "document_hash": "#{defenceHashToken}"
+      }
+    },
+    "applicant1DQFileDirectionsQuestionnaire": {
+      "oneMonthStayRequested": "No",
+      "reactionProtocolCompliedWith": "Yes",
+      "explainedToClient": [
+        "CONFIRM"
+      ]
+    },
+    "applicant1DQFixedRecoverableCosts": {
+      "isSubjectToFixedRecoverableCostRegime": "No",
+      "reasons": "#{LRrandomString} defReasons"
+    }
+  },
+  "event_token": "#{event_token}",
+  "ignore_warning": false,
+  "case_reference": "#{caseId}"
+}
