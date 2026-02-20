@@ -190,6 +190,8 @@ class CivilDamagesSimulation extends Simulation {
 				.exec(CUIR2Login.CUIR2Login)
 				.exec(CUIR2ClaimantIntentionCaseProg.run)
 				.exec(CUIR2Logout.CUILogout)
+
+        //the pipeline only runs claim creation, defentant response, claimant intention, then exits
         .doIfEquals("#{testType}", "pipeline") (exitHere)
 
 				// below is 80% cases are now stopped here

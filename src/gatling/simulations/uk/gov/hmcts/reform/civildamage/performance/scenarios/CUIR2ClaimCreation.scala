@@ -710,7 +710,7 @@ object CUIR2ClaimCreation {
           .formParam("csrfToken", "#{_csrfTokenCardDetailPage}")
           .formParam("cardNo", "4444333322221111")
           .formParam("expiryMonth", "07")
-          .formParam("expiryYear", "26")
+          .formParam("expiryYear", "31")
           .formParam("cardholderName", "Perf Tester")
           .formParam("cvc", "123")
           .formParam("addressLine1", "4")
@@ -735,7 +735,7 @@ object CUIR2ClaimCreation {
           .headers(CivilDamagesHeader.CUIR2Post)
           .formParam("csrfToken", "#{_csrfTokenCardDetailConfirm}")
           .formParam("chargeId", "#{CardDetailPageChargeId}")
-          .check(regex("Your payment was"))
+          .check(regex("Your payment reference number is"))
          )
       }
       .pause(MinThinkTime, MaxThinkTime)

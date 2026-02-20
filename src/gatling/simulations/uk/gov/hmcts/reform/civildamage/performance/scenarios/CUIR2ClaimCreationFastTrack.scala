@@ -659,8 +659,6 @@ object CUIR2ClaimCreationFastTrack {
           .formParam("saveAndContinue", "true")
           .check(substring("Claim submitted"))
           .check(regex("""/claim/(\d+)/fee""").find.saveAs("claimNumber"))
-          
-         // .check (css (".reference-number>h1.bold-large").saveAs ("claimNumber"))
         )
       }
       .pause(MinThinkTime, MaxThinkTime)
@@ -708,7 +706,7 @@ object CUIR2ClaimCreationFastTrack {
           .formParam("csrfToken", "#{_csrfTokenCardDetailPage}")
           .formParam("cardNo", "4444333322221111")
           .formParam("expiryMonth", "07")
-          .formParam("expiryYear", "26")
+          .formParam("expiryYear", "31")
           .formParam("cardholderName", "Perf Tester")
           .formParam("cvc", "123")
           .formParam("addressLine1", "4")
@@ -733,7 +731,7 @@ object CUIR2ClaimCreationFastTrack {
           .headers(CivilDamagesHeader.CUIR2Post)
           .formParam("csrfToken", "#{_csrfTokenCardDetailConfirm}")
           .formParam("chargeId", "#{CardDetailPageChargeId}")
-          .check(regex("Your payment was"))
+          .check(regex("Your payment reference number is"))
          )
       }
       .pause(MinThinkTime, MaxThinkTime)
