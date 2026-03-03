@@ -27,7 +27,7 @@ object SDOCivilProg {
   ==========================================================================================*/
   val SDOFastTrackForCUIR2 =
     //feed(sdoenhancementsfasttrackfeeder)
-      group("CUICPSC_CreateClaim_330_BackToCaseDetailsPage") {
+      group("CUICPFT_CreateClaim_330_BackToCaseDetailsPage") {
         exec(flushHttpCache)
         .exec(_.setAll(
           "Idempotencynumber" -> Common.getIdempotency()

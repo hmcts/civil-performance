@@ -100,7 +100,7 @@ object CUIR2DocUploadCaseProg {
                * Civil Citizen - select doc types -upload witness statement file
     ==========================================================================================*/
       .group("CUICPSC_Claimant_UploadDocs_070_UploadFile") {
-        exec(http("CUICPFT_Claimant_UploadDocs_070_005_UploadFile")
+        exec(http("CUICPSC_Claimant_UploadDocs_070_005_UploadFile")
           .post(CitizenURL + "/case/#{claimNumber}/case-progression/upload-documents?_csrf=#{csrf}")
           .headers(Headers.uploadHeader)
           .header("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7")
