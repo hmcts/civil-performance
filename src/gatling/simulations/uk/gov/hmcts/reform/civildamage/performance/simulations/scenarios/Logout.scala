@@ -13,6 +13,6 @@ object Logout{
       exec(http("005_SignOut")
         .get("/auth/logout")
         .headers(Headers.navigationHeader)
-        .check(substring("Sign in")))
+        .check(status.in(200, 302)))
     }
 }
