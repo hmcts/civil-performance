@@ -41,7 +41,7 @@ object MakePay  {
 				.headers(Headers.commonHeader)
 				.check(substring("paymentAccount")))
 		}
-		.pause(2)
+		.pause(2) */
 
 		// ======================CONFIRM PAY======================,
 		.group("Civil_UnSpecClaim_20_030_CreateCase_ConfirmPayment") {
@@ -54,6 +54,6 @@ object MakePay  {
 						|"organisation_name": "Civil Damages Claims - Organisation 1"}""".stripMargin))
 				.check(substring("success")))
 		}
-		.pause(60) */
+		.pause(60)
 
 }
