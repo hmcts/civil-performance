@@ -33,6 +33,7 @@ object MakePay  {
 		}
 		.pause(2)
 
+    /* Removed as it was not needed for case creation scenario
 		// ======================PAY NOW======================,
 		.group("Civil_UnSpecClaim_20_020_CreateCase_PayNow") {
 			exec(http("005_PayNow")
@@ -53,6 +54,6 @@ object MakePay  {
 						|"organisation_name": "Civil Damages Claims - Organisation 1"}""".stripMargin))
 				.check(substring("success")))
 		}
-		.pause(60)
+		.pause(60) */
 
 }

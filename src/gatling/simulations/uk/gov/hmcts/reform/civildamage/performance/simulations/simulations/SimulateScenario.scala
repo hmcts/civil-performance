@@ -51,6 +51,6 @@ class SimulateScenario extends Simulation {
     .pause(MaxThinkTime)
 
   setUp(
-    CreateUnSpecClaimSCN.inject(rampUsers(400).during(600))
+    CreateUnSpecClaimSCN.inject(rampUsers(300).during(600))
   ).protocols(httpProtocol)
 }
