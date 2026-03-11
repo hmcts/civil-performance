@@ -345,8 +345,8 @@ class CivilDamagesSimulation extends Simulation {
 testType match {
   case "perftest" =>
     setUp(
-      CUIR2SmallClaimsStressTest.inject(nothingFor(1),rampUsers(200) during (400)),
-      CUIR2FastTrackStressTest.inject(nothingFor(50),rampUsers(200) during (400)),
+      CUIR2SmallClaimsStressTest.inject(nothingFor(1),rampUsers(150) during (400)),
+      CUIR2FastTrackStressTest.inject(nothingFor(50),rampUsers(150) during (400)),
     ).protocols(httpProtocol)
       .assertions(assertions(testType))
   case "pipeline" =>
