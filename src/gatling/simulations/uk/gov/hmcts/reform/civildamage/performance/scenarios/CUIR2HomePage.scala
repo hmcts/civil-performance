@@ -22,6 +22,7 @@ object CUIR2HomePage {
         exec(http("CUIR2_010_005_Homepage")
           .get(CitizenURL + "/")
           .headers(CivilDamagesHeader.MoneyClaimNav)
+          .header("x-dynatrace-test", "TSN=01Home;LSN=Civil;LTN=Pipeline")
           .check(CsrfCheck.save)
           .check(substring("Sign in or create an account")))
       }
