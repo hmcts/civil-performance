@@ -3,6 +3,10 @@
   "extends": [
     "local>hmcts/.github:renovate-config"
   ],
+  "git-submodules": {
+    "enabled": true
+  },
+  "schedule": ["at any time"],
   "labels": [
     "dependencies"
   ],
@@ -21,6 +25,8 @@
   ],
   "packageRules": [
     {
+      "matchManagers": ["git-submodules"],
+      "matchPackageNames": ["common/common-performance"],
       "matchPackagePatterns": [
         "*"
       ],
@@ -30,7 +36,8 @@
       ],
       "groupName": "all non-major dependencies",
       "groupSlug": "all-minor-patch",
-      "automerge": true
+      "automerge": true,
+      "automergeType": "branch"
     }
   ],
   "prConcurrentLimit": 10
