@@ -7,38 +7,12 @@
     "enabled": true
   },
   "schedule": ["at any time"],
-  "labels": [
-    "dependencies"
-  ],
-  "helmv3": {
-    "bumpVersion": "patch"
-  },
-  "regexManagers": [
-    {
-      "fileMatch": [
-        "^Dockerfile$"
-      ],
-      "matchStrings": [
-        "datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\sARG .*?_VERSION=(?<currentValue>.*)\\s"
-      ]
-    }
-  ],
   "packageRules": [
     {
       "matchManagers": ["git-submodules"],
       "matchPackageNames": ["common/common-performance"],
-      "matchPackagePatterns": [
-        "*"
-      ],
-      "matchUpdateTypes": [
-        "minor",
-        "patch"
-      ],
-      "groupName": "all non-major dependencies",
-      "groupSlug": "all-minor-patch",
       "automerge": true,
       "automergeType": "branch"
     }
-  ],
-  "prConcurrentLimit": 10
+  ]
 }
