@@ -1,24 +1,26 @@
 {
   "data": {
+    "bilingualHint": null,
     "showCarmFields": "Yes",
-    "drawDirectionsOrderRequired": "No",
     "CaseAccessCategory": "SPEC_CLAIM",
+    "drawDirectionsOrderRequired": "No",
+    "featureToggleWA": "Prod",
     "caseManagementLocation": {
       "region": "2",
       "baseLocation": "231596"
     },
-    "featureToggleWA": "Prod",
     "claimsTrack": "fastTrack",
     "fastClaims": [],
     "isSdoR2NewScreen": "No",
     "fastTrackOrderAndHearingDetails": null,
     "setFastTrackFlag": "Yes",
+    "fastTrackPenalNoticeToggle": [],
     "fastTrackJudgesRecital": {
       "input": "Upon considering the statements of case and the information provided by the parties,"
     },
     "fastTrackAllocation": {
-      "assignComplexityBand": "No",
-      "band": null,
+      "assignComplexityBand": "Yes",
+      "band": "BAND_1",
       "reasons": null
     },
     "fastTrackAltDisputeResolutionToggle": [
@@ -38,12 +40,10 @@
     ],
     "fastTrackDisclosureOfDocuments": {
       "input1": "Standard disclosure shall be provided by the parties by uploading to the Digital Portal their list of documents by 4pm on",
-      "date1": "2025-06-12",
+      "date1": "2026-06-16",
       "input2": "Any request to inspect a document, or for a copy of a document, shall be made directly to the other party by 4pm on",
-      "date2": "2025-06-19",
-      "input3": "Requests will be complied with within 7 days of the receipt of the request.",
-      "input4": "Each party must upload to the Digital Portal copies of those documents on which they wish to rely at trial by 4pm on",
-      "date3": "2025-07-10"
+      "date2": "2026-06-23",
+      "input3": "Requests will be complied with within 7 days of the receipt of the request."
     },
     "fastTrackWitnessOfFactToggle": [
       "SHOW"
@@ -51,7 +51,7 @@
     "sdoR2FastTrackWitnessOfFact": {
       "sdoStatementOfWitness": "Each party must upload to the Digital Portal copies of the statements of all witnesses of fact on whom they intend to rely.",
       "sdoWitnessDeadline": "Witness statements shall be uploaded to the Digital Portal by 4pm on",
-      "sdoWitnessDeadlineDate": "2025-07-24",
+      "sdoWitnessDeadlineDate": "2026-07-07",
       "sdoWitnessDeadlineText": "Evidence will not be permitted at trial from a witness whose statement has not been uploaded in accordance with the Order, except with permission from the Court.",
       "sdoR2RestrictWitness": {
         "isRestrictWitness": "No",
@@ -75,17 +75,17 @@
     ],
     "fastTrackSchedulesOfLoss": {
       "input1": "The claimant must upload to the Digital Portal an up-to-date schedule of loss by 4pm on",
-      "date1": "2025-07-24",
+      "date1": "2026-08-25",
       "input2": "If the defendant wants to challenge this claim, upload to the Digital Portal counter-schedule of loss by 4pm on",
-      "date2": "2025-08-07",
+      "date2": "2026-09-08",
       "input3": "If there is a claim for future pecuniary loss and the parties have not already set out their case on periodical payments, they must do so in the respective schedule and counter-schedule."
     },
     "fastTrackTrialToggle": [
       "SHOW"
     ],
     "fastTrackHearingTime": {
-      "dateFrom": "2025-10-16",
-      "dateTo": "2025-12-11",
+      "dateFrom": "2026-10-20",
+      "dateTo": "2026-12-22",
       "hearingDuration": "ONE_HOUR",
       "otherHours": null,
       "otherMinutes": null,
@@ -100,20 +100,20 @@
     ],
     "hearingMethodValuesFastTrack": {
       "value": {
-        "code": "ccd375f6-6a85-441e-97e3-3588ab959787",
+        "code": "427496bb-6a7c-487e-8da7-7f7a903aab18",
         "label": "In Person"
       },
       "list_items": [
         {
-          "code": "ccd375f6-6a85-441e-97e3-3588ab959787",
+          "code": "427496bb-6a7c-487e-8da7-7f7a903aab18",
           "label": "In Person"
         },
         {
-          "code": "8bca6123-fb7a-4a86-86a1-b7c4ff2f2093",
+          "code": "a0b2568d-19d3-49c7-9eac-28f51eafadec",
           "label": "Telephone"
         },
         {
-          "code": "d1001976-2eaf-46a8-85ba-720a8b114e07",
+          "code": "dfaebf9c-9d4e-4cf6-94b4-81ab55241a6d",
           "label": "Video"
         }
       ]
@@ -138,7 +138,7 @@
         },
         {
           "code": "218723",
-          "label": "Barkingside Magistrates' Court - Cranbrook Road, Iiford - IG6 1HW"
+          "label": "Barkingside Magistrates' Court - Cranbrook Road, Ilford - IG6 1HW"
         },
         {
           "code": "229786",
@@ -197,8 +197,8 @@
           "label": "Birmingham Civil and Family Justice Centre - Priory Courts, 33 Bull Street - B4 6DS"
         },
         {
-          "code": "214320",
-          "label": "Blackpool County Court & Family Court - The Law Courts, Civic Centre, Chapel Street - FY1 5RJ"
+          "code": "999968",
+          "label": "Blackpool County Court - 2-8 Market Street, Blackpool - FY1 1ET"
         },
         {
           "code": "304576",
@@ -259,6 +259,10 @@
         {
           "code": "29656",
           "label": "Bromley County Court and Family Court - Court House, College Road - BR1 3PX"
+        },
+        {
+          "code": "784131",
+          "label": "Bromley Magistrates' Court - The Court House, 1 London Road, Bromley - BR1 1RA"
         },
         {
           "code": "448747",
@@ -353,6 +357,10 @@
           "label": "Darlington County Court and Family Court - 4 Coniscliffe Road - DL3 7RL"
         },
         {
+          "code": "476820",
+          "label": "Darlington Magistrates' Court and Family Court - Parkgate, Darlington - DL1 1RU"
+        },
+        {
           "code": "194172",
           "label": "Dartford County Court and Family Court - Home Gardens - DA1 1DX"
         },
@@ -386,7 +394,7 @@
         },
         {
           "code": "401452",
-          "label": "Fleetwood Magistrates Court - The Esplanade, Fleetwood, Lancashire - FY7 6AT"
+          "label": "Fleetwood Magistrates' Court - The Esplanade, Fleetwood, Lancashire - FY7 6AT"
         },
         {
           "code": "307399",
@@ -466,7 +474,7 @@
         },
         {
           "code": "471349",
-          "label": "Ipswich County Court and Family Hearing Centre - 8 Arcade Street - IP1 1EJ"
+          "label": "Ipswich County Court and Family Hearing Centre - 8 Arcade Street, Ipswich - IP1 1EJ"
         },
         {
           "code": "416742",
@@ -474,7 +482,7 @@
         },
         {
           "code": "767032",
-          "label": "Kidderminster Magistrates Court - Comberton Place, Kidderminster - DY10 1QQ"
+          "label": "Kidderminster Magistrates' Court - Comberton Place, Kidderminster - DY10 1QQ"
         },
         {
           "code": "671879",
@@ -537,6 +545,10 @@
           "label": "Llanelli Justice Centre - Court Buildings, Town Hall Square - SA15 3AW"
         },
         {
+          "code": "815728",
+          "label": "Loughborough Magistrates' Court - Pinfold Gate, Loughborough - LE11 1AZ"
+        },
+        {
           "code": "365554",
           "label": "Luton Justice Centre - Arndale House, Floors 4 & 5, Luton Point, Luton - LU1 2EN"
         },
@@ -590,7 +602,7 @@
         },
         {
           "code": "572158",
-          "label": "Mid and South East Northumberland Law Courts (Bedlington) - Schalkesmuhle Road - NE22 7LX"
+          "label": "Mid and South East Northumberland Law Courts (Bedlington) - Schalksmuhle Road - NE22 7LX"
         },
         {
           "code": "815997",
@@ -661,6 +673,10 @@
           "label": "Pontypridd County Court and Family Court - The Court House, Courthouse Street, Pontypridd - CF37 1JR"
         },
         {
+          "code": "490237",
+          "label": "Poole Magistrates' Court - The Law Courts, Park Road, Poole - BH15 2NS"
+        },
+        {
           "code": "846055",
           "label": "Port Talbot Justice Centre - Harbourside Road, Port Talbot - SA13 1SB"
         },
@@ -674,7 +690,7 @@
         },
         {
           "code": "379656",
-          "label": "Prestatyn Justice Centre - The Court House, Victoria Road, Prestatyn, Denbigshire - LL19 7TE"
+          "label": "Prestatyn Justice Centre - The Court House, Victoria Road, Prestatyn, Denbighshire - LL19 7TE"
         },
         {
           "code": "232580",
@@ -741,6 +757,10 @@
           "label": "South Tyneside County Court - Millbank, Secretan Way, Tyne & Wear - NE33 1RG"
         },
         {
+          "code": "330480",
+          "label": "Southampton (West Hampshire) Magistrates' Court - Southampton Courthouse, 100 The Avenue, Southampton - SO17 1EY"
+        },
+        {
           "code": "43104",
           "label": "Southampton Combined Court Centre - The Courts of Justice, London Road - SO15 2XQ"
         },
@@ -794,7 +814,7 @@
         },
         {
           "code": "195537",
-          "label": "Teesside Combined Court Centre - The Law Courts, Centre Square, Middlesborough - TS1 2AE"
+          "label": "Teesside Combined Court Centre - The Law Courts, Centre Square, Middlesbrough - TS1 2AE"
         },
         {
           "code": "497583",
@@ -905,10 +925,6 @@
           "label": "Worthing County Court - The Law Courts, Christchurch Road - BN11 1JD"
         },
         {
-          "code": "286747",
-          "label": "Worthing County Court sitting at Chichester - East Pallant House, 1 East Pallant, Chichester - PO19 1TY"
-        },
-        {
           "code": "637145",
           "label": "Wrexham County & Family Court - The Law Courts, Bodhyfryd, Wrexham - LL12 7BP"
         },
@@ -926,7 +942,7 @@
     "fastTrackHearingNotes": null,
     "sdoR2FastTrackUseOfWelshToggle": [],
     "fastTrackOrderWithoutJudgement": {
-      "input": "This order has been made without hearing. Each party has the right to apply to have this Order set aside or varied. Any such application must be received by the Court (together with the appropriate fee) by 4pm on 23 May 2025."
+      "input": "This order has been made without hearing. Each party has the right to apply to have this Order set aside or varied. Any such application must be received by the Court (together with the appropriate fee) by 4pm on 09 June 2026."
     },
     "sdoOrderDocument": {
       "documentLink": {
