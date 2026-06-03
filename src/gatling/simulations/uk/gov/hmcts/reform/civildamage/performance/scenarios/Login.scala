@@ -21,7 +21,8 @@ object Login {
     group("XUI_020_Login") {
       exec(flushHttpCache)
         .exec(http("XUI_020_005_Login")
-          .post(IdamUrl + "/login?client_id=xuiwebapp&redirect_uri=" + BaseURL + "/oauth2/callback&state=#{state}&nonce=#{nonce}&response_type=code&scope=profile%20openid%20roles%20manage-user%20create-user%20search-user&prompt=")
+          .post(IdamUrl + "/login?client_id=xuiwebapp&redirect_uri=" + BaseURL + "/oauth2/callback&state=#{state}&nonce=#{nonce}&response_type=code&" +
+            "scope=profile%20openid%20roles%20manage-user%20create-user%20search-user&code_challenge=#{code_challenge}&code_challenge_method=S256&prompt=")
           .formParam("username", "#{claimantuser}")
           .formParam("password", "#{password}")
           .formParam("azureLoginEnabled", "true")
@@ -31,11 +32,6 @@ object Login {
           .headers(Headers.navigationHeader)
           .headers(Headers.postHeader)
           .check(regex("Manage cases")))
-        
-        //see xui-webapp cookie capture in the Homepage scenario for details of why this is being used
-        .exec(addCookie(Cookie("xui-webapp", "#{xuiWebAppCookie}")
-          .withMaxAge(28800)
-          .withSecure(true)))
         
         .exec(Common.configurationui)
         
@@ -93,7 +89,8 @@ object Login {
     group("XUI_020_LALogin") {
       exec(flushHttpCache)
         .exec(http("XUI_020_005_Login")
-          .post(IdamUrl + "/login?client_id=xuiwebapp&redirect_uri=" + BaseURL + "/oauth2/callback&state=#{state}&nonce=#{nonce}&response_type=code&scope=profile%20openid%20roles%20manage-user%20create-user%20search-user&prompt=")
+          .post(IdamUrl + "/login?client_id=xuiwebapp&redirect_uri=" + BaseURL + "/oauth2/callback&state=#{state}&nonce=#{nonce}&response_type=code&" +
+            "scope=profile%20openid%20roles%20manage-user%20create-user%20search-user&code_challenge=#{code_challenge}&code_challenge_method=S256&prompt=")
           .formParam("username", "#{LAuser}")
           .formParam("password", "#{LApassword}")
           .formParam("azureLoginEnabled", "true")
@@ -103,11 +100,6 @@ object Login {
           .headers(Headers.navigationHeader)
           .headers(Headers.postHeader)
           .check(regex("Manage cases")))
-
-        //see xui-webapp cookie capture in the Homepage scenario for details of why this is being used
-        .exec(addCookie(Cookie("xui-webapp", "#{xuiWebAppCookie}")
-          .withMaxAge(28800)
-          .withSecure(true)))
 
         .exec(Common.configurationui)
 
@@ -136,7 +128,8 @@ object Login {
     group("XUI_020_Login") {
       exec(flushHttpCache)
         .exec(http("XUI_020_005_Login")
-          .post(IdamUrl + "/login?client_id=xuiwebapp&redirect_uri=" + BaseURL + "/oauth2/callback&state=#{state}&nonce=#{nonce}&response_type=code&scope=profile%20openid%20roles%20manage-user%20create-user%20search-user&prompt=")
+          .post(IdamUrl + "/login?client_id=xuiwebapp&redirect_uri=" + BaseURL + "/oauth2/callback&state=#{state}&nonce=#{nonce}&response_type=code&" +
+            "scope=profile%20openid%20roles%20manage-user%20create-user%20search-user&code_challenge=#{code_challenge}&code_challenge_method=S256&prompt=")
           .formParam("username", "#{judgeuser}")
           .formParam("password", "#{judgepassword}")
           .formParam("azureLoginEnabled", "true")
@@ -146,12 +139,7 @@ object Login {
           .headers(Headers.navigationHeader)
           .headers(Headers.postHeader)
           .check(regex("Manage cases")))
-        
-        //see xui-webapp cookie capture in the Homepage scenario for details of why this is being used
-        .exec(addCookie(Cookie("xui-webapp", "#{xuiWebAppCookie}")
-          .withMaxAge(28800)
-          .withSecure(true)))
-        
+
         .exec(Common.configurationui)
         
         .exec(Common.configJson)
@@ -210,7 +198,8 @@ object Login {
     group("XUI_020_Login") {
       exec(flushHttpCache)
         .exec(http("XUI_020_005_Login")
-          .post(IdamUrl + "/login?client_id=xuiwebapp&redirect_uri=" + BaseURL + "/oauth2/callback&state=#{state}&nonce=#{nonce}&response_type=code&scope=profile%20openid%20roles%20manage-user%20create-user%20search-user&prompt=")
+          .post(IdamUrl + "/login?client_id=xuiwebapp&redirect_uri=" + BaseURL + "/oauth2/callback&state=#{state}&nonce=#{nonce}&response_type=code&" +
+            "scope=profile%20openid%20roles%20manage-user%20create-user%20search-user&code_challenge=#{code_challenge}&code_challenge_method=S256&prompt=")
           .formParam("username", "#{judgeregion4user}")
           .formParam("password", "#{judgeregion4password}")
           .formParam("azureLoginEnabled", "true")
@@ -220,11 +209,6 @@ object Login {
           .headers(Headers.navigationHeader)
           .headers(Headers.postHeader)
           .check(regex("Manage cases")))
-        
-        //see xui-webapp cookie capture in the Homepage scenario for details of why this is being used
-        .exec(addCookie(Cookie("xui-webapp", "#{xuiWebAppCookie}")
-          .withMaxAge(28800)
-          .withSecure(true)))
         
         .exec(Common.configurationui)
         
@@ -280,7 +264,8 @@ object Login {
     group("XUI_020_Login") {
       exec(flushHttpCache)
         .exec(http("XUI_020_005_Login")
-          .post(IdamUrl + "/login?client_id=xuiwebapp&redirect_uri=" + BaseURL + "/oauth2/callback&state=#{state}&nonce=#{nonce}&response_type=code&scope=profile%20openid%20roles%20manage-user%20create-user%20search-user&prompt=")
+          .post(IdamUrl + "/login?client_id=xuiwebapp&redirect_uri=" + BaseURL + "/oauth2/callback&state=#{state}&nonce=#{nonce}&response_type=code&" +
+            "scope=profile%20openid%20roles%20manage-user%20create-user%20search-user&code_challenge=#{code_challenge}&code_challenge_method=S256&prompt=")
           .formParam("username", "#{tribunaluser}")
           .formParam("password", "#{tribunalpassword}")
           .formParam("azureLoginEnabled", "true")
@@ -290,11 +275,6 @@ object Login {
           .headers(Headers.navigationHeader)
           .headers(Headers.postHeader)
           .check(regex("Manage cases")))
-        
-        //see xui-webapp cookie capture in the Homepage scenario for details of why this is being used
-        .exec(addCookie(Cookie("xui-webapp", "#{xuiWebAppCookie}")
-          .withMaxAge(28800)
-          .withSecure(true)))
         
         .exec(Common.configurationui)
         
@@ -352,7 +332,8 @@ object Login {
     group("XUI_020_Login") {
       exec(flushHttpCache)
         .exec(http("XUI_020_005_Login")
-          .post(IdamUrl + "/login?client_id=xuiwebapp&redirect_uri=" + BaseURL + "/oauth2/callback&state=#{state}&nonce=#{nonce}&response_type=code&scope=profile%20openid%20roles%20manage-user%20create-user%20search-user&prompt=")
+          .post(IdamUrl + "/login?client_id=xuiwebapp&redirect_uri=" + BaseURL + "/oauth2/callback&state=#{state}&nonce=#{nonce}&response_type=code&" +
+            "scope=profile%20openid%20roles%20manage-user%20create-user%20search-user&code_challenge=#{code_challenge}&code_challenge_method=S256&prompt=")
           .formParam("username", "#{centreadminuser}")
           .formParam("password", "#{tribunalpassword}")
           .formParam("azureLoginEnabled", "true")
@@ -362,11 +343,6 @@ object Login {
           .headers(Headers.navigationHeader)
           .headers(Headers.postHeader)
           .check(regex("Manage cases")))
-        
-        //see xui-webapp cookie capture in the Homepage scenario for details of why this is being used
-        .exec(addCookie(Cookie("xui-webapp", "#{xuiWebAppCookie}")
-          .withMaxAge(28800)
-          .withSecure(true)))
         
         .exec(Common.configurationui)
         

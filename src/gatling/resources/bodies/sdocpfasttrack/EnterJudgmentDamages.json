@@ -1,5 +1,6 @@
 {
   "data": {
+    "bilingualHint": null,
     "showCarmFields": "Yes",
     "drawDirectionsOrderRequired": "No",
     "CaseAccessCategory": "SPEC_CLAIM",
@@ -11,6 +12,7 @@
     "description": ""
   },
   "event_data": {
+    "bilingualHint": null,
     "showCarmFields": "Yes",
     "drawDirectionsOrderRequired": "No",
     "CaseAccessCategory": "SPEC_CLAIM",
