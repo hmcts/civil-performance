@@ -625,7 +625,7 @@ object CUIR2ClaimCreationFastTrack {
          .get(CitizenURL+"/claim/check-and-send")
           .headers(CivilDamagesHeader.CUIR2Get)
           .check(CsrfCheck.save)
-          .check(substring("Equality and diversity question"))
+          .check(substring("Check your answers|Equality and diversity questions"))
         )
         
       }

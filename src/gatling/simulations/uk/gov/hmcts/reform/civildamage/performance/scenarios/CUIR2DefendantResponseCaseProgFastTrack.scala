@@ -574,7 +574,7 @@ object CUIR2DefendantResponseCaseProgFastTrack {
           .get(CivilUiURL + "/case/#{claimNumber}/response/check-and-send")
           .headers(CivilDamagesHeader.CUIR2Get)
           .check(CsrfCheck.save)
-          .check(substring("Equality and diversity questions"))
+          .check(substring("Check your answers|Equality and diversity questions"))
         )
     
       }
