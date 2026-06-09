@@ -281,7 +281,7 @@ object CivilCitizen {
           .formParam("documentUploadProceed", "true")
           .formParam("saveAndContinue", "true")
           .check(CsrfCheck.save)
-          .check(substring("Check your answers|Equality and diversity questions")))
+          .check(regex("Check your answers|Equality and diversity questions")))
       }
       .pause(MinThinkTime, MaxThinkTime)
 

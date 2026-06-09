@@ -627,7 +627,7 @@ object CUIR2ClaimCreation {
          .get(CitizenURL+"/claim/check-and-send")
           .headers(CivilDamagesHeader.CUIR2Get)
           .check(CsrfCheck.save)
-          .check(substring("Check your answers|Equality and diversity questions"))
+          .check(regex("Check your answers|Equality and diversity questions"))
         )
         
       }
