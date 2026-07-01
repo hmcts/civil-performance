@@ -10,14 +10,21 @@ object CreateUser {
 
   val IdamAPIURL = Environment.idamAPIURL
 
+  // Guaranteed-unique per virtual user. A 5-char random suffix (52^5) collides as accounts
+  // accumulate across nightly runs, so two VUs can be minted the same email: the second gets a
+  // 409 from IDAM and both journeys end up on the SAME claimant account, whose single draft
+  // (keyed by userId in civil-citizen-ui) they then submit concurrently -> the shared-draft race
+  // (DTSCCI-5716). A UUID removes any collision, so every VU has its own account and draft.
+  private def uniqueSuffix() = java.util.UUID.randomUUID().toString.replace("-", "")
+
   val newUserFeeder = Iterator.continually(Map(
-    "claimantEmailAddress" -> ("cuiimtclaimantuser" + Common.randomString(5) + "@gmail.com"),
+    "claimantEmailAddress" -> ("cuiimtclaimantuser" + uniqueSuffix() + "@gmail.com"),
     "password" -> "Password12!",
     "role" -> "citizen"
   ))
-  
+
   val newUserFeederDef = Iterator.continually(Map(
-    "defEmailAddress" -> ("cuiimtdefuser" + Common.randomString(5) + "@gmail.com"),
+    "defEmailAddress" -> ("cuiimtdefuser" + uniqueSuffix() + "@gmail.com"),
     "password" -> "Password12!",
     "role" -> "citizen"
   ))
