@@ -319,8 +319,8 @@ object CUIR2ClaimCreation {
           .formParam("title", "Mr")
           .formParam("firstName", "Claimant First")
           .formParam("lastName", "Claimant Last")
-          .formParam("primaryAddressPostcode","")
-          .formParam("addressList", "")
+          .formParam("primaryAddressPostcode", "TW3 3SD")
+          .formParam("addressList", "25434297")
           .formParam("addressLine1", "28 HIBERNIA GARDENS")
           .formParam("addressLine2", "")
           .formParam("addressLine3", "")
@@ -350,7 +350,6 @@ object CUIR2ClaimCreation {
           .formParam("day", "01")
           .formParam("month", "08")
           .formParam("year", "1983")
-          .formParam("saveAndContinue", "true")
           .check(CsrfCheck.save)
           .check(substring("Enter a phone number")))
       }
@@ -365,7 +364,6 @@ object CUIR2ClaimCreation {
           .headers(CivilDamagesHeader.CUIR2Post)
           .formParam("_csrf", "#{csrf}")
           .formParam("telephoneNumber", "07234567890")
-          .formParam("saveAndContinue", "true")
           .check(substring("You have completed 3 of 7 sections")))
       }
       .pause(MinThinkTime, MaxThinkTime)
@@ -409,9 +407,9 @@ object CUIR2ClaimCreation {
           .formParam("title", "Mr")
           .formParam("firstName", "Def First")
           .formParam("lastName", "Def Last")
-          .formParam("primaryAddressPostcode", "")
-          .formParam("addressList", "")
-          .formParam("addressLine1", "10, HIBERNIA GARDENS")
+          .formParam("primaryAddressPostcode", "TW3 3SD")
+          .formParam("addressList", "25434287")
+          .formParam("addressLine1", "10 HIBERNIA GARDENS")
           .formParam("addressLine2", "")
           .formParam("addressLine3", "")
           .formParam("city", "HOUNSLOW")
@@ -430,7 +428,6 @@ object CUIR2ClaimCreation {
           .headers(CivilDamagesHeader.CUIR2Post)
           .formParam("_csrf", "#{csrf}")
           .formParam("emailAddress", "civilmoneyclaimsdemo@gmail.com")
-          .formParam("saveAndContinue", "true")
           .check(CsrfCheck.save)
           .check(substring("Their phone number")))
       }
@@ -445,9 +442,8 @@ object CUIR2ClaimCreation {
           .headers(CivilDamagesHeader.CUIR2Post)
           .formParam("_csrf", "#{csrf}")
           .formParam("telephoneNumber", "07234567890")
-          .formParam("saveAndContinue", "true")
         //  .check(CsrfCheck.save)
-          .check(substring("Make a money claim")))
+          .check(substring("You have completed 4 of 7 sections")))
       }
       .pause(MinThinkTime, MaxThinkTime)
   
@@ -485,7 +481,6 @@ object CUIR2ClaimCreation {
           .formParam("claimAmountRows[3][reason]", "")
           .formParam("claimAmountRows[3][amount]", "")
           .formParam("totalAmount", "#{CUIR2SmallClaimsAmount}")
-          .formParam("saveAndContinue", "true")
           .check(CsrfCheck.save)
           .check(substring("Do you want to claim interest?")))
       }
@@ -500,7 +495,6 @@ object CUIR2ClaimCreation {
           .headers(CivilDamagesHeader.CUIR2Post)
           .formParam("_csrf", "#{csrf}")
           .formParam("option", "no")
-          .formParam("saveAndContinue", "true")
           .check(CsrfCheck.save)
           .check(substring("Do you have a Help With Fees reference number?")))
       }
@@ -514,9 +508,10 @@ object CUIR2ClaimCreation {
          .post(CitizenURL+"/claim/help-with-fees")
           .headers(CivilDamagesHeader.CUIR2Post)
           .formParam("_csrf", "#{csrf}")
+          //.formParam("helpWithFeesNumber", "")
+          //.formParam("declared", "no")
           .formParam("referenceNumber", "")
           .formParam("option", "no")
-          .formParam("saveAndContinue", "true")
           .check(CsrfCheck.save)
           .check(substring("Total amount you’re claiming")))
       }
@@ -530,7 +525,6 @@ object CUIR2ClaimCreation {
          .post(CitizenURL+"/claim/total")
           .headers(CivilDamagesHeader.CUIR2Post)
           .formParam("_csrf", "#{csrf}")
-          .formParam("saveAndContinue", "true")
          // .check(CsrfCheck.save)
           .check(substring("You have completed 5 of 7 sections")))
       }
@@ -559,7 +553,6 @@ object CUIR2ClaimCreation {
           .headers(CivilDamagesHeader.CUIR2Post)
           .formParam("_csrf", "#{csrf}")
           .formParam("text", "Perftest Reason")
-          .formParam("saveAndContinue", "true")
           .check(CsrfCheck.save)
           .check(substring("Timeline of events")))
       }
@@ -590,13 +583,12 @@ object CUIR2ClaimCreation {
           .formParam("rows[3][month]", "")
           .formParam("rows[3][year]", "")
           .formParam("rows[3][description]", "")
-          .formParam("saveAndContinue", "true")
           .check(CsrfCheck.save)
           .check(substring("List your evidence")))
       }
       .pause(MinThinkTime, MaxThinkTime)
-  
-  
+
+
       /*======================================================================================
                * Civil Citizen -  2.Prepare your claim - Claim evidences
     ==========================================================================================*/
@@ -613,7 +605,6 @@ object CUIR2ClaimCreation {
           .formParam("evidenceItem[2][description]","")
           .formParam("evidenceItem[3][type]","")
           .formParam("evidenceItem[3][description]","")
-          .formParam("saveAndContinue", "true")
           .check(substring("You have completed 6 of 7 sections")))
       }
       .pause(MinThinkTime, MaxThinkTime)
@@ -626,7 +617,7 @@ object CUIR2ClaimCreation {
         exec(http("CUICPSC_Claimant_410_005_CheckAndSendGet")
          .get(CitizenURL+"/claim/check-and-send")
           .headers(CivilDamagesHeader.CUIR2Get)
-          .check(CsrfCheck.save)
+          //.check(CsrfCheck.save)
           .check(regex("Check your answers|Equality and diversity questions"))
         )
         
@@ -634,18 +625,18 @@ object CUIR2ClaimCreation {
       .pause(MinThinkTime, MaxThinkTime)
   
       /*======================================================================================
-               * Civil Citizen -  PCQ Questionaire Opt out
+               * Civil Citizen -  PCQ Questionaire Opt out - 06/26: removed
     ==========================================================================================*/
-      .group("CUICPSC_Claimant_420_PCQQuestionaire") {
-        exec(http("CUICPSC_Claimant_420_005_PCQQuestionaire")
-         .post("https://pcq.perftest.platform.hmcts.net/opt-out")
-          .headers(CivilDamagesHeader.CUIR2Post)
-          .formParam("_csrf", "#{csrf}")
-          .formParam("opt-out-button", "")
-          .check(CsrfCheck.save)
-          .check(substring("Check your answers")))
-      }
-      .pause(MinThinkTime, MaxThinkTime)
+//      .group("CUICPSC_Claimant_420_PCQQuestionaire") {
+//        exec(http("CUICPSC_Claimant_420_005_PCQQuestionaire")
+//         .post("https://pcq.perftest.platform.hmcts.net/opt-out")
+//          .headers(CivilDamagesHeader.CUIR2Post)
+//          .formParam("_csrf", "#{csrf}")
+//          .formParam("opt-out-button", "")
+//          .check(CsrfCheck.save)
+//          .check(substring("Check your answers")))
+//      }
+//      .pause(MinThinkTime, MaxThinkTime)
   
       /*======================================================================================
                * Civil Citizen -  2.Prepare your claim - Check And Send Post
@@ -658,11 +649,9 @@ object CUIR2ClaimCreation {
           .formParam("type", "basic")
           .formParam("acceptNoChangesAllowed", "true")
           .formParam("signed", "true")
-          .formParam("saveAndContinue", "true")
           .check(substring("Claim submitted"))
           .check(regex("""/claim/(\d+)/fee""").find.saveAs("claimNumber"))
-          
-         // .check (css (".reference-number>h1.bold-large").saveAs ("claimNumber"))
+
         )
       }
       .pause(MinThinkTime, MaxThinkTime)
