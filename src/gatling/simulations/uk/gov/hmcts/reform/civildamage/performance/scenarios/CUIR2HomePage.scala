@@ -20,7 +20,7 @@ object CUIR2HomePage {
       .exec(flushCookieJar)
       .group("CUIR2_010_Homepage") {
         exec(http("CUIR2_010_005_Homepage")
-          .get(CitizenURL + "/")
+          .get(CitizenURL)
           .headers(CivilDamagesHeader.MoneyClaimNav)
           .header("x-dynatrace-test", "TSN=01Home;LSN=Civil;LTN=Pipeline")
           .check(CsrfCheck.save)

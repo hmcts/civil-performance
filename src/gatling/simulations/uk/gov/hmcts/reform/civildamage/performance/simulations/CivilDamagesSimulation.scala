@@ -161,15 +161,14 @@ class CivilDamagesSimulation extends Simulation {
 * Below scenario is for   Small Claims - CUI R2 Civil Case progression -Full Scenario
 ======================================================================================*/
 	val CUIR2SmallClaimsCaseProgression = scenario(" CUIR2 CaseProgression Small Claims")
-		.feed(cpLoginFeeder) .feed(cpfulltestsmallclaimsFeeder)
+		.feed(cpLoginFeeder) //.feed(cpfulltestsmallclaimsFeeder)
 		.exitBlockOnFail {
 		exec(_.set("CUIR2SmallClaimsAmount", s"${smallClaimsAmount}"))
 			//.exec(_.set("CourtLocation", "9000")) - WIP
 			.exec(_.set("env", s"${env}"))
       .exec(_.set("testType", s"${testType}"))
 				.exec(CreateUser.CreateDefCitizen)
-				.repeat(1) {
-					exec(CreateUser.CreateClaimantCitizen)
+					.exec(CreateUser.CreateClaimantCitizen)
 						.exec(CUIR2HomePage.CUIR2HomePage)
 						.exec(CUIR2Login.CUIR2Login)
 						.exec(CUIR2ClaimCreation.run)
@@ -177,7 +176,6 @@ class CivilDamagesSimulation extends Simulation {
 						.pause(20)
 						.exec(CivilAssignCase.cuiassign)
 						.pause(10)
-				}
 				// below is for defendant response for case prog small track
 				.exec(CUIR2HomePage.CUIR2HomePage)
 				.exec(CUIR2Login.CUIR2DefLogin)
