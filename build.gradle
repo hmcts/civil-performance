@@ -10,5 +10,6 @@ java {
 
 performance {
     simulationClass = 'uk.gov.hmcts.reform.civildamage.performance.simulations.CivilDamagesSimulation'
-    transactionNamesToGraph = ['CUICPSC_Claimant_470_CardDetail_ConfirmCardDetail', 'CUICPSC_DefResponse_390_CheckAndSubmit', 'CUICPSC_ClaimantIntention_100_CheckAndSubmit']
+    transactionNamesToGraph = ['CUICPSC_Claimant_470_CardDetail_ConfirmCardDetail', 
+                               'CUICPSC_DefResponse_390_CheckAndSubmit', 'CUICPSC_ClaimantIntention_100_CheckAndSubmit']
 }
