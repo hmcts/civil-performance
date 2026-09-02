@@ -23,7 +23,6 @@ object CUIR2HomePage {
           .get(CitizenURL)
           .headers(CivilDamagesHeader.MoneyClaimNav)
           .header("x-dynatrace-test", "TSN=01Home;LSN=Civil;LTN=Pipeline")
-          .check(CsrfCheck.save)
           .check(substring("Sign in or create an account")))
       }
       .pause(MinThinkTime, MaxThinkTime)
