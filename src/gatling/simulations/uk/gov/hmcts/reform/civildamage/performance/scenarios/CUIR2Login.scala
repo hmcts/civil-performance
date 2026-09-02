@@ -2,7 +2,7 @@ package uk.gov.hmcts.reform.civildamage.performance.scenarios
 
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
-import uk.gov.hmcts.reform.civildamage.performance.scenarios.utils.{CivilDamagesHeader, Environment}
+import uk.gov.hmcts.reform.civildamage.performance.scenarios.utils.{CivilDamagesHeader, CsrfCheck, Environment}
 
 object CUIR2Login {
   
@@ -20,40 +20,91 @@ object CUIR2Login {
   val CUIR2Login =
     
     group("CUIR2_Claimant_020_Login") {
-      exec(flushHttpCache)
-        .exec(http("CUIR2_Claimant_020_005_Login")
-          .post(IdamUrl + "/login?client_id=civil_citizen_ui&response_type=code&redirect_uri=" + CitizenURL + "/oauth2/callback&scope=profile%20openid%20roles%20manage-user%20create-user%20search-user")
-          .headers(CivilDamagesHeader.CivilCitizenPost)
-          .header("cache-control", "max-age=0")
-          .header("sec-fetch-user", "?1")
-          .header("upgrade-insecure-requests", "1")
-          .formParam("username", "#{claimantEmailAddress}")
-          .formParam("password", "#{password}")
-          .formParam("selfRegistrationEnabled", "true")
-          .formParam("_csrf", "#{csrf}")
-          .check(substring("Your money claims account"))
-        )
+      exec(http("CUIR2_Claimant_020_005_Login")
+        .get(IdamUrl + "/enter-email")
+        .headers(CivilDamagesHeader.CUILoginGet)
+        .check(CsrfCheck.save)
+        .check(substring("Enter your email address")))
     }
-      .pause(MinThinkTime, MaxThinkTime)
+
+    .pause(MinThinkTime, MaxThinkTime)
+
+    /*===============================================================================================
+    * Enter Email
+    ===============================================================================================*/
+
+    .group("CUIR2_Claimant_023_Login_EnterEmail") {
+      exec(http("CUIR2_Claimant_023_005_Login_EnterEmail")
+        .post(IdamUrl + "/enter-email")
+        .headers(CivilDamagesHeader.CUIR2Post)
+        .formParam("email", "#{claimantEmailAddress}")
+        .formParam("_csrf", "#{csrf}")
+        .check(CsrfCheck.save)
+        .check(substring("Enter your password")))
+    }
+
+    .pause(MinThinkTime, MaxThinkTime)
+
+    /*===============================================================================================
+    * Enter Password (login)
+    ===============================================================================================*/
+
+    .group("CUIR2_Claimant_026_Login_EnterPassword") {
+      exec(http("CUIR2_Claimant_026_005_Login_EnterPassword")
+        .post(IdamUrl + "/enter-password")
+        .headers(CivilDamagesHeader.CUIR2Post)
+        .formParam("action", "_submit")
+        .formParam("password", "#{password}")
+        .formParam("_csrf", "#{csrf}")
+        .check(substring("Your money claims account")))
+    }
+    .pause(MinThinkTime, MaxThinkTime)
   
   
   /*======================================================================================
                      * Civil UI Claim - Sign In
   ==============================================================================================*/
   val CUIR2DefLogin =
-  group("CUIR2_Def_020_Login") {
-    exec(flushHttpCache)
-    .exec(http("CUIR2_Def_020_Login")
-      .post(IdamUrl + "/login?client_id=civil_citizen_ui&response_type=code&redirect_uri=" + CitizenURL + "/oauth2/callback&scope=profile%20openid%20roles%20manage-user%20create-user%20search-user")
-      .headers(CivilDamagesHeader.MoneyClaimSignInHeader)
-      .formParam("username", "#{defEmailAddress}")
-      .formParam("password", "Password12!")
-      .formParam("selfRegistrationEnabled", "true")
-      .formParam("_csrf", "#{csrf}")
-      .check(status.in(200, 304))
-      .check(substring("Claims made against you"))
-    )
-  }
+
+    group("CUIR2_Defendant_020_Login") {
+      exec(http("CUIR2_Defendant_020_005_Login")
+        .get(IdamUrl + "/enter-email")
+        .headers(CivilDamagesHeader.CUILoginGet)
+        .check(CsrfCheck.save)
+        .check(substring("Enter your email address")))
+    }
+
+    .pause(MinThinkTime, MaxThinkTime)
+
+    /*===============================================================================================
+    * Enter Email
+    ===============================================================================================*/
+
+    .group("CUIR2_Defendant_023_Login_EnterEmail") {
+      exec(http("CUIR2_Defendant_023_005_Login_EnterEmail")
+        .post(IdamUrl + "/enter-email")
+        .headers(CivilDamagesHeader.CUIR2Post)
+        .formParam("email", "#{defEmailAddress}")
+        .formParam("_csrf", "#{csrf}")
+        .check(CsrfCheck.save)
+        .check(substring("Enter your password")))
+    }
+
+    .pause(MinThinkTime, MaxThinkTime)
+
+    /*===============================================================================================
+    * Enter Password (login)
+    ===============================================================================================*/
+
+    .group("CUIR2_Defendant_026_Login_EnterPassword") {
+      exec(http("CUIR2_Defendant_026_005_Login_EnterPassword")
+        .post(IdamUrl + "/enter-password")
+        .headers(CivilDamagesHeader.CUIR2Post)
+        .formParam("action", "_submit")
+        .formParam("password", "#{password}")
+        .formParam("_csrf", "#{csrf}")
+        .check(substring("Your money claims account")))
+    }
     .pause(MinThinkTime, MaxThinkTime)
   
   
@@ -62,20 +113,47 @@ object CUIR2Login {
   *=====================================================================================*/
   
   val CUIR2ClaimantIntentionLogin =
-    
-    group("CUIR2_ClaimantIntention_020_Login") {
-      exec(flushHttpCache)
-        .exec(http("CUIR2_ClaimantIntention_020_005_Login")
-          .post(IdamUrl + "/login?client_id=civil_citizen_ui&response_type=code&redirect_uri=" + CitizenURL + "/oauth2/callback&scope=profile%20openid%20roles%20manage-user%20create-user%20search-user")
-          .headers(CivilDamagesHeader.CivilCitizenPost)
-          .formParam("username", "#{claimantEmailAddress}")
-          .formParam("password", "#{password}")
-          .formParam("selfRegistrationEnabled", "true")
-          .formParam("_csrf", "#{csrf}")
-          .check(substring("Your money claims account"))
-        )
+
+    group("CUIR2_Claimantintention_020_Login") {
+      exec(http("CUIR2_Claimantintention_020_005_Login")
+        .get(IdamUrl + "/enter-email")
+        .headers(CivilDamagesHeader.CUILoginGet)
+        .check(CsrfCheck.save)
+        .check(substring("Enter your email address")))
     }
-      .pause(MinThinkTime, MaxThinkTime)
+
+    .pause(MinThinkTime, MaxThinkTime)
+
+    /*===============================================================================================
+    * Enter Email
+    ===============================================================================================*/
+
+    .group("CUIR2_Claimantintention_023_Login_EnterEmail") {
+      exec(http("CUIR2_Claimantintention_023_005_Login_EnterEmail")
+        .post(IdamUrl + "/enter-email")
+        .headers(CivilDamagesHeader.CUIR2Post)
+        .formParam("email", "#{claimantEmailAddress}")
+        .formParam("_csrf", "#{csrf}")
+        .check(CsrfCheck.save)
+        .check(substring("Enter your password")))
+    }
+
+    .pause(MinThinkTime, MaxThinkTime)
+
+    /*===============================================================================================
+    * Enter Password (login)
+    ===============================================================================================*/
+
+    .group("CUIR2_Claimantintention_026_Login_EnterPassword") {
+      exec(http("CUIR2_Claimantintention_026_005_Login_EnterPassword")
+        .post(IdamUrl + "/enter-password")
+        .headers(CivilDamagesHeader.CUIR2Post)
+        .formParam("action", "_submit")
+        .formParam("password", "#{password}")
+        .formParam("_csrf", "#{csrf}")
+        .check(substring("Your money claims account")))
+    }
+    .pause(MinThinkTime, MaxThinkTime)
   
   
 }
