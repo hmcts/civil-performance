@@ -23,6 +23,9 @@ class CivilDamagesSimulation extends Simulation {
 	val cpLoginFeeder = csv("cuir2cplogin.csv").circular
 	val assigncasesFeeder=csv("assigncasesfeeder.csv").circular
 	val cpfulltestsmallclaimsFeeder=csv("cuir2cpsmallclaims.csv").circular
+	//Draft Search - citizens that already have a draft claim (header: claimantEmailAddress,userId)
+	//Use CUIDraftClaimsRedis.csv for the Redis baseline, CUIDraftClaimsDB.csv once the CMC DB draft store is live
+	val draftSearchFeeder = csv("CUIDraftClaimsRedis.csv").circular
 
 	
 	
@@ -41,12 +44,13 @@ class CivilDamagesSimulation extends Simulation {
 	/* TEST TYPE DEFINITION */
 	/* pipeline = nightly pipeline against the AAT environment (see the Jenkins_nightly file) */
 	/* perftest (default) = performance test against the perftest environment */
-	val testType = scala.util.Properties.envOrElse("TEST_TYPE", "perftest")
+	val testType = scala.util.Properties.envOrElse("TEST_TYPE", "draftdata")
 
 	//set the environment based on the test type
 	val environment = testType match {
 		case "perftest" => "perftest"
 		case "pipeline" => "perftest"
+		case "draftdata" => "perftest"   //creates Redis draft claims for the Draft Search scenario
 		case _ => "**INVALID**"
 	}
 
@@ -58,6 +62,8 @@ class CivilDamagesSimulation extends Simulation {
 	/* PERFORMANCE TEST CONFIGURATION */
 	val claimsTargetPerHour: Double = 2//90
 	val defResponseAndIntentTargetPerHour: Double = 1//20
+	val draftSearchUsers = 300           //TODO: calibrate against the reads/sec target (300 over 1100s ~ 980 searches/hour)
+	val draftDataUsers = 1               //number of Redis drafts to create (one citizen user per draft) - set to 1000 once 1 user works
 	
 	val rampUpDurationMins = 5
 	val rampDownDurationMins = 5
@@ -196,7 +202,7 @@ class CivilDamagesSimulation extends Simulation {
 
 				// 🎯 **80% Users Exit Here**
 				.randomSwitch(
-					80.0 -> exec { session =>
+					100.0 -> exec { session =>
 						println("✅ Stopping Execution for 80% Users")
 						session.markAsFailed
 					}
@@ -206,7 +212,7 @@ class CivilDamagesSimulation extends Simulation {
 				)
 				// below is for SDO for small claims
 
-				.exec(Homepage.XUIHomePage)
+			/*	.exec(Homepage.XUIHomePage)
 				.exec(Login.XUIJudgeLogin)
 				.exec(SDOCivilProg.MediaionUnsuccessfulBeforeSDO)
 				//.exec(SDOCivilProg.SDOSmallClaimsForCUIR2)
@@ -260,7 +266,7 @@ class CivilDamagesSimulation extends Simulation {
 				.exec(Homepage.XUIHomePage)
 				.exec(Login.XUIJudgeLogin)
 				.exec(CUIR2CaseProgression.FinalGeneralOrders)
-				.exec(EXUIMCLogin.manageCase_Logout)
+				.exec(EXUIMCLogin.manageCase_Logout)*/
 				//YR: Added below code to delete user after use
 				//.exec(CUIClaimCreationWithAPI.deleteClaimantUser)
 				//.exec(CUIClaimCreationWithAPI.deleteDefendantUser)
@@ -469,25 +475,49 @@ class CivilDamagesSimulation extends Simulation {
  */
 	
 	val CivilUIR2ClaimCreationWithAPIScenario = scenario(" Civil UI R2 Claim Creation with API")
-		
 		.exitBlockOnFail {
-			
-			
-			//Claim Creation
-			/*	exec(CreateUser.CreateDefCitizen)
-          .repeat(1) {*/
 			exec(CreateUser.CreateClaimantCitizen)
 				.exec(CivilAssignCase.AuthForClaimCreationAPI)
 				.exec(S2S.s2s())
-				
 					.exec(CUIClaimCreationWithAPI.getUserId)
 				.repeat(1) {
 					exec(CUIClaimCreationWithAPI.CreateClaimCUIR2WithAPI)
 						.pause(2)
 				}
-				//YR: Added below code to delete user after use
-				//.exec(CUIClaimCreationWithAPI.deleteClaimantUser)
 				}
+	
+	/*======================================================================================
+* Draft Store - data prep: create one Redis draft claim per new citizen user
+* Run with TEST_TYPE=draftdata. Output: CUIDraftClaimsRedis.csv (add header claimantEmailAddress,userId)
+======================================================================================*/
+	val CUIDraftDataCreationScenario = scenario("CUI Draft Claim Data Creation")
+		.exec(flushHttpCache)
+		.exitBlockOnFail {
+			exec(_.set("env", s"${env}"))
+				.exec(CreateUser.CreateClaimantCitizen)
+				.exec(CUIClaimCreationWithAPI.AuthForClaimCreationAPI)   //saves bearerToken + idToken
+				.exec(CUIClaimCreationWithAPI.getUserId)
+				.exec(CUIClaimCreationWithAPI.CreateDraftClaimRedisLoggedIn)   //login first, then testing-support (as per dev functional tests)
+				//once civil-service #8135 / CUI #8136 are live, swap the line above for:
+				//.exec(S2S.s2s()).exec(CUIClaimCreationWithAPI.CreateDraftClaimDB)
+		}
+
+	/*======================================================================================
+* Draft Store - Draft Search: citizen logs in and resumes an existing draft claim (read-only)
+* Same script for Redis (flag OFF) and CMC DB (flag ON) runs
+======================================================================================*/
+	val CUIDraftSearchScenario = scenario("CUI Draft Search")
+		.exec(flushHttpCache)
+		.feed(draftSearchFeeder)
+		.exitBlockOnFail {
+			exec(_.set("env", s"${env}"))
+				.exec(_.set("testType", s"${testType}"))
+				.exec(session => if (session.contains("password")) session else session.set("password", "Password12!"))
+				.exec(CUIR2HomePage.CUIR2HomePage)
+				.exec(CUIR2Login.CUIR2Login)
+				.exec(CUIDraftSearch.DraftSearch)
+				.exec(CUIR2Logout.CUILogout)
+		}
 
 
   //defines the test assertions, based on the test type
@@ -523,8 +553,13 @@ testType match {
     setUp(
       CUIR2SmallClaimsCaseProgression.inject(nothingFor(1),rampUsers(150) during (1100)),
       CUIR2FastTrackCaseProgression.inject(nothingFor(50),rampUsers(150) during (1100)),
+      CUIDraftSearchScenario.inject(nothingFor(30),rampUsers(draftSearchUsers) during (1100)),
     ).protocols(httpProtocol)
       .assertions(assertions(testType))
+  case "draftdata" =>
+    setUp(
+      CUIDraftDataCreationScenario.inject(rampUsers(200) during (1200))
+    ).protocols(httpProtocol)
   case "pipeline" =>
     setUp(
       CUIR2SmallClaimsCaseProgression.inject(rampUsers(5) during(15)).pauses(constantPauses)
