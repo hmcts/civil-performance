@@ -44,7 +44,7 @@ class CivilDamagesSimulation extends Simulation {
 	/* TEST TYPE DEFINITION */
 	/* pipeline = nightly pipeline against the AAT environment (see the Jenkins_nightly file) */
 	/* perftest (default) = performance test against the perftest environment */
-	val testType = scala.util.Properties.envOrElse("TEST_TYPE", "draftdata")
+	val testType = scala.util.Properties.envOrElse("TEST_TYPE", "perftest")
 
 	//set the environment based on the test type
 	val environment = testType match {
@@ -127,11 +127,6 @@ class CivilDamagesSimulation extends Simulation {
 			exec(_.set("env", s"${env}"))
 				.exec(CivilAssignCase.cuiassign)
 		}
-	
-	
-
-	
-
 	
 	
 	/*======================================================================================
