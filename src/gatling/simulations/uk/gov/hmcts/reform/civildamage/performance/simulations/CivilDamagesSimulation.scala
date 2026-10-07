@@ -29,7 +29,6 @@ class CivilDamagesSimulation extends Simulation {
 
 	
 	
-	
   val httpProtocol = Environment.HttpProtocol
     .baseUrl(BaseURL)
    // .doNotTrackHeader("1")
@@ -44,13 +43,14 @@ class CivilDamagesSimulation extends Simulation {
 	/* TEST TYPE DEFINITION */
 	/* pipeline = nightly pipeline against the AAT environment (see the Jenkins_nightly file) */
 	/* perftest (default) = performance test against the perftest environment */
-	val testType = scala.util.Properties.envOrElse("TEST_TYPE", "perftest")
+	val testType = scala.util.Properties.envOrElse("TEST_TYPE", "draftSearch")
 
 	//set the environment based on the test type
 	val environment = testType match {
 		case "perftest" => "perftest"
 		case "pipeline" => "perftest"
-		case "draftdata" => "perftest"   //creates Redis draft claims for the Draft Search scenario
+		case "draftdata" => "perftest"     //creates Redis draft claims for the Draft Search scenario
+		case "draftSearch" => "perftest"   //runs the Draft Search scenario on its own
 		case _ => "**INVALID**"
 	}
 
@@ -62,8 +62,8 @@ class CivilDamagesSimulation extends Simulation {
 	/* PERFORMANCE TEST CONFIGURATION */
 	val claimsTargetPerHour: Double = 2//90
 	val defResponseAndIntentTargetPerHour: Double = 1//20
-	val draftSearchUsers = 300           //TODO: calibrate against the reads/sec target (300 over 1100s ~ 980 searches/hour)
-	val draftDataUsers = 1               //number of Redis drafts to create (one citizen user per draft) - set to 1000 once 1 user works
+	val draftSearchUsers = 300   //TODO: calibrate against the reads/sec target (300 over 1100s ~ 980 searches/hour)
+	val draftDataUsers = 200     //number of Redis drafts to create per draftdata run (one citizen user per draft)
 	
 	val rampUpDurationMins = 5
 	val rampDownDurationMins = 5
@@ -474,26 +474,26 @@ class CivilDamagesSimulation extends Simulation {
 			exec(CreateUser.CreateClaimantCitizen)
 				.exec(CivilAssignCase.AuthForClaimCreationAPI)
 				.exec(S2S.s2s())
-					.exec(CUIClaimCreationWithAPI.getUserId)
+				.exec(CUIClaimCreationWithAPI.getUserId)
 				.repeat(1) {
 					exec(CUIClaimCreationWithAPI.CreateClaimCUIR2WithAPI)
 						.pause(2)
 				}
-				}
-	
+		}
+
 	/*======================================================================================
 * Draft Store - data prep: create one Redis draft claim per new citizen user
-* Run with TEST_TYPE=draftdata. Output: CUIDraftClaimsRedis.csv (add header claimantEmailAddress,userId)
+* Run with TEST_TYPE=draftdata. Output: CUIDraftClaimsRedis.csv (add header claimantEmailAddress,userId,password)
 ======================================================================================*/
 	val CUIDraftDataCreationScenario = scenario("CUI Draft Claim Data Creation")
 		.exec(flushHttpCache)
 		.exitBlockOnFail {
 			exec(_.set("env", s"${env}"))
 				.exec(CreateUser.CreateClaimantCitizen)
-				.exec(CUIClaimCreationWithAPI.AuthForClaimCreationAPI)   //saves bearerToken + idToken
+				.exec(CUIClaimCreationWithAPI.AuthForClaimCreationAPI)        //saves bearerToken + idToken
 				.exec(CUIClaimCreationWithAPI.getUserId)
-				.exec(CUIClaimCreationWithAPI.CreateDraftClaimRedisLoggedIn)   //login first, then testing-support (as per dev functional tests)
-				//once civil-service #8135 / CUI #8136 are live, swap the line above for:
+				.exec(CUIClaimCreationWithAPI.CreateDraftClaimRedisLoggedIn)  //login, then testing-support (as per dev functional tests)
+				//once civil-service #8135 / CUI #8136 are merged, swap the line above for:
 				//.exec(S2S.s2s()).exec(CUIClaimCreationWithAPI.CreateDraftClaimDB)
 		}
 
@@ -507,7 +507,6 @@ class CivilDamagesSimulation extends Simulation {
 		.exitBlockOnFail {
 			exec(_.set("env", s"${env}"))
 				.exec(_.set("testType", s"${testType}"))
-				.exec(session => if (session.contains("password")) session else session.set("password", "Password12!"))
 				.exec(CUIR2HomePage.CUIR2HomePage)
 				.exec(CUIR2Login.CUIR2Login)
 				.exec(CUIDraftSearch.DraftSearch)
@@ -553,7 +552,11 @@ testType match {
       .assertions(assertions(testType))
   case "draftdata" =>
     setUp(
-      CUIDraftDataCreationScenario.inject(rampUsers(200) during (1200))
+      CUIDraftDataCreationScenario.inject(rampUsers(draftDataUsers) during (1200))
+    ).protocols(httpProtocol)
+  case "draftSearch" =>
+    setUp(
+      CUIDraftSearchScenario.inject(rampUsers(1) during (1))
     ).protocols(httpProtocol)
   case "pipeline" =>
     setUp(

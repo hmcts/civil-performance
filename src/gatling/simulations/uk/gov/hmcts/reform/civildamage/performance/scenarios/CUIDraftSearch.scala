@@ -2,23 +2,20 @@ package uk.gov.hmcts.reform.civildamage.performance.scenarios
 
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
-import uk.gov.hmcts.reform.civildamage.performance.scenarios.utils.Environment
+import uk.gov.hmcts.reform.civildamage.performance.scenarios.utils.{Environment, Headers}
 
 /*======================================================================================
 * Business process : CUI Draft Search - citizen resumes an existing draft claim
-* Read-only (no saves/submit), so the same users and drafts can be reused every run.
+* Read-only (no saves / submit), so the same users and drafts can be reused every run.
 *
-* Store-agnostic: CUI decides where the draft lives, so this same script works for
-*   - Baseline (flag OFF -> Redis) and
-*   - CMC DB runs (flag ON -> civil-service /dashboard/draft-claims -> Postgres)
-* giving a like-for-like comparison.
+* Store-agnostic: CUI decides where the draft lives, so the same script is used for
+*   - Baseline (flag OFF -> Redis)
+*   - CMC DB runs (flag ON -> civil-service -> Postgres)
 *
-* Pre-requisites (from your existing scripts):
+* Pre-requisites (see CUIDraftSearchScenario in CivilDamagesSimulation):
 *   1. feed a citizen user that already has a draft (CUIDraftClaimsRedis.csv / CUIDraftClaimsDB.csv)
-*   2. run your existing CUI login chain (CUIR2 homepage + login steps) so the session cookie is set
-*   3. then exec(CUIDraftSearch.DraftSearch), then your existing logout
-*
-* TODO: confirm URLs and text checks from a browser recording of the resume journey in perftest.
+*   2. CUIR2HomePage + CUIR2Login so the session cookie is set
+*   3. CUIDraftSearch.DraftSearch, then CUIR2Logout
  ======================================================================================*/
 
 object CUIDraftSearch {
@@ -26,47 +23,51 @@ object CUIDraftSearch {
 	val minThinkTime = Environment.minThinkTime
 	val maxThinkTime = Environment.maxThinkTime
 
-	// TODO: replace with the CUI base URL value your existing claim scripts use
-	val cuiURL = "https://civil-citizen-ui.perftest.platform.hmcts.net"
+	val cuiURL = Environment.citizenURL
 
 	val DraftSearch =
 
-		// Dashboard - CUI looks up the user's draft to show "continue your claim"
-		group("CUIDraftSearch_010_Dashboard") {
-			exec(http("CUIDraftSearch_010_005_Dashboard")
-				.get(cuiURL + "/dashboard")                         // TODO confirm
-				.headers(Map("accept" -> "text/html,application/xhtml+xml"))
-				.check(status.is(200))
-				.check(substring("TODO_draft_claim_link_text")))     // TODO: text shown only when a draft exists
-		}
-		.pause(minThinkTime, maxThinkTime)
+		// clear Gatling's HTTP cache so pages already seen during login return 200 (not 304)
+		exec(flushHttpCache)
 
-		// Resume draft - task list loads the full draft from the draft store
-		.group("CUIDraftSearch_020_ContinueClaim_TaskList") {
-			exec(http("CUIDraftSearch_020_005_TaskList")
-				.get(cuiURL + "/claim/task-list")                   // TODO confirm
-				.headers(Map("accept" -> "text/html,application/xhtml+xml"))
-				.check(status.is(200))
-				.check(substring("TODO_task_list_heading")))
-		}
-		.pause(minThinkTime, maxThinkTime)
+			// Dashboard - CUI looks up the user's draft
+			.group("CUIDraftSearch_010_Dashboard") {
+				exec(http("CUIDraftSearch_010_005_Dashboard")
+					.get(cuiURL + "/dashboard")
+					.headers(Headers.navigationHeader)
+					.check(status.is(200))
+					.check(substring("To view or progress your claim click on your claim number")))
+			}
+			.pause(minThinkTime, maxThinkTime)
 
-		// A page that displays saved draft answers (draft read)
-		.group("CUIDraftSearch_030_ViewSavedAnswers") {
-			exec(http("CUIDraftSearch_030_005_ViewSavedAnswers")
-				.get(cuiURL + "/TODO_claimant_details_page")        // TODO: e.g. your details page from the claim journey
-				.headers(Map("accept" -> "text/html,application/xhtml+xml"))
-				.check(status.is(200)))
-		}
-		.pause(minThinkTime, maxThinkTime)
+			// Draft claim dashboard - "Your claim is saved as a draft"
+			.group("CUIDraftSearch_020_ContinueClaim_ClaimantNewDesign") {
+				exec(http("CUIDraftSearch_020_005_ClaimantNewDesign")
+					.get(cuiURL + "/dashboard/draft/claimantNewDesign")
+					.headers(Headers.navigationHeader)
+					.check(status.is(200))
+					.check(substring("Your claim is saved as a draft")))
+			}
+			.pause(minThinkTime, maxThinkTime)
 
-		// Check your answers - reads the whole draft
-		.group("CUIDraftSearch_040_CheckYourAnswers") {
-			exec(http("CUIDraftSearch_040_005_CheckYourAnswers")
-				.get(cuiURL + "/claim/check-and-send")              // TODO confirm (CheckAndSendGet in your claim script)
-				.headers(Map("accept" -> "text/html,application/xhtml+xml"))
-				.check(status.in(200, 302)))
-		}
-		.pause(minThinkTime, maxThinkTime)
-	
+			// Task list - loads the full draft from the draft store
+			.group("CUIDraftSearch_030_ContinueClaim_TaskList") {
+				exec(http("CUIDraftSearch_030_005_TaskList")
+					.get(cuiURL + "/claim/task-list")
+					.headers(Headers.navigationHeader)
+					.check(status.is(200))
+					.check(substring("Application complete")))
+			}
+			.pause(minThinkTime, maxThinkTime)
+
+			// Check your answers - reads the whole draft
+			.group("CUIDraftSearch_040_CheckYourAnswers") {
+				exec(http("CUIDraftSearch_040_005_CheckYourAnswers")
+					.get(cuiURL + "/claim/check-and-send")
+					.headers(Headers.navigationHeader)
+					.check(status.is(200))
+					.check(substring("Check your answers")))
+			}
+			.pause(minThinkTime, maxThinkTime)
+
 }

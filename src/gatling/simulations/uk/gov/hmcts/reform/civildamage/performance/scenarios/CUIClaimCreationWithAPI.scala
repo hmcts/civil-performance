@@ -6,35 +6,28 @@ import uk.gov.hmcts.reform.civildamage.performance.scenarios.utils.Environment
 import uk.gov.hmcts.reform.civildamage.performance.scenarios.CreateUser.IdamAPIURL
 import java.io.{BufferedWriter, FileWriter}
 
-object  CUIClaimCreationWithAPI {
-	
+object CUIClaimCreationWithAPI {
+
 	val minThinkTime = Environment.minThinkTime
 	val maxThinkTime = Environment.maxThinkTime
-	
-	val manageOrgURL = Environment.manageOrgURL
-	val idamURL=Environment.idamURL
-	val caseFeeder = csv("caseIdsForAssign.csv").circular
-	
-	// ---- Draft store settings ----
-	val cuiURL = Environment.citizenURL   // same CUI host the simulation uses
-	val civilServiceURL = "http://civil-service-perftest.service.core-compute-perftest.internal"
-	
-	// Optional custom draft JSON for the Redis testing-support endpoint.
-	// Only read if CreateDraftClaimRedisWithCaseData is used; otherwise a complete default draft is created.
-	lazy val draftClaimCaseData: String =
-		scala.io.Source.fromResource("bodies/cuiclaim/CUI_Draft_Claim_CaseData.json").mkString
-	
-	
-	/*======================================================================================
-*Business process : As part of the creating bundle we need to create bundle on the fly which is a workaround
-* http://civil-service-perftest.service.core-compute-perftest.internal/testing-support/1725556015019824/trigger-trial-bundle
 
-* we should use hearing admin and password as username and password
- ======================================================================================*/
-	
+	val manageOrgURL = Environment.manageOrgURL
+	val idamURL = Environment.idamURL
+	val caseFeeder = csv("caseIdsForAssign.csv").circular
+
+	// ---- Draft store settings ----
+	val cuiURL = Environment.citizenURL
+	val civilServiceURL = "http://civil-service-perftest.service.core-compute-perftest.internal"
+
+
+	/*======================================================================================
+	* Business process : As part of the creating bundle we need to create bundle on the fly which is a workaround
+	* http://civil-service-perftest.service.core-compute-perftest.internal/testing-support/1725556015019824/trigger-trial-bundle
+	* we should use hearing admin and password as username and password
+	 ======================================================================================*/
+
 	//userType must be "Caseworker", "Legal" or "Citizen"
 	val AuthForClaimCreationAPI =
-		
 		exec(http("Civil_000_GetBearerToken")
 			.post(idamURL + "/o/token") //change this to idamapiurl if this not works
 			.formParam("grant_type", "password")
@@ -48,38 +41,35 @@ object  CUIClaimCreationWithAPI {
 			.check(jsonPath("$.access_token").saveAs("bearerToken"))
 			// id_token is returned because scope includes "openid" - needed by the Redis create-draft endpoint
 			.check(jsonPath("$.id_token").optional.saveAs("idToken")))
-	
-	
+
+
 	val CreateClaimCUIR2WithAPI =
 		group("CUIR2_CreateCase_Case_000_CreateCase") {
-			//	feed(caseFeeder)
 			exec(http("CIVIL_AssignCase_000_AssignCase")
-				.post("http://civil-service-perftest.service.core-compute-perftest.internal/cases/draft/citizen/#{userId}/event")
+				.post(civilServiceURL + "/cases/draft/citizen/#{userId}/event")
 				.header("Authorization", "Bearer #{bearerToken}")
 				.header("ServiceAuthorization", "#{ServiceToken}")
 				.header("Content-Type", "application/json")
 				.body(ElFileBody("bodies/cuiclaim/CUI_Create_Claim.json"))
 				.check(jsonPath("$.id").saveAs("claimNumber"))
-				.check(status.in(200, 201))
-			)
+				.check(status.in(200, 201)))
 		}
 			.pause(minThinkTime, maxThinkTime)
-			
 			.exec { session =>
 				val fw = new BufferedWriter(new FileWriter("CUIR2ClaimsWithAPI60k2.csv", true))
 				try {
 					fw.write(session("claimantEmailAddress").as[String] + "," + session("claimNumber").as[String] + "," + session("password").as[String] + "\r\n")
 				} finally fw.close()
-				
 				session
 			}
-	
-	
+
+
 	/*======================================================================================
 	* Draft store - create draft claims
 	* One IDAM citizen user per draft (one active draft per user in both implementations).
 	 ======================================================================================*/
-	
+
+	// Appends the given session values as one CSV line (blank if a value is missing)
 	def recordDraft(fileName: String, keys: String*) =
 		exec { session =>
 			val fw = new BufferedWriter(new FileWriter(fileName, true))
@@ -88,41 +78,39 @@ object  CUIClaimCreationWithAPI {
 			} finally fw.close()
 			session
 		}
-	
-	// Logged-in version - mimics the dev team's functional test:
-	// log in through CUI first, then call testing-support from the same session
-	// Once it works, change status.saveAs("draftStatus") back to status.is(200).
-	
+
+
+	// Redis draft store (current master): log in through CUI first, then call testing-support
+	// from the same session - mirrors the dev team's functional tests
 	val CreateDraftClaimRedisLoggedIn =
 		exec(CUIR2HomePage.CUIR2HomePage)
 			.exec(CUIR2Login.CUIR2Login)
+
+			// pick up the CSRF token from a logged-in page (optional - not all pages have one)
 			.exec(http("CUI_DraftStore_005_GetCsrf")
 				.get(cuiURL + "/dashboard")
 				.check(regex("""name="_csrf" value="([^"]+)"""").optional.saveAs("csrf")))
-			
+
 			.doIfOrElse(session => session.contains("csrf")) {
 				exec(http("CUI_DraftStore_000_CreateDraftRedis")
 					.post(cuiURL + "/testing-support/create-draft-claim")
 					.formParam("_csrf", "#{csrf}")
 					.formParam("idToken", "#{idToken}")
-					//.formParam("caseData", "#{draftCaseData}")
-					.check(status.saveAs("draftStatus"))
 					.check(status.is(200)))
 			} {
 				exec(http("CUI_DraftStore_000_CreateDraftRedis")
 					.post(cuiURL + "/testing-support/create-draft-claim")
 					.formParam("idToken", "#{idToken}")
-				//	.formParam("caseData", "#{draftCaseData}")
-					.check(status.saveAs("draftStatus"))
 					.check(status.is(200)))
 			}
-			.doIf(session => session("draftStatus").asOption[Int].contains(200)) {
-				exec(recordDraft("CUIDraftClaimsRedis.csv", "claimantEmailAddress", "userId"))
-			}
+
+			// only reached if the create succeeded (exitBlockOnFail in the scenario)
+			.exec(recordDraft("CUIDraftClaimsRedis.csv", "claimantEmailAddress", "userId"))
 			.exec(CUIR2Logout.CUILogout)
 
 
-	// Below is the draft creation for CMC DB once code is merged we will have to do this
+	// CMC DB draft store - use once civil-service #8135 / CUI #8136 are merged and deployed
+	// Body file must be: {"payload": { ...draft claim... }}
 	val CreateDraftClaimDB =
 		group("CUI_DraftStore_010_CreateDraftDB") {
 			exec(http("CUI_DraftStore_010_CreateDraftDB")
@@ -136,8 +124,8 @@ object  CUIClaimCreationWithAPI {
 		}
 			.pause(minThinkTime, maxThinkTime)
 			.exec(recordDraft("CUIDraftClaimsDB.csv", "claimantEmailAddress", "userId", "draftId"))
-	
-	
+
+
 	val getUserId =
 		group("CUIR2_Claimant_GetUser") {
 			exec(http("CUIR2_Claimant_GetUser")
@@ -164,5 +152,5 @@ object  CUIClaimCreationWithAPI {
 				.header("Content-Type", "application/json")
 				.check(status.is(204)))
 		}
-	
+
 }
