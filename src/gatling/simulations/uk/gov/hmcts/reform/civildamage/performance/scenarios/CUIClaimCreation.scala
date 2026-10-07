@@ -149,7 +149,6 @@ object CUIClaimCreation {
           .check(substring("CREATE_CLAIM_SPECNotifications"))
           .check(status.in(200, 304))
         )
-          
           //val caseshareorgs =
           /*======================================================================================
                        * Civil UI Claim - Claim case Share
