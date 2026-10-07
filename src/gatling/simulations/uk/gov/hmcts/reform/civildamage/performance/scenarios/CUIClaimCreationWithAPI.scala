@@ -54,20 +54,20 @@ object CUIClaimCreationWithAPI {
 				.check(jsonPath("$.id").saveAs("claimNumber"))
 				.check(status.in(200, 201)))
 		}
-			.pause(minThinkTime, maxThinkTime)
-			.exec { session =>
-				val fw = new BufferedWriter(new FileWriter("CUIR2ClaimsWithAPI60k2.csv", true))
-				try {
-					fw.write(session("claimantEmailAddress").as[String] + "," + session("claimNumber").as[String] + "," + session("password").as[String] + "\r\n")
-				} finally fw.close()
-				session
-			}
+		.pause(minThinkTime, maxThinkTime)
+		.exec { session =>
+			val fw = new BufferedWriter(new FileWriter("CUIR2ClaimsWithAPI60k2.csv", true))
+			try {
+				fw.write(session("claimantEmailAddress").as[String] + "," + session("claimNumber").as[String] + "," + session("password").as[String] + "\r\n")
+			} finally fw.close()
+			session
+		}
 
 
 	/*======================================================================================
 	* Draft store - create draft claims
 	* One IDAM citizen user per draft (one active draft per user in both implementations).
-	 ======================================================================================*/
+	======================================================================================*/
 
 	// Appends the given session values as one CSV line (blank if a value is missing)
 	def recordDraft(fileName: String, keys: String*) =
@@ -84,29 +84,29 @@ object CUIClaimCreationWithAPI {
 	// from the same session - mirrors the dev team's functional tests
 	val CreateDraftClaimRedisLoggedIn =
 		exec(CUIR2HomePage.CUIR2HomePage)
-			.exec(CUIR2Login.CUIR2Login)
+		.exec(CUIR2Login.CUIR2Login)
 
-			// pick up the CSRF token from a logged-in page (optional - not all pages have one)
-			.exec(http("CUI_DraftStore_005_GetCsrf")
-				.get(cuiURL + "/dashboard")
-				.check(regex("""name="_csrf" value="([^"]+)"""").optional.saveAs("csrf")))
+		// pick up the CSRF token from a logged-in page (optional - not all pages have one)
+		.exec(http("CUI_DraftStore_005_GetCsrf")
+			.get(cuiURL + "/dashboard")
+			.check(regex("""name="_csrf" value="([^"]+)"""").optional.saveAs("csrf")))
 
-			.doIfOrElse(session => session.contains("csrf")) {
-				exec(http("CUI_DraftStore_000_CreateDraftRedis")
-					.post(cuiURL + "/testing-support/create-draft-claim")
-					.formParam("_csrf", "#{csrf}")
-					.formParam("idToken", "#{idToken}")
-					.check(status.is(200)))
-			} {
-				exec(http("CUI_DraftStore_000_CreateDraftRedis")
-					.post(cuiURL + "/testing-support/create-draft-claim")
-					.formParam("idToken", "#{idToken}")
-					.check(status.is(200)))
-			}
+		.doIfOrElse(session => session.contains("csrf")) {
+			exec(http("CUI_DraftStore_000_CreateDraftRedis")
+				.post(cuiURL + "/testing-support/create-draft-claim")
+				.formParam("_csrf", "#{csrf}")
+				.formParam("idToken", "#{idToken}")
+				.check(status.is(200)))
+		} {
+			exec(http("CUI_DraftStore_000_CreateDraftRedis")
+				.post(cuiURL + "/testing-support/create-draft-claim")
+				.formParam("idToken", "#{idToken}")
+				.check(status.is(200)))
+		}
 
-			// only reached if the create succeeded (exitBlockOnFail in the scenario)
-			.exec(recordDraft("CUIDraftClaimsRedis.csv", "claimantEmailAddress", "userId"))
-			.exec(CUIR2Logout.CUILogout)
+		// only reached if the create succeeded (exitBlockOnFail in the scenario)
+		.exec(recordDraft("CUIDraftClaimsRedis.csv", "claimantEmailAddress", "userId"))
+		.exec(CUIR2Logout.CUILogout)
 
 
 	// CMC DB draft store - use once civil-service #8135 / CUI #8136 are merged and deployed
@@ -122,8 +122,8 @@ object CUIClaimCreationWithAPI {
 				.check(status.is(201))
 				.check(jsonPath("$.draftId").saveAs("draftId"))) // confirm response field name with dev team
 		}
-			.pause(minThinkTime, maxThinkTime)
-			.exec(recordDraft("CUIDraftClaimsDB.csv", "claimantEmailAddress", "userId", "draftId"))
+		.pause(minThinkTime, maxThinkTime)
+		.exec(recordDraft("CUIDraftClaimsDB.csv", "claimantEmailAddress", "userId", "draftId"))
 
 
 	val getUserId =

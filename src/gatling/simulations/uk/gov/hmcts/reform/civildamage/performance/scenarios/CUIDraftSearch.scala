@@ -30,44 +30,44 @@ object CUIDraftSearch {
 		// clear Gatling's HTTP cache so pages already seen during login return 200 (not 304)
 		exec(flushHttpCache)
 
-			// Dashboard - CUI looks up the user's draft
-			.group("CUIDraftSearch_010_Dashboard") {
-				exec(http("CUIDraftSearch_010_005_Dashboard")
-					.get(cuiURL + "/dashboard")
-					.headers(Headers.navigationHeader)
-					.check(status.is(200))
-					.check(substring("To view or progress your claim click on your claim number")))
-			}
-			.pause(minThinkTime, maxThinkTime)
+		// Dashboard - CUI looks up the user's draft
+		.group("CUIDraftSearch_010_Dashboard") {
+			exec(http("CUIDraftSearch_010_005_Dashboard")
+				.get(cuiURL + "/dashboard")
+				.headers(Headers.navigationHeader)
+				.check(status.is(200))
+				.check(substring("To view or progress your claim click on your claim number")))
+		}
+		.pause(minThinkTime, maxThinkTime)
 
-			// Draft claim dashboard - "Your claim is saved as a draft"
-			.group("CUIDraftSearch_020_ContinueClaim_ClaimantNewDesign") {
-				exec(http("CUIDraftSearch_020_005_ClaimantNewDesign")
-					.get(cuiURL + "/dashboard/draft/claimantNewDesign")
-					.headers(Headers.navigationHeader)
-					.check(status.is(200))
-					.check(substring("Your claim is saved as a draft")))
-			}
-			.pause(minThinkTime, maxThinkTime)
+		// Draft claim dashboard - "Your claim is saved as a draft"
+		.group("CUIDraftSearch_020_ContinueClaim_ClaimantNewDesign") {
+			exec(http("CUIDraftSearch_020_005_ClaimantNewDesign")
+				.get(cuiURL + "/dashboard/draft/claimantNewDesign")
+				.headers(Headers.navigationHeader)
+				.check(status.is(200))
+				.check(substring("Your claim is saved as a draft")))
+		}
+		.pause(minThinkTime, maxThinkTime)
 
-			// Task list - loads the full draft from the draft store
-			.group("CUIDraftSearch_030_ContinueClaim_TaskList") {
-				exec(http("CUIDraftSearch_030_005_TaskList")
-					.get(cuiURL + "/claim/task-list")
-					.headers(Headers.navigationHeader)
-					.check(status.is(200))
-					.check(substring("Application complete")))
-			}
-			.pause(minThinkTime, maxThinkTime)
+		// Task list - loads the full draft from the draft store
+		.group("CUIDraftSearch_030_ContinueClaim_TaskList") {
+			exec(http("CUIDraftSearch_030_005_TaskList")
+				.get(cuiURL + "/claim/task-list")
+				.headers(Headers.navigationHeader)
+				.check(status.is(200))
+				.check(substring("Application complete")))
+		}
+		.pause(minThinkTime, maxThinkTime)
 
-			// Check your answers - reads the whole draft
-			.group("CUIDraftSearch_040_CheckYourAnswers") {
-				exec(http("CUIDraftSearch_040_005_CheckYourAnswers")
-					.get(cuiURL + "/claim/check-and-send")
-					.headers(Headers.navigationHeader)
-					.check(status.is(200))
-					.check(substring("Check your answers")))
-			}
-			.pause(minThinkTime, maxThinkTime)
+		// Check your answers - reads the whole draft
+		.group("CUIDraftSearch_040_CheckYourAnswers") {
+			exec(http("CUIDraftSearch_040_005_CheckYourAnswers")
+				.get(cuiURL + "/claim/check-and-send")
+				.headers(Headers.navigationHeader)
+				.check(status.is(200))
+				.check(substring("Check your answers")))
+		}
+		.pause(minThinkTime, maxThinkTime)
 
 }
