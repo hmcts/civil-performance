@@ -479,6 +479,9 @@ class CivilDamagesSimulation extends Simulation {
 					exec(CUIClaimCreationWithAPI.CreateClaimCUIR2WithAPI)
 						.pause(2)
 				}
+				.doIf(session => debugMode == "off") {
+					exec(CUIClaimCreationWithAPI.deleteClaimantUser)
+				}
 		}
 
 	/*======================================================================================
@@ -493,9 +496,7 @@ class CivilDamagesSimulation extends Simulation {
 				.exec(CUIClaimCreationWithAPI.AuthForClaimCreationAPI)        //saves bearerToken + idToken
 				.exec(CUIClaimCreationWithAPI.getUserId)
 				.exec(CUIClaimCreationWithAPI.CreateDraftClaimRedisLoggedIn)  //login, then testing-support (as per dev functional tests)
-				//once civil-service #8135 / CUI #8136 are merged, swap the line above for:
-				//.exec(S2S.s2s()).exec(CUIClaimCreationWithAPI.CreateDraftClaimDB)
-		}
+						}
 
 	/*======================================================================================
 * Draft Store - Draft Search: citizen logs in and resumes an existing draft claim (read-only)
