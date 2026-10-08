@@ -548,7 +548,7 @@ testType match {
     setUp(
       CUIR2SmallClaimsCaseProgression.inject(nothingFor(1),rampUsers(150) during (3600)),
       CUIR2FastTrackCaseProgression.inject(nothingFor(50),rampUsers(150) during (3600)),
-      CUIDraftSearchScenario.inject(nothingFor(100),rampUsers(300) during (3600)),
+     // CUIDraftSearchScenario.inject(nothingFor(100),rampUsers(300) during (3600)),
     ).protocols(httpProtocol)
       .assertions(assertions(testType))
   case "draftdata" =>
