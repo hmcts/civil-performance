@@ -400,7 +400,7 @@ class CivilDamagesSimulation extends Simulation {
 				
 				// 🎯 **80% Users Exit Here**
 				.randomSwitch(
-					80.0 -> exec { session =>
+					99.0 -> exec { session =>
 						println("✅ Stopping Execution for 80% Users")
 						session.markAsFailed
 					}
@@ -548,7 +548,7 @@ testType match {
     setUp(
       CUIR2SmallClaimsCaseProgression.inject(nothingFor(1),rampUsers(150) during (2500)),
       CUIR2FastTrackCaseProgression.inject(nothingFor(50),rampUsers(150) during (2500)),
-     // CUIDraftSearchScenario.inject(nothingFor(100),rampUsers(300) during (3600)),
+      CUIDraftSearchScenario.inject(nothingFor(100),rampUsers(300) during (3600)),
     ).protocols(httpProtocol)
       .assertions(assertions(testType))
   case "draftdata" =>
