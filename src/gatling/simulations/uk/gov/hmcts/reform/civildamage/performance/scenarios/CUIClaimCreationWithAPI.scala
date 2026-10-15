@@ -90,7 +90,6 @@ object CUIClaimCreationWithAPI {
 		.exec(http("CUI_DraftStore_005_GetCsrf")
 			.get(cuiURL + "/dashboard")
 			.check(regex("""name="_csrf" value="([^"]+)"""").optional.saveAs("csrf")))
-
 		.doIfOrElse(session => session.contains("csrf")) {
 			exec(http("CUI_DraftStore_000_CreateDraftRedis")
 				.post(cuiURL + "/testing-support/create-draft-claim")

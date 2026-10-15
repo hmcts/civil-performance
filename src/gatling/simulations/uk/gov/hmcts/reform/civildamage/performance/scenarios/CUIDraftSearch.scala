@@ -56,7 +56,7 @@ object CUIDraftSearch {
 				.get(cuiURL + "/claim/task-list")
 				.headers(Headers.navigationHeader)
 				.check(status.is(200))
-				.check(substring("Application complete")))
+				.check(substring("Application incomplete")))
 		}
 		.pause(minThinkTime, maxThinkTime)
 

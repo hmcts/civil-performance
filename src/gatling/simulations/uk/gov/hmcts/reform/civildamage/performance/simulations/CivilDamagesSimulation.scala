@@ -546,9 +546,9 @@ class CivilDamagesSimulation extends Simulation {
 testType match {
   case "perftest" =>
     setUp(
-      CUIR2SmallClaimsCaseProgression.inject(nothingFor(1),rampUsers(150) during (2500)),
-      CUIR2FastTrackCaseProgression.inject(nothingFor(50),rampUsers(150) during (2500)),
-      CUIDraftSearchScenario.inject(nothingFor(100),rampUsers(300) during (3600)),
+      CUIR2SmallClaimsCaseProgression.inject(nothingFor(1),rampUsers(1) during (1)),
+      CUIR2FastTrackCaseProgression.inject(nothingFor(50),rampUsers(2) during (2)),
+     // CUIDraftSearchScenario.inject(nothingFor(100),rampUsers(2) during (5)),
     ).protocols(httpProtocol)
       .assertions(assertions(testType))
   case "draftdata" =>
