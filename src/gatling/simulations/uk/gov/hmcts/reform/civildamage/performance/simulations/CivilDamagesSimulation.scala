@@ -50,7 +50,8 @@ class CivilDamagesSimulation extends Simulation {
 		case "perftest" => "perftest"
 		case "pipeline" => "perftest"
 		case "draftdata" => "perftest"     //creates Redis draft claims for the Draft Search scenario
-		case "draftSearch" => "perftest"   //runs the Draft Search scenario on its own
+		case "draftSearch" => "perftest"
+		case "draftdatacmc" => "perftest"//creates cmc drafts
 		case _ => "**INVALID**"
 	}
 
@@ -488,7 +489,7 @@ class CivilDamagesSimulation extends Simulation {
 * Draft Store - data prep: create one Redis draft claim per new citizen user
 * Run with TEST_TYPE=draftdata. Output: CUIDraftClaimsRedis.csv (add header claimantEmailAddress,userId,password)
 ======================================================================================*/
-	val CUIDraftDataCreationScenario = scenario("CUI Draft Claim Data Creation")
+	val CUIDraftDataCreationScenario = scenario("CUI Draft Claim Data Creation for Redis")
 		.exec(flushHttpCache)
 		.exitBlockOnFail {
 			exec(_.set("env", s"${env}"))
@@ -497,7 +498,26 @@ class CivilDamagesSimulation extends Simulation {
 				.exec(CUIClaimCreationWithAPI.getUserId)
 				.exec(CUIClaimCreationWithAPI.CreateDraftClaimRedisLoggedIn)  //login, then testing-support (as per dev functional tests)
 						}
-
+	
+	
+	/*======================================================================================
+* Draft Store - data prep: create one CMC DB draft claim per new citizen user
+* Pre-req: LaunchDarkly flag cui-draft-claim-database = ON (CUI then saves the draft to the CMC DB)
+* Run with TEST_TYPE=draftdatacmc. Output: CUIDraftClaimsDB.csv (add header claimantEmailAddress,userId,password)
+======================================================================================*/
+	val CUIDraftDataCreationCMCScenario = scenario("CUI Draft Claim Data Creation CMC")
+		.exec(flushHttpCache)
+		.exitBlockOnFail {
+			exec(_.set("env", s"${env}"))
+				.exec(CreateUser.CreateClaimantCitizen)
+				.exec(CUIClaimCreationWithAPI.AuthForClaimCreationAPI) //citizen bearerToken
+				.exec(S2S.s2s()) //ServiceToken
+				.exec(CUIClaimCreationWithAPI.getUserId)
+				.exec(CUIClaimCreationWithAPI.CreateDraftClaimDB) //POST civil-service /dashboard/draft-claims, records CUIDraftClaimsDB.csv
+			//no deleteClaimantUser here - the user must stay so the draft can be searched/resumed later
+		}
+	
+	
 	/*======================================================================================
 * Draft Store - Draft Search: citizen logs in and resumes an existing draft claim (read-only)
 * Same script for Redis (flag OFF) and CMC DB (flag ON) runs
@@ -546,8 +566,8 @@ class CivilDamagesSimulation extends Simulation {
 testType match {
   case "perftest" =>
     setUp(
-      CUIR2SmallClaimsCaseProgression.inject(nothingFor(1),rampUsers(150) during (2500)),
-      CUIR2FastTrackCaseProgression.inject(nothingFor(50),rampUsers(150) during (2500)),
+      CUIR2SmallClaimsCaseProgression.inject(nothingFor(1),rampUsers(150) during (2400)),
+      CUIR2FastTrackCaseProgression.inject(nothingFor(50),rampUsers(150) during (2400)),
      // CUIDraftSearchScenario.inject(nothingFor(100),rampUsers(2) during (5)),
     ).protocols(httpProtocol)
       .assertions(assertions(testType))
@@ -555,7 +575,12 @@ testType match {
     setUp(
       CUIDraftDataCreationScenario.inject(rampUsers(draftDataUsers) during (1200))
     ).protocols(httpProtocol)
-  case "draftSearch" =>
+	case "draftdatacmc" =>
+		setUp(
+			CUIDraftDataCreationCMCScenario.inject(rampUsers(2) during (2))
+		).protocols(httpProtocol)
+
+	case "draftSearch" =>
     setUp(
       CUIDraftSearchScenario.inject(rampUsers(1) during (1))
     ).protocols(httpProtocol)
