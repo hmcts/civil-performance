@@ -573,7 +573,7 @@ testType match {
       .assertions(assertions(testType))
   case "draftdata" =>
     setUp(
-      CUIDraftDataCreationScenario.inject(rampUsers(1000) during (3600))
+      CUIDraftDataCreationScenario.inject(rampUsers(1) during (3))
     ).protocols(httpProtocol)
 	case "draftdatacmc" =>
 		setUp(
