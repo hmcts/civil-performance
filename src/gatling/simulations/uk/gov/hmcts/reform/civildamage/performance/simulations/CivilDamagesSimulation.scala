@@ -491,10 +491,9 @@ class CivilDamagesSimulation extends Simulation {
 ======================================================================================*/
 	val CUIDraftDataCreationScenario = scenario("CUI Draft Claim Data Creation for Redis")
 		.exec(flushHttpCache)
-		.feed(draftSearchFeeder)
 		.exitBlockOnFail {
 			exec(_.set("env", s"${env}"))
-			//	.exec(CreateUser.CreateClaimantCitizen)
+				.exec(CreateUser.CreateClaimantCitizen)
 				.exec(CUIClaimCreationWithAPI.AuthForClaimCreationAPI)        //saves bearerToken + idToken
 				.exec(CUIClaimCreationWithAPI.getUserId)
 				.exec(CUIClaimCreationWithAPI.CreateDraftClaimRedisLoggedIn)  //login, then testing-support (as per dev functional tests)
