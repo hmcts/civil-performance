@@ -10,6 +10,25 @@ java {
 
 performance {
     simulationClass = 'uk.gov.hmcts.reform.civildamage.performance.simulations.CivilDamagesSimulation'
-    transactionNamesToGraph = ['CUICPSC_Claimant_470_CardDetail_ConfirmCardDetail', 
+    transactionNamesToGraph = ['CUICPSC_Claimant_470_CardDetail_ConfirmCardDetail',
                                'CUICPSC_DefResponse_390_CheckAndSubmit', 'CUICPSC_ClaimantIntention_100_CheckAndSubmit']
+}
+
+// more heap for gatlingRun - stops the report step running out of memory on long runs
+gatling {
+    jvmArgs = ['-server', '-Xmx6G', '-XX:+UseG1GC',
+               '--add-opens=java.base/java.lang=ALL-UNNAMED',
+               '--add-opens=java.base/java.util=ALL-UNNAMED']
+}
+
+// regenerate an HTML report from an existing simulation.log (reports only, no load)
+// usage: ./gradlew gatlingReport -PrunDir=civildamagessimulation-YYYYMMDDHHMMSSmmm
+tasks.register('gatlingReport', JavaExec) {
+    classpath = sourceSets.gatling.runtimeClasspath
+    mainClass = 'io.gatling.app.Gatling'
+    jvmArgs = ['-Xmx6G', '-XX:+UseG1GC',
+               '--add-opens=java.base/java.lang=ALL-UNNAMED',
+               '--add-opens=java.base/java.util=ALL-UNNAMED']
+    args = ['-ro', project.findProperty('runDir') ?: '',
+            '-rf', "${layout.buildDirectory.get().asFile}/reports/gatling"]
 }
