@@ -491,9 +491,10 @@ class CivilDamagesSimulation extends Simulation {
 ======================================================================================*/
 	val CUIDraftDataCreationScenario = scenario("CUI Draft Claim Data Creation for Redis")
 		.exec(flushHttpCache)
+		.feed(draftSearchFeeder)
 		.exitBlockOnFail {
 			exec(_.set("env", s"${env}"))
-				.exec(CreateUser.CreateClaimantCitizen)
+			//	.exec(CreateUser.CreateClaimantCitizen)
 				.exec(CUIClaimCreationWithAPI.AuthForClaimCreationAPI)        //saves bearerToken + idToken
 				.exec(CUIClaimCreationWithAPI.getUserId)
 				.exec(CUIClaimCreationWithAPI.CreateDraftClaimRedisLoggedIn)  //login, then testing-support (as per dev functional tests)
@@ -568,12 +569,12 @@ testType match {
     setUp(
       CUIR2SmallClaimsCaseProgression.inject(nothingFor(1),rampUsers(150) during (2400)),
       CUIR2FastTrackCaseProgression.inject(nothingFor(50),rampUsers(150) during (2400)),
-     // CUIDraftSearchScenario.inject(nothingFor(100),rampUsers(2) during (5)),
+      CUIDraftSearchScenario.inject(nothingFor(100),rampUsers(300) during (3600)),
     ).protocols(httpProtocol)
       .assertions(assertions(testType))
   case "draftdata" =>
     setUp(
-      CUIDraftDataCreationScenario.inject(rampUsers(draftDataUsers) during (1200))
+      CUIDraftDataCreationScenario.inject(rampUsers(1000) during (3600))
     ).protocols(httpProtocol)
 	case "draftdatacmc" =>
 		setUp(
