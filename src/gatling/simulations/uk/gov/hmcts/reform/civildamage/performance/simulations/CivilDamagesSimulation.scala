@@ -568,16 +568,16 @@ testType match {
     setUp(
       CUIR2SmallClaimsCaseProgression.inject(nothingFor(1),rampUsers(150) during (2400)),
       CUIR2FastTrackCaseProgression.inject(nothingFor(50),rampUsers(150) during (2400)),
-      CUIDraftSearchScenario.inject(nothingFor(100),rampUsers(300) during (3600)),
+     // CUIDraftSearchScenario.inject(nothingFor(100),rampUsers(300) during (3600)),
     ).protocols(httpProtocol)
       .assertions(assertions(testType))
   case "draftdata" =>
     setUp(
-      CUIDraftDataCreationScenario.inject(rampUsers(1) during (3))
+      CUIDraftDataCreationScenario.inject(rampUsers(1020) during (3600))
     ).protocols(httpProtocol)
 	case "draftdatacmc" =>
 		setUp(
-			CUIDraftDataCreationCMCScenario.inject(rampUsers(2) during (2))
+			CUIDraftDataCreationCMCScenario.inject(rampUsers(10) during (100))
 		).protocols(httpProtocol)
 
 	case "draftSearch" =>
