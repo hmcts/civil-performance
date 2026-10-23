@@ -624,6 +624,15 @@ object CUIR2ClaimCreation {
       }
       .pause(MinThinkTime, MaxThinkTime)
   
+      .exec { session =>
+        val fw = new BufferedWriter(new FileWriter("CUIR2ClaimsToCMCDB.csv", true))
+        try {
+          fw.write(session("claimantEmailAddress").as[String] + session("password").as[String] + "," + "\r\n")
+        } finally fw.close()
+    
+        session
+      }
+  
       /*======================================================================================
                * Civil Citizen -  PCQ Questionaire Opt out - 06/26: removed
     ==========================================================================================*/
@@ -641,7 +650,7 @@ object CUIR2ClaimCreation {
       /*======================================================================================
                * Civil Citizen -  2.Prepare your claim - Check And Send Post
     ==========================================================================================*/
-      .group("CUICPSC_Claimant_430_CheckAndSendPost") {
+     .group("CUICPSC_Claimant_430_CheckAndSendPost") {
         exec(http("CUICPSC_Claimant_430_005_CheckAndSendPost")
          .post(CitizenURL+"/claim/check-and-send")
           .headers(CivilDamagesHeader.CUIR2Post)

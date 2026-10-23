@@ -26,8 +26,8 @@ class CivilDamagesSimulation extends Simulation {
 	//Draft Search - citizens that already have a draft claim (header: claimantEmailAddress,userId)
 	//Use CUIDraftClaimsRedis.csv for the Redis baseline, CUIDraftClaimsDB.csv once the CMC DB draft store is live
 	val draftSearchFeeder = csv("CUIDraftClaimsRedis.csv").circular
+	val draftSearchFeederDB = csv("CUIDraftClaimsDB.csv").circular
 
-	
 	
   val httpProtocol = Environment.HttpProtocol
     .baseUrl(BaseURL)
@@ -522,7 +522,7 @@ class CivilDamagesSimulation extends Simulation {
 * Draft Store - Draft Search: citizen logs in and resumes an existing draft claim (read-only)
 * Same script for Redis (flag OFF) and CMC DB (flag ON) runs
 ======================================================================================*/
-	val CUIDraftSearchScenario = scenario("CUI Draft Search")
+	val CUIDraftSearchScenario = scenario("CUI Draft Search Redis")
 		.exec(flushHttpCache)
 		.feed(draftSearchFeeder)
 		.exitBlockOnFail {
@@ -533,8 +533,24 @@ class CivilDamagesSimulation extends Simulation {
 				.exec(CUIDraftSearch.DraftSearch)
 				.exec(CUIR2Logout.CUILogout)
 		}
-
-
+	
+	/*======================================================================================
+  * Draft Store - Draft Search (CMC DB): citizen logs in and resumes a draft held in the CMC DB
+  * Drafts created via the CUI claim journey with cui-draft-claim-database ON
+  * Run with the flag ON - reported as CUIDraftSearchDB_0x0_... (separate from Redis)
+  ======================================================================================*/
+	val CUIDraftSearchDBScenario = scenario("CUI Draft Search DB")
+		.exec(flushHttpCache)
+		.feed(draftSearchFeederDB)
+		.exitBlockOnFail {
+			exec(_.set("env", s"${env}"))
+				.exec(_.set("testType", s"${testType}"))
+				.exec(session => if (session.contains("password")) session else session.set("password", "Password12!"))
+				.exec(CUIR2HomePage.CUIR2HomePage)
+				.exec(CUIR2Login.CUIR2Login)
+				.exec(CUIDraftSearch.DraftSearchDB)
+				.exec(CUIR2Logout.CUILogout)
+		}
   //defines the test assertions, based on the test type
   def assertions(simulationType: String): Seq[Assertion] = {
     simulationType match {
@@ -568,12 +584,13 @@ testType match {
     setUp(
       CUIR2SmallClaimsCaseProgression.inject(nothingFor(1),rampUsers(150) during (2400)),
       CUIR2FastTrackCaseProgression.inject(nothingFor(50),rampUsers(150) during (2400)),
-     // CUIDraftSearchScenario.inject(nothingFor(100),rampUsers(300) during (3600)),
+     CUIDraftSearchScenario.inject(nothingFor(100),rampUsers(150) during (3600)),
+			CUIDraftSearchDBScenario.inject(nothingFor(100),rampUsers(150) during (3600)),
     ).protocols(httpProtocol)
       .assertions(assertions(testType))
   case "draftdata" =>
     setUp(
-      CUIDraftDataCreationScenario.inject(rampUsers(1020) during (3600))
+      CUIDraftDataCreationScenario.inject(rampUsers(5) during (20))
     ).protocols(httpProtocol)
 	case "draftdatacmc" =>
 		setUp(
