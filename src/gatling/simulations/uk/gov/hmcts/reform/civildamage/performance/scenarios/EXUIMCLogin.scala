@@ -88,8 +88,6 @@ object EXUIMCLogin {
           .headers(LoginHeader.headers_4)
           .check(css("input[name='_csrf']", "value").saveAs("csrfToken"))
       .check(regex("state=(.*)&client").saveAs("state"))
-          /*.check(regex("manage-user%20create-user%20manage-roles&state=(.*)&client").saveAs("state"))
-          .check(regex("&nonce=(.*)&response_type").saveAs("nonce"))*/
     )
     
     
@@ -105,7 +103,7 @@ object EXUIMCLogin {
     
     group("CivilDamages_020_SignIn") {
       exec(flushHttpCache).exec(http("CivilDamages_020_005_SignIn")
-                                .post(IdAMURL + "/login?response_type=code&redirect_uri=https%3A%2F%2F" + manageOrgDomain + "%2Foauth2%2Fcallback&scope=profile%20openid%20roles%20manage-user%20create-user%20manage-roles&state=#{state}&client_id=xuimowebapp")
+                                .post(IdAMURL + "/login?response_type=code&redirect_uri=https%3A%2F%2F" + manageOrgDomain + "%2Foauth2%2Fcallback&scope=profile%20openid%20roles%20manage-user%20create-user&state=#{state}&client_id=xuimowebapp")
         .formParam("username", "#{manageorgsuperuser}")
         .formParam("password", "Password12!")
         .formParam("save", "Sign in")
