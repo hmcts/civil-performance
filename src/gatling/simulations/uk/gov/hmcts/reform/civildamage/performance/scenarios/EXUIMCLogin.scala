@@ -87,7 +87,7 @@ object EXUIMCLogin {
           .get(manageOrgURL + "/auth/login")
           .headers(LoginHeader.headers_4)
           .check(css("input[name='_csrf']", "value").saveAs("csrfToken"))
-      .check(regex("manage-user%20create-user%20manage-roles&state=(.*)&client").saveAs("state"))
+      .check(regex("state=(.*)&client").saveAs("state"))
           /*.check(regex("manage-user%20create-user%20manage-roles&state=(.*)&client").saveAs("state"))
           .check(regex("&nonce=(.*)&response_type").saveAs("nonce"))*/
     )
