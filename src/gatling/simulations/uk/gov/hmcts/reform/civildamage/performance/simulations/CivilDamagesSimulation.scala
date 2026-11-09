@@ -618,7 +618,7 @@ testType match {
 	case "burst" =>
 		setUp(
 			Burst.burstScenario(sys.env.getOrElse("BURST_FILE", "burst_test.csv"))
-				.inject(rampUsers(300) during (2.minutes)) //tokens spread over 10 min; calls fire at BURST_START
+				.inject(rampUsers(550) during (2.minutes)) //tokens spread over 10 min; calls fire at BURST_START
 		).protocols(httpProtocol)
   case _ =>
     exitHere
