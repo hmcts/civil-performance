@@ -43,7 +43,7 @@ class CivilDamagesSimulation extends Simulation {
 	/* TEST TYPE DEFINITION */
 	/* pipeline = nightly pipeline against the AAT environment (see the Jenkins_nightly file) */
 	/* perftest (default) = performance test against the perftest environment */
-	val testType = scala.util.Properties.envOrElse("TEST_TYPE", "perftest")
+	val testType = scala.util.Properties.envOrElse("TEST_TYPE", "burst")
 
 	//set the environment based on the test type
 	val environment = testType match {
@@ -52,6 +52,8 @@ class CivilDamagesSimulation extends Simulation {
 		case "draftdata" => "perftest"     //creates Redis draft claims for the Draft Search scenario
 		case "draftSearch" => "perftest"
 		case "draftdatacmc" => "perftest"//creates cmc drafts
+		case "burstprep" => "perftest" //DTSCCI-6615: create + pay LiP claims, no status call
+		case "burst" => "perftest" //DTSCCI-6615: fire payment status calls in a 2-minute window
 		case _ => "**INVALID**"
 	}
 
@@ -582,8 +584,8 @@ class CivilDamagesSimulation extends Simulation {
 testType match {
   case "perftest" =>
     setUp(
-      CUIR2SmallClaimsCaseProgression.inject(nothingFor(1),rampUsers(75) during (1200)),
-      CUIR2FastTrackCaseProgression.inject(nothingFor(50),rampUsers(75) during (1200)),
+      CUIR2SmallClaimsCaseProgression.inject(nothingFor(1),rampUsers(275) during (2400)),
+      CUIR2FastTrackCaseProgression.inject(nothingFor(50),rampUsers(275) during (2400)),
     // CUIDraftSearchScenario.inject(nothingFor(100),rampUsers(150) during (3600)),
 		//	CUIDraftSearchDBScenario.inject(nothingFor(100),rampUsers(150) during (3600)),
     ).protocols(httpProtocol)
@@ -606,6 +608,18 @@ testType match {
       CUIR2SmallClaimsCaseProgression.inject(rampUsers(5) during(15)).pauses(constantPauses)
     ).protocols(httpProtocol)
       .assertions(assertions(testType))
+	case "burstprep" =>
+		//users and duration from env vars, so no code change between smoke, warm-up and main run
+		val prepUsers = sys.env.getOrElse("PREP_USERS", "3000").toInt
+		val prepMinutes = sys.env.getOrElse("PREP_MINUTES", "30").toInt
+		setUp(
+			BurstPrep.prepScenario.inject(rampUsers(prepUsers) during (prepMinutes.minutes))
+		).protocols(httpProtocol)
+	case "burst" =>
+		setUp(
+			Burst.burstScenario(sys.env.getOrElse("BURST_FILE", "burst_test.csv"))
+				.inject(rampUsers(300) during (2.minutes)) //tokens spread over 10 min; calls fire at BURST_START
+		).protocols(httpProtocol)
   case _ =>
     exitHere
 }
