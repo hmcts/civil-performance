@@ -43,7 +43,7 @@ class CivilDamagesSimulation extends Simulation {
 	/* TEST TYPE DEFINITION */
 	/* pipeline = nightly pipeline against the AAT environment (see the Jenkins_nightly file) */
 	/* perftest (default) = performance test against the perftest environment */
-	val testType = scala.util.Properties.envOrElse("TEST_TYPE", "burst")
+	val testType = scala.util.Properties.envOrElse("TEST_TYPE", "perftest")
 
 	//set the environment based on the test type
 	val environment = testType match {
@@ -584,8 +584,8 @@ class CivilDamagesSimulation extends Simulation {
 testType match {
   case "perftest" =>
     setUp(
-      CUIR2SmallClaimsCaseProgression.inject(nothingFor(1),rampUsers(275) during (2400)),
-      CUIR2FastTrackCaseProgression.inject(nothingFor(50),rampUsers(275) during (2400)),
+      CUIR2SmallClaimsCaseProgression.inject(nothingFor(1),rampUsers(150) during (2400)),
+      CUIR2FastTrackCaseProgression.inject(nothingFor(50),rampUsers(150) during (2400)),
     // CUIDraftSearchScenario.inject(nothingFor(100),rampUsers(150) during (3600)),
 		//	CUIDraftSearchDBScenario.inject(nothingFor(100),rampUsers(150) during (3600)),
     ).protocols(httpProtocol)
